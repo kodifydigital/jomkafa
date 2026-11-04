@@ -16,8 +16,10 @@ kafa/
 │   └── kafa.js           ← Senarai subjek dan game yang sudah siap
 ├── tahun3/
 │   ├── index.html        ← Senarai subjek Tahun 3
-│   └── sirah/
-│       └── index.html    ← Game Pengembaraan Sirah
+│   ├── sirah/
+│   │   └── index.html    ← Game Pengembaraan Sirah
+│   └── feqah/
+│       └── index.html    ← Game Jom Bina Masjid (Feqah)
 ├── tahun4/index.html
 ├── tahun5/index.html
 └── tahun6/index.html
@@ -38,7 +40,7 @@ kafa/
 
 3. Simpan. Kad Hafazan di Tahun 3 akan bertukar daripada "Akan datang" kepada boleh dimainkan.
 
-Id subjek yang tersedia: `sirah`, `quran`, `hafazan`, `tauhid`, `ibadah`, `akhlak`, `jawi`, `arab`.
+Id subjek yang tersedia: `sirah`, `quran`, `hafazan`, `tauhid`, `feqah`, `akhlak`, `jawi`, `arab`.
 Untuk menambah subjek lain, tambah dalam senarai `SUBJECTS` dalam fail yang sama.
 
 Dalam game baharu, letak butang kembali dengan pautan `../index.html` supaya murid boleh kembali ke senarai subjek.

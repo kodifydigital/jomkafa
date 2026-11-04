@@ -16,7 +16,7 @@ const SUBJECTS = [
   { id:"quran",   icon:"📖", r:"Al-Quran",    j:"القرءان",    dr:"Bacaan dan tajwid",            dj:"باچاٴن دان تجويد" },
   { id:"hafazan", icon:"🧠", r:"Hafazan",     j:"حفظن",      dr:"Hafal surah-surah pilihan",    dj:"حفظ سورة٢ ڤيليهن" },
   { id:"tauhid",  icon:"☝️", r:"Tauhid",      j:"توحيد",     dr:"Mengenal Allah dan rukun iman", dj:"مڠنل الله دان روکون ايمان" },
-  { id:"ibadah",  icon:"🕌", r:"Ibadah",      j:"عبادة",     dr:"Solat, wuduk dan ibadah harian", dj:"صلاة، وضوء دان عبادة هارين" },
+  { id:"feqah",   icon:"🕌", r:"Feqah",       j:"فقه",       dr:"Tayammum, azan dan solat",     dj:"تيمم، اذان دان صلاة" },
   { id:"akhlak",  icon:"💎", r:"Akhlak",      j:"اخلاق",     dr:"Adab dan akhlak mulia",        dj:"اداب دان اخلاق موليا" },
   { id:"jawi",    icon:"✍️", r:"Jawi",        j:"جاوي",      dr:"Membaca dan menulis Jawi",     dj:"ممباچ دان منوليس جاوي" },
   { id:"arab",    icon:"🗣️", r:"Bahasa Arab", j:"بهاس عرب",  dr:"Perkataan dan ayat mudah",     dj:"ڤرکاتاٴن دان ايات موده" }
@@ -30,6 +30,12 @@ const READY = {
     r:"Pengembaraan Sirah", j:"ڤڠمباراٴن سيره",
     dr:"6 pelajaran dan Cabaran Akhir", dj:"6 ڤلاجرن دان چابرن اخير",
     progress:{ key:"s3-best", max:21 }
+  },
+  "3/feqah": {
+    path:"feqah/index.html",
+    r:"Jom Bina Masjid", j:"جوم بينا مسجد",
+    dr:"7 pelajaran, 10 jenis permainan", dj:"7 ڤلاجرن، 10 جنيس ڤرماٴينن",
+    progress:{ key:"f3-best", max:24 }
   }
 };
 
