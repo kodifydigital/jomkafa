@@ -1,0 +1,1247 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lompat Katak • Bahasa Arab Tahun 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Noto+Naskh+Arabic:wght@500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EAF7EC; --surface:#FFFFFF; --ink:#1D3324; --muted:#55705C; --line:#CDE6D2;
+  --brand:#2E9D4F; --brand-ink:#FFFFFF; --brand-shadow:#1E6E36; --gold:#E8A317; --pink:#E85D9A;
+  --ok:#1F8A50; --ok-bg:#DDF3E5; --bad:#C8452F; --bad-bg:#FBE1DC; --note:#FFF4D6;
+  --pattern:rgba(46,157,79,.10);
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1C13; --surface:#18301F; --ink:#E6F5EA; --muted:#A9C9B1; --line:#2A4A34;
+    --brand:#4CC26F; --brand-ink:#06200F; --brand-shadow:#2E8A4B; --gold:#F2C14E; --pink:#FF7FB5;
+    --ok:#2E9E5B; --ok-bg:#173F2B; --bad:#E0634E; --bad-bg:#4A2420; --note:#33301A;
+    --pattern:rgba(76,194,111,.08);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1C13; --surface:#18301F; --ink:#E6F5EA; --muted:#A9C9B1; --line:#2A4A34;
+  --brand:#4CC26F; --brand-ink:#06200F; --brand-shadow:#2E8A4B; --gold:#F2C14E; --pink:#FF7FB5;
+  --ok:#2E9E5B; --ok-bg:#173F2B; --bad:#E0634E; --bad-bg:#4A2420; --note:#33301A;
+  --pattern:rgba(76,194,111,.08);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100vh;background-color:var(--bg);color:var(--ink);font-family:"Baloo 2","Trebuchet MS","Segoe UI",system-ui,sans-serif;font-size:18px;line-height:1.45;
+  background-image:radial-gradient(ellipse 14px 10px at 50% 50%,var(--pattern) 98%,transparent 100%);background-size:48px 40px}
+.wrap{max-width:720px;margin:0 auto;padding:12px 16px 44px}
+button{font:inherit;cursor:pointer;color:inherit}
+button:disabled{cursor:default}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+svg{max-width:100%}
+.ar{font-family:"Amiri","Noto Naskh Arabic",serif;font-weight:700;line-height:1.7}
+
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:44px}
+a.iconbtn{text-decoration:none;color:inherit}
+.iconbtn{background:var(--surface);border:2px solid var(--line);border-radius:999px;width:44px;height:44px;font-size:20px;display:grid;place-items:center;flex:none;padding:0}
+.pillstat{display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:3px 12px 3px 8px;font-weight:800;font-size:17px}
+.stats{display:flex;gap:8px;flex-wrap:wrap}
+.langbtn{border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 14px;font-weight:800;font-size:16px;min-height:44px}
+.langbtn .ar{font-family:"Noto Naskh Arabic","Amiri",serif;font-weight:600}
+
+.hero{text-align:center;padding:8px 0 2px}
+.hero .badge{display:inline-block;background:var(--brand);color:var(--brand-ink);border-radius:999px;padding:2px 14px;font-weight:700;font-size:15px}
+.hero h1{margin:8px 0 0;font-size:clamp(32px,8.6vw,50px);line-height:1.04;font-weight:800;color:var(--brand)}
+.hero .arsub{display:block;font-family:"Amiri",serif;font-size:24px;color:var(--muted);line-height:1.5}
+.hero p{margin:4px auto 0;color:var(--muted);max-width:480px}
+
+/* ===== Kolam (peta) ===== */
+.pondmap{position:relative;margin:16px auto 0;max-width:540px;border-radius:40px;overflow:hidden;border:6px solid #8BC48A;box-shadow:inset 0 0 0 4px #6FA86E;
+  background:radial-gradient(ellipse at 30% 20%,#7FD3D6 0%,#3FA9B5 45%,#2A8597 100%)}
+.pondmap .ripple{position:absolute;width:60px;height:60px;border-radius:50%;border:2px solid rgba(255,255,255,.5);animation:ripple 4s ease-out infinite;pointer-events:none}
+@keyframes ripple{0%{transform:scale(.2);opacity:.9}100%{transform:scale(2.6);opacity:0}}
+.pondmap .deco{position:absolute;font-size:30px;pointer-events:none}
+.pondmap .reed{position:absolute;font-size:40px;pointer-events:none;animation:sway 3.5s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes sway{50%{transform:rotate(5deg)}}
+.pondmap .fishsh{position:absolute;width:46px;height:16px;border-radius:50%;background:rgba(10,50,60,.28);animation:fishsh linear infinite;pointer-events:none}
+@keyframes fishsh{from{left:-60px}to{left:110%}}
+.pondmap .bfly{position:absolute;font-size:26px;animation:bfly 14s linear infinite;pointer-events:none}
+@keyframes bfly{0%{left:-10%;transform:translateY(0)}25%{transform:translateY(-30px)}50%{transform:translateY(10px)}75%{transform:translateY(-20px)}100%{left:110%;transform:translateY(0)}}
+.pondmap svg.trail{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.pad{position:absolute;transform:translate(-50%,-50%);width:180px;display:flex;flex-direction:column;align-items:center;background:none;border:0;padding:0}
+.pad .leaf{position:relative;width:94px;height:94px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(from 200deg,transparent 0 26deg,var(--tc) 26deg 360deg);box-shadow:0 6px 0 rgba(0,0,0,.18);transition:transform .15s}
+.pad .leaf::before{content:"";position:absolute;inset:10px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.22),transparent 70%)}
+.pad .leaf .ic{position:relative;font-size:30px;line-height:1}
+.pad .leaf .no{position:absolute;top:-6px;right:-6px;background:#fff;color:#1D3324;border-radius:999px;min-width:30px;height:30px;display:grid;place-items:center;font-family:"Amiri",serif;font-weight:700;font-size:18px;box-shadow:0 2px 0 rgba(0,0,0,.2)}
+.pad .leaf .bloom{position:absolute;bottom:-4px;left:-6px;font-size:28px;animation:bloom 2.4s ease-in-out infinite}
+@keyframes bloom{50%{transform:scale(1.15) rotate(-6deg)}}
+.pad .lbl{margin-top:8px;background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:2px 10px 4px;font-weight:800;font-size:15px;line-height:1.2;box-shadow:0 3px 0 rgba(0,0,0,.15)}
+.pad .lbl .ar{display:block;font-size:18px;line-height:1.5;font-weight:700}
+.pad .lbl small{display:block;font-size:12.5px;color:var(--muted);font-weight:700}
+.pad .st{font-size:13px;letter-spacing:1px;margin-top:3px;background:rgba(0,0,0,.28);border-radius:999px;padding:0 8px}
+.pad .st .off{opacity:.3;filter:grayscale(1)}
+.pad.locked .leaf{filter:grayscale(.75) brightness(.85)}
+.pad.locked .lbl{opacity:.8}
+.pad:active .leaf{transform:scale(.94)}
+.pad.current .leaf{animation:padglow 1.8s ease-in-out infinite}
+@keyframes padglow{50%{box-shadow:0 6px 0 rgba(0,0,0,.18),0 0 0 10px rgba(255,255,255,.35)}}
+.mfrog{position:absolute;width:74px;transform:translate(-50%,-80%);pointer-events:none;transition:left .9s ease-in-out,top .9s ease-in-out;z-index:3}
+.mfrog .mascot{animation:idle 2.6s ease-in-out infinite}
+.mfrog.hopping .mascot{animation:maphop .9s ease-in-out}
+@keyframes maphop{50%{transform:translateY(-60px) scale(1.1)}}
+@keyframes idle{50%{transform:translateY(-4px)}}
+.teacher{display:flex;justify-content:center;margin-top:20px}
+.toggle{display:inline-flex;align-items:center;gap:10px;background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:6px 14px;font-size:16px;font-weight:700}
+.toggle .sw{width:42px;height:24px;border-radius:99px;background:var(--line);position:relative;flex:none;transition:background .2s}
+.toggle .sw::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .2s}
+.toggle[aria-pressed="true"] .sw{background:var(--brand)}
+.toggle[aria-pressed="true"] .sw::after{left:21px}
+.foot{margin-top:16px;color:var(--muted);font-size:15px;text-align:center}
+
+/* ===== Stesen ===== */
+.banner{border-radius:26px;padding:18px 18px 20px;background:var(--tc);color:#fff;position:relative;overflow:hidden;box-shadow:0 6px 0 color-mix(in srgb,var(--tc) 55%,#000)}
+.banner .kick{font-weight:700;opacity:.92;font-size:16px}
+.banner h2{margin:0;font-size:clamp(25px,6.4vw,33px);line-height:1.15}
+.banner .arh{display:block;font-family:"Amiri",serif;font-size:clamp(26px,7vw,36px);line-height:1.5}
+.banner .big{position:absolute;inset-inline-end:-4px;bottom:-12px;font-size:92px;opacity:.25}
+.banner .stars{margin-top:6px;font-size:20px}
+.banner .stars .off{opacity:.35;filter:grayscale(1)}
+.units{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:8px}
+.units li{background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:8px 12px;display:flex;gap:10px;align-items:center;line-height:1.25}
+.units .u{background:var(--tc);color:#fff;border-radius:10px;font-size:13px;font-weight:800;padding:2px 8px;flex:none}
+.actions{display:grid;gap:12px;margin-top:18px}
+.bigbtn{display:flex;align-items:center;gap:14px;width:100%;text-align:start;border:0;border-radius:20px;padding:14px 16px;font-weight:800;font-size:21px;line-height:1.15}
+.bigbtn small{display:block;font-weight:600;font-size:15px;opacity:.9}
+.bigbtn .e{font-size:34px;flex:none}
+.bigbtn.read{background:var(--surface);border:2px solid var(--line);box-shadow:0 4px 0 var(--line)}
+.bigbtn.play{background:var(--brand);color:var(--brand-ink);box-shadow:0 5px 0 var(--brand-shadow)}
+.bigbtn:active{transform:translateY(3px)}
+
+/* ===== Umum ===== */
+.gamehead{display:flex;align-items:center;gap:10px;margin:2px 0 10px}
+.gamehead h2{margin:0;font-size:20px;flex:1;line-height:1.15;color:var(--brand)}
+.gamehead h2 small{display:block;font-size:14px;color:var(--muted);font-weight:600}
+.progress{height:12px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:14px}
+.progress span{display:block;height:100%;background:linear-gradient(90deg,#8BD98F,#2E9D4F);border-radius:99px;transition:width .3s}
+.card{background:var(--surface);border:2px solid var(--line);border-radius:24px;padding:18px}
+.page-in{animation:pagein .35s ease}
+@keyframes pagein{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.qmeta{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.qtype{display:inline-block;background:var(--note);border-radius:999px;padding:1px 12px;font-size:14.5px;font-weight:700}
+.tag{display:inline-block;background:var(--gold);color:#2A1B00;border-radius:999px;padding:1px 10px;font-size:13.5px;font-weight:800;margin-inline-start:4px}
+.pill{border:2px solid var(--line);background:var(--bg);border-radius:999px;padding:3px 12px;font-size:15px;font-weight:700}
+.qtext{font-size:clamp(20px,4.8vw,25px);font-weight:700;line-height:1.32;margin:4px 0 12px}
+.qtext .ar{font-size:1.25em}
+.hint{color:var(--muted);font-size:15.5px;margin:-4px 0 12px}
+.shake{animation:shake .4s}
+@keyframes shake{20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+@keyframes pop{50%{transform:scale(1.08)}}
+.counter{display:inline-block;background:var(--note);border-radius:999px;padding:0 12px;font-weight:800;font-size:15px}
+.prompt{display:grid;place-items:center;text-align:center;background:var(--note);border:3px solid var(--gold);border-radius:20px;padding:10px 14px;margin:0 0 12px;min-height:90px}
+.prompt .pe{font-size:64px;line-height:1.1;animation:bob 2.4s ease-in-out infinite}
+.prompt .ar{font-size:clamp(30px,8vw,42px);line-height:1.5}
+.prompt .dg{font-size:46px;font-weight:800;letter-spacing:2px;line-height:1.1}
+.prompt .dg small{display:block;font-size:18px;color:var(--muted);letter-spacing:0}
+.prompt .mn{font-size:22px;font-weight:800}
+@keyframes bob{50%{transform:translateY(-6px)}}
+
+/* Lompat teratai */
+.lily{position:relative;padding:4px 0 86px;border-radius:22px;background:radial-gradient(ellipse at 50% 30%,#8ADCE0,#3FA9B5 75%);overflow:hidden}
+.lilies{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px}
+.lp{position:relative;min-height:96px;border:0;border-radius:50%/46%;background:conic-gradient(from 160deg,transparent 0 22deg,#4CAF50 22deg 360deg);color:#10331C;padding:14px 10px;font-weight:800;font-size:16px;line-height:1.25;box-shadow:0 5px 0 rgba(0,0,0,.18)}
+.lp::before{content:"";position:absolute;inset:8px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.35),transparent 70%);pointer-events:none}
+.lp .ar{position:relative;font-size:clamp(20px,5.4vw,25px);line-height:1.5;color:#0B2614}
+.lp span{position:relative}
+.lp:active{transform:scale(.96)}
+.lp.ok{background:conic-gradient(from 160deg,transparent 0 22deg,#8BE07F 22deg 360deg);box-shadow:0 0 0 4px #FFE27A,0 5px 0 rgba(0,0,0,.18)}
+.lp.bad{filter:grayscale(.6) brightness(.85)}
+.qfrog{position:absolute;left:50%;bottom:6px;width:76px;margin-left:-38px;transition:transform .8s cubic-bezier(.4,0,.3,1);z-index:2}
+.qfrog .mascot{transition:transform .2s}
+.qfrog.jump .mascot{animation:qhop .8s ease-in-out}
+@keyframes qhop{50%{transform:translateY(-70px) scale(1.15) rotate(-8deg)}}
+.qfrog.sink{transition:opacity .5s .1s,transform .5s;opacity:0}
+.splash{position:absolute;font-size:44px;pointer-events:none;animation:spl .8s ease-out forwards;z-index:3}
+@keyframes spl{0%{transform:scale(.3);opacity:1}100%{transform:scale(1.6) translateY(-20px);opacity:0}}
+
+/* Dengar & pilih */
+.speaker{display:flex;align-items:center;justify-content:center;gap:12px;margin:0 0 12px}
+.speaker .big{width:96px;height:96px;border-radius:50%;border:0;background:var(--brand);color:var(--brand-ink);font-size:44px;box-shadow:0 6px 0 var(--brand-shadow);animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 6px 0 var(--brand-shadow),0 0 0 12px color-mix(in srgb,var(--brand) 25%,transparent)}}
+.speaker .reveal{border:2px solid var(--line);background:var(--bg);border-radius:999px;padding:6px 14px;font-weight:700;font-size:15px}
+.heard{text-align:center;margin:-4px 0 10px;min-height:10px}
+.heard .ar{font-size:32px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{min-height:104px;border:2px solid var(--line);background:var(--bg);border-radius:20px;font-size:52px;line-height:1.1;box-shadow:0 4px 0 var(--line);padding:6px}
+.tile.txt{font-size:20px;font-weight:800}
+.tile:active{transform:translateY(3px)}
+.tile.ok{border-color:var(--ok);background:var(--ok-bg);animation:pop .35s}
+.tile.bad{border-color:var(--bad);background:var(--bad-bg)}
+
+/* Tangkap lalat */
+.flyzone{position:relative;height:330px;border-radius:22px;overflow:hidden;background:linear-gradient(180deg,#BFE9F2 0%,#E3F6E0 62%,#3FA9B5 62%,#2A8597 100%)}
+.flyzone .padbase{position:absolute;left:50%;bottom:8px;width:120px;height:40px;margin-left:-60px;border-radius:50%;background:#4CAF50}
+.flyzone .ffrog{position:absolute;left:50%;bottom:22px;width:84px;margin-left:-42px;z-index:2}
+.fly{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;border:0;background:none;padding:0;animation:buzz var(--t) ease-in-out infinite;animation-delay:var(--d)}
+.fly .bug{font-size:30px;line-height:1;animation:wings .18s linear infinite}
+.fly .w{background:#fff;color:#10331C;border:2px solid #2E9D4F;border-radius:12px;padding:0 10px;font-size:19px;line-height:1.5;box-shadow:0 3px 0 rgba(0,0,0,.15);white-space:nowrap}
+@keyframes wings{50%{transform:rotate(8deg)}}
+@keyframes buzz{0%,100%{margin:0}25%{margin:-10px 0 0 14px}50%{margin:6px 0 0 -10px}75%{margin:-6px 0 0 -14px}}
+.fly.eaten{animation:eaten .45s .2s ease-in forwards}
+@keyframes eaten{to{opacity:0;transform:translate(-50%,-50%) scale(.2)}}
+.fly.nope .w{background:#ddd;border-color:#999;color:#666}
+.fly.nope{animation:shake .4s}
+.tongue{position:absolute;height:7px;background:#F06A8A;border-radius:6px;transform-origin:0 50%;z-index:1;animation:tongue .5s ease-in-out forwards;pointer-events:none}
+@keyframes tongue{0%{transform:rotate(var(--a)) scaleX(0)}45%{transform:rotate(var(--a)) scaleX(1)}100%{transform:rotate(var(--a)) scaleX(0)}}
+
+/* Papan kekunci nombor */
+.numwords{text-align:center;background:var(--note);border:3px solid var(--gold);border-radius:20px;padding:10px;margin:0 0 12px}
+.numwords .ar{font-size:clamp(26px,7vw,36px)}
+.screen{display:flex;justify-content:center;gap:8px;margin:0 0 12px}
+.screen i{width:62px;height:72px;border-radius:14px;background:#16301E;color:#9CFF8A;display:flex;flex-direction:column;align-items:center;justify-content:center;font-style:normal;font-weight:800;font-size:34px;line-height:1;box-shadow:inset 0 3px 0 rgba(0,0,0,.4)}
+.screen i small{font-size:15px;color:#7FC98A;font-family:"Amiri",serif}
+.keys{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:330px;margin:0 auto}
+.key{height:58px;border:0;border-radius:14px;background:var(--bg);border:2px solid var(--line);box-shadow:0 4px 0 var(--line);font-weight:800;font-size:24px;line-height:1}
+.key small{display:block;font-family:"Amiri",serif;font-size:16px;color:var(--muted)}
+.key.ent{background:var(--brand);color:var(--brand-ink);border-color:var(--brand);box-shadow:0 4px 0 var(--brand-shadow)}
+.key:active{transform:translateY(3px)}
+
+/* Bakul */
+.wordcard{display:grid;place-items:center;min-height:84px;margin:0 auto 12px;max-width:420px;text-align:center;background:var(--note);border:3px solid var(--gold);border-radius:18px;padding:6px 14px;animation:pagein .3s}
+.wordcard .ar{font-size:clamp(30px,8vw,40px);line-height:1.4}
+.wordcard small{display:block;font-size:13px;color:var(--muted);font-weight:700}
+.wordcard.drop{transition:transform .4s ease-in,opacity .4s;transform:translateY(70px) scale(.4);opacity:0}
+.baskets{display:grid;gap:10px}
+.baskets.n2{grid-template-columns:1fr 1fr}.baskets.n3{grid-template-columns:1fr 1fr 1fr}
+.basket{position:relative;border:0;border-radius:10px 10px 40px 40px;padding:10px 6px 14px;color:#3A2410;font-weight:800;font-size:16px;line-height:1.2;background:repeating-linear-gradient(45deg,#E2B46D 0 8px,#C99447 8px 16px);box-shadow:0 5px 0 #8C6328;min-height:120px}
+.basket::before{content:"";position:absolute;left:12%;right:12%;top:-14px;height:24px;border:5px solid #8C6328;border-bottom:0;border-radius:30px 30px 0 0}
+.basket .bl{display:block;background:rgba(255,255,255,.85);border-radius:10px;padding:2px 4px;margin-bottom:4px}
+.basket .bl .ar{font-size:20px;line-height:1.4}
+.basket .be{font-size:22px;display:block}
+.basket.bounce{animation:pop .35s}
+.basket:disabled{opacity:.6}
+.basket .got{display:flex;flex-wrap:wrap;gap:3px;justify-content:center;margin-top:4px}
+.basket .got i{font-style:normal;background:#fff;border-radius:8px;padding:0 6px;font-family:"Amiri",serif;font-size:15px;line-height:1.5;animation:pop .3s}
+.basket .got i.x{outline:2px solid var(--bad)}
+
+/* Sihir */
+.magic{display:grid;place-items:center;text-align:center;margin:0 auto 12px;max-width:420px;border-radius:22px;padding:12px;background:radial-gradient(circle at 50% 30%,#3D2A6E,#1C1235);color:#fff;min-height:150px;position:relative;overflow:hidden}
+.magic .from{font-family:"Amiri",serif;font-size:clamp(36px,9vw,48px);font-weight:700;line-height:1.4}
+.magic .to{font-size:15px;font-weight:800;background:rgba(255,255,255,.18);border-radius:999px;padding:1px 12px}
+.magic .st{position:absolute;font-size:16px;animation:twinkle 2s ease-in-out infinite}
+@keyframes twinkle{50%{opacity:.2;transform:scale(.6)}}
+.magic.morph .from{animation:morph .9s ease}
+@keyframes morph{0%{transform:scale(1);filter:none}40%{transform:scale(.2) rotate(-20deg);filter:blur(4px);opacity:.2}100%{transform:scale(1);filter:none;opacity:1}}
+.potions{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.potion{border:2px solid var(--line);background:var(--bg);border-radius:18px;padding:6px 10px 10px;box-shadow:0 4px 0 var(--line)}
+.potion::before{content:"🧪";display:block;font-size:26px}
+.potion .ar{font-size:24px}
+.potion.ok{border-color:var(--ok);background:var(--ok-bg)}
+.potion.bad{border-color:var(--bad);background:var(--bad-bg)}
+
+/* Bina ayat */
+.sentence{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;min-height:68px;background:#F4E7CF;border:3px dashed #B98B4E;border-radius:16px;padding:10px;margin-bottom:14px}
+.bslot{min-width:64px;border-bottom:4px dashed #B98B4E;text-align:center;color:#8C6328;font-size:24px}
+.bslot.f{border-bottom:0;background:#C98B4E;color:#fff;border-radius:10px;padding:0 10px;box-shadow:0 4px 0 #8C6328;animation:pop .3s}
+.bslot .ar{font-size:24px}
+.blocks{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.block{border:0;background:#E2B46D;color:#3A2410;border-radius:10px;padding:2px 16px;box-shadow:0 5px 0 #8C6328}
+.block .ar{font-size:25px}
+.block:active{transform:translateY(3px)}
+.block.gone{visibility:hidden}
+.block.shake{background:var(--bad-bg)}
+
+/* Susun kalendar */
+.calslots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.cal{position:relative;min-height:74px;border-radius:10px;border:2px dashed var(--line);display:grid;place-items:center;padding:18px 4px 4px;text-align:center}
+.cal .cn{position:absolute;top:0;left:0;right:0;height:16px;border-radius:8px 8px 0 0;background:var(--line);font-size:12px;font-weight:800;line-height:16px;color:var(--muted)}
+.cal.f{border:2px solid #C0392B;background:#fff;color:#2B2B2B;animation:pop .3s}
+.cal.f .cn{background:#C0392B;color:#fff}
+.cal .ar{font-size:19px;line-height:1.4}
+.calchips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.calchip{border:2px solid var(--line);background:var(--surface);border-radius:10px;padding:2px 12px;box-shadow:0 3px 0 var(--line);border-top:8px solid #C0392B}
+.calchip .ar{font-size:20px}
+.calchip.shake{background:var(--bad-bg)}
+
+/* Memori teratai */
+.memo{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;perspective:800px}
+@media (max-width:460px){.memo{grid-template-columns:repeat(3,1fr)}}
+.mcard{position:relative;aspect-ratio:1;min-height:76px;border:0;padding:0;background:none;transform-style:preserve-3d;transition:transform .45s}
+.mcard.flip{transform:rotateY(180deg)}
+.mcard .bk,.mcard .fc{position:absolute;inset:0;border-radius:50%;display:grid;place-items:center;backface-visibility:hidden;-webkit-backface-visibility:hidden;padding:6px;text-align:center;font-weight:800;line-height:1.2}
+.mcard .bk{background:conic-gradient(from 160deg,#3FA9B5 0 22deg,#4CAF50 22deg 360deg);font-size:30px;box-shadow:0 4px 0 rgba(0,0,0,.18)}
+.mcard .fc{transform:rotateY(180deg);background:#FFF6D8;border:3px solid var(--gold);color:#1D3324;font-size:14px}
+.mcard .fc .ar{font-size:18px;line-height:1.4}
+.mcard .fc .em{font-size:34px}
+.mcard.done .fc{background:#C8F0C0;border-color:var(--ok)}
+.mcard.done{animation:pop .3s}
+
+/* ===== Kad bacaan ===== */
+.unitlbl{display:inline-block;background:var(--tc);color:#fff;border-radius:999px;padding:1px 12px;font-weight:800;font-size:14.5px;margin-bottom:8px}
+.readtext{font-size:clamp(18px,4.4vw,21px);font-weight:600;line-height:1.5;margin:0 0 12px}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px;margin:0 0 12px}
+.vt{display:flex;flex-direction:column;align-items:center;gap:0;border:2px solid var(--line);background:var(--bg);border-radius:16px;padding:6px 4px 8px;box-shadow:0 3px 0 var(--line);animation:pagein .4s both;animation-delay:calc(var(--i) * 50ms)}
+.vt .em{font-size:34px;line-height:1.2}
+.vt .ar{font-size:22px;line-height:1.5}
+.vt small{font-size:13.5px;font-weight:700;color:var(--muted);line-height:1.2}
+.vt:active{transform:translateY(2px)}
+.vt.playing{border-color:var(--brand);background:var(--ok-bg)}
+.dlg{display:grid;gap:8px;margin:0 0 12px}
+.dl{display:flex;gap:8px;align-items:flex-end;animation:msgin .45s both;animation-delay:var(--d)}
+.dl .who{font-size:30px;line-height:1;flex:none}
+.dl .b{border:2px solid var(--line);background:var(--bg);border-radius:18px 18px 4px 18px;padding:4px 12px 6px;max-width:84%;text-align:right}
+.dl .b .ar{font-size:22px;line-height:1.6;display:block}
+.dl .b small{display:block;font-size:13.5px;color:var(--muted);font-weight:700;text-align:start;direction:ltr}
+html[dir="rtl"] .dl .b small{direction:rtl}
+.dl .b em{display:block;font-style:normal;font-size:12px;font-weight:800;color:var(--muted)}
+.dl.r{flex-direction:row-reverse}
+.dl.r .b{border-radius:18px 18px 18px 4px;background:color-mix(in srgb,var(--tc) 14%,var(--surface));border-color:color-mix(in srgb,var(--tc) 40%,var(--line))}
+@keyframes msgin{from{opacity:0;transform:translateY(10px) scale(.95)}}
+.dl button,.sent button{border:0;background:none;font-size:18px;padding:0 4px}
+.sents{display:grid;gap:8px;margin:0 0 12px}
+.sent{display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:14px;padding:6px 10px;animation:pagein .4s both;animation-delay:calc(var(--i) * 80ms)}
+.sent .em{font-size:30px;flex:none}
+.sent .tx{flex:1;text-align:right}
+.sent .tx .ar{font-size:22px;display:block;line-height:1.6}
+.sent .tx small{display:block;text-align:start;color:var(--muted);font-weight:700;font-size:14.5px}
+.ngrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:0 0 12px}
+.nt{border:2px solid var(--line);background:var(--bg);border-radius:14px;padding:4px 6px 6px;box-shadow:0 3px 0 var(--line);animation:pagein .4s both;animation-delay:calc(var(--i) * 40ms)}
+.nt b{display:block;font-size:22px;line-height:1.2}
+.nt b small{font-family:"Amiri",serif;color:var(--muted);font-size:18px;margin-inline-start:6px}
+.nt .ar{font-size:18px;line-height:1.5}
+.ttable{width:100%;border-collapse:separate;border-spacing:0 6px;margin:0 0 12px;direction:rtl}
+.ttable th{font-family:"Amiri",serif;font-size:17px;color:var(--tc)}
+.ttable td{background:var(--bg);text-align:center;padding:2px 4px}
+.ttable td:first-child{border-radius:0 12px 12px 0}.ttable td:last-child{border-radius:12px 0 0 12px}
+.ttable .ar{font-size:19px}
+.ttable small{display:block;font-size:12.5px;color:var(--muted);font-weight:700;direction:ltr}
+html[dir="rtl"] .ttable small{direction:rtl}
+.rule{background:var(--note);border-radius:16px;padding:10px 14px;margin:0 0 12px;font-weight:600;font-size:17px}
+.rule b{color:var(--tc)}
+.rule .ex{display:block;text-align:center;font-family:"Amiri",serif;font-size:26px;line-height:1.6;direction:rtl}
+.rule .ex mark{background:#FFD34E;color:#3A2410;border-radius:6px;padding:0 3px}
+.arbox{background:var(--note);border:2px solid var(--gold);border-radius:16px;padding:8px 14px;margin:0 0 8px;text-align:center}
+.arbox .ar{font-size:clamp(21px,5.2vw,26px);display:block;font-weight:400}
+.arbox small{display:block;color:var(--muted);font-weight:700;font-size:14px}
+.maksud{font-size:16px;color:var(--muted);font-weight:600;margin:0 0 12px;font-style:italic}
+.tip{background:var(--note);border-radius:16px;padding:8px 12px;margin:0 0 12px;font-weight:600;font-size:17px}
+.tip b{display:block;font-size:15px;color:var(--muted)}
+.tip .ar{font-size:21px}
+.ref{margin-top:6px;font-size:14.5px;font-weight:700;color:var(--muted)}
+.navrow{display:grid;grid-template-columns:52px auto 1fr;gap:8px;align-items:center}
+.navrow .secondary,.navrow .primary{margin:0;padding:11px 6px;font-size:18px}
+.navrow .secondary:disabled{opacity:.35}
+.dots{display:flex;justify-content:center;gap:6px;margin-top:12px;flex-wrap:wrap}
+.dots i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--brand);width:22px;border-radius:99px}
+
+/* Maklum balas & keputusan */
+.feedback{display:flex;gap:12px;align-items:center;margin-top:16px;padding:12px 14px;border-radius:18px;background:var(--note);font-size:17px;line-height:1.4}
+.feedback .mascot{width:76px}
+.feedback strong{display:block;font-size:21px}
+.feedback .ar{font-size:21px}
+.streak{display:inline-block;background:var(--gold);color:#3A2600;border-radius:999px;padding:0 10px;font-weight:800;font-size:15px;margin:2px 0 4px}
+.primary{display:block;width:100%;margin-top:14px;border:0;border-radius:16px;padding:13px;background:var(--brand);color:var(--brand-ink);font-size:20px;font-weight:800;box-shadow:0 4px 0 var(--brand-shadow)}
+.primary:active{transform:translateY(3px);box-shadow:0 1px 0 var(--brand-shadow)}
+.secondary{display:block;width:100%;margin-top:12px;border:2px solid var(--line);background:transparent;border-radius:16px;padding:11px;font-size:18px;font-weight:700}
+.result{text-align:center}
+.result .mascot{width:120px;margin:0 auto}
+.result .stars{font-size:54px;letter-spacing:6px;line-height:1.1;margin:4px 0}
+.result .stars .off{filter:grayscale(1);opacity:.25}
+.result h2{margin:4px 0 2px;font-size:32px;color:var(--brand)}
+.result p{margin:0 0 6px;color:var(--muted)}
+.unlock{display:inline-block;margin:8px 0 0;background:var(--note);border:2px solid var(--gold);border-radius:999px;padding:3px 14px;font-weight:800}
+.earned{display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:20px;margin:4px 0}
+.rain{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:50}
+.rain span{position:absolute;top:-50px;font-size:28px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(115vh) rotate(300deg)}}
+.sparkle{position:fixed;pointer-events:none;font-size:26px;z-index:40;animation:spark .8s ease-out forwards}
+@keyframes spark{to{transform:translateY(-44px) scale(1.4);opacity:0}}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:18px;font-weight:700;z-index:60;max-width:92vw;text-align:center}
+.mascot{display:block;height:auto;flex:none}
+.mascot.happy{animation:hopm .45s ease 2}
+.mascot.sad{animation:tilt .9s ease}
+@keyframes hopm{50%{transform:translateY(-10px)}}
+@keyframes tilt{30%{transform:rotate(-8deg)}70%{transform:rotate(4deg)}}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rain,.pondmap .fishsh,.pondmap .bfly,.pondmap .ripple{display:none}
+}
+html[dir="rtl"] body{font-family:"Noto Naskh Arabic","Amiri","Baloo 2",serif;font-size:20px;line-height:1.8}
+html[dir="rtl"] .qtext,html[dir="rtl"] .readtext{line-height:1.85}
+html[dir="rtl"] .hero h1{font-weight:700;line-height:1.35}
+html[dir="rtl"] .banner h2{line-height:1.5}
+html[dir="rtl"] .pad .lbl small{font-size:13px;line-height:1.5}
+html[dir="rtl"] .lp,html[dir="rtl"] .tile.txt,html[dir="rtl"] .vt small{line-height:1.6}
+</style>
+</head>
+<body>
+<main class="wrap" id="app"></main>
+
+<script>
+/* ============ KANDUNGAN (berdasarkan Buku Teks JAIS Bahasa Arab Tahun 3) ============
+   Maksud Melayu ditulis sebagai [Rumi, Jawi]. Teks Arab, emoji dan nombor ditulis sebagai rentetan biasa.
+   Jenis soalan:
+   hop    : lompat teratai (pilih jawapan); pic/ar/dg = gesaan, a[0] betul
+   listen : dengar perkataan Arab (say) dan pilih gambar/maksud, a[0] betul
+   fly    : tangkap lalat yang betul; items = [arab, true|false]
+   keypad : baca nombor Arab (w) dan taip digit (n)
+   basket : asingkan ke bakul; l = [[label arab, maksud, ikon]...], items = [arab, indeks bakul]
+   magic  : tukar perkataan (from) kepada bentuk lain (to), a[0] betul
+   build  : bina ayat; words ikut urutan betul
+   order  : susun bulan / nombor; items ikut urutan betul
+   memory : padankan pasangan pada daun teratai
+   p = muka surat buku teks. */
+
+const UNITS = ["","وَاحِدٌ","اثْنَانِ","ثَلَاثَةٌ","أَرْبَعَةٌ","خَمْسَةٌ","سِتَّةٌ","سَبْعَةٌ","ثَمَانِيَةٌ","تِسْعَةٌ"];
+const TEEN = ["عَشَرَةٌ","أَحَدَ عَشَرَ","اثْنَا عَشَرَ","ثَلَاثَةَ عَشَرَ","أَرْبَعَةَ عَشَرَ","خَمْسَةَ عَشَرَ","سِتَّةَ عَشَرَ","سَبْعَةَ عَشَرَ","ثَمَانِيَةَ عَشَرَ","تِسْعَةَ عَشَرَ"];
+const TENS = ["","","عِشْرُوْنَ","ثَلَاثُوْنَ","أَرْبَعُوْنَ","خَمْسُوْنَ","سِتُّوْنَ","سَبْعُوْنَ","ثَمَانُوْنَ","تِسْعُوْنَ"];
+// Nombor 201–300 mengikut pola buku teks: ratus + sa + puluh
+function NUM(n){
+  if(n===300) return "ثَلَاثُمِائَةٍ";
+  if(n===200) return "مِائَتَانِ";
+  const r = n-200, u = r%10, t = Math.floor(r/10);
+  if(r<10) return "مِائَتَانِ وَ"+UNITS[u];
+  if(r<20) return "مِائَتَانِ وَ"+TEEN[u];
+  return "مِائَتَانِ" + (u ? " وَ"+UNITS[u] : "") + " وَ"+TENS[t];
+}
+const AD = n => String(n).replace(/\d/g, d=>"٠١٢٣٤٥٦٧٨٩"[d]);
+const W = (a,r,j,e="") => ({a, m:[r,j], e});
+
+const HIJRI = ["مُحَرَّمٌ","صَفَرٌ","رَبِيْعُ الأَوَّلِ","رَبِيْعُ الآخِرِ","جُمَادَى الأُوْلَى","جُمَادَى الآخِرَةُ","رَجَبٌ","شَعْبَانُ","رَمَضَانُ","شَوَّالٌ","ذُو الْقِعْدَةِ","ذُو الْحِجَّةِ"];
+const HIJRI_M = [["Muharam","محرم"],["Safar","صفر"],["Rabiulawal","ربيع الاول"],["Rabiulakhir","ربيع الاخر"],["Jamadilawal","جمادى الاول"],["Jamadilakhir","جمادى الاخر"],["Rejab","رجب"],["Syaaban","شعبان"],["Ramadan","رمضان"],["Syawal","شوال"],["Zulkaedah","ذوالقعده"],["Zulhijah","ذوالحجه"]];
+const MILADI = ["يَنَايِرُ","فِبْرَايِرُ","مَارِسُ","أَبْرِيْلُ","مَايُوْ","يُوْنِيُوْ","يُوْلِيُوْ","أَغُسْطُسْ","سِبْتَمْبَرْ","أُكْتُوْبَرْ","نُوْفِمْبَرْ","دِيْسَمْبَرْ"];
+const MILADI_M = [["Januari","جنواري"],["Februari","فيبرواري"],["Mac","مچ"],["April","اڤريل"],["Mei","مي"],["Jun","جون"],["Julai","جولاي"],["Ogos","اوڬوس"],["September","سيڤتيمبر"],["Oktober","اوکتوبر"],["November","نوۏيمبر"],["Disember","ديسيمبر"]];
+
+const PERABOT = [W("كُرْسِيٌّ","Kerusi","کروسي","🪑"),W("أَرِيْكَةٌ","Sofa","سوفا","🛋️"),W("دُرْجٌ","Laci","لاچي","🗄️"),W("خِزَانَةٌ","Almari","المري","🚪"),W("سَرِيْرٌ","Katil","کاتيل","🛏️"),W("مِنْضَدَةٌ","Meja","ميجا","🪵"),W("مِرْآةٌ","Cermin","چرمين","🪞")];
+const ELEKTRIK = [W("مِذْيَاعٌ","Radio","راديو","📻"),W("تِلْفَازٌ","Televisyen","تيليۏيشن","📺"),W("خَلَّاطَةٌ","Pengisar","ڤڠيسر","🥤"),W("فُرْنٌ","Ketuhar","کتوهر","🔥"),W("مُكَيِّفٌ","Penghawa dingin","ڤڠهاوا دديڠين","❄️"),W("مِصْبَاحٌ","Lampu","لمڤو","💡"),W("ثَلَّاجَةٌ","Peti sejuk","ڤيتي سجوق","🧊"),W("مِكْوَاةٌ","Seterika","ستريک","👔"),W("غَسَّالَةٌ","Mesin basuh","ميسين باسوه","🫧")];
+const DAPUR = [W("كُوْزٌ","Jag","جاڬ","🫗"),W("عَصَّارَةٌ","Pemerah jus","ڤمراه جوس","🧃"),W("إِبْرِيْقٌ","Cerek","چيريق","🫖"),W("سِكِّيْنٌ","Pisau","ڤيساو","🔪"),W("شَوْكَةٌ","Garpu","ڬرڤو","🍴"),W("مِلْعَقَةٌ","Sudu","سودو","🥄"),W("مِغْرَفَةٌ","Senduk","سندوق","🥘"),W("قَدَحٌ","Mangkuk","مڠکوق","🥣"),W("صَحْنٌ","Pinggan","ڤيڠڬن","🍽️"),W("قِدْرٌ","Periuk","ڤريوق","🍲"),W("كُوْبٌ","Gelas","ڬلس","🥛"),W("مِقْلَاةٌ","Kuali","کوالي","🍳"),W("فِنْجَانٌ","Cawan","چاون","☕")];
+const MUDH = [W("بَابٌ","Pintu","ڤينتو","🚪"),W("بَيْتٌ","Rumah","رومه","🏠"),W("عِنَبٌ","Anggur","اڠڬور","🍇"),W("شَارِعٌ","Jalan","جالن","🛣️"),W("مَلْعَبٌ","Padang","ڤادڠ","🏟️"),W("كِتَابٌ","Buku","بوکو","📗"),W("لَاعِبٌ","Pemain","ڤماٴين","⛹️‍♂️"),W("طَيَّارٌ","Juruterbang","جوروتربڠ","👨‍✈️"),W("عَقْرَبٌ","Kala jengking","کالا جڠکيڠ","🦂"),W("سِنْجَابٌ","Tupai","توڤاي","🐿️"),W("بَصَلٌ","Bawang","باوڠ","🧅"),W("جَزَرٌ","Lobak merah","لوبق ميره","🥕")];
+const MUAN = [W("سَيَّارَةٌ","Kereta","کريتا","🚗"),W("زَهْرَةٌ","Bunga","بوڠا","🌺"),W("نَافِذَةٌ","Tingkap","تيڠکڤ","🪟"),W("طَائِرَةٌ","Kapal terbang","کاڤل تربڠ","✈️"),W("حَقِيْبَةٌ","Beg","بيڬ","🎒"),W("طَبَّاخَةٌ","Tukang masak","توکڠ ماسق","👩‍🍳"),W("طَبِيْبَةٌ","Doktor","دوکتور","👩‍⚕️"),W("دَجَاجَةٌ","Ayam","ايم","🐔"),W("بَقَرَةٌ","Lembu","لمبو","🐄"),W("سَلَطَةٌ","Salad","سالد","🥗"),W("بُرْتُقَالَةٌ","Oren","اورين","🍊"),W("بِطِّيْخَةٌ","Tembikai","تمبيکاي","🍉")];
+const SEKOLAH = [W("المُصَلَّى","Surau","سوراو","🕌"),W("القَاعَةُ","Dewan","ديوان","🎤"),W("المَطْعَمُ","Kantin","کنتين","🍛"),W("المَخْزَنُ","Stor","ستور","📦"),W("دَوْرَةُ المِيَاهِ","Tandas","تندس","🚻"),W("الإِدَارَةُ","Pejabat","ڤجابت","🏢"),W("غُرْفَةُ المُدِيْرِ","Bilik guru besar","بيليق ڬورو بسر","👔"),W("المَكْتَبَةُ","Perpustakaan","ڤرڤوستاکاٴن","📚"),W("مَعْمَلُ الحَاسُوْبِ","Makmal komputer","مکمل کومڤوتر","💻"),W("غُرْفَةُ المُعَلِّمِيْنَ","Bilik guru","بيليق ڬورو","👩‍🏫"),W("مَرْأَبُ السَّيَّارَةِ","Garaj kereta","ڬاراج کريتا","🅿️"),W("سَاحَةُ المَدْرَسَةِ","Dataran sekolah","داترن سکوله","🚩")];
+const BANDAR = [W("البَنْكُ","Bank","بڠک","🏦"),W("مَكْتَبُ البَرِيْدِ","Pejabat pos","ڤجابت ڤوس","🏤"),W("المُسْتَشْفَى","Hospital","هوسڤيتل","🏥"),W("مَرْكَزُ الشُّرْطَةِ","Balai polis","بالاي ڤوليس","🚓"),W("مَرْكَزُ الإِطْفَاءِ","Balai bomba","بالاي بومبا","🚒"),W("الفُنْدُقُ","Hotel","هوتيل","🏨"),W("المَصْنَعُ","Kilang","کيلڠ","🏭"),W("السُّوْقُ المَرْكَزِيُّ","Pasar raya","ڤاسر راي","🛒"),W("مَحَطَّةُ القِطَارِ","Stesen kereta api","ستيسين کريتا اڤي","🚉"),W("مَحَطَّةُ الحَافِلَةِ","Stesen bas","ستيسين بس","🚌"),W("مَحَطَّةُ سَيَّارَةِ الأُجْرَةِ","Stesen teksi","ستيسين تيکسي","🚕"),W("المَطَارُ","Lapangan terbang","لاڤڠن تربڠ","🛫")];
+
+const LESSONS = [
+{
+  id:1, ar:"الأَعْدَادُ وَالأَرْقَامُ", title:["Nombor 201 hingga 300","نومبور 201 هيڠڬ 300"], icon:"🔢", color:"#2E9D4F", pages:"1–8",
+  units:[["Dialog harga barang","ديالوڬ هرڬ بارڠ"],["Nombor 201 hingga 300","نومبور 201 هيڠڬ 300"],["Aktiviti nombor","اکتيۏيتي نومبور"]],
+  cards:[
+    {u:["Dialog: Berapa harga?","ديالوڬ: براڤ هرڬ؟"],p:1,dlg:[["🧒",["Pembeli","ڤمبلي"],"كَمْ سِعْرُ الدَّرَّاجَةِ؟",["Berapa harga basikal?","براڤ هرڬ باسيکل؟"]],["👦",["Kawan","کاون"],"الدَّرَّاجَةُ بِمِائَتَيْنِ وَسِتَّةِ رِنْجِيْتَاتٍ.",["Basikal itu RM206.","باسيکل ايت RM206."]],["🧒",["Pembeli","ڤمبلي"],"وَكَمْ سِعْرُ الحَقِيْبَةِ؟",["Dan berapa harga beg?","دان براڤ هرڬ بيڬ؟"]],["👦",["Kawan","کاون"],"الحَقِيْبَةُ بِمِائَتَيْنِ وَخَمْسَةَ عَشَرَ رِنْجِيْتًا.",["Beg itu RM215.","بيڬ ايت RM215."]]]},
+    {u:["Dialog: Di gerai epal","ديالوڬ: د ڬراي ايڤل"],p:2,dlg:[["🧕",["Ibu","ايبو"],"كَمْ عَدَدُ التُّفَّاحَاتِ لِكُلِّ صُنْدُوْقٍ؟",["Berapa bilangan epal bagi setiap kotak?","براڤ بيلڠن ايڤل باڬي ستياڤ کوتق؟"]],["👨‍🌾",["Penjual","ڤنجوال"],"عَدَدُهَا مِائَتَانِ وَتِسْعَةَ عَشَرَ.",["Bilangannya 219.","بيلڠنڽ 219."]],["🧕",["Ibu","ايبو"],"كَمْ سِعْرُ كُلِّ صُنْدُوْقٍ؟",["Berapa harga setiap kotak?","براڤ هرڬ ستياڤ کوتق؟"]],["👨‍🌾",["Penjual","ڤنجوال"],"سِعْرُهُ مِائَتَانِ وَخَمْسَةٌ وَأَرْبَعُوْنَ رِنْجِيْتًا.",["Harganya RM245.","هرڬڽ RM245."]]],tip:["كَمْ = berapa, سِعْرُ = harga","كَمْ = براڤ، سِعْرُ = هرڬ"]},
+    {u:["Nombor 201–212","نومبور 201–212"],p:3,nums:[201,202,203,204,205,206,207,208,209,210,211,212]},
+    {u:["Nombor 213–224","نومبور 213–224"],p:4,nums:[213,214,215,216,217,218,219,220,221,222,223,224]},
+    {u:["Puluhan hingga 300","ڤولوهن هيڠڬ 300"],p:7,nums:[230,240,250,260,270,280,290,300],rule:["Pola nombor: <b>ratus</b> + وَ + <b>sa</b> + وَ + <b>puluh</b>.","ڤولا نومبور: <b>راتوس</b> + وَ + <b>سا</b> + وَ + <b>ڤولوه</b>."],ex:["٢٤٥ = مِائَتَانِ <mark>وَخَمْسَةٌ</mark> <mark>وَأَرْبَعُوْنَ</mark>"]},
+    {u:["Tanda harga","تندا هرڬ"],p:5,sents:[["🧹","مِائَتَانِ وَثَلَاثَةُ رِنْجِيْتَاتٍ",["Pembersih hampagas RM203","ڤمبرسيه همڤاڬس RM203"]],["🍚","مِائَتَانِ وَتِسْعَةُ رِنْجِيْتَاتٍ",["Periuk nasi RM209","ڤريوق ناسي RM209"]],["🧳","مِائَتَانِ وَثَلَاثَةَ عَشَرَ رِنْجِيْتًا",["Beg pakaian RM213","بيڬ ڤاکاين RM213"]],["👞","مِائَتَانِ وَسَبْعَةَ عَشَرَ رِنْجِيْتًا",["Kasut RM217","کاسوت RM217"]],["🧥","مِائَتَانِ وَعِشْرُوْنَ رِنْجِيْتًا",["Jaket RM220","جاکيت RM220"]]]},
+    {u:["Renungkan","رنوڠکن"],p:8,ar:"وَلَبِثُوا فِي كَهْفِهِمْ ثَلَاثَ مِائَةٍ سِنِينَ وَازْدَادُوا تِسْعًا",src:["Surah al-Kahfi: 25","سورة الکهف: 25"],mk:["Maksudnya: Dan mereka telah tinggal dalam gua mereka tiga ratus tahun dan sembilan lagi.","مقصودڽ: دان مريک تله تيڠڬل دالم ڬوا مريک تيڬ راتوس تاهون دان سمبيلن لاڬي."],tip:["Amalkan: اِسْتَغْفِرِ اللّٰهَ كُلَّ يَوْمٍ (Beristighfarlah setiap hari)","عملکن: اِسْتَغْفِرِ اللّٰهَ كُلَّ يَوْمٍ (براستغفارله ستياڤ هاري)"]}
+  ],
+  qs:[
+    {type:"keypad",q:["Baca nombor ini, kemudian taip digitnya.","باچ نومبور اين، کمودين تايڤ ديجيتڽ."],w:NUM(217),n:217,e:["مِائَتَانِ وَسَبْعَةَ عَشَرَ = 217","مِائَتَانِ وَسَبْعَةَ عَشَرَ = 217"],p:6},
+    {type:"keypad",q:["Berapa harga sekotak epal? Taip digitnya.","براڤ هرڬ سکوتق ايڤل؟ تايڤ ديجيتڽ."],w:NUM(245),n:245,e:["مِائَتَانِ وَخَمْسَةٌ وَأَرْبَعُوْنَ = RM245","مِائَتَانِ وَخَمْسَةٌ وَأَرْبَعُوْنَ = RM245"],p:2},
+    {type:"keypad",q:["Berapa pesakit di hospital? Taip digitnya.","براڤ ڤساکيت د هوسڤيتل؟ تايڤ ديجيتڽ."],w:NUM(281),n:281,e:["مِائَتَانِ وَوَاحِدٌ وَثَمَانُوْنَ = 281","مِائَتَانِ وَوَاحِدٌ وَثَمَانُوْنَ = 281"],p:8},
+    {type:"hop",dg:213,q:["Lompat ke daun teratai yang betul!","لومڤت ک داٴون تراتاي يڠ بتول!"],a:[NUM(213),NUM(203),NUM(230),NUM(231)],e:["٢١٣ = مِائَتَانِ وَثَلَاثَةَ عَشَرَ","٢١٣ = مِائَتَانِ وَثَلَاثَةَ عَشَرَ"],p:4},
+    {type:"hop",dg:300,q:["Lompat ke daun teratai yang betul!","لومڤت ک داٴون تراتاي يڠ بتول!"],a:["ثَلَاثُمِائَةٍ","مِائَتَانِ","ثَلَاثُوْنَ",NUM(203)],e:["٣٠٠ = ثَلَاثُمِائَةٍ","٣٠٠ = ثَلَاثُمِائَةٍ"],p:7},
+    {type:"listen",say:NUM(206),q:["Dengar nombor ini. Pilih digit yang betul.","دڠر نومبور اين. ڤيليه ديجيت يڠ بتول."],a:[["206","206"],["216","216"],["260","260"],["226","226"]],e:["مِائَتَانِ وَسِتَّةٌ = 206","مِائَتَانِ وَسِتَّةٌ = 206"],p:3},
+    {type:"order",q:["Susun dari nombor KECIL ke BESAR.","سوسون دري نومبور کچيل ک بسر."],items:[NUM(205),NUM(212),NUM(219),NUM(240),"ثَلَاثُمِائَةٍ"],e:["205, 212, 219, 240, 300","205، 212، 219، 240، 300"],p:3},
+    {type:"memory",q:["Memori teratai: padankan perkataan dengan nombor.","مموري تراتاي: ڤادنکن ڤرکاتاٴن دڠن نومبور."],pairs:[[NUM(201),AD(201)],[NUM(210),AD(210)],[NUM(220),AD(220)],[NUM(241),AD(241)]],e:["٢٠١، ٢١٠، ٢٢٠، ٢٤١","٢٠١، ٢١٠، ٢٢٠، ٢٤١"],p:3},
+    {type:"hop",ar:"كَمْ",q:["Apakah maksud perkataan ini?","اڤاکه مقصود ڤرکاتاٴن اين؟"],a:[["Berapa","براڤ"],["Harga","هرڬ"],["Ringgit","ريڠڬيت"],["Kotak","کوتق"]],e:["كَمْ = berapa, سِعْرُ = harga","كَمْ = براڤ، سِعْرُ = هرڬ"],p:2},
+    {type:"fly",q:["Tangkap lalat nombor yang LEBIH BESAR daripada 250!","تڠکڤ لالت نومبور يڠ لبيه بسر درڤد 250!"],items:[[NUM(263),true],[NUM(275),true],[NUM(299),true],[NUM(209),false],[NUM(222),false],[NUM(245),false]],e:["263, 275 dan 299 lebih besar daripada 250.","263، 275 دان 299 لبيه بسر درڤد 250."],p:7},
+    {type:"build",q:["Bina ayat: “Basikal itu RM206.”","بينا ايات: “باسيکل ايت RM206.”"],words:["الدَّرَّاجَةُ","بِمِائَتَيْنِ","وَسِتَّةِ","رِنْجِيْتَاتٍ"],e:["الدَّرَّاجَةُ بِمِائَتَيْنِ وَسِتَّةِ رِنْجِيْتَاتٍ","الدَّرَّاجَةُ بِمِائَتَيْنِ وَسِتَّةِ رِنْجِيْتَاتٍ"],p:1}
+  ]
+},
+{
+  id:2, ar:"الأَدَوَاتُ المَنْزِلِيَّةُ", title:["Peralatan Rumah","ڤرالاتن رومه"], icon:"🛋️", color:"#E07A2E", pages:"9–14",
+  units:[["Perabot rumah","ڤرابوت رومه"],["Peralatan elektrik dan elektronik","ڤرالاتن ايليکتريک دان ايليکترونيک"],["هَذَا / هَذِهِ","هَذَا / هَذِهِ"]],
+  cards:[
+    {u:["Dialog","ديالوڬ"],p:9,dlg:[["👦",["Ali","علي"],"يَا فَرْحَانُ، هَلْ فِيْ مَنْزِلِكَ مُكَيِّفٌ؟",["Farhan, adakah di rumahmu ada penghawa dingin?","فرحان، اداکه د رومهمو اد ڤڠهاوا دديڠين؟"]],["🧒",["Farhan","فرحان"],"نَعَمْ، فِيْ مَنْزِلِيْ مُكَيِّفٌ. وَهَلْ فِيْ مَنْزِلِكَ تِلْفَازٌ؟",["Ya, ada. Dan adakah di rumahmu ada televisyen?","يا، اد. دان اداکه د رومهمو اد تيليۏيشن؟"]],["👦",["Ali","علي"],"لَا، لَكِنَّ فِيْ مَنْزِلِيْ مِذْيَاعًا فَقَطْ.",["Tidak, tetapi di rumahku ada radio sahaja.","تيدق، تتاڤي د رومهکو اد راديو سهاج."]]]},
+    {u:["أَثَاثُ البَيْتِ • Perabot rumah","أَثَاثُ البَيْتِ • ڤرابوت رومه"],p:10,vocab:PERABOT},
+    {u:["Peralatan elektrik","ڤرالاتن ايليکتريک"],p:11,vocab:ELEKTRIK},
+    {u:["Perhati dan baca","ڤرهاتي دان باچ"],p:12,sents:[["💵","أَنَا آخُذُ النُّقُوْدَ مِنَ الدُّرْجِ.",["Saya mengambil duit dari laci.","ساي مڠمبيل دوٴيت دري لاچي."]],["👕","أَنَا أَغْسِلُ الْمَلَابِسَ بِالْغَسَّالَةِ.",["Saya membasuh pakaian dengan mesin basuh.","ساي ممباسوه ڤاکاين دڠن ميسين باسوه."]],["📱","أَنَا أَشْتَرِي الهَاتِفَ الجَدِيْدَ.",["Saya membeli telefon baharu.","ساي ممبلي تيليفون بهارو."]],["⚽","أَنَا أُشَاهِدُ مُبَارَاةَ كُرَةِ الْقَدَمِ فِي التِّلْفَازِ.",["Saya menonton perlawanan bola sepak di televisyen.","ساي منونتون ڤرلاونن بولا سيڤق د تيليۏيشن."]]]},
+    {u:["هَذَا dan هَذِهِ","هَذَا دان هَذِهِ"],p:14,rule:["Guna <b>هَذَا / ذَلِكَ</b> untuk perkataan mudhakkar. Guna <b>هَذِهِ / تِلْكَ</b> untuk perkataan yang berakhir dengan <b>ة</b>.","ڬونا <b>هَذَا / ذَلِكَ</b> اونتوق ڤرکاتاٴن مذکر. ڬونا <b>هَذِهِ / تِلْكَ</b> اونتوق ڤرکاتاٴن يڠ براخير دڠن <b>ة</b>."],ex:["هَذَا مُكَيِّفٌ","هَذِهِ ثَلَّاجَ<mark>ةٌ</mark>"]},
+    {u:["Renungkan","رنوڠکن"],p:14,ar:"هُمْ وَأَزْوَاجُهُمْ فِي ظِلَالٍ عَلَى الْأَرَائِكِ مُتَّكِئُونَ",src:["Surah Yasin: 56","سورة يس: 56"],mk:["الْأَرَائِك ialah jamak bagi أَرِيْكَةٌ (sofa / pelamin).","الْأَرَائِك اياله جمع باڬي أَرِيْكَةٌ (سوفا / ڤلامين)."],tip:["Amalkan: Bantu ayah dan ibu membersihkan rumah.","عملکن: بنتو ايه دان ايبو ممبرسيهکن رومه."]}
+  ],
+  qs:[
+    {type:"listen",say:"تِلْفَازٌ",q:["Dengar dan pilih gambar yang betul.","دڠر دان ڤيليه ڬمبر يڠ بتول."],a:["📺","📻","🛏️","🪑"],e:["تِلْفَازٌ = televisyen","تِلْفَازٌ = تيليۏيشن"],p:11},
+    {type:"listen",say:"سَرِيْرٌ",q:["Dengar dan pilih gambar yang betul.","دڠر دان ڤيليه ڬمبر يڠ بتول."],a:["🛏️","🛋️","🪞","💡"],e:["سَرِيْرٌ = katil","سَرِيْرٌ = کاتيل"],p:10},
+    {type:"hop",pic:"🪞",q:["Apakah ini dalam bahasa Arab?","اڤاکه اين دالم بهاس عرب؟"],a:["مِرْآةٌ","كُرْسِيٌّ","مِصْبَاحٌ","سَرِيْرٌ"],e:["مِرْآةٌ = cermin","مِرْآةٌ = چرمين"],p:10},
+    {type:"hop",pic:"📻",q:["Apakah ini dalam bahasa Arab?","اڤاکه اين دالم بهاس عرب؟"],a:["مِذْيَاعٌ","تِلْفَازٌ","مُكَيِّفٌ","فُرْنٌ"],e:["مِذْيَاعٌ = radio","مِذْيَاعٌ = راديو"],p:11},
+    {type:"hop",ar:"ثَلَّاجَةٌ",q:["Apakah maksud perkataan ini?","اڤاکه مقصود ڤرکاتاٴن اين؟"],a:[["Peti sejuk","ڤيتي سجوق"],["Seterika","ستريک"],["Mesin basuh","ميسين باسوه"],["Ketuhar","کتوهر"]],e:["ثَلَّاجَةٌ = peti sejuk","ثَلَّاجَةٌ = ڤيتي سجوق"],p:11},
+    {type:"basket",q:["Masukkan ke bakul yang betul.","ماسوقکن ک باکول يڠ بتول."],l:[["أَثَاثُ البَيْتِ",["Perabot","ڤرابوت"],"🛋️"],["الأَجْهِزَةُ الكَهْرَبَائِيَّةُ",["Elektrik","ايليکتريک"],"🔌"]],items:[["كُرْسِيٌّ",0],["ثَلَّاجَةٌ",1],["سَرِيْرٌ",0],["مِكْوَاةٌ",1],["خِزَانَةٌ",0],["غَسَّالَةٌ",1]],e:["Kerusi, katil dan almari ialah perabot. Peti sejuk, seterika dan mesin basuh ialah peralatan elektrik.","کروسي، کاتيل دان المري اياله ڤرابوت. ڤيتي سجوق، ستريک دان ميسين باسوه اياله ڤرالاتن ايليکتريک."],p:13},
+    {type:"memory",q:["Memori teratai: padankan perkataan dengan gambar.","مموري تراتاي: ڤادنکن ڤرکاتاٴن دڠن ڬمبر."],pairs:[["كُرْسِيٌّ","🪑"],["مِصْبَاحٌ","💡"],["أَرِيْكَةٌ","🛋️"],["تِلْفَازٌ","📺"]],e:["كُرْسِيٌّ kerusi, مِصْبَاحٌ lampu, أَرِيْكَةٌ sofa, تِلْفَازٌ televisyen.","كُرْسِيٌّ کروسي، مِصْبَاحٌ لمڤو، أَرِيْكَةٌ سوفا، تِلْفَازٌ تيليۏيشن."],p:10},
+    {type:"hop",q:["Pilih yang betul: ___ غَسَّالَةٌ","ڤيليه يڠ بتول: ___ غَسَّالَةٌ"],ar:"؟ غَسَّالَةٌ",a:["هَذِهِ","هَذَا","هُوَ"],e:["غَسَّالَةٌ berakhir dengan ة, jadi guna هَذِهِ.","غَسَّالَةٌ براخير دڠن ة، جادي ڬونا هَذِهِ."],p:14},
+    {type:"fly",q:["Tangkap lalat PERALATAN ELEKTRIK!","تڠکڤ لالت ڤرالاتن ايليکتريک!"],items:[["مِذْيَاعٌ",true],["مُكَيِّفٌ",true],["غَسَّالَةٌ",true],["خَلَّاطَةٌ",true],["سَرِيْرٌ",false],["مِرْآةٌ",false],["دُرْجٌ",false]],e:["Radio, penghawa dingin, mesin basuh dan pengisar ialah peralatan elektrik.","راديو، ڤڠهاوا دديڠين، ميسين باسوه دان ڤڠيسر اياله ڤرالاتن ايليکتريک."],p:11},
+    {type:"build",q:["Bina ayat: “Saya menonton bola sepak di televisyen.”","بينا ايات: “ساي منونتون بولا سيڤق د تيليۏيشن.”"],words:["أَنَا","أُشَاهِدُ","مُبَارَاةَ كُرَةِ الْقَدَمِ","فِي التِّلْفَازِ"],e:["أَنَا أُشَاهِدُ مُبَارَاةَ كُرَةِ الْقَدَمِ فِي التِّلْفَازِ","أَنَا أُشَاهِدُ مُبَارَاةَ كُرَةِ الْقَدَمِ فِي التِّلْفَازِ"],p:12}
+  ]
+},
+{
+  id:3, ar:"الأَدَوَاتُ المَطْبَخِيَّةُ", title:["Peralatan Dapur","ڤرالاتن داڤور"], icon:"🍳", color:"#C0573E", pages:"15–21",
+  units:[["Dialog di meja makan","ديالوڬ د ميجا ماکن"],["Nama peralatan dapur","نام ڤرالاتن داڤور"],["Ayat tentang dapur","ايات تنتڠ داڤور"]],
+  cards:[
+    {u:["Dialog","ديالوڬ"],p:16,dlg:[["🧕",["Ibu","ايبو"],"يَا أَحْمَدُ، خُذِ الشَّوْكَةَ وَالْمِلْعَقَةَ.",["Ahmad, ambil garpu dan sudu.","احمد، امبيل ڬرڤو دان سودو."]],["👦",["Ahmad","احمد"],"طَيِّبْ يَا أُمِّيْ.",["Baiklah, ibu.","باءيقله، ايبو."]],["🧕",["Ibu","ايبو"],"وَأَنْتِ يَا فَاطِمَةُ، خُذِي الصَّحْنَ وَالْكُوْبَ.",["Dan kamu Fatimah, ambil pinggan dan gelas.","دان کامو فاطمة، امبيل ڤيڠڬن دان ڬلس."]],["👧",["Fatimah","فاطمة"],"حَاضِرَةٌ يَا أُمِّيْ.",["Baik, ibu.","باءيق، ايبو."]]],tip:["خُذْ untuk lelaki, خُذِيْ untuk perempuan (ambillah).","خُذْ اونتوق للاکي، خُذِيْ اونتوق ڤرمڤوان (امبيلله)."]},
+    {u:["Peralatan dapur","ڤرالاتن داڤور"],p:16,vocab:DAPUR},
+    {u:["Perhati dan baca","ڤرهاتي دان باچ"],p:19,sents:[["🥒","الأُمُّ تَقْطَعُ الْخِيَارَ بِالسِّكِّيْنِ.",["Ibu memotong timun dengan pisau.","ايبو مموتوڠ تيمون دڠن ڤيساو."]],["🥄","الأَبُ يَأْخُذُ الأَطْعِمَةَ بِالْمِلْعَقَةِ.",["Ayah mengambil makanan dengan sudu.","ايه مڠمبيل ماکنن دڠن سودو."]],["🥛","الأَخُ يَشْرَبُ المَاءَ بِالْكُوْبِ.",["Adik lelaki minum air dengan gelas.","اديق للاکي مينوم اٴير دڠن ڬلس."]],["🧼","أَغْسِلُ الصُّحُوْنَ بِالمَاءِ وَالصَّابُوْنِ.",["Saya membasuh pinggan dengan air dan sabun.","ساي ممباسوه ڤيڠڬن دڠن اٴير دان سابون."]]]},
+    {u:["Renungkan","رنوڠکن"],p:21,ar:"وَيُطَافُ عَلَيْهِمْ بِآنِيَةٍ مِنْ فِضَّةٍ وَأَكْوَابٍ كَانَتْ قَوَارِيرَا",src:["Surah al-Insan: 15","سورة الإنسان: 15"],mk:["أَكْوَاب ialah jamak bagi كُوْبٌ (gelas / piala minuman).","أَكْوَاب اياله جمع باڬي كُوْبٌ (ڬلس / ڤيالا مينومن)."],tip:["Amalkan: Basuh pinggan dan gelas selepas makan.","عملکن: باسوه ڤيڠڬن دان ڬلس سلڤس ماکن."]}
+  ],
+  qs:[
+    {type:"listen",say:"مِلْعَقَةٌ",q:["Dengar dan pilih gambar yang betul.","دڠر دان ڤيليه ڬمبر يڠ بتول."],a:["🥄","🔪","🍳","☕"],e:["مِلْعَقَةٌ = sudu","مِلْعَقَةٌ = سودو"],p:17},
+    {type:"listen",say:"مِقْلَاةٌ",q:["Dengar dan pilih gambar yang betul.","دڠر دان ڤيليه ڬمبر يڠ بتول."],a:["🍳","🍲","🥣","🫖"],e:["مِقْلَاةٌ = kuali","مِقْلَاةٌ = کوالي"],p:18},
+    {type:"hop",pic:"🔪",q:["Apakah ini dalam bahasa Arab?","اڤاکه اين دالم بهاس عرب؟"],a:["سِكِّيْنٌ","شَوْكَةٌ","صَحْنٌ","قِدْرٌ"],e:["سِكِّيْنٌ = pisau","سِكِّيْنٌ = ڤيساو"],p:17},
+    {type:"hop",pic:"☕",q:["Apakah ini dalam bahasa Arab?","اڤاکه اين دالم بهاس عرب؟"],a:["فِنْجَانٌ","كُوْبٌ","إِبْرِيْقٌ","قَدَحٌ"],e:["فِنْجَانٌ = cawan","فِنْجَانٌ = چاون"],p:18},
+    {type:"hop",ar:"إِبْرِيْقٌ",q:["Apakah maksud perkataan ini?","اڤاکه مقصود ڤرکاتاٴن اين؟"],a:[["Cerek","چيريق"],["Pinggan","ڤيڠڬن"],["Garpu","ڬرڤو"],["Kuali","کوالي"]],e:["إِبْرِيْقٌ = cerek","إِبْرِيْقٌ = چيريق"],p:17},
+    {type:"memory",q:["Memori teratai: padankan perkataan dengan gambar.","مموري تراتاي: ڤادنکن ڤرکاتاٴن دڠن ڬمبر."],pairs:[["صَحْنٌ","🍽️"],["قِدْرٌ","🍲"],["كُوْبٌ","🥛"],["قَدَحٌ","🥣"]],e:["صَحْنٌ pinggan, قِدْرٌ periuk, كُوْبٌ gelas, قَدَحٌ mangkuk.","صَحْنٌ ڤيڠڬن، قِدْرٌ ڤريوق، كُوْبٌ ڬلس، قَدَحٌ مڠکوق."],p:18},
+    {type:"hop",q:["Ibu bercakap kepada Fatimah (perempuan): “___ الصَّحْنَ”","ايبو برچاکڤ کڤد فاطمة (ڤرمڤوان): “___ الصَّحْنَ”"],ar:"؟ الصَّحْنَ",a:["خُذِي","خُذْ"],e:["Untuk perempuan guna خُذِي. Untuk lelaki guna خُذْ.","اونتوق ڤرمڤوان ڬونا خُذِي. اونتوق للاکي ڬونا خُذْ."],p:16},
+    {type:"build",q:["Bina ayat: “Adik lelaki minum air dengan gelas.”","بينا ايات: “اديق للاکي مينوم اٴير دڠن ڬلس.”"],words:["الأَخُ","يَشْرَبُ","المَاءَ","بِالْكُوْبِ"],e:["الأَخُ يَشْرَبُ المَاءَ بِالْكُوْبِ","الأَخُ يَشْرَبُ المَاءَ بِالْكُوْبِ"],p:19},
+    {type:"fly",q:["Tangkap lalat PERALATAN DAPUR!","تڠکڤ لالت ڤرالاتن داڤور!"],items:[["سِكِّيْنٌ",true],["مِغْرَفَةٌ",true],["مِقْلَاةٌ",true],["إِبْرِيْقٌ",true],["سَرِيْرٌ",false],["خِزَانَةٌ",false],["مِرْآةٌ",false]],e:["Pisau, senduk, kuali dan cerek ialah peralatan dapur.","ڤيساو، سندوق، کوالي دان چيريق اياله ڤرالاتن داڤور."],p:17},
+    {type:"listen",say:"قِدْرٌ",q:["Dengar dan pilih gambar yang betul.","دڠر دان ڤيليه ڬمبر يڠ بتول."],a:["🍲","🍽️","🥛","🥄"],e:["قِدْرٌ = periuk","قِدْرٌ = ڤريوق"],p:18}
+  ]
+},
+{
+  id:4, ar:"الشُّهُوْرُ الهِجْرِيَّةُ وَالْمِيْلَادِيَّةُ", title:["Bulan Hijrah dan Masihi","بولن هجرة دان مسيحي"], icon:"📅", color:"#6A4FB6", pages:"22–29",
+  units:[["Dialog tentang bulan","ديالوڬ تنتڠ بولن"],["12 bulan Hijrah dan 12 bulan Masihi","12 بولن هجرة دان 12 بولن مسيحي"],["Sambutan dalam setahun","سمبوتن دالم ستاهون"]],
+  cards:[
+    {u:["Dialog","ديالوڬ"],p:23,dlg:[["👧",["Salma","سلمى"],"كَمْ شَهْرًا فِي السَّنَةِ، يَا مُنِيْرَةُ؟",["Berapa bulan dalam setahun, Munirah?","براڤ بولن دالم ستاهون، منيرة؟"]],["🧕",["Munirah","منيرة"],"فِي السَّنَةِ اثْنَا عَشَرَ شَهْرًا.",["Dalam setahun ada 12 bulan.","دالم ستاهون اد 12 بولن."]],["👧",["Salma","سلمى"],"مَا أَوَّلُ الشُّهُوْرِ الهِجْرِيَّةِ؟",["Apakah bulan pertama Hijrah?","اڤاکه بولن ڤرتام هجرة؟"]],["🧕",["Munirah","منيرة"],"المُحَرَّمُ، يَا سَلْمَى.",["Muharam, Salma.","محرم، سلمى."]],["👧",["Salma","سلمى"],"مَا الشَّهْرُ بَعْدَ شَعْبَانَ؟",["Apakah bulan selepas Syaaban?","اڤاکه بولن سلڤس شعبان؟"]],["🧕",["Munirah","منيرة"],"شَهْرُ رَمَضَانَ.",["Bulan Ramadan.","بولن رمضان."]],["👧",["Salma","سلمى"],"وَمَا الشَّهْرُ قَبْلَ مَايُوْ؟",["Dan apakah bulan sebelum Mei?","دان اڤاکه بولن سبلوم مي؟"]],["🧕",["Munirah","منيرة"],"شَهْرُ أَبْرِيْلَ.",["Bulan April.","بولن اڤريل."]]],tip:["بَعْدَ = selepas, قَبْلَ = sebelum","بَعْدَ = سلڤس، قَبْلَ = سبلوم"]},
+    {u:["الشُّهُوْرُ الهِجْرِيَّةُ","الشُّهُوْرُ الهِجْرِيَّةُ"],p:24,vocab:HIJRI.map((a,i)=>({a,m:HIJRI_M[i],e:AD(i+1)}))},
+    {u:["الشُّهُوْرُ المِيْلَادِيَّةُ","الشُّهُوْرُ المِيْلَادِيَّةُ"],p:25,vocab:MILADI.map((a,i)=>({a,m:MILADI_M[i],e:AD(i+1)}))},
+    {u:["Sambutan Islam","سمبوتن اسلام"],p:26,sents:[["🕌","مَوْلِدُ النَّبِيِّ ﷺ فِي شَهْرِ رَبِيْعِ الأَوَّلِ",["Maulid Nabi SAW dalam bulan Rabiulawal","مولد نبي ﷺ دالم بولن ربيع الاول"]],["🌙","رَمَضَانُ شَهْرٌ مُبَارَكٌ",["Ramadan bulan yang diberkati","رمضان بولن يڠ دبرکتي"]],["✨","الإِسْرَاءُ وَالْمِعْرَاجُ فِي شَهْرِ رَجَبٍ",["Israk dan Mikraj dalam bulan Rejab","اسراء دان معراج دالم بولن رجب"]],["🎉","نَحْتَفِلُ عِيْدَ الْفِطْرِ فِي شَهْرِ شَوَّالٍ",["Kita menyambut Aidilfitri dalam bulan Syawal","کيت مڽمبوت عيدالفطري دالم بولن شوال"]],["🕋","ذُو الْحِجَّةِ شَهْرُ الْحَجِّ",["Zulhijah bulan haji","ذوالحجه بولن حج"]]]},
+    {u:["Sambutan umum","سمبوتن عموم"],p:27,sents:[["🎆","السَّنَةُ المِيْلَادِيَّةُ الجَدِيْدَةُ فِي شَهْرِ يَنَايِرَ",["Tahun Baharu dalam bulan Januari","تاهون بهارو دالم بولن جنواري"]],["🎁","يَوْمُ المُعَلِّمِيْنَ فِي شَهْرِ مَايُوْ",["Hari Guru dalam bulan Mei","هاري ڬورو دالم بولن مي"]],["🇲🇾","يَوْمُ اسْتِقْلَالِ مَالِيْزِيَا فِي شَهْرِ أَغُسْطُسْ",["Hari Kemerdekaan dalam bulan Ogos","هاري کمرديکاٴن دالم بولن اوڬوس"]],["🤝","يَوْمُ مَالِيْزِيَا فِي شَهْرِ سِبْتَمْبَرْ",["Hari Malaysia dalam bulan September","هاري مليسيا دالم بولن سيڤتيمبر"]]]},
+    {u:["Renungkan","رنوڠکن"],p:29,ar:"إِنَّ عِدَّةَ الشُّهُورِ عِندَ اللَّهِ اثْنَا عَشَرَ شَهْرًا",src:["Surah at-Taubah: 36","سورة التوبة: 36"],mk:["Maksudnya: Sesungguhnya bilangan bulan-bulan di sisi Allah ialah dua belas bulan.","مقصودڽ: سسوڠڬوهڽ بيلڠن بولن٢ د سيسي الله اياله دوا بلس بولن."],tip:["Amalkan: Ulang kaji pelajaran sebelum peperiksaan.","عملکن: اولڠ کاجي ڤلاجرن سبلوم ڤڤريقساٴن."]}
+  ],
+  qs:[
+    {type:"order",cal:true,q:["Susun bulan Hijrah 1 hingga 6.","سوسون بولن هجرة 1 هيڠڬ 6."],items:HIJRI.slice(0,6),e:["Muharam, Safar, Rabiulawal, Rabiulakhir, Jamadilawal, Jamadilakhir.","محرم، صفر، ربيع الاول، ربيع الاخر، جمادى الاول، جمادى الاخر."],p:24},
+    {type:"order",cal:true,q:["Susun bulan Hijrah 7 hingga 12.","سوسون بولن هجرة 7 هيڠڬ 12."],items:HIJRI.slice(6),e:["Rejab, Syaaban, Ramadan, Syawal, Zulkaedah, Zulhijah.","رجب، شعبان، رمضان، شوال، ذوالقعده، ذوالحجه."],p:24},
+    {type:"order",cal:true,q:["Susun bulan Masihi 7 hingga 12.","سوسون بولن مسيحي 7 هيڠڬ 12."],items:MILADI.slice(6),e:["Julai, Ogos, September, Oktober, November, Disember.","جولاي، اوڬوس، سيڤتيمبر، اوکتوبر، نوۏيمبر، ديسيمبر."],p:25},
+    {type:"hop",ar:"مَا الشَّهْرُ بَعْدَ شَعْبَانَ؟",q:["Jawab soalan ini.","جواب سوالن اين."],a:["رَمَضَانُ","رَجَبٌ","شَوَّالٌ","مُحَرَّمٌ"],e:["Selepas Syaaban ialah Ramadan.","سلڤس شعبان اياله رمضان."],p:23},
+    {type:"hop",ar:"مَا أَوَّلُ الشُّهُوْرِ الهِجْرِيَّةِ؟",q:["Jawab soalan ini.","جواب سوالن اين."],a:["مُحَرَّمٌ","رَمَضَانُ","صَفَرٌ","شَوَّالٌ"],e:["Bulan pertama Hijrah ialah Muharam.","بولن ڤرتام هجرة اياله محرم."],p:23},
+    {type:"hop",ar:"مَا الشَّهْرُ قَبْلَ مَايُوْ؟",q:["Jawab soalan ini.","جواب سوالن اين."],a:["أَبْرِيْلُ","يُوْنِيُوْ","مَارِسُ","يَنَايِرُ"],e:["Sebelum Mei ialah April.","سبلوم مي اياله اڤريل."],p:23},
+    {type:"memory",q:["Memori teratai: padankan sambutan dengan bulannya.","مموري تراتاي: ڤادنکن سمبوتن دڠن بولنڽ."],pairs:[["🕋","ذُو الْحِجَّةِ"],["🎉","شَوَّالٌ"],["🇲🇾","أَغُسْطُسْ"],["🎁","مَايُوْ"]],e:["Haji: Zulhijah. Aidilfitri: Syawal. Merdeka: Ogos. Hari Guru: Mei.","حج: ذوالحجه. عيدالفطري: شوال. مرديکا: اوڬوس. هاري ڬورو: مي."],p:26},
+    {type:"basket",q:["Bulan Hijrah atau Masihi?","بولن هجرة اتاو مسيحي؟"],l:[["الهِجْرِيَّةُ",["Hijrah","هجرة"],"🌙"],["المِيْلَادِيَّةُ",["Masihi","مسيحي"],"☀️"]],items:[["رَجَبٌ",0],["مَارِسُ",1],["صَفَرٌ",0],["يُوْلِيُوْ",1],["شَوَّالٌ",0],["أُكْتُوْبَرْ",1]],e:["Rejab, Safar, Syawal: Hijrah. Mac, Julai, Oktober: Masihi.","رجب، صفر، شوال: هجرة. مچ، جولاي، اوکتوبر: مسيحي."],p:24},
+    {type:"listen",say:"يَنَايِرُ",q:["Dengar nama bulan ini. Pilih maksudnya.","دڠر نام بولن اين. ڤيليه مقصودڽ."],a:[["Januari","جنواري"],["Jun","جون"],["Julai","جولاي"],["Mei","مي"]],e:["يَنَايِرُ = Januari, bulan pertama Masihi.","يَنَايِرُ = جنواري، بولن ڤرتام مسيحي."],p:25},
+    {type:"hop",ar:"الإِسْرَاءُ وَالْمِعْرَاجُ فِي شَهْرِ ___",q:["Lengkapkan ayat ini.","لڠکڤکن ايات اين."],a:["رَجَبٍ","رَمَضَانَ","شَوَّالٍ","صَفَرٍ"],e:["Israk dan Mikraj dalam bulan Rejab.","اسراء دان معراج دالم بولن رجب."],p:26},
+    {type:"hop",ar:"فِي السَّنَةِ ___ شَهْرًا",q:["Berapa bulan dalam setahun?","براڤ بولن دالم ستاهون؟"],a:["اثْنَا عَشَرَ","عَشَرَةٌ","سِتَّةٌ","ثَلَاثَةٌ"],e:["فِي السَّنَةِ اثْنَا عَشَرَ شَهْرًا: dalam setahun ada 12 bulan.","فِي السَّنَةِ اثْنَا عَشَرَ شَهْرًا: دالم ستاهون اد 12 بولن."],p:23}
+  ]
+},
+{
+  id:5, ar:"المُذَكَّرُ وَالمُؤَنَّثُ", title:["Mudhakkar dan Mu'annath","مذکر دان مؤنث"], icon:"👦👧", color:"#1F6FA8", pages:"30–37",
+  units:[["المُذَكَّرُ (lelaki / maskulin)","المُذَكَّرُ (للاکي)"],["المُؤَنَّثُ (perempuan / feminin)","المُؤَنَّثُ (ڤرمڤوان)"],["Ganti nama هُوَ / هِيَ","ڬنتي نام هُوَ / هِيَ"]],
+  cards:[
+    {u:["Pekerjaan lelaki dan perempuan","ڤکرجاٴن للاکي دان ڤرمڤوان"],p:30,table:{h:["المُذَكَّرُ","المُؤَنَّثُ",""],rows:[["المُدَرِّسُ","المُدَرِّسَةُ","🧑‍🏫",["Guru","ڬورو"]],["المُهَنْدِسُ","المُهَنْدِسَةُ","👷",["Jurutera","جوروترا"]],["الطَّبِيْبُ","الطَّبِيْبَةُ","🧑‍⚕️",["Doktor","دوکتور"]],["البَائِعُ","البَائِعَةُ","🛒",["Penjual","ڤنجوال"]]]}},
+    {u:["المُذَكَّرُ","المُذَكَّرُ"],p:31,vocab:MUDH},
+    {u:["المُؤَنَّثُ","المُؤَنَّثُ"],p:33,vocab:MUAN},
+    {u:["Rahsia ة","رهسيا ة"],p:36,rule:["Perkataan yang berakhir dengan <b>ة (ta marbutah)</b> ialah mu'annath. Tambah ة untuk menukar mudhakkar kepada mu'annath.","ڤرکاتاٴن يڠ براخير دڠن <b>ة (تاء مربوطة)</b> اياله مؤنث. تمبه ة اونتوق منوکر مذکر کڤد مؤنث."],ex:["طَبِيْبٌ ← طَبِيْبَ<mark>ةٌ</mark>","لَاعِبٌ ← لَاعِبَ<mark>ةٌ</mark>"]},
+    {u:["Baca dan ulang","باچ دان اولڠ"],p:35,sents:[["⛹️‍♂️","أَنْتَ لَاعِبٌ",["Kamu (lelaki) seorang pemain","کامو (للاکي) سأورڠ ڤماٴين"]],["⛹️‍♀️","أَنْتِ لَاعِبَةٌ",["Kamu (perempuan) seorang pemain","کامو (ڤرمڤوان) سأورڠ ڤماٴين"]],["👨‍⚕️","هُوَ طَبِيْبٌ",["Dia (lelaki) seorang doktor","دي (للاکي) سأورڠ دوکتور"]],["👩‍⚕️","هِيَ طَبِيْبَةٌ",["Dia (perempuan) seorang doktor","دي (ڤرمڤوان) سأورڠ دوکتور"]]]},
+    {u:["Renungkan","رنوڠکن"],p:37,ar:"يَا أَيُّهَا النَّاسُ إِنَّا خَلَقْنَاكُمْ مِنْ ذَكَرٍ وَأُنْثَى",src:["Surah al-Hujurat: 13","سورة الحجرات: 13"],mk:["Maksudnya: Wahai umat manusia, sesungguhnya Kami telah menciptakan kamu daripada lelaki dan perempuan.","مقصودڽ: واهاي امة منوسيا، سسوڠڬوهڽ کامي تله منچيڤتاکن کامو درڤد للاکي دان ڤرمڤوان."],tip:["Amalkan: Jaga akhlak pergaulan dan tutup aurat.","عملکن: جاڬ اخلاق ڤرڬاولن دان توتوڤ عورة."]}
+  ],
+  qs:[
+    {type:"basket",q:["Mudhakkar atau mu'annath?","مذکر اتاو مؤنث؟"],l:[["المُذَكَّرُ",["Mudhakkar","مذکر"],"👦"],["المُؤَنَّثُ",["Mu'annath","مؤنث"],"👧"]],items:[["مُكَيِّفٌ",0],["مُعَلِّمَةٌ",1],["صَحْنٌ",0],["تُفَّاحَةٌ",1],["سِكِّيْنٌ",0],["سَيَّارَةٌ",1],["مَلْعَبٌ",0],["دَجَاجَةٌ",1]],e:["Perkataan yang berakhir dengan ة ialah mu'annath.","ڤرکاتاٴن يڠ براخير دڠن ة اياله مؤنث."],p:36},
+    {type:"fly",q:["Tangkap lalat MU'ANNATH (ada ة)!","تڠکڤ لالت مؤنث (اد ة)!"],items:[["زَهْرَةٌ",true],["طَائِرَةٌ",true],["بَقَرَةٌ",true],["بُرْتُقَالَةٌ",true],["بَابٌ",false],["عِنَبٌ",false],["سِنْجَابٌ",false]],e:["زَهْرَةٌ، طَائِرَةٌ، بَقَرَةٌ dan بُرْتُقَالَةٌ ada ة.","زَهْرَةٌ، طَائِرَةٌ، بَقَرَةٌ دان بُرْتُقَالَةٌ اد ة."],p:33},
+    {type:"magic",from:"مُدَرِّسٌ",to:["Mu'annath","مؤنث"],q:["Sihir! Tukar kepada mu'annath.","سيحير! توکر کڤد مؤنث."],a:["مُدَرِّسَةٌ","مُدَرِّسَانِ","مُدَرِّسُوْنَ"],e:["مُدَرِّسٌ + ة = مُدَرِّسَةٌ (guru perempuan)","مُدَرِّسٌ + ة = مُدَرِّسَةٌ (ڬورو ڤرمڤوان)"],p:30},
+    {type:"magic",from:"بَائِعٌ",to:["Mu'annath","مؤنث"],q:["Sihir! Tukar kepada mu'annath.","سيحير! توکر کڤد مؤنث."],a:["بَائِعَةٌ","بَائِعُوْنَ","بَائِعَانِ"],e:["بَائِعٌ + ة = بَائِعَةٌ (penjual perempuan)","بَائِعٌ + ة = بَائِعَةٌ (ڤنجوال ڤرمڤوان)"],p:30},
+    {type:"hop",ar:"؟ طَبِيْبَةٌ",q:["Pilih ganti nama yang betul: “Dia (perempuan) seorang doktor.”","ڤيليه ڬنتي نام يڠ بتول: “دي (ڤرمڤوان) سأورڠ دوکتور.”"],a:["هِيَ","هُوَ","أَنْتَ"],e:["هِيَ untuk perempuan, هُوَ untuk lelaki.","هِيَ اونتوق ڤرمڤوان، هُوَ اونتوق للاکي."],p:35},
+    {type:"hop",ar:"؟ لَاعِبَةٌ",q:["Pilih ganti nama yang betul: “Kamu (perempuan) seorang pemain.”","ڤيليه ڬنتي نام يڠ بتول: “کامو (ڤرمڤوان) سأورڠ ڤماٴين.”"],a:["أَنْتِ","أَنْتَ","هُوَ"],e:["أَنْتِ untuk perempuan, أَنْتَ untuk lelaki.","أَنْتِ اونتوق ڤرمڤوان، أَنْتَ اونتوق للاکي."],p:35},
+    {type:"listen",say:"بَقَرَةٌ",q:["Dengar dan pilih gambar yang betul.","دڠر دان ڤيليه ڬمبر يڠ بتول."],a:["🐄","🐔","🐿️","🦂"],e:["بَقَرَةٌ = lembu","بَقَرَةٌ = لمبو"],p:34},
+    {type:"listen",say:"سِنْجَابٌ",q:["Dengar dan pilih gambar yang betul.","دڠر دان ڤيليه ڬمبر يڠ بتول."],a:["🐿️","🦂","🐔","🐄"],e:["سِنْجَابٌ = tupai","سِنْجَابٌ = توڤاي"],p:32},
+    {type:"hop",pic:"🍉",q:["Apakah ini dalam bahasa Arab?","اڤاکه اين دالم بهاس عرب؟"],a:["بِطِّيْخَةٌ","بُرْتُقَالَةٌ","رُمَّانٌ","جَزَرٌ"],e:["بِطِّيْخَةٌ = tembikai","بِطِّيْخَةٌ = تمبيکاي"],p:34},
+    {type:"memory",q:["Memori teratai: padankan perkataan dengan gambar.","مموري تراتاي: ڤادنکن ڤرکاتاٴن دڠن ڬمبر."],pairs:[["عَقْرَبٌ","🦂"],["جَزَرٌ","🥕"],["بَصَلٌ","🧅"],["عِنَبٌ","🍇"]],e:["عَقْرَبٌ kala jengking, جَزَرٌ lobak merah, بَصَلٌ bawang, عِنَبٌ anggur.","عَقْرَبٌ کالا جڠکيڠ، جَزَرٌ لوبق ميره، بَصَلٌ باوڠ، عِنَبٌ اڠڬور."],p:32}
+  ]
+},
+{
+  id:6, ar:"الجُمْلَةُ الاِسْمِيَّةُ", title:["Jumlah Ismiyyah","جملة اسمية"], icon:"🧱", color:"#D9822B", pages:"38–44",
+  units:[["Dialog memperkenalkan keluarga","ديالوڬ ممڤرکنلکن کلوارڬ"],["Ayat namaan","ايات نامأن"],["Kata isyarat dan ganti nama","کات ايشارت دان ڬنتي نام"]],
+  cards:[
+    {u:["Dialog","ديالوڬ"],p:38,dlg:[["👧",["Murid","موريد"],"يَا هُدَى، هَذَا أَبِيْ.",["Huda, ini ayah saya.","هدى، اين ايه ساي."]],["🧕",["Huda","هدى"],"مَا اسْمُ أَبِيْكِ؟",["Siapa nama ayahmu?","سياڤ نام ايهمو؟"]],["👧",["Murid","موريد"],"اِسْمُهُ سَلِيْمٌ.",["Namanya Salim.","نماڽ سليم."]],["🧕",["Huda","هدى"],"مَنْ هَذِهِ؟",["Siapa ini?","سياڤ اين؟"]],["👧",["Murid","موريد"],"هَذِهِ أُمِّيْ. اِسْمُهَا حَلِيْمَةٌ.",["Ini ibu saya. Namanya Halimah.","اين ايبو ساي. نماڽ حليمة."]]]},
+    {u:["Dengar dan ulang","دڠر دان اولڠ"],p:39,sents:[["🚆","القِطَارُ سَرِيْعٌ",["Kereta api itu laju","کريتا اڤي ايت لاجو"]],["👨","هَذَا أَبِيْ",["Ini ayah saya","اين ايه ساي"]],["🚗","السَّيَّارَةُ جَمِيْلَةٌ",["Kereta itu cantik","کريتا ايت چنتيق"]],["👩","هَذِهِ أُمِّيْ",["Ini ibu saya","اين ايبو ساي"]],["👩‍🏫","زَيْنَبُ مُعَلِّمَةٌ",["Zainab seorang guru","زينب سأورڠ ڬورو"]],["👳","هُوَ إِمَامٌ",["Dia seorang imam","دي سأورڠ امام"]]]},
+    {u:["Perhati dan baca","ڤرهاتي دان باچ"],p:40,sents:[["👮","أَنَا شُرْطِيٌّ",["Saya seorang polis","ساي سأورڠ ڤوليس"]],["👩‍⚕️","أَنْتِ طَبِيْبَةٌ",["Kamu (perempuan) seorang doktor","کامو (ڤرمڤوان) سأورڠ دوکتور"]],["🎙️","هُوَ مُذِيْعٌ",["Dia seorang penyiar","دي سأورڠ ڤپيار"]],["🚲","دَرَّاجَتِيْ جَدِيْدَةٌ",["Basikal saya baharu","باسيکل ساي بهارو"]],["👦","شَفِيْقٌ رَئِيْسُ الفَصْلِ",["Syafiq ketua kelas","شفيق کتوا کلس"]],["📓","الكُرَّاسَةُ عَلَى المَكْتَبِ",["Buku tulis di atas meja","بوکو توليس د اتس ميجا"]]]},
+    {u:["Binaan jumlah ismiyyah","بيناٴن جملة اسمية"],p:41,rule:["Jumlah ismiyyah ialah ayat yang bermula dengan kata nama. Ia ada dua bahagian: <b>mubtada'</b> (subjek) dan <b>khabar</b> (predikat).","جملة اسمية اياله ايات يڠ برمولا دڠن کات نام. اي اد دوا بهاڬين: <b>مبتدأ</b> (سوبجيک) دان <b>خبر</b> (ڤرديکت)."],ex:["<mark>هَذَا</mark> مُهَنْدِسٌ","<mark>هِيَ</mark> مُمَرِّضَةٌ","<mark>أَنَا</mark> شُرْطِيٌّ"]},
+    {u:["Renungkan","رنوڠکن"],p:44,ar:"وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا",src:["Surah al-Baqarah: 31","سورة البقرة: 31"],mk:["Maksudnya: Dan Dia telah mengajarkan Nabi Adam akan segala nama benda.","مقصودڽ: دان دي تله مڠاجرکن نبي آدم اکن سڬالا نام بندا."],tip:["Amalkan: Hormati kawan. Jangan mengejek kawan dengan gelaran yang buruk.","عملکن: حرمتي کاون. جاڠن مڠيجيق کاون دڠن ڬلرن يڠ بوروق."]}
+  ],
+  qs:[
+    {type:"build",q:["Bina ayat: “Buku tulis di atas meja.”","بينا ايات: “بوکو توليس د اتس ميجا.”"],words:["الكُرَّاسَةُ","عَلَى","المَكْتَبِ"],e:["الكُرَّاسَةُ عَلَى المَكْتَبِ","الكُرَّاسَةُ عَلَى المَكْتَبِ"],p:40},
+    {type:"build",q:["Bina ayat: “Syafiq ketua kelas.”","بينا ايات: “شفيق کتوا کلس.”"],words:["شَفِيْقٌ","رَئِيْسُ","الفَصْلِ"],e:["شَفِيْقٌ رَئِيْسُ الفَصْلِ","شَفِيْقٌ رَئِيْسُ الفَصْلِ"],p:40},
+    {type:"hop",ar:"؟ إِمَامٌ",q:["Pilih mubtada' yang sesuai.","ڤيليه مبتدأ يڠ سسواي."],a:["هُوَ","هِيَ","أَنْتِ"],e:["هُوَ إِمَامٌ: Dia seorang imam.","هُوَ إِمَامٌ: دي سأورڠ امام."],p:41},
+    {type:"hop",ar:"هَذِهِ ؟",q:["Pilih khabar yang sesuai.","ڤيليه خبر يڠ سسواي."],a:["مُدِيْرَةٌ","مُهَنْدِسٌ","إِمَامٌ","شُرْطِيٌّ"],e:["هَذِهِ untuk mu'annath: هَذِهِ مُدِيْرَةٌ.","هَذِهِ اونتوق مؤنث: هَذِهِ مُدِيْرَةٌ."],p:41},
+    {type:"hop",ar:"القِطَارُ سَرِيْعٌ",q:["Apakah maksud ayat ini?","اڤاکه مقصود ايات اين؟"],a:[["Kereta api itu laju","کريتا اڤي ايت لاجو"],["Kereta itu cantik","کريتا ايت چنتيق"],["Bas itu baharu","بس ايت بهارو"],["Kapal terbang itu besar","کاڤل تربڠ ايت بسر"]],e:["القِطَارُ = kereta api, سَرِيْعٌ = laju","القِطَارُ = کريتا اڤي، سَرِيْعٌ = لاجو"],p:39},
+    {type:"listen",say:"هَذِهِ أُمِّيْ",q:["Dengar ayat ini. Pilih gambar yang betul.","دڠر ايات اين. ڤيليه ڬمبر يڠ بتول."],a:["👩","👨","👮","🚆"],e:["هَذِهِ أُمِّيْ = Ini ibu saya.","هَذِهِ أُمِّيْ = اين ايبو ساي."],p:39},
+    {type:"basket",q:["هَذَا atau هَذِهِ?","هَذَا اتاو هَذِهِ؟"],l:[["هَذَا",["untuk mudhakkar","اونتوق مذکر"],"👨"],["هَذِهِ",["untuk mu'annath","اونتوق مؤنث"],"👩"]],items:[["إِمَامٌ",0],["مُدِيْرَةٌ",1],["مُمَرِّضَةٌ",1],["مُهَنْدِسٌ",0],["شُرْطِيٌّ",0],["طَبِيْبَةٌ",1]],e:["هَذَا إِمَامٌ، هَذَا مُهَنْدِسٌ، هَذَا شُرْطِيٌّ. هَذِهِ مُدِيْرَةٌ، هَذِهِ مُمَرِّضَةٌ، هَذِهِ طَبِيْبَةٌ.","هَذَا إِمَامٌ، هَذَا مُهَنْدِسٌ، هَذَا شُرْطِيٌّ. هَذِهِ مُدِيْرَةٌ، هَذِهِ مُمَرِّضَةٌ، هَذِهِ طَبِيْبَةٌ."],p:42},
+    {type:"hop",ar:"؟ تَلَامِيْذُ",q:["Pilih ganti nama: “Kami murid-murid.”","ڤيليه ڬنتي نام: “کامي موريد٢.”"],a:["نَحْنُ","هُمَا","أَنْتَ","هِيَ"],e:["نَحْنُ = kami. نَحْنُ تَلَامِيْذُ.","نَحْنُ = کامي. نَحْنُ تَلَامِيْذُ."],p:43},
+    {type:"hop",ar:"؟ إِمَامَانِ",q:["Pilih ganti nama: “Mereka berdua imam.”","ڤيليه ڬنتي نام: “مريک بردوا امام.”"],a:["هُمَا","نَحْنُ","أَنَا","هُوَ"],e:["هُمَا = mereka berdua. هُمَا إِمَامَانِ.","هُمَا = مريک بردوا. هُمَا إِمَامَانِ."],p:43},
+    {type:"fly",q:["Tangkap lalat KHABAR yang sesuai untuk هِيَ!","تڠکڤ لالت خبر يڠ سسواي اونتوق هِيَ!"],items:[["مُمَرِّضَةٌ",true],["طَبِيْبَةٌ",true],["مُدِيْرَةٌ",true],["مُعَلِّمَةٌ",true],["إِمَامٌ",false],["شُرْطِيٌّ",false],["مُذِيْعٌ",false]],e:["هِيَ (perempuan) dipadankan dengan khabar yang ada ة.","هِيَ (ڤرمڤوان) دڤادنکن دڠن خبر يڠ اد ة."],p:41}
+  ]
+},
+{
+  id:7, ar:"المُفْرَدُ وَالْمُثَنَّى وَالْجَمْعُ", title:["Mufrad, Muthanna dan Jamak","مفرد، مثنى دان جمع"], icon:"🍎", color:"#127C7C", pages:"45–60",
+  units:[["Mudhakkar berakal (manusia)","مذکر براقل (منوسيا)"],["Mudhakkar tidak berakal (benda)","مذکر تيدق براقل (بندا)"],["Mu'annath berakal dan tidak berakal","مؤنث براقل دان تيدق براقل"]],
+  cards:[
+    {u:["Satu, dua, ramai","ساتو، دوا، راماي"],p:45,sents:[["🧎","المُسْلِمُ يُصَلِّيْ صَلَاةَ الظُّهْرِ.",["Seorang Muslim menunaikan solat Zuhur.","سأورڠ مسلم منونايکن صلاة ظهر."]],["🧎🧎","المُسْلِمَانِ يُصَلِّيَانِ صَلَاةَ الظُّهْرِ.",["Dua orang Muslim menunaikan solat Zuhur.","دوا اورڠ مسلم منونايکن صلاة ظهر."]],["🧎🧎🧎","المُسْلِمُوْنَ يُصَلُّوْنَ صَلَاةَ الظُّهْرِ.",["Orang-orang Muslim menunaikan solat Zuhur.","اورڠ٢ مسلم منونايکن صلاة ظهر."]]]},
+    {u:["Mudhakkar berakal","مذکر براقل"],p:46,table:{h:["المُفْرَدُ","المُثَنَّى","الجَمْعُ"],rows:[["المُسْلِمُ","المُسْلِمَانِ","المُسْلِمُوْنَ",["Orang Islam","اورڠ اسلام"]],["المُعَلِّمُ","المُعَلِّمَانِ","المُعَلِّمُوْنَ",["Guru","ڬورو"]],["البَائِعُ","البَائِعَانِ","البَائِعُوْنَ",["Penjual","ڤنجوال"]],["المُوَظَّفُ","المُوَظَّفَانِ","المُوَظَّفُوْنَ",["Pekerja","ڤکرجا"]],["المُهَنْدِسُ","المُهَنْدِسَانِ","المُهَنْدِسُوْنَ",["Jurutera","جوروترا"]]]},rule:["Muthanna: tambah <b>ان</b>. Jamak mudhakkar: tambah <b>ون</b>.","مثنى: تمبه <b>ان</b>. جمع مذکر: تمبه <b>ون</b>."],ex:["مُسْلِمٌ ← مُسْلِمَ<mark>انِ</mark> ← مُسْلِمُ<mark>وْنَ</mark>"]},
+    {u:["Mudhakkar tidak berakal","مذکر تيدق براقل"],p:50,table:{h:["المُفْرَدُ","المُثَنَّى","الجَمْعُ"],rows:[["البَيْتُ","البَيْتَانِ","البُيُوْتُ",["Rumah","رومه"]],["الفَصْلُ","الفَصْلَانِ","الفُصُوْلُ",["Kelas","کلس"]],["الكُوْبُ","الكُوْبَانِ","الأَكْوَابُ",["Gelas","ڬلس"]],["الكِتَابُ","الكِتَابَانِ","الكُتُبُ",["Buku","بوکو"]],["النَّجْمُ","النَّجْمَانِ","النُّجُوْمُ",["Bintang","بينتڠ"]]]},tip:["Jamak benda selalunya berubah bentuk (jamak taksir): كِتَابٌ ← كُتُبٌ.","جمع بندا سلالوڽ بروبه بنتوق (جمع تکسير): كِتَابٌ ← كُتُبٌ."]},
+    {u:["Mu'annath berakal","مؤنث براقل"],p:53,table:{h:["المُفْرَدَةُ","المُثَنَّى","الجَمْعُ"],rows:[["الطَّبِيْبَةُ","الطَّبِيْبَتَانِ","الطَّبِيْبَاتُ",["Doktor","دوکتور"]],["المُعَلِّمَةُ","المُعَلِّمَتَانِ","المُعَلِّمَاتُ",["Guru","ڬورو"]],["المُؤْمِنَةُ","المُؤْمِنَتَانِ","المُؤْمِنَاتُ",["Mukminah","مؤمنه"]],["المُمَرِّضَةُ","المُمَرِّضَتَانِ","المُمَرِّضَاتُ",["Jururawat","جوروراوت"]]]},rule:["Muthanna mu'annath: ة bertukar menjadi ت, kemudian tambah <b>ان</b>. Jamak mu'annath: buang ة dan tambah <b>ات</b>.","مثنى مؤنث: ة برتوکر منجادي ت، کمودين تمبه <b>ان</b>. جمع مؤنث: بواڠ ة دان تمبه <b>ات</b>."],ex:["مُؤْمِنَةٌ ← مُؤْمِنَ<mark>تَانِ</mark> ← مُؤْمِنَ<mark>اتٌ</mark>"]},
+    {u:["Mu'annath tidak berakal","مؤنث تيدق براقل"],p:57,table:{h:["المُفْرَدُ","المُثَنَّى","الجَمْعُ"],rows:[["السَّاعَةُ","السَّاعَتَانِ","السَّاعَاتُ",["Jam","جم"]],["الدَّرَّاجَةُ","الدَّرَّاجَتَانِ","الدَّرَّاجَاتُ",["Basikal","باسيکل"]],["السَّيَّارَةُ","السَّيَّارَتَانِ","السَّيَّارَاتُ",["Kereta","کريتا"]],["السَّفِيْنَةُ","السَّفِيْنَتَانِ","السُّفُنُ",["Kapal","کاڤل"]]]}},
+    {u:["Renungkan","رنوڠکن"],p:60,ar:"رَسُولٌ مِنَ اللَّهِ يَتْلُو صُحُفًا مُطَهَّرَةً ۝ فِيهَا كُتُبٌ قَيِّمَةٌ",src:["Surah al-Bayyinah: 2–3","سورة البينة: 2–3"],mk:["كُتُبٌ ialah jamak bagi كِتَابٌ.","كُتُبٌ اياله جمع باڬي كِتَابٌ."],tip:["Amalkan: تَعَاوَنْ عَلَى البِرِّ وَالتَّقْوَى (Bertolong-tolonglah dalam kebaikan dan takwa)","عملکن: تَعَاوَنْ عَلَى البِرِّ وَالتَّقْوَى (برتولوڠ-تولوڠله دالم کباءيقن دان تقوى)"]}
+  ],
+  qs:[
+    {type:"basket",q:["Satu, dua atau ramai? Masukkan ke bakul.","ساتو، دوا اتاو راماي؟ ماسوقکن ک باکول."],l:[["المُفْرَدُ",["Satu","ساتو"],"🍎"],["المُثَنَّى",["Dua","دوا"],"🍎🍎"],["الجَمْعُ",["Ramai","راماي"],"🍎🍎🍎"]],items:[["المُسْلِمَانِ",1],["المُعَلِّمُوْنَ",2],["البَائِعُ",0],["السَّاعَاتُ",2],["الكِتَابَانِ",1],["السَّيَّارَةُ",0],["المُمَرِّضَتَانِ",1],["البُيُوْتُ",2]],e:["ان = dua (muthanna). ون / ات / bentuk berubah = ramai (jamak).","ان = دوا (مثنى). ون / ات / بنتوق بروبه = راماي (جمع)."],p:47},
+    {type:"magic",from:"مُسْلِمٌ",to:["Muthanna (dua)","مثنى (دوا)"],q:["Sihir! Tukar kepada muthanna.","سيحير! توکر کڤد مثنى."],a:["مُسْلِمَانِ","مُسْلِمُوْنَ","مُسْلِمَةٌ"],e:["مُسْلِمٌ + ان = مُسْلِمَانِ","مُسْلِمٌ + ان = مُسْلِمَانِ"],p:47},
+    {type:"magic",from:"مُهَنْدِسٌ",to:["Jamak (ramai)","جمع (راماي)"],q:["Sihir! Tukar kepada jamak.","سيحير! توکر کڤد جمع."],a:["مُهَنْدِسُوْنَ","مُهَنْدِسَانِ","مُهَنْدِسَةٌ"],e:["مُهَنْدِسٌ + ون = مُهَنْدِسُوْنَ","مُهَنْدِسٌ + ون = مُهَنْدِسُوْنَ"],p:48},
+    {type:"magic",from:"طَبِيْبَةٌ",to:["Muthanna (dua)","مثنى (دوا)"],q:["Sihir! Tukar kepada muthanna.","سيحير! توکر کڤد مثنى."],a:["طَبِيْبَتَانِ","طَبِيْبَاتٌ","طَبِيْبَانِ"],e:["ة bertukar menjadi ت: طَبِيْبَتَانِ","ة برتوکر منجادي ت: طَبِيْبَتَانِ"],p:54},
+    {type:"magic",from:"مُؤْمِنَةٌ",to:["Jamak (ramai)","جمع (راماي)"],q:["Sihir! Tukar kepada jamak.","سيحير! توکر کڤد جمع."],a:["مُؤْمِنَاتٌ","مُؤْمِنُوْنَ","مُؤْمِنَتَانِ"],e:["Buang ة, tambah ات: مُؤْمِنَاتٌ","بواڠ ة، تمبه ات: مُؤْمِنَاتٌ"],p:54},
+    {type:"memory",q:["Memori teratai: padankan mufrad dengan jamaknya.","مموري تراتاي: ڤادنکن مفرد دڠن جمعڽ."],pairs:[["كِتَابٌ","كُتُبٌ"],["بَيْتٌ","بُيُوْتٌ"],["نَجْمٌ","نُجُوْمٌ"],["كُوْبٌ","أَكْوَابٌ"]],e:["كِتَابٌ ← كُتُبٌ، بَيْتٌ ← بُيُوْتٌ، نَجْمٌ ← نُجُوْمٌ، كُوْبٌ ← أَكْوَابٌ","كِتَابٌ ← كُتُبٌ، بَيْتٌ ← بُيُوْتٌ، نَجْمٌ ← نُجُوْمٌ، كُوْبٌ ← أَكْوَابٌ"],p:51},
+    {type:"listen",say:"السَّيَّارَتَانِ",q:["Dengar dan pilih gambar yang betul.","دڠر دان ڤيليه ڬمبر يڠ بتول."],a:["🚗🚗","🚗","🚗🚗🚗","🚲🚲"],e:["السَّيَّارَتَانِ = dua buah kereta.","السَّيَّارَتَانِ = دوا بواه کريتا."],p:57},
+    {type:"listen",say:"الدَّرَّاجَاتُ",q:["Dengar dan pilih gambar yang betul.","دڠر دان ڤيليه ڬمبر يڠ بتول."],a:["🚲🚲🚲","🚲","🚲🚲","🚗🚗🚗"],e:["الدَّرَّاجَاتُ = basikal-basikal (banyak).","الدَّرَّاجَاتُ = باسيکل٢ (باڽق)."],p:57},
+    {type:"build",q:["Bina ayat: “Pekerja-pekerja itu bekerja di pejabat.”","بينا ايات: “ڤکرجا٢ ايت برکرجا د ڤجابت.”"],words:["المُوَظَّفُوْنَ","يَعْمَلُوْنَ","فِي","الإِدَارَةِ"],e:["المُوَظَّفُوْنَ يَعْمَلُوْنَ فِي الإِدَارَةِ","المُوَظَّفُوْنَ يَعْمَلُوْنَ فِي الإِدَارَةِ"],p:48},
+    {type:"fly",q:["Tangkap lalat MUTHANNA (dua)!","تڠکڤ لالت مثنى (دوا)!"],items:[["البَابَانِ",true],["الكُوْبَانِ",true],["المُعَلِّمَتَانِ",true],["القَرْيَتَانِ",true],["الأَبْوَابُ",false],["المُعَلِّمُ",false],["القُرَى",false]],e:["Muthanna berakhir dengan ان.","مثنى براخير دڠن ان."],p:49},
+    {type:"hop",ar:"سَاعَةٌ",q:["Apakah jamak bagi perkataan ini?","اڤاکه جمع باڬي ڤرکاتاٴن اين؟"],a:["سَاعَاتٌ","سَاعَتَانِ","سَاعُوْنَ"],e:["سَاعَةٌ ← سَاعَاتٌ (buang ة, tambah ات)","سَاعَةٌ ← سَاعَاتٌ (بواڠ ة، تمبه ات)"],p:58}
+  ]
+},
+{
+  id:8, ar:"فِي المَدْرَسَةِ", title:["Di Sekolah","د سکوله"], icon:"🏫", color:"#2C8FD6", pages:"61–65",
+  units:[["Nama tempat di sekolah","نام تمڤت د سکوله"],["Ayat: di mana?","ايات: د مان؟"]],
+  cards:[
+    {u:["Tempat di sekolah","تمڤت د سکوله"],p:61,vocab:SEKOLAH},
+    {u:["Baca dan ulang","باچ دان اولڠ"],p:62,sents:[["🚗","السَّيَّارَةُ فِيْ مَرْأَبِ السَّيَّارَةِ",["Kereta di dalam garaj","کريتا د دالم ڬاراج"]],["🚩","المُدِيْرُ فِيْ سَاحَةِ المَدْرَسَةِ",["Guru besar di dataran sekolah","ڬورو بسر د داترن سکوله"]],["🎤","التَّلَامِيْذُ فِي القَاعَةِ",["Murid-murid di dalam dewan","موريد٢ د دالم ديوان"]],["📚","المُدَرِّسُ فِي المَكْتَبَةِ",["Guru di perpustakaan","ڬورو د ڤرڤوستاکاٴن"]],["💻","التِّلْمِيْذَةُ أَمَامَ مَعْمَلِ الحَاسُوْبِ",["Murid perempuan di hadapan makmal komputer","موريد ڤرمڤوان د هادڤن مکمل کومڤوتر"]]]},
+    {u:["Renungkan","رنوڠکن"],p:65,ar:"قَالَ لَهُ مُوسَىٰ هَلْ أَتَّبِعُكَ عَلَىٰ أَنْ تُعَلِّمَنِ مِمَّا عُلِّمْتَ رُشْدًا",src:["Surah al-Kahfi: 66","سورة الکهف: 66"],mk:["Maksudnya: Nabi Musa berkata kepadanya: Bolehkah aku mengikutmu supaya engkau mengajarku ilmu yang menjadi petunjuk?","مقصودڽ: نبي موسى برکات کڤداڽ: بوليهکه اکو مڠيکوتمو سوڤايا اڠکاو مڠاجرکو علمو يڠ منجادي ڤتونجوق؟"],tip:["Amalkan: كُنْ تِلْمِيْذًا مِثَالِيًّا (Jadilah murid contoh)","عملکن: كُنْ تِلْمِيْذًا مِثَالِيًّا (جاديله موريد چونتوه)"]}
+  ],
+  qs:[
+    {type:"listen",say:"المَكْتَبَةُ",q:["Dengar dan pilih tempat yang betul.","دڠر دان ڤيليه تمڤت يڠ بتول."],a:["📚","🕌","🍛","💻"],e:["المَكْتَبَةُ = perpustakaan","المَكْتَبَةُ = ڤرڤوستاکاٴن"],p:61},
+    {type:"listen",say:"المُصَلَّى",q:["Dengar dan pilih tempat yang betul.","دڠر دان ڤيليه تمڤت يڠ بتول."],a:["🕌","📚","🚻","📦"],e:["المُصَلَّى = surau","المُصَلَّى = سوراو"],p:61},
+    {type:"hop",pic:"💻",q:["Apakah nama tempat ini?","اڤاکه نام تمڤت اين؟"],a:["مَعْمَلُ الحَاسُوْبِ","المَكْتَبَةُ","المَطْعَمُ","القَاعَةُ"],e:["مَعْمَلُ الحَاسُوْبِ = makmal komputer","مَعْمَلُ الحَاسُوْبِ = مکمل کومڤوتر"],p:61},
+    {type:"hop",pic:"🍛",q:["Apakah nama tempat ini?","اڤاکه نام تمڤت اين؟"],a:["المَطْعَمُ","المَخْزَنُ","المُصَلَّى","الإِدَارَةُ"],e:["المَطْعَمُ = kantin","المَطْعَمُ = کنتين"],p:61},
+    {type:"hop",ar:"دَوْرَةُ المِيَاهِ",q:["Apakah maksud perkataan ini?","اڤاکه مقصود ڤرکاتاٴن اين؟"],a:[["Tandas","تندس"],["Stor","ستور"],["Dewan","ديوان"],["Surau","سوراو"]],e:["دَوْرَةُ المِيَاهِ = tandas","دَوْرَةُ المِيَاهِ = تندس"],p:61},
+    {type:"hop",ar:"أَيْنَ السَّيَّارَةُ؟",q:["Jawab soalan ini.","جواب سوالن اين."],a:["فِيْ مَرْأَبِ السَّيَّارَةِ","فِي المَكْتَبَةِ","فِي المُصَلَّى","فِي المَطْعَمِ"],e:["Kereta di dalam garaj: فِيْ مَرْأَبِ السَّيَّارَةِ","کريتا د دالم ڬاراج: فِيْ مَرْأَبِ السَّيَّارَةِ"],p:64},
+    {type:"memory",q:["Memori teratai: padankan tempat dengan maksudnya.","مموري تراتاي: ڤادنکن تمڤت دڠن مقصودڽ."],pairs:[["المَخْزَنُ",["Stor","ستور"]],["القَاعَةُ",["Dewan","ديوان"]],["الإِدَارَةُ",["Pejabat","ڤجابت"]],["غُرْفَةُ المُعَلِّمِيْنَ",["Bilik guru","بيليق ڬورو"]]],e:["Hafaz nama tempat-tempat di sekolah!","حافظ نام تمڤت٢ د سکوله!"],p:61},
+    {type:"build",q:["Bina ayat: “Murid perempuan di hadapan makmal komputer.”","بينا ايات: “موريد ڤرمڤوان د هادڤن مکمل کومڤوتر.”"],words:["التِّلْمِيْذَةُ","أَمَامَ","مَعْمَلِ الحَاسُوْبِ"],e:["التِّلْمِيْذَةُ أَمَامَ مَعْمَلِ الحَاسُوْبِ","التِّلْمِيْذَةُ أَمَامَ مَعْمَلِ الحَاسُوْبِ"],p:62},
+    {type:"fly",q:["Tangkap lalat tempat yang ada di SEKOLAH!","تڠکڤ لالت تمڤت يڠ اد د سکوله!"],items:[["المُصَلَّى",true],["المَكْتَبَةُ",true],["القَاعَةُ",true],["المَطْعَمُ",true],["المَطَارُ",false],["البَنْكُ",false],["المَصْنَعُ",false]],e:["Surau, perpustakaan, dewan dan kantin ada di sekolah.","سوراو، ڤرڤوستاکاٴن، ديوان دان کنتين اد د سکوله."],p:61},
+    {type:"build",q:["Bina ayat: “Guru di perpustakaan.”","بينا ايات: “ڬورو د ڤرڤوستاکاٴن.”"],words:["المُدَرِّسُ","فِي","المَكْتَبَةِ"],e:["المُدَرِّسُ فِي المَكْتَبَةِ","المُدَرِّسُ فِي المَكْتَبَةِ"],p:62}
+  ]
+},
+{
+  id:9, ar:"فِي المَدِيْنَةِ", title:["Di Bandar","د بندر"], icon:"🏙️", color:"#A23B72", pages:"66–71",
+  units:[["Bangunan di bandar","بڠونن د بندر"],["Stesen dan pengangkutan","ستيسين دان ڤڠڠکوتن"],["Kata sifat","کات صفة"]],
+  cards:[
+    {u:["المَدِيْنَةُ رَائِعَةٌ • Bandar itu indah","المَدِيْنَةُ رَائِعَةٌ • بندر ايت ايندده"],p:67,vocab:BANDAR},
+    {u:["Perhati dan ulang","ڤرهاتي دان اولڠ"],p:68,sents:[["🚉","مَحَطَّةُ القِطَارِ نَظِيْفَةٌ",["Stesen kereta api itu bersih","ستيسين کريتا اڤي ايت برسيه"]],["🚌","مَحَطَّةُ الحَافِلَةِ جَدِيْدَةٌ",["Stesen bas itu baharu","ستيسين بس ايت بهارو"]],["🚕","مَحَطَّةُ سَيَّارَةِ الأُجْرَةِ قَدِيْمَةٌ",["Stesen teksi itu lama","ستيسين تيکسي ايت لام"]],["🏨","الفُنْدُقُ مَشْهُوْرٌ",["Hotel itu terkenal","هوتيل ايت ترکنل"]],["🛫","المَطَارُ وَاسِعٌ",["Lapangan terbang itu luas","لاڤڠن تربڠ ايت لواس"]]]},
+    {u:["Siapa bekerja di mana?","سياڤ برکرجا د مان؟"],p:69,sents:[["👨‍⚕️","الطَّبِيْبُ يَعْمَلُ فِي المُسْتَشْفَى",["Doktor bekerja di hospital","دوکتور برکرجا د هوسڤيتل"]],["🧑‍💼","المُوَظَّفُ يَعْمَلُ فِي البَنْكِ",["Pekerja bekerja di bank","ڤکرجا برکرجا د بڠک"]],["👷","المُهَنْدِسُ يَعْمَلُ فِي المَصْنَعِ",["Jurutera bekerja di kilang","جوروترا برکرجا د کيلڠ"]],["👨‍🏫","المُعَلِّمُ يَعْمَلُ فِي المَدْرَسَةِ",["Guru bekerja di sekolah","ڬورو برکرجا د سکوله"]],["👮","الشُّرْطِيُّ يَعْمَلُ فِي مَرْكَزِ الشُّرْطَةِ",["Polis bekerja di balai polis","ڤوليس برکرجا د بالاي ڤوليس"]]]},
+    {u:["Renungkan","رنوڠکن"],p:71,ar:"وَالتِّينِ وَالزَّيْتُونِ ۝ وَطُورِ سِينِينَ ۝ وَهَٰذَا الْبَلَدِ الْأَمِينِ",src:["Surah at-Tin: 1–3","سورة التين: 1–3"],mk:["Maksudnya: Demi buah tin dan zaitun, dan Gunung Tursina, serta negeri (Makkah) yang aman ini.","مقصودڽ: دمي بواه تين دان زيتون، دان ڬونوڠ طورسينا، سرتا نڬري (مکة) يڠ امان اين."],tip:["Amalkan: أَحِبَّ وَطَنَكَ (Cintailah tanah airmu)","عملکن: أَحِبَّ وَطَنَكَ (چينتايله تانه اٴيرمو)"]}
+  ],
+  qs:[
+    {type:"listen",say:"المُسْتَشْفَى",q:["Dengar dan pilih bangunan yang betul.","دڠر دان ڤيليه بڠونن يڠ بتول."],a:["🏥","🏦","🏨","🏭"],e:["المُسْتَشْفَى = hospital","المُسْتَشْفَى = هوسڤيتل"],p:67},
+    {type:"listen",say:"مَرْكَزُ الإِطْفَاءِ",q:["Dengar dan pilih bangunan yang betul.","دڠر دان ڤيليه بڠونن يڠ بتول."],a:["🚒","🚓","🏤","🛒"],e:["مَرْكَزُ الإِطْفَاءِ = balai bomba","مَرْكَزُ الإِطْفَاءِ = بالاي بومبا"],p:67},
+    {type:"hop",pic:"🏦",q:["Apakah nama bangunan ini?","اڤاکه نام بڠونن اين؟"],a:["البَنْكُ","الفُنْدُقُ","المَصْنَعُ","السُّوْقُ المَرْكَزِيُّ"],e:["البَنْكُ = bank","البَنْكُ = بڠک"],p:67},
+    {type:"hop",pic:"🛫",q:["Apakah nama tempat ini?","اڤاکه نام تمڤت اين؟"],a:["المَطَارُ","مَحَطَّةُ القِطَارِ","مَحَطَّةُ الحَافِلَةِ","مَكْتَبُ البَرِيْدِ"],e:["المَطَارُ = lapangan terbang","المَطَارُ = لاڤڠن تربڠ"],p:68},
+    {type:"hop",ar:"الطَّبِيْبُ يَعْمَلُ فِي ___",q:["Lengkapkan ayat ini.","لڠکڤکن ايات اين."],a:["المُسْتَشْفَى","البَنْكِ","المَصْنَعِ","المَطَارِ"],e:["الطَّبِيْبُ يَعْمَلُ فِي المُسْتَشْفَى: doktor bekerja di hospital.","الطَّبِيْبُ يَعْمَلُ فِي المُسْتَشْفَى: دوکتور برکرجا د هوسڤيتل."],p:69},
+    {type:"hop",ar:"الشُّرْطِيُّ يَعْمَلُ فِي ___",q:["Lengkapkan ayat ini.","لڠکڤکن ايات اين."],a:["مَرْكَزِ الشُّرْطَةِ","المُسْتَشْفَى","البَنْكِ","الفُنْدُقِ"],e:["Polis bekerja di balai polis.","ڤوليس برکرجا د بالاي ڤوليس."],p:70},
+    {type:"memory",q:["Memori teratai: padankan kata sifat dengan maksudnya.","مموري تراتاي: ڤادنکن کات صفة دڠن مقصودڽ."],pairs:[["نَظِيْفَةٌ",["Bersih","برسيه"]],["جَدِيْدَةٌ",["Baharu","بهارو"]],["قَدِيْمَةٌ",["Lama","لام"]],["وَاسِعٌ",["Luas","لواس"]]],e:["نَظِيْفَةٌ bersih, جَدِيْدَةٌ baharu, قَدِيْمَةٌ lama, وَاسِعٌ luas.","نَظِيْفَةٌ برسيه، جَدِيْدَةٌ بهارو، قَدِيْمَةٌ لام، وَاسِعٌ لواس."],p:68},
+    {type:"fly",q:["Tangkap lalat STESEN (مَحَطَّةٌ)!","تڠکڤ لالت ستيسين (مَحَطَّةٌ)!"],items:[["مَحَطَّةُ القِطَارِ",true],["مَحَطَّةُ الحَافِلَةِ",true],["مَحَطَّةُ سَيَّارَةِ الأُجْرَةِ",true],["البَنْكُ",false],["الفُنْدُقُ",false],["المَصْنَعُ",false]],e:["مَحَطَّةٌ bermaksud stesen.","مَحَطَّةٌ برمقصود ستيسين."],p:68},
+    {type:"build",q:["Bina ayat: “Stesen kereta api itu bersih.”","بينا ايات: “ستيسين کريتا اڤي ايت برسيه.”"],words:["مَحَطَّةُ","القِطَارِ","نَظِيْفَةٌ"],e:["مَحَطَّةُ القِطَارِ نَظِيْفَةٌ","مَحَطَّةُ القِطَارِ نَظِيْفَةٌ"],p:68},
+    {type:"listen",say:"سَيَّارَةُ الأُجْرَةِ",q:["Dengar dan pilih gambar yang betul.","دڠر دان ڤيليه ڬمبر يڠ بتول."],a:["🚕","🚌","🚆","✈️"],e:["سَيَّارَةُ الأُجْرَةِ = teksi","سَيَّارَةُ الأُجْرَةِ = تيکسي"],p:68}
+  ]
+}
+];
+
+const FINAL = {
+  ar:"بَطَلُ البِرْكَةِ", title:["Juara Kolam","جوارا کولم"], sub:["Cabaran Akhir • Pelajaran 1–9","چابرن اخير • ڤلاجرن 1–9"], icon:"👑", color:"#E8A317",
+  qs:[
+    {tag:"P1",type:"keypad",q:["Baca nombor ini, kemudian taip digitnya.","باچ نومبور اين، کمودين تايڤ ديجيتڽ."],w:NUM(299),n:299,e:["مِائَتَانِ وَتِسْعَةٌ وَتِسْعُوْنَ = 299","مِائَتَانِ وَتِسْعَةٌ وَتِسْعُوْنَ = 299"],p:7},
+    {tag:"P2",type:"listen",say:"كُرْسِيٌّ",q:["Dengar dan pilih gambar yang betul.","دڠر دان ڤيليه ڬمبر يڠ بتول."],a:["🪑","🛏️","🪞","📺"],e:["كُرْسِيٌّ = kerusi","كُرْسِيٌّ = کروسي"],p:10},
+    {tag:"P3",type:"hop",pic:"🍳",q:["Apakah ini dalam bahasa Arab?","اڤاکه اين دالم بهاس عرب؟"],a:["مِقْلَاةٌ","قِدْرٌ","صَحْنٌ","فِنْجَانٌ"],e:["مِقْلَاةٌ = kuali","مِقْلَاةٌ = کوالي"],p:18},
+    {tag:"P4",type:"order",cal:true,q:["Susun bulan Masihi 1 hingga 6.","سوسون بولن مسيحي 1 هيڠڬ 6."],items:MILADI.slice(0,6),e:["Januari, Februari, Mac, April, Mei, Jun.","جنواري، فيبرواري، مچ، اڤريل، مي، جون."],p:25},
+    {tag:"P5",type:"basket",q:["Mudhakkar atau mu'annath?","مذکر اتاو مؤنث؟"],l:[["المُذَكَّرُ",["Mudhakkar","مذکر"],"👦"],["المُؤَنَّثُ",["Mu'annath","مؤنث"],"👧"]],items:[["كِتَابٌ",0],["حَقِيْبَةٌ",1],["شَارِعٌ",0],["نَافِذَةٌ",1],["طَيَّارٌ",0],["طَبَّاخَةٌ",1]],e:["Mu'annath berakhir dengan ة.","مؤنث براخير دڠن ة."],p:31},
+    {tag:"P7",type:"magic",from:"مُعَلِّمٌ",to:["Jamak (ramai)","جمع (راماي)"],q:["Sihir! Tukar kepada jamak.","سيحير! توکر کڤد جمع."],a:["مُعَلِّمُوْنَ","مُعَلِّمَانِ","مُعَلِّمَةٌ"],e:["مُعَلِّمٌ + ون = مُعَلِّمُوْنَ","مُعَلِّمٌ + ون = مُعَلِّمُوْنَ"],p:46},
+    {tag:"P7",type:"basket",q:["Satu, dua atau ramai?","ساتو، دوا اتاو راماي؟"],l:[["المُفْرَدُ",["Satu","ساتو"],"🍎"],["المُثَنَّى",["Dua","دوا"],"🍎🍎"],["الجَمْعُ",["Ramai","راماي"],"🍎🍎🍎"]],items:[["الطَّبِيْبَاتُ",2],["البَابَانِ",1],["النَّجْمُ",0],["الكُتُبُ",2],["السَّاعَتَانِ",1],["المُهَنْدِسُ",0]],e:["ان = dua. ات / ون / bentuk berubah = ramai.","ان = دوا. ات / ون / بنتوق بروبه = راماي."],p:50},
+    {tag:"P3",type:"build",q:["Bina ayat: “Ibu memotong timun dengan pisau.”","بينا ايات: “ايبو مموتوڠ تيمون دڠن ڤيساو.”"],words:["الأُمُّ","تَقْطَعُ","الْخِيَارَ","بِالسِّكِّيْنِ"],e:["الأُمُّ تَقْطَعُ الْخِيَارَ بِالسِّكِّيْنِ","الأُمُّ تَقْطَعُ الْخِيَارَ بِالسِّكِّيْنِ"],p:19},
+    {tag:"P5 • P6",type:"fly",q:["Tangkap lalat MU'ANNATH!","تڠکڤ لالت مؤنث!"],items:[["سَيَّارَةٌ",true],["مُمَرِّضَةٌ",true],["دَجَاجَةٌ",true],["بَيْتٌ",false],["شُرْطِيٌّ",false],["جَزَرٌ",false]],e:["سَيَّارَةٌ، مُمَرِّضَةٌ dan دَجَاجَةٌ berakhir dengan ة.","سَيَّارَةٌ، مُمَرِّضَةٌ دان دَجَاجَةٌ براخير دڠن ة."],p:33},
+    {tag:"P8 • P9",type:"memory",q:["Memori teratai: padankan tempat dengan gambar.","مموري تراتاي: ڤادنکن تمڤت دڠن ڬمبر."],pairs:[["المَكْتَبَةُ","📚"],["المُصَلَّى","🕌"],["المُسْتَشْفَى","🏥"],["الفُنْدُقُ","🏨"]],e:["المَكْتَبَةُ perpustakaan, المُصَلَّى surau, المُسْتَشْفَى hospital, الفُنْدُقُ hotel.","المَكْتَبَةُ ڤرڤوستاکاٴن، المُصَلَّى سوراو، المُسْتَشْفَى هوسڤيتل، الفُنْدُقُ هوتيل."],p:61},
+    {tag:"P4",type:"hop",ar:"مَا الشَّهْرُ بَعْدَ رَمَضَانَ؟",q:["Jawab soalan ini.","جواب سوالن اين."],a:["شَوَّالٌ","شَعْبَانُ","رَجَبٌ","مُحَرَّمٌ"],e:["Selepas Ramadan ialah Syawal.","سلڤس رمضان اياله شوال."],p:24},
+    {tag:"P9",type:"listen",say:"المَطَارُ",q:["Dengar dan pilih gambar yang betul.","دڠر دان ڤيليه ڬمبر يڠ بتول."],a:["🛫","🚉","🏦","🏭"],e:["المَطَارُ = lapangan terbang","المَطَارُ = لاڤڠن تربڠ"],p:68},
+    {tag:"P6",type:"hop",ar:"؟ شُرْطِيٌّ",q:["Pilih mubtada': “Saya seorang polis.”","ڤيليه مبتدأ: “ساي سأورڠ ڤوليس.”"],a:["أَنَا","هِيَ","أَنْتِ","نَحْنُ"],e:["أَنَا شُرْطِيٌّ = Saya seorang polis.","أَنَا شُرْطِيٌّ = ساي سأورڠ ڤوليس."],p:40},
+    {tag:"P1",type:"listen",say:NUM(250),q:["Dengar nombor ini. Pilih digit yang betul.","دڠر نومبور اين. ڤيليه ديجيت يڠ بتول."],a:[["250","250"],["205","205"],["225","225"],["215","215"]],e:["مِائَتَانِ وَخَمْسُوْنَ = 250","مِائَتَانِ وَخَمْسُوْنَ = 250"],p:7}
+  ]
+};
+
+const PRAISE_R = ["Betul! MasyaAllah!","Hebat!","Tepat sekali!","Bagus!","Syabas!"];
+const PRAISE_J = ["بتول! ماشاءالله!","هيبت!","تڤت سکالي!","باڬوس!","شاباس!"];
+const TYPE_R = {hop:"🐸 Lompat teratai",listen:"🔊 Dengar & pilih",fly:"🪰 Tangkap lalat",keypad:"🔢 Taip nombor",basket:"🧺 Isi bakul",magic:"✨ Sihir perkataan",build:"🧱 Bina ayat",order:"📅 Susun ikut urutan",memory:"🪷 Memori teratai"};
+const TYPE_J = {hop:"🐸 لومڤت تراتاي",listen:"🔊 دڠر & ڤيليه",fly:"🪰 تڠکڤ لالت",keypad:"🔢 تايڤ نومبور",basket:"🧺 ايسي باکول",magic:"✨ سيحير ڤرکاتاٴن",build:"🧱 بينا ايات",order:"📅 سوسون ايکوت اوروتن",memory:"🪷 مموري تراتاي"};
+
+/* ============ STATE ============ */
+const app = document.getElementById("app");
+const $ = id => document.getElementById(id);
+const shuffle = arr => { const a=arr.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]} return a; };
+const pick = arr => arr[Math.floor(Math.random()*arr.length)];
+const wait = ms => new Promise(r=>setTimeout(r,ms));
+function load(k,f){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):f; }catch(e){ return f; } }
+function save(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+
+let best = Object.assign({1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0,final:0}, load("r3-best",{}));
+let lotus = load("r3-teratai",0);
+let teacher = load("r3-teacher",false);
+let muted = load("r3-muted",false);
+let lang = load("kafa-lang","jawi");
+let run = null, animTok = 0;
+const REDUCED = (()=>{ try{ return matchMedia("(prefers-reduced-motion: reduce)").matches; }catch(e){ return false; } })();
+const isJ = () => lang==="jawi";
+const tx = (r,j) => isJ() ? j : r;
+const L = s => Array.isArray(s) ? (isJ() ? s[1] : s[0]) : s;
+const R = s => Array.isArray(s) ? s[0] : s;
+const isAr = s => typeof s==="string" && /[؀-ۿ]/.test(s);
+const OPT = s => Array.isArray(s) ? `<span>${L(s)}</span>` : isAr(s) ? `<span class="ar" dir="rtl" lang="ar">${s}</span>` : `<span class="em">${s}</span>`;
+const P = s => isJ() ? String(s).replace(/P/g,"ڤ") : s;
+const BACK = () => isJ() ? "→" : "←";
+function applyLang(){ document.documentElement.dir = isJ() ? "rtl" : "ltr"; document.documentElement.lang = isJ() ? "ms-Arab" : "ms"; }
+const totalStars = () => Object.values(best).reduce((a,b)=>a+b,0);
+const unlocked = i => teacher || i===0 || best[LESSONS[i-1].id]>=1;
+const finalUnlocked = () => teacher || LESSONS.every(t=>best[t.id]>=1);
+function stopAnims(){ animTok++; hush(); }
+
+/* ============ BUNYI & SUARA ============ */
+let actx;
+function tone(freqs, dur=0.12, type="sine"){
+  if(muted) return;
+  try{
+    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    const t = actx.currentTime;
+    freqs.forEach((f,i)=>{
+      const o=actx.createOscillator(), g=actx.createGain();
+      o.type=type; o.frequency.value=f;
+      const s=t+i*dur;
+      g.gain.setValueAtTime(0.0001,s);
+      g.gain.exponentialRampToValueAtTime(0.18,s+0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001,s+dur);
+      o.connect(g).connect(actx.destination);
+      o.start(s); o.stop(s+dur+0.02);
+    });
+  }catch(e){}
+}
+const sfx = { ok:()=>tone([660,880]), bad:()=>tone([240,180],0.15,"triangle"), tap:()=>tone([520],0.06,"triangle"), boing:()=>tone([300,600,900],0.07), splash:()=>tone([200,140],0.12,"sawtooth"), slurp:()=>tone([900,500],0.06), magic:()=>tone([784,988,1319,1568],0.07), win:()=>tone([523,659,784,1047],0.14) };
+const ttsOK = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+let voiceMs = null, voiceAr = null;
+function pickVoice(){ try{ const vs=speechSynthesis.getVoices(); voiceMs = vs.find(v=>/^ms/i.test(v.lang)) || vs.find(v=>/^id/i.test(v.lang)) || null; voiceAr = vs.find(v=>/^ar/i.test(v.lang)) || null; }catch(e){} }
+if(ttsOK){ pickVoice(); try{ speechSynthesis.onvoiceschanged = pickVoice; }catch(e){} }
+function say(text, ar){
+  if(!ttsOK || !text) return;
+  try{
+    speechSynthesis.cancel();
+    const t = ar ? String(text).replace(/[؟?_]+/g,"") : String(text).replace(/\bSAW\b/g,"sallallahu alaihi wasallam").replace(/[“”…]/g,"").replace(/[؀-ۿ]+/g,"").replace(/\p{Extended_Pictographic}/gu,"");
+    const u = new SpeechSynthesisUtterance(t);
+    const v = ar ? voiceAr : voiceMs;
+    u.lang = v ? v.lang : (ar ? "ar-SA" : "ms-MY");
+    if(v) u.voice = v;
+    u.rate = ar ? 0.75 : 0.9;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+const speakAr = t => say(t, true);
+function hush(){ if(ttsOK){ try{ speechSynthesis.cancel(); }catch(e){} } }
+
+/* ============ GRAFIK ============ */
+function mascot(mood="idle", cls=""){
+  // Koko si katak
+  const mouth = mood==="sad"
+    ? `<path d="M46 74 Q60 64 74 74" stroke="#1D3324" stroke-width="3.5" fill="none" stroke-linecap="round"/>`
+    : `<path d="M40 64 Q60 84 80 64" stroke="#1D3324" stroke-width="3.5" fill="#E8607A" stroke-linecap="round"/>`;
+  return `<svg class="mascot ${mood} ${cls}" viewBox="0 0 120 104" aria-hidden="true">
+    <ellipse cx="22" cy="92" rx="18" ry="8" fill="#3E9B4A"/><ellipse cx="98" cy="92" rx="18" ry="8" fill="#3E9B4A"/>
+    <ellipse cx="60" cy="66" rx="44" ry="31" fill="#5CC46B"/>
+    <ellipse cx="60" cy="76" rx="27" ry="17" fill="#C8F0B8"/>
+    <circle cx="36" cy="32" r="17" fill="#5CC46B"/><circle cx="84" cy="32" r="17" fill="#5CC46B"/>
+    <circle cx="36" cy="31" r="11" fill="#fff"/><circle cx="84" cy="31" r="11" fill="#fff"/>
+    <circle cx="38" cy="32" r="6" fill="#1D3324"/><circle cx="86" cy="32" r="6" fill="#1D3324"/>
+    <circle cx="40" cy="30" r="2" fill="#fff"/><circle cx="88" cy="30" r="2" fill="#fff"/>
+    <circle cx="28" cy="64" r="6" fill="#F7A3B5" opacity=".8"/><circle cx="92" cy="64" r="6" fill="#F7A3B5" opacity=".8"/>
+    ${mouth}
+    <ellipse cx="36" cy="96" rx="9" ry="5" fill="#3E9B4A"/><ellipse cx="84" cy="96" rx="9" ry="5" fill="#3E9B4A"/>
+  </svg>`;
+}
+const LOTUS = `<span aria-hidden="true">🪷</span>`;
+const starsHTML = n => [0,1,2].map(i=>`<span class="${i<n?"":"off"}">⭐</span>`).join("");
+const muteBtn = () => `<button class="iconbtn" data-act="mute" aria-label="${muted?"Hidupkan bunyi":"Matikan bunyi"}">${muted?"🔇":"🔊"}</button>`;
+function toast(msg){
+  document.querySelectorAll(".toast").forEach(t=>t.remove());
+  const t=document.createElement("div"); t.className="toast"; t.setAttribute("role","status"); t.textContent=msg;
+  document.body.appendChild(t); setTimeout(()=>t.remove(),2800);
+}
+function sparkle(el, txt){
+  const r = el.getBoundingClientRect(), s = document.createElement("span");
+  s.className="sparkle"; s.textContent = txt; s.style.left=(r.left+r.width/2-13)+"px"; s.style.top=(r.top+r.height/4)+"px";
+  document.body.appendChild(s); setTimeout(()=>s.remove(),900);
+}
+
+/* ============ PETA KOLAM ============ */
+function renderMap(){
+  stopAnims(); run = null;
+  const nodes = [...LESSONS.map((t,i)=>({t,i})), {final:true}];
+  const rowH = 205, top = 110, H = top + nodes.length*rowH;
+  const xs = nodes.map((_,i)=> 50 + 21*Math.sin(i*1.15));
+  const ys = nodes.map((_,i)=> top + i*rowH);
+  let d = `M ${xs[0]} ${ys[0]}`;
+  for(let i=1;i<nodes.length;i++) d += ` C ${xs[i-1]} ${ys[i-1]+rowH*.5}, ${xs[i]} ${ys[i]-rowH*.5}, ${xs[i]} ${ys[i]}`;
+  let current = LESSONS.findIndex(t=>best[t.id]<1);
+  if(current<0) current = LESSONS.length;
+  if(current<LESSONS.length && !unlocked(current)) current = -1;
+  const padHTML = nodes.map((n,i)=>{
+    const x = xs[i], y = ys[i];
+    if(n.final){
+      const open = finalUnlocked();
+      return `<button class="pad ${open?"":"locked"} ${current===LESSONS.length?"current":""}" style="left:${x}%;top:${y}px;--tc:#D4A017" data-act="station" data-i="final">
+        <span class="leaf"><span class="ic">${open?FINAL.icon:"🔒"}</span>${best.final>=1?`<span class="bloom">🏆</span>`:""}</span>
+        <span class="lbl"><span class="ar" lang="ar">${FINAL.ar}</span><small>${L(FINAL.title)}</small></span>
+        <span class="st">${starsHTML(best.final)}</span></button>`;
+    }
+    const t = n.t, open = unlocked(n.i);
+    return `<button class="pad ${open?"":"locked"} ${current===n.i?"current":""}" style="left:${x}%;top:${y}px;--tc:${t.color}" data-act="station" data-i="${n.i}" aria-label="${tx("Pelajaran","ڤلاجرن")} ${t.id}: ${L(t.title)}">
+      <span class="leaf"><span class="ic">${open?t.icon:"🔒"}</span><span class="no">${AD(t.id)}</span>${best[t.id]>=1?`<span class="bloom">🪷</span>`:""}</span>
+      <span class="lbl"><span class="ar" lang="ar">${t.ar}</span><small>${L(t.title)}</small></span>
+      <span class="st">${starsHTML(best[t.id])}</span></button>`;
+  }).join("");
+  const prevFrog = load("r3-frog", current);
+  const startAt = current>=0 && prevFrog>=0 && prevFrog<nodes.length ? prevFrog : current;
+  const frog = current>=0 ? `<div class="mfrog" id="mfrog" style="left:${xs[startAt]}%;top:${ys[startAt]-30}px">${mascot()}</div>` : "";
+  const ripples = [[12,180],[80,320],[20,620],[70,880],[40,1100],[85,1250]].filter(r=>r[1]<H).map(([x,y],i)=>`<span class="ripple" style="left:${x}%;top:${y}px;animation-delay:-${i*0.7}s"></span>`).join("");
+  const deco = [[6,260,"🪷"],[90,520,"🪷"],[8,820,"🪷"],[88,1060,"🪷"],[92,140,"🌾"],[3,420,"🌾"],[94,760,"🌾"],[4,1180,"🌾"]].filter(r=>r[1]<H-40).map(([x,y,e])=>`<span class="${e==="🌾"?"reed":"deco"}" style="left:${x}%;top:${y}px">${e}</span>`).join("");
+  const fish = [300,700,1000].filter(y=>y<H).map((y,i)=>`<span class="fishsh" style="top:${y}px;animation-duration:${16+i*5}s;animation-delay:-${i*4}s"></span>`).join("");
+  app.innerHTML = `
+    <div class="topbar">
+      <div class="stats"><a class="iconbtn" href="../index.html" aria-label="${tx("Kembali ke Tahun 3","کمبالي ک تاهون 3")}">${BACK()}</a><span class="pillstat" aria-label="${lotus} teratai">${LOTUS} ${lotus}</span><span class="pillstat" aria-label="${totalStars()} bintang">⭐ ${totalStars()}</span></div>
+      <span style="display:flex;gap:8px"><button class="langbtn" data-act="lang" aria-label="${tx("Tukar ke tulisan Jawi","Tukar ke tulisan Rumi")}">${isJ()?"Rumi":'<span class="ar">جاوي</span>'}</button>${muteBtn()}</span>
+    </div>
+    <header class="hero">
+      <span class="badge">${tx("Bahasa Arab Tahun 3 • KAFA","بهاس عرب تاهون 3 • کافا")}</span>
+      <h1>${tx("Lompat Katak","لومڤت کاتق")}</h1>
+      <span class="arsub" lang="ar">هَيَّا نَتَعَلَّمُ العَرَبِيَّةَ</span>
+      <p>${tx("Bantu Koko si katak melompat dari daun ke daun. Lulus setiap pelajaran untuk mekarkan bunga teratai!","بنتو کوکو سي کاتق ملومڤت دري داٴون ک داٴون. لولوس ستياڤ ڤلاجرن اونتوق ميکرکن بوڠا تراتاي!")}</p>
+    </header>
+    <div class="pondmap" style="height:${H}px">
+      ${ripples}${fish}${deco}<span class="bfly" style="top:60px">🦋</span>
+      <svg class="trail" viewBox="0 0 100 ${H}" preserveAspectRatio="none" aria-hidden="true"><path d="${d}" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 16" vector-effect="non-scaling-stroke"/></svg>
+      ${padHTML}${frog}
+    </div>
+    <div class="teacher"><button class="toggle" data-act="teacher" aria-pressed="${teacher}"><span class="sw" aria-hidden="true"></span>${tx("Mod guru: buka semua pelajaran","مود ڬورو: بوک سموا ڤلاجرن")}</button></div>
+    <p class="foot">${tx("Kandungan berdasarkan Buku Teks Bahasa Arab Tahun 3 (JAIS). Tekan perkataan Arab untuk mendengar sebutannya.","کندوڠن برداسرکن بوکو تيکس بهاس عرب تاهون 3 (جايس). تکن ڤرکاتاٴن عرب اونتوق مندڠر سبوتنڽ.")}</p>`;
+  if(current>=0){
+    save("r3-frog", current);
+    if(startAt!==current){
+      const f = $("mfrog"), tok = animTok;
+      setTimeout(()=>{ if(tok!==animTok) return; f.classList.add("hopping"); f.style.left = xs[current]+"%"; f.style.top = (ys[current]-30)+"px"; sfx.boing(); }, 500);
+    }
+  }
+}
+
+/* ============ STESEN ============ */
+function openStation(key){
+  stopAnims();
+  const isFinal = key==="final";
+  if(isFinal && !finalUnlocked()){ sfx.bad(); toast("🔒 "+tx("Lulus semua 9 pelajaran (sekurang-kurangnya 1 bintang) untuk membuka Juara Kolam.","لولوس سموا 9 ڤلاجرن (سکورڠ٢ڽ 1 بينتڠ) اونتوق ممبوک جوارا کولم.")); return; }
+  if(!isFinal && !unlocked(+key)){ sfx.bad(); toast("🔒 "+tx(`Lulus Pelajaran ${+key} dahulu.`,`لولوس ڤلاجرن ${+key} دهولو.`)); return; }
+  run = {station:key};
+  const top = `<div class="topbar"><button class="iconbtn" data-act="map" aria-label="${tx("Kembali ke kolam","کمبالي ک کولم")}">${BACK()}</button><span class="pillstat">${LOTUS} ${lotus}</span></div>`;
+  if(isFinal){
+    app.innerHTML = `${top}
+      <div class="banner page-in" style="--tc:${FINAL.color}">
+        <div class="kick">${L(FINAL.sub)}</div><span class="arh" lang="ar">${FINAL.ar}</span><h2>${L(FINAL.title)}</h2>
+        <div class="stars">${starsHTML(best.final)}</div><span class="big" aria-hidden="true">👑</span>
+      </div>
+      <ul class="units" style="--tc:${FINAL.color}">${LESSONS.map(t=>`<li><span class="u">${P("P"+t.id)}</span><span class="ar" lang="ar" style="font-size:19px">${t.ar}</span></li>`).join("")}</ul>
+      <div class="actions"><button class="bigbtn play" data-act="play"><span class="e" aria-hidden="true">🐸</span><span>${tx("Mula Cabaran Akhir","مولا چابرن اخير")}<small>${FINAL.qs.length} ${tx("soalan pelbagai jenis","سوالن ڤلباڬاي جنيس")}</small></span></button></div>`;
+    window.scrollTo(0,0); return;
+  }
+  const t = LESSONS[+key];
+  app.innerHTML = `${top}
+    <div class="banner page-in" style="--tc:${t.color}">
+      <div class="kick">${tx("Pelajaran","ڤلاجرن")} ${t.id} • ${tx("Buku teks ms.","بوکو تيکس م.س.")} ${t.pages}</div><span class="arh" lang="ar">${t.ar}</span><h2>${L(t.title)}</h2>
+      <div class="stars">${starsHTML(best[t.id])}</div><span class="big" aria-hidden="true">${t.icon}</span>
+    </div>
+    <ul class="units" style="--tc:${t.color}">${t.units.map((u,i)=>`<li><span class="u">${tx("Unit","اونيت")} ${i+1}</span>${L(u)}</li>`).join("")}</ul>
+    <div class="actions">
+      <button class="bigbtn read" data-act="read"><span class="e" aria-hidden="true">📖</span><span>${tx("Dengar & Baca","دڠر & باچ")}<small>${t.cards.length} ${tx("kad bersuara","کد برسوارا")}</small></span></button>
+      <button class="bigbtn play" data-act="play"><span class="e" aria-hidden="true">🐸</span><span>${tx("Mula Melompat","مولا ملومڤت")}<small>${t.qs.length} ${tx("soalan, 9 jenis permainan","سوالن، 9 جنيس ڤرماٴينن")}</small></span></button>
+    </div>`;
+  window.scrollTo(0,0);
+}
+
+/* ============ DENGAR & BACA ============ */
+function startRead(){ run.c = 0; showCard(); }
+function showCard(){
+  stopAnims();
+  const t = LESSONS[+run.station], c = t.cards[run.c], n = t.cards.length;
+  run.say = [R(c.t), R(c.rule), R(c.mk), R(c.tip)].filter(Boolean).join(". ").replace(/<[^>]+>/g,"");
+  let body = `<span class="unitlbl">${L(c.u)}</span>`;
+  if(c.t) body += `<p class="readtext">${L(c.t)}</p>`;
+  if(c.dlg) body += `<div class="dlg">${c.dlg.map(([who,nm,a,m],i)=>`<div class="dl ${i%2?"r":""}" style="--d:${i*0.5}s"><span class="who" aria-hidden="true">${who}</span><div class="b"><em>${L(nm)}</em><span class="ar" lang="ar">${a}</span><small>${L(m)}</small></div><button data-act="sayar" data-w="${a}" aria-label="${tx("Dengar","دڠر")}">🔊</button></div>`).join("")}</div>`;
+  if(c.vocab) body += `<p class="hint">👆 ${tx("Tekan perkataan untuk mendengar sebutan.","تکن ڤرکاتاٴن اونتوق مندڠر سبوتن.")}</p><div class="vgrid">${c.vocab.map((w,i)=>`<button class="vt" style="--i:${i}" data-act="sayar" data-w="${w.a}">${w.e?`<span class="em" aria-hidden="true">${w.e}</span>`:""}<span class="ar" lang="ar">${w.a}</span><small>${L(w.m)}</small></button>`).join("")}</div>`;
+  if(c.nums) body += `<p class="hint">👆 ${tx("Tekan nombor untuk mendengar sebutan.","تکن نومبور اونتوق مندڠر سبوتن.")}</p><div class="ngrid">${c.nums.map((x,i)=>`<button class="nt vt" style="--i:${i}" data-act="sayar" data-w="${NUM(x)}"><b>${x}<small>${AD(x)}</small></b><span class="ar" lang="ar">${NUM(x)}</span></button>`).join("")}</div>`;
+  if(c.sents) body += `<div class="sents">${c.sents.map(([e,a,m],i)=>`<button class="sent vt" style="--i:${i}" data-act="sayar" data-w="${a}"><span class="em" aria-hidden="true">${e}</span><span class="tx"><span class="ar" lang="ar">${a}</span><small>${L(m)}</small></span>🔊</button>`).join("")}</div>`;
+  if(c.table) body += `<table class="ttable"><tr>${c.table.h.map(h=>`<th>${h}</th>`).join("")}<th></th></tr>${c.table.rows.map(r=>`<tr>${r.slice(0,3).map(x=>isAr(x)?`<td><button class="vt" style="all:unset;cursor:pointer" data-act="sayar" data-w="${x}"><span class="ar" lang="ar">${x}</span></button></td>`:`<td style="font-size:26px">${x}</td>`).join("")}<td><small>${L(r[3])}</small></td></tr>`).join("")}</table>`;
+  if(c.rule) body += `<div class="rule">💡 ${L(c.rule)}${(c.ex||[]).map(x=>`<span class="ex">${x}</span>`).join("")}</div>`;
+  if(c.ar) body += `<div class="arbox"><span class="ar" lang="ar">${c.ar}</span>${c.src?`<small>${L(c.src)}</small>`:""}</div>`;
+  if(c.mk) body += `<p class="maksud">${L(c.mk)}</p>`;
+  if(c.tip) body += `<div class="tip"><b>🌟 ${tx("Ingat!","ايڠت!")}</b>${L(c.tip)}</div>`;
+  body += `<p class="ref" style="margin:-4px 0 12px">📖 ${tx("Buku teks ms.","بوکو تيکس م.س.")} ${c.p}</p>`;
+  app.innerHTML = `
+    <div class="gamehead"><button class="iconbtn" data-act="station-back" aria-label="${tx("Kembali","کمبالي")}">${BACK()}</button><h2>${tx("Dengar & Baca","دڠر & باچ")}<small>${L(t.title)}</small></h2><span class="pill">${run.c+1}/${n}</span></div>
+    <div class="progress"><span style="width:${Math.round((run.c+1)/n*100)}%"></span></div>
+    <div class="card page-in" style="--tc:${t.color}">
+      ${body}
+      <div class="navrow">
+        <button class="secondary" data-act="cprev" aria-label="${tx("Kad sebelum","کد سبلوم")}" ${run.c===0?"disabled":""}>${isJ()?"▶":"◀"}</button>
+        ${ttsOK&&run.say?`<button class="pill" data-act="say" style="padding:9px 12px">🔊 ${tx("Dengar","دڠر")}</button>`:"<span></span>"}
+        <button class="primary" data-act="cnext">${run.c+1<n?tx("Seterusnya","ستروسڽ"):tx("Mula Melompat","مولا ملومڤت")} ${isJ()?"◀":"▶"}</button>
+      </div>
+      <div class="dots" aria-hidden="true">${[...Array(n)].map((_,i)=>`<i class="${i===run.c?"on":""}"></i>`).join("")}</div>
+    </div>`;
+}
+
+/* ============ CABARAN ============ */
+function startPlay(){
+  const src = run.station==="final" ? FINAL.qs : LESSONS[+run.station].qs;
+  run = Object.assign(run, {qs:shuffle(src), i:0, score:0, lotus:0, streak:0});
+  showQ();
+}
+function qTitle(){
+  if(run.station==="final") return `${L(FINAL.title)}<small>${L(FINAL.sub)}</small>`;
+  const t = LESSONS[+run.station];
+  return `${tx("Pelajaran","ڤلاجرن")} ${t.id}<small>${L(t.title)}</small>`;
+}
+const FLYPOS = [[20,14],[52,9],[82,15],[16,35],[48,31],[80,36],[30,53],[68,53]];
+
+function showQ(){
+  stopAnims();
+  const q = run.qs[run.i];
+  run.q = q; run.done = false; run.mist = 0;
+  run.say = R(q.q);
+  let body = "";
+  switch(q.type){
+    case "hop": {
+      run.opts = shuffle(q.a.map((t,i)=>({t,ok:i===0})));
+      const pr = q.pic ? `<span class="pe" aria-hidden="true">${q.pic}</span>` : q.dg ? `<span class="dg">${AD(q.dg)}<small>${q.dg}</small></span>` : q.ar ? `<button data-act="sayar" data-w="${q.ar}" style="all:unset;cursor:pointer"><span class="ar" lang="ar">${q.ar}</span></button>` : "";
+      body = `${pr?`<div class="prompt">${pr}</div>`:""}
+        <div class="lily" id="lily"><div class="lilies">${run.opts.map((o,k)=>`<button class="lp" data-act="hop" data-k="${k}">${OPT(o.t)}</button>`).join("")}</div><div class="qfrog" id="qfrog">${mascot()}</div></div>`;
+      break; }
+    case "listen":
+      run.opts = shuffle(q.a.map((t,i)=>({t,ok:i===0})));
+      body = `<div class="speaker"><button class="big" data-act="hear" aria-label="${tx("Dengar perkataan","دڠر ڤرکاتاٴن")}">🔊</button><button class="reveal" data-act="reveal">👁️ ${tx("Tunjuk perkataan","تونجوق ڤرکاتاٴن")}</button></div>
+        <div class="heard" id="heard"></div>
+        <div class="tiles">${run.opts.map((o,k)=>`<button class="tile ${Array.isArray(o.t)?"txt":""}" data-act="tile" data-k="${k}">${OPT(o.t)}</button>`).join("")}</div>`;
+      break;
+    case "fly": {
+      run.left = q.items.filter(x=>x[1]).length;
+      const pos = shuffle(FLYPOS);
+      body = `<p class="hint">${tx("Tekan lalat yang betul. Koko akan menangkapnya!","تکن لالت يڠ بتول. کوکو اکن منڠکڤڽ!")} <span class="counter" id="fleft">🪰 ${run.left} ${tx("lagi","لاڬي")}</span></p>
+        <div class="flyzone" id="fz"><span class="padbase"></span><div class="ffrog" id="ffrog">${mascot()}</div>
+        ${shuffle(q.items.map((it,i)=>({it,i}))).map((o,k)=>`<button class="fly" data-act="fly" data-i="${o.i}" style="left:${pos[k][0]}%;top:${pos[k][1]+8}%;--t:${2.4+k%3*0.6}s;--d:-${k*0.4}s"><span class="bug" aria-hidden="true">🪰</span><span class="w ar" lang="ar">${o.it[0]}</span></button>`).join("")}</div>`;
+      break; }
+    case "keypad":
+      run.entry = "";
+      body = `<button class="numwords" data-act="sayar" data-w="${q.w}" style="width:100%;font:inherit;color:inherit;cursor:pointer"><span class="ar" lang="ar">${q.w}</span> 🔊</button>
+        <div class="screen" id="screen" dir="ltr"></div>
+        <div class="keys" dir="ltr">${[1,2,3,4,5,6,7,8,9].map(n=>`<button class="key" data-act="key" data-n="${n}">${n}<small>${AD(n)}</small></button>`).join("")}<button class="key" data-act="key" data-n="del" aria-label="${tx("Padam","ڤادم")}">⌫</button><button class="key" data-act="key" data-n="0">0<small>${AD(0)}</small></button><button class="key ent" data-act="key" data-n="ok" aria-label="${tx("Semak","سيمق")}">✔</button></div>`;
+      break;
+    case "basket":
+      run.queue = shuffle(q.items); run.si = 0;
+      body = `<div class="wordcard" id="wc"></div>
+        <div class="baskets n${q.l.length}" dir="rtl">${q.l.map(([a,m,ic],k)=>`<button class="basket" data-act="bsk" data-g="${k}" id="bk${k}"><span class="bl"><span class="ar" lang="ar">${a}</span><br>${L(m)}</span><span class="be" aria-hidden="true">${ic}</span><span class="got" id="got${k}"></span></button>`).join("")}</div>`;
+      break;
+    case "magic":
+      run.opts = shuffle(q.a.map((t,i)=>({t,ok:i===0})));
+      body = `<div class="magic" id="mg">${[[8,12],[88,18],[15,80],[84,74],[50,8]].map(([x,y],i)=>`<span class="st" style="left:${x}%;top:${y}%;animation-delay:${i*.4}s" aria-hidden="true">✨</span>`).join("")}<span class="from" id="mgw" lang="ar">${q.from}</span><span class="to">➡ ${L(q.to)}</span></div>
+        <p class="hint">${tx("Pilih ramuan sihir yang betul!","ڤيليه راموان سيحير يڠ بتول!")}</p>
+        <div class="potions">${run.opts.map((o,k)=>`<button class="potion" data-act="potion" data-k="${k}">${OPT(o.t)}</button>`).join("")}</div>`;
+      break;
+    case "build":
+      run.next = 0;
+      body = `<p class="hint">${tx("Tekan blok perkataan mengikut urutan ayat (dari kanan).","تکن بلوک ڤرکاتاٴن مڠيکوت اوروتن ايات (دري کانن).")}</p>
+        <div class="sentence" dir="rtl">${q.words.map((_,i)=>`<span class="bslot" id="w${i}">؟</span>`).join("")}</div>
+        <div class="blocks" dir="rtl">${shuffle(q.words.map((w,i)=>({w,i}))).map(o=>`<button class="block" data-act="block" data-i="${o.i}">${OPT(o.w)}</button>`).join("")}</div>`;
+      break;
+    case "order":
+      run.next = 0;
+      body = `<p class="hint">${tx("Tekan mengikut urutan, bermula dengan yang pertama.","تکن مڠيکوت اوروتن، برمولا دڠن يڠ ڤرتام.")}</p>
+        <div class="calslots" dir="rtl">${q.items.map((_,i)=>`<div class="cal" id="s${i}"><span class="cn">${AD(i+1)}</span>📅</div>`).join("")}</div>
+        <div class="calchips">${shuffle(q.items.map((t,i)=>({t,i}))).map(o=>`<button class="calchip" data-act="ord" data-i="${o.i}">${OPT(o.t)}</button>`).join("")}</div>`;
+      break;
+    case "memory": {
+      const cards = shuffle(q.pairs.flatMap((p,i)=>[{t:p[0],i},{t:p[1],i}]));
+      run.mem = {first:null, lock:false, found:0, cards};
+      body = `<p class="hint">${tx("Terbalikkan dua daun teratai. Cari pasangannya!","تربالقکن دوا داٴون تراتاي. چاري ڤاسڠنڽ!")}</p>
+        <div class="memo">${cards.map((c,k)=>`<button class="mcard" data-act="mem" data-k="${k}" aria-label="${tx("Daun","داٴون")} ${k+1}"><span class="bk" aria-hidden="true">🪷</span><span class="fc">${OPT(c.t)}</span></button>`).join("")}</div>`;
+      break; }
+  }
+  const tag = q.tag ? `<span class="tag">${P(q.tag)}</span>` : "";
+  app.innerHTML = `
+    <div class="gamehead"><button class="iconbtn" data-act="station-back" aria-label="${tx("Kembali","کمبالي")}">${BACK()}</button><h2>${qTitle()}</h2><span class="pillstat">${LOTUS} ${run.lotus}</span></div>
+    <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="${run.qs.length}" aria-valuenow="${run.i}"><span style="width:${Math.round(run.i/run.qs.length*100)}%"></span></div>
+    <div class="card page-in">
+      <div class="qmeta"><span><span class="qtype">${(isJ()?TYPE_J:TYPE_R)[q.type]}</span>${tag}</span><span style="display:flex;gap:6px;align-items:center"><span style="color:var(--muted);font-size:15px">${run.i+1}/${run.qs.length}</span>${ttsOK?`<button class="pill" data-act="say" aria-label="${tx("Dengar soalan","دڠر سوالن")}">🔊</button>`:""}</span></div>
+      <p class="qtext">${L(q.q)}</p>
+      ${body}
+      <div id="fb" aria-live="polite"></div>
+    </div>`;
+  if(q.type==="listen"){
+    const tok = animTok;
+    if(!ttsOK || (speechSynthesis.getVoices().length && !voiceAr)) reveal(true);
+    setTimeout(()=>{ if(tok===animTok) speakAr(q.say); }, 400);
+  }
+  if(q.type==="keypad") drawScreen();
+  if(q.type==="basket") showWord();
+}
+function reveal(auto){
+  const h = $("heard"); if(!h) return;
+  h.innerHTML = `<span class="ar" lang="ar">${run.q.say}</span>${auto?`<br><small style="color:var(--muted);font-weight:700">${tx("Suara Arab tiada pada peranti ini. Baca perkataannya.","سوارا عرب تياد ڤد ڤرانتي اين. باچ ڤرکاتاٴنڽ.")}</small>`:""}`;
+}
+
+function finishQ(ok, extra=""){
+  run.done = true;
+  if(ok){ run.score++; run.lotus++; run.streak++; } else run.streak = 0;
+  const q = run.q, last = run.i+1 >= run.qs.length;
+  const title = ok ? (run.mist ? tx("Bagus, hampir sempurna!","باڬوس، همڤير سمڤورنا!") : pick(isJ()?PRAISE_J:PRAISE_R)) : tx("Tidak mengapa, mari belajar!","تيدق مڠاڤ، ماري بلاجر!");
+  const ex = L(q.e).replace(/([؀-ۿ][؀-ۿً-ْ\s،]*[؀-ۿً-ْ])/g, m => isJ() ? m : `<span class="ar" lang="ar">${m}</span>`);
+  $("fb").innerHTML = `<div class="feedback">${mascot(ok?"happy":"sad")}<div><strong>${title}</strong>${ok?`<span class="streak">+1 ${tx("teratai","تراتاي")} 🪷</span> `:""}${ok&&run.streak>=3?`<span class="streak">🔥 ${run.streak} ${tx("berturut-turut!","برتوروت٢!")}</span>`:""}<br>${extra}${ex}<div class="ref">📖 ${tx("Rujuk buku teks ms.","روجوق بوکو تيکس م.س.")} ${q.p}</div></div></div>
+    <button class="primary" data-act="next">${last?tx("Lihat keputusan","ليهت کڤوتوسن"):tx("Soalan seterusnya","سوالن ستروسڽ")}</button>`;
+  ok ? sfx.ok() : sfx.bad();
+  const b = $("fb").querySelector(".primary"); b.focus({preventScroll:true}); b.scrollIntoView({block:"nearest",behavior:REDUCED?"auto":"smooth"});
+}
+
+/* Lompat teratai */
+function ansHop(k){
+  if(run.done || run.busy) return;
+  run.busy = true;
+  const btns = [...app.querySelectorAll(".lp")];
+  btns.forEach(b=>b.disabled=true);
+  const right = run.opts.findIndex(o=>o.ok), ok = k===right, tok = animTok;
+  const lily = $("lily"), frog = $("qfrog"), lr = lily.getBoundingClientRect(), br = btns[k].getBoundingClientRect(), fr = frog.getBoundingClientRect();
+  const dx = (br.left+br.width/2) - (fr.left+fr.width/2), dy = (br.top+br.height/2) - (fr.top+fr.height*0.7);
+  sfx.boing();
+  frog.classList.add("jump"); frog.style.transform = `translate(${dx}px,${dy}px)`;
+  setTimeout(()=>{
+    if(tok!==animTok) return;
+    run.busy = false;
+    if(ok){ btns[k].classList.add("ok"); sparkle(btns[k],"🪷"); }
+    else {
+      btns[k].classList.add("bad"); frog.classList.add("sink"); sfx.splash();
+      const s = document.createElement("span"); s.className="splash"; s.textContent="💦";
+      s.style.left = (br.left-lr.left+br.width/2-22)+"px"; s.style.top = (br.top-lr.top+br.height/2-30)+"px"; lily.appendChild(s);
+      btns[right].classList.add("ok");
+    }
+    hush(); finishQ(ok);
+  }, REDUCED?0:820);
+}
+/* Dengar & pilih */
+function ansTile(k){
+  if(run.done) return;
+  const btns = [...app.querySelectorAll(".tile")];
+  btns.forEach(b=>b.disabled=true);
+  const right = run.opts.findIndex(o=>o.ok), ok = k===right;
+  btns[right].classList.add("ok"); if(!ok) btns[k].classList.add("bad","shake");
+  reveal(false);
+  hush(); finishQ(ok);
+}
+/* Tangkap lalat */
+function ansFly(b){
+  if(run.done || b.disabled) return;
+  const it = run.q.items[+b.dataset.i];
+  b.disabled = true;
+  if(it[1]){
+    const fz = $("fz"), zr = fz.getBoundingClientRect(), fr = $("ffrog").getBoundingClientRect(), br = b.getBoundingClientRect();
+    const mx = fr.left+fr.width/2-zr.left, my = fr.top+fr.height*0.62-zr.top, tx2 = br.left+br.width/2-zr.left, ty2 = br.top+br.height/3-zr.top;
+    const len = Math.hypot(tx2-mx, ty2-my), ang = Math.atan2(ty2-my, tx2-mx)*180/Math.PI;
+    const tg = document.createElement("span"); tg.className="tongue";
+    tg.style.left = mx+"px"; tg.style.top = (my-3)+"px"; tg.style.width = len+"px"; tg.style.setProperty("--a", ang+"deg");
+    fz.appendChild(tg); setTimeout(()=>tg.remove(), 600);
+    sfx.slurp(); b.classList.add("eaten"); run.left--;
+    $("fleft").textContent = `🪰 ${run.left} ${tx("lagi","لاڬي")}`;
+    if(run.left===0){
+      app.querySelectorAll(".fly").forEach(x=>x.disabled=true);
+      setTimeout(()=>finishQ(run.mist<=1, run.mist?`${tx("Lalat kelabu bukan jawapan.","لالت کلابو بوکن جواڤن.")} `:""), 600);
+    }
+  } else { run.mist++; sfx.bad(); b.classList.add("nope"); }
+}
+/* Papan kekunci */
+function drawScreen(){
+  const s = run.entry.padEnd(3," ");
+  $("screen").innerHTML = [...s].map(ch=>`<i>${ch===" "?"_":ch}<small>${ch===" "?"":AD(ch)}</small></i>`).join("");
+}
+function ansKey(n){
+  if(run.done) return;
+  if(n==="del"){ run.entry = run.entry.slice(0,-1); sfx.tap(); drawScreen(); return; }
+  if(n==="ok"){
+    if(run.entry.length<3){ const s=$("screen"); s.classList.remove("shake"); void s.offsetWidth; s.classList.add("shake"); sfx.bad(); return; }
+    const ok = +run.entry===run.q.n;
+    app.querySelectorAll(".key").forEach(k=>k.disabled=true);
+    if(!ok){ run.entry = String(run.q.n); drawScreen(); }
+    hush(); finishQ(ok, ok?"":`${tx("Jawapan yang betul:","جواڤن يڠ بتول:")} <b>${run.q.n}</b>. `);
+    return;
+  }
+  if(run.entry.length>=3) return;
+  run.entry += n; sfx.tap(); drawScreen();
+}
+/* Bakul */
+function showWord(){
+  const it = run.queue[run.si], c = $("wc"); if(!c) return;
+  c.className = "wordcard"; void c.offsetWidth;
+  c.innerHTML = `<button data-act="sayar" data-w="${it[0]}" style="all:unset;cursor:pointer"><span class="ar" lang="ar">${it[0]}</span></button><small>${run.queue.length-run.si} ${tx("lagi","لاڬي")}</small>`;
+}
+function ansBasket(g){
+  if(run.done || run.busy) return;
+  const it = run.queue[run.si], ok = g===it[1];
+  run.busy = true;
+  if(ok) sfx.tap(); else { run.mist++; sfx.bad(); }
+  $("wc").classList.add("drop");
+  const bk = $("bk"+it[1]); bk.classList.remove("bounce"); void bk.offsetWidth; bk.classList.add("bounce");
+  $("got"+it[1]).insertAdjacentHTML("beforeend", `<i class="${ok?"":"x"}">${ok?"":"❗"}${it[0]}</i>`);
+  setTimeout(()=>{
+    run.busy = false; run.si++;
+    if(run.si>=run.queue.length){
+      $("wc").className="wordcard"; $("wc").innerHTML = tx("Siap! ✔️","سياڤ! ✔️");
+      app.querySelectorAll(".basket").forEach(b=>b.disabled=true);
+      finishQ(run.mist<=1, run.mist?tx("Perkataan bertanda ❗ telah dipindahkan ke bakul yang betul. ","ڤرکاتاٴن برتندا ❗ تله دڤينداهکن ک باکول يڠ بتول. "):"");
+    } else showWord();
+  }, ok?380:650);
+}
+/* Sihir */
+function ansPotion(k){
+  if(run.done) return;
+  const btns = [...app.querySelectorAll(".potion")];
+  btns.forEach(b=>b.disabled=true);
+  const right = run.opts.findIndex(o=>o.ok), ok = k===right;
+  btns[right].classList.add("ok"); if(!ok) btns[k].classList.add("bad","shake");
+  const mg = $("mg"); mg.classList.add("morph"); sfx.magic();
+  setTimeout(()=>{ $("mgw").textContent = run.opts[right].t; speakAr(run.opts[right].t); }, REDUCED?0:360);
+  finishQ(ok);
+}
+/* Bina ayat */
+function ansBlock(b){
+  if(run.done) return;
+  const i = +b.dataset.i;
+  if(i===run.next){
+    sfx.tap();
+    const s = $("w"+i); s.innerHTML = OPT(run.q.words[i]); s.classList.add("f");
+    b.classList.add("gone"); b.disabled = true; run.next++;
+    if(run.next===run.q.words.length){ speakAr(run.q.words.join(" ")); finishQ(run.mist<=1); }
+  } else { run.mist++; sfx.bad(); b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake"); }
+}
+/* Susun */
+function ansOrder(b){
+  if(run.done) return;
+  const i = +b.dataset.i;
+  if(i===run.next){
+    sfx.tap();
+    const s=$("s"+i); s.classList.add("f"); s.innerHTML = `<span class="cn">${AD(i+1)}</span>${OPT(run.q.items[i])}`;
+    b.remove(); run.next++;
+    if(run.next===run.q.items.length) finishQ(run.mist<=1);
+  } else { run.mist++; sfx.bad(); app.querySelectorAll(".calchip.shake").forEach(x=>x.classList.remove("shake")); void b.offsetWidth; b.classList.add("shake"); }
+}
+/* Memori teratai */
+function ansMem(b){
+  const m = run.mem;
+  if(run.done || m.lock || b.classList.contains("flip")) return;
+  sfx.tap(); b.classList.add("flip");
+  const k = +b.dataset.k, t = m.cards[k].t;
+  if(isAr(t)) speakAr(t);
+  if(m.first===null){ m.first = k; return; }
+  const a = m.first; m.first = null;
+  const A = app.querySelector(`.mcard[data-k="${a}"]`);
+  if(m.cards[a].i === m.cards[k].i){
+    [A,b].forEach(x=>{ x.classList.add("done"); x.disabled = true; });
+    m.found++; setTimeout(()=>sfx.ok(),200);
+    if(m.found===run.q.pairs.length) setTimeout(()=>finishQ(run.mist<=run.q.pairs.length+1, run.mist?`${tx("Cubaan tersilap:","چوباٴن ترسيلڤ:")} ${run.mist}. `:""),400);
+  } else {
+    run.mist++; m.lock = true;
+    setTimeout(()=>{ A.classList.remove("flip"); b.classList.remove("flip"); m.lock = false; }, 950);
+  }
+}
+
+function nextQ(){
+  run.i++;
+  if(run.i < run.qs.length){ showQ(); window.scrollTo(0,0); }
+  else finishRound();
+}
+function finishRound(){
+  stopAnims();
+  const isFinal = run.station==="final";
+  const key = isFinal ? "final" : LESSONS[+run.station].id;
+  const n = run.qs.length, s = run.score, pct = s/n;
+  const stars = pct>=0.9?3:pct>=0.7?2:pct>=0.5?1:0;
+  const wasFinalOpen = finalUnlocked();
+  const nextIdx = isFinal ? -1 : +run.station+1;
+  const wasNextOpen = nextIdx>0 && nextIdx<LESSONS.length ? unlocked(nextIdx) : true;
+  const prev = best[key];
+  if(stars>prev){ best[key]=stars; save("r3-best",best); }
+  lotus += run.lotus; save("r3-teratai",lotus);
+  const msgs = [];
+  if(nextIdx>0 && nextIdx<LESSONS.length && !wasNextOpen && unlocked(nextIdx)) msgs.push(tx(`🐸 Koko boleh melompat ke Pelajaran ${nextIdx+1}!`,`🐸 کوکو بوليه ملومڤت ک ڤلاجرن ${nextIdx+1}!`));
+  if(!isFinal && !wasFinalOpen && finalUnlocked()) msgs.push(tx("👑 Juara Kolam kini dibuka!","👑 جوارا کولم کيني دبوک!"));
+  const titles = isJ() ? ["جوم چوبا سکالي لاڬي","بوليه چوبا لاڬي","باڬوس!","چمرلڠ!"] : ["Jom cuba sekali lagi","Boleh cuba lagi","Bagus!","Cemerlang!"];
+  const label = isFinal ? L(FINAL.title) : `${tx("Pelajaran","ڤلاجرن")} ${key}: ${L(LESSONS[+run.station].title)}`;
+  app.innerHTML = `
+    <div class="card result page-in" style="margin-top:18px">
+      ${mascot(stars>=2?"happy":"idle")}
+      <p style="margin:4px 0 0">${label}</p>
+      <div class="stars" role="img" aria-label="${stars} / 3">${starsHTML(stars)}</div>
+      <h2>${titles[stars]}</h2>
+      <p>${tx(`Kamu menjawab ${s} daripada ${n} soalan dengan betul.`,`کامو منجواب ${s} درڤد ${n} سوالن دڠن بتول.`)}</p>
+      <div class="earned">+${run.lotus} ${LOTUS} ${tx("teratai","تراتاي")}</div>
+      ${stars>prev?`<p>${tx("Rekod baharu!","ريکود بهارو!")}</p>`:""}
+      ${stars===0?`<p>${tx("Dapatkan sekurang-kurangnya 1 bintang (separuh betul) untuk ke pelajaran seterusnya. Cuba “Dengar & Baca” dahulu.","داڤتکن سکورڠ٢ڽ 1 بينتڠ (سڤاروه بتول) اونتوق ک ڤلاجرن ستروسڽ. چوبا “دڠر & باچ” دهولو.")}</p>`:""}
+      ${msgs.map(m=>`<div class="unlock">${m}</div>`).join("<br>")}
+      ${isFinal&&stars===3?`<div class="unlock">👑 ${tx("Tahniah! Kamu juara Bahasa Arab Tahun 3!","تهنية! کامو جوارا بهاس عرب تاهون 3!")}</div>`:""}
+      <button class="primary" data-act="map">${tx("Kembali ke kolam","کمبالي ک کولم")} 🐸</button>
+      <button class="secondary" data-act="again">${tx("Main lagi","ماٴين لاڬي")}</button>
+    </div>`;
+  sfx.win();
+  if(stars===3) rain();
+  window.scrollTo(0,0);
+}
+function rain(){
+  if(REDUCED) return;
+  const box = document.createElement("div"); box.className = "rain";
+  for(let i=0;i<28;i++){
+    const s = document.createElement("span");
+    s.textContent = pick(["🪷","🐸","⭐","✨","💧"]);
+    s.style.left = Math.random()*100+"vw";
+    s.style.animationDuration = (2+Math.random()*2)+"s";
+    s.style.animationDelay = (Math.random()*0.8)+"s";
+    box.appendChild(s);
+  }
+  document.body.appendChild(box);
+  setTimeout(()=>box.remove(), 4500);
+}
+
+/* ============ PERISTIWA ============ */
+app.addEventListener("click", e=>{
+  const b = e.target.closest("button");
+  if(!b || b.disabled) return;
+  switch(b.dataset.act){
+    case "mute": muted=!muted; save("r3-muted",muted); b.textContent=muted?"🔇":"🔊"; b.setAttribute("aria-label",muted?"Hidupkan bunyi":"Matikan bunyi"); if(muted) hush(); break;
+    case "lang": lang = isJ() ? "rumi" : "jawi"; save("kafa-lang",lang); applyLang(); renderMap(); break;
+    case "teacher": teacher=!teacher; save("r3-teacher",teacher); renderMap(); break;
+    case "map": renderMap(); window.scrollTo(0,0); break;
+    case "station": openStation(b.dataset.i); break;
+    case "station-back": openStation(run.station); break;
+    case "read": startRead(); window.scrollTo(0,0); break;
+    case "cprev": if(run.c>0){ run.c--; showCard(); } break;
+    case "cnext": { const n=LESSONS[+run.station].cards.length; if(run.c+1<n){ run.c++; showCard(); } else startPlay(); window.scrollTo(0,0); break; }
+    case "play": startPlay(); window.scrollTo(0,0); break;
+    case "say": if(run && run.say) say(run.say); break;
+    case "sayar": app.querySelectorAll(".vt.playing").forEach(x=>x.classList.remove("playing")); b.classList.add("playing"); speakAr(b.dataset.w); break;
+    case "hear": speakAr(run.q.say); break;
+    case "reveal": reveal(false); break;
+    case "hop": ansHop(+b.dataset.k); break;
+    case "tile": ansTile(+b.dataset.k); break;
+    case "fly": ansFly(b); break;
+    case "key": ansKey(b.dataset.n); break;
+    case "bsk": ansBasket(+b.dataset.g); break;
+    case "potion": ansPotion(+b.dataset.k); break;
+    case "block": ansBlock(b); break;
+    case "ord": ansOrder(b); break;
+    case "mem": ansMem(b); break;
+    case "next": nextQ(); break;
+    case "again": startPlay(); window.scrollTo(0,0); break;
+  }
+});
+
+applyLang();
+renderMap();
+</script>
+</body>
+</html>

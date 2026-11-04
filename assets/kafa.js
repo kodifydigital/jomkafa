@@ -48,6 +48,12 @@ const READY = {
     r:"Jalan-jalan Kampung Akhlak", j:"جالن٢ کامڤوڠ اخلاق",
     dr:"8 tempat, 8 jenis permainan", dj:"8 تمڤت، 8 جنيس ڤرماٴينن",
     progress:{ key:"a3-best", max:27 }
+  },
+  "3/arab": {
+    path:"arab/index.html",
+    r:"Lompat Katak", j:"لومڤت کاتق",
+    dr:"9 pelajaran, 9 jenis permainan", dj:"9 ڤلاجرن، 9 جنيس ڤرماٴينن",
+    progress:{ key:"r3-best", max:30 }
   }
 };
 

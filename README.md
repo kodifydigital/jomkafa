@@ -22,8 +22,10 @@ kafa/
 │   │   └── index.html    ← Game Jom Bina Masjid (Feqah)
 │   ├── tauhid/
 │   │   └── index.html    ← Game Kembara Lautan Iman (Tauhid)
-│   └── akhlak/
-│       └── index.html    ← Game Jalan-jalan Kampung Akhlak (Akhlak)
+│   ├── akhlak/
+│   │   └── index.html    ← Game Jalan-jalan Kampung Akhlak (Akhlak)
+│   └── arab/
+│       └── index.html    ← Game Lompat Katak (Bahasa Arab)
 ├── tahun4/index.html
 ├── tahun5/index.html
 └── tahun6/index.html
