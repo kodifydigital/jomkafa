@@ -13,7 +13,8 @@ const YEARS = [3, 4, 5, 6];
 // Senarai subjek KAFA. r = Rumi, j = Jawi, dr/dj = penerangan ringkas.
 const SUBJECTS = [
   { id:"sirah",   icon:"🐪", r:"Sirah",       j:"سيره",      dr:"Kisah kehidupan Nabi ﷺ",       dj:"قيصه کهيدوڤن نبي ﷺ" },
-  { id:"quran",   icon:"📖", r:"Al-Quran",    j:"القرءان",    dr:"Bacaan dan tajwid",            dj:"باچاٴن دان تجويد" },
+  { id:"quran",   icon:"📖", r:"Al-Quran",    j:"القرءان",    dr:"Bacaan al-Quran",              dj:"باچاٴن القرءان" },
+  { id:"tajwid",  icon:"🎙️", r:"Tajwid",      j:"تجويد",     dr:"Makhraj huruf dan hukum tajwid", dj:"مخرج حروف دان حکوم تجويد" },
   { id:"hafazan", icon:"🧠", r:"Hafazan",     j:"حفظن",      dr:"Hafal surah-surah pilihan",    dj:"حفظ سورة٢ ڤيليهن" },
   { id:"tauhid",  icon:"☝️", r:"Tauhid",      j:"توحيد",     dr:"Mengenal Allah dan rukun iman", dj:"مڠنل الله دان روکون ايمان" },
   { id:"feqah",   icon:"🕌", r:"Feqah",       j:"فقه",       dr:"Tayammum, azan dan solat",     dj:"تيمم، اذان دان صلاة" },
@@ -54,6 +55,12 @@ const READY = {
     r:"Lompat Katak", j:"لومڤت کاتق",
     dr:"9 pelajaran, 9 jenis permainan", dj:"9 ڤلاجرن، 9 جنيس ڤرماٴينن",
     progress:{ key:"r3-best", max:30 }
+  },
+  "3/tajwid": {
+    path:"tajwid/index.html",
+    r:"Angkasa Tajwid", j:"اڠکاس تجويد",
+    dr:"8 planet, 9 jenis permainan", dj:"8 ڤلانيت، 9 جنيس ڤرماٴينن",
+    progress:{ key:"j3-best", max:27 }
   }
 };
 
