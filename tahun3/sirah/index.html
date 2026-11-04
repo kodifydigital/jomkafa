@@ -1,0 +1,908 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pengembaraan Sirah Tahun 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Noto+Naskh+Arabic:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3EBDD; --surface:#FFFDF8; --ink:#2B2118; --muted:#6B5B4B; --line:#E3D5BE;
+  --brand:#0F6B5A; --brand-ink:#FFFFFF; --brand-shadow:#0A4A3E; --gold:#E8A317; --sand:#E9C98F;
+  --ok:#23824A; --ok-bg:#DDF3E5; --bad:#C8452F; --bad-bg:#FBE1DC; --note:#FFF1CF;
+  --path:#B9884A;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#17130F; --surface:#241D17; --ink:#F3EBDD; --muted:#C2B29E; --line:#3D3227;
+    --brand:#2FA58A; --brand-ink:#04160F; --brand-shadow:#1B6B59; --gold:#F2C14E; --sand:#5A4630;
+    --ok:#2E9E5B; --ok-bg:#173F2B; --bad:#E0634E; --bad-bg:#4A2420; --note:#3A2F18;
+    --path:#C9A06A;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#17130F; --surface:#241D17; --ink:#F3EBDD; --muted:#C2B29E; --line:#3D3227;
+  --brand:#2FA58A; --brand-ink:#04160F; --brand-shadow:#1B6B59; --gold:#F2C14E; --sand:#5A4630;
+  --ok:#2E9E5B; --ok-bg:#173F2B; --bad:#E0634E; --bad-bg:#4A2420; --note:#3A2F18;
+  --path:#C9A06A;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Baloo 2","Trebuchet MS","Segoe UI",system-ui,sans-serif;font-size:18px;line-height:1.45}
+.wrap{max-width:720px;margin:0 auto;padding:12px 16px 44px}
+button{font:inherit;cursor:pointer;color:inherit}
+button:disabled{cursor:default}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+svg{max-width:100%}
+
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:44px}
+a.iconbtn{text-decoration:none;color:inherit}
+.iconbtn{background:var(--surface);border:2px solid var(--line);border-radius:999px;width:44px;height:44px;font-size:20px;display:grid;place-items:center;flex:none;padding:0}
+.pillstat{display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:3px 12px 3px 8px;font-weight:800;font-size:17px}
+.kurma{width:16px;height:22px;flex:none}
+.stats{display:flex;gap:8px;flex-wrap:wrap}
+
+.hero{text-align:center;padding:10px 0 4px}
+.hero .sub{display:inline-block;background:var(--brand);color:var(--brand-ink);border-radius:999px;padding:2px 14px;font-weight:700;font-size:15px}
+.hero h1{margin:8px 0 0;font-size:clamp(34px,9vw,52px);line-height:1.02;font-weight:800;color:var(--brand)}
+.hero p{margin:8px auto 0;color:var(--muted);max-width:430px}
+
+/* Map */
+.map{position:relative;margin:18px auto 0;max-width:520px;border-radius:28px;background:linear-gradient(180deg,color-mix(in srgb,var(--sand) 35%,transparent),color-mix(in srgb,var(--sand) 70%,transparent));border:2px solid var(--line);overflow:hidden}
+.map svg.route{position:absolute;inset:0;width:100%;height:100%}
+.node{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:0;padding:0;width:170px;text-align:center}
+.node .dot{position:relative;width:84px;height:84px;border-radius:50%;display:grid;place-items:center;font-size:38px;background:var(--tc);color:#fff;box-shadow:0 6px 0 color-mix(in srgb,var(--tc) 65%,#000),0 0 0 5px var(--surface);transition:transform .1s}
+.node:active .dot{transform:translateY(3px)}
+.node .num{position:absolute;top:-6px;right:-6px;background:var(--surface);color:var(--ink);border:2px solid var(--line);border-radius:999px;font-size:14px;font-weight:800;min-width:28px;height:28px;display:grid;place-items:center;padding:0 6px}
+.node .lbl{font-weight:800;font-size:15.5px;line-height:1.15;margin-top:8px;background:var(--surface);border-radius:12px;padding:3px 8px;border:2px solid var(--line)}
+.node .st{font-size:14px;letter-spacing:1px}
+.node .st .off{opacity:.25;filter:grayscale(1)}
+.node.locked .dot{background:#9C9184;box-shadow:0 6px 0 #6E665C,0 0 0 5px var(--surface);font-size:30px}
+.node.locked .lbl{opacity:.7}
+.node.current .dot{animation:glow 1.8s ease-in-out infinite}
+@keyframes glow{50%{box-shadow:0 6px 0 color-mix(in srgb,var(--tc) 65%,#000),0 0 0 9px color-mix(in srgb,var(--gold) 60%,transparent)}}
+.kiki{position:absolute;left:0;top:0;width:64px;transform:translate(-50%,-80%);animation:idle 2.6s ease-in-out infinite}
+.deco{position:absolute;font-size:26px;opacity:.55;pointer-events:none}
+.teacher{display:flex;justify-content:center;margin-top:22px}
+.toggle{display:inline-flex;align-items:center;gap:10px;background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:6px 14px;font-size:16px;font-weight:700}
+.toggle .sw{width:42px;height:24px;border-radius:99px;background:var(--line);position:relative;flex:none;transition:background .2s}
+.toggle .sw::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .2s}
+.toggle[aria-pressed="true"] .sw{background:var(--brand)}
+.toggle[aria-pressed="true"] .sw::after{left:21px}
+.foot{margin-top:18px;color:var(--muted);font-size:15px;text-align:center}
+
+/* Station */
+.banner{border-radius:26px;padding:18px 18px 20px;background:var(--tc);color:#fff;position:relative;overflow:hidden;box-shadow:0 6px 0 color-mix(in srgb,var(--tc) 65%,#000)}
+.banner.final{color:#2A1B00}
+.banner .kick{font-weight:700;opacity:.9;font-size:16px}
+.banner h2{margin:0;font-size:clamp(26px,6.6vw,34px);line-height:1.1}
+.banner .big{position:absolute;right:-6px;bottom:-14px;font-size:96px;opacity:.25}
+.banner .stars{margin-top:6px;font-size:20px}
+.banner .stars .off{opacity:.35;filter:grayscale(1)}
+.units{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:8px}
+.units li{background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:8px 12px;display:flex;gap:10px;align-items:center;line-height:1.25}
+.units .u{background:var(--tc);color:#fff;border-radius:10px;font-size:13px;font-weight:800;padding:2px 8px;flex:none}
+.final-units .u{color:#2A1B00}
+.actions{display:grid;gap:12px;margin-top:18px}
+.bigbtn{display:flex;align-items:center;gap:14px;width:100%;text-align:start;border:0;border-radius:20px;padding:14px 16px;font-weight:800;font-size:21px;line-height:1.15}
+.bigbtn small{display:block;font-weight:600;font-size:15px;opacity:.9}
+.bigbtn .e{font-size:34px;flex:none}
+.bigbtn.read{background:var(--surface);border:2px solid var(--line);box-shadow:0 4px 0 var(--line)}
+.bigbtn.play{background:var(--brand);color:var(--brand-ink);box-shadow:0 5px 0 var(--brand-shadow)}
+.bigbtn:active{transform:translateY(3px)}
+
+/* Common game */
+.gamehead{display:flex;align-items:center;gap:10px;margin:2px 0 10px}
+.gamehead h2{margin:0;font-size:20px;flex:1;line-height:1.15;color:var(--brand)}
+.gamehead h2 small{display:block;font-size:14px;color:var(--muted);font-weight:600}
+.progress{height:12px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:14px}
+.progress span{display:block;height:100%;background:var(--gold);border-radius:99px;transition:width .3s}
+.card{background:var(--surface);border:2px solid var(--line);border-radius:24px;padding:18px}
+.page-in{animation:pagein .35s ease}
+@keyframes pagein{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+.qmeta{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.qtype{display:inline-block;background:var(--note);border-radius:999px;padding:1px 12px;font-size:14.5px;font-weight:700}
+.tag{display:inline-block;background:var(--gold);color:#2A1B00;border-radius:999px;padding:1px 10px;font-size:13.5px;font-weight:800;margin-inline-start:4px}
+.pill{border:2px solid var(--line);background:var(--bg);border-radius:999px;padding:3px 12px;font-size:15px;font-weight:700}
+.qtext{font-size:clamp(20px,4.8vw,26px);font-weight:700;line-height:1.32;margin:4px 0 16px}
+.blank{display:inline-block;min-width:90px;border-bottom:3px dashed var(--gold);text-align:center;color:var(--muted);padding:0 6px}
+.blank.filled{border-bottom-style:solid;color:var(--ok)}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:12px;align-items:center;width:100%;border:2px solid var(--line);background:var(--bg);border-radius:16px;padding:11px 14px;text-align:start;font-size:19px;font-weight:600;line-height:1.3}
+.opt .k{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--surface);border:2px solid var(--line);flex:none;font-size:16px;font-weight:800}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg)}
+.opt.ok .k{background:var(--ok);border-color:var(--ok);color:#fff}
+.opt.bad{border-color:var(--bad);background:var(--bad-bg)}
+.opt.bad .k{background:var(--bad);border-color:var(--bad);color:#fff}
+.words{display:flex;flex-wrap:wrap;gap:10px}
+.word{border:2px solid var(--line);background:var(--bg);border-radius:14px;padding:9px 16px;font-size:19px;font-weight:700;box-shadow:0 3px 0 var(--line)}
+.word.ok{border-color:var(--ok);background:var(--ok-bg)}
+.word.bad{border-color:var(--bad);background:var(--bad-bg)}
+.tfrow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tfrow button{border:0;border-radius:18px;padding:14px 8px;font-size:21px;font-weight:800;color:#fff;line-height:1.15}
+.tfrow button span{display:block;font-size:30px}
+.tfrow .yes{background:var(--ok);box-shadow:0 4px 0 color-mix(in srgb,var(--ok) 70%,#000)}
+.tfrow .no{background:var(--bad);box-shadow:0 4px 0 color-mix(in srgb,var(--bad) 70%,#000)}
+.tfrow button:disabled{opacity:.4}
+.tfrow button.picked{opacity:1;outline:3px solid var(--gold);outline-offset:3px}
+
+.hint{color:var(--muted);font-size:15.5px;margin:-8px 0 12px}
+.slots{list-style:none;margin:0 0 14px;padding:0;display:grid;gap:7px}
+.slot{display:flex;gap:10px;align-items:center;min-height:46px;border:2px dashed var(--line);border-radius:14px;padding:6px 12px;line-height:1.25}
+.slot .n{width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:800;flex:none;font-size:15px}
+.slot.filled{border-style:solid;border-color:var(--ok);background:var(--ok-bg);font-weight:700;animation:pop .3s ease}
+.slot.filled .n{background:var(--ok);color:#fff}
+.chips{display:grid;gap:8px}
+.chip{width:100%;border:2px solid var(--line);background:var(--bg);border-radius:14px;padding:9px 14px;text-align:start;font-size:18px;font-weight:700;line-height:1.25;box-shadow:0 3px 0 var(--line)}
+.shake{animation:shake .4s;border-color:var(--bad)!important;background:var(--bad-bg)!important}
+@keyframes shake{20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+@keyframes pop{50%{transform:scale(1.04)}}
+
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.match .col{display:grid;gap:8px;align-content:start}
+.mbtn{width:100%;min-height:54px;border:2px solid var(--line);background:var(--bg);border-radius:14px;padding:8px 10px;font-size:16.5px;font-weight:700;line-height:1.2;box-shadow:0 3px 0 var(--line)}
+.mbtn.sel{border-color:var(--gold);background:var(--note);outline:3px solid var(--gold);outline-offset:1px}
+.mbtn.done{color:#fff;border-color:transparent;box-shadow:none;animation:pop .3s ease}
+
+.sortcard{min-height:92px;display:grid;place-items:center;background:var(--note);border:3px dashed var(--gold);border-radius:20px;padding:12px;margin-bottom:12px;text-align:center;font-size:clamp(20px,5vw,25px);font-weight:800;line-height:1.25}
+.sortcard .left{display:block;font-size:14px;color:var(--muted);font-weight:600;margin-top:4px}
+.buckets{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bucket{border:0;border-radius:20px;padding:12px 8px 10px;color:#fff;font-weight:800;font-size:18px;line-height:1.2;text-align:center;min-height:140px;display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.bucket .bh{display:block}
+.bucket .bh span{display:block;font-size:30px}
+.bucket.b0{background:#1F6FA8;box-shadow:0 5px 0 #154E78}
+.bucket.b1{background:#C0573E;box-shadow:0 5px 0 #8E3E2B}
+.bucket .bin{display:flex;flex-wrap:wrap;gap:5px;justify-content:center}
+.bucket .bin i{font-style:normal;background:rgba(255,255,255,.92);color:#2B2118;border-radius:10px;padding:1px 8px;font-size:13.5px;font-weight:700}
+.bucket .bin i.x{outline:2px solid #FFD34E}
+.bucket:active{transform:translateY(3px)}
+
+.feedback{display:flex;gap:12px;align-items:center;margin-top:16px;padding:12px 14px;border-radius:18px;background:var(--note);font-size:17px;line-height:1.4}
+.feedback .mascot{width:76px}
+.feedback strong{display:block;font-size:21px}
+.ref{margin-top:6px;font-size:14.5px;font-weight:700;color:var(--muted)}
+.streak{display:inline-block;background:var(--gold);color:#3A2600;border-radius:999px;padding:0 10px;font-weight:800;font-size:15px;margin:2px 0 4px}
+.primary{display:block;width:100%;margin-top:14px;border:0;border-radius:16px;padding:13px;background:var(--brand);color:var(--brand-ink);font-size:20px;font-weight:800;box-shadow:0 4px 0 var(--brand-shadow)}
+.primary:active{transform:translateY(3px);box-shadow:0 1px 0 var(--brand-shadow)}
+.secondary{display:block;width:100%;margin-top:12px;border:2px solid var(--line);background:transparent;border-radius:16px;padding:11px;font-size:18px;font-weight:700}
+
+/* Reading cards */
+.scene{border-radius:18px;overflow:hidden;aspect-ratio:2/1;margin:0 0 14px;background:#1A244F}
+.scene svg{display:block;width:100%;height:100%}
+.unitlbl{display:inline-block;background:var(--tc);color:#fff;border-radius:999px;padding:1px 12px;font-weight:800;font-size:14.5px;margin-bottom:6px}
+.final-tc .unitlbl{color:#2A1B00}
+.readtext{font-size:clamp(19px,4.4vw,23px);font-weight:600;line-height:1.5;margin:0 0 12px}
+.chain{display:flex;flex-direction:column;align-items:center;gap:2px;margin:4px 0 12px}
+.chain b{background:var(--note);border:2px solid var(--gold);border-radius:14px;padding:4px 16px;font-size:19px}
+.chain b.last{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+.chain i{font-style:normal;color:var(--muted);font-size:16px;line-height:1}
+.namelist{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px;padding:0;list-style:none}
+.namelist li{background:var(--note);border:2px solid var(--line);border-radius:12px;padding:3px 10px;font-weight:700;font-size:16.5px}
+.navrow{display:grid;grid-template-columns:52px auto 1fr;gap:8px;align-items:center}
+.navrow .secondary,.navrow .primary{margin:0;padding:11px 6px;font-size:18px}
+.navrow .secondary:disabled{opacity:.35}
+.dots{display:flex;justify-content:center;gap:6px;margin-top:12px}
+.dots i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--gold);width:22px;border-radius:99px}
+
+/* Result */
+.result{text-align:center}
+.result .mascot{width:120px;margin:0 auto}
+.result .stars{font-size:54px;letter-spacing:6px;line-height:1.1;margin:4px 0}
+.result .stars .off{filter:grayscale(1);opacity:.25}
+.result h2{margin:4px 0 2px;font-size:32px;color:var(--brand)}
+.result p{margin:0 0 6px;color:var(--muted)}
+.unlock{display:inline-block;margin:8px 0 0;background:var(--note);border:2px solid var(--gold);border-radius:999px;padding:3px 14px;font-weight:800}
+.earned{display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:20px;margin:4px 0}
+
+.rain{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:50}
+.rain span{position:absolute;top:-50px;font-size:28px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(115vh) rotate(300deg)}}
+
+.mascot{display:block;height:auto;flex:none}
+.mascot.happy{animation:hop .45s ease 2}
+.mascot.sad{animation:tilt .9s ease}
+@keyframes hop{50%{transform:translateY(-10px)}}
+@keyframes tilt{30%{transform:rotate(-8deg)}70%{transform:rotate(4deg)}}
+@keyframes idle{50%{transform:translate(-50%,-86%)}}
+
+/* Scene animation */
+.tw{animation:tw 2.6s ease-in-out infinite}
+@keyframes tw{50%{opacity:.2}}
+.float{animation:float 4s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-4px)}}
+.pulse{animation:pulse 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes pulse{50%{transform:scale(1.08);opacity:.85}}
+.drift{animation:drift 26s linear infinite}
+@keyframes drift{from{transform:translateX(-70px)}to{transform:translateX(340px)}}
+.fly{animation:fly 8s linear infinite}
+@keyframes fly{from{transform:translate(-70px,10px)}to{transform:translate(340px,-12px)}}
+.walk{animation:walk 18s linear infinite}
+@keyframes walk{from{transform:translateX(-150px)}to{transform:translateX(330px)}}
+.bob{animation:bob .7s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-1.5px)}}
+.sway{animation:sway 4s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes sway{50%{transform:rotate(4deg)}}
+.wave{animation:wave 1.4s ease-in-out infinite;transform-box:fill-box;transform-origin:0 50%}
+@keyframes wave{50%{transform:skewY(8deg) scaleX(.88)}}
+.grazers{animation:graze 3s ease-in-out infinite}
+@keyframes graze{50%{transform:translateX(3px)}}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rain{display:none}
+}
+html[dir="rtl"] body{font-family:"Noto Naskh Arabic","Amiri","Baloo 2",serif;font-size:20px;line-height:1.8}
+html[dir="rtl"] .qtext,html[dir="rtl"] .readtext{line-height:1.85}
+html[dir="rtl"] .hero h1{font-weight:700;line-height:1.35}
+html[dir="rtl"] .banner h2{line-height:1.5}
+html[dir="rtl"] .node .lbl{font-size:16px;line-height:1.5}
+html[dir="rtl"] .opt,html[dir="rtl"] .chip,html[dir="rtl"] .word,html[dir="rtl"] .mbtn{line-height:1.6}
+.langbtn{border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 14px;font-weight:800;font-size:16px;min-height:44px}
+.langbtn .ar{font-family:"Noto Naskh Arabic","Amiri",serif}
+@media (max-width:400px){
+  .node{width:150px}
+  .node .dot{width:74px;height:74px;font-size:33px}
+  .match .mbtn{font-size:15px}
+}
+</style>
+</head>
+<body>
+<main class="wrap" id="app"></main>
+
+<script>
+/* ============ KANDUNGAN (berdasarkan Buku Teks JAIS Sirah Tahun 3) ============ */
+// Jenis soalan: mcq (a[0] betul), tf, fill (a[0] betul, q mengandungi ___), order (items ikut urutan betul),
+// match (pairs), sort (groups + items [teks, kumpulan]). p = muka surat buku teks.
+const TOPICS = [
+{
+  id:1, title:"Nasab Nabi Muhammad SAW", icon:"🌳", color:"#0F6B5A", pages:"1–8",
+  units:["Kemuliaan Bangsa Arab Quraisy","Nasab Nabi SAW Sebelah Bapa","Nasab Nabi SAW Sebelah Ibu","Pertemuan Nasab Bapa dan Ibu Nabi SAW"],
+  cards:[
+    {u:"Unit 1",sc:"makkah",p:1,t:"Keturunan Nabi Muhammad SAW berasal daripada Nabi Ismail AS. Bangsa Arab Quraisy bersifat pemurah, menepati janji dan mempunyai keazaman yang kuat."},
+    {u:"Unit 1",sc:"makkah",p:1,t:"Nama Muhammad bererti “yang terpuji”. Baginda dilahirkan di kota Makkah. Ibunya bernama Aminah binti Wahab dan bapanya Abdullah bin Abdul Muttalib, daripada keturunan bangsawan Quraisy."},
+    {u:"Unit 2 • Nasab sebelah bapa",p:3,chain:["Kilab bin Murrah","Qusai","Abdu Manaf","Hasyim","Abdul Muttalib","Abdullah","Muhammad SAW"]},
+    {u:"Unit 3 • Nasab sebelah ibu",p:4,chain:["Kilab bin Murrah","Zuhrah","Abdu Manaf","Wahab","Aminah","Muhammad SAW"]},
+    {u:"Unit 4 • Pertemuan nasab",sc:"kemah",p:5,t:"Nasab sebelah bapa dan nasab sebelah ibu Nabi SAW bertemu pada Kilab bin Murrah. Tahukah anda? Orang yang baik akan melahirkan keturunan yang baik."}
+  ],
+  qs:[
+    {type:"mcq",q:"Keturunan Nabi Muhammad SAW berasal daripada…",a:["Nabi Ismail AS","Nabi Musa AS","Nabi Isa AS","Nabi Nuh AS"],e:"Keturunan Nabi SAW berasal daripada Nabi Ismail AS.",p:1},
+    {type:"mcq",q:"Apakah maksud nama “Muhammad”?",a:["Yang terpuji","Yang dipercayai","Yang pemurah","Yang berani"],e:"Nama Muhammad bererti yang terpuji.",p:1},
+    {type:"tf",q:"Bangsa Arab Quraisy terkenal bersifat pemurah dan menepati janji.",ans:true,e:"Betul. Mereka juga mempunyai keazaman yang kuat.",p:1},
+    {type:"fill",q:"Bapa Nabi SAW bernama ___ bin Abdul Muttalib.",a:["Abdullah","Hasyim","Wahab"],e:"Bapa Nabi SAW ialah Abdullah bin Abdul Muttalib.",p:1},
+    {type:"fill",q:"Ibu Nabi SAW bernama Aminah binti ___.",a:["Wahab","Zuhrah","Qusai"],e:"Ibu Nabi SAW ialah Aminah binti Wahab.",p:1},
+    {type:"order",q:"Susun nasab Nabi SAW sebelah bapa, bermula dari atas.",items:["Kilab bin Murrah","Qusai","Abdu Manaf","Hasyim","Abdul Muttalib","Abdullah"],e:"Kilab bin Murrah, Qusai, Abdu Manaf, Hasyim, Abdul Muttalib, Abdullah, kemudian Muhammad SAW.",p:3},
+    {type:"order",q:"Susun nasab Nabi SAW sebelah ibu, bermula dari atas.",items:["Kilab bin Murrah","Zuhrah","Abdu Manaf","Wahab","Aminah"],e:"Kilab bin Murrah, Zuhrah, Abdu Manaf, Wahab, Aminah, kemudian Muhammad SAW.",p:4},
+    {type:"mcq",q:"Nasab bapa dan ibu Nabi SAW bertemu pada…",a:["Kilab bin Murrah","Hasyim","Abdul Muttalib","Wahab"],e:"Kedua-dua nasab bertemu pada Kilab bin Murrah.",p:5},
+    {type:"sort",q:"Asingkan nama-nama ini mengikut nasab.",groups:["Sebelah bapa","Sebelah ibu"],items:[["Qusai",0],["Hasyim",0],["Abdul Muttalib",0],["Zuhrah",1],["Wahab",1],["Aminah",1]],e:"Qusai, Hasyim dan Abdul Muttalib di sebelah bapa. Zuhrah, Wahab dan Aminah di sebelah ibu.",p:5},
+    {type:"tf",q:"Datuk Nabi SAW sebelah bapa bernama Wahab.",ans:false,e:"Salah. Datuk sebelah bapa ialah Abdul Muttalib. Wahab ialah datuk sebelah ibu.",p:5},
+    {type:"tf",q:"Nabi Muhammad SAW dilahirkan di kota Makkah.",ans:true,e:"Betul. Baginda dilahirkan di kota Makkah.",p:1}
+  ]
+},
+{
+  id:2, title:"Peristiwa Kelahiran Nabi SAW", icon:"🐘", color:"#1F6FA8", pages:"9–15",
+  units:["Peristiwa Sebelum Kelahiran","Peristiwa Semasa Kelahiran","Peristiwa Selepas Kelahiran"],
+  cards:[
+    {u:"Unit 1 • Sebelum kelahiran",sc:"madinah",p:9,t:"Bapa Nabi SAW, Abdullah, meninggal dunia ketika baginda masih dalam kandungan ibunya. Beliau dikebumikan di Yathrib, yang kemudian dikenali sebagai Madinah."},
+    {u:"Unit 1 • Sebelum kelahiran",sc:"gajah",p:9,t:"Tahun kelahiran Nabi SAW dinamakan Tahun Gajah. Pada tahun itu, tentera yang diketuai oleh Abrahah datang ke Makkah dengan menunggang gajah untuk meruntuhkan Kaabah."},
+    {u:"Unit 1 • Sebelum kelahiran",sc:"gajah",p:10,t:"Tentera Abrahah dimusnahkan oleh sekumpulan burung yang membawa batu. Ada yang mati di Makkah dan ada yang mati di San’a’, Yaman, termasuk Abrahah sendiri. Kisah ini terdapat dalam Surah Al-Fil."},
+    {u:"Unit 2 • Semasa kelahiran",sc:"makkah",p:11,t:"Nabi SAW dilahirkan pada pagi hari Isnin, 12 Rabiulawal Tahun Gajah, bersamaan bulan April 571 Masihi, di kota Makkah. Ketika baginda lahir, keluar cahaya yang menerangi istana-istana di bumi Syam."},
+    {u:"Unit 3 • Selepas kelahiran",sc:"kemah",p:12,t:"Nabi SAW disusukan oleh Thuwaibah Al-Aslamiyyah, kemudian oleh Halimah As-Sa’diyyah yang menjaga baginda hingga berumur 4 tahun. Ketika itu, dada baginda dibelah oleh Malaikat Jibril untuk membersihkan hati baginda."},
+    {u:"Unit 3 • Selepas kelahiran",sc:"makkah",p:12,t:"Ketika berumur 6 tahun, ibu baginda wafat di Abwa’ semasa pulang dari menziarahi kubur bapanya di Madinah. Ketika baginda berumur 8 tahun, datuknya, Abdul Muttalib, pula meninggal dunia."}
+  ],
+  qs:[
+    {type:"mcq",q:"Bapa Nabi SAW meninggal dunia ketika…",a:["Nabi SAW masih dalam kandungan","Nabi SAW berumur 6 tahun","Nabi SAW berumur 8 tahun","Nabi SAW berumur 25 tahun"],e:"Abdullah meninggal dunia ketika Nabi SAW masih dalam kandungan ibunya.",p:9},
+    {type:"mcq",q:"Di manakah bapa Nabi SAW dikebumikan?",a:["Yathrib","Makkah","Taif","Syam"],e:"Beliau dikebumikan di Yathrib, yang kemudian dikenali sebagai Madinah.",p:9},
+    {type:"mcq",q:"Siapakah yang mengetuai tentera bergajah untuk meruntuhkan Kaabah?",a:["Abrahah","Abu Jahal","Abu Lahab","Abdul Muttalib"],e:"Tentera bergajah diketuai oleh Abrahah.",p:9},
+    {type:"fill",q:"Tentera Abrahah dimusnahkan oleh sekumpulan ___ yang membawa batu.",a:["burung","unta","semut"],e:"Allah memusnahkan mereka dengan sekumpulan burung yang membawa batu.",p:10},
+    {type:"fill",q:"Nabi SAW dilahirkan pada 12 ___ Tahun Gajah.",a:["Rabiulawal","Ramadan","Syawal"],e:"Baginda lahir pada 12 Rabiulawal Tahun Gajah.",p:11},
+    {type:"mcq",q:"Nabi SAW dilahirkan pada hari…",a:["Isnin","Jumaat","Ahad","Khamis"],e:"Baginda lahir pada pagi hari Isnin.",p:11},
+    {type:"tf",q:"Ketika Nabi SAW lahir, keluar cahaya yang menerangi istana-istana di bumi Syam.",ans:true,e:"Betul. Ini salah satu keajaiban ketika baginda dilahirkan.",p:11},
+    {type:"mcq",q:"Siapakah yang menyusukan dan menjaga Nabi SAW hingga berumur 4 tahun?",a:["Halimah As-Sa’diyyah","Aminah","Khadijah","Fatimah"],e:"Halimah As-Sa’diyyah menjaga baginda sehingga berumur 4 tahun.",p:12},
+    {type:"tf",q:"Ibu Nabi SAW wafat ketika baginda berumur 8 tahun.",ans:false,e:"Salah. Ibu baginda wafat ketika baginda berumur 6 tahun. Pada umur 8 tahun, datuk baginda pula meninggal dunia.",p:12},
+    {type:"order",q:"Susun peristiwa ini mengikut urutan.",items:["Bapa Nabi SAW wafat","Nabi SAW lahir di Makkah","Disusukan oleh Halimah As-Sa’diyyah","Ibu Nabi SAW wafat di Abwa’","Datuk Nabi SAW, Abdul Muttalib, wafat"],e:"Bapa wafat sebelum baginda lahir, kemudian baginda lahir, disusukan, ibu wafat (6 tahun) dan datuk wafat (8 tahun).",p:12},
+    {type:"match",q:"Padankan umur Nabi SAW dengan peristiwanya.",pairs:[["4 tahun","Dijaga Halimah hingga umur ini"],["6 tahun","Ibu wafat"],["8 tahun","Datuk wafat"],["571 Masihi","Tahun Nabi SAW lahir"]],e:"Ingat: 4 tahun bersama Halimah, 6 tahun ibu wafat, 8 tahun datuk wafat, lahir pada tahun 571 Masihi.",p:11}
+  ]
+},
+{
+  id:3, title:"Akhlak Nabi Muhammad SAW", icon:"💎", color:"#C0573E", pages:"16–25",
+  units:["Akhlak Ketika Kanak-kanak","Akhlak Ketika Remaja","Akhlak Ketika Dewasa","Mendapat Gelaran Al-Amin"],
+  cards:[
+    {u:"Unit 1 • Kanak-kanak",sc:"kemah",p:17,t:"Nabi SAW dibesarkan di perkampungan Bani Sa’ad di luar kota Makkah. Kaum Bani Sa’ad terkenal kerana fasih berbahasa Arab. Di sana baginda belajar berbudi pekerti mulia, berdikari dan menguasai bahasa dengan baik."},
+    {u:"Unit 2 • Remaja",sc:"makkah",p:18,t:"Ketika remaja, Nabi SAW seorang yang berani, amanah dan dipercayai sehingga digelar “Al-Amin” oleh penduduk Makkah. Baginda dipelihara oleh Allah daripada perkara maksiat."},
+    {u:"Unit 3 • Dewasa",sc:"madinah",p:19,t:"Ketika dewasa, Nabi SAW bijaksana dalam urusan dakwah dan negara, berani dalam peperangan, jujur dalam perniagaan, sangat menyayangi kanak-kanak dan menghormati orang yang lebih tua."},
+    {u:"Unit 4 • Al-Amin",sc:"makkah",p:21,t:"Kisah Hajar Aswad: Ketika Nabi SAW berumur lebih kurang 35 tahun, Kaabah dibaiki semula. Ketua-ketua kaum Quraisy berbalah tentang siapa yang layak meletakkan Hajar Aswad di tempatnya."},
+    {u:"Unit 4 • Al-Amin",sc:"makkah",p:21,t:"Umayyah bin Al-Mughirah mencadangkan supaya orang pertama yang masuk ke Masjidil Haram menjadi hakim. Keesokan paginya, Nabi SAW orang pertama yang masuk."},
+    {u:"Unit 4 • Al-Amin",sc:"makkah",p:22,t:"Nabi SAW meletakkan Hajar Aswad di atas sehelai kain, lalu meminta semua ketua kaum memegang penjuru kain dan mengangkatnya bersama-sama. Semua kaum berpuas hati."},
+    {u:"Tahukah anda?",sc:"masjid",p:24,t:"Sifat wajib bagi Nabi SAW: Siddiq bererti benar, Amanah bererti jujur, Tabligh bererti menyampaikan dan Fatanah bererti bijaksana."}
+  ],
+  qs:[
+    {type:"mcq",q:"Nabi SAW dibesarkan di perkampungan…",a:["Bani Sa’ad","Bani Hasyim","Bani Zuhrah","Bani Umaiyah"],e:"Baginda dibesarkan di perkampungan Bani Sa’ad di luar kota Makkah.",p:17},
+    {type:"mcq",q:"Kaum Bani Sa’ad terkenal kerana…",a:["Fasih berbahasa Arab","Kaya-raya","Tentera yang kuat","Pandai berniaga"],e:"Kaum Bani Sa’ad terkenal dengan kefasihan berbahasa Arab.",p:17},
+    {type:"mcq",q:"Apakah gelaran Nabi SAW yang bermaksud “orang yang dipercayai”?",a:["Al-Amin","As-Siddiq","Al-Faruq","Saifullah"],e:"Penduduk Makkah menggelar baginda Al-Amin.",p:18},
+    {type:"tf",q:"Nabi SAW dipelihara oleh Allah daripada perkara maksiat.",ans:true,e:"Betul. Allah memelihara baginda sejak remaja.",p:18},
+    {type:"fill",q:"Ketika dewasa, Nabi SAW sangat menyayangi ___ dan menghormati orang yang lebih tua.",a:["kanak-kanak","harta","pakaian"],e:"Baginda sangat menyayangi kanak-kanak dan menghormati orang tua.",p:19},
+    {type:"match",q:"Padankan sifat wajib Nabi SAW dengan maksudnya.",pairs:[["Siddiq","Benar"],["Amanah","Jujur"],["Tabligh","Menyampaikan"],["Fatanah","Bijaksana"]],e:"Siddiq (benar), Amanah (jujur), Tabligh (menyampaikan), Fatanah (bijaksana).",p:24},
+    {type:"mcq",q:"Berapakah umur Nabi SAW semasa peristiwa Hajar Aswad?",a:["Lebih kurang 35 tahun","12 tahun","25 tahun","40 tahun"],e:"Peristiwa ini berlaku ketika baginda berumur lebih kurang 35 tahun.",p:21},
+    {type:"mcq",q:"Siapakah yang mencadangkan orang pertama masuk ke Masjidil Haram menjadi hakim?",a:["Umayyah bin Al-Mughirah","Abu Talib","Abdul Muttalib","Abu Bakar"],e:"Cadangan itu datang daripada Umayyah bin Al-Mughirah, ketua Quraisy yang tua dan dihormati.",p:21},
+    {type:"order",q:"Susun kisah Hajar Aswad mengikut urutan.",items:["Kaabah dibaiki semula","Ketua kaum berbalah tentang Hajar Aswad","Umayyah bin Al-Mughirah memberi cadangan","Nabi SAW orang pertama masuk Masjidil Haram","Hajar Aswad diangkat bersama dengan kain"],e:"Kebijaksanaan Nabi SAW menyelesaikan perbalahan tanpa pergaduhan.",p:22},
+    {type:"sort",q:"Asingkan: yang mana akhlak Nabi SAW?",groups:["Akhlak Nabi SAW","Bukan akhlak Nabi SAW"],items:[["Pemaaf",0],["Penyayang",0],["Menepati janji",0],["Pemalu",0],["Sombong",1],["Pemarah",1],["Mungkir janji",1]],e:"Akhlak Nabi SAW termasuk pemaaf, penyayang, menepati janji, pemalu, berani dan beradab.",p:25}
+  ]
+},
+{
+  id:4, title:"Pekerjaan Nabi Muhammad SAW", icon:"🐐", color:"#8A5A2B", pages:"26–28",
+  units:["Nabi SAW Menggembala Kambing","Nabi SAW Berniaga"],
+  cards:[
+    {u:"Unit 1 • Menggembala kambing",sc:"gembala",p:26,t:"Selepas ibu dan datuknya wafat, Nabi SAW tinggal bersama bapa saudaranya, Abu Talib. Baginda bekerja menggembala kambing kepunyaan penduduk Makkah dan menerima upah untuk menampung kehidupan."},
+    {u:"Unit 2 • Berniaga",sc:"unta",p:27,t:"Ketika berumur 12 tahun, Nabi SAW pergi ke Syam untuk berniaga bersama bapa saudaranya, Abu Talib."},
+    {u:"Unit 2 • Berniaga",sc:"unta",p:27,t:"Ketika berumur 25 tahun, baginda ke Syam lagi sebagai ketua rombongan, membawa barang dagangan Khadijah. Baginda ditemani khadam Khadijah bernama Maisarah. Baginda berniaga dengan jujur dan mendapat keuntungan yang besar."},
+    {u:"Tahukah anda?",sc:"unta",p:28,t:"Nabi SAW berjaya berniaga kerana sentiasa jujur, amanah dan mesra dengan pelanggan. Amalkan doa “Rabbi yassir wa la tu’assir” supaya dipermudahkan segala urusan."}
+  ],
+  qs:[
+    {type:"mcq",q:"Selepas ibu dan datuknya wafat, Nabi SAW tinggal bersama…",a:["Abu Talib","Abu Lahab","Halimah","Abdullah"],e:"Baginda tinggal bersama bapa saudaranya, Abu Talib.",p:26},
+    {type:"mcq",q:"Apakah pekerjaan Nabi SAW di Makkah dalam Unit 1?",a:["Menggembala kambing","Bertani","Menangkap ikan","Menjahit baju"],e:"Baginda menggembala kambing kepunyaan penduduk Makkah.",p:26},
+    {type:"tf",q:"Nabi SAW menerima upah daripada kerja menggembala kambing.",ans:true,e:"Betul. Upah itu digunakan untuk menampung kehidupan baginda.",p:26},
+    {type:"mcq",q:"Pada umur berapakah Nabi SAW pertama kali ke Syam bersama Abu Talib?",a:["12 tahun","6 tahun","25 tahun","40 tahun"],e:"Baginda ke Syam bersama Abu Talib ketika berumur 12 tahun.",p:27},
+    {type:"fill",q:"Ketika berumur 25 tahun, Nabi SAW membawa barang dagangan milik ___ ke Syam.",a:["Khadijah","Abu Talib","Maisarah"],e:"Baginda membawa barang dagangan Khadijah.",p:27},
+    {type:"mcq",q:"Siapakah khadam Khadijah yang menemani Nabi SAW berniaga?",a:["Maisarah","Halimah","Bilal","Zaid"],e:"Baginda ditemani oleh Maisarah.",p:27},
+    {type:"match",q:"Padankan nama dengan keterangannya.",pairs:[["Abu Talib","Bapa saudara Nabi SAW"],["Khadijah","Pemilik barang dagangan"],["Maisarah","Khadam Khadijah"],["Syam","Tempat berniaga"]],e:"Abu Talib menjaga baginda. Baginda membawa barang Khadijah ke Syam bersama Maisarah.",p:27},
+    {type:"sort",q:"Asingkan sifat peniaga.",groups:["Peniaga yang baik","Peniaga yang tidak baik"],items:[["Jujur",0],["Amanah",0],["Mesra dengan pelanggan",0],["Menipu timbangan",1],["Sombong",1],["Mungkir janji",1]],e:"Nabi SAW berjaya kerana jujur, amanah dan mesra dengan pelanggan.",p:28},
+    {type:"order",q:"Susun peristiwa ini mengikut urutan.",items:["Ibu dan datuk Nabi SAW wafat","Tinggal bersama Abu Talib","Ke Syam bersama Abu Talib (12 tahun)","Ke Syam membawa barang Khadijah (25 tahun)"],e:"Selepas ibu dan datuk wafat, baginda dijaga Abu Talib, dan kemudian berniaga ke Syam.",p:27},
+    {type:"mcq",q:"Doa “Rabbi yassir wa la tu’assir” dibaca supaya…",a:["Dipermudahkan segala urusan","Mendapat banyak duit","Cepat tidur","Tidak lapar"],e:"Doa ini memohon supaya Allah mempermudahkan segala urusan.",p:28}
+  ]
+},
+{
+  id:5, title:"Kehidupan Bermasyarakat Nabi SAW", icon:"🤝", color:"#5B4BB7", pages:"29–33",
+  units:["Cara Pergaulan Nabi SAW","Pergaulan Nabi SAW dengan Sahabat"],
+  cards:[
+    {u:"Unit 1 • Cara pergaulan",sc:"masjid",p:29,t:"Nabi SAW bergaul dengan semua lapisan masyarakat: orang Islam atau bukan Islam, orang kaya atau miskin. Baginda menghormati orang tua dan menyayangi kanak-kanak. Baginda lemah lembut dan pengasih kepada semua makhluk Allah."},
+    {u:"Unit 1 • Cara pergaulan",sc:"badar",p:29,t:"Nabi SAW mendengar pendapat sahabat. Dalam Perang Khandaq, baginda menerima cadangan Salman Al-Farisi untuk menggali parit."},
+    {u:"Unit 2 • Dengan sahabat",sc:"badar",p:30,t:"Dalam Perang Badar, sahabat bernama Al-Hubab bin Al-Munzir mencadangkan tentera Islam berkhemah dekat punca air. Nabi SAW bersetuju, dan tentera Islam mendapat kemenangan. Nabi SAW menghargai pendapat sahabat walaupun daripada tentera biasa."},
+    {u:"Sifat ketika bergaul",p:31,list:["Memuliakan orang lain","Jujur dalam bicara","Menerima pendapat","Merendah diri","Tidak memalukan orang","Berlapang dada","Tidak memotong percakapan","Memanggil dengan nama yang baik"]},
+    {u:"Tahukah anda? • 10 sahabat dijamin syurga",p:32,list:["Abu Bakar As-Siddiq","Umar Al-Khattab","Uthman bin Affan","Ali bin Abi Talib","Talhah bin Ubaidillah","Az-Zubair bin Al-Awwam","Abdul Rahman bin Auf","Saad bin Abi Waqqas","Said bin Zaid","Abu Ubaidah bin Al-Jarrah"]},
+    {u:"Hadis Nabi SAW",sc:"masjid",p:33,t:"Daripada Abu Hurairah RA, Rasulullah SAW bersabda: “Sesungguhnya aku diutuskan untuk menyempurnakan akhlak yang mulia.” (Riwayat Imam Malik). Amalkan: beri salam dan bersalaman apabila bertemu sahabat."}
+  ],
+  qs:[
+    {type:"tf",q:"Nabi SAW hanya bergaul dengan orang kaya sahaja.",ans:false,e:"Salah. Baginda bergaul dengan semua lapisan masyarakat, kaya atau miskin.",p:29},
+    {type:"mcq",q:"Dalam Perang Khandaq, Nabi SAW menerima cadangan Salman Al-Farisi untuk…",a:["Menggali parit","Berkhemah dekat air","Membina masjid","Berpindah ke Taif"],e:"Salman Al-Farisi mencadangkan supaya parit digali.",p:29},
+    {type:"mcq",q:"Siapakah sahabat yang mencadangkan tentera Islam berkhemah dekat punca air dalam Perang Badar?",a:["Al-Hubab bin Al-Munzir","Salman Al-Farisi","Abu Bakar As-Siddiq","Umar Al-Khattab"],e:"Cadangan itu datang daripada Al-Hubab bin Al-Munzir.",p:30},
+    {type:"tf",q:"Nabi SAW menolak pendapat Al-Hubab kerana dia hanya tentera biasa.",ans:false,e:"Salah. Nabi SAW bersetuju dengan cadangannya dan tentera Islam menang.",p:30},
+    {type:"match",q:"Padankan sahabat dengan peristiwanya.",pairs:[["Salman Al-Farisi","Menggali parit (Khandaq)"],["Al-Hubab bin Al-Munzir","Khemah dekat air (Badar)"],["Abu Hurairah","Meriwayatkan hadis akhlak mulia"]],e:"Nabi SAW mendengar dan menghargai pendapat para sahabat.",p:30},
+    {type:"sort",q:"Asingkan sifat ketika bergaul.",groups:["Sifat Nabi SAW","Bukan sifat Nabi SAW"],items:[["Menerima pendapat",0],["Merendah diri",0],["Berlapang dada",0],["Memanggil dengan nama yang baik",0],["Memotong percakapan",1],["Memalukan orang",1],["Sombong",1]],e:"Nabi SAW merendah diri, berlapang dada dan menerima pendapat orang lain.",p:31},
+    {type:"mcq",q:"Antara berikut, siapakah sahabat yang dijamin masuk syurga?",a:["Uthman bin Affan","Abrahah","Abu Lahab","Abu Jahal"],e:"Uthman bin Affan ialah salah seorang daripada 10 sahabat yang dijamin syurga.",p:32},
+    {type:"fill",q:"“Sesungguhnya aku diutuskan untuk menyempurnakan ___ yang mulia.”",a:["akhlak","harta","rumah"],e:"Nabi SAW diutuskan untuk menyempurnakan akhlak yang mulia.",p:33},
+    {type:"tf",q:"Kita digalakkan memberi salam dan bersalaman apabila bertemu sahabat.",ans:true,e:"Betul. Ini amalan yang diajar dalam buku teks.",p:33},
+    {type:"mcq",q:"Berapakah bilangan sahabat yang dijamin masuk syurga dalam buku teks?",a:["10 orang","4 orang","7 orang","12 orang"],e:"Terdapat 10 orang sahabat yang dijamin masuk syurga.",p:32}
+  ]
+},
+{
+  id:6, title:"Rumah Tangga Nabi SAW", icon:"🏡", color:"#D9577A", pages:"34–40",
+  units:["Sifat Mulia Nabi SAW dalam Berkeluarga","Sifat Mulia Nabi SAW Terhadap Isteri","Sifat Mulia Nabi SAW Terhadap Mertua","Sifat Mulia Nabi SAW Terhadap Anak-anak"],
+  cards:[
+    {u:"Unit 1 • Berkeluarga",sc:"rumah",p:34,t:"Nabi SAW berkahwin dengan Khadijah ketika berumur 25 tahun. Rumah tangga baginda penuh kasih sayang. Walaupun isterinya hartawan, baginda hidup secara sederhana dan suka membantu fakir miskin."},
+    {u:"Unit 1 • Berkeluarga",sc:"rumah",p:34,t:"Nabi SAW bertutur lemah lembut dan berbincang dengan keluarga. Baginda suka bergurau dengan isteri, anak dan cucu. Bersama Khadijah, baginda dikurniakan 2 orang anak lelaki dan 4 orang anak perempuan."},
+    {u:"Unit 2 • Terhadap isteri",sc:"rumah",p:35,t:"Nabi SAW bersopan santun, lemah lembut dan sabar terhadap isteri. Baginda membantu kerja rumah dan hidup bersederhana, seperti menampal kasut, menjahit baju sendiri dan ke pasar membeli barang keperluan."},
+    {u:"Unit 2 • Isteri-isteri Nabi SAW",p:36,list:["Khadijah binti Khuwailid","Saudah binti Zam’ah","Aisyah binti Abu Bakar","Hafsah binti Umar","Zainab binti Khuzaimah","Ummu Salamah","Zainab binti Jahsy","Juwairiyah binti Al-Harith","Ummu Habibah","Safiyyah binti Huyai","Maimunah binti Al-Harith"]},
+    {u:"Unit 3 • Terhadap mertua",sc:"madinah",p:38,t:"Nabi SAW melayan mertuanya dengan baik, sopan dan penuh kemesraan, seperti seorang sahabat. Baginda menghormati mertuanya seperti Saidina Abu Bakar dan Saidina Umar RA."},
+    {u:"Unit 4 • Anak dan cucu",p:37,list:["Anak: Qasim","Zainab","Ruqayyah","Ummu Kalthum","Fatimah","Abdullah","Ibrahim","Cucu: Hasan","Husain","Umamah"]},
+    {u:"Unit 4 • Terhadap anak-anak",sc:"rumah",p:40,t:"Nabi SAW sopan, lemah lembut dan penuh kasih sayang kepada anak-anak. Apabila Fatimah datang, baginda menyambutnya dengan mesra: “Selamat datang, puteriku,” lalu menyuruhnya duduk di sebelah kanan baginda."}
+  ],
+  qs:[
+    {type:"mcq",q:"Pada umur berapakah Nabi SAW berkahwin dengan Khadijah?",a:["25 tahun","12 tahun","35 tahun","40 tahun"],e:"Baginda berkahwin dengan Khadijah ketika berumur 25 tahun.",p:34},
+    {type:"mcq",q:"Bersama Khadijah, Nabi SAW dikurniakan…",a:["2 anak lelaki dan 4 anak perempuan","4 anak lelaki dan 2 anak perempuan","3 anak lelaki dan 3 anak perempuan","1 anak lelaki dan 5 anak perempuan"],e:"Baginda dikurniakan 2 orang anak lelaki dan 4 orang anak perempuan.",p:34},
+    {type:"tf",q:"Nabi SAW hidup bermewah-mewah kerana isterinya seorang hartawan.",ans:false,e:"Salah. Walaupun Khadijah hartawan, baginda hidup secara sederhana.",p:34},
+    {type:"sort",q:"Asingkan: yang mana akhlak Nabi SAW di rumah?",groups:["Akhlak Nabi SAW","Bukan akhlak Nabi SAW"],items:[["Menampal kasut sendiri",0],["Menjahit baju sendiri",0],["Membantu kerja rumah",0],["Bergurau dengan keluarga",0],["Marah-marah di rumah",1],["Hidup bermewah-mewah",1]],e:"Nabi SAW membantu kerja rumah dan hidup bersederhana.",p:35},
+    {type:"mcq",q:"Siapakah isteri pertama Nabi SAW?",a:["Khadijah binti Khuwailid","Aisyah binti Abu Bakar","Hafsah binti Umar","Saudah binti Zam’ah"],e:"Isteri pertama baginda ialah Khadijah binti Khuwailid.",p:36},
+    {type:"match",q:"Padankan isteri Nabi SAW dengan bapanya.",pairs:[["Aisyah","Anak Abu Bakar"],["Hafsah","Anak Umar"],["Khadijah","Anak Khuwailid"]],e:"Abu Bakar dan Umar ialah bapa mertua Nabi SAW.",p:36},
+    {type:"mcq",q:"Antara berikut, siapakah mertua Nabi SAW?",a:["Abu Bakar dan Umar","Abu Talib dan Abu Lahab","Salman dan Al-Hubab","Hasan dan Husain"],e:"Nabi SAW menghormati mertuanya, Saidina Abu Bakar dan Saidina Umar RA.",p:38},
+    {type:"sort",q:"Asingkan: anak atau cucu Nabi SAW?",groups:["Anak","Cucu"],items:[["Qasim",0],["Zainab",0],["Fatimah",0],["Ibrahim",0],["Hasan",1],["Husain",1],["Umamah",1]],e:"Hasan, Husain dan Umamah ialah cucu baginda.",p:37},
+    {type:"tf",q:"Nabi SAW menyambut Fatimah dengan berkata, “Selamat datang, puteriku.”",ans:true,e:"Betul. Baginda sangat menyayangi anaknya.",p:40},
+    {type:"fill",q:"Nabi SAW menyuruh Fatimah duduk di sebelah ___ baginda.",a:["kanan","kiri","belakang"],e:"Fatimah didudukkan di sebelah kanan baginda.",p:40}
+  ]
+}
+];
+
+const FINAL = {
+  title:"Cabaran Akhir", sub:"Soalan Keseluruhan • Pelajaran 1–6", icon:"🏆", color:"#E8A317",
+  qs:[
+    {tag:"P2 • P4 • P3 • P6",type:"order",q:"Susun kehidupan Nabi SAW mengikut urutan.",items:["Lahir di Makkah","Disusukan oleh Halimah As-Sa’diyyah","Tinggal bersama Abu Talib","Berniaga ke Syam membawa barang Khadijah","Berkahwin dengan Khadijah","Menyelesaikan perbalahan Hajar Aswad"],e:"Lahir, disusukan Halimah, dijaga Abu Talib, berniaga untuk Khadijah, berkahwin (25 tahun), dan peristiwa Hajar Aswad (35 tahun).",p:"12, 26, 27, 34, 21"},
+    {tag:"P1 • P2 • P4 • P6",type:"match",q:"Padankan nama dengan peranannya.",pairs:[["Aminah","Ibu Nabi SAW"],["Halimah As-Sa’diyyah","Ibu susuan"],["Abu Talib","Bapa saudara yang menjaga"],["Khadijah","Isteri pertama"]],e:"Setiap insan ini berjasa dalam kehidupan Nabi SAW.",p:"1, 12, 26, 36"},
+    {tag:"P2 • P3 • P4 • P6",type:"match",q:"Padankan umur Nabi SAW dengan peristiwanya.",pairs:[["6 tahun","Ibu wafat"],["12 tahun","Ke Syam bersama Abu Talib"],["25 tahun","Berkahwin dengan Khadijah"],["35 tahun","Peristiwa Hajar Aswad"]],e:"Umur penting: 6 tahun ibu wafat, 12 tahun ke Syam, 25 tahun berkahwin, 35 tahun Hajar Aswad.",p:"12, 27, 34, 21"},
+    {tag:"P4 • P6",type:"mcq",q:"Apakah dua peristiwa penting ketika Nabi SAW berumur 25 tahun?",a:["Berniaga untuk Khadijah dan berkahwin dengannya","Ibu dan datuk wafat","Disusukan dan dibelah dada","Perang Badar dan Perang Khandaq"],e:"Pada umur 25 tahun, baginda membawa barang dagangan Khadijah dan kemudian berkahwin dengannya.",p:"27, 34"},
+    {tag:"P1 • P2",type:"sort",q:"Asingkan peristiwa ini.",groups:["Sebelum Nabi SAW lahir","Selepas Nabi SAW lahir"],items:[["Bapa Nabi SAW wafat",0],["Tentera Abrahah dimusnahkan",0],["Disusukan oleh Halimah",1],["Dada dibelah oleh Jibril",1],["Ibu wafat di Abwa’",1],["Digelar Al-Amin",1]],e:"Bapa wafat dan peristiwa tentera bergajah berlaku sebelum baginda lahir.",p:"9, 12, 18"},
+    {tag:"P3 • P4",type:"mcq",q:"Sifat yang membuatkan Nabi SAW berjaya berniaga DAN digelar Al-Amin ialah…",a:["Jujur dan amanah","Kaya dan berkuasa","Kuat dan tegas","Pandai bercakap"],e:"Kejujuran dan amanah baginda dikenali dalam perniagaan dan masyarakat.",p:"20, 28"},
+    {tag:"P1 • P2",type:"tf",q:"Abdul Muttalib ialah datuk Nabi SAW, dan beliau wafat ketika Nabi SAW berumur 8 tahun.",ans:true,e:"Betul. Abdul Muttalib ialah datuk sebelah bapa dan wafat ketika baginda berumur 8 tahun.",p:"3, 12"},
+    {tag:"P5",type:"mcq",q:"Contoh Nabi SAW menghargai pendapat sahabat ialah…",a:["Menerima cadangan Al-Hubab dalam Perang Badar","Berniaga ke Syam","Menggembala kambing","Tinggal di Bani Sa’ad"],e:"Baginda bersetuju dengan cadangan Al-Hubab bin Al-Munzir.",p:"30"},
+    {tag:"P1",type:"fill",q:"Nasab bapa dan ibu Nabi SAW bertemu pada Kilab bin ___.",a:["Murrah","Hasyim","Wahab"],e:"Kedua-dua nasab bertemu pada Kilab bin Murrah.",p:"5"},
+    {tag:"P1 • P2",type:"mcq",q:"Bapa Nabi SAW dikebumikan di Yathrib. Apakah nama Yathrib sekarang?",a:["Madinah","Makkah","Taif","Syam"],e:"Yathrib kemudian dikenali sebagai Madinah.",p:"9"},
+    {tag:"P3 • P5 • P6",type:"sort",q:"Asingkan akhlak ini.",groups:["Akhlak terpuji","Akhlak tercela"],items:[["Menepati janji",0],["Memberi salam",0],["Membantu kerja rumah",0],["Berlapang dada",0],["Memotong percakapan",1],["Menipu ketika berniaga",1],["Sombong",1]],e:"Contohilah akhlak Nabi SAW dalam kehidupan seharian.",p:"25, 31, 35"},
+    {tag:"P1 • P3",type:"mcq",q:"Wahab ialah…",a:["Datuk Nabi SAW sebelah ibu","Datuk Nabi SAW sebelah bapa","Bapa saudara Nabi SAW","Sahabat Nabi SAW"],e:"Wahab ialah bapa kepada Aminah, iaitu datuk sebelah ibu.",p:"4"},
+    {tag:"P6",type:"tf",q:"Fatimah ialah anak Nabi SAW, manakala Hasan ialah cucu Nabi SAW.",ans:true,e:"Betul.",p:"37"},
+    {tag:"P3",type:"mcq",q:"Bagaimanakah Nabi SAW menyelesaikan perbalahan Hajar Aswad?",a:["Meletakkannya di atas kain dan semua ketua kaum mengangkat bersama","Mengangkatnya seorang diri","Memilih ketua yang paling kaya","Membiarkan Hajar Aswad di luar"],e:"Penyelesaian yang adil ini membuatkan semua kaum berpuas hati.",p:"22"},
+    {tag:"P2 • P5",type:"mcq",q:"Surah yang menceritakan kisah tentera bergajah ialah…",a:["Surah Al-Fil","Surah Al-Ikhlas","Surah Al-Fatihah","Surah An-Nas"],e:"Kisah Abrahah terdapat dalam Surah Al-Fil.",p:"14"}
+  ]
+};
+
+const PRAISE_R = ["Betul! MasyaAllah!","Hebat!","Tepat sekali!","Bagus!","Syabas!"];
+const PRAISE_J = ["بتول! ماشاءالله!","هيبت!","تڤت سکالي!","باڬوس!","شاباس!"];
+const TYPE_R = {mcq:"🔤 Pilih jawapan",tf:"✅ Betul atau Salah",fill:"✏️ Isi tempat kosong",order:"🔢 Susun ikut urutan",match:"🔗 Padankan",sort:"🧺 Asingkan ke kumpulan"};
+const TYPE_J = {mcq:"🔤 ڤيليه جواڤن",tf:"✅ بتول اتاو ساله",fill:"✏️ ايسي تمڤت کوسوڠ",order:"🔢 سوسون ايکوت اوروتن",match:"🔗 ڤادنکن",sort:"🧺 اسيڠکن ک کومڤولن"};
+const MATCH_COLORS = ["#1F6FA8","#C0573E","#5B4BB7","#23824A","#8A5A2B"];
+
+/* ============ STATE ============ */
+const app = document.getElementById("app");
+const $ = id => document.getElementById(id);
+const shuffle = arr => { const a=arr.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]} return a; };
+const pick = arr => arr[Math.floor(Math.random()*arr.length)];
+function load(k,f){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):f; }catch(e){ return f; } }
+function save(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+
+let best = Object.assign({1:0,2:0,3:0,4:0,5:0,6:0,final:0}, load("s3-best",{}));
+let kurmaTotal = load("s3-kurma",0);
+let teacher = load("s3-teacher",false);
+let muted = load("s3-muted",false);
+let lang = load("kafa-lang","jawi");
+let run = null;
+const isJ = () => lang==="jawi";
+const tx = (r,j) => isJ() ? j : r;
+const JAWI = {"Nasab Nabi Muhammad SAW": "نسب نبي محمد ﷺ", "Kemuliaan Bangsa Arab Quraisy": "کمولياٴن بڠسا عرب قريش", "Nasab Nabi SAW Sebelah Bapa": "نسب نبي ﷺ سبله باڤ", "Nasab Nabi SAW Sebelah Ibu": "نسب نبي ﷺ سبله ايبو", "Pertemuan Nasab Bapa dan Ibu Nabi SAW": "ڤرتموان نسب باڤ دان ايبو نبي ﷺ", "Unit 1": "اونيت 1", "Keturunan Nabi Muhammad SAW berasal daripada Nabi Ismail AS. Bangsa Arab Quraisy bersifat pemurah, menepati janji dan mempunyai keazaman yang kuat.": "کتورونن نبي محمد ﷺ براصل درڤد نبي إسماعيل عليه السلام. بڠسا عرب قريش برصيفت ڤموره، منڤتي جنجي دان ممڤوڽاٴي کعزمن يڠ قوات.", "Nama Muhammad bererti “yang terpuji”. Baginda dilahirkan di kota Makkah. Ibunya bernama Aminah binti Wahab dan bapanya Abdullah bin Abdul Muttalib, daripada keturunan bangsawan Quraisy.": "نام محمد برارتي “يڠ ترڤوجي”. بڬيندا دلاهيرکن د کوتا مکة. ايبوڽ برنام آمنة بنت وهب دان باڤڽ عبدالله بن عبد المطلب، درڤد کتورونن بڠساون قريش.", "Unit 2 • Nasab sebelah bapa": "اونيت 2 • نسب سبله باڤ", "Kilab bin Murrah": "کلاب بن مرة", "Qusai": "قصي", "Abdu Manaf": "عبد مناف", "Hasyim": "هاشم", "Abdul Muttalib": "عبد المطلب", "Abdullah": "عبدالله", "Muhammad SAW": "محمد ﷺ", "Unit 3 • Nasab sebelah ibu": "اونيت 3 • نسب سبله ايبو", "Zuhrah": "زهرة", "Wahab": "وهب", "Aminah": "آمنة", "Unit 4 • Pertemuan nasab": "اونيت 4 • ڤرتموان نسب", "Nasab sebelah bapa dan nasab sebelah ibu Nabi SAW bertemu pada Kilab bin Murrah. Tahukah anda? Orang yang baik akan melahirkan keturunan yang baik.": "نسب سبله باڤ دان نسب سبله ايبو نبي ﷺ برتمو ڤد کلاب بن مرة. تاهوکه اندا؟ اورڠ يڠ باٴيق اکن ملاهيرکن کتورونن يڠ باٴيق.", "Keturunan Nabi Muhammad SAW berasal daripada…": "کتورونن نبي محمد ﷺ براصل درڤد…", "Nabi Ismail AS": "نبي إسماعيل عليه السلام", "Nabi Musa AS": "نبي موسى عليه السلام", "Nabi Isa AS": "نبي عيسى عليه السلام", "Nabi Nuh AS": "نبي نوح عليه السلام", "Keturunan Nabi SAW berasal daripada Nabi Ismail AS.": "کتورونن نبي ﷺ براصل درڤد نبي إسماعيل عليه السلام.", "Apakah maksud nama “Muhammad”?": "اڤاکه مقصود نام “محمد”؟", "Yang terpuji": "يڠ ترڤوجي", "Yang dipercayai": "يڠ دڤرچاياٴي", "Yang pemurah": "يڠ ڤموره", "Yang berani": "يڠ براني", "Nama Muhammad bererti yang terpuji.": "نام محمد برارتي يڠ ترڤوجي.", "Bangsa Arab Quraisy terkenal bersifat pemurah dan menepati janji.": "بڠسا عرب قريش ترکنل برصيفت ڤموره دان منڤتي جنجي.", "Betul. Mereka juga mempunyai keazaman yang kuat.": "بتول. مريک جوڬ ممڤوڽاٴي کعزمن يڠ قوات.", "Bapa Nabi SAW bernama ___ bin Abdul Muttalib.": "باڤ نبي ﷺ برنام ___ بن عبد المطلب.", "Bapa Nabi SAW ialah Abdullah bin Abdul Muttalib.": "باڤ نبي ﷺ اياله عبدالله بن عبد المطلب.", "Ibu Nabi SAW bernama Aminah binti ___.": "ايبو نبي ﷺ برنام آمنة بنت ___.", "Ibu Nabi SAW ialah Aminah binti Wahab.": "ايبو نبي ﷺ اياله آمنة بنت وهب.", "Susun nasab Nabi SAW sebelah bapa, bermula dari atas.": "سوسون نسب نبي ﷺ سبله باڤ، برمولا دري اتس.", "Kilab bin Murrah, Qusai, Abdu Manaf, Hasyim, Abdul Muttalib, Abdullah, kemudian Muhammad SAW.": "کلاب بن مرة، قصي، عبد مناف، هاشم، عبد المطلب، عبدالله، کمودين محمد ﷺ.", "Susun nasab Nabi SAW sebelah ibu, bermula dari atas.": "سوسون نسب نبي ﷺ سبله ايبو، برمولا دري اتس.", "Kilab bin Murrah, Zuhrah, Abdu Manaf, Wahab, Aminah, kemudian Muhammad SAW.": "کلاب بن مرة، زهرة، عبد مناف، وهب، آمنة، کمودين محمد ﷺ.", "Nasab bapa dan ibu Nabi SAW bertemu pada…": "نسب باڤ دان ايبو نبي ﷺ برتمو ڤد…", "Kedua-dua nasab bertemu pada Kilab bin Murrah.": "کدوا٢ نسب برتمو ڤد کلاب بن مرة.", "Asingkan nama-nama ini mengikut nasab.": "اسيڠکن نام٢ اين مڠيکوت نسب.", "Sebelah bapa": "سبله باڤ", "Sebelah ibu": "سبله ايبو", "Qusai, Hasyim dan Abdul Muttalib di sebelah bapa. Zuhrah, Wahab dan Aminah di sebelah ibu.": "قصي، هاشم دان عبد المطلب د سبله باڤ. زهرة، وهب دان آمنة د سبله ايبو.", "Datuk Nabi SAW sebelah bapa bernama Wahab.": "داتوق نبي ﷺ سبله باڤ برنام وهب.", "Salah. Datuk sebelah bapa ialah Abdul Muttalib. Wahab ialah datuk sebelah ibu.": "ساله. داتوق سبله باڤ اياله عبد المطلب. وهب اياله داتوق سبله ايبو.", "Nabi Muhammad SAW dilahirkan di kota Makkah.": "نبي محمد ﷺ دلاهيرکن د کوتا مکة.", "Betul. Baginda dilahirkan di kota Makkah.": "بتول. بڬيندا دلاهيرکن د کوتا مکة.", "Peristiwa Kelahiran Nabi SAW": "ڤريستيوا کلاهيرن نبي ﷺ", "Peristiwa Sebelum Kelahiran": "ڤريستيوا سبلوم کلاهيرن", "Peristiwa Semasa Kelahiran": "ڤريستيوا سماس کلاهيرن", "Peristiwa Selepas Kelahiran": "ڤريستيوا سلڤس کلاهيرن", "Unit 1 • Sebelum kelahiran": "اونيت 1 • سبلوم کلاهيرن", "Bapa Nabi SAW, Abdullah, meninggal dunia ketika baginda masih dalam kandungan ibunya. Beliau dikebumikan di Yathrib, yang kemudian dikenali sebagai Madinah.": "باڤ نبي ﷺ، عبدالله، منيڠڬل دنيا کتيک بڬيندا ماسيه دالم کندوڠن ايبوڽ. بلياو دکبوميکن د يثرب، يڠ کمودين دکنلي سباڬاي مدينة.", "Tahun kelahiran Nabi SAW dinamakan Tahun Gajah. Pada tahun itu, tentera yang diketuai oleh Abrahah datang ke Makkah dengan menunggang gajah untuk meruntuhkan Kaabah.": "تاهون کلاهيرن نبي ﷺ دناماکن تاهون ڬاجه. ڤد تاهون ايت، تنترا يڠ دکتواٴي اوليه أبرهة داتڠ ک مکة دڠن منوڠڬڠ ڬاجه اونتوق مرونتوهکن کعبة.", "Tentera Abrahah dimusnahkan oleh sekumpulan burung yang membawa batu. Ada yang mati di Makkah dan ada yang mati di San’a’, Yaman, termasuk Abrahah sendiri. Kisah ini terdapat dalam Surah Al-Fil.": "تنترا أبرهة دموسنهکن اوليه سکومڤولن بوروڠ يڠ ممباوا باتو. اد يڠ ماتي د مکة دان اد يڠ ماتي د صنعاء، يمن، ترماسوق أبرهة سنديري. قيصه اين ترداڤت دالم سورة الفيل.", "Unit 2 • Semasa kelahiran": "اونيت 2 • سماس کلاهيرن", "Nabi SAW dilahirkan pada pagi hari Isnin, 12 Rabiulawal Tahun Gajah, bersamaan bulan April 571 Masihi, di kota Makkah. Ketika baginda lahir, keluar cahaya yang menerangi istana-istana di bumi Syam.": "نبي ﷺ دلاهيرکن ڤد ڤاڬي هاري اثنين، 12 ربيع الأول تاهون ڬاجه، برسامأن بولن اڤريل 571 مسيحي، د کوتا مکة. کتيک بڬيندا لاهير، کلوار چهاي يڠ منراڠي ايستان٢ د بومي شام.", "Unit 3 • Selepas kelahiran": "اونيت 3 • سلڤس کلاهيرن", "Nabi SAW disusukan oleh Thuwaibah Al-Aslamiyyah, kemudian oleh Halimah As-Sa’diyyah yang menjaga baginda hingga berumur 4 tahun. Ketika itu, dada baginda dibelah oleh Malaikat Jibril untuk membersihkan hati baginda.": "نبي ﷺ دسوسوکن اوليه ثويبة الأسلمية، کمودين اوليه حليمة السعدية يڠ منجاڬ بڬيندا هيڠڬ برعمور 4 تاهون. کتيک ايت، دادا بڬيندا دبله اوليه ملائکة جبريل اونتوق ممبرسيهکن هاتي بڬيندا.", "Ketika berumur 6 tahun, ibu baginda wafat di Abwa’ semasa pulang dari menziarahi kubur bapanya di Madinah. Ketika baginda berumur 8 tahun, datuknya, Abdul Muttalib, pula meninggal dunia.": "کتيک برعمور 6 تاهون، ايبو بڬيندا وفات د أبواء سماس ڤولڠ دري منزيارهي قبور باڤڽ د مدينة. کتيک بڬيندا برعمور 8 تاهون، داتوقڽ، عبد المطلب، ڤولا منيڠڬل دنيا.", "Bapa Nabi SAW meninggal dunia ketika…": "باڤ نبي ﷺ منيڠڬل دنيا کتيک…", "Nabi SAW masih dalam kandungan": "نبي ﷺ ماسيه دالم کندوڠن", "Nabi SAW berumur 6 tahun": "نبي ﷺ برعمور 6 تاهون", "Nabi SAW berumur 8 tahun": "نبي ﷺ برعمور 8 تاهون", "Nabi SAW berumur 25 tahun": "نبي ﷺ برعمور 25 تاهون", "Abdullah meninggal dunia ketika Nabi SAW masih dalam kandungan ibunya.": "عبدالله منيڠڬل دنيا کتيک نبي ﷺ ماسيه دالم کندوڠن ايبوڽ.", "Di manakah bapa Nabi SAW dikebumikan?": "دمانکه باڤ نبي ﷺ دکبوميکن؟", "Yathrib": "يثرب", "Makkah": "مکة", "Taif": "طائف", "Syam": "شام", "Beliau dikebumikan di Yathrib, yang kemudian dikenali sebagai Madinah.": "بلياو دکبوميکن د يثرب، يڠ کمودين دکنلي سباڬاي مدينة.", "Siapakah yang mengetuai tentera bergajah untuk meruntuhkan Kaabah?": "سياڤاکه يڠ مڠتواٴي تنترا برڬاجه اونتوق مرونتوهکن کعبة؟", "Abrahah": "أبرهة", "Abu Jahal": "أبو جهل", "Abu Lahab": "أبو لهب", "Tentera bergajah diketuai oleh Abrahah.": "تنترا برڬاجه دکتواٴي اوليه أبرهة.", "Tentera Abrahah dimusnahkan oleh sekumpulan ___ yang membawa batu.": "تنترا أبرهة دموسنهکن اوليه سکومڤولن ___ يڠ ممباوا باتو.", "burung": "بوروڠ", "unta": "اونتا", "semut": "سموت", "Allah memusnahkan mereka dengan sekumpulan burung yang membawa batu.": "الله مموسنهکن مريک دڠن سکومڤولن بوروڠ يڠ ممباوا باتو.", "Nabi SAW dilahirkan pada 12 ___ Tahun Gajah.": "نبي ﷺ دلاهيرکن ڤد 12 ___ تاهون ڬاجه.", "Rabiulawal": "ربيع الأول", "Ramadan": "رمضان", "Syawal": "شوال", "Baginda lahir pada 12 Rabiulawal Tahun Gajah.": "بڬيندا لاهير ڤد 12 ربيع الأول تاهون ڬاجه.", "Nabi SAW dilahirkan pada hari…": "نبي ﷺ دلاهيرکن ڤد هاري…", "Isnin": "اثنين", "Jumaat": "جمعة", "Ahad": "احد", "Khamis": "خميس", "Baginda lahir pada pagi hari Isnin.": "بڬيندا لاهير ڤد ڤاڬي هاري اثنين.", "Ketika Nabi SAW lahir, keluar cahaya yang menerangi istana-istana di bumi Syam.": "کتيک نبي ﷺ لاهير، کلوار چهاي يڠ منراڠي ايستان٢ د بومي شام.", "Betul. Ini salah satu keajaiban ketika baginda dilahirkan.": "بتول. اين ساله ساتو کعجائبن کتيک بڬيندا دلاهيرکن.", "Siapakah yang menyusukan dan menjaga Nabi SAW hingga berumur 4 tahun?": "سياڤاکه يڠ مڽوسوکن دان منجاڬ نبي ﷺ هيڠڬ برعمور 4 تاهون؟", "Halimah As-Sa’diyyah": "حليمة السعدية", "Khadijah": "خديجة", "Fatimah": "فاطمة", "Halimah As-Sa’diyyah menjaga baginda sehingga berumur 4 tahun.": "حليمة السعدية منجاڬ بڬيندا سهيڠڬ برعمور 4 تاهون.", "Ibu Nabi SAW wafat ketika baginda berumur 8 tahun.": "ايبو نبي ﷺ وفات کتيک بڬيندا برعمور 8 تاهون.", "Salah. Ibu baginda wafat ketika baginda berumur 6 tahun. Pada umur 8 tahun, datuk baginda pula meninggal dunia.": "ساله. ايبو بڬيندا وفات کتيک بڬيندا برعمور 6 تاهون. ڤد عمور 8 تاهون، داتوق بڬيندا ڤولا منيڠڬل دنيا.", "Susun peristiwa ini mengikut urutan.": "سوسون ڤريستيوا اين مڠيکوت اوروتن.", "Bapa Nabi SAW wafat": "باڤ نبي ﷺ وفات", "Nabi SAW lahir di Makkah": "نبي ﷺ لاهير د مکة", "Disusukan oleh Halimah As-Sa’diyyah": "دسوسوکن اوليه حليمة السعدية", "Ibu Nabi SAW wafat di Abwa’": "ايبو نبي ﷺ وفات د أبواء", "Datuk Nabi SAW, Abdul Muttalib, wafat": "داتوق نبي ﷺ، عبد المطلب، وفات", "Bapa wafat sebelum baginda lahir, kemudian baginda lahir, disusukan, ibu wafat (6 tahun) dan datuk wafat (8 tahun).": "باڤ وفات سبلوم بڬيندا لاهير، کمودين بڬيندا لاهير، دسوسوکن، ايبو وفات (6 تاهون) دان داتوق وفات (8 تاهون).", "Padankan umur Nabi SAW dengan peristiwanya.": "ڤادنکن عمور نبي ﷺ دڠن ڤريستيواڽ.", "4 tahun": "4 تاهون", "Dijaga Halimah hingga umur ini": "دجاڬ حليمة هيڠڬ عمور اين", "6 tahun": "6 تاهون", "Ibu wafat": "ايبو وفات", "8 tahun": "8 تاهون", "Datuk wafat": "داتوق وفات", "571 Masihi": "571 مسيحي", "Tahun Nabi SAW lahir": "تاهون نبي ﷺ لاهير", "Ingat: 4 tahun bersama Halimah, 6 tahun ibu wafat, 8 tahun datuk wafat, lahir pada tahun 571 Masihi.": "ايڠت: 4 تاهون برسام حليمة، 6 تاهون ايبو وفات، 8 تاهون داتوق وفات، لاهير ڤد تاهون 571 مسيحي.", "Akhlak Nabi Muhammad SAW": "اخلاق نبي محمد ﷺ", "Akhlak Ketika Kanak-kanak": "اخلاق کتيک کانق٢", "Akhlak Ketika Remaja": "اخلاق کتيک رماج", "Akhlak Ketika Dewasa": "اخلاق کتيک دواس", "Mendapat Gelaran Al-Amin": "منداڤت ڬلرن الأمين", "Unit 1 • Kanak-kanak": "اونيت 1 • کانق٢", "Nabi SAW dibesarkan di perkampungan Bani Sa’ad di luar kota Makkah. Kaum Bani Sa’ad terkenal kerana fasih berbahasa Arab. Di sana baginda belajar berbudi pekerti mulia, berdikari dan menguasai bahasa dengan baik.": "نبي ﷺ دبسرکن د ڤرکمڤوڠن بني سعد د لوار کوتا مکة. قوم بني سعد ترکنل کران فصيح بربهاس عرب. د سان بڬيندا بلاجر بربودي ڤکرتي موليا، برديکاري دان مڠواساٴي بهاس دڠن باٴيق.", "Unit 2 • Remaja": "اونيت 2 • رماج", "Ketika remaja, Nabi SAW seorang yang berani, amanah dan dipercayai sehingga digelar “Al-Amin” oleh penduduk Makkah. Baginda dipelihara oleh Allah daripada perkara maksiat.": "کتيک رماج، نبي ﷺ سأورڠ يڠ براني، امانه دان دڤرچاياٴي سهيڠڬ دڬلر “الأمين” اوليه ڤندودوق مکة. بڬيندا دڤليهارا اوليه الله درڤد ڤرکارا معصية.", "Unit 3 • Dewasa": "اونيت 3 • دواس", "Ketika dewasa, Nabi SAW bijaksana dalam urusan dakwah dan negara, berani dalam peperangan, jujur dalam perniagaan, sangat menyayangi kanak-kanak dan menghormati orang yang lebih tua.": "کتيک دواس، نبي ﷺ بيجقسان دالم اوروسن دعوه دان نڬارا، براني دالم ڤڤرڠن، جوجور دالم ڤرنياڬاٴن، ساڠت مڽايڠي کانق٢ دان مڠهورمتي اورڠ يڠ لبيه توا.", "Unit 4 • Al-Amin": "اونيت 4 • الأمين", "Kisah Hajar Aswad: Ketika Nabi SAW berumur lebih kurang 35 tahun, Kaabah dibaiki semula. Ketua-ketua kaum Quraisy berbalah tentang siapa yang layak meletakkan Hajar Aswad di tempatnya.": "قيصه حجر الأسود: کتيک نبي ﷺ برعمور لبيه کورڠ 35 تاهون، کعبة دباٴيقي سمولا. کتوا٢ قوم قريش برباله تنتڠ سياڤ يڠ لايق ملتقکن حجر الأسود د تمڤتڽ.", "Umayyah bin Al-Mughirah mencadangkan supaya orang pertama yang masuk ke Masjidil Haram menjadi hakim. Keesokan paginya, Nabi SAW orang pertama yang masuk.": "أمية بن المغيرة منچادڠکن سوڤاي اورڠ ڤرتام يڠ ماسوق ک مسجد الحرام منجادي حاکم. کأيسوقن ڤاڬيڽ، نبي ﷺ اورڠ ڤرتام يڠ ماسوق.", "Nabi SAW meletakkan Hajar Aswad di atas sehelai kain, lalu meminta semua ketua kaum memegang penjuru kain dan mengangkatnya bersama-sama. Semua kaum berpuas hati.": "نبي ﷺ ملتقکن حجر الأسود د اتس سهلاي کاين، لالو ممينتا سموا کتوا قوم ممڬڠ ڤنجورو کاين دان مڠڠکتڽ برسام٢. سموا قوم برڤواس هاتي.", "Tahukah anda?": "تاهوکه اندا؟", "Sifat wajib bagi Nabi SAW: Siddiq bererti benar, Amanah bererti jujur, Tabligh bererti menyampaikan dan Fatanah bererti bijaksana.": "صيفت واجب باڬي نبي ﷺ: الصدق برارتي بنر، الأمانة برارتي جوجور، التبليغ برارتي مڽمڤايکن دان الفطانة برارتي بيجقسان.", "Nabi SAW dibesarkan di perkampungan…": "نبي ﷺ دبسرکن د ڤرکمڤوڠن…", "Bani Sa’ad": "بني سعد", "Bani Hasyim": "بني هاشم", "Bani Zuhrah": "بني زهرة", "Bani Umaiyah": "بني أمية", "Baginda dibesarkan di perkampungan Bani Sa’ad di luar kota Makkah.": "بڬيندا دبسرکن د ڤرکمڤوڠن بني سعد د لوار کوتا مکة.", "Kaum Bani Sa’ad terkenal kerana…": "قوم بني سعد ترکنل کران…", "Fasih berbahasa Arab": "فصيح بربهاس عرب", "Kaya-raya": "کاي راي", "Tentera yang kuat": "تنترا يڠ قوات", "Pandai berniaga": "ڤندأي برنياڬ", "Kaum Bani Sa’ad terkenal dengan kefasihan berbahasa Arab.": "قوم بني سعد ترکنل دڠن کفصيحن بربهاس عرب.", "Apakah gelaran Nabi SAW yang bermaksud “orang yang dipercayai”?": "اڤاکه ڬلرن نبي ﷺ يڠ برمقصود “اورڠ يڠ دڤرچاياٴي”؟", "Al-Amin": "الأمين", "As-Siddiq": "الصديق", "Al-Faruq": "الفاروق", "Saifullah": "سيف الله", "Penduduk Makkah menggelar baginda Al-Amin.": "ڤندودوق مکة مڠڬلر بڬيندا الأمين.", "Nabi SAW dipelihara oleh Allah daripada perkara maksiat.": "نبي ﷺ دڤليهارا اوليه الله درڤد ڤرکارا معصية.", "Betul. Allah memelihara baginda sejak remaja.": "بتول. الله ممليهارا بڬيندا سجق رماج.", "Ketika dewasa, Nabi SAW sangat menyayangi ___ dan menghormati orang yang lebih tua.": "کتيک دواس، نبي ﷺ ساڠت مڽايڠي ___ دان مڠهورمتي اورڠ يڠ لبيه توا.", "kanak-kanak": "کانق٢", "harta": "هرتا", "pakaian": "ڤاکاين", "Baginda sangat menyayangi kanak-kanak dan menghormati orang tua.": "بڬيندا ساڠت مڽايڠي کانق٢ دان مڠهورمتي اورڠ توا.", "Padankan sifat wajib Nabi SAW dengan maksudnya.": "ڤادنکن صيفت واجب نبي ﷺ دڠن مقصودڽ.", "Siddiq": "الصدق", "Benar": "بنر", "Amanah": "الأمانة", "Jujur": "جوجور", "Tabligh": "التبليغ", "Menyampaikan": "مڽمڤايکن", "Fatanah": "الفطانة", "Bijaksana": "بيجقسان", "Siddiq (benar), Amanah (jujur), Tabligh (menyampaikan), Fatanah (bijaksana).": "الصدق (بنر)، الأمانة (جوجور)، التبليغ (مڽمڤايکن)، الفطانة (بيجقسان).", "Berapakah umur Nabi SAW semasa peristiwa Hajar Aswad?": "براڤاکه عمور نبي ﷺ سماس ڤريستيوا حجر الأسود؟", "Lebih kurang 35 tahun": "لبيه کورڠ 35 تاهون", "12 tahun": "12 تاهون", "25 tahun": "25 تاهون", "40 tahun": "40 تاهون", "Peristiwa ini berlaku ketika baginda berumur lebih kurang 35 tahun.": "ڤريستيوا اين برلاکو کتيک بڬيندا برعمور لبيه کورڠ 35 تاهون.", "Siapakah yang mencadangkan orang pertama masuk ke Masjidil Haram menjadi hakim?": "سياڤاکه يڠ منچادڠکن اورڠ ڤرتام ماسوق ک مسجد الحرام منجادي حاکم؟", "Umayyah bin Al-Mughirah": "أمية بن المغيرة", "Abu Talib": "أبو طالب", "Abu Bakar": "أبو بکر", "Cadangan itu datang daripada Umayyah bin Al-Mughirah, ketua Quraisy yang tua dan dihormati.": "چادڠن ايت داتڠ درڤد أمية بن المغيرة، کتوا قريش يڠ توا دان دهورمتي.", "Susun kisah Hajar Aswad mengikut urutan.": "سوسون قيصه حجر الأسود مڠيکوت اوروتن.", "Kaabah dibaiki semula": "کعبة دباٴيقي سمولا", "Ketua kaum berbalah tentang Hajar Aswad": "کتوا قوم برباله تنتڠ حجر الأسود", "Umayyah bin Al-Mughirah memberi cadangan": "أمية بن المغيرة ممبري چادڠن", "Nabi SAW orang pertama masuk Masjidil Haram": "نبي ﷺ اورڠ ڤرتام ماسوق مسجد الحرام", "Hajar Aswad diangkat bersama dengan kain": "حجر الأسود دأڠکت برسام دڠن کاين", "Kebijaksanaan Nabi SAW menyelesaikan perbalahan tanpa pergaduhan.": "کبيجقساناٴن نبي ﷺ مڽلسايکن ڤربالهن تنڤا ڤرڬادوهن.", "Asingkan: yang mana akhlak Nabi SAW?": "اسيڠکن: يڠ مان اخلاق نبي ﷺ؟", "Akhlak Nabi SAW": "اخلاق نبي ﷺ", "Bukan akhlak Nabi SAW": "بوکن اخلاق نبي ﷺ", "Pemaaf": "ڤمعاف", "Penyayang": "ڤڽايڠ", "Menepati janji": "منڤتي جنجي", "Pemalu": "ڤمالو", "Sombong": "سومبوڠ", "Pemarah": "ڤماره", "Mungkir janji": "موڠکير جنجي", "Akhlak Nabi SAW termasuk pemaaf, penyayang, menepati janji, pemalu, berani dan beradab.": "اخلاق نبي ﷺ ترماسوق ڤمعاف، ڤڽايڠ، منڤتي جنجي، ڤمالو، براني دان برادب.", "Pekerjaan Nabi Muhammad SAW": "ڤکرجاٴن نبي محمد ﷺ", "Nabi SAW Menggembala Kambing": "نبي ﷺ مڠڬمبالا کمبيڠ", "Nabi SAW Berniaga": "نبي ﷺ برنياڬ", "Unit 1 • Menggembala kambing": "اونيت 1 • مڠڬمبالا کمبيڠ", "Selepas ibu dan datuknya wafat, Nabi SAW tinggal bersama bapa saudaranya, Abu Talib. Baginda bekerja menggembala kambing kepunyaan penduduk Makkah dan menerima upah untuk menampung kehidupan.": "سلڤس ايبو دان داتوقڽ وفات، نبي ﷺ تيڠڬل برسام باڤ سوداراڽ، أبو طالب. بڬيندا برکرجا مڠڬمبالا کمبيڠ کڤوڽاٴن ڤندودوق مکة دان منريما اوڤه اونتوق منمڤوڠ کهيدوڤن.", "Unit 2 • Berniaga": "اونيت 2 • برنياڬ", "Ketika berumur 12 tahun, Nabi SAW pergi ke Syam untuk berniaga bersama bapa saudaranya, Abu Talib.": "کتيک برعمور 12 تاهون، نبي ﷺ ڤرڬي ک شام اونتوق برنياڬ برسام باڤ سوداراڽ، أبو طالب.", "Ketika berumur 25 tahun, baginda ke Syam lagi sebagai ketua rombongan, membawa barang dagangan Khadijah. Baginda ditemani khadam Khadijah bernama Maisarah. Baginda berniaga dengan jujur dan mendapat keuntungan yang besar.": "کتيک برعمور 25 تاهون، بڬيندا ک شام لاڬي سباڬاي کتوا رومبوڠن، ممباوا بارڠ داڬڠن خديجة. بڬيندا دتماني خادم خديجة برنام ميسرة. بڬيندا برنياڬ دڠن جوجور دان منداڤت کأونتوڠن يڠ بسر.", "Nabi SAW berjaya berniaga kerana sentiasa jujur, amanah dan mesra dengan pelanggan. Amalkan doa “Rabbi yassir wa la tu’assir” supaya dipermudahkan segala urusan.": "نبي ﷺ برجاي برنياڬ کران سنتياس جوجور، امانه دان مسرا دڠن ڤلڠڬن. عملکن دعاء “رَبِّ يَسِّرْ وَلَا تُعَسِّرْ” سوڤاي دڤرمودهکن سڬالا اوروسن.", "Selepas ibu dan datuknya wafat, Nabi SAW tinggal bersama…": "سلڤس ايبو دان داتوقڽ وفات، نبي ﷺ تيڠڬل برسام…", "Halimah": "حليمة", "Baginda tinggal bersama bapa saudaranya, Abu Talib.": "بڬيندا تيڠڬل برسام باڤ سوداراڽ، أبو طالب.", "Apakah pekerjaan Nabi SAW di Makkah dalam Unit 1?": "اڤاکه ڤکرجاٴن نبي ﷺ د مکة دالم اونيت 1؟", "Menggembala kambing": "مڠڬمبالا کمبيڠ", "Bertani": "برتاني", "Menangkap ikan": "منڠکڤ ايکن", "Menjahit baju": "منجاهيت باجو", "Baginda menggembala kambing kepunyaan penduduk Makkah.": "بڬيندا مڠڬمبالا کمبيڠ کڤوڽاٴن ڤندودوق مکة.", "Nabi SAW menerima upah daripada kerja menggembala kambing.": "نبي ﷺ منريما اوڤه درڤد کرجا مڠڬمبالا کمبيڠ.", "Betul. Upah itu digunakan untuk menampung kehidupan baginda.": "بتول. اوڤه ايت دڬوناکن اونتوق منمڤوڠ کهيدوڤن بڬيندا.", "Pada umur berapakah Nabi SAW pertama kali ke Syam bersama Abu Talib?": "ڤد عمور براڤاکه نبي ﷺ ڤرتام کالي ک شام برسام أبو طالب؟", "Baginda ke Syam bersama Abu Talib ketika berumur 12 tahun.": "بڬيندا ک شام برسام أبو طالب کتيک برعمور 12 تاهون.", "Ketika berumur 25 tahun, Nabi SAW membawa barang dagangan milik ___ ke Syam.": "کتيک برعمور 25 تاهون، نبي ﷺ ممباوا بارڠ داڬڠن مليک ___ ک شام.", "Maisarah": "ميسرة", "Baginda membawa barang dagangan Khadijah.": "بڬيندا ممباوا بارڠ داڬڠن خديجة.", "Siapakah khadam Khadijah yang menemani Nabi SAW berniaga?": "سياڤاکه خادم خديجة يڠ منماني نبي ﷺ برنياڬ؟", "Bilal": "بلال", "Zaid": "زيد", "Baginda ditemani oleh Maisarah.": "بڬيندا دتماني اوليه ميسرة.", "Padankan nama dengan keterangannya.": "ڤادنکن نام دڠن کترڠنڽ.", "Bapa saudara Nabi SAW": "باڤ سودارا نبي ﷺ", "Pemilik barang dagangan": "ڤمليک بارڠ داڬڠن", "Khadam Khadijah": "خادم خديجة", "Tempat berniaga": "تمڤت برنياڬ", "Abu Talib menjaga baginda. Baginda membawa barang Khadijah ke Syam bersama Maisarah.": "أبو طالب منجاڬ بڬيندا. بڬيندا ممباوا بارڠ خديجة ک شام برسام ميسرة.", "Asingkan sifat peniaga.": "اسيڠکن صيفت ڤنياڬ.", "Peniaga yang baik": "ڤنياڬ يڠ باٴيق", "Peniaga yang tidak baik": "ڤنياڬ يڠ تيدق باٴيق", "Mesra dengan pelanggan": "مسرا دڠن ڤلڠڬن", "Menipu timbangan": "منيڤو تيمبڠن", "Nabi SAW berjaya kerana jujur, amanah dan mesra dengan pelanggan.": "نبي ﷺ برجاي کران جوجور، امانه دان مسرا دڠن ڤلڠڬن.", "Ibu dan datuk Nabi SAW wafat": "ايبو دان داتوق نبي ﷺ وفات", "Tinggal bersama Abu Talib": "تيڠڬل برسام أبو طالب", "Ke Syam bersama Abu Talib (12 tahun)": "ک شام برسام أبو طالب (12 تاهون)", "Ke Syam membawa barang Khadijah (25 tahun)": "ک شام ممباوا بارڠ خديجة (25 تاهون)", "Selepas ibu dan datuk wafat, baginda dijaga Abu Talib, dan kemudian berniaga ke Syam.": "سلڤس ايبو دان داتوق وفات، بڬيندا دجاڬ أبو طالب، دان کمودين برنياڬ ک شام.", "Doa “Rabbi yassir wa la tu’assir” dibaca supaya…": "دعاء “رَبِّ يَسِّرْ وَلَا تُعَسِّرْ” دباچ سوڤاي…", "Dipermudahkan segala urusan": "دڤرمودهکن سڬالا اوروسن", "Mendapat banyak duit": "منداڤت باڽق دوءيت", "Cepat tidur": "چڤت تيدور", "Tidak lapar": "تيدق لاڤر", "Doa ini memohon supaya Allah mempermudahkan segala urusan.": "دعاء اين مموهون سوڤاي الله ممڤرمودهکن سڬالا اوروسن.", "Kehidupan Bermasyarakat Nabi SAW": "کهيدوڤن برمشارکت نبي ﷺ", "Cara Pergaulan Nabi SAW": "چارا ڤرڬاولن نبي ﷺ", "Pergaulan Nabi SAW dengan Sahabat": "ڤرڬاولن نبي ﷺ دڠن صحابت", "Unit 1 • Cara pergaulan": "اونيت 1 • چارا ڤرڬاولن", "Nabi SAW bergaul dengan semua lapisan masyarakat: orang Islam atau bukan Islam, orang kaya atau miskin. Baginda menghormati orang tua dan menyayangi kanak-kanak. Baginda lemah lembut dan pengasih kepada semua makhluk Allah.": "نبي ﷺ برڬاول دڠن سموا لاڤيسن مشارکت: اورڠ اسلام اتاو بوکن اسلام، اورڠ کاي اتاو مسکين. بڬيندا مڠهورمتي اورڠ توا دان مڽايڠي کانق٢. بڬيندا لمه لمبوت دان ڤڠاسيه کڤد سموا مخلوق الله.", "Nabi SAW mendengar pendapat sahabat. Dalam Perang Khandaq, baginda menerima cadangan Salman Al-Farisi untuk menggali parit.": "نبي ﷺ مندڠر ڤنداڤت صحابت. دالم ڤرڠ خندق، بڬيندا منريما چادڠن سلمان الفارسي اونتوق مڠڬالي ڤاريت.", "Unit 2 • Dengan sahabat": "اونيت 2 • دڠن صحابت", "Dalam Perang Badar, sahabat bernama Al-Hubab bin Al-Munzir mencadangkan tentera Islam berkhemah dekat punca air. Nabi SAW bersetuju, dan tentera Islam mendapat kemenangan. Nabi SAW menghargai pendapat sahabat walaupun daripada tentera biasa.": "دالم ڤرڠ بدر، صحابت برنام الحباب بن المنذر منچادڠکن تنترا اسلام برخيمه دکت ڤونچا اءير. نبي ﷺ برستوجو، دان تنترا اسلام منداڤت کمناڠن. نبي ﷺ مڠهرڬاٴي ڤنداڤت صحابت والاوڤون درڤد تنترا بياسا.", "Sifat ketika bergaul": "صيفت کتيک برڬاول", "Memuliakan orang lain": "ممولياکن اورڠ لاٴين", "Jujur dalam bicara": "جوجور دالم بيچارا", "Menerima pendapat": "منريما ڤنداڤت", "Merendah diri": "مرنده ديري", "Tidak memalukan orang": "تيدق ممالوکن اورڠ", "Berlapang dada": "برلاڤڠ دادا", "Tidak memotong percakapan": "تيدق مموتوڠ ڤرچاکڤن", "Memanggil dengan nama yang baik": "ممڠڬيل دڠن نام يڠ باٴيق", "Tahukah anda? • 10 sahabat dijamin syurga": "تاهوکه اندا؟ • 10 صحابت دجامين شرڬ", "Abu Bakar As-Siddiq": "أبو بکر الصديق", "Umar Al-Khattab": "عمر بن الخطاب", "Uthman bin Affan": "عثمان بن عفان", "Ali bin Abi Talib": "علي بن أبي طالب", "Talhah bin Ubaidillah": "طلحة بن عبيد الله", "Az-Zubair bin Al-Awwam": "الزبير بن العوام", "Abdul Rahman bin Auf": "عبد الرحمن بن عوف", "Saad bin Abi Waqqas": "سعد بن أبي وقاص", "Said bin Zaid": "سعيد بن زيد", "Abu Ubaidah bin Al-Jarrah": "أبو عبيدة بن الجراح", "Hadis Nabi SAW": "حديث نبي ﷺ", "Daripada Abu Hurairah RA, Rasulullah SAW bersabda: “Sesungguhnya aku diutuskan untuk menyempurnakan akhlak yang mulia.” (Riwayat Imam Malik). Amalkan: beri salam dan bersalaman apabila bertemu sahabat.": "درڤد أبو هريرة رضي الله عنه، رسول الله ﷺ برسبدا: “سسوڠڬوهڽ اکو داوتوسکن اونتوق مڽمڤورناکن اخلاق يڠ موليا.” (رواية امام مالک). عملکن: بري سلام دان برسلامن اڤابيلا برتمو صحابت.", "Nabi SAW hanya bergaul dengan orang kaya sahaja.": "نبي ﷺ هاڽ برڬاول دڠن اورڠ کاي سهاج.", "Salah. Baginda bergaul dengan semua lapisan masyarakat, kaya atau miskin.": "ساله. بڬيندا برڬاول دڠن سموا لاڤيسن مشارکت، کاي اتاو مسکين.", "Dalam Perang Khandaq, Nabi SAW menerima cadangan Salman Al-Farisi untuk…": "دالم ڤرڠ خندق، نبي ﷺ منريما چادڠن سلمان الفارسي اونتوق…", "Menggali parit": "مڠڬالي ڤاريت", "Berkhemah dekat air": "برخيمه دکت اءير", "Membina masjid": "ممبينا مسجد", "Berpindah ke Taif": "برڤينده ک طائف", "Salman Al-Farisi mencadangkan supaya parit digali.": "سلمان الفارسي منچادڠکن سوڤاي ڤاريت دڬالي.", "Siapakah sahabat yang mencadangkan tentera Islam berkhemah dekat punca air dalam Perang Badar?": "سياڤاکه صحابت يڠ منچادڠکن تنترا اسلام برخيمه دکت ڤونچا اءير دالم ڤرڠ بدر؟", "Al-Hubab bin Al-Munzir": "الحباب بن المنذر", "Salman Al-Farisi": "سلمان الفارسي", "Cadangan itu datang daripada Al-Hubab bin Al-Munzir.": "چادڠن ايت داتڠ درڤد الحباب بن المنذر.", "Nabi SAW menolak pendapat Al-Hubab kerana dia hanya tentera biasa.": "نبي ﷺ منولق ڤنداڤت الحباب کران دي هاڽ تنترا بياسا.", "Salah. Nabi SAW bersetuju dengan cadangannya dan tentera Islam menang.": "ساله. نبي ﷺ برستوجو دڠن چادڠنڽ دان تنترا اسلام منڠ.", "Padankan sahabat dengan peristiwanya.": "ڤادنکن صحابت دڠن ڤريستيواڽ.", "Menggali parit (Khandaq)": "مڠڬالي ڤاريت (خندق)", "Khemah dekat air (Badar)": "خيمه دکت اءير (بدر)", "Abu Hurairah": "أبو هريرة", "Meriwayatkan hadis akhlak mulia": "مريوايتکن حديث اخلاق موليا", "Nabi SAW mendengar dan menghargai pendapat para sahabat.": "نبي ﷺ مندڠر دان مڠهرڬاٴي ڤنداڤت ڤارا صحابت.", "Asingkan sifat ketika bergaul.": "اسيڠکن صيفت کتيک برڬاول.", "Sifat Nabi SAW": "صيفت نبي ﷺ", "Bukan sifat Nabi SAW": "بوکن صيفت نبي ﷺ", "Memotong percakapan": "مموتوڠ ڤرچاکڤن", "Memalukan orang": "ممالوکن اورڠ", "Nabi SAW merendah diri, berlapang dada dan menerima pendapat orang lain.": "نبي ﷺ مرنده ديري، برلاڤڠ دادا دان منريما ڤنداڤت اورڠ لاٴين.", "Antara berikut, siapakah sahabat yang dijamin masuk syurga?": "انتارا بريکوت، سياڤاکه صحابت يڠ دجامين ماسوق شرڬ؟", "Uthman bin Affan ialah salah seorang daripada 10 sahabat yang dijamin syurga.": "عثمان بن عفان اياله ساله سأورڠ درڤد 10 صحابت يڠ دجامين شرڬ.", "“Sesungguhnya aku diutuskan untuk menyempurnakan ___ yang mulia.”": "“سسوڠڬوهڽ اکو داوتوسکن اونتوق مڽمڤورناکن ___ يڠ موليا.”", "akhlak": "اخلاق", "rumah": "رومه", "Nabi SAW diutuskan untuk menyempurnakan akhlak yang mulia.": "نبي ﷺ داوتوسکن اونتوق مڽمڤورناکن اخلاق يڠ موليا.", "Kita digalakkan memberi salam dan bersalaman apabila bertemu sahabat.": "کيت دڬالقکن ممبري سلام دان برسلامن اڤابيلا برتمو صحابت.", "Betul. Ini amalan yang diajar dalam buku teks.": "بتول. اين عملن يڠ دأجر دالم بوکو تيکس.", "Berapakah bilangan sahabat yang dijamin masuk syurga dalam buku teks?": "براڤاکه بيلڠن صحابت يڠ دجامين ماسوق شرڬ دالم بوکو تيکس؟", "10 orang": "10 اورڠ", "4 orang": "4 اورڠ", "7 orang": "7 اورڠ", "12 orang": "12 اورڠ", "Terdapat 10 orang sahabat yang dijamin masuk syurga.": "ترداڤت 10 اورڠ صحابت يڠ دجامين ماسوق شرڬ.", "Rumah Tangga Nabi SAW": "رومه تڠڬ نبي ﷺ", "Sifat Mulia Nabi SAW dalam Berkeluarga": "صيفت موليا نبي ﷺ دالم برکلوارڬ", "Sifat Mulia Nabi SAW Terhadap Isteri": "صيفت موليا نبي ﷺ ترهادڤ ايستري", "Sifat Mulia Nabi SAW Terhadap Mertua": "صيفت موليا نبي ﷺ ترهادڤ مرتوا", "Sifat Mulia Nabi SAW Terhadap Anak-anak": "صيفت موليا نبي ﷺ ترهادڤ انق٢", "Unit 1 • Berkeluarga": "اونيت 1 • برکلوارڬ", "Nabi SAW berkahwin dengan Khadijah ketika berumur 25 tahun. Rumah tangga baginda penuh kasih sayang. Walaupun isterinya hartawan, baginda hidup secara sederhana dan suka membantu fakir miskin.": "نبي ﷺ برکهوين دڠن خديجة کتيک برعمور 25 تاهون. رومه تڠڬ بڬيندا ڤنوه کاسيه سايڠ. والاوڤون ايستريڽ هرتاون، بڬيندا هيدوڤ سچارا سدرهان دان سوک ممبنتو فقير مسکين.", "Nabi SAW bertutur lemah lembut dan berbincang dengan keluarga. Baginda suka bergurau dengan isteri, anak dan cucu. Bersama Khadijah, baginda dikurniakan 2 orang anak lelaki dan 4 orang anak perempuan.": "نبي ﷺ برتوتور لمه لمبوت دان بربينچڠ دڠن کلوارڬ. بڬيندا سوک برڬورو دڠن ايستري، انق دان چوچو. برسام خديجة، بڬيندا دکورنياکن 2 اورڠ انق للاکي دان 4 اورڠ انق ڤرمڤوان.", "Unit 2 • Terhadap isteri": "اونيت 2 • ترهادڤ ايستري", "Nabi SAW bersopan santun, lemah lembut dan sabar terhadap isteri. Baginda membantu kerja rumah dan hidup bersederhana, seperti menampal kasut, menjahit baju sendiri dan ke pasar membeli barang keperluan.": "نبي ﷺ برسوڤن سنتون، لمه لمبوت دان صبر ترهادڤ ايستري. بڬيندا ممبنتو کرجا رومه دان هيدوڤ برسدرهان، سڤرتي منمڤل کاسوت، منجاهيت باجو سنديري دان ک ڤاسر ممبلي بارڠ کڤرلوان.", "Unit 2 • Isteri-isteri Nabi SAW": "اونيت 2 • ايستري٢ نبي ﷺ", "Khadijah binti Khuwailid": "خديجة بنت خويلد", "Saudah binti Zam’ah": "سودة بنت زمعة", "Aisyah binti Abu Bakar": "عائشة بنت أبي بکر", "Hafsah binti Umar": "حفصة بنت عمر", "Zainab binti Khuzaimah": "زينب بنت خزيمة", "Ummu Salamah": "أم سلمة", "Zainab binti Jahsy": "زينب بنت جحش", "Juwairiyah binti Al-Harith": "جويرية بنت الحارث", "Ummu Habibah": "أم حبيبة", "Safiyyah binti Huyai": "صفية بنت حيي", "Maimunah binti Al-Harith": "ميمونة بنت الحارث", "Unit 3 • Terhadap mertua": "اونيت 3 • ترهادڤ مرتوا", "Nabi SAW melayan mertuanya dengan baik, sopan dan penuh kemesraan, seperti seorang sahabat. Baginda menghormati mertuanya seperti Saidina Abu Bakar dan Saidina Umar RA.": "نبي ﷺ ملاين مرتواڽ دڠن باٴيق، سوڤن دان ڤنوه کمسراٴن، سڤرتي سأورڠ صحابت. بڬيندا مڠهورمتي مرتواڽ سڤرتي سيدنا أبو بکر دان سيدنا عمر رضي الله عنهما.", "Unit 4 • Anak dan cucu": "اونيت 4 • انق دان چوچو", "Anak: Qasim": "انق: قاسم", "Zainab": "زينب", "Ruqayyah": "رقية", "Ummu Kalthum": "أم کلثوم", "Ibrahim": "إبراهيم", "Cucu: Hasan": "چوچو: حسن", "Husain": "حسين", "Umamah": "أمامة", "Unit 4 • Terhadap anak-anak": "اونيت 4 • ترهادڤ انق٢", "Nabi SAW sopan, lemah lembut dan penuh kasih sayang kepada anak-anak. Apabila Fatimah datang, baginda menyambutnya dengan mesra: “Selamat datang, puteriku,” lalu menyuruhnya duduk di sebelah kanan baginda.": "نبي ﷺ سوڤن، لمه لمبوت دان ڤنوه کاسيه سايڠ کڤد انق٢. اڤابيلا فاطمة داتڠ، بڬيندا مڽمبوتڽ دڠن مسرا: “سلامت داتڠ، ڤوتريکو،” لالو مڽوروهڽ دودوق د سبله کانن بڬيندا.", "Pada umur berapakah Nabi SAW berkahwin dengan Khadijah?": "ڤد عمور براڤاکه نبي ﷺ برکهوين دڠن خديجة؟", "35 tahun": "35 تاهون", "Baginda berkahwin dengan Khadijah ketika berumur 25 tahun.": "بڬيندا برکهوين دڠن خديجة کتيک برعمور 25 تاهون.", "Bersama Khadijah, Nabi SAW dikurniakan…": "برسام خديجة، نبي ﷺ دکورنياکن…", "2 anak lelaki dan 4 anak perempuan": "2 انق للاکي دان 4 انق ڤرمڤوان", "4 anak lelaki dan 2 anak perempuan": "4 انق للاکي دان 2 انق ڤرمڤوان", "3 anak lelaki dan 3 anak perempuan": "3 انق للاکي دان 3 انق ڤرمڤوان", "1 anak lelaki dan 5 anak perempuan": "1 انق للاکي دان 5 انق ڤرمڤوان", "Baginda dikurniakan 2 orang anak lelaki dan 4 orang anak perempuan.": "بڬيندا دکورنياکن 2 اورڠ انق للاکي دان 4 اورڠ انق ڤرمڤوان.", "Nabi SAW hidup bermewah-mewah kerana isterinya seorang hartawan.": "نبي ﷺ هيدوڤ برمواه٢ کران ايستريڽ سأورڠ هرتاون.", "Salah. Walaupun Khadijah hartawan, baginda hidup secara sederhana.": "ساله. والاوڤون خديجة هرتاون، بڬيندا هيدوڤ سچارا سدرهان.", "Asingkan: yang mana akhlak Nabi SAW di rumah?": "اسيڠکن: يڠ مان اخلاق نبي ﷺ د رومه؟", "Menampal kasut sendiri": "منمڤل کاسوت سنديري", "Menjahit baju sendiri": "منجاهيت باجو سنديري", "Membantu kerja rumah": "ممبنتو کرجا رومه", "Bergurau dengan keluarga": "برڬورو دڠن کلوارڬ", "Marah-marah di rumah": "ماره٢ د رومه", "Hidup bermewah-mewah": "هيدوڤ برمواه٢", "Nabi SAW membantu kerja rumah dan hidup bersederhana.": "نبي ﷺ ممبنتو کرجا رومه دان هيدوڤ برسدرهان.", "Siapakah isteri pertama Nabi SAW?": "سياڤاکه ايستري ڤرتام نبي ﷺ؟", "Isteri pertama baginda ialah Khadijah binti Khuwailid.": "ايستري ڤرتام بڬيندا اياله خديجة بنت خويلد.", "Padankan isteri Nabi SAW dengan bapanya.": "ڤادنکن ايستري نبي ﷺ دڠن باڤڽ.", "Aisyah": "عائشة", "Anak Abu Bakar": "انق أبو بکر", "Hafsah": "حفصة", "Anak Umar": "انق عمر", "Anak Khuwailid": "انق خويلد", "Abu Bakar dan Umar ialah bapa mertua Nabi SAW.": "أبو بکر دان عمر اياله باڤ مرتوا نبي ﷺ.", "Antara berikut, siapakah mertua Nabi SAW?": "انتارا بريکوت، سياڤاکه مرتوا نبي ﷺ؟", "Abu Bakar dan Umar": "أبو بکر دان عمر", "Abu Talib dan Abu Lahab": "أبو طالب دان أبو لهب", "Salman dan Al-Hubab": "سلمان دان الحباب", "Hasan dan Husain": "حسن دان حسين", "Nabi SAW menghormati mertuanya, Saidina Abu Bakar dan Saidina Umar RA.": "نبي ﷺ مڠهورمتي مرتواڽ، سيدنا أبو بکر دان سيدنا عمر رضي الله عنهما.", "Asingkan: anak atau cucu Nabi SAW?": "اسيڠکن: انق اتاو چوچو نبي ﷺ؟", "Anak": "انق", "Cucu": "چوچو", "Qasim": "قاسم", "Hasan": "حسن", "Hasan, Husain dan Umamah ialah cucu baginda.": "حسن، حسين دان أمامة اياله چوچو بڬيندا.", "Nabi SAW menyambut Fatimah dengan berkata, “Selamat datang, puteriku.”": "نبي ﷺ مڽمبوت فاطمة دڠن برکات، “سلامت داتڠ، ڤوتريکو.”", "Betul. Baginda sangat menyayangi anaknya.": "بتول. بڬيندا ساڠت مڽايڠي انقڽ.", "Nabi SAW menyuruh Fatimah duduk di sebelah ___ baginda.": "نبي ﷺ مڽوروه فاطمة دودوق د سبله ___ بڬيندا.", "kanan": "کانن", "kiri": "کيري", "belakang": "بلاکڠ", "Fatimah didudukkan di sebelah kanan baginda.": "فاطمة ددودوقکن د سبله کانن بڬيندا.", "Cabaran Akhir": "چابرن اخير", "Soalan Keseluruhan • Pelajaran 1–6": "سوالن کسلوروهن • ڤلاجرن 1–6", "Susun kehidupan Nabi SAW mengikut urutan.": "سوسون کهيدوڤن نبي ﷺ مڠيکوت اوروتن.", "Lahir di Makkah": "لاهير د مکة", "Berniaga ke Syam membawa barang Khadijah": "برنياڬ ک شام ممباوا بارڠ خديجة", "Berkahwin dengan Khadijah": "برکهوين دڠن خديجة", "Menyelesaikan perbalahan Hajar Aswad": "مڽلسايکن ڤربالهن حجر الأسود", "Lahir, disusukan Halimah, dijaga Abu Talib, berniaga untuk Khadijah, berkahwin (25 tahun), dan peristiwa Hajar Aswad (35 tahun).": "لاهير، دسوسوکن حليمة، دجاڬ أبو طالب، برنياڬ اونتوق خديجة، برکهوين (25 تاهون)، دان ڤريستيوا حجر الأسود (35 تاهون).", "Padankan nama dengan peranannya.": "ڤادنکن نام دڠن ڤرانانڽ.", "Ibu Nabi SAW": "ايبو نبي ﷺ", "Ibu susuan": "ايبو سوسوان", "Bapa saudara yang menjaga": "باڤ سودارا يڠ منجاڬ", "Isteri pertama": "ايستري ڤرتام", "Setiap insan ini berjasa dalam kehidupan Nabi SAW.": "ستياڤ اينسان اين برجاس دالم کهيدوڤن نبي ﷺ.", "Ke Syam bersama Abu Talib": "ک شام برسام أبو طالب", "Peristiwa Hajar Aswad": "ڤريستيوا حجر الأسود", "Umur penting: 6 tahun ibu wafat, 12 tahun ke Syam, 25 tahun berkahwin, 35 tahun Hajar Aswad.": "عمور ڤنتيڠ: 6 تاهون ايبو وفات، 12 تاهون ک شام، 25 تاهون برکهوين، 35 تاهون حجر الأسود.", "Apakah dua peristiwa penting ketika Nabi SAW berumur 25 tahun?": "اڤاکه دوا ڤريستيوا ڤنتيڠ کتيک نبي ﷺ برعمور 25 تاهون؟", "Berniaga untuk Khadijah dan berkahwin dengannya": "برنياڬ اونتوق خديجة دان برکهوين دڠنڽ", "Ibu dan datuk wafat": "ايبو دان داتوق وفات", "Disusukan dan dibelah dada": "دسوسوکن دان دبله دادا", "Perang Badar dan Perang Khandaq": "ڤرڠ بدر دان ڤرڠ خندق", "Pada umur 25 tahun, baginda membawa barang dagangan Khadijah dan kemudian berkahwin dengannya.": "ڤد عمور 25 تاهون، بڬيندا ممباوا بارڠ داڬڠن خديجة دان کمودين برکهوين دڠنڽ.", "Asingkan peristiwa ini.": "اسيڠکن ڤريستيوا اين.", "Sebelum Nabi SAW lahir": "سبلوم نبي ﷺ لاهير", "Selepas Nabi SAW lahir": "سلڤس نبي ﷺ لاهير", "Tentera Abrahah dimusnahkan": "تنترا أبرهة دموسنهکن", "Disusukan oleh Halimah": "دسوسوکن اوليه حليمة", "Dada dibelah oleh Jibril": "دادا دبله اوليه جبريل", "Ibu wafat di Abwa’": "ايبو وفات د أبواء", "Digelar Al-Amin": "دڬلر الأمين", "Bapa wafat dan peristiwa tentera bergajah berlaku sebelum baginda lahir.": "باڤ وفات دان ڤريستيوا تنترا برڬاجه برلاکو سبلوم بڬيندا لاهير.", "Sifat yang membuatkan Nabi SAW berjaya berniaga DAN digelar Al-Amin ialah…": "صيفت يڠ ممبواتکن نبي ﷺ برجاي برنياڬ دان دڬلر الأمين اياله…", "Jujur dan amanah": "جوجور دان امانه", "Kaya dan berkuasa": "کاي دان برکواس", "Kuat dan tegas": "قوات دان تڬس", "Pandai bercakap": "ڤندأي برچاکڤ", "Kejujuran dan amanah baginda dikenali dalam perniagaan dan masyarakat.": "کجوجورن دان امانه بڬيندا دکنلي دالم ڤرنياڬاٴن دان مشارکت.", "Abdul Muttalib ialah datuk Nabi SAW, dan beliau wafat ketika Nabi SAW berumur 8 tahun.": "عبد المطلب اياله داتوق نبي ﷺ، دان بلياو وفات کتيک نبي ﷺ برعمور 8 تاهون.", "Betul. Abdul Muttalib ialah datuk sebelah bapa dan wafat ketika baginda berumur 8 tahun.": "بتول. عبد المطلب اياله داتوق سبله باڤ دان وفات کتيک بڬيندا برعمور 8 تاهون.", "Contoh Nabi SAW menghargai pendapat sahabat ialah…": "چونتوه نبي ﷺ مڠهرڬاٴي ڤنداڤت صحابت اياله…", "Menerima cadangan Al-Hubab dalam Perang Badar": "منريما چادڠن الحباب دالم ڤرڠ بدر", "Berniaga ke Syam": "برنياڬ ک شام", "Tinggal di Bani Sa’ad": "تيڠڬل د بني سعد", "Baginda bersetuju dengan cadangan Al-Hubab bin Al-Munzir.": "بڬيندا برستوجو دڠن چادڠن الحباب بن المنذر.", "Nasab bapa dan ibu Nabi SAW bertemu pada Kilab bin ___.": "نسب باڤ دان ايبو نبي ﷺ برتمو ڤد کلاب بن ___.", "Murrah": "مرة", "Bapa Nabi SAW dikebumikan di Yathrib. Apakah nama Yathrib sekarang?": "باڤ نبي ﷺ دکبوميکن د يثرب. اڤاکه نام يثرب سکارڠ؟", "Madinah": "مدينة", "Yathrib kemudian dikenali sebagai Madinah.": "يثرب کمودين دکنلي سباڬاي مدينة.", "Asingkan akhlak ini.": "اسيڠکن اخلاق اين.", "Akhlak terpuji": "اخلاق ترڤوجي", "Akhlak tercela": "اخلاق ترچلا", "Memberi salam": "ممبري سلام", "Menipu ketika berniaga": "منيڤو کتيک برنياڬ", "Contohilah akhlak Nabi SAW dalam kehidupan seharian.": "چونتوهيله اخلاق نبي ﷺ دالم کهيدوڤن سهارين.", "Wahab ialah…": "وهب اياله…", "Datuk Nabi SAW sebelah ibu": "داتوق نبي ﷺ سبله ايبو", "Datuk Nabi SAW sebelah bapa": "داتوق نبي ﷺ سبله باڤ", "Sahabat Nabi SAW": "صحابت نبي ﷺ", "Wahab ialah bapa kepada Aminah, iaitu datuk sebelah ibu.": "وهب اياله باڤ کڤد آمنة، ياٴيت داتوق سبله ايبو.", "Fatimah ialah anak Nabi SAW, manakala Hasan ialah cucu Nabi SAW.": "فاطمة اياله انق نبي ﷺ، منکالا حسن اياله چوچو نبي ﷺ.", "Betul.": "بتول.", "Bagaimanakah Nabi SAW menyelesaikan perbalahan Hajar Aswad?": "باڬايمانکه نبي ﷺ مڽلسايکن ڤربالهن حجر الأسود؟", "Meletakkannya di atas kain dan semua ketua kaum mengangkat bersama": "ملتقکنڽ د اتس کاين دان سموا کتوا قوم مڠڠکت برسام", "Mengangkatnya seorang diri": "مڠڠکتڽ سأورڠ ديري", "Memilih ketua yang paling kaya": "مميليه کتوا يڠ ڤاليڠ کاي", "Membiarkan Hajar Aswad di luar": "ممبيارکن حجر الأسود د لوار", "Penyelesaian yang adil ini membuatkan semua kaum berpuas hati.": "ڤڽلسايان يڠ عادل اين ممبواتکن سموا قوم برڤواس هاتي.", "Surah yang menceritakan kisah tentera bergajah ialah…": "سورة يڠ منچريتاکن قيصه تنترا برڬاجه اياله…", "Surah Al-Fil": "سورة الفيل", "Surah Al-Ikhlas": "سورة الإخلاص", "Surah Al-Fatihah": "سورة الفاتحة", "Surah An-Nas": "سورة الناس", "Kisah Abrahah terdapat dalam Surah Al-Fil.": "قيصه أبرهة ترداڤت دالم سورة الفيل."};
+const L = s => isJ() ? (JAWI[s] ?? s) : s;
+const P = s => isJ() ? String(s).replace(/P/g,"ڤ") : s;
+const BACK = () => isJ() ? "→" : "←";
+const LETTERS = () => isJ() ? ["ا","ب","ج","د"] : ["A","B","C","D"];
+function applyLang(){ document.documentElement.dir = isJ() ? "rtl" : "ltr"; document.documentElement.lang = isJ() ? "ms-Arab" : "ms"; document.title = tx("Pengembaraan Sirah Tahun 3","ڤڠمباراٴن سيره تاهون 3"); }
+const totalStars = () => Object.values(best).reduce((a,b)=>a+b,0);
+const unlocked = i => teacher || i===0 || best[TOPICS[i-1].id]>=1;
+const finalUnlocked = () => teacher || TOPICS.every(t=>best[t.id]>=1);
+
+/* ============ SOUND & SPEECH ============ */
+let actx;
+function tone(freqs, dur=0.12, type="sine"){
+  if(muted) return;
+  try{
+    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    const t = actx.currentTime;
+    freqs.forEach((f,i)=>{
+      const o=actx.createOscillator(), g=actx.createGain();
+      o.type=type; o.frequency.value=f;
+      const s=t+i*dur;
+      g.gain.setValueAtTime(0.0001,s);
+      g.gain.exponentialRampToValueAtTime(0.18,s+0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001,s+dur);
+      o.connect(g).connect(actx.destination);
+      o.start(s); o.stop(s+dur+0.02);
+    });
+  }catch(e){}
+}
+const sfx = { ok:()=>tone([660,880]), bad:()=>tone([240,180],0.15,"triangle"), tap:()=>tone([520],0.06,"triangle"), win:()=>tone([523,659,784,1047],0.14) };
+const ttsOK = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+let voice = null;
+function pickVoice(){ try{ const vs=speechSynthesis.getVoices(); voice = vs.find(v=>/^ms/i.test(v.lang)) || vs.find(v=>/^id/i.test(v.lang)) || null; }catch(e){} }
+if(ttsOK){ pickVoice(); try{ speechSynthesis.onvoiceschanged = pickVoice; }catch(e){} }
+function speak(text){
+  if(!ttsOK) return;
+  try{
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text.replace(/\bSAW\b/g,"sallallahu alaihi wasallam").replace(/\bAS\b/g,"alaihissalam").replace(/\bRA\b/g,"radhiallahu anhu").replace(/___/g,"tempat kosong").replace(/[“”]/g,""));
+    u.lang = voice ? voice.lang : "ms-MY";
+    if(voice) u.voice = voice;
+    u.rate = 0.9;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function hush(){ if(ttsOK){ try{ speechSynthesis.cancel(); }catch(e){} } }
+
+/* ============ ILLUSTRATIONS ============ */
+const SC_DEFS = `<defs>
+<linearGradient id="gN" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#121C45"/><stop offset="1" stop-color="#3B3F7A"/></linearGradient>
+<linearGradient id="gD" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#76C3E0"/><stop offset="1" stop-color="#FDE7B0"/></linearGradient>
+<linearGradient id="gE" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E9805A"/><stop offset="1" stop-color="#FFD58A"/></linearGradient>
+</defs>`;
+const sky = k => `<rect width="320" height="180" fill="url(#g${k})"/>`;
+const dunes = night => `<path d="M0 140 Q60 120 120 138 T240 132 T320 136 V180 H0Z" fill="${night?"#7A5E3E":"#E7B970"}"/><path d="M0 160 Q80 142 160 160 T320 154 V180 H0Z" fill="${night?"#5E4830":"#D49E52"}"/>`;
+const starsS = () => [[30,20],[70,42],[110,14],[150,34],[200,18],[232,50],[296,22],[58,74],[186,62],[304,70],[16,52],[128,58]].map(([x,y],i)=>`<circle class="tw" style="animation-delay:${((i*0.37)%2).toFixed(2)}s" cx="${x}" cy="${y}" r="${i%3?1.3:2}" fill="#FFF8DC"/>`).join("");
+const moon = () => `<g class="float"><circle cx="268" cy="36" r="14" fill="#F7D774"/><circle cx="275" cy="31" r="12" fill="#18224C"/></g>`;
+const sun = (x=268,y=40) => `<circle class="pulse" cx="${x}" cy="${y}" r="17" fill="#FFD34E"/>`;
+const cloud = (y,delay,dur) => `<g class="drift" style="animation-duration:${dur}s;animation-delay:-${delay}s"><g transform="translate(0 ${y})"><ellipse cx="20" cy="8" rx="20" ry="8" fill="#fff" opacity=".85"/><ellipse cx="34" cy="3" rx="14" ry="8" fill="#fff" opacity=".85"/></g></g>`;
+const kaabah = (x,y,s=1) => `<g transform="translate(${x} ${y}) scale(${s})"><polygon points="0,10 22,2 70,2 48,10" fill="#3A3A3A"/><rect x="0" y="10" width="48" height="46" fill="#1A1A1A"/><polygon points="48,10 70,2 70,46 48,56" fill="#2C2C2C"/><rect x="0" y="18" width="48" height="5" fill="#D9A82E"/><polygon points="48,18 70,10 70,15 48,23" fill="#B8891F"/><rect x="30" y="32" width="9" height="16" fill="#C9962A"/></g>`;
+const houses = night => `<g fill="${night?"#2E2A4A":"#C99A62"}"><rect x="10" y="112" width="34" height="28"/><rect x="48" y="118" width="26" height="22"/><rect x="232" y="114" width="30" height="26"/><rect x="266" y="106" width="40" height="34"/></g><g fill="${night?"#F7D774":"#8A6236"}" opacity=".8"><rect x="20" y="120" width="5" height="6"/><rect x="280" y="116" width="6" height="7"/><rect x="242" y="122" width="5" height="6"/></g>`;
+const elephant = (x,y) => `<g transform="translate(${x} ${y})"><g class="bob" style="animation-duration:1.2s" fill="#8E8E9A"><ellipse cx="30" cy="22" rx="26" ry="16"/><circle cx="56" cy="14" r="12"/><path d="M64 18 Q72 30 66 42" stroke="#8E8E9A" stroke-width="6" fill="none" stroke-linecap="round"/><rect x="10" y="30" width="8" height="16" rx="2"/><rect x="40" y="30" width="8" height="16" rx="2"/><ellipse cx="50" cy="14" rx="7" ry="9" fill="#7A7A86"/><circle cx="60" cy="10" r="1.8" fill="#222"/></g></g>`;
+const birds = () => `<g class="fly"><g fill="none" stroke="#3B2F2F" stroke-width="2" stroke-linecap="round">${[[0,30],[20,22],[38,34],[14,44],[52,26],[66,40]].map(([x,y])=>`<path d="M${x} ${y} q4 -5 8 0 q4 -5 8 0"/>`).join("")}</g></g>`;
+const camel = (x,c="#9A6634") => `<g transform="translate(${x} 0)"><g class="bob" fill="${c}"><ellipse cx="20" cy="16" rx="13" ry="7"/><ellipse cx="18" cy="10" rx="7" ry="6"/><path d="M31 14 Q36 10 36 4" stroke="${c}" stroke-width="4" fill="none"/><ellipse cx="38" cy="4" rx="4.5" ry="2.6"/><rect x="10" y="20" width="2.5" height="11"/><rect x="15" y="20" width="2.5" height="11"/><rect x="24" y="20" width="2.5" height="11"/><rect x="29" y="20" width="2.5" height="11"/><rect x="12" y="6" width="12" height="4" fill="#C0573E"/></g></g>`;
+const caravan = () => `<g class="walk"><g transform="translate(0 110) scale(1.1)">${camel(0)}${camel(46,"#8A5A2B")}${camel(92)}</g></g>`;
+const mosque = (x,y,green) => { const d=green?"#2E8B57":"#E8C36A"; return `<g transform="translate(${x} ${y})"><rect x="0" y="30" width="90" height="40" fill="#F4EBDD"/><path d="M20 30 A25 25 0 0 1 70 30Z" fill="${d}"/><rect x="43" y="-2" width="4" height="8" fill="${d}"/><rect x="96" y="-10" width="14" height="80" fill="#F4EBDD"/><path d="M96 -10 A7 7 0 0 1 110 -10Z" fill="${d}"/><rect x="100" y="8" width="6" height="9" rx="3" fill="#5B4636"/><rect x="38" y="46" width="14" height="24" rx="7" fill="#5B4636"/><rect x="12" y="44" width="10" height="12" rx="5" fill="#5B4636"/><rect x="68" y="44" width="10" height="12" rx="5" fill="#5B4636"/></g>`; };
+const palm = (x,y,s=1) => `<g transform="translate(${x} ${y}) scale(${s})"><path d="M0 0 Q4 -30 2 -55" stroke="#7A5230" stroke-width="5" fill="none"/><g class="sway" fill="#3E8E4E"><path d="M2 -55 Q-20 -60 -30 -45 Q-15 -56 2 -52Z"/><path d="M2 -55 Q24 -62 34 -46 Q18 -56 2 -52Z"/><path d="M2 -55 Q-8 -75 -22 -72 Q-6 -66 2 -53Z"/><path d="M2 -55 Q14 -76 28 -70 Q12 -66 2 -53Z"/></g></g>`;
+const tent = (x,y,c) => `<g transform="translate(${x} ${y})"><polygon points="0,30 25,0 50,30" fill="${c}"/><polygon points="20,30 25,12 30,30" fill="#3B2A1A"/><line x1="25" y1="0" x2="25" y2="-6" stroke="#5B4636" stroke-width="2"/></g>`;
+const flag = (x,y,c) => `<g transform="translate(${x} ${y})"><rect x="0" y="0" width="2.5" height="42" fill="#5B4636"/><g class="wave"><path d="M2.5 2 L28 8 L2.5 15Z" fill="${c}"/></g></g>`;
+const well = (cx,cy) => `<rect x="${cx-12}" y="${cy-8}" width="24" height="9" fill="#9C8A72"/><ellipse cx="${cx}" cy="${cy+1}" rx="12" ry="4" fill="#7E6E5A"/><ellipse cx="${cx}" cy="${cy-8}" rx="12" ry="4" fill="#3A6E8F"/>`;
+const goat = (x,y,c="#F4F1EA") => `<g transform="translate(${x} ${y})"><ellipse cx="12" cy="8" rx="11" ry="6" fill="${c}"/><circle cx="23" cy="4" r="4.5" fill="${c}"/><path d="M22 0 l-2 -5 M25 0 l1 -5" stroke="#7A5E3E" stroke-width="1.5"/><rect x="4" y="12" width="2" height="7" fill="#7A5E3E"/><rect x="17" y="12" width="2" height="7" fill="#7A5E3E"/><circle cx="24" cy="3.5" r=".9" fill="#222"/></g>`;
+const house = (x,y) => `<g transform="translate(${x} ${y})"><rect x="0" y="16" width="110" height="52" fill="#E9D3AE"/><rect x="-6" y="8" width="122" height="10" rx="2" fill="#B98A57"/><rect x="44" y="34" width="22" height="34" rx="11" fill="#6B4A2E"/><rect x="12" y="30" width="18" height="16" rx="3" fill="#FFD58A" class="pulse"/><rect x="80" y="30" width="18" height="16" rx="3" fill="#FFD58A" class="pulse"/></g>`;
+
+const SCENES = {
+  makkah:()=>sky("N")+starsS()+moon()+`<path d="M0 120 Q80 92 160 116 T320 106 V180 H0Z" fill="#2A2547"/>`+dunes(true)+houses(true)+kaabah(125,86),
+  gajah:()=>sky("D")+sun()+cloud(20,0,26)+dunes(false)+kaabah(250,104,.55)+elephant(40,104)+birds(),
+  kemah:()=>sky("D")+sun(60,38)+cloud(28,8,30)+dunes(false)+tent(60,108,"#C0573E")+tent(122,114,"#8E5BA8")+tent(200,110,"#2F7F7A")+palm(282,142,.9),
+  gembala:()=>sky("D")+sun(60,40)+cloud(26,6,30)+dunes(false)+palm(285,142,.9)+`<g class="grazers">${goat(70,122)}${goat(110,130,"#C99A62")}${goat(150,120)}${goat(190,132,"#8E8E9A")}</g>`,
+  unta:()=>sky("E")+sun(250,70)+cloud(24,10,34)+dunes(false)+caravan(),
+  masjid:()=>sky("D")+sun()+cloud(22,5,28)+dunes(false)+palm(40,142)+mosque(110,72,false)+palm(292,142,.8),
+  madinah:()=>sky("D")+sun(50,40)+cloud(30,14,30)+dunes(false)+palm(30,142)+palm(72,146,.8)+mosque(140,72,true)+palm(292,142),
+  badar:()=>sky("D")+sun()+dunes(false)+well(110,140)+well(170,146)+flag(220,98,"#2E8B57")+flag(250,104,"#E8A317")+palm(40,142),
+  rumah:()=>sky("E")+sun(60,62)+dunes(false)+palm(40,146,.9)+house(110,74)+palm(280,144)
+};
+const SCENE_LBL = {makkah:"Kaabah di kota Makkah",gajah:"Gajah dan burung di padang pasir",kemah:"Khemah di perkampungan padang pasir",gembala:"Kambing di padang pasir",unta:"Kafilah unta",masjid:"Masjid dan pokok kurma",madinah:"Masjid berkubah hijau",badar:"Telaga dan bendera di padang pasir",rumah:"Rumah pada waktu petang"};
+const scene = k => `<svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" role="img" aria-label="${SCENE_LBL[k]||"Ilustrasi"}">${SC_DEFS}${SCENES[k]()}</svg>`;
+
+function mascot(mood="idle", cls=""){
+  const mouth = mood==="sad"
+    ? `<path d="M105 34 Q110 30 115 34" stroke="#5A3A1E" stroke-width="2" fill="none" stroke-linecap="round"/>`
+    : `<path d="M104 31 Q110 37 116 31" stroke="#5A3A1E" stroke-width="2" fill="none" stroke-linecap="round"/>`;
+  return `<svg class="mascot ${mood} ${cls}" viewBox="0 0 130 110" aria-hidden="true">
+    <g fill="#C98B4E"><rect x="36" y="70" width="8" height="32" rx="4"/><rect x="50" y="72" width="8" height="30" rx="4"/><rect x="70" y="72" width="8" height="30" rx="4"/><rect x="84" y="70" width="8" height="32" rx="4"/></g>
+    <path d="M28 62 Q16 66 18 80" stroke="#C98B4E" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <ellipse cx="62" cy="62" rx="36" ry="20" fill="#E0A863"/>
+    <ellipse cx="56" cy="46" rx="18" ry="15" fill="#E0A863"/>
+    <path d="M88 58 Q96 44 98 28" stroke="#E0A863" stroke-width="16" fill="none" stroke-linecap="round"/>
+    <ellipse cx="90" cy="19" rx="3.5" ry="6" fill="#C98B4E"/>
+    <ellipse cx="102" cy="24" rx="15" ry="12" fill="#E0A863"/>
+    <ellipse cx="111" cy="30" rx="9" ry="7" fill="#EDC48F"/>
+    <rect x="91" y="6" width="22" height="9" rx="2" fill="#1F1F1F"/>
+    <circle cx="103" cy="21" r="3.2" fill="#2A1A0A"/><circle cx="104" cy="20" r="1" fill="#fff"/>
+    <circle cx="97" cy="28" r="3" fill="#F2A0A0" opacity=".7"/>
+    ${mouth}
+  </svg>`;
+}
+const KURMA = `<svg class="kurma" viewBox="0 0 20 28" aria-hidden="true"><ellipse cx="10" cy="16" rx="8" ry="11" fill="#7B3F1D"/><ellipse cx="7" cy="12" rx="2.5" ry="5" fill="#A4602F" opacity=".75"/><path d="M10 5 q1 -4 4 -4" stroke="#5B8C3A" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`;
+const starsHTML = n => [0,1,2].map(i=>`<span class="${i<n?"":"off"}">⭐</span>`).join("");
+const muteBtn = () => `<button class="iconbtn" data-act="mute" aria-label="${muted?"Hidupkan bunyi":"Matikan bunyi"}">${muted?"🔇":"🔊"}</button>`;
+
+/* ============ PETA ============ */
+function renderMap(){
+  hush(); run = null;
+  const nodes = [...TOPICS.map((t,i)=>({t,i})), {final:true}];
+  const rowH = 150, H = nodes.length*rowH + 30;
+  const xs = nodes.map((_,i)=> i%2===0 ? 30 : 70);
+  const ys = nodes.map((_,i)=> i*rowH + rowH/2 + 10);
+  let d = `M ${xs[0]} ${ys[0]}`;
+  for(let i=1;i<nodes.length;i++){ d += ` C ${xs[i-1]} ${ys[i-1]+rowH*.55}, ${xs[i]} ${ys[i]-rowH*.55}, ${xs[i]} ${ys[i]}`; }
+  let current = TOPICS.findIndex(t=>best[t.id]<1);
+  if(current<0) current = TOPICS.length;
+  if(current<TOPICS.length && !unlocked(current)) current = -1;
+
+  const nodeHTML = nodes.map((n,i)=>{
+    const x = xs[i], y = ys[i];
+    if(n.final){
+      const open = finalUnlocked();
+      return `<button class="node ${open?"":"locked"} ${current===TOPICS.length?"current":""}" style="left:${x}%;top:${y}px;--tc:${FINAL.color}" data-act="station" data-i="final" ${open?"":`aria-label="Cabaran Akhir dikunci. Lulus semua pelajaran dahulu."`}>
+        <span class="dot">${open?FINAL.icon:"🔒"}</span>
+        <span class="lbl">${tx("Cabaran Akhir","چابرن اخير")}<br><small style="font-weight:600">${tx("Semua tajuk","سموا تاجوق")}</small></span>
+        <span class="st">${starsHTML(best.final)}</span></button>`;
+    }
+    const t = n.t, open = unlocked(n.i);
+    return `<button class="node ${open?"":"locked"} ${current===n.i?"current":""}" style="left:${x}%;top:${y}px;--tc:${t.color}" data-act="station" data-i="${n.i}" ${open?"":`aria-label="Pelajaran ${t.id} dikunci"`}>
+      <span class="dot">${open?t.icon:"🔒"}<span class="num">${t.id}</span></span>
+      <span class="lbl">${L(t.title)}</span>
+      <span class="st">${starsHTML(best[t.id])}</span></button>`;
+  }).join("");
+  const kiki = current>=0 ? `<div style="position:absolute;width:64px;height:60px;left:${xs[current] + (current%2===0?24:-24)}%;top:${ys[current]-4}px;pointer-events:none">${mascot("idle","kiki")}</div>` : "";
+  const deco = [[8,ys[0]+60,"🌴"],[90,ys[1]+70,"🌵"],[10,ys[2]+70,"🐪"],[88,ys[3]+60,"🌴"],[8,ys[4]+70,"🌴"],[90,ys[5]+70,"⛺"]].map(([x,y,e])=>`<span class="deco" style="left:${x}%;top:${y}px" aria-hidden="true">${e}</span>`).join("");
+
+  app.innerHTML = `
+    <div class="topbar">
+      <div class="stats"><a class="iconbtn" href="../index.html" aria-label="${tx("Kembali ke Tahun 3","کمبالي ک تاهون 3")}">${BACK()}</a><span class="pillstat" aria-label="${kurmaTotal} kurma">${KURMA} ${kurmaTotal}</span><span class="pillstat" aria-label="${totalStars()} bintang">⭐ ${totalStars()}</span></div>
+      <span style="display:flex;gap:8px"><button class="langbtn" data-act="lang" aria-label="${tx("Tukar ke tulisan Jawi","Tukar ke tulisan Rumi")}">${isJ()?"Rumi":'<span class="ar">جاوي</span>'}</button>${muteBtn()}</span>
+    </div>
+    <header class="hero">
+      <span class="sub">${tx("Sirah Tahun 3 • KAFA","سيره تاهون 3 • کافا")}</span>
+      <h1>${tx("Pengembaraan Sirah","ڤڠمباراٴن سيره")}</h1>
+      <p>${tx("Ikut Kiki merentasi padang pasir! Lulus setiap pelajaran untuk membuka pelajaran seterusnya, dan kumpul kurma untuk setiap jawapan betul.","ايکوت کيکي مرنتسي ڤادڠ ڤاسير! لولوس ستياڤ ڤلاجرن اونتوق ممبوک ڤلاجرن ستروسڽ، دان کومڤول کورما اونتوق ستياڤ جواڤن بتول.")}</p>
+    </header>
+    <div class="map" style="height:${H}px">
+      <svg class="route" viewBox="0 0 100 ${H}" preserveAspectRatio="none" aria-hidden="true"><path d="${d}" fill="none" stroke="var(--path)" stroke-width="7" stroke-linecap="round" stroke-dasharray="2 14" vector-effect="non-scaling-stroke"/></svg>
+      ${deco}${nodeHTML}${kiki}
+    </div>
+    <div class="teacher"><button class="toggle" data-act="teacher" aria-pressed="${teacher}"><span class="sw" aria-hidden="true"></span>${tx("Mod guru: buka semua tajuk","مود ڬورو: بوک سموا تاجوق")}</button></div>
+    <p class="foot">${tx("Kandungan berdasarkan Buku Teks Sirah Tahun 3 (JAIS). Setiap soalan menunjukkan muka surat rujukan.","کندوڠن برداسرکن بوکو تيکس سيره تاهون 3 (جايس). ستياڤ سوالن منونجوقکن موک سورت روجوکن.")}</p>`;
+}
+
+/* ============ STESEN ============ */
+function openStation(key){
+  hush();
+  const isFinal = key==="final";
+  if(isFinal && !finalUnlocked()){ toastLocked(tx("Lulus semua 6 pelajaran (sekurang-kurangnya 1 bintang) untuk membuka Cabaran Akhir.","لولوس سموا 6 ڤلاجرن (سکورڠ-کورڠڽ 1 بينتڠ) اونتوق ممبوک چابرن اخير.")); return; }
+  if(!isFinal && !unlocked(+key)){ toastLocked(tx(`Lulus Pelajaran ${+key} dahulu untuk membuka pelajaran ini.`,`لولوس ڤلاجرن ${+key} دهولو اونتوق ممبوک ڤلاجرن اين.`)); return; }
+  run = {station:key};
+  if(isFinal){
+    app.innerHTML = `
+      <div class="topbar"><button class="iconbtn" data-act="map" aria-label="Kembali ke peta">${BACK()}</button>${muteBtn()}</div>
+      <div class="banner final page-in" style="--tc:${FINAL.color}">
+        <div class="kick">${L(FINAL.sub)}</div><h2>🏆 ${L(FINAL.title)}</h2>
+        <div class="stars">${starsHTML(best.final)}</div><span class="big" aria-hidden="true">🏆</span>
+      </div>
+      <ul class="units final-units" style="--tc:${FINAL.color}">
+        ${TOPICS.map(t=>`<li><span class="u">${P("P"+t.id)}</span>${L(t.title)}</li>`).join("")}
+      </ul>
+      <p class="foot" style="text-align:start">${tx("Soalan di sini berasingan daripada soalan setiap pelajaran. Setiap soalan menggabungkan beberapa tajuk, dan labelnya (contoh: <b>P1 • P2</b>) menunjukkan pelajaran yang berkaitan.","سوالن د سيني براسيڠن درڤد سوالن ستياڤ ڤلاجرن. ستياڤ سوالن مڠڬابوڠکن ببراڤ تاجوق، دان لابلڽ (چونتوه: <b>ڤ1 • ڤ2</b>) منونجوقکن ڤلاجرن يڠ برکاٴيتن.")}</p>
+      <div class="actions"><button class="bigbtn play" data-act="play"><span class="e" aria-hidden="true">🎮</span><span>${tx("Mula Cabaran Akhir","مولا چابرن اخير")}<small>${FINAL.qs.length} ${tx("soalan keseluruhan","سوالن کسلوروهن")}</small></span></button></div>`;
+    return;
+  }
+  const t = TOPICS[+key];
+  app.innerHTML = `
+    <div class="topbar"><button class="iconbtn" data-act="map" aria-label="Kembali ke peta">${BACK()}</button>${muteBtn()}</div>
+    <div class="banner page-in" style="--tc:${t.color}">
+      <div class="kick">${tx("Pelajaran","ڤلاجرن")} ${t.id} • ${tx("Buku teks ms.","بوکو تيکس موک سورت")} ${t.pages}</div><h2>${L(t.title)}</h2>
+      <div class="stars">${starsHTML(best[t.id])}</div><span class="big" aria-hidden="true">${t.icon}</span>
+    </div>
+    <ul class="units" style="--tc:${t.color}">${t.units.map((u,i)=>`<li><span class="u">${tx("Unit","اونيت")} ${i+1}</span>${L(u)}</li>`).join("")}</ul>
+    <div class="actions">
+      <button class="bigbtn read" data-act="read"><span class="e" aria-hidden="true">📖</span><span>${tx("Baca Dulu","باچ دولو")}<small>${t.cards.length} ${tx("kad ringkasan bergambar","کد ريڠکسن برڬمبر")}</small></span></button>
+      <button class="bigbtn play" data-act="play"><span class="e" aria-hidden="true">🎮</span><span>${tx("Mula Cabaran","مولا چابرن")}<small>${t.qs.length} ${tx("soalan khusus Pelajaran","سوالن خصوص ڤلاجرن")} ${t.id}</small></span></button>
+    </div>`;
+}
+function toastLocked(msg){
+  const t=document.createElement("div");
+  t.setAttribute("role","status");
+  t.style.cssText="position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:18px;font-weight:700;z-index:60;max-width:92vw;text-align:center";
+  t.textContent="🔒 "+msg; document.body.appendChild(t); sfx.bad();
+  setTimeout(()=>t.remove(),2800);
+}
+
+/* ============ BACA DULU ============ */
+function startRead(){ run.c = 0; showCard(); }
+function showCard(){
+  hush();
+  const t = TOPICS[+run.station], c = t.cards[run.c], n = t.cards.length;
+  run.say = c.t || (c.chain ? c.chain.join(", ") : c.list.join(", "));
+  let body = "";
+  if(c.sc) body += `<div class="scene">${scene(c.sc)}</div>`;
+  body += `<span class="unitlbl">${L(c.u)}</span>`;
+  if(c.chain) body += `<div class="chain">${c.chain.map((x,i)=>`${i?`<i aria-hidden="true">▼</i>`:""}<b class="${i===c.chain.length-1?"last":""}">${L(x)}</b>`).join("")}</div>`;
+  if(c.list) body += `<ul class="namelist">${c.list.map(x=>`<li>${L(x)}</li>`).join("")}</ul>`;
+  if(c.t) body += `<p class="readtext">${L(c.t)}</p>`;
+  body += `<p class="ref" style="margin:-4px 0 12px">📖 ${tx("Buku teks ms.","بوکو تيکس موک سورت")} ${c.p}</p>`;
+  app.innerHTML = `
+    <div class="gamehead"><button class="iconbtn" data-act="station-back" aria-label="Kembali">${BACK()}</button><h2>${tx("Baca Dulu","باچ دولو")}<small>${tx("Pelajaran","ڤلاجرن")} ${t.id}: ${L(t.title)}</small></h2>${muteBtn()}</div>
+    <div class="progress"><span style="width:${Math.round((run.c+1)/n*100)}%"></span></div>
+    <div class="card page-in" style="--tc:${t.color}">
+      ${body}
+      <div class="navrow">
+        <button class="secondary" data-act="cprev" aria-label="Kad sebelum" ${run.c===0?"disabled":""}>${isJ()?"▶":"◀"}</button>
+        ${ttsOK?`<button class="pill" data-act="say" style="padding:9px 12px">🔊 ${tx("Dengar","دڠر")}</button>`:"<span></span>"}
+        <button class="primary" data-act="cnext">${run.c+1<n?tx("Seterusnya","ستروسڽ"):tx("Mula Cabaran","مولا چابرن")+" 🎮"}</button>
+      </div>
+      <div class="dots" aria-hidden="true">${[...Array(n)].map((_,i)=>`<i class="${i===run.c?"on":""}"></i>`).join("")}</div>
+    </div>`;
+}
+
+/* ============ CABARAN ============ */
+function startPlay(){
+  const isFinal = run.station==="final";
+  const src = isFinal ? FINAL.qs : TOPICS[+run.station].qs;
+  run = Object.assign(run, {qs:shuffle(src), i:0, score:0, kurma:0, streak:0});
+  showQ();
+}
+function qTitle(){
+  if(run.station==="final") return `${tx("Cabaran Akhir","چابرن اخير")}<small>${tx("Soalan keseluruhan • Pelajaran 1–6","سوالن کسلوروهن • ڤلاجرن 1–6")}</small>`;
+  const t = TOPICS[+run.station];
+  return `${tx("Pelajaran","ڤلاجرن")} ${t.id}<small>${tx("Soalan khusus:","سوالن خصوص:")} ${L(t.title)}</small>`;
+}
+function showQ(){
+  hush();
+  const q = run.qs[run.i];
+  run.q = q; run.done = false; run.mist = 0;
+  let body = "", qtext = L(q.q);
+  const LT = LETTERS();
+  run.say = q.q;
+  switch(q.type){
+    case "mcq":
+      run.opts = shuffle(q.a.map((t,i)=>({t,ok:i===0})));
+      run.say += ". " + run.opts.map((o,k)=>"ABCD"[k]+", "+o.t).join(". ");
+      body = `<div class="opts">${run.opts.map((o,k)=>`<button class="opt" data-act="mc" data-k="${k}"><span class="k">${LT[k]}</span><span>${L(o.t)}</span></button>`).join("")}</div>`;
+      break;
+    case "fill":
+      run.opts = shuffle(q.a.map((t,i)=>({t,ok:i===0})));
+      qtext = L(q.q).replace("___", `<span class="blank" id="blank">${tx("?","؟")}</span>`);
+      run.say += ". Pilihan: " + run.opts.map(o=>o.t).join(", ");
+      body = `<p class="hint">${tx("Pilih perkataan yang betul.","ڤيليه ڤرکاتاٴن يڠ بتول.")}</p><div class="words">${run.opts.map((o,k)=>`<button class="word" data-act="fill" data-k="${k}">${L(o.t)}</button>`).join("")}</div>`;
+      break;
+    case "tf":
+      body = `<div class="tfrow"><button class="yes" data-act="tf" data-v="1"><span aria-hidden="true">✅</span>${tx("Betul","بتول")}</button><button class="no" data-act="tf" data-v="0"><span aria-hidden="true">❌</span>${tx("Salah","ساله")}</button></div>`;
+      break;
+    case "order":
+      run.next = 0;
+      body = `<p class="hint">${tx("Tekan mengikut urutan, bermula dengan yang pertama.","تکن مڠيکوت اوروتن، برمولا دڠن يڠ ڤرتام.")}</p>
+        <ol class="slots">${q.items.map((_,i)=>`<li class="slot" id="s${i}"><span class="n">${i+1}</span><span class="st"></span></li>`).join("")}</ol>
+        <div class="chips">${shuffle(q.items.map((t,i)=>({t,i}))).map(o=>`<button class="chip" data-act="ord" data-i="${o.i}">${L(o.t)}</button>`).join("")}</div>`;
+      break;
+    case "match":
+      run.sel = null; run.matched = 0;
+      body = `<p class="hint">${tx("Tekan satu kotak di kiri, kemudian pasangannya di kanan.","تکن ساتو کوتق د کانن، کمودين ڤاسڠنڽ د کيري.")}</p>
+        <div class="match">
+          <div class="col">${shuffle(q.pairs.map((p,i)=>({t:p[0],i}))).map(o=>`<button class="mbtn" data-act="ml" data-i="${o.i}">${L(o.t)}</button>`).join("")}</div>
+          <div class="col">${shuffle(q.pairs.map((p,i)=>({t:p[1],i}))).map(o=>`<button class="mbtn" data-act="mr" data-i="${o.i}">${L(o.t)}</button>`).join("")}</div>
+        </div>`;
+      break;
+    case "sort":
+      run.queue = shuffle(q.items); run.si = 0;
+      body = `<div class="sortcard" id="sortcard"></div>
+        <div class="buckets">${q.groups.map((g,k)=>`<button class="bucket b${k}" data-act="srt" data-g="${k}"><span class="bh"><span aria-hidden="true">🧺</span>${L(g)}</span><span class="bin" id="bin${k}"></span></button>`).join("")}</div>`;
+      break;
+  }
+  const tag = q.tag ? `<span class="tag">${P(q.tag)}</span>` : "";
+  app.innerHTML = `
+    <div class="gamehead"><button class="iconbtn" data-act="station-back" aria-label="Kembali">${BACK()}</button><h2>${qTitle()}</h2><span class="pillstat" aria-label="${run.kurma} kurma">${KURMA} ${run.kurma}</span></div>
+    <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="${run.qs.length}" aria-valuenow="${run.i}"><span style="width:${Math.round(run.i/run.qs.length*100)}%"></span></div>
+    <div class="card page-in">
+      <div class="qmeta"><span><span class="qtype">${(isJ()?TYPE_J:TYPE_R)[q.type]}</span>${tag}</span><span style="display:flex;gap:6px;align-items:center"><span class="qnum" style="color:var(--muted);font-size:15px">${run.i+1}/${run.qs.length}</span>${ttsOK?`<button class="pill" data-act="say" aria-label="Dengar soalan">🔊</button>`:""}</span></div>
+      <p class="qtext">${qtext}</p>
+      ${body}
+      <div id="fb" aria-live="polite"></div>
+    </div>`;
+  if(q.type==="sort") showSortItem();
+}
+
+function finishQ(ok, extra=""){
+  run.done = true;
+  if(ok){ run.score++; run.kurma++; run.streak++; } else run.streak = 0;
+  const q = run.q, last = run.i+1 >= run.qs.length;
+  const title = ok ? (run.mist ? tx("Bagus, hampir sempurna!","باڬوس، همڤير سمڤورنا!") : pick(isJ()?PRAISE_J:PRAISE_R)) : tx("Belum tepat, tak apa!","بلوم تڤت، تق اڤ!");
+  $("fb").innerHTML = `<div class="feedback">${mascot(ok?"happy":"sad")}<div><strong>${title}</strong>${ok?`<span class="streak">+1 ${KURMA.replace('class="kurma"','class="kurma" style="width:12px;height:16px;vertical-align:-2px"')} ${tx("kurma","کورما")}</span> `:""}${ok&&run.streak>=3?`<span class="streak">🔥 ${run.streak} ${tx("berturut-turut!","برتوروت٢!")}</span>`:""}<br>${extra}${L(q.e)}<div class="ref">📖 ${tx("Rujuk buku teks ms.","روجوق بوکو تيکس موک سورت")} ${q.p}</div></div></div>
+    <button class="primary" data-act="next">${last?tx("Lihat keputusan","ليهت کڤوتوسن"):tx("Soalan seterusnya","سوالن ستروسڽ")}</button>`;
+  ok ? sfx.ok() : sfx.bad();
+  const b = $("fb").querySelector(".primary"); b.focus({preventScroll:true}); b.scrollIntoView({block:"nearest",behavior:"smooth"});
+}
+
+function ansChoice(k, sel){
+  if(run.done) return;
+  const btns = [...app.querySelectorAll(sel)];
+  btns.forEach(b=>b.disabled=true);
+  const right = run.opts.findIndex(o=>o.ok), ok = k===right;
+  btns[right].classList.add("ok");
+  if(!ok) btns[k].classList.add("bad");
+  if(run.q.type==="fill"){ const bl=$("blank"); bl.textContent=L(run.opts[right].t); bl.classList.add("filled"); }
+  hush(); finishQ(ok);
+}
+function ansTF(btn){
+  if(run.done) return;
+  app.querySelectorAll(".tfrow button").forEach(b=>b.disabled=true);
+  btn.classList.add("picked");
+  const chose = btn.dataset.v==="1", ok = chose===run.q.ans;
+  hush(); finishQ(ok, `${tx("Jawapan:","جواڤن:")} <b>${run.q.ans?tx("Betul","بتول"):tx("Salah","ساله")}</b>. `);
+}
+function ansOrder(b){
+  if(run.done) return;
+  const i = +b.dataset.i;
+  if(i===run.next){
+    sfx.tap();
+    const s=$("s"+i); s.classList.add("filled"); s.querySelector(".st").textContent = L(run.q.items[i]);
+    b.remove(); run.next++;
+    if(run.next===run.q.items.length) finishQ(run.mist<=1);
+  } else { run.mist++; sfx.bad(); app.querySelectorAll(".chip.shake").forEach(x=>x.classList.remove("shake")); void b.offsetWidth; b.classList.add("shake"); }
+}
+function ansMatch(b, side){
+  if(run.done || b.classList.contains("done")) return;
+  if(side==="l"){
+    app.querySelectorAll('.mbtn[data-act="ml"]').forEach(x=>x.classList.remove("sel"));
+    b.classList.add("sel"); run.sel = b; sfx.tap(); return;
+  }
+  if(!run.sel){ b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake"); return; }
+  if(run.sel.dataset.i === b.dataset.i){
+    const c = MATCH_COLORS[run.matched % MATCH_COLORS.length];
+    [run.sel,b].forEach(x=>{ x.classList.remove("sel"); x.classList.add("done"); x.style.background=c; x.disabled=true; });
+    run.sel = null; run.matched++; sfx.tap();
+    if(run.matched===run.q.pairs.length) finishQ(run.mist<=1);
+  } else {
+    run.mist++; sfx.bad();
+    app.querySelectorAll(".mbtn.shake").forEach(x=>x.classList.remove("shake")); void b.offsetWidth; b.classList.add("shake");
+  }
+}
+function showSortItem(){
+  const it = run.queue[run.si];
+  $("sortcard").innerHTML = `<span>${L(it[0])}<span class="left">${run.queue.length-run.si} ${tx("lagi • Tekan bakul yang betul","لاڬي • تکن باکول يڠ بتول")}</span></span>`;
+  $("sortcard").classList.remove("page-in"); void $("sortcard").offsetWidth; $("sortcard").classList.add("page-in");
+}
+function ansSort(btn){
+  if(run.done) return;
+  const it = run.queue[run.si], g = +btn.dataset.g;
+  const ok = g===it[1];
+  if(ok) sfx.tap(); else { run.mist++; sfx.bad(); const c=$("sortcard"); c.classList.remove("shake"); void c.offsetWidth; c.classList.add("shake"); }
+  $("bin"+it[1]).insertAdjacentHTML("beforeend", `<i class="${ok?"":"x"}">${ok?"":"❗"}${L(it[0])}</i>`);
+  run.si++;
+  if(run.si>=run.queue.length){ $("sortcard").innerHTML = `<span>${tx("Siap!","سياڤ!")} ✔️</span>`; app.querySelectorAll(".bucket").forEach(b=>b.disabled=true); finishQ(run.mist<=1, run.mist?tx("Item bertanda ❗ diletakkan semula ke bakul yang betul. ","ايتم برتندا ❗ دلتقکن سمولا ک باکول يڠ بتول. "):""); }
+  else setTimeout(showSortItem, ok?120:600);
+}
+
+function nextQ(){
+  run.i++;
+  if(run.i < run.qs.length){ showQ(); window.scrollTo(0,0); }
+  else finishRound();
+}
+function finishRound(){
+  hush();
+  const key = run.station==="final" ? "final" : TOPICS[+run.station].id;
+  const n = run.qs.length, s = run.score, pct = s/n;
+  const stars = pct>=0.9?3:pct>=0.7?2:pct>=0.5?1:0;
+  const wasFinalOpen = finalUnlocked();
+  const nextIdx = run.station==="final" ? -1 : +run.station+1;
+  const wasNextOpen = nextIdx>0 && nextIdx<TOPICS.length ? unlocked(nextIdx) : true;
+  const prev = best[key];
+  if(stars>prev){ best[key]=stars; save("s3-best",best); }
+  kurmaTotal += run.kurma; save("s3-kurma",kurmaTotal);
+  let unlockMsg = "";
+  if(nextIdx>0 && nextIdx<TOPICS.length && !wasNextOpen && unlocked(nextIdx)) unlockMsg = tx(`🔓 Pelajaran ${nextIdx+1} kini dibuka!`,`🔓 ڤلاجرن ${nextIdx+1} کيني دبوک!`);
+  if(run.station!=="final" && !wasFinalOpen && finalUnlocked()) unlockMsg = tx(`🔓 Cabaran Akhir kini dibuka!`,`🔓 چابرن اخير کيني دبوک!`);
+  const titles = isJ() ? ["جوم چوبا سکالي لاڬي","بوليه چوبا لاڬي","باڬوس!","چمرلڠ!"] : ["Jom cuba sekali lagi","Boleh cuba lagi","Bagus!","Cemerlang!"];
+  const label = run.station==="final" ? tx("Cabaran Akhir (semua tajuk)","چابرن اخير (سموا تاجوق)") : `${tx("Pelajaran","ڤلاجرن")} ${key}: ${L(TOPICS[+run.station].title)}`;
+  app.innerHTML = `
+    <div class="card result page-in" style="margin-top:18px">
+      ${mascot(stars>=2?"happy":"idle")}
+      <p style="margin:4px 0 0">${label}</p>
+      <div class="stars" role="img" aria-label="${stars} daripada 3 bintang">${starsHTML(stars)}</div>
+      <h2>${titles[stars]}</h2>
+      <p>${tx(`Kamu menjawab ${s} daripada ${n} soalan dengan betul.`,`کامو منجواب ${s} درڤد ${n} سوالن دڠن بتول.`)}</p>
+      <div class="earned">+${run.kurma} ${KURMA} ${tx("kurma","کورما")}</div>
+      ${stars>prev?`<p>${tx("Rekod baharu!","ريکود بهارو!")}</p>`:""}
+      ${stars===0?`<p>${tx("Dapatkan sekurang-kurangnya 1 bintang (separuh betul) untuk membuka pelajaran seterusnya. Cuba “Baca Dulu” sebelum mencuba lagi.","داڤتکن سکورڠ-کورڠڽ 1 بينتڠ (سڤاروه بتول) اونتوق ممبوک ڤلاجرن ستروسڽ. چوبا “باچ دولو” سبلوم منچوبا لاڬي.")}</p>`:""}
+      ${unlockMsg?`<div class="unlock">${unlockMsg}</div>`:""}
+      ${run.station==="final"&&stars===3?`<div class="unlock">🏆 ${tx("Tahniah! Kamu juara Sirah Tahun 3!","تهنية! کامو جوارا سيره تاهون 3!")}</div>`:""}
+      <button class="primary" data-act="again">${tx("Main lagi","ماٴين لاڬي")}</button>
+      <button class="secondary" data-act="map">${tx("Kembali ke peta","کمبالي ک ڤتا")}</button>
+    </div>`;
+  sfx.win();
+  if(stars===3) rain();
+  window.scrollTo(0,0);
+}
+function rain(){
+  const box = document.createElement("div"); box.className = "rain";
+  for(let i=0;i<28;i++){
+    const s = document.createElement("span");
+    s.textContent = pick(["⭐","✨","🌙","🌴"]);
+    s.style.left = Math.random()*100+"vw";
+    s.style.animationDuration = (2+Math.random()*2)+"s";
+    s.style.animationDelay = (Math.random()*0.8)+"s";
+    box.appendChild(s);
+  }
+  document.body.appendChild(box);
+  setTimeout(()=>box.remove(), 4500);
+}
+
+/* ============ EVENTS ============ */
+app.addEventListener("click", e=>{
+  const b = e.target.closest("button");
+  if(!b || b.disabled) return;
+  switch(b.dataset.act){
+    case "mute": muted=!muted; save("s3-muted",muted); b.textContent=muted?"🔇":"🔊"; b.setAttribute("aria-label",muted?"Hidupkan bunyi":"Matikan bunyi"); if(muted) hush(); break;
+    case "lang": lang = isJ() ? "rumi" : "jawi"; save("kafa-lang",lang); applyLang(); renderMap(); break;
+    case "teacher": teacher=!teacher; save("s3-teacher",teacher); renderMap(); break;
+    case "map": renderMap(); window.scrollTo(0,0); break;
+    case "station": openStation(b.dataset.i); window.scrollTo(0,0); break;
+    case "station-back": openStation(run.station); window.scrollTo(0,0); break;
+    case "read": startRead(); window.scrollTo(0,0); break;
+    case "cprev": if(run.c>0){ run.c--; showCard(); } break;
+    case "cnext": { const n=TOPICS[+run.station].cards.length; if(run.c+1<n){ run.c++; showCard(); } else startPlay(); window.scrollTo(0,0); break; }
+    case "play": startPlay(); window.scrollTo(0,0); break;
+    case "say": if(run && run.say) speak(run.say); break;
+    case "mc": ansChoice(+b.dataset.k, ".opt"); break;
+    case "fill": ansChoice(+b.dataset.k, ".word"); break;
+    case "tf": ansTF(b); break;
+    case "ord": ansOrder(b); break;
+    case "ml": ansMatch(b,"l"); break;
+    case "mr": ansMatch(b,"r"); break;
+    case "srt": ansSort(b); break;
+    case "next": nextQ(); break;
+    case "again": startPlay(); window.scrollTo(0,0); break;
+  }
+});
+
+applyLang();
+renderMap();
+</script>
+</body>
+</html>
