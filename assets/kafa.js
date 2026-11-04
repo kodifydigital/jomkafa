@@ -61,6 +61,12 @@ const READY = {
     r:"Angkasa Tajwid", j:"اڠکاس تجويد",
     dr:"8 planet, 9 jenis permainan", dj:"8 ڤلانيت، 9 جنيس ڤرماٴينن",
     progress:{ key:"j3-best", max:27 }
+  },
+  "3/hafazan": {
+    path:"hafazan/index.html",
+    r:"Kereta Api Hafazan", j:"کريتا اڤي حفظن",
+    dr:"8 surah, 9 jenis permainan", dj:"8 سوره، 9 جنيس ڤرماٴينن",
+    progress:{ key:"h3-best", max:27 }
   }
 };
 

@@ -24,8 +24,12 @@ kafa/
 │   │   └── index.html    ← Game Kembara Lautan Iman (Tauhid)
 │   ├── akhlak/
 │   │   └── index.html    ← Game Jalan-jalan Kampung Akhlak (Akhlak)
-│   └── arab/
-│       └── index.html    ← Game Lompat Katak (Bahasa Arab)
+│   ├── arab/
+│   │   └── index.html    ← Game Lompat Katak (Bahasa Arab)
+│   ├── tajwid/
+│   │   └── index.html    ← Game Angkasa Tajwid (Tajwid)
+│   └── hafazan/
+│       └── index.html    ← Game Kereta Api Hafazan (Hafazan)
 ├── tahun4/index.html
 ├── tahun5/index.html
 └── tahun6/index.html
@@ -46,7 +50,7 @@ kafa/
 
 3. Simpan. Kad Hafazan di Tahun 3 akan bertukar daripada "Akan datang" kepada boleh dimainkan.
 
-Id subjek yang tersedia: `sirah`, `quran`, `hafazan`, `tauhid`, `feqah`, `akhlak`, `jawi`, `arab`.
+Id subjek yang tersedia: `sirah`, `quran`, `tajwid`, `hafazan`, `tauhid`, `feqah`, `akhlak`, `jawi`, `arab`.
 Untuk menambah subjek lain, tambah dalam senarai `SUBJECTS` dalam fail yang sama.
 
 Dalam game baharu, letak butang kembali dengan pautan `../index.html` supaya murid boleh kembali ke senarai subjek.
