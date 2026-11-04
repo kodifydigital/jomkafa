@@ -1,0 +1,1128 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jalan-jalan Kampung Akhlak • Akhlak Tahun 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Noto+Naskh+Arabic:wght@500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFF2F5; --surface:#FFFFFF; --ink:#3A1F2B; --muted:#7A5966; --line:#F2D5DE;
+  --brand:#D6336C; --brand-ink:#FFFFFF; --brand-shadow:#A3204F; --gold:#E8A317;
+  --ok:#1F8A50; --ok-bg:#DDF3E5; --bad:#C8452F; --bad-bg:#FBE1DC; --note:#FFF4D6;
+  --pattern:rgba(214,51,108,.09);
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1E1218; --surface:#2C1B24; --ink:#FBEAF0; --muted:#D3AEBE; --line:#4A2E3B;
+    --brand:#FF6FA0; --brand-ink:#2A0614; --brand-shadow:#C2406E; --gold:#F2C14E;
+    --ok:#2E9E5B; --ok-bg:#173F2B; --bad:#E0634E; --bad-bg:#4A2420; --note:#3A3018;
+    --pattern:rgba(255,111,160,.08);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1E1218; --surface:#2C1B24; --ink:#FBEAF0; --muted:#D3AEBE; --line:#4A2E3B;
+  --brand:#FF6FA0; --brand-ink:#2A0614; --brand-shadow:#C2406E; --gold:#F2C14E;
+  --ok:#2E9E5B; --ok-bg:#173F2B; --bad:#E0634E; --bad-bg:#4A2420; --note:#3A3018;
+  --pattern:rgba(255,111,160,.08);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100vh;background-color:var(--bg);color:var(--ink);font-family:"Baloo 2","Trebuchet MS","Segoe UI",system-ui,sans-serif;font-size:18px;line-height:1.45;
+  background-image:linear-gradient(45deg,var(--pattern) 25%,transparent 25%,transparent 75%,var(--pattern) 75%),linear-gradient(45deg,var(--pattern) 25%,transparent 25%,transparent 75%,var(--pattern) 75%);background-size:36px 36px;background-position:0 0,18px 18px}
+.wrap{max-width:720px;margin:0 auto;padding:12px 16px 44px}
+button{font:inherit;cursor:pointer;color:inherit}
+button:disabled{cursor:default}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+svg{max-width:100%}
+.ar{font-family:"Amiri","Noto Naskh Arabic",serif;font-weight:400;line-height:1.9}
+
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:44px}
+a.iconbtn{text-decoration:none;color:inherit}
+.iconbtn{background:var(--surface);border:2px solid var(--line);border-radius:999px;width:44px;height:44px;font-size:20px;display:grid;place-items:center;flex:none;padding:0}
+.pillstat{display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:3px 12px 3px 8px;font-weight:800;font-size:17px}
+.heart{width:20px;height:20px;flex:none}
+.stats{display:flex;gap:8px;flex-wrap:wrap}
+.langbtn{border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 14px;font-weight:800;font-size:16px;min-height:44px}
+.langbtn .ar{font-family:"Noto Naskh Arabic","Amiri",serif}
+
+.hero{text-align:center;padding:8px 0 2px}
+.hero .badge{display:inline-block;background:var(--brand);color:var(--brand-ink);border-radius:999px;padding:2px 14px;font-weight:700;font-size:15px}
+.hero h1{margin:8px 0 0;font-size:clamp(30px,8.2vw,48px);line-height:1.04;font-weight:800;color:var(--brand)}
+.hero p{margin:6px auto 0;color:var(--muted);max-width:480px}
+
+/* ===== Jalan kampung (peta mendatar) ===== */
+.streetwrap{position:relative;margin:16px -16px 0}
+.street{overflow-x:auto;overflow-y:hidden;scroll-behavior:smooth;scrollbar-width:thin;border-radius:0;-webkit-overflow-scrolling:touch}
+.town{position:relative;height:410px;background:linear-gradient(180deg,#8ED6F5 0%,#C8ECFA 45%,#E8F7FC 58%)}
+.town .sun{position:absolute;top:22px;width:62px;height:62px;border-radius:50%;background:radial-gradient(circle,#FFE680,#FFC93C);box-shadow:0 0 0 12px rgba(255,214,90,.25);animation:sunp 4s ease-in-out infinite}
+@keyframes sunp{50%{box-shadow:0 0 0 20px rgba(255,214,90,.12)}}
+.town .cloud{position:absolute;font-size:44px;opacity:.9;animation:cloud linear infinite;pointer-events:none}
+@keyframes cloud{from{transform:translateX(0)}to{transform:translateX(var(--dx))}}
+.town .hills{position:absolute;left:0;right:0;top:120px;height:110px}
+.town .walk{position:absolute;left:0;right:0;top:248px;height:16px;background:#E7D3B5;border-top:3px solid #CDB28C}
+.town .road{position:absolute;left:0;right:0;top:264px;height:62px;background:#55606E}
+.town .road::after{content:"";position:absolute;left:0;right:0;top:29px;height:4px;background:repeating-linear-gradient(90deg,#FFE27A 0 26px,transparent 26px 50px)}
+.town .grass{position:absolute;left:0;right:0;top:326px;bottom:0;background:#7CC66B}
+.town .tree{position:absolute;top:186px;font-size:52px;line-height:1;animation:sway 4s ease-in-out infinite;transform-origin:50% 100%;pointer-events:none}
+@keyframes sway{50%{transform:rotate(3deg)}}
+.town .lamp{position:absolute;top:196px;width:6px;height:54px;background:#5B5B6B;border-radius:3px}
+.town .lamp::before{content:"";position:absolute;top:-8px;left:-6px;width:18px;height:12px;border-radius:8px 8px 3px 3px;background:#FFD95A;box-shadow:0 0 10px #FFD95A}
+.town .car{position:absolute;top:268px;font-size:34px;animation:drive linear infinite;pointer-events:none}
+@keyframes drive{from{left:-60px}to{left:100%}}
+.stop{position:absolute;top:58px;width:170px;transform:translateX(-50%);background:none;border:0;padding:0;display:flex;flex-direction:column;align-items:center}
+.bld{position:relative;display:block;width:124px;height:132px;margin-top:58px;background:var(--tc);border-radius:6px 6px 0 0;box-shadow:inset -12px 0 0 rgba(0,0,0,.1)}
+.bld .roof{position:absolute;left:-12px;right:-12px;top:-46px;height:48px;background:color-mix(in srgb,var(--tc) 55%,#3A1F2B);clip-path:polygon(50% 0,100% 100%,0 100%)}
+.bld .sign{position:absolute;left:50%;top:-30px;transform:translateX(-50%);width:44px;height:44px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:26px;box-shadow:0 3px 0 rgba(0,0,0,.2);z-index:1}
+.bld .wins{position:absolute;left:14px;right:14px;top:22px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.bld .wins i{height:28px;border-radius:5px;background:#FFF4C2;box-shadow:inset 0 0 0 3px rgba(0,0,0,.12)}
+.bld .door{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:34px;height:48px;border-radius:16px 16px 0 0;background:#7A4A2A}
+.bld .num{position:absolute;top:-10px;right:-14px;z-index:2;background:var(--gold);color:#2A1B00;border-radius:999px;font-size:14px;font-weight:800;min-width:28px;height:28px;display:grid;place-items:center;box-shadow:0 2px 0 #9A6A0A}
+.bld .done{position:absolute;bottom:52px;left:-14px;font-size:26px;animation:beat 1.4s ease-in-out infinite}
+@keyframes beat{15%{transform:scale(1.2)}30%{transform:scale(1)}}
+.stop .plate{display:block;margin-top:80px;background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:3px 10px 4px;font-weight:800;font-size:14.5px;line-height:1.15;box-shadow:0 3px 0 rgba(0,0,0,.15);max-width:170px}
+.stop .plate small{display:block;font-size:12px;color:var(--muted);font-weight:700}
+.stop .plate .st{display:block;font-size:12px;letter-spacing:1px;margin-top:2px}
+.stop .plate .st .off{opacity:.3;filter:grayscale(1)}
+.stop.locked .bld{filter:grayscale(.85) brightness(.9)}
+.stop.locked .bld .wins i{background:#9C9AA8}
+.stop.current .bld .sign{animation:ping 1.6s ease-out infinite}
+@keyframes ping{0%{box-shadow:0 3px 0 rgba(0,0,0,.2),0 0 0 0 rgba(214,51,108,.6)}100%{box-shadow:0 3px 0 rgba(0,0,0,.2),0 0 0 18px rgba(214,51,108,0)}}
+.stop:active .bld{transform:translateY(3px)}
+.walker{position:absolute;top:206px;width:58px;transform:translateX(-50%);pointer-events:none;animation:hopw .7s ease-in-out infinite}
+@keyframes hopw{50%{margin-top:-6px}}
+.scr{position:absolute;top:150px;z-index:3;width:44px;height:44px;border-radius:50%;border:2px solid var(--line);background:var(--surface);font-size:18px;box-shadow:0 3px 0 rgba(0,0,0,.15)}
+.scr.l{left:8px}.scr.r{right:8px}
+.streetnote{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:10px;color:var(--muted);font-size:15px;font-weight:700}
+.trip{flex:1;height:10px;background:var(--line);border-radius:99px;overflow:hidden}
+.trip span{display:block;height:100%;background:linear-gradient(90deg,#FF8FB1,#D6336C);border-radius:99px}
+.teacher{display:flex;justify-content:center;margin-top:20px}
+.toggle{display:inline-flex;align-items:center;gap:10px;background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:6px 14px;font-size:16px;font-weight:700}
+.toggle .sw{width:42px;height:24px;border-radius:99px;background:var(--line);position:relative;flex:none;transition:background .2s}
+.toggle .sw::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .2s}
+.toggle[aria-pressed="true"] .sw{background:var(--brand)}
+.toggle[aria-pressed="true"] .sw::after{left:21px}
+.foot{margin-top:16px;color:var(--muted);font-size:15px;text-align:center}
+
+/* ===== Stesen ===== */
+.banner{border-radius:26px;padding:18px 18px 20px;background:var(--tc);color:#fff;position:relative;overflow:hidden;box-shadow:0 6px 0 color-mix(in srgb,var(--tc) 55%,#000)}
+.banner .kick{font-weight:700;opacity:.92;font-size:16px}
+.banner h2{margin:0;font-size:clamp(25px,6.4vw,33px);line-height:1.12}
+.banner .big{position:absolute;inset-inline-end:-4px;bottom:-12px;font-size:92px;opacity:.25}
+.banner .stars{margin-top:6px;font-size:20px}
+.banner .stars .off{opacity:.35;filter:grayscale(1)}
+.banner .chip{display:inline-block;margin-top:8px;background:rgba(255,255,255,.22);border-radius:999px;padding:1px 12px;font-weight:700;font-size:15px}
+.units{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:8px}
+.units li{background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:8px 12px;display:flex;gap:10px;align-items:center;line-height:1.25}
+.units .u{background:var(--tc);color:#fff;border-radius:10px;font-size:13px;font-weight:800;padding:2px 8px;flex:none}
+.actions{display:grid;gap:12px;margin-top:18px}
+.bigbtn{display:flex;align-items:center;gap:14px;width:100%;text-align:start;border:0;border-radius:20px;padding:14px 16px;font-weight:800;font-size:21px;line-height:1.15}
+.bigbtn small{display:block;font-weight:600;font-size:15px;opacity:.9}
+.bigbtn .e{font-size:34px;flex:none}
+.bigbtn.read{background:var(--surface);border:2px solid var(--line);box-shadow:0 4px 0 var(--line)}
+.bigbtn.play{background:var(--brand);color:var(--brand-ink);box-shadow:0 5px 0 var(--brand-shadow)}
+.bigbtn:active{transform:translateY(3px)}
+
+/* ===== Umum ===== */
+.gamehead{display:flex;align-items:center;gap:10px;margin:2px 0 10px}
+.gamehead h2{margin:0;font-size:20px;flex:1;line-height:1.15;color:var(--brand)}
+.gamehead h2 small{display:block;font-size:14px;color:var(--muted);font-weight:600}
+.progress{height:12px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:14px}
+.progress span{display:block;height:100%;background:linear-gradient(90deg,#FF8FB1,#D6336C);border-radius:99px;transition:width .3s}
+.card{background:var(--surface);border:2px solid var(--line);border-radius:24px;padding:18px}
+.page-in{animation:pagein .35s ease}
+@keyframes pagein{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.qmeta{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.qtype{display:inline-block;background:var(--note);border-radius:999px;padding:1px 12px;font-size:14.5px;font-weight:700}
+.tag{display:inline-block;background:var(--gold);color:#2A1B00;border-radius:999px;padding:1px 10px;font-size:13.5px;font-weight:800;margin-inline-start:4px}
+.pill{border:2px solid var(--line);background:var(--bg);border-radius:999px;padding:3px 12px;font-size:15px;font-weight:700}
+.qtext{font-size:clamp(20px,4.8vw,25px);font-weight:700;line-height:1.32;margin:4px 0 14px}
+.hint{color:var(--muted);font-size:15.5px;margin:-6px 0 12px}
+.shake{animation:shake .4s}
+@keyframes shake{20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+@keyframes pop{50%{transform:scale(1.06)}}
+.counter{display:inline-block;background:var(--note);border-radius:999px;padding:0 12px;font-weight:800;font-size:15px}
+.bigem{font-size:46px;text-align:center;letter-spacing:6px;line-height:1.2;margin:0 0 8px}
+.bigem span{display:inline-block;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px)}}
+
+/* Kapal terbang kertas */
+.planes{display:grid;gap:10px}
+.plane{position:relative;display:flex;gap:12px;align-items:center;width:100%;border:2px solid var(--line);background:var(--bg);border-radius:16px;padding:10px 14px;text-align:start;font-size:18.5px;font-weight:700;line-height:1.3;overflow:visible}
+.plane .pl{width:42px;height:32px;flex:none;transition:transform .2s}
+.plane:hover .pl{transform:translate(3px,-2px) rotate(-6deg)}
+.plane .ar{font-size:23px;flex:1;text-align:right}
+.plane.ok{border-color:var(--ok);background:var(--ok-bg)}
+.plane.bad{border-color:var(--bad);background:var(--bad-bg)}
+.plane.ok .pl{animation:flyaway 1.1s ease-in forwards}
+.plane.bad .pl{animation:dive .9s ease-in forwards}
+@keyframes flyaway{30%{transform:translate(-6px,4px) rotate(8deg)}100%{transform:translate(260px,-90px) rotate(-18deg) scale(.6);opacity:0}}
+html[dir="rtl"] .plane .pl{transform:scaleX(-1)}
+html[dir="rtl"] .plane.ok .pl{animation-name:flyawayr}
+@keyframes flyawayr{30%{transform:scaleX(-1) translate(-6px,4px) rotate(8deg)}100%{transform:scaleX(-1) translate(260px,-90px) rotate(-18deg) scale(.6);opacity:0}}
+@keyframes dive{40%{transform:translate(8px,-6px) rotate(-10deg)}100%{transform:translate(30px,40px) rotate(70deg);opacity:.2}}
+
+/* Pilih jalan */
+.story{display:flex;gap:12px;align-items:center;background:var(--note);border-radius:18px;padding:12px 14px;margin:0 0 14px}
+.story .se{font-size:44px;line-height:1;flex:none;animation:bob 2.4s ease-in-out infinite}
+.story p{margin:0;font-weight:700;font-size:clamp(18px,4.4vw,21px);line-height:1.35}
+.fork{position:relative;display:grid;gap:12px;padding-top:6px}
+.signpost{position:relative;display:flex;align-items:center;gap:10px;width:100%;border:0;background:#8B5A2B;color:#fff;border-radius:12px 30px 30px 12px;padding:12px 18px 12px 14px;font-size:18px;font-weight:800;line-height:1.3;text-align:start;box-shadow:0 5px 0 #5E3B1A;clip-path:polygon(0 0,calc(100% - 22px) 0,100% 50%,calc(100% - 22px) 100%,0 100%)}
+html[dir="rtl"] .signpost{clip-path:polygon(22px 0,100% 0,100% 100%,22px 100%,0 50%);padding:12px 14px 12px 18px}
+.signpost .k{font-size:24px;flex:none}
+.signpost:active{transform:translateY(3px)}
+.signpost.ok{background:var(--ok);box-shadow:0 5px 0 #145C35}
+.signpost.bad{background:var(--bad);box-shadow:0 5px 0 #8E2E1F}
+.signpost:disabled:not(.ok):not(.bad){opacity:.45}
+.cons{display:flex;gap:12px;align-items:center;margin-top:14px;padding:10px 14px;border-radius:18px;font-weight:700;font-size:17.5px;animation:consin .5s cubic-bezier(.3,1.5,.5,1)}
+.cons .cf{font-size:40px;line-height:1;flex:none;animation:bob 1.6s ease-in-out infinite}
+.cons.good{background:var(--ok-bg)}
+.cons.sad{background:var(--bad-bg)}
+@keyframes consin{from{opacity:0;transform:scale(.8)}}
+
+/* Balas mesej */
+.phone{max-width:380px;margin:0 auto 14px;border:8px solid #2B2B35;border-radius:30px;overflow:hidden;background:#EDE6DD}
+.ph-top{display:flex;align-items:center;gap:8px;background:#128C7E;color:#fff;padding:8px 12px;font-weight:800;font-size:16px}
+.ph-top .av{width:34px;height:34px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:22px}
+.ph-top small{display:block;font-size:12px;font-weight:600;opacity:.85}
+.ph-body{display:flex;flex-direction:column;gap:6px;padding:12px 10px 14px;min-height:150px}
+.pm{max-width:80%;border-radius:14px;padding:6px 11px;font-size:16px;font-weight:600;line-height:1.35;color:#1E1E1E;animation:consin .35s ease both}
+.pm.in{align-self:flex-start;background:#fff;border-top-left-radius:4px}
+.pm.out{align-self:flex-end;background:#DCF8C6;border-top-right-radius:4px}
+html[dir="rtl"] .pm.in{align-self:flex-end;border-top-left-radius:14px;border-top-right-radius:4px}
+html[dir="rtl"] .pm.out{align-self:flex-start;border-top-right-radius:14px;border-top-left-radius:4px}
+.pm.typing{font-size:22px;letter-spacing:3px;padding:0 12px}
+.pm.typing i{display:inline-block;font-style:normal;animation:dot 1s infinite}
+.pm.typing i:nth-child(2){animation-delay:.2s}.pm.typing i:nth-child(3){animation-delay:.4s}
+@keyframes dot{50%{opacity:.2}}
+.replies{display:grid;gap:8px}
+.reply{border:2px solid #128C7E;background:var(--surface);color:var(--ink);border-radius:20px;padding:9px 14px;font-weight:700;font-size:17px;line-height:1.3;text-align:start}
+.reply::before{content:"💬 "}
+.reply.ok{background:var(--ok-bg);border-color:var(--ok)}
+.reply.bad{background:var(--bad-bg);border-color:var(--bad)}
+
+/* Detektif */
+.scene-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;background:linear-gradient(180deg,#E9F6FF,#FFF6E6);border-radius:20px;padding:12px;border:2px solid var(--line)}
+@media (max-width:420px){.scene-grid{grid-template-columns:repeat(2,1fr)}}
+.spot{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;border:2px solid transparent;background:rgba(255,255,255,.75);color:#3A1F2B;border-radius:16px;padding:8px 6px;font-size:15px;font-weight:700;line-height:1.2;text-align:center}
+.spot .se{font-size:38px;line-height:1.1;animation:bob 3s ease-in-out infinite;animation-delay:var(--d)}
+.spot.found{border-color:var(--bad);background:#FFE3DD}
+.spot.found::after{content:"";position:absolute;inset:-4px;border:4px solid var(--bad);border-radius:50%;animation:circle .45s ease-out}
+@keyframes circle{from{transform:scale(1.6);opacity:0}}
+.spot.nope{animation:shake .4s;background:#EEE}
+.spot.target-good.found{border-color:var(--ok);background:var(--ok-bg)}
+.spot.target-good.found::after{border-color:var(--ok)}
+.spot.missed{outline:3px dashed var(--bad);outline-offset:2px}
+
+/* Susun komik */
+.frames{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:8px;margin-bottom:14px}
+.frame{position:relative;min-height:110px;border:3px dashed var(--line);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px;text-align:center;font-weight:700;font-size:14px;line-height:1.2;background:var(--bg)}
+.frame .fn{position:absolute;top:4px;inset-inline-start:6px;font-size:13px;font-weight:800;color:var(--muted)}
+.frame.f{border:3px solid #3A1F2B;background:#FFFBEA;color:#3A1F2B;animation:pop .35s;box-shadow:4px 4px 0 #3A1F2B}
+.frame .pe{font-size:34px;line-height:1.1}
+.pool{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.panel{display:flex;align-items:center;gap:8px;border:2px solid var(--line);background:var(--surface);border-radius:12px;padding:8px 10px;font-weight:700;font-size:15.5px;line-height:1.25;text-align:start;box-shadow:0 3px 0 var(--line)}
+.panel .pe{font-size:28px;flex:none}
+.panel.shake{border-color:var(--bad);background:var(--bad-bg)}
+
+/* Muka ceria / muram */
+.facecard{display:grid;place-items:center;min-height:76px;margin:0 auto 12px;max-width:440px;text-align:center;background:var(--note);border:3px solid var(--gold);border-radius:18px;padding:10px 14px;font-weight:800;font-size:clamp(18px,4.6vw,22px);line-height:1.25;animation:pagein .3s}
+.facecard small{display:block;font-size:13px;color:var(--muted)}
+.facecard.goL{transition:transform .35s ease-in,opacity .35s;transform:translate(-40%,40px) scale(.5);opacity:0}
+.facecard.goR{transition:transform .35s ease-in,opacity .35s;transform:translate(40%,40px) scale(.5);opacity:0}
+.faces{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.face{border:0;border-radius:22px;padding:10px 8px 12px;font-weight:800;font-size:18px;color:#fff;line-height:1.2}
+.face svg{width:84px;height:84px;display:block;margin:0 auto 4px}
+.face.f1{background:#F2A93B;box-shadow:0 5px 0 #B87A1C}
+.face.f0{background:#6C7A99;box-shadow:0 5px 0 #4A5570}
+.face.react svg{animation:react .6s ease}
+@keyframes react{30%{transform:scale(1.25) rotate(-8deg)}60%{transform:scale(.95) rotate(6deg)}}
+.face:disabled{opacity:.5}
+.bins{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.bins div{display:flex;flex-wrap:wrap;gap:5px;align-content:flex-start;justify-content:center}
+.bins i{font-style:normal;background:var(--bg);border:2px solid var(--line);border-radius:10px;padding:0 8px;font-size:13.5px;font-weight:700;animation:pop .3s}
+.bins i.x{border-color:var(--bad)}
+
+/* Lengkapkan dalil */
+.dalil{background:var(--note);border:2px solid var(--gold);border-radius:18px;padding:12px 14px;text-align:center;margin:0 0 8px}
+.dalil .ar{font-size:clamp(23px,5.6vw,29px)}
+.gap{display:inline-block;min-width:90px;border-bottom:3px dashed var(--brand);margin:0 6px;color:var(--muted);font-family:"Amiri",serif;font-size:clamp(23px,5.6vw,29px)}
+.gap.w{border-bottom-color:var(--ok);color:var(--ok);animation:write .7s steps(8) both}
+@keyframes write{from{clip-path:inset(0 0 0 100%)}to{clip-path:inset(0 0 0 0)}}
+.mk{color:var(--muted);font-style:italic;font-weight:600;font-size:16px;margin:0 0 12px;text-align:center}
+.inks{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.ink{border:2px solid var(--line);background:var(--surface);border-radius:16px;padding:4px 18px;box-shadow:0 3px 0 var(--line)}
+.ink .ar{font-size:26px}
+.ink::before{content:"✍️";font-size:15px;margin-inline-end:6px}
+.ink.ok{border-color:var(--ok);background:var(--ok-bg)}
+.ink.bad{border-color:var(--bad);background:var(--bad-bg)}
+
+/* Lampu isyarat */
+.tl{display:flex;gap:14px;align-items:center;margin:0 0 14px}
+.tlight{display:grid;gap:6px;background:#2B2B35;border-radius:16px;padding:8px;flex:none}
+.tlight i{width:30px;height:30px;border-radius:50%;background:#4A4A55;transition:background .3s,box-shadow .3s}
+.tlight.r .r{background:#FF4D4D;box-shadow:0 0 16px #FF4D4D}
+.tlight.y .y{background:#FFC93C;box-shadow:0 0 16px #FFC93C;animation:blink .8s infinite}
+.tlight.g .g{background:#3CD070;box-shadow:0 0 16px #3CD070}
+@keyframes blink{50%{opacity:.4}}
+.tl .stmt{flex:1;background:var(--note);border-radius:18px;padding:12px 14px;font-weight:800;font-size:clamp(18px,4.6vw,22px);line-height:1.35}
+.lane{position:relative;height:40px;background:#55606E;border-radius:10px;margin:0 0 12px;overflow:hidden}
+.lane::after{content:"";position:absolute;left:0;right:0;top:18px;height:4px;background:repeating-linear-gradient(90deg,#FFE27A 0 20px,transparent 20px 40px)}
+.lane .cr{position:absolute;left:6px;top:2px;font-size:30px;line-height:1;transition:left 1.4s ease-in;z-index:1}
+.lane.go .cr{left:calc(100% - 44px)}
+html[dir="rtl"] .lane .cr{left:auto;right:6px;transform:scaleX(-1);transition:right 1.4s ease-in}
+html[dir="rtl"] .lane.go .cr{right:calc(100% - 44px)}
+.tfrow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tfrow button{border:0;border-radius:18px;padding:12px 8px;font-size:21px;font-weight:800;color:#fff;line-height:1.15}
+.tfrow button span{display:block;font-size:26px}
+.tfrow .yes{background:var(--ok);box-shadow:0 4px 0 color-mix(in srgb,var(--ok) 70%,#000)}
+.tfrow .no{background:var(--bad);box-shadow:0 4px 0 color-mix(in srgb,var(--bad) 70%,#000)}
+.tfrow button:disabled{opacity:.4}
+.tfrow button.picked{opacity:1;outline:3px solid var(--gold);outline-offset:3px}
+
+/* ===== Kad bacaan ===== */
+.unitlbl{display:inline-block;background:var(--tc);color:#fff;border-radius:999px;padding:1px 12px;font-weight:800;font-size:14.5px;margin-bottom:6px}
+.readtext{font-size:clamp(19px,4.4vw,22px);font-weight:600;line-height:1.5;margin:0 0 12px}
+.arbox{background:var(--note);border:2px solid var(--gold);border-radius:16px;padding:8px 14px;margin:0 0 10px;text-align:center}
+.arbox .ar{font-size:clamp(21px,5.2vw,27px);display:block}
+.arbox small{display:block;color:var(--muted);font-weight:700;font-size:14px}
+.maksud{font-size:16.5px;color:var(--muted);font-weight:600;margin:-2px 0 12px;font-style:italic}
+.rlist{list-style:none;margin:0 0 12px;padding:0;display:grid;gap:6px;counter-reset:r}
+.rlist li{display:flex;gap:10px;align-items:center;background:var(--bg);border-radius:12px;padding:5px 10px;font-weight:700;line-height:1.3;animation:pagein .4s both;animation-delay:calc(var(--i) * 70ms)}
+.rlist li::before{counter-increment:r;content:counter(r);width:26px;height:26px;border-radius:50%;background:var(--tc);color:#fff;display:grid;place-items:center;font-size:14px;flex:none}
+.rlist.bad li::before{content:"✗";background:#8A8FA3}
+.tip{background:var(--note);border-radius:16px;padding:8px 12px;margin:0 0 12px;font-weight:600;font-size:17px}
+.tip b{display:block;font-size:15px;color:var(--muted)}
+.ref{margin-top:6px;font-size:14.5px;font-weight:700;color:var(--muted)}
+.navrow{display:grid;grid-template-columns:52px auto 1fr;gap:8px;align-items:center}
+.navrow .secondary,.navrow .primary{margin:0;padding:11px 6px;font-size:18px}
+.navrow .secondary:disabled{opacity:.35}
+.dots{display:flex;justify-content:center;gap:6px;margin-top:12px;flex-wrap:wrap}
+.dots i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--brand);width:22px;border-radius:99px}
+.comic{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:0 0 12px}
+.comic div{position:relative;background:#FFFBEA;color:#3A1F2B;border:3px solid #3A1F2B;border-radius:10px;padding:8px 10px 10px;box-shadow:4px 4px 0 #3A1F2B;font-weight:700;font-size:15.5px;line-height:1.3;animation:pagein .5s both;animation-delay:calc(var(--i) * .5s)}
+.comic div b{display:block;font-size:34px;line-height:1.15;text-align:center}
+.comic div small{position:absolute;top:4px;inset-inline-start:8px;font-weight:800;font-size:12px;color:#7A5966}
+.pantun{background:var(--note);border-radius:16px;padding:10px 16px;margin:0 0 12px;font-weight:700;font-size:18px;line-height:1.55;font-style:italic;border-inline-start:6px solid var(--tc)}
+.pantun span{display:block;animation:pagein .4s both;animation-delay:calc(var(--i) * .35s)}
+.groups{display:grid;gap:8px;margin:0 0 12px}
+.groups div{border-radius:14px;padding:8px 12px;background:var(--bg);border:2px solid var(--line);animation:pagein .4s both;animation-delay:calc(var(--i) * .2s)}
+.groups h3{margin:0 0 2px;font-size:17px;color:var(--tc)}
+.groups ul{margin:0;padding-inline-start:20px;font-weight:600;font-size:16px;line-height:1.35}
+
+/* Maklum balas & keputusan */
+.feedback{display:flex;gap:12px;align-items:center;margin-top:16px;padding:12px 14px;border-radius:18px;background:var(--note);font-size:17px;line-height:1.4}
+.feedback .mascot{width:76px}
+.feedback strong{display:block;font-size:21px}
+.streak{display:inline-block;background:var(--gold);color:#3A2600;border-radius:999px;padding:0 10px;font-weight:800;font-size:15px;margin:2px 0 4px}
+.primary{display:block;width:100%;margin-top:14px;border:0;border-radius:16px;padding:13px;background:var(--brand);color:var(--brand-ink);font-size:20px;font-weight:800;box-shadow:0 4px 0 var(--brand-shadow)}
+.primary:active{transform:translateY(3px);box-shadow:0 1px 0 var(--brand-shadow)}
+.secondary{display:block;width:100%;margin-top:12px;border:2px solid var(--line);background:transparent;border-radius:16px;padding:11px;font-size:18px;font-weight:700}
+.result{text-align:center}
+.result .mascot{width:120px;margin:0 auto}
+.result .stars{font-size:54px;letter-spacing:6px;line-height:1.1;margin:4px 0}
+.result .stars .off{filter:grayscale(1);opacity:.25}
+.result h2{margin:4px 0 2px;font-size:32px;color:var(--brand)}
+.result p{margin:0 0 6px;color:var(--muted)}
+.unlock{display:inline-block;margin:8px 0 0;background:var(--note);border:2px solid var(--gold);border-radius:999px;padding:3px 14px;font-weight:800}
+.earned{display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:20px;margin:4px 0}
+.rain{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:50}
+.rain span{position:absolute;top:-50px;font-size:28px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(115vh) rotate(300deg)}}
+.sparkle{position:fixed;pointer-events:none;font-size:26px;z-index:40;animation:spark .8s ease-out forwards}
+@keyframes spark{to{transform:translateY(-44px) scale(1.4);opacity:0}}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:18px;font-weight:700;z-index:60;max-width:92vw;text-align:center}
+.mascot{display:block;height:auto;flex:none}
+.mascot.happy{animation:hop .45s ease 2}
+.mascot.sad{animation:tilt .9s ease}
+@keyframes hop{50%{transform:translateY(-10px)}}
+@keyframes tilt{30%{transform:rotate(-8deg)}70%{transform:rotate(4deg)}}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rain,.town .car,.town .cloud{display:none}
+}
+html[dir="rtl"] body{font-family:"Noto Naskh Arabic","Amiri","Baloo 2",serif;font-size:20px;line-height:1.8}
+html[dir="rtl"] .qtext,html[dir="rtl"] .readtext{line-height:1.85}
+html[dir="rtl"] .hero h1{font-weight:700;line-height:1.35}
+html[dir="rtl"] .banner h2{line-height:1.5}
+html[dir="rtl"] .stop .plate{font-size:15px;line-height:1.5}
+html[dir="rtl"] .plane,html[dir="rtl"] .signpost,html[dir="rtl"] .reply,html[dir="rtl"] .spot,html[dir="rtl"] .panel,html[dir="rtl"] .frame,html[dir="rtl"] .facecard,html[dir="rtl"] .tl .stmt,html[dir="rtl"] .comic div{line-height:1.6}
+</style>
+</head>
+<body>
+<main class="wrap" id="app"></main>
+
+<script>
+/* ============ KANDUNGAN (berdasarkan Buku Teks JAIS Akhlak Tahun 3) ============
+   Teks Melayu ditulis sebagai [Rumi, Jawi]. Teks Arab ditulis sebagai rentetan biasa.
+   Jenis soalan:
+   plane : kapal terbang kertas (pilih jawapan), a[0] betul
+   path  : pilih jalan; a = [[pilihan, akibat], ...], a[0] pilihan terbaik
+   chat  : balas mesej; msgs = mesej rakan, a[0] balasan terbaik, re = [balasan gembira, balasan sedih]
+   spot  : detektif; items = [emoji, teks, sasaran?], tekan semua sasaran
+   komik : susun panel komik (panels ikut urutan betul)
+   face  : muka ceria / muram; items = [teks, 1 baik | 0 tidak baik]
+   hafaz : lengkapkan dalil; pre + ans + post, a[0] = ans
+   tf    : lampu isyarat betul / salah, ans = true|false
+   p = muka surat buku teks. */
+
+const LESSONS = [
+{
+  id:1, title:["Adab Menziarahi Orang Sakit","اداب منزيارهي اورڠ ساکيت"], icon:"🏥", color:"#E25D6C", pages:"1–5",
+  place:["Hospital","هوسڤيتل"],
+  units:[["Adab ketika menziarahi orang sakit","اداب کتيک منزيارهي اورڠ ساکيت"],["Dalil dan doa","دليل دان دعاء"],["Fadilat dan akibat","فضيلة دان عاقبة"]],
+  cards:[
+    {u:["Adab menziarahi orang sakit","اداب منزيارهي اورڠ ساکيت"],em:"🏥🤒💐👨‍👩‍👧",p:1,list:[["Memilih waktu yang sesuai untuk berziarah","مميليه وقتو يڠ سسواي اونتوق برزيارة"],["Memendekkan waktu ziarah","ممندقکن وقتو زيارة"],["Menggunakan kata-kata yang baik sahaja","مڠڬوناکن کات٢ يڠ باءيق سهاج"],["Berkata dengan suara yang lembut dan sopan","برکات دڠن سوارا يڠ لمبوت دان سوڤن"],["Mendoakan orang yang sakit agar cepat sembuh","مندعاءکن اورڠ يڠ ساکيت اڬر چڤت سمبوه"],["Menasihati pesakit supaya bersabar, tabah dan bersangka baik kepada Allah SWT","منصيحتي ڤساکيت سوڤايا برصبر، تابه دان برسڠک باءيق کڤد الله ﷻ"]]},
+    {u:["Dalil menziarahi orang sakit","دليل منزيارهي اورڠ ساکيت"],em:"👼✨",p:2,ar:"مَنْ عَادَ مَرِيْضًا أَوْ زَارَ أَخًا لَهُ فِي اللَّهِ نَادَاهُ مُنَادٍ بِأَنْ طِبْتَ وَطَابَ مَمْشَاكَ وَتَبَوَّأْتَ مِنَ الْجَنَّةِ مَنْزِلًا",src:["Riwayat al-Tirmizi","رواية الترمذي"],mk:["Maksudnya: Sesiapa yang mengunjungi orang sakit atau menziarahi saudara seagama, malaikat berseru kepadanya: Baiklah engkau dan baiklah perjalananmu, dan engkau akan ditempatkan di dalam syurga.","مقصودڽ: سسياڤ يڠ مڠونجوڠي اورڠ ساکيت اتاو منزيارهي سودارا سأڬام، ملائکة برسرو کڤداڽ: باءيقله اڠکاو دان باءيقله ڤرجالننمو، دان اڠکاو اکن دتمڤتکن د دالم شورڬ."]},
+    {u:["Doa menziarahi orang sakit","دعاء منزيارهي اورڠ ساکيت"],em:"🤲💚",p:3,ar:"اَللَّهُمَّ رَبَّ النَّاسِ أَذْهِبِ الْبَأْسَ اِشْفِهِ وَأَنْتَ الشَّافِي لَا شِفَاءَ إِلَّا شِفَاؤُكَ شِفَاءً لَا يُغَادِرُ سَقَمًا",src:["Riwayat al-Bukhari dan Muslim","رواية البخاري دان مسلم"],mk:["Maksudnya: Wahai Allah, Tuhan sekalian manusia, hilangkanlah sakitnya, sembuhkanlah dia. Engkaulah yang menyembuhkan. Tiada yang menyembuhkan melainkan Engkau, dengan sembuh yang tidak diiringi sakit.","مقصودڽ: واهاي الله، توهن سکالين منوسيا، هيلڠکنله ساکيتڽ، سمبوهکنله دي. اڠکاوله يڠ مڽمبوهکن. تياد يڠ مڽمبوهکن ملاٴينکن اڠکاو، دڠن سمبوه يڠ تيدق دإيريڠي ساکيت."]},
+    {u:["Fadilat beradab ketika menziarahi","فضيلة برادب کتيک منزيارهي"],em:"💝🌟",p:4,list:[["Disukai oleh Allah SWT dan Rasulullah SAW","دسوکاٴي اوليه الله ﷻ دان رسول الله ﷺ"],["Mendapat ganjaran pahala","منداڤت ڬنجرن ڤهالا"],["Dapat mendoakan kesembuhan pesakit","داڤت مندعاءکن کسمبوهن ڤساکيت"],["Dimurahkan rezeki oleh Allah SWT","دمورهکن رزقي اوليه الله ﷻ"],["Mengeratkan hubungan silaturahim","مڠرتکن هوبوڠن سيلاتورحيم"],["Menggembirakan pesakit","مڠڬمبيراکن ڤساکيت"],["Memberi semangat kepada pesakit","ممبري سمڠت کڤد ڤساکيت"]]},
+    {u:["Akibat tidak beradab","عاقبة تيدق برادب"],em:"😟💔",p:4,bad:true,list:[["Tidak disukai Allah SWT dan Rasulullah SAW","تيدق دسوکاٴي الله ﷻ دان رسول الله ﷺ"],["Tidak mendapat rahmat Allah SWT","تيدق منداڤت رحمة الله ﷻ"],["Menyusahkan hati pesakit","مڽوسهکن هاتي ڤساکيت"],["Mengguris hati keluarga pesakit","مڠڬوريس هاتي کلوارڬ ڤساکيت"]],tip:["Menziarahi orang sakit ialah salah satu hak sesama Muslim. Amalkan: bawa buah tangan dan doakan pesakit.","منزيارهي اورڠ ساکيت اياله ساله ساتو حق سسام مسلم. عملکن: باوا بواه تاڠن دان دعاءکن ڤساکيت."]}
+  ],
+  qs:[
+    {type:"path",em:"🏥🤒",q:["Kamu melawat Pak Mat di hospital. Dia kelihatan letih. Apa kamu buat?","کامو ملاوت ڤق مت د هوسڤيتل. دي کليهاتن لتيه. اڤ کامو بوات؟"],a:[[["Bercakap lembut dan mendoakannya cepat sembuh","برچاکڤ لمبوت دان مندعاءکنڽ چڤت سمبوه"],["Pak Mat tersenyum dan rasa bersemangat.","ڤق مت ترسڽوم دان راس برسمڠت."]],[["Bercerita kuat-kuat tentang permainan video","برچريتا کوات٢ تنتڠ ڤرماٴينن ۏيديو"],["Pak Mat tidak dapat berehat.","ڤق مت تيدق داڤت برريهت."]],[["Duduk di situ sampai malam","دودوق د سيتو سمڤاي مالم"],["Pak Mat bertambah letih.","ڤق مت برتمبه لتيه."]]],e:["Adabnya: kata-kata baik, suara lembut, doakan pesakit dan pendekkan waktu ziarah.","ادابڽ: کات٢ باءيق، سوارا لمبوت، دعاءکن ڤساکيت دان ڤندقکن وقتو زيارة."],p:1},
+    {type:"spot",q:["Detektif! Cari 3 kelakuan TIDAK beradab di wad hospital.","ديتيکتيف! چاري 3 کلاکوان تيدق برادب د واد هوسڤيتل."],items:[["📢",["Bercakap dengan kuat","برچاکڤ دڠن کوات"],true],["⏳",["Berziarah terlalu lama","برزيارة ترلالو لام"],true],["😠",["Berkata-kata kasar","برکات٢ کاسر"],true],["🤲",["Mendoakan pesakit","مندعاءکن ڤساکيت"],false],["🍎",["Membawa buah tangan","ممباوا بواه تاڠن"],false],["🗣️",["Bercakap dengan lembut","برچاکڤ دڠن لمبوت"],false]],e:["Kita mesti bercakap lembut, guna kata-kata baik dan memendekkan waktu ziarah.","کيت مستي برچاکڤ لمبوت، ڬونا کات٢ باءيق دان ممندقکن وقتو زيارة."],p:1},
+    {type:"plane",q:["Adab pertama: memilih … yang sesuai untuk berziarah.","اداب ڤرتام: مميليه … يڠ سسواي اونتوق برزيارة."],a:[["Waktu","وقتو"],["Baju","باجو"],["Kereta","کريتا"],["Permainan","ڤرماٴينن"]],e:["Pilih waktu yang sesuai untuk berziarah.","ڤيليه وقتو يڠ سسواي اونتوق برزيارة."],p:1},
+    {type:"hafaz",q:["Lengkapkan doa menziarahi orang sakit.","لڠکڤکن دعاء منزيارهي اورڠ ساکيت."],pre:"اَللَّهُمَّ رَبَّ النَّاسِ أَذْهِبِ الْبَأْسَ اِشْفِهِ وَأَنْتَ",post:"لَا شِفَاءَ إِلَّا شِفَاؤُكَ",a:["الشَّافِي","الرَّحِيْمُ","الْعَلِيْمُ"],mk:["…Engkaulah yang menyembuhkan. Tiada yang menyembuhkan melainkan Engkau…","…اڠکاوله يڠ مڽمبوهکن. تياد يڠ مڽمبوهکن ملاٴينکن اڠکاو…"],e:["الشَّافِي bermaksud Yang Menyembuhkan.","الشَّافِي برمقصود يڠ مڽمبوهکن."],p:3},
+    {type:"face",q:["Ceria atau muram? Kelakuan semasa menziarahi orang sakit.","چريا اتاو مورم؟ کلاکوان سماس منزيارهي اورڠ ساکيت."],items:[[["Mendoakan pesakit cepat sembuh","مندعاءکن ڤساکيت چڤت سمبوه"],1],[["Bercakap kuat","برچاکڤ کوات"],0],[["Menasihati pesakit supaya bersabar","منصيحتي ڤساکيت سوڤايا برصبر"],1],[["Berziarah terlalu lama","برزيارة ترلالو لام"],0],[["Menggunakan kata-kata yang baik","مڠڬوناکن کات٢ يڠ باءيق"],1]],e:["Adab yang baik menggembirakan pesakit dan memberinya semangat.","اداب يڠ باءيق مڠڬمبيراکن ڤساکيت دان ممبريڽ سمڠت."],p:1},
+    {type:"chat",who:"🤒",name:["Ali","علي"],msgs:[["Aku demam, tak dapat ke sekolah hari ini 😷","اکو دمم، تق داڤت ک سکوله هاري اين 😷"]],a:[["Semoga Allah sembuhkan kamu. Sabar ya, Ali!","سموڬ الله سمبوهکن کامو. صبر يا، علي!"],["Padan muka, siapa suruh main hujan!","ڤادن موک، سياڤ سوروه ماٴين هوجن!"],["Nanti aku main dengan orang lain saja.","نانتي اکو ماٴين دڠن اورڠ لاٴين ساج."]],re:[["Terima kasih! Aku rasa lebih bersemangat 😊","تريما کاسيه! اکو راس لبيه برسمڠت 😊"],["Sampai hati kamu… 😢","سمڤاي هاتي کامو… 😢"]],e:["Doakan pesakit dan beri nasihat supaya bersabar.","دعاءکن ڤساکيت دان بري نصيحت سوڤايا برصبر."],p:1},
+    {type:"plane",q:["Malaikat menyeru kepada orang yang menziarahi orang sakit. Dia akan ditempatkan di…","ملائکة منسرو کڤد اورڠ يڠ منزيارهي اورڠ ساکيت. دي اکن دتمڤتکن د…"],a:[["Syurga","شورڬ"],["Pasar","ڤاسر"],["Istana","ايستان"],["Padang bola","ڤادڠ بولا"]],e:["Hadis riwayat al-Tirmizi: dia akan ditempatkan di dalam syurga.","حديث رواية الترمذي: دي اکن دتمڤتکن د دالم شورڬ."],p:2},
+    {type:"komik",q:["Susun komik lawatan ke hospital.","سوسون کوميک لاوتن ک هوسڤيتل."],panels:[["🕓",["Pilih waktu melawat yang sesuai","ڤيليه وقتو ملاوت يڠ سسواي"]],["🍎",["Membawa buah tangan","ممباوا بواه تاڠن"]],["🗣️",["Bercakap lembut dan sopan","برچاکڤ لمبوت دان سوڤن"]],["🤲",["Mendoakan pesakit","مندعاءکن ڤساکيت"]],["👋",["Pulang, tidak terlalu lama","ڤولڠ، تيدق ترلالو لام"]]],e:["Lawatan yang beradab menggembirakan pesakit.","لاوتن يڠ برادب مڠڬمبيراکن ڤساکيت."],p:1},
+    {type:"tf",q:["Menziarahi orang sakit ialah salah satu hak sesama Muslim.","منزيارهي اورڠ ساکيت اياله ساله ساتو حق سسام مسلم."],ans:true,e:["Betul. Ini fakta Tahukah Anda di ms. 5.","بتول. اين فکتا تاهوکه اندا د م.س. 5."],p:5},
+    {type:"plane",q:["Apakah akibat tidak beradab ketika menziarahi orang sakit?","اڤاکه عاقبة تيدق برادب کتيک منزيارهي اورڠ ساکيت؟"],a:[["Menyusahkan hati pesakit","مڽوسهکن هاتي ڤساکيت"],["Dimurahkan rezeki","دمورهکن رزقي"],["Pesakit cepat sembuh","ڤساکيت چڤت سمبوه"],["Mendapat pahala","منداڤت ڤهالا"]],e:["Tidak beradab menyusahkan hati pesakit dan keluarganya.","تيدق برادب مڽوسهکن هاتي ڤساکيت دان کلوارڬڽ."],p:4}
+  ]
+},
+{
+  id:2, title:["Adab Menziarahi Rakan","اداب منزيارهي رکن"], icon:"🏠", color:"#F2A93B", pages:"6–9",
+  place:["Rumah Kawan","رومه کاون"],
+  units:[["Adab ketika menziarahi rakan","اداب کتيک منزيارهي رکن"],["Fadilat dan akibat","فضيلة دان عاقبة"],["Dalil adab berziarah","دليل اداب برزيارة"]],
+  cards:[
+    {u:["Adab menziarahi rakan","اداب منزيارهي رکن"],em:"🏠👋🍉🛋️",p:7,list:[["Memberitahu rakan ketika hendak berziarah","ممبريتاهو رکن کتيک هندق برزيارة"],["Pilih waktu yang sesuai","ڤيليه وقتو يڠ سسواي"],["Memberi salam","ممبري سلام"],["Meminta izin sebelum masuk","ممينتا اذين سبلوم ماسوق"],["Membaca doa","ممباچ دعاء"],["Berkata perkara yang baik dan berfaedah","برکات ڤرکارا يڠ باءيق دان برفائده"],["Jangan berziarah terlalu lama","جاڠن برزيارة ترلالو لام"]]},
+    {u:["Fadilat menziarahi rakan","فضيلة منزيارهي رکن"],em:"🤝💬💞",p:7,list:[["Mengeratkan silaturahim","مڠرتکن سيلاتورحيم"],["Dapat bertukar fikiran dan maklumat","داڤت برتوکر فکيرن دان معلومت"],["Mendapat ganjaran pahala","منداڤت ڬنجرن ڤهالا"],["Mengetahui khabar berita","مڠتاهوءي خبر بريتا"],["Menambah kasih sayang sesama rakan","منمبه کاسيه سايڠ سسام رکن"]]},
+    {u:["Akibat tidak beradab","عاقبة تيدق برادب"],em:"😳🚪",p:8,bad:true,list:[["Tidak mendapat keredaan Allah SWT dan Rasulullah SAW","تيدق منداڤت کرضاٴن الله ﷻ دان رسول الله ﷺ"],["Tidak disukai oleh rakan","تيدق دسوکاٴي اوليه رکن"],["Ibu bapa dan keluarga kita mendapat malu","ايبو باڤ دان کلوارڬ کيت منداڤت مالو"]]},
+    {u:["Dalil adab berziarah","دليل اداب برزيارة"],em:"🚪👋",p:8,ar:"يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُواْ لَا تَدۡخُلُواْ بُيُوتًا غَيۡرَ بُيُوتِكُمۡ حَتَّىٰ تَسۡتَأۡنِسُواْ وَتُسَلِّمُواْ عَلَىٰٓ أَهۡلِهَا",src:["Surah an-Nur: 27","سورة النور: 27"],mk:["Maksudnya: Wahai orang yang beriman! Janganlah kamu masuk ke rumah yang bukan rumah kamu sehingga kamu meminta izin serta memberi salam kepada penghuninya terlebih dahulu.","مقصودڽ: واهاي اورڠ يڠ برايمان! جاڠنله کامو ماسوق ک رومه يڠ بوکن رومه کامو سهيڠڬ کامو ممينتا اذين سرتا ممبري سلام کڤد ڤڠهونيڽ ترلبيه دهولو."]},
+    {u:["Tahukah anda?","تاهوکه اندا؟"],em:"🏡✨",p:9,list:[["Kehadiran tetamu membawa berkat kepada tuan rumah","کحاضيرن تتامو ممباوا برکت کڤد توان رومه"],["Rasulullah SAW sentiasa menziarahi para sahabatnya jika berkelapangan","رسول الله ﷺ سنتياس منزيارهي ڤارا صحابتڽ جک برکلاڤڠن"],["Ziarah sangat dituntut oleh syarak","زيارة ساڠت دتونتوت اوليه شرع"]],ar:"اَلسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ",tip:["Amalkan: Ucapkan salam kepada rakan sesama Muslim.","عملکن: اوچڤکن سلام کڤد رکن سسام مسلم."]}
+  ],
+  qs:[
+    {type:"komik",q:["Susun komik menziarahi rakan.","سوسون کوميک منزيارهي رکن."],panels:[["📱",["Memberitahu rakan","ممبريتاهو رکن"]],["🕓",["Pilih waktu yang sesuai","ڤيليه وقتو يڠ سسواي"]],["👋",["Memberi salam","ممبري سلام"]],["🚪",["Meminta izin masuk","ممينتا اذين ماسوق"]],["💬",["Berbual perkara yang baik","بربوال ڤرکارا يڠ باءيق"]],["🏃",["Pulang, tidak terlalu lama","ڤولڠ، تيدق ترلالو لام"]]],e:["Ini susunan adab menziarahi rakan dalam buku teks.","اين سوسونن اداب منزيارهي رکن دالم بوکو تيکس."],p:7},
+    {type:"chat",who:"🧒",name:["Aiman","ايمن"],msgs:[["Hai! Lama tak jumpa 😄","هاي! لام تق جومڤ 😄"]],a:[["Assalamualaikum Aiman. Boleh aku ziarah rumah kamu petang esok?","السلام عليکم ايمن. بوليه اکو زيارة رومه کامو ڤتڠ ايسوق؟"],["Aku datang sekarang, buka pintu!","اکو داتڠ سکارڠ، بوک ڤينتو!"],["Esok tengah malam aku datang.","ايسوق تڠه مالم اکو داتڠ."]],re:[["Waalaikumussalam! Boleh, aku tunggu 😊","وعليکم السلام! بوليه، اکو توڠڬو 😊"],["Eh, aku belum bersedia… 😥","ايه، اکو بلوم برسديا… 😥"]],e:["Beritahu rakan dahulu dan pilih waktu yang sesuai.","بريتاهو رکن دهولو دان ڤيليه وقتو يڠ سسواي."],p:7},
+    {type:"path",em:"🏠🚪",q:["Kamu sampai di rumah rakan. Pintu rumahnya terbuka.","کامو سمڤاي د رومه رکن. ڤينتو رومهڽ تربوک."],a:[[["Memberi salam dan meminta izin masuk","ممبري سلام دان ممينتا اذين ماسوق"],["Keluarga rakan menyambut kamu dengan gembira.","کلوارڬ رکن مڽمبوت کامو دڠن ڬمبيرا."]],[["Terus masuk ke dalam rumah","تروس ماسوق ک دالم رومه"],["Keluarga rakan terkejut dan tidak senang.","کلوارڬ رکن ترکجوت دان تيدق سنڠ."]]],e:["Surah an-Nur ayat 27: minta izin dan beri salam sebelum masuk rumah orang.","سورة النور اية 27: مينتا اذين دان بري سلام سبلوم ماسوق رومه اورڠ."],p:8},
+    {type:"spot",q:["Detektif! Cari kelakuan TIDAK beradab ketika berziarah.","ديتيکتيف! چاري کلاکوان تيدق برادب کتيک برزيارة."],items:[["🚪",["Masuk tanpa izin","ماسوق تنڤا اذين"],true],["🌙",["Datang tengah malam","داتڠ تڠه مالم"],true],["⏳",["Berziarah terlalu lama","برزيارة ترلالو لام"],true],["👋",["Memberi salam","ممبري سلام"],false],["🍉",["Membawa buah tangan","ممباوا بواه تاڠن"],false],["🙏",["Menghormati keluarga rakan","مڠحرمتي کلوارڬ رکن"],false]],e:["Minta izin, pilih waktu sesuai dan jangan terlalu lama.","مينتا اذين، ڤيليه وقتو سسواي دان جاڠن ترلالو لام."],p:7},
+    {type:"hafaz",q:["Lengkapkan dalil adab berziarah.","لڠکڤکن دليل اداب برزيارة."],pre:"لَا تَدۡخُلُواْ بُيُوتًا غَيۡرَ بُيُوتِكُمۡ حَتَّىٰ تَسۡتَأۡنِسُواْ",post:"عَلَىٰٓ أَهۡلِهَا",a:["وَتُسَلِّمُواْ","بُيُوتًا","تَذَكَّرُونَ"],mk:["…sehingga kamu meminta izin serta memberi salam kepada penghuninya.","…سهيڠڬ کامو ممينتا اذين سرتا ممبري سلام کڤد ڤڠهونيڽ."],e:["وَتُسَلِّمُواْ bermaksud dan kamu memberi salam.","وَتُسَلِّمُواْ برمقصود دان کامو ممبري سلام."],p:8},
+    {type:"face",q:["Ceria atau muram? Kesan berziarah.","چريا اتاو مورم؟ کسن برزيارة."],items:[[["Mengeratkan silaturahim","مڠرتکن سيلاتورحيم"],1],[["Tidak disukai rakan","تيدق دسوکاٴي رکن"],0],[["Bertukar fikiran dan maklumat","برتوکر فکيرن دان معلومت"],1],[["Keluarga mendapat malu","کلوارڬ منداڤت مالو"],0],[["Menambah kasih sayang","منمبه کاسيه سايڠ"],1]],e:["Ziarah yang beradab membawa banyak kebaikan.","زيارة يڠ برادب ممباوا باڽق کباءيقن."],p:7},
+    {type:"tf",q:["Kehadiran tetamu membawa berkat kepada tuan rumah.","کحاضيرن تتامو ممباوا برکت کڤد توان رومه."],ans:true,e:["Betul. Ini fakta Tahukah Anda di ms. 9.","بتول. اين فکتا تاهوکه اندا د م.س. 9."],p:9},
+    {type:"tf",q:["Rasulullah SAW tidak pernah menziarahi para sahabatnya.","رسول الله ﷺ تيدق ڤرنه منزيارهي ڤارا صحابتڽ."],ans:false,e:["Salah. Baginda sentiasa menziarahi sahabat jika berkelapangan.","ساله. بڬيندا سنتياس منزيارهي صحابت جک برکلاڤڠن."],p:9},
+    {type:"plane",q:["Dalil adab berziarah terdapat dalam…","دليل اداب برزيارة ترداڤت دالم…"],a:[["Surah an-Nur ayat 27","سورة النور اية 27"],["Surah al-Fatihah ayat 1","سورة الفاتحة اية 1"],["Surah al-Ikhlas ayat 1","سورة الإخلاص اية 1"],["Surah an-Nas ayat 1","سورة الناس اية 1"]],e:["Surah an-Nur ayat 27.","سورة النور اية 27."],p:8},
+    {type:"plane",q:["Ucapan apakah yang kita berikan kepada rakan sesama Muslim?","اوچڤن اڤاکه يڠ کيت بريکن کڤد رکن سسام مسلم؟"],a:["اَلسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ","بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ","سُبْحَانَ اللهِ","اَللهُ أَكْبَرُ"],e:["Amalkan ucapan salam kepada rakan sesama Muslim.","عملکن اوچڤن سلام کڤد رکن سسام مسلم."],p:9}
+  ]
+},
+{
+  id:3, title:["Bercakap Benar","برچاکڤ بنر"], icon:"🏫", color:"#2C8FD6", pages:"10–14",
+  place:["Sekolah","سکوله"],
+  units:[["Pengertian bercakap benar","ڤڠرتين برچاکڤ بنر"],["Dalil bercakap benar","دليل برچاکڤ بنر"],["Fadilat bercakap benar dan akibat berbohong","فضيلة برچاکڤ بنر دان عاقبة بربوهوڠ"]],
+  cards:[
+    {u:["Pengertian","ڤڠرتين"],em:"🏫🙋‍♂️⚽🧑‍🏫",p:10,t:["Bercakap benar ialah berkata-kata atau memberitahu seseorang tentang sesuatu perkara dengan betul dan tidak mengandungi unsur pembohongan.","برچاکڤ بنر اياله برکات٢ اتاو ممبريتاهو سسأورڠ تنتڠ سسواتو ڤرکارا دڠن بتول دان تيدق مڠندوڠي عنصور ڤمبوهوڠن."]},
+    {u:["Dalil bercakap benar","دليل برچاکڤ بنر"],em:"🗣️➡️🌟➡️🌳",p:11,ar:"عَلَيْكُمْ بِالصِّدْقِ فَإِنَّ الصِّدْقَ يَهْدِي إِلَى الْبِرِّ وَإِنَّ الْبِرَّ يَهْدِيْ إِلَى الْجَنَّةِ",src:["Riwayat al-Bukhari dan Muslim","رواية البخاري دان مسلم"],mk:["Maksudnya: Wajiblah kamu bercakap benar kerana bercakap benar itu menuju kebaikan, dan kebaikan itu menuju ke syurga.","مقصودڽ: واجبله کامو برچاکڤ بنر کران برچاکڤ بنر ايت منوجو کباءيقن، دان کباءيقن ايت منوجو ک شورڬ."]},
+    {u:["Fadilat bercakap benar","فضيلة برچاکڤ بنر"],em:"😊👍",p:12,list:[["Diredai Allah SWT dan Rasulullah SAW","دريضاٴي الله ﷻ دان رسول الله ﷺ"],["Mendapat pahala","منداڤت ڤهالا"],["Disukai oleh guru dan ibu bapa","دسوکاٴي اوليه ڬورو دان ايبو باڤ"],["Mendapat kepercayaan masyarakat","منداڤت کڤرچاياٴن مشارکت"],["Silaturahim menjadi lebih erat","سيلاتورحيم منجادي لبيه ارت"]]},
+    {u:["Akibat bercakap bohong","عاقبة برچاکڤ بوهوڠ"],em:"🤥💔",p:12,bad:true,list:[["Dimurkai Allah SWT dan Rasulullah SAW","دمورکاٴي الله ﷻ دان رسول الله ﷺ"],["Mendapat balasan seksa di dunia dan akhirat","منداڤت بالسن سيقسا د دنيا دان اخيرة"],["Dibenci oleh ibu bapa dan guru","دبنچي اوليه ايبو باڤ دان ڬورو"],["Tidak dipercayai masyarakat","تيدق دڤرچاياٴي مشارکت"],["Merenggangkan silaturahim","مرڠڬڠکن سيلاتورحيم"]]},
+    {u:["Tahukah anda?","تاهوکه اندا؟"],em:"🤫",p:13,ar:"مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ",src:["Riwayat al-Bukhari dan Muslim","رواية البخاري دان مسلم"],mk:["Maksudnya: Sesiapa yang beriman dengan Allah dan hari akhirat, hendaklah dia bercakap perkara yang baik atau berdiam diri.","مقصودڽ: سسياڤ يڠ برايمان دڠن الله دان هاري اخيرة، هندقله دي برچاکڤ ڤرکارا يڠ باءيق اتاو بردیام ديري."],tip:["Diam lebih baik daripada bercakap perkara yang tidak berfaedah.","ديام لبيه باءيق درڤد برچاکڤ ڤرکارا يڠ تيدق برفائده."]},
+    {u:["Pantun dan pepatah","ڤنتون دان ڤڤاته"],em:"📜🐟",p:14,pantun:[["Siakap senohong, gelama ikan duri;","سياکڤ سنوهوڠ، ڬلام ايکن دوري؛"],["Bercakap bohong, lama-lama mencuri.","برچاکڤ بوهوڠ، لام٢ منچوري."]],tip:["Pepatah: Berani kerana benar, takut kerana salah. Amalkan: Berfikir sebelum bercakap.","ڤڤاته: براني کران بنر، تاکوت کران ساله. عملکن: برفيکير سبلوم برچاکڤ."]}
+  ],
+  qs:[
+    {type:"path",em:"⚽🪟",q:["Bola kamu terkena tingkap kelas sehingga retak. Cikgu bertanya siapa yang melakukannya.","بولا کامو ترکنا تيڠکڤ کلس سهيڠڬ رتق. چيکڬو برتاپا سياڤ يڠ ملاکوکنڽ."],a:[[["Mengaku dengan jujur dan meminta maaf","مڠاکو دڠن جوجور دان ممينتا معاف"],["Cikgu menghargai kejujuran kamu.","چيکڬو مڠهرڬاٴي کجوجورن کامو."]],[["Menuduh kawan lain","منودوه کاون لاٴين"],["Kawan kamu sedih dan cikgu tidak lagi percaya.","کاون کامو سديه دان چيکڬو تيدق لاڬي ڤرچاي."]],[["Diam dan lari","ديام دان لاري"],["Hati kamu tidak tenang.","هاتي کامو تيدق تنڠ."]]],e:["Bercakap benar walaupun kita bersalah. Berani kerana benar!","برچاکڤ بنر والاوڤون کيت برساله. براني کران بنر!"],p:13},
+    {type:"chat",who:"👩",name:["Ibu","ايبو"],msgs:[["Adik, kerja sekolah sudah siap?","اديق، کرجا سکوله سوده سياڤ؟"]],a:[["Belum, ibu. Saya akan siapkan sekarang.","بلوم، ايبو. ساي اکن سياڤکن سکارڠ."],["Sudah! (padahal belum)","سوده! (ڤدحال بلوم)"],["Entahlah.","انته له."]],re:[["Terima kasih kerana jujur. Mari ibu bantu 😊","تريما کاسيه کران جوجور. ماري ايبو بنتو 😊"],["Ibu kecewa kerana kamu tidak jujur 😢","ايبو کچوا کران کامو تيدق جوجور 😢"]],e:["Bercakap benar menjadikan kita disukai ibu bapa dan guru.","برچاکڤ بنر منجاديکن کيت دسوکاٴي ايبو باڤ دان ڬورو."],p:12},
+    {type:"hafaz",q:["Lengkapkan dalil bercakap benar.","لڠکڤکن دليل برچاکڤ بنر."],pre:"عَلَيْكُمْ بِالصِّدْقِ فَإِنَّ الصِّدْقَ يَهْدِي إِلَى",post:"وَإِنَّ الْبِرَّ يَهْدِيْ إِلَى الْجَنَّةِ",a:["الْبِرِّ","الْبَيْتِ","السُّوْقِ"],mk:["…bercakap benar itu menuju kebaikan, dan kebaikan itu menuju ke syurga.","…برچاکڤ بنر ايت منوجو کباءيقن، دان کباءيقن ايت منوجو ک شورڬ."],e:["الْبِرِّ bermaksud kebaikan.","الْبِرِّ برمقصود کباءيقن."],p:11},
+    {type:"komik",q:["Ikut hadis: susun ke mana bercakap benar membawa kita.","ايکوت حديث: سوسون ک مان برچاکڤ بنر ممباوا کيت."],panels:[["🗣️",["Bercakap benar","برچاکڤ بنر"]],["🌟",["Kebaikan","کباءيقن"]],["🌳",["Syurga","شورڬ"]]],e:["Bercakap benar menuju kebaikan, dan kebaikan menuju ke syurga.","برچاکڤ بنر منوجو کباءيقن، دان کباءيقن منوجو ک شورڬ."],p:11},
+    {type:"face",q:["Jujur atau tidak jujur?","جوجور اتاو تيدق جوجور؟"],l:[["Jujur","جوجور"],["Tidak jujur","تيدق جوجور"]],items:[[["Mengaku kesalahan","مڠاکو کسالهن"],1],[["Menipu ibu bapa","منيڤو ايبو باڤ"],0],[["Bercakap benar melalui telefon","برچاکڤ بنر ملالوءي تيليفون"],1],[["Menuduh orang lain","منودوه اورڠ لاٴين"],0],[["Berfikir sebelum bercakap","برفيکير سبلوم برچاکڤ"],1]],e:["Sentiasa bercakap benar tidak kira masa dan di mana kita berada.","سنتياس برچاکڤ بنر تيدق کيرا ماس دان د مان کيت براد."],p:14},
+    {type:"plane",q:["Apakah akibat bercakap bohong?","اڤاکه عاقبة برچاکڤ بوهوڠ؟"],a:[["Tidak dipercayai masyarakat","تيدق دڤرچاياٴي مشارکت"],["Disukai guru","دسوکاٴي ڬورو"],["Mendapat pahala","منداڤت ڤهالا"],["Silaturahim bertambah erat","سيلاتورحيم برتمبه ارت"]],e:["Orang yang berbohong tidak dipercayai masyarakat.","اورڠ يڠ بربوهوڠ تيدق دڤرچاياٴي مشارکت."],p:12},
+    {type:"plane",q:["Lengkapkan pantun: “Siakap senohong, gelama ikan duri; Bercakap bohong, …”","لڠکڤکن ڤنتون: “سياکڤ سنوهوڠ، ڬلام ايکن دوري؛ برچاکڤ بوهوڠ، …”"],a:[["lama-lama mencuri","لام٢ منچوري"],["cepat berlari","چڤت برلاري"],["makan nasi lemak","ماکن ناسي لمق"],["pergi ke pasar","ڤرڬي ک ڤاسر"]],e:["Bercakap bohong, lama-lama mencuri.","برچاکڤ بوهوڠ، لام٢ منچوري."],p:14},
+    {type:"plane",q:["Pepatah: “Berani kerana benar, takut kerana …”","ڤڤاته: “براني کران بنر، تاکوت کران …”"],a:[["Salah","ساله"],["Hujan","هوجن"],["Gelap","ڬلڤ"],["Lapar","لاڤر"]],e:["Berani kerana benar, takut kerana salah.","براني کران بنر، تاکوت کران ساله."],p:14},
+    {type:"tf",q:["Diam lebih baik daripada bercakap perkara yang tidak berfaedah.","ديام لبيه باءيق درڤد برچاکڤ ڤرکارا يڠ تيدق برفائده."],ans:true,e:["Betul. Cakap yang baik atau diam.","بتول. چاکڤ يڠ باءيق اتاو ديام."],p:13},
+    {type:"spot",q:["Detektif! Cari 3 kelakuan TIDAK jujur.","ديتيکتيف! چاري 3 کلاکوان تيدق جوجور."],items:[["🙊",["Berbohong kepada guru","بربوهوڠ کڤد ڬورو"],true],["👉",["Menuduh kawan","منودوه کاون"],true],["🤥",["Menipu ibu bapa","منيڤو ايبو باڤ"],true],["🙋",["Mengaku kesalahan","مڠاکو کسالهن"],false],["📞",["Bercakap benar di telefon","برچاکڤ بنر د تيليفون"],false],["🤔",["Berfikir sebelum bercakap","برفيکير سبلوم برچاکڤ"],false]],e:["Berbohong, menuduh dan menipu ialah akhlak yang buruk.","بربوهوڠ، منودوه دان منيڤو اياله اخلاق يڠ بوروق."],p:12}
+  ]
+},
+{
+  id:4, title:["Sabar","صبر"], icon:"🛝", color:"#2E9D6A", pages:"15–19",
+  place:["Taman Permainan","تامن ڤرماٴينن"],
+  units:[["Pengertian dan ciri-ciri sabar","ڤڠرتين دان چيري٢ صبر"],["Dalil sifat sabar","دليل صفة صبر"],["Fadilat sabar dan akibat tidak sabar","فضيلة صبر دان عاقبة تيدق صبر"]],
+  cards:[
+    {u:["Pengertian sabar","ڤڠرتين صبر"],em:"🌧️🧘🌈",p:15,t:["Sabar ialah sentiasa reda dan tenang semasa menghadapi ujian daripada Allah SWT dan tidak mudah putus asa apabila mendapat kesusahan.","صبر اياله سنتياس رضا دان تنڠ سماس مڠهادڤي اوجين درڤد الله ﷻ دان تيدق موده ڤوتوس اسا اڤابيلا منداڤت کسوسهن."]},
+    {u:["Ciri-ciri sabar","چيري٢ صبر"],em:"💪😌",p:16,list:[["Sabar dalam mentaati perintah Allah SWT","صبر دالم منطاعتي ڤرينته الله ﷻ"],["Sentiasa reda dengan kesusahan dan kesulitan","سنتياس رضا دڠن کسوسهن دان کسوليتن"],["Sabar ketika sedang marah","صبر کتيک سدڠ مراه"],["Tidak mudah kecewa apabila gagal","تيدق موده کچوا اڤابيلا ڬاڬل"]]},
+    {u:["Dalil sifat sabar","دليل صفة صبر"],em:"🎁",p:16,ar:"وَلَنَجۡزِيَنَّ ٱلَّذِينَ صَبَرُوٓاْ أَجۡرَهُم بِأَحۡسَنِ مَا كَانُواْ يَعۡمَلُونَ",src:["Surah an-Nahl: 96","سورة النحل: 96"],mk:["Maksudnya: Dan sesungguhnya Kami akan membalas orang-orang yang sabar dengan balasan yang lebih baik daripada apa yang telah mereka kerjakan.","مقصودڽ: دان سسوڠڬوهڽ کامي اکن ممبالس اورڠ٢ يڠ صبر دڠن بالسن يڠ لبيه باءيق درڤد اڤ يڠ تله مريک کرجاکن."]},
+    {u:["Hadis tentang sabar","حديث تنتڠ صبر"],em:"👀🌳",p:17,ar:"إِذَا ابْتَلَيْتُ عَبْدِي بِحَبِيبَتَيْهِ فَصَبَرَ عَوَّضْتُهُ مِنْهُمَا الْجَنَّةَ",src:["Riwayat al-Bukhari","رواية البخاري"],mk:["Maksudnya: Allah SWT berfirman: Apabila Aku menguji hamba-Ku dengan dua yang disukainya (mata) dan dia bersabar, Aku gantikan untuknya syurga.","مقصودڽ: الله ﷻ برفرمان: اڤابيلا اکو مڠوجي همبا-کو دڠن دوا يڠ دسوکايڽ (مات) دان دي برصبر، اکو ڬنتيکن اونتوقڽ شورڬ."]},
+    {u:["Fadilat sabar","فضيلة صبر"],em:"🌟💚",p:17,list:[["Disukai oleh Allah SWT dan Rasulullah SAW","دسوکاٴي اوليه الله ﷻ دان رسول الله ﷺ"],["Menambah keimanan","منمبه کإيمانن"],["Disukai ibu bapa, guru dan rakan","دسوکاٴي ايبو باڤ، ڬورو دان رکن"],["Jiwa sentiasa tenteram","جيوا سنتياس تنترم"],["Mendapat keampunan dan rahmat Allah SWT","منداڤت کامڤونن دان رحمة الله ﷻ"],["Dapat menyelesaikan masalah","داڤت مڽلسايکن مسئله"],["Doa diperkenankan oleh Allah SWT","دعاء دڤرکنن اوليه الله ﷻ"],["Mendapat petunjuk ke arah kebaikan","منداڤت ڤتونجوق ک اره کباءيقن"],["Disegani dan dihormati","دسڬاني دان دحرمتي"]]},
+    {u:["Akibat tidak sabar","عاقبة تيدق صبر"],em:"😡🌪️",p:18,bad:true,list:[["Dimurkai Allah SWT dan Rasulullah SAW","دمورکاٴي الله ﷻ دان رسول الله ﷺ"],["Tidak disukai ibu bapa, guru dan rakan","تيدق دسوکاٴي ايبو باڤ، ڬورو دان رکن"],["Membentuk sikap mementingkan diri sendiri","ممبنتوق سيکڤ ممنتيڠکن ديري سنديري"],["Jiwa tidak tenteram","جيوا تيدق تنترم"],["Mudah mendapat penyakit","موده منداڤت ڤپاکيت"]],tip:["Sabar sebahagian daripada iman. Sabar ialah kunci kejayaan.","صبر سبهاڬين درڤد ايمان. صبر اياله کونچي کجاياٴن."]},
+    {u:["Mari berpantun","ماري برڤنتون"],em:"🎶",p:18,pantun:[["Mari bermain bersama belia,","ماري برماٴين برسام بليا،"],["Bermain bola badan sihat;","برماٴين بولا بادن سيهت؛"],["Sifat sabar sifat mulia,","صفة صبر صفة موليا،"],["Jadikan amalan sepanjang hayat.","جاديکن عملن سڤنجڠ حيات."]]}
+  ],
+  qs:[
+    {type:"path",em:"⚽😞",q:["Pasukan kamu kalah dalam perlawanan bola sepak di taman.","ڤاسوقن کامو کاله دالم ڤرلاونن بولا سيڤق د تامن."],a:[[["Bertenang dan berlatih lagi","برتنڠ دان برلاتيه لاڬي"],["Kamu bertambah mahir dan gembira.","کامو برتمبه ماهير دان ڬمبيرا."]],[["Menangis dan putus asa","منڠيس دان ڤوتوس اسا"],["Kamu tidak mahu mencuba lagi.","کامو تيدق ماهو منچوبا لاڬي."]],[["Marah dan menendang bola ke arah kawan","مراه دان منندڠ بولا ک اره کاون"],["Kawan-kawan menjauhi kamu.","کاون٢ منجاٴوهي کامو."]]],e:["Ciri sabar: tidak mudah kecewa apabila gagal dan sabar ketika marah.","چيري صبر: تيدق موده کچوا اڤابيلا ڬاڬل دان صبر کتيک مراه."],p:16},
+    {type:"face",q:["Sabar atau tidak sabar?","صبر اتاو تيدق صبر؟"],l:[["Sabar","صبر"],["Tidak sabar","تيدق صبر"]],items:[[["Tenang ketika marah","تنڠ کتيک مراه"],1],[["Mudah putus asa","موده ڤوتوس اسا"],0],[["Reda menghadapi kesusahan","رضا مڠهادڤي کسوسهن"],1],[["Mementingkan diri sendiri","ممنتيڠکن ديري سنديري"],0],[["Sabar mentaati perintah Allah","صبر منطاعتي ڤرينته الله"],1]],e:["Sabar ialah reda dan tenang, tidak mudah putus asa.","صبر اياله رضا دان تنڠ، تيدق موده ڤوتوس اسا."],p:16},
+    {type:"plane",q:["Sabar ialah reda dan tenang semasa menghadapi…","صبر اياله رضا دان تنڠ سماس مڠهادڤي…"],a:[["Ujian daripada Allah SWT","اوجين درڤد الله ﷻ"],["Waktu rehat","وقتو ريهت"],["Makanan yang sedap","ماکنن يڠ سدڤ"],["Hari jadi","هاري جادي"]],e:["Sabar semasa menghadapi ujian daripada Allah SWT.","صبر سماس مڠهادڤي اوجين درڤد الله ﷻ."],p:15},
+    {type:"hafaz",q:["Lengkapkan dalil sifat sabar.","لڠکڤکن دليل صفة صبر."],pre:"وَلَنَجۡزِيَنَّ ٱلَّذِينَ",post:"أَجۡرَهُم بِأَحۡسَنِ مَا كَانُواْ يَعۡمَلُونَ",a:["صَبَرُوٓاْ","نَامُوا","لَعِبُوا"],mk:["Kami akan membalas orang-orang yang SABAR dengan balasan yang lebih baik…","کامي اکن ممبالس اورڠ٢ يڠ صبر دڠن بالسن يڠ لبيه باءيق…"],e:["صَبَرُوٓاْ bermaksud mereka yang bersabar. (an-Nahl: 96)","صَبَرُوٓاْ برمقصود مريک يڠ برصبر. (النحل: 96)"],p:16},
+    {type:"chat",who:"🧒",name:["Hana","هنا"],msgs:[["Aku gagal ujian matematik… 😞","اکو ڬاڬل اوجين متماتيک… 😞"]],a:[["Sabar, jangan putus asa. Jom ulang kaji bersama!","صبر، جاڠن ڤوتوس اسا. جوم اولڠ کاجي برسام!"],["Padan muka!","ڤادن موک!"],["Kamu memang tak pandai.","کامو مماڠ تق ڤنداي."]],re:[["Terima kasih! Aku akan cuba lagi 😊","تريما کاسيه! اکو اکن چوبا لاڬي 😊"],["Aku rasa lagi sedih… 😢","اکو راس لاڬي سديه… 😢"]],e:["Sabar ialah tidak mudah kecewa apabila gagal. Sabar ialah kunci kejayaan.","صبر اياله تيدق موده کچوا اڤابيلا ڬاڬل. صبر اياله کونچي کجاياٴن."],p:16},
+    {type:"spot",q:["Detektif! Cari 3 kelakuan TIDAK sabar.","ديتيکتيف! چاري 3 کلاکوان تيدق صبر."],items:[["😡",["Menjerit ketika marah","منجريت کتيک مراه"],true],["😭",["Putus asa bila gagal","ڤوتوس اسا بيلا ڬاڬل"],true],["🙄",["Merungut bila diuji","مروڠوت بيلا داوجي"],true],["😌",["Bertenang","برتنڠ"],false],["🤲",["Berdoa kepada Allah","بردعاء کڤد الله"],false],["🔁",["Mencuba lagi","منچوبا لاڬي"],false]],e:["Orang yang sabar tetap tenang, berdoa dan mencuba lagi.","اورڠ يڠ صبر تتڤ تنڠ، بردعاء دان منچوبا لاڬي."],p:16},
+    {type:"plane",q:["Ganjaran bagi orang yang bersabar apabila diuji dengan kehilangan penglihatan ialah…","ڬنجرن باڬي اورڠ يڠ برصبر اڤابيلا داوجي دڠن کهيلڠن ڤڠليهتن اياله…"],a:[["Syurga","شورڬ"],["Basikal baharu","باسيکل بهارو"],["Wang yang banyak","واڠ يڠ باڽق"],["Rumah besar","رومه بسر"]],e:["Hadis riwayat al-Bukhari: Allah gantikan untuknya syurga.","حديث رواية البخاري: الله ڬنتيکن اونتوقڽ شورڬ."],p:17},
+    {type:"plane",q:["Antara akibat tidak sabar ialah…","انتارا عاقبة تيدق صبر اياله…"],a:[["Mudah mendapat penyakit","موده منداڤت ڤپاکيت"],["Jiwa sentiasa tenteram","جيوا سنتياس تنترم"],["Disukai rakan","دسوکاٴي رکن"],["Doa diperkenankan","دعاء دڤرکنن"]],e:["Tidak sabar menyebabkan jiwa tidak tenteram dan mudah mendapat penyakit.","تيدق صبر مڽببکن جيوا تيدق تنترم دان موده منداڤت ڤپاکيت."],p:18},
+    {type:"tf",q:["Sabar ialah kunci kejayaan.","صبر اياله کونچي کجاياٴن."],ans:true,e:["Betul. Ini fakta Tahukah Anda di ms. 19.","بتول. اين فکتا تاهوکه اندا د م.س. 19."],p:19},
+    {type:"komik",q:["Susun pantun sabar dengan betul.","سوسون ڤنتون صبر دڠن بتول."],panels:[["⚽",["Mari bermain bersama belia,","ماري برماٴين برسام بليا،"]],["💪",["Bermain bola badan sihat;","برماٴين بولا بادن سيهت؛"]],["💚",["Sifat sabar sifat mulia,","صفة صبر صفة موليا،"]],["⏳",["Jadikan amalan sepanjang hayat.","جاديکن عملن سڤنجڠ حيات."]]],e:["Pantun ini ada dalam aktiviti buku teks ms. 18.","ڤنتون اين اد دالم اکتيۏيتي بوکو تيکس م.س. 18."],p:18}
+  ]
+},
+{
+  id:5, title:["Berani","براني"], icon:"🚒", color:"#D9502F", pages:"20–26",
+  place:["Balai Bomba","بالاي بومبا"],
+  units:[["Pengertian dan ciri-ciri berani","ڤڠرتين دان چيري٢ براني"],["Dalil, fadilat dan akibat","دليل، فضيلة دان عاقبة"],["Kisah Masyitah","کيسه ماشيطة"]],
+  cards:[
+    {u:["Pengertian berani","ڤڠرتين براني"],em:"🚒👮👩‍✈️🩺",p:21,t:["Berani ialah sifat yang mendorong manusia bertindak dengan penuh tanggungjawab, cekal hati, tabah dan sabar untuk mempertahankan kebenaran.","براني اياله صفة يڠ مندوروڠ منوسيا برتيندق دڠن ڤنوه تڠڬوڠجواب، چيکل هاتي، تابه دان صبر اونتوق ممڤرتاهنکن کبنرن."]},
+    {u:["Ciri-ciri berani","چيري٢ براني"],em:"🦁",p:21,list:[["Mempertahankan hak dirinya","ممڤرتاهنکن حق ديريڽ"],["Berkata dengan benar","برکات دڠن بنر"],["Melaksanakan perintah Allah SWT dengan sebenar-benarnya","ملقسانکن ڤرينته الله ﷻ دڠن سبنر٢ڽ"],["Berlaku adil","برلاکو عادل"],["Menegur perkara yang salah","منڬور ڤرکارا يڠ ساله"]]},
+    {u:["Dalil sifat berani","دليل صفة براني"],em:"🗣️",p:22,ar:"قُلِ الْحَقَّ وَلَوْ كَانَ مُرًّا",src:["Riwayat Ibnu Hibban","رواية ابن حبان"],mk:["Maksudnya: Berkatalah benar walaupun pahit.","مقصودڽ: برکاتله بنر والاوڤون ڤاهيت."]},
+    {u:["Fadilat berani","فضيلة براني"],em:"🏅",p:22,list:[["Diredai Allah SWT dan Rasulullah SAW","دريضاٴي الله ﷻ دان رسول الله ﷺ"],["Melatih diri menjadi cemerlang","ملاتيه ديري منجادي چمرلڠ"],["Tidak dipermainkan oleh orang lain","تيدق دڤرماٴينکن اوليه اورڠ لاٴين"],["Semua orang sayang kepada kita","سموا اورڠ سايڠ کڤد کيت"],["Disanjung dan dihormati masyarakat","دسنجوڠ دان دحرمتي مشارکت"],["Disegani kawan dan lawan","دسڬاني کاون دان لاون"]]},
+    {u:["Akibat tidak berani","عاقبة تيدق براني"],em:"🙈",p:23,bad:true,list:[["Dimurkai Allah SWT dan Rasulullah SAW","دمورکاٴي الله ﷻ دان رسول الله ﷺ"],["Selalu dipermainkan orang lain","سلالو دڤرماٴينکن اورڠ لاٴين"],["Takut mencuba perkara baharu","تاکوت منچوبا ڤرکارا بهارو"],["Hati sentiasa terasa lemah","هاتي سنتياس تراس لمه"],["Menjadi penghalang untuk berjaya","منجادي ڤڠهالڠ اونتوق برجاي"]]},
+    {u:["Kisah Masyitah","کيسه ماشيطة"],p:24,story:[["👑💇‍♀️",["Masyitah bekerja sebagai tukang sikat di istana Firaun. Beliau beriman kepada Allah SWT.","ماشيطة برکرجا سباڬاي توکڠ سيکت د ايستان فرعون. بلياو برايمان کڤد الله ﷻ."]],["🪮💬",["Sikat terjatuh. Masyitah berkata, “Allahu Akbar!”","سيکت ترجاتوه. ماشيطة برکات، “الله اکبر!”"]],["👸❓",["Puteri Firaun bertanya. Masyitah menjawab, “Allah ialah Tuhanku, Tuhanmu dan Tuhan Firaun.”","ڤوتري فرعون برتاپا. ماشيطة منجواب، “الله اياله توهنکو، توهنمو دان توهن فرعون.”"]],["😠👑",["Firaun bertanya dengan bengis. Masyitah menjawab dengan berani: “Allah, Tuhan yang Esa!”","فرعون برتاپا دڠن بڠيس. ماشيطة منجواب دڠن براني: “الله، توهن يڠ اسا!”"]],["💪❤️",["Firaun murka dan menghukum mereka, tetapi Masyitah dan keluarganya tetap mempertahankan iman.","فرعون مورک دان مڠهوکوم مريک، تتاڤي ماشيطة دان کلوارڬڽ تتڤ ممڤرتاهنکن ايمان."]]],tip:["Amalkan: Berani kerana benar!","عملکن: براني کران بنر!"]}
+  ],
+  qs:[
+    {type:"komik",q:["Susun komik kisah Masyitah.","سوسون کوميک کيسه ماشيطة."],panels:[["💇‍♀️",["Masyitah tukang sikat di istana Firaun","ماشيطة توکڠ سيکت د ايستان فرعون"]],["🪮",["Sikat jatuh, Masyitah sebut “Allahu Akbar”","سيکت جاتوه، ماشيطة سبوت “الله اکبر”"]],["👸",["Puteri Firaun bertanya","ڤوتري فرعون برتاپا"]],["😠",["Firaun bertanya dengan bengis","فرعون برتاپا دڠن بڠيس"]],["💪",["Masyitah tetap mempertahankan iman","ماشيطة تتڤ ممڤرتاهنکن ايمان"]]],e:["Masyitah berani mempertahankan imannya.","ماشيطة براني ممڤرتاهنکن ايمانڽ."],p:24},
+    {type:"plane",q:["Masyitah bekerja di istana Firaun sebagai…","ماشيطة برکرجا د ايستان فرعون سباڬاي…"],a:[["Tukang sikat","توکڠ سيکت"],["Tukang masak","توکڠ ماسق"],["Pengawal","ڤڠاول"],["Tukang kebun","توکڠ کبون"]],e:["Masyitah ialah tukang sikat puteri Firaun.","ماشيطة اياله توکڠ سيکت ڤوتري فرعون."],p:24},
+    {type:"path",em:"🧒😢",q:["Kawan kamu mengejek seorang murid baharu.","کاون کامو مڠيجيق سأورڠ موريد بهارو."],a:[[["Menegur kawan dengan baik","منڬور کاون دڠن باءيق"],["Murid baharu berasa selamat dan gembira.","موريد بهارو براس سلامت دان ڬمبيرا."]],[["Ikut sama mengejek","ايکوت سام مڠيجيق"],["Murid baharu bersedih.","موريد بهارو برسديه."]],[["Buat-buat tidak nampak","بوات٢ تيدق نمڤق"],["Ejekan itu berterusan.","ايجيقن ايت برتروسن."]]],e:["Ciri berani: menegur perkara yang salah.","چيري براني: منڬور ڤرکارا يڠ ساله."],p:21},
+    {type:"hafaz",q:["Lengkapkan dalil sifat berani.","لڠکڤکن دليل صفة براني."],pre:"قُلِ",post:"وَلَوْ كَانَ مُرًّا",a:["الْحَقَّ","الْكَذِبَ","الشِّعْرَ"],mk:["Berkatalah BENAR walaupun pahit.","برکاتله بنر والاوڤون ڤاهيت."],e:["الْحَقَّ bermaksud yang benar. (Riwayat Ibnu Hibban)","الْحَقَّ برمقصود يڠ بنر. (رواية ابن حبان)"],p:22},
+    {type:"spot",q:["Tekan SEMUA yang menunjukkan keberanian!","تکن سموا يڠ منونجوقکن کبرانين!"],good:true,items:[["🚒",["Ahli bomba memadam api","اهلي بومبا ممادم اڤي"],true],["👮",["Polis menangkap penjahat","ڤوليس منڠکڤ ڤنجاهت"],true],["🩺",["Doktor membedah pesakit","دوکتور ممبدهه ڤساکيت"],true],["🗣️",["Menegur perkara yang salah","منڬور ڤرکارا يڠ ساله"],true],["🛌",["Tidur sepanjang hari","تيدور سڤنجڠ هاري"],false],["🙈",["Lari daripada masalah","لاري درڤد مسئله"],false]],e:["Orang yang berani bertindak dengan tanggungjawab untuk kebenaran.","اورڠ يڠ براني برتيندق دڠن تڠڬوڠجواب اونتوق کبنرن."],p:20},
+    {type:"face",q:["Berani atau tidak berani?","براني اتاو تيدق براني؟"],l:[["Berani","براني"],["Tidak berani","تيدق براني"]],items:[[["Berkata dengan benar","برکات دڠن بنر"],1],[["Takut mencuba perkara baharu","تاکوت منچوبا ڤرکارا بهارو"],0],[["Berlaku adil","برلاکو عادل"],1],[["Hati sentiasa terasa lemah","هاتي سنتياس تراس لمه"],0],[["Menegur perkara yang salah","منڬور ڤرکارا يڠ ساله"],1]],e:["Ciri berani: berkata benar, adil dan menegur perkara yang salah.","چيري براني: برکات بنر، عادل دان منڬور ڤرکارا يڠ ساله."],p:21},
+    {type:"chat",who:"🧒",name:["Danial","دانيال"],msgs:[["Jom ponteng kelas mengaji petang ni! 😜","جوم ڤونتيڠ کلس مڠاجي ڤتڠ ني! 😜"]],a:[["Tak boleh, itu salah. Jom pergi kelas sama-sama!","تق بوليه، ايت ساله. جوم ڤرڬي کلس سام٢!"],["Jom!","جوم!"],["Okey, tapi jangan beritahu sesiapa.","اوکي، تاڤي جاڠن بريتاهو سسياڤ."]],re:[["Betul juga. Jom pergi! 😊","بتول جوڬ. جوم ڤرڬي! 😊"],["Hmm… nanti kita kena marah 😟","همم… نانتي کيت کنا مراه 😟"]],e:["Berani menegur perkara yang salah walaupun kawan sendiri.","براني منڬور ڤرکارا يڠ ساله والاوڤون کاون سنديري."],p:21},
+    {type:"tf",q:["Orang yang tidak berani selalu takut mencuba perkara baharu.","اورڠ يڠ تيدق براني سلالو تاکوت منچوبا ڤرکارا بهارو."],ans:true,e:["Betul. Ini akibat tidak bersifat berani.","بتول. اين عاقبة تيدق برصفة براني."],p:23},
+    {type:"plane",q:["Maksud hadis “Qulil haqqa walau kana murran” ialah…","مقصود حديث “قل الحق ولو کان مرا” اياله…"],a:[["Berkatalah benar walaupun pahit","برکاتله بنر والاوڤون ڤاهيت"],["Makanlah yang manis","ماکنله يڠ مانيس"],["Diamlah selalu","ديامله سلالو"],["Bermainlah bersama","برماٴينله برسام"]],e:["Berkatalah benar walaupun pahit.","برکاتله بنر والاوڤون ڤاهيت."],p:22},
+    {type:"plane",q:["Amalkan: Berani kerana…","عملکن: براني کران…"],a:[["Benar","بنر"],["Kuat","کوات"],["Ramai kawan","رامي کاون"],["Badan besar","بادن بسر"]],e:["Berani kerana benar!","براني کران بنر!"],p:26}
+  ]
+},
+{
+  id:6, title:["Menepati Janji","منڤتي جنجي"], icon:"🕰️", color:"#6A4FB6", pages:"27–31",
+  place:["Menara Jam","منارا جم"],
+  units:[["Pengertian menepati janji","ڤڠرتين منڤتي جنجي"],["Dalil menepati janji","دليل منڤتي جنجي"],["Fadilat dan akibat","فضيلة دان عاقبة"]],
+  cards:[
+    {u:["Pengertian","ڤڠرتين"],em:"🕰️🤝✅",p:27,t:["Menepati janji ialah menunaikan sesuatu yang telah dijanjikan tepat pada masanya.","منڤتي جنجي اياله منونايکن سسواتو يڠ تله دجنجيکن تڤت ڤد ماساڽ."]},
+    {u:["Dalil menepati janji","دليل منڤتي جنجي"],em:"📜",p:28,ar:"يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوٓاْ أَوۡفُواْ بِٱلۡعُقُودِ",src:["Surah al-Maidah: 1","سورة المائدة: 1"],mk:["Maksudnya: Wahai orang-orang yang beriman, penuhi serta sempurnakanlah perjanjian-perjanjian.","مقصودڽ: واهاي اورڠ٢ يڠ برايمان، ڤنوهي سرتا سمڤورناکنله ڤرجنجين٢."]},
+    {u:["Tanda orang munafik","تندا اورڠ منافق"],em:"🤥💔🫳",p:28,ar:"آيَةُ الْمُنَافِقِ ثَلَاثٌ إِذَا حَدَّثَ كَذَبَ وَإِذَا وَعَدَ أَخْلَفَ وَإِذَا اؤْتُمِنَ خَانَ",src:["Riwayat al-Bukhari dan Muslim","رواية البخاري دان مسلم"],mk:["Maksudnya: Tanda orang munafik ada tiga: apabila berbicara dia berdusta, apabila berjanji dia mungkir, dan apabila diberi amanah dia khianat.","مقصودڽ: تندا اورڠ منافق اد تيڬ: اڤابيلا بربيچارا دي بردوستا، اڤابيلا برجنجي دي موڠکير، دان اڤابيلا دبري امانه دي خيانت."]},
+    {u:["Fadilat menepati janji","فضيلة منڤتي جنجي"],em:"🌟",p:29,list:[["Diredai Allah SWT dan Rasulullah SAW","دريضاٴي الله ﷻ دان رسول الله ﷺ"],["Disukai ibu bapa, rakan dan guru","دسوکاٴي ايبو باڤ، رکن دان ڬورو"],["Mendapat ganjaran pahala","منداڤت ڬنجرن ڤهالا"],["Mengeratkan silaturahim","مڠرتکن سيلاتورحيم"],["Tergolong dalam orang yang benar dan bertakwa","ترڬولوڠ دالم اورڠ يڠ بنر دان برتقوى"],["Mendapat keberkatan","منداڤت کبرکتن"],["Dimurahkan rezeki","دمورهکن رزقي"]]},
+    {u:["Akibat tidak menepati janji","عاقبة تيدق منڤتي جنجي"],em:"⛈️",p:29,bad:true,list:[["Dibenci Allah SWT dan Rasulullah SAW","دبنچي الله ﷻ دان رسول الله ﷺ"],["Tidak disukai ibu bapa, rakan dan guru","تيدق دسوکاٴي ايبو باڤ، رکن دان ڬورو"],["Termasuk golongan munafik","ترماسوق ڬولوڠن منافق"],["Mendapat balasan seksa di neraka","منداڤت بالسن سيقسا د نراک"],["Jiwa sentiasa tidak tenteram","جيوا سنتياس تيدق تنترم"],["Hidup tidak mendapat keberkatan","هيدوڤ تيدق منداڤت کبرکتن"]]},
+    {u:["Tahukah anda?","تاهوکه اندا؟"],em:"🤞",p:31,list:[["Hukum menepati janji adalah wajib","حکوم منڤتي جنجي اداله واجب"],["Menunaikan janji ialah ciri orang beriman","منونايکن جنجي اياله چيري اورڠ برايمان"]],ar:"إِنْ شَاءَ اللّٰهُ",tip:["Amalkan: Lafazkan In sya-Allah apabila berjanji dengan sesama manusia.","عملکن: لفظکن ان شاء الله اڤابيلا برجنجي دڠن سسام منوسيا."]},
+    {u:["Mari berpantun","ماري برڤنتون"],em:"🏝️",p:30,pantun:[["Pulau Pandan jauh ke tengah,","ڤولاو ڤندن جاٴوه ک تڠه،"],["Gunung Daik bercabang tiga;","ڬونوڠ داٴيق برچابڠ تيڬ؛"],["Hancur badan dikandung tanah,","هنچور بادن دکندوڠ تانه،"],["Budi yang baik dikenang juga.","بودي يڠ باءيق دکنڠ جوڬ."]]}
+  ],
+  qs:[
+    {type:"path",em:"🕒📚",q:["Kamu berjanji membantu Ali belajar pukul 3 petang. Tiba-tiba kawan lain ajak bermain.","کامو برجنجي ممبنتو علي بلاجر ڤوکول 3 ڤتڠ. تيبا٢ کاون لاٴين اجق برماٴين."],a:[[["Datang tepat pukul 3 seperti dijanjikan","داتڠ تڤت ڤوکول 3 سڤرتي دجنجيکن"],["Ali berterima kasih. Kamu dipercayai!","علي برتريما کاسيه. کامو دڤرچاياٴي!"]],[["Pergi bermain dan lupakan janji","ڤرڬي برماٴين دان لوڤاکن جنجي"],["Ali menunggu lama dan kecewa.","علي منوڠڬو لام دان کچوا."]]],e:["Menepati janji ialah menunaikan janji tepat pada masanya.","منڤتي جنجي اياله منونايکن جنجي تڤت ڤد ماساڽ."],p:27},
+    {type:"plane",q:["Menepati janji ialah menunaikan sesuatu yang dijanjikan…","منڤتي جنجي اياله منونايکن سسواتو يڠ دجنجيکن…"],a:[["Tepat pada masanya","تڤت ڤد ماساڽ"],["Bila-bila masa suka","بيلا٢ ماس سوک"],["Separuh sahaja","سڤاروه سهاج"],["Minggu depan","مڠڬو دڤن"]],e:["Tepat pada masanya.","تڤت ڤد ماساڽ."],p:27},
+    {type:"spot",q:["Detektif! Cari 3 tanda orang munafik.","ديتيکتيف! چاري 3 تندا اورڠ منافق."],items:[["🤥",["Berdusta apabila bercakap","بردوستا اڤابيلا برچاکڤ"],true],["💔",["Mungkir apabila berjanji","موڠکير اڤابيلا برجنجي"],true],["🫳",["Khianat apabila diberi amanah","خيانت اڤابيلا دبري امانه"],true],["🤝",["Menepati janji","منڤتي جنجي"],false],["🗣️",["Bercakap benar","برچاکڤ بنر"],false],["🔐",["Menjaga amanah","منجاڬ امانه"],false]],e:["Tanda munafik: berdusta, mungkir janji dan khianat amanah.","تندا منافق: بردوستا، موڠکير جنجي دان خيانت امانه."],p:28},
+    {type:"hafaz",q:["Lengkapkan dalil menepati janji.","لڠکڤکن دليل منڤتي جنجي."],pre:"يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوٓاْ",post:"بِٱلۡعُقُودِ",a:["أَوۡفُواْ","نَامُوا","اِلْعَبُوا"],mk:["Wahai orang yang beriman, PENUHILAH perjanjian-perjanjian.","واهاي اورڠ يڠ برايمان، ڤنوهيله ڤرجنجين٢."],e:["أَوۡفُواْ bermaksud penuhilah. (al-Maidah: 1)","أَوۡفُواْ برمقصود ڤنوهيله. (المائدة: 1)"],p:28},
+    {type:"face",q:["Kesan baik atau buruk?","کسن باءيق اتاو بوروق؟"],l:[["Baik","باءيق"],["Buruk","بوروق"]],items:[[["Mendapat keberkatan","منداڤت کبرکتن"],1],[["Jiwa tidak tenteram","جيوا تيدق تنترم"],0],[["Dimurahkan rezeki","دمورهکن رزقي"],1],[["Termasuk golongan munafik","ترماسوق ڬولوڠن منافق"],0],[["Mengeratkan silaturahim","مڠرتکن سيلاتورحيم"],1]],e:["Menepati janji membawa keberkatan. Mungkir janji membawa keburukan.","منڤتي جنجي ممباوا کبرکتن. موڠکير جنجي ممباوا کبوروقن."],p:29},
+    {type:"chat",who:"👧",name:["Sofia","صوفيا"],msgs:[["Esok kamu boleh pulangkan buku cerita aku?","ايسوق کامو بوليه ڤولڠکن بوکو چريتا اکو؟"]],a:[["In sya-Allah, esok aku pulangkan.","ان شاء الله، ايسوق اکو ڤولڠکن."],["Tak janji lah.","تق جنجي له."],["Nanti-nanti saja.","نانتي٢ ساج."]],re:[["Terima kasih! 😊","تريما کاسيه! 😊"],["Alamak, aku perlukan buku itu… 😟","االمق، اکو ڤرلوکن بوکو ايت… 😟"]],e:["Lafazkan In sya-Allah apabila berjanji, kemudian tunaikan janji itu.","لفظکن ان شاء الله اڤابيلا برجنجي، کمودين تونايکن جنجي ايت."],p:31},
+    {type:"tf",q:["Hukum menepati janji adalah wajib.","حکوم منڤتي جنجي اداله واجب."],ans:true,e:["Betul. Menunaikan janji ialah ciri orang beriman.","بتول. منونايکن جنجي اياله چيري اورڠ برايمان."],p:31},
+    {type:"plane",q:["Lafaz yang diucapkan apabila berjanji ialah…","لفظ يڠ دأوچڤکن اڤابيلا برجنجي اياله…"],a:["إِنْ شَاءَ اللّٰهُ","سُبْحَانَ اللّٰهِ","أَسْتَغْفِرُ اللّٰهَ","اَللّٰهُ أَكْبَرُ"],e:["Ucapkan In sya-Allah apabila berjanji.","اوچڤکن ان شاء الله اڤابيلا برجنجي."],p:31},
+    {type:"komik",q:["Susun pantun budi dengan betul.","سوسون ڤنتون بودي دڠن بتول."],panels:[["🏝️",["Pulau Pandan jauh ke tengah,","ڤولاو ڤندن جاٴوه ک تڠه،"]],["⛰️",["Gunung Daik bercabang tiga;","ڬونوڠ داٴيق برچابڠ تيڬ؛"]],["🌱",["Hancur badan dikandung tanah,","هنچور بادن دکندوڠ تانه،"]],["💝",["Budi yang baik dikenang juga.","بودي يڠ باءيق دکنڠ جوڬ."]]],e:["Pantun ini ada dalam aktiviti buku teks ms. 30.","ڤنتون اين اد دالم اکتيۏيتي بوکو تيکس م.س. 30."],p:30},
+    {type:"plane",q:["Tanda orang munafik apabila berjanji ialah…","تندا اورڠ منافق اڤابيلا برجنجي اياله…"],a:[["Mungkir janji","موڠکير جنجي"],["Menepati janji","منڤتي جنجي"],["Datang awal","داتڠ اول"],["Tersenyum","ترسڽوم"]],e:["Apabila berjanji, orang munafik mungkir.","اڤابيلا برجنجي، اورڠ منافق موڠکير."],p:28}
+  ]
+},
+{
+  id:7, title:["Malu","مالو"], icon:"🕌", color:"#1F8A70", pages:"32–36",
+  place:["Masjid","مسجد"],
+  units:[["Pengertian dan bahagian malu","ڤڠرتين دان بهاڬين مالو"],["Dalil sifat malu","دليل صفة مالو"],["Fadilat dan akibat","فضيلة دان عاقبة"]],
+  cards:[
+    {u:["Pengertian malu","ڤڠرتين مالو"],em:"🙈🕌",p:32,t:["Malu ialah menahan diri daripada memperkatakan sesuatu yang keji dan menghindarkan diri daripada melakukan perbuatan dosa lagi hina.","مالو اياله منهن ديري درڤد ممڤرکاتاکن سسواتو يڠ کجي دان مڠهيندرکن ديري درڤد ملاکوکن ڤربواتن دوسا لاڬي هينا."]},
+    {u:["Tiga bahagian malu","تيڬ بهاڬين مالو"],em:"1️⃣2️⃣3️⃣",p:33,groups:[[["Malu kepada Allah SWT","مالو کڤد الله ﷻ"],[["Menjunjung perintah Allah SWT dan meninggalkan larangan-Nya","منجونجوڠ ڤرينته الله ﷻ دان منيڠڬلکن لارڠنڽ"]]],[["Malu kepada manusia","مالو کڤد منوسيا"],[["Tidak menyakiti sesama manusia","تيدق مڽاکيتي سسام منوسيا"],["Tidak mengumpat","تيدق مڠومڤت"],["Berkelakuan sopan","برکلاکوان سوڤن"]]],[["Malu kepada diri sendiri","مالو کڤد ديري سنديري"],[["Tidak melakukan perkara yang dilarang agama","تيدق ملاکوکن ڤرکارا يڠ دلارڠ اڬام"],["Menjaga maruah diri","منجاڬ معروه ديري"],["Mendekatkan diri kepada Allah SWT","مندکتکن ديري کڤد الله ﷻ"]]]]},
+    {u:["Dalil sifat malu","دليل صفة مالو"],em:"💚",p:34,ar:"اَلْحَيَاءُ مِنَ الْإِيْمَانِ",src:["Riwayat al-Bukhari dan Muslim","رواية البخاري دان مسلم"],mk:["Maksudnya: Malu itu sebahagian daripada iman.","مقصودڽ: مالو ايت سبهاڬين درڤد ايمان."]},
+    {u:["Fadilat bersifat malu","فضيلة برصفة مالو"],em:"🌸",p:34,list:[["Diredai Allah SWT dan Rasulullah SAW","دريضاٴي الله ﷻ دان رسول الله ﷺ"],["Disukai ibu bapa, guru dan rakan","دسوکاٴي ايبو باڤ، ڬورو دان رکن"],["Mengelakkan diri daripada perkara yang menyalahi syarak","مڠيلقکن ديري درڤد ڤرکارا يڠ مڽالهي شرع"],["Menjaga kesopanan dan percakapan","منجاڬ کسوڤنن دان ڤرچاکڤن"],["Mendapat petunjuk ke arah kebaikan","منداڤت ڤتونجوق ک اره کباءيقن"]]},
+    {u:["Akibat tidak bersifat malu","عاقبة تيدق برصفة مالو"],em:"😶‍🌫️",p:35,bad:true,list:[["Dimurkai Allah SWT dan Rasulullah SAW","دمورکاٴي الله ﷻ دان رسول الله ﷺ"],["Dibenci ibu bapa, guru dan rakan","دبنچي ايبو باڤ، ڬورو دان رکن"],["Melakukan perkara yang dilarang syarak","ملاکوکن ڤرکارا يڠ دلارڠ شرع"],["Hilang nilai kesopanan dan budi","هيلڠ نيلاي کسوڤنن دان بودي"],["Tidak dihormati masyarakat","تيدق دحرمتي مشارکت"]]},
+    {u:["Tahukah anda?","تاهوکه اندا؟"],em:"🙋‍♀️🙋‍♂️",p:36,ar:"اَلْحَيَاءُ لَا يَأْتِيْ إِلَّا بِخَيْرٍ",src:["Muttafaq 'alaih","متفق عليه"],mk:["Maksudnya: Malu itu tidak datang melainkan dengan kebaikan.","مقصودڽ: مالو ايت تيدق داتڠ ملاٴينکن دڠن کباءيقن."],tip:["Amalkan: Jangan malu untuk membuat kebaikan!","عملکن: جاڠن مالو اونتوق ممبوات کباءيقن!"]}
+  ],
+  qs:[
+    {type:"plane",q:["Malu terbahagi kepada … bahagian.","مالو ترباهاڬي کڤد … بهاڬين."],a:[["3","3"],["2","2"],["5","5"],["7","7"]],e:["Malu kepada Allah, kepada manusia dan kepada diri sendiri.","مالو کڤد الله، کڤد منوسيا دان کڤد ديري سنديري."],p:33},
+    {type:"plane",q:["Tidak mengumpat sesama manusia ialah contoh malu kepada…","تيدق مڠومڤت سسام منوسيا اياله چونتوه مالو کڤد…"],a:[["Manusia","منوسيا"],["Allah SWT","الله ﷻ"],["Diri sendiri","ديري سنديري"],["Haiwan","حيوان"]],e:["Malu kepada manusia: tidak menyakiti, tidak mengumpat dan bersopan.","مالو کڤد منوسيا: تيدق مڽاکيتي، تيدق مڠومڤت دان برسوڤن."],p:33},
+    {type:"plane",q:["Menjaga maruah diri ialah contoh malu kepada…","منجاڬ معروه ديري اياله چونتوه مالو کڤد…"],a:[["Diri sendiri","ديري سنديري"],["Manusia","منوسيا"],["Haiwan","حيوان"],["Guru sahaja","ڬورو سهاج"]],e:["Malu kepada diri sendiri: menjaga maruah dan mendekatkan diri kepada Allah.","مالو کڤد ديري سنديري: منجاڬ معروه دان مندکتکن ديري کڤد الله."],p:33},
+    {type:"hafaz",q:["Lengkapkan dalil sifat malu.","لڠکڤکن دليل صفة مالو."],pre:"اَلْحَيَاءُ",post:"",a:["مِنَ الْإِيْمَانِ","مِنَ الطَّعَامِ","مِنَ الْبَيْتِ"],mk:["Malu itu sebahagian daripada IMAN.","مالو ايت سبهاڬين درڤد ايمان."],e:["Riwayat al-Bukhari dan Muslim: malu sebahagian daripada iman.","رواية البخاري دان مسلم: مالو سبهاڬين درڤد ايمان."],p:34},
+    {type:"path",em:"🧑‍🏫🙋",q:["Ustaz bertanya soalan. Kamu tahu jawapannya tetapi berasa malu.","استاذ برتاپا سوالن. کامو تاهو جواڤنڽ تتاڤي براس مالو."],a:[[["Angkat tangan dan jawab dengan sopan","اڠکت تاڠن دان جواب دڠن سوڤن"],["Ustaz gembira dan kamu bertambah yakin.","استاذ ڬمبيرا دان کامو برتمبه يقين."]],[["Diam sahaja kerana malu","ديام سهاج کران مالو"],["Peluang untuk belajar terlepas.","ڤلواڠ اونتوق بلاجر ترلڤس."]]],e:["Amalkan: Jangan malu untuk membuat kebaikan.","عملکن: جاڠن مالو اونتوق ممبوات کباءيقن."],p:36},
+    {type:"face",q:["Ada sifat malu atau tidak?","اد صفة مالو اتاو تيدق؟"],l:[["Ada sifat malu","اد صفة مالو"],["Tiada sifat malu","تياد صفة مالو"]],items:[[["Berkelakuan sopan","برکلاکوان سوڤن"],1],[["Mengumpat kawan","مڠومڤت کاون"],0],[["Menjaga maruah diri","منجاڬ معروه ديري"],1],[["Menyakiti orang lain","مڽاکيتي اورڠ لاٴين"],0],[["Mendekatkan diri kepada Allah","مندکتکن ديري کڤد الله"],1]],e:["Orang yang ada sifat malu menjaga akhlak dan kesopanannya.","اورڠ يڠ اد صفة مالو منجاڬ اخلاق دان کسوڤننڽ."],p:33},
+    {type:"spot",q:["Detektif! Cari 3 kelakuan orang yang TIADA sifat malu.","ديتيکتيف! چاري 3 کلاکوان اورڠ يڠ تياد صفة مالو."],items:[["🗣️",["Mengumpat","مڠومڤت"],true],["🤬",["Bercakap kesat","برچاکڤ کسط"],true],["👊",["Menyakiti kawan","مڽاکيتي کاون"],true],["🙏",["Bersopan santun","برسوڤن سنتون"],false],["🕌",["Solat berjemaah","صلاة برجماعه"],false],["🙋",["Menjawab soalan guru","منجواب سوالن ڬورو"],false]],e:["Malu menahan diri daripada perkataan yang keji dan perbuatan dosa.","مالو منهن ديري درڤد ڤرکاتاٴن يڠ کجي دان ڤربواتن دوسا."],p:32},
+    {type:"tf",q:["Malu itu tidak datang melainkan dengan kebaikan.","مالو ايت تيدق داتڠ ملاٴينکن دڠن کباءيقن."],ans:true,e:["Betul. Muttafaq 'alaih.","بتول. متفق عليه."],p:36},
+    {type:"tf",q:["Kita patut berasa malu untuk membuat kebaikan.","کيت ڤاتوت براس مالو اونتوق ممبوات کباءيقن."],ans:false,e:["Salah. Jangan malu untuk membuat kebaikan!","ساله. جاڠن مالو اونتوق ممبوات کباءيقن!"],p:36},
+    {type:"plane",q:["Antara akibat tidak bersifat malu ialah…","انتارا عاقبة تيدق برصفة مالو اياله…"],a:[["Tidak dihormati masyarakat","تيدق دحرمتي مشارکت"],["Disukai guru","دسوکاٴي ڬورو"],["Mendapat petunjuk","منداڤت ڤتونجوق"],["Menjaga kesopanan","منجاڬ کسوڤنن"]],e:["Orang yang tidak malu tidak dihormati masyarakat.","اورڠ يڠ تيدق مالو تيدق دحرمتي مشارکت."],p:35}
+  ]
+},
+{
+  id:8, title:["Pemaaf","ڤمعاف"], icon:"🤝", color:"#E08A1E", pages:"37–40",
+  place:["Padang Permainan","ڤادڠ ڤرماٴينن"],
+  units:[["Pengertian pemaaf","ڤڠرتين ڤمعاف"],["Dalil, fadilat dan akibat","دليل، فضيلة دان عاقبة"],["Kisah Nabi Muhammad SAW di Taif","کيسه نبي محمد ﷺ د طائف"]],
+  cards:[
+    {u:["Pengertian pemaaf","ڤڠرتين ڤمعاف"],em:"🤝😊💛",p:37,t:["Pemaaf ialah memberi kemaafan dengan hati yang ikhlas terhadap kesalahan orang lain.","ڤمعاف اياله ممبري کمعافن دڠن هاتي يڠ اخلاص ترهادڤ کسالهن اورڠ لاٴين."]},
+    {u:["Dalil bersifat pemaaf","دليل برصفة ڤمعاف"],em:"📖",p:38,ar:"وَأَن تَعْفُوٓاْ أَقْرَبُ لِلتَّقْوَىٰ",src:["Surah al-Baqarah: 237","سورة البقرة: 237"],mk:["Maksudnya: Dan perbuatan kamu bermaaf-maafan itu lebih hampir kepada takwa.","مقصودڽ: دان ڤربواتن کامو برمعاف٢ن ايت لبيه همڤير کڤد تقوى."]},
+    {u:["Hadis tentang pemaaf","حديث تنتڠ ڤمعاف"],em:"👑",p:38,ar:"مَا زَادَ اللَّهُ عَبْدًا بِعَفْوٍ إِلَّا عِزًّا",src:["Riwayat Muslim","رواية مسلم"],mk:["Maksudnya: Tidaklah Allah menambah kepada hamba yang pemaaf melainkan kemuliaan.","مقصودڽ: تيدقله الله منمبه کڤد همبا يڠ ڤمعاف ملاٴينکن کمولياٴن."]},
+    {u:["Fadilat pemaaf","فضيلة ڤمعاف"],em:"🌈",p:38,list:[["Diredai Allah SWT dan Rasulullah SAW","دريضاٴي الله ﷻ دان رسول الله ﷺ"],["Disukai ibu bapa, guru dan rakan","دسوکاٴي ايبو باڤ، ڬورو دان رکن"],["Mengeratkan silaturahim","مڠرتکن سيلاتورحيم"],["Jiwa menjadi tenang","جيوا منجادي تنڠ"],["Menghindarkan pergaduhan","مڠهيندرکن ڤرڬادوهن"]]},
+    {u:["Akibat tidak pemaaf","عاقبة تيدق ڤمعاف"],em:"😤",p:39,bad:true,list:[["Dimurkai Allah SWT dan Rasulullah SAW","دمورکاٴي الله ﷻ دان رسول الله ﷺ"],["Tidak disukai ibu bapa, guru dan rakan","تيدق دسوکاٴي ايبو باڤ، ڬورو دان رکن"],["Hidup sentiasa dalam kegelisahan","هيدوڤ سنتياس دالم کڬليسهن"],["Jiwa tidak tenteram","جيوا تيدق تنترم"],["Boleh menimbulkan pergaduhan","بوليه منيمبولکن ڤرڬادوهن"]]},
+    {u:["Kisah Nabi Muhammad SAW di Taif","کيسه نبي محمد ﷺ د طائف"],p:39,story:[["🐪🏜️",["Nabi Muhammad SAW dan sahabatnya keluar berdakwah ke Taif.","نبي محمد ﷺ دان صحابتڽ کلوار بردعوه ک طائف."]],["🪨😠",["Penduduk Taif melayan mereka dengan buruk dan melontar batu.","ڤندودوق طائف ملاين مريک دڠن بوروق دان ملونتر باتو."]],["🩹",["Rasulullah SAW luka dan berdarah.","رسول الله ﷺ لوک دان بردره."]],["💛🤲",["Namun baginda berlapang dada dan memaafkan penduduk Taif.","نامون بڬيندا برلاڤڠ دادا دان ممعافکن ڤندودوق طائف."]]],tip:["Allah SWT dan Rasulullah SAW suka kepada orang yang pemaaf dan benci kepada sifat dendam.","الله ﷻ دان رسول الله ﷺ سوک کڤد اورڠ يڠ ڤمعاف دان بنچي کڤد صفة دندم."]}
+  ],
+  qs:[
+    {type:"komik",q:["Susun komik kisah Nabi Muhammad SAW di Taif.","سوسون کوميک کيسه نبي محمد ﷺ د طائف."],panels:[["🐪",["Berdakwah ke Taif","بردعوه ک طائف"]],["🪨",["Penduduk Taif melontar batu","ڤندودوق طائف ملونتر باتو"]],["🩹",["Rasulullah SAW luka dan berdarah","رسول الله ﷺ لوک دان بردره"]],["💛",["Baginda memaafkan mereka","بڬيندا ممعافکن مريک"]]],e:["Rasulullah SAW sangat pemaaf walaupun disakiti.","رسول الله ﷺ ساڠت ڤمعاف والاوڤون دساکيتي."],p:39},
+    {type:"path",em:"🥤💦",q:["Kawan terlanggar kamu sehingga air kamu tumpah. Dia segera meminta maaf.","کاون ترلڠڬر کامو سهيڠڬ اٴير کامو تومڤه. دي سڬرا ممينتا معاف."],a:[[["Memaafkannya dengan ikhlas","ممعافکنڽ دڠن اخلاص"],["Kamu berdua terus berkawan baik.","کامو بردوا تروس برکاون باءيق."]],[["Marah dan simpan dendam","مراه دان سيمڤن دندم"],["Hati kamu gelisah dan kamu bergaduh.","هاتي کامو ڬليسه دان کامو برڬادوه."]]],e:["Pemaaf menjadikan jiwa tenang dan menghindarkan pergaduhan.","ڤمعاف منجاديکن جيوا تنڠ دان مڠهيندرکن ڤرڬادوهن."],p:38},
+    {type:"plane",q:["Pemaaf ialah memberi kemaafan dengan hati yang…","ڤمعاف اياله ممبري کمعافن دڠن هاتي يڠ…"],a:[["Ikhlas","اخلاص"],["Marah","مراه"],["Dendam","دندم"],["Terpaksa","ترڤقسا"]],e:["Memberi kemaafan dengan hati yang ikhlas.","ممبري کمعافن دڠن هاتي يڠ اخلاص."],p:37},
+    {type:"hafaz",q:["Lengkapkan dalil bersifat pemaaf.","لڠکڤکن دليل برصفة ڤمعاف."],pre:"وَأَن",post:"أَقْرَبُ لِلتَّقْوَىٰ",a:["تَعْفُوٓاْ","تَنَامُوا","تَأْكُلُوا"],mk:["Dan perbuatan kamu BERMAAF-MAAFAN itu lebih hampir kepada takwa.","دان ڤربواتن کامو برمعاف٢ن ايت لبيه همڤير کڤد تقوى."],e:["تَعْفُوٓاْ bermaksud kamu memaafkan. (al-Baqarah: 237)","تَعْفُوٓاْ برمقصود کامو ممعافکن. (البقرة: 237)"],p:38},
+    {type:"face",q:["Kesan baik atau buruk?","کسن باءيق اتاو بوروق؟"],l:[["Baik","باءيق"],["Buruk","بوروق"]],items:[[["Jiwa menjadi tenang","جيوا منجادي تنڠ"],1],[["Hidup dalam kegelisahan","هيدوڤ دالم کڬليسهن"],0],[["Mengeratkan silaturahim","مڠرتکن سيلاتورحيم"],1],[["Menimbulkan pergaduhan","منيمبولکن ڤرڬادوهن"],0],[["Menghindarkan pergaduhan","مڠهيندرکن ڤرڬادوهن"],1]],e:["Pemaaf membawa ketenangan. Tidak pemaaf membawa kegelisahan.","ڤمعاف ممباوا کتنڠن. تيدق ڤمعاف ممباوا کڬليسهن."],p:38},
+    {type:"chat",who:"🧒",name:["Haziq","حذيق"],msgs:[["Maafkan aku sebab terpijak kasut kamu tadi 🙏","معافکن اکو سبب ترڤيجق کاسوت کامو تادي 🙏"]],a:[["Tak apa, aku maafkan.","تق اڤ، اکو معافکن."],["Aku tak akan maafkan kamu!","اکو تق اکن معافکن کامو!"],["Nanti aku balas balik.","نانتي اکو بالس باليق."]],re:[["Terima kasih, kawan! 😊","تريما کاسيه، کاون! 😊"],["Aku dah minta maaf… 😢","اکو داه مينتا معاف… 😢"]],e:["Amalkan: Sentiasa memaafkan kesalahan rakan.","عملکن: سنتياس ممعافکن کسالهن رکن."],p:40},
+    {type:"plane",q:["Apakah yang dilakukan Rasulullah SAW kepada penduduk Taif?","اڤاکه يڠ دلاکوکن رسول الله ﷺ کڤد ڤندودوق طائف؟"],a:[["Memaafkan mereka","ممعافکن مريک"],["Membalas dengan batu","ممبالس دڠن باتو"],["Memarahi mereka","مماراهي مريک"],["Melarikan diri","ملاريکن ديري"]],e:["Baginda berlapang dada dan memaafkan mereka.","بڬيندا برلاڤڠ دادا دان ممعافکن مريک."],p:39},
+    {type:"tf",q:["Allah SWT dan Rasulullah SAW benci kepada sifat dendam.","الله ﷻ دان رسول الله ﷺ بنچي کڤد صفة دندم."],ans:true,e:["Betul. Allah dan Rasul suka orang yang pemaaf.","بتول. الله دان رسول سوک اورڠ يڠ ڤمعاف."],p:40},
+    {type:"spot",q:["Detektif! Cari 3 sifat yang TIDAK pemaaf.","ديتيکتيف! چاري 3 صفة يڠ تيدق ڤمعاف."],items:[["😤",["Menyimpan dendam","مڽيمڤن دندم"],true],["👊",["Membalas dendam","ممبالس دندم"],true],["🥊",["Bergaduh","برڬادوه"],true],["🤝",["Bersalaman","برسالمن"],false],["💛",["Memaafkan kawan","ممعافکن کاون"],false],["😊",["Berlapang dada","برلاڤڠ دادا"],false]],e:["Orang yang pemaaf tidak menyimpan dendam.","اورڠ يڠ ڤمعاف تيدق مڽيمڤن دندم."],p:39},
+    {type:"plane",q:["Allah tidak menambah kepada hamba yang pemaaf melainkan…","الله تيدق منمبه کڤد همبا يڠ ڤمعاف ملاٴينکن…"],a:[["Kemuliaan","کمولياٴن"],["Kesusahan","کسوسهن"],["Kemarahan","کمراهن"],["Kesedihan","کسديهن"]],e:["Hadis riwayat Muslim: pemaaf beroleh kemuliaan.","حديث رواية مسلم: ڤمعاف براوليه کمولياٴن."],p:38}
+  ]
+}
+];
+
+const FINAL = {
+  title:["Pesta Akhlak","ڤستا اخلاق"], sub:["Cabaran Akhir • Pelajaran 1–8","چابرن اخير • ڤلاجرن 1–8"], icon:"🎪", color:"#E8A317",
+  place:["Dewan Orang Ramai","ديوان اورڠ راماي"],
+  qs:[
+    {tag:"P1",type:"path",em:"👵🛏️",q:["Nenek sakit di rumah. Kamu datang melawat.","نينيق ساکيت د رومه. کامو داتڠ ملاوت."],a:[[["Bercakap lembut dan mendoakan nenek","برچاکڤ لمبوت دان مندعاءکن نينيق"],["Nenek tersenyum gembira.","نينيق ترسڽوم ڬمبيرا."]],[["Bermain telefon dengan bunyi kuat","برماٴين تيليفون دڠن بوڽي کوات"],["Nenek tidak dapat berehat.","نينيق تيدق داڤت برريهت."]]],e:["Gembirakan pesakit dengan kata-kata baik dan doa.","ڬمبيراکن ڤساکيت دڠن کات٢ باءيق دان دعاء."],p:1},
+    {tag:"P2",type:"komik",q:["Susun adab menziarahi rakan.","سوسون اداب منزيارهي رکن."],panels:[["📱",["Memberitahu rakan","ممبريتاهو رکن"]],["👋",["Memberi salam","ممبري سلام"]],["🚪",["Meminta izin masuk","ممينتا اذين ماسوق"]],["🏃",["Pulang, tidak terlalu lama","ڤولڠ، تيدق ترلالو لام"]]],e:["Beritahu, beri salam, minta izin dan jangan terlalu lama.","بريتاهو، بري سلام، مينتا اذين دان جاڠن ترلالو لام."],p:7},
+    {tag:"P3 • P6 • P7 • P8",type:"spot",q:["Detektif! Cari 4 akhlak buruk.","ديتيکتيف! چاري 4 اخلاق بوروق."],items:[["🤥",["Berbohong","بربوهوڠ"],true],["😤",["Menyimpan dendam","مڽيمڤن دندم"],true],["💔",["Mungkir janji","موڠکير جنجي"],true],["🗣️",["Mengumpat","مڠومڤت"],true],["🤝",["Memaafkan","ممعافکن"],false],["🙋",["Mengaku salah","مڠاکو ساله"],false]],e:["Berbohong, dendam, mungkir janji dan mengumpat ialah akhlak buruk.","بربوهوڠ، دندم، موڠکير جنجي دان مڠومڤت اياله اخلاق بوروق."],p:12},
+    {tag:"P5",type:"hafaz",q:["Lengkapkan hadis: “Berkatalah benar walaupun pahit.”","لڠکڤکن حديث: “برکاتله بنر والاوڤون ڤاهيت.”"],pre:"قُلِ الْحَقَّ وَلَوْ كَانَ",post:"",a:["مُرًّا","حُلْوًا","بَارِدًا"],mk:["…walaupun PAHIT.","…والاوڤون ڤاهيت."],e:["مُرًّا bermaksud pahit.","مُرًّا برمقصود ڤاهيت."],p:22},
+    {tag:"P6",type:"chat",who:"🧒",name:["Irfan","عرفان"],msgs:[["Esok kita jumpa di perpustakaan pukul 9, boleh?","ايسوق کيت جومڤ د ڤرڤوستاکاٴن ڤوکول 9، بوليه؟"]],a:[["In sya-Allah, aku datang tepat pukul 9.","ان شاء الله، اکو داتڠ تڤت ڤوکول 9."],["Tengoklah, kalau aku ingat.","تيڠوقله، کالاو اکو ايڠت."],["Aku datang pukul 12 saja.","اکو داتڠ ڤوکول 12 ساج."]],re:[["Bagus! Jumpa esok 😊","باڬوس! جومڤ ايسوق 😊"],["Aku tak suka menunggu… 😟","اکو تق سوک منوڠڬو… 😟"]],e:["Ucapkan In sya-Allah dan tepati janji.","اوچڤکن ان شاء الله دان تڤتي جنجي."],p:31},
+    {tag:"P4 • P5 • P7",type:"face",q:["Akhlak baik atau buruk?","اخلاق باءيق اتاو بوروق؟"],l:[["Baik","باءيق"],["Buruk","بوروق"]],items:[[["Sabar ketika marah","صبر کتيک مراه"],1],[["Takut mencuba perkara baharu","تاکوت منچوبا ڤرکارا بهارو"],0],[["Berkelakuan sopan","برکلاکوان سوڤن"],1],[["Mudah putus asa","موده ڤوتوس اسا"],0],[["Menegur perkara yang salah","منڬور ڤرکارا يڠ ساله"],1]],e:["Sabar, berani dan malu ialah akhlak mulia.","صبر، براني دان مالو اياله اخلاق موليا."],p:16},
+    {tag:"P1",type:"plane",q:["Doa menziarahi orang sakit bermula dengan…","دعاء منزيارهي اورڠ ساکيت برمولا دڠن…"],a:["اَللَّهُمَّ رَبَّ النَّاسِ","رَبَّنَا آتِنَا","سُبْحَانَ رَبِّيَ","اَلْحَمْدُ لِلّٰهِ"],e:["اَللَّهُمَّ رَبَّ النَّاسِ أَذْهِبِ الْبَأْسَ …","اَللَّهُمَّ رَبَّ النَّاسِ أَذْهِبِ الْبَأْسَ …"],p:3},
+    {tag:"P2",type:"tf",q:["Kita boleh masuk ke rumah orang tanpa memberi salam.","کيت بوليه ماسوق ک رومه اورڠ تنڤا ممبري سلام."],ans:false,e:["Salah. Surah an-Nur ayat 27: minta izin dan beri salam.","ساله. سورة النور اية 27: مينتا اذين دان بري سلام."],p:8},
+    {tag:"P5",type:"plane",q:["Walaupun dihukum Firaun, Masyitah tetap mempertahankan…","والاوڤون دهوکوم فرعون، ماشيطة تتڤ ممڤرتاهنکن…"],a:[["Iman","ايمان"],["Harta","هرتا"],["Istana","ايستان"],["Sikat","سيکت"]],e:["Masyitah dan keluarganya tetap mempertahankan iman.","ماشيطة دان کلوارڬڽ تتڤ ممڤرتاهنکن ايمان."],p:25},
+    {tag:"P7",type:"plane",q:["Malu itu sebahagian daripada…","مالو ايت سبهاڬين درڤد…"],a:[["Iman","ايمان"],["Permainan","ڤرماٴينن"],["Makanan","ماکنن"],["Pakaian","ڤاکاين"]],e:["اَلْحَيَاءُ مِنَ الْإِيْمَانِ","اَلْحَيَاءُ مِنَ الْإِيْمَانِ"],p:34},
+    {tag:"P8",type:"tf",q:["Rasulullah SAW memaafkan penduduk Taif yang melontar batu.","رسول الله ﷺ ممعافکن ڤندودوق طائف يڠ ملونتر باتو."],ans:true,e:["Betul. Baginda sangat pemaaf.","بتول. بڬيندا ساڠت ڤمعاف."],p:39},
+    {tag:"P6",type:"plane",q:["Tanda orang munafik ada…","تندا اورڠ منافق اد…"],a:[["3","3"],["2","2"],["5","5"],["10","10"]],e:["Tiga: berdusta, mungkir janji dan khianat.","تيڬ: بردوستا، موڠکير جنجي دان خيانت."],p:28},
+    {tag:"P3",type:"path",em:"🏺💥",q:["Kamu terpecahkan pasu bunga ibu.","کامو ترڤچهکن ڤاسو بوڠا ايبو."],a:[[["Memberitahu ibu dengan jujur","ممبريتاهو ايبو دڠن جوجور"],["Ibu memaafkan dan menghargai kejujuran kamu.","ايبو ممعافکن دان مڠهرڬاٴي کجوجورن کامو."]],[["Menyorok serpihan pasu","مڽوروق سرڤيهن ڤاسو"],["Hati kamu tidak tenang.","هاتي کامو تيدق تنڠ."]]],e:["Bercakap benar walaupun kita bersalah.","برچاکڤ بنر والاوڤون کيت برساله."],p:10},
+    {tag:"P4",type:"tf",q:["Sabar sebahagian daripada iman.","صبر سبهاڬين درڤد ايمان."],ans:true,e:["Betul. Ini fakta Tahukah Anda di ms. 19.","بتول. اين فکتا تاهوکه اندا د م.س. 19."],p:19}
+  ]
+};
+
+const PRAISE_R = ["Betul! MasyaAllah!","Hebat!","Tepat sekali!","Bagus!","Syabas!"];
+const PRAISE_J = ["بتول! ماشاءالله!","هيبت!","تڤت سکالي!","باڬوس!","شاباس!"];
+const TYPE_R = {plane:"✈️ Kapal terbang kertas",path:"🛤️ Pilih jalan",chat:"💬 Balas mesej",spot:"🔍 Detektif akhlak",komik:"🎞️ Susun komik",face:"😊 Muka ceria / muram",hafaz:"✍️ Lengkapkan dalil",tf:"🚦 Lampu isyarat"};
+const TYPE_J = {plane:"✈️ کاڤل تربڠ کرتس",path:"🛤️ ڤيليه جالن",chat:"💬 بالس ميسيج",spot:"🔍 ديتيکتيف اخلاق",komik:"🎞️ سوسون کوميک",face:"😊 موک چريا / مورم",hafaz:"✍️ لڠکڤکن دليل",tf:"🚦 لمڤو ايشارت"};
+
+/* ============ STATE ============ */
+const app = document.getElementById("app");
+const $ = id => document.getElementById(id);
+const shuffle = arr => { const a=arr.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]} return a; };
+const pick = arr => arr[Math.floor(Math.random()*arr.length)];
+const wait = ms => new Promise(r=>setTimeout(r,ms));
+function load(k,f){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):f; }catch(e){ return f; } }
+function save(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+
+let best = Object.assign({1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,final:0}, load("a3-best",{}));
+let hearts = load("a3-hati",0);
+let teacher = load("a3-teacher",false);
+let muted = load("a3-muted",false);
+let lang = load("kafa-lang","jawi");
+let run = null, animTok = 0;
+const REDUCED = (()=>{ try{ return matchMedia("(prefers-reduced-motion: reduce)").matches; }catch(e){ return false; } })();
+const isJ = () => lang==="jawi";
+const tx = (r,j) => isJ() ? j : r;
+const L = s => Array.isArray(s) ? (isJ() ? s[1] : s[0]) : s;
+const R = s => Array.isArray(s) ? s[0] : s;
+const isAr = s => typeof s==="string" && /[؀-ۿ]/.test(s);
+const T = s => isAr(s) ? `<span class="ar" dir="rtl" lang="ar">${s}</span>` : `<span>${L(s)}</span>`;
+const P = s => isJ() ? String(s).replace(/P/g,"ڤ") : s;
+const BACK = () => isJ() ? "→" : "←";
+const emo = s => (typeof Intl!=="undefined" && Intl.Segmenter) ? [...new Intl.Segmenter().segment(s)].map(x=>x.segment) : Array.from(s);
+function applyLang(){ document.documentElement.dir = isJ() ? "rtl" : "ltr"; document.documentElement.lang = isJ() ? "ms-Arab" : "ms"; }
+const totalStars = () => Object.values(best).reduce((a,b)=>a+b,0);
+const unlocked = i => teacher || i===0 || best[LESSONS[i-1].id]>=1;
+const finalUnlocked = () => teacher || LESSONS.every(t=>best[t.id]>=1);
+function stopAnims(){ animTok++; hush(); }
+
+/* ============ BUNYI & SUARA ============ */
+let actx;
+function tone(freqs, dur=0.12, type="sine"){
+  if(muted) return;
+  try{
+    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    const t = actx.currentTime;
+    freqs.forEach((f,i)=>{
+      const o=actx.createOscillator(), g=actx.createGain();
+      o.type=type; o.frequency.value=f;
+      const s=t+i*dur;
+      g.gain.setValueAtTime(0.0001,s);
+      g.gain.exponentialRampToValueAtTime(0.18,s+0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001,s+dur);
+      o.connect(g).connect(actx.destination);
+      o.start(s); o.stop(s+dur+0.02);
+    });
+  }catch(e){}
+}
+const sfx = { ok:()=>tone([660,880]), bad:()=>tone([240,180],0.15,"triangle"), tap:()=>tone([520],0.06,"triangle"), whoosh:()=>tone([500,800,1200],0.05), msg:()=>tone([880,1175],0.07), honk:()=>tone([330,330],0.1,"square"), win:()=>tone([523,659,784,1047],0.14) };
+const ttsOK = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+let voice = null;
+function pickVoice(){ try{ const vs=speechSynthesis.getVoices(); voice = vs.find(v=>/^ms/i.test(v.lang)) || vs.find(v=>/^id/i.test(v.lang)) || null; }catch(e){} }
+if(ttsOK){ pickVoice(); try{ speechSynthesis.onvoiceschanged = pickVoice; }catch(e){} }
+function speak(text){
+  if(!ttsOK || !text) return;
+  try{
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(String(text).replace(/\bSAW\b/g,"sallallahu alaihi wasallam").replace(/\bSWT\b/g,"subhanahu wa taala").replace(/[“”…]/g,"").replace(/[؀-ۿ]+/g,"").replace(/\p{Extended_Pictographic}/gu,""));
+    u.lang = voice ? voice.lang : "ms-MY";
+    if(voice) u.voice = voice;
+    u.rate = 0.9;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function hush(){ if(ttsOK){ try{ speechSynthesis.cancel(); }catch(e){} } }
+
+/* ============ GRAFIK ============ */
+function mascot(mood="idle", cls=""){
+  // Hati: maskot berbentuk hati
+  const mouth = mood==="sad"
+    ? `<path d="M52 66 Q60 60 68 66" stroke="#5A1A2E" stroke-width="3" fill="none" stroke-linecap="round"/>`
+    : `<path d="M50 62 Q60 74 70 62" stroke="#5A1A2E" stroke-width="3" fill="#A3204F" stroke-linecap="round"/>`;
+  return `<svg class="mascot ${mood} ${cls}" viewBox="0 0 120 116" aria-hidden="true">
+    <path d="M46 96 v12 M74 96 v12" stroke="#A3204F" stroke-width="5" stroke-linecap="round"/><ellipse cx="44" cy="110" rx="7" ry="4" fill="#A3204F"/><ellipse cx="76" cy="110" rx="7" ry="4" fill="#A3204F"/>
+    <path d="M14 58 l-10 10 M106 58 l10 -12" stroke="#E2557F" stroke-width="5" stroke-linecap="round"/>
+    <path d="M60 102 C22 78 8 56 12 36 C16 16 40 8 54 22 L60 28 L66 22 C80 8 104 16 108 36 C112 56 98 78 60 102Z" fill="#F0607A"/>
+    <path d="M28 30 Q34 20 44 22" stroke="#FFB3C4" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <circle cx="46" cy="48" r="6" fill="#3A1F2B"/><circle cx="74" cy="48" r="6" fill="#3A1F2B"/><circle cx="48" cy="46" r="2" fill="#fff"/><circle cx="76" cy="46" r="2" fill="#fff"/>
+    <circle cx="36" cy="60" r="5" fill="#FFB3C4"/><circle cx="84" cy="60" r="5" fill="#FFB3C4"/>
+    ${mouth}
+  </svg>`;
+}
+const HEART = `<svg class="heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21 C5 16 2 12 2.6 8 C3.2 4.6 7.4 3 10 5.6 L12 7.4 L14 5.6 C16.6 3 20.8 4.6 21.4 8 C22 12 19 16 12 21Z" fill="#F0607A" stroke="#A3204F" stroke-width="1"/><path d="M6 8 Q7 6 9 6.4" stroke="#FFB3C4" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>`;
+const PLANE = `<svg class="pl" viewBox="0 0 42 32" aria-hidden="true"><path d="M2 14 L40 2 L26 30 L19 19 Z" fill="#fff" stroke="#7A5966" stroke-width="1.5" stroke-linejoin="round"/><path d="M19 19 L40 2 L14 16Z" fill="#F2D5DE" stroke="#7A5966" stroke-width="1.2" stroke-linejoin="round"/></svg>`;
+function faceSVG(happy){
+  return `<svg viewBox="0 0 84 84" aria-hidden="true"><circle cx="42" cy="42" r="38" fill="${happy?"#FFD34E":"#B8C2D9"}" stroke="rgba(0,0,0,.15)" stroke-width="3"/><circle cx="30" cy="36" r="5" fill="#3A1F2B"/><circle cx="54" cy="36" r="5" fill="#3A1F2B"/>
+    ${happy?`<path d="M24 50 Q42 70 60 50" stroke="#3A1F2B" stroke-width="4" fill="#fff" stroke-linecap="round"/><circle cx="22" cy="48" r="5" fill="#F7A3A3"/><circle cx="62" cy="48" r="5" fill="#F7A3A3"/>`:`<path d="M26 60 Q42 46 58 60" stroke="#3A1F2B" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M58 42 q3 8 0 10 q-3 -2 0 -10Z" fill="#7FC6F0"/>`}</svg>`;
+}
+const starsHTML = n => [0,1,2].map(i=>`<span class="${i<n?"":"off"}">⭐</span>`).join("");
+const muteBtn = () => `<button class="iconbtn" data-act="mute" aria-label="${muted?"Hidupkan bunyi":"Matikan bunyi"}">${muted?"🔇":"🔊"}</button>`;
+const bigEm = s => `<div class="bigem" aria-hidden="true">${emo(s).map((e,i)=>`<span style="animation-delay:${i*.3}s">${e}</span>`).join("")}</div>`;
+function toast(msg){
+  document.querySelectorAll(".toast").forEach(t=>t.remove());
+  const t=document.createElement("div"); t.className="toast"; t.setAttribute("role","status"); t.textContent=msg;
+  document.body.appendChild(t); setTimeout(()=>t.remove(),2800);
+}
+function sparkle(el, txt){
+  const r = el.getBoundingClientRect(), s = document.createElement("span");
+  s.className="sparkle"; s.textContent = txt; s.style.left=(r.left+r.width/2-13)+"px"; s.style.top=(r.top+r.height/4)+"px";
+  document.body.appendChild(s); setTimeout(()=>s.remove(),900);
+}
+
+/* ============ PETA: JALAN KAMPUNG ============ */
+const GAP = 210, PAD = 130;
+function renderMap(){
+  stopAnims(); run = null;
+  const stops = [...LESSONS.map((t,i)=>({t,i})), {final:true}];
+  const W = PAD*2 + (stops.length-1)*GAP;
+  const xs = stops.map((_,i)=>PAD + i*GAP);
+  let current = LESSONS.findIndex(t=>best[t.id]<1);
+  if(current<0) current = LESSONS.length;
+  if(current<LESSONS.length && !unlocked(current)) current = -1;
+  const visited = LESSONS.filter(t=>best[t.id]>=1).length + (best.final>=1?1:0);
+  const stopHTML = stops.map((s,i)=>{
+    if(s.final){
+      const open = finalUnlocked();
+      return `<button class="stop ${open?"":"locked"} ${current===LESSONS.length?"current":""}" style="left:${xs[i]}px;--tc:#E8A317" data-act="station" data-i="final" aria-label="${L(FINAL.title)}">
+        <span class="bld"><span class="roof"></span><span class="sign">${open?FINAL.icon:"🔒"}</span><span class="wins"><i></i><i></i></span><span class="door"></span>${best.final>=1?`<span class="done">🏆</span>`:""}</span>
+        <span class="plate"><small>${L(FINAL.place)}</small>${L(FINAL.title)}<span class="st">${starsHTML(best.final)}</span></span></button>`;
+    }
+    const t = s.t, open = unlocked(s.i);
+    return `<button class="stop ${open?"":"locked"} ${current===s.i?"current":""}" style="left:${xs[i]}px;--tc:${t.color}" data-act="station" data-i="${s.i}" aria-label="${tx("Pelajaran","ڤلاجرن")} ${t.id}: ${L(t.title)}${open?"":" ("+tx("berkunci","برکونچي")+")"}">
+      <span class="bld"><span class="roof"></span><span class="sign">${open?t.icon:"🔒"}</span><span class="num">${t.id}</span><span class="wins"><i></i><i></i><i></i><i></i></span><span class="door"></span>${best[t.id]>=1?`<span class="done">❤️</span>`:""}</span>
+      <span class="plate"><small>${L(t.place)}</small>${L(t.title)}<span class="st">${starsHTML(best[t.id])}</span></span></button>`;
+  }).join("");
+  const trees = xs.slice(0,-1).map(x=>`<span class="tree" style="left:${x+GAP/2-26}px">${pick(["🌳","🌴","🌲"])}</span><span class="lamp" style="left:${x+GAP/2+30}px"></span>`).join("");
+  const clouds = [0,1,2,3].map(i=>`<span class="cloud" style="left:${i*W/4}px;top:${18+i%2*36}px;--dx:${W/4}px;animation-duration:${40+i*8}s">☁️</span>`).join("");
+  const cars = [["🚗",18,0],["🚌",26,-9],["🛵",14,-5]].map(([c,d,dl])=>`<span class="car" style="animation-duration:${d}s;animation-delay:${dl}s">${c}</span>`).join("");
+  const walker = current>=0 ? `<div class="walker" style="left:${xs[current]-64}px">${mascot()}</div>` : "";
+  app.innerHTML = `
+    <div class="topbar">
+      <div class="stats"><a class="iconbtn" href="../index.html" aria-label="${tx("Kembali ke Tahun 3","کمبالي ک تاهون 3")}">${BACK()}</a><span class="pillstat" aria-label="${hearts} hati">${HEART} ${hearts}</span><span class="pillstat" aria-label="${totalStars()} bintang">⭐ ${totalStars()}</span></div>
+      <span style="display:flex;gap:8px"><button class="langbtn" data-act="lang" aria-label="${tx("Tukar ke tulisan Jawi","Tukar ke tulisan Rumi")}">${isJ()?"Rumi":'<span class="ar">جاوي</span>'}</button>${muteBtn()}</span>
+    </div>
+    <header class="hero">
+      <span class="badge">${tx("Akhlak Tahun 3 • KAFA","اخلاق تاهون 3 • کافا")}</span>
+      <h1>${tx("Jalan-jalan Kampung Akhlak","جالن٢ کامڤوڠ اخلاق")}</h1>
+      <p>${tx("Berjalan bersama Hati dari satu tempat ke tempat lain. Tunjukkan akhlak mulia untuk mengumpul hati kebaikan!","برجالن برسام هاتي دري ساتو تمڤت ک تمڤت لاٴين. تونجوقکن اخلاق موليا اونتوق مڠومڤول هاتي کباءيقن!")}</p>
+    </header>
+    <div class="streetwrap">
+      <button class="scr l" data-act="scrl" data-d="-1" aria-label="${tx("Ke kiri","ک کيري")}">◀</button>
+      <div class="street" id="street" dir="ltr">
+        <div class="town" style="width:${W}px">
+          <span class="sun" style="left:${W-110}px"></span>${clouds}
+          <svg class="hills" viewBox="0 0 ${W} 110" preserveAspectRatio="none" aria-hidden="true"><path d="M0 110 Q${W*.1} 20 ${W*.22} 80 T${W*.45} 60 T${W*.7} 70 T${W} 50 V110Z" fill="#A8DC92"/></svg>
+          <span class="walk"></span><span class="road"></span><span class="grass"></span>
+          ${trees}${cars}${stopHTML}${walker}
+        </div>
+      </div>
+      <button class="scr r" data-act="scrl" data-d="1" aria-label="${tx("Ke kanan","ک کانن")}">▶</button>
+    </div>
+    <div class="streetnote"><span>🚶 ${tx("Leret jalan","ليريت جالن")}</span><span class="trip"><span style="width:${visited/stops.length*100}%"></span></span><span>${visited}/${stops.length} ${tx("tempat","تمڤت")}</span></div>
+    <div class="teacher"><button class="toggle" data-act="teacher" aria-pressed="${teacher}"><span class="sw" aria-hidden="true"></span>${tx("Mod guru: buka semua tempat","مود ڬورو: بوک سموا تمڤت")}</button></div>
+    <p class="foot">${tx("Kandungan berdasarkan Buku Teks Akhlak Tahun 3 (JAIS). Setiap soalan menunjukkan muka surat rujukan.","کندوڠن برداسرکن بوکو تيکس اخلاق تاهون 3 (جايس). ستياڤ سوالن منونجوقکن موک سورت روجوکن.")}</p>`;
+  const st = $("street"), target = xs[Math.max(0,current)];
+  st.style.scrollBehavior = "auto";
+  st.scrollLeft = Math.max(0, target - st.clientWidth/2);
+  st.style.scrollBehavior = "";
+}
+
+/* ============ STESEN ============ */
+function openStation(key){
+  stopAnims();
+  const isFinal = key==="final";
+  if(isFinal && !finalUnlocked()){ sfx.bad(); toast("🔒 "+tx("Lawati semua 8 tempat (sekurang-kurangnya 1 bintang) untuk ke Pesta Akhlak.","لاوتي سموا 8 تمڤت (سکورڠ٢ڽ 1 بينتڠ) اونتوق ک ڤستا اخلاق.")); return; }
+  if(!isFinal && !unlocked(+key)){ sfx.bad(); toast("🔒 "+tx(`Lulus Pelajaran ${+key} dahulu untuk ke tempat ini.`,`لولوس ڤلاجرن ${+key} دهولو اونتوق ک تمڤت اين.`)); return; }
+  run = {station:key};
+  const top = `<div class="topbar"><button class="iconbtn" data-act="map" aria-label="${tx("Kembali ke kampung","کمبالي ک کامڤوڠ")}">${BACK()}</button><span class="pillstat">${HEART} ${hearts}</span></div>`;
+  if(isFinal){
+    app.innerHTML = `${top}
+      <div class="banner page-in" style="--tc:${FINAL.color}">
+        <div class="kick">${L(FINAL.sub)}</div><h2>${L(FINAL.title)}</h2>
+        <div class="stars">${starsHTML(best.final)}</div><span class="chip">📍 ${L(FINAL.place)}</span><span class="big" aria-hidden="true">🎪</span>
+      </div>
+      <ul class="units" style="--tc:${FINAL.color}">${LESSONS.map(t=>`<li><span class="u">${P("P"+t.id)}</span>${L(t.title)}</li>`).join("")}</ul>
+      <div class="actions"><button class="bigbtn play" data-act="play"><span class="e" aria-hidden="true">🎉</span><span>${tx("Mula Cabaran Akhir","مولا چابرن اخير")}<small>${FINAL.qs.length} ${tx("soalan pelbagai jenis","سوالن ڤلباڬاي جنيس")}</small></span></button></div>`;
+    window.scrollTo(0,0); return;
+  }
+  const t = LESSONS[+key];
+  app.innerHTML = `${top}
+    <div class="banner page-in" style="--tc:${t.color}">
+      <div class="kick">${tx("Pelajaran","ڤلاجرن")} ${t.id} • ${tx("Buku teks ms.","بوکو تيکس م.س.")} ${t.pages}</div><h2>${L(t.title)}</h2>
+      <div class="stars">${starsHTML(best[t.id])}</div><span class="chip">📍 ${L(t.place)}</span><span class="big" aria-hidden="true">${t.icon}</span>
+    </div>
+    <ul class="units" style="--tc:${t.color}">${t.units.map((u,i)=>`<li><span class="u">${tx("Unit","اونيت")} ${i+1}</span>${L(u)}</li>`).join("")}</ul>
+    <div class="actions">
+      <button class="bigbtn read" data-act="read"><span class="e" aria-hidden="true">📖</span><span>${tx("Tonton & Baca","تونتون & باچ")}<small>${t.cards.length} ${tx("kad beranimasi","کد برانيماسي")}</small></span></button>
+      <button class="bigbtn play" data-act="play"><span class="e" aria-hidden="true">🎮</span><span>${tx("Mula Cabaran","مولا چابرن")}<small>${t.qs.length} ${tx("soalan, 8 jenis permainan","سوالن، 8 جنيس ڤرماٴينن")}</small></span></button>
+    </div>`;
+  window.scrollTo(0,0);
+}
+
+/* ============ TONTON & BACA ============ */
+function startRead(){ run.c = 0; showCard(); }
+function showCard(){
+  stopAnims();
+  const t = LESSONS[+run.station], c = t.cards[run.c], n = t.cards.length;
+  run.say = [R(c.t), ...(c.list||[]).map(R), ...(c.story||[]).map(s=>R(s[1])), ...(c.pantun||[]).map(R), R(c.mk)].filter(Boolean).join(". ");
+  let body = "";
+  if(c.em) body += bigEm(c.em);
+  body += `<span class="unitlbl">${L(c.u)}</span>`;
+  if(c.t) body += `<p class="readtext">${L(c.t)}</p>`;
+  if(c.list) body += `<ol class="rlist ${c.bad?"bad":""}">${c.list.map((x,i)=>`<li style="--i:${i}">${L(x)}</li>`).join("")}</ol>`;
+  if(c.groups) body += `<div class="groups">${c.groups.map(([h,items],i)=>`<div style="--i:${i}"><h3>${i+1}. ${L(h)}</h3><ul>${items.map(x=>`<li>${L(x)}</li>`).join("")}</ul></div>`).join("")}</div>`;
+  if(c.story) body += `<div class="comic">${c.story.map(([e,s],i)=>`<div style="--i:${i}"><small>${i+1}</small><b aria-hidden="true">${e}</b>${L(s)}</div>`).join("")}</div>`;
+  if(c.pantun) body += `<div class="pantun">${c.pantun.map((x,i)=>`<span style="--i:${i}">${L(x)}</span>`).join("")}</div>`;
+  if(c.ar) body += `<div class="arbox"><span class="ar" dir="rtl" lang="ar">${c.ar}</span>${c.src?`<small>${L(c.src)}</small>`:""}</div>`;
+  if(c.mk) body += `<p class="maksud">${L(c.mk)}</p>`;
+  if(c.tip) body += `<div class="tip"><b>💡 ${tx("Ingat!","ايڠت!")}</b>${L(c.tip)}</div>`;
+  body += `<p class="ref" style="margin:-4px 0 12px">📖 ${tx("Buku teks ms.","بوکو تيکس م.س.")} ${c.p}</p>`;
+  app.innerHTML = `
+    <div class="gamehead"><button class="iconbtn" data-act="station-back" aria-label="${tx("Kembali","کمبالي")}">${BACK()}</button><h2>${tx("Tonton & Baca","تونتون & باچ")}<small>${L(t.title)}</small></h2><span class="pill">${run.c+1}/${n}</span></div>
+    <div class="progress"><span style="width:${Math.round((run.c+1)/n*100)}%"></span></div>
+    <div class="card page-in" style="--tc:${t.color}">
+      ${body}
+      <div class="navrow">
+        <button class="secondary" data-act="cprev" aria-label="${tx("Kad sebelum","کد سبلوم")}" ${run.c===0?"disabled":""}>${isJ()?"▶":"◀"}</button>
+        ${ttsOK&&run.say?`<button class="pill" data-act="say" style="padding:9px 12px">🔊 ${tx("Dengar","دڠر")}</button>`:"<span></span>"}
+        <button class="primary" data-act="cnext">${run.c+1<n?tx("Seterusnya","ستروسڽ"):tx("Mula Cabaran","مولا چابرن")} ${isJ()?"◀":"▶"}</button>
+      </div>
+      <div class="dots" aria-hidden="true">${[...Array(n)].map((_,i)=>`<i class="${i===run.c?"on":""}"></i>`).join("")}</div>
+    </div>`;
+}
+
+/* ============ CABARAN ============ */
+function startPlay(){
+  const src = run.station==="final" ? FINAL.qs : LESSONS[+run.station].qs;
+  run = Object.assign(run, {qs:shuffle(src), i:0, score:0, heart:0, streak:0});
+  showQ();
+}
+function qTitle(){
+  if(run.station==="final") return `${L(FINAL.title)}<small>${L(FINAL.sub)}</small>`;
+  const t = LESSONS[+run.station];
+  return `${tx("Pelajaran","ڤلاجرن")} ${t.id}<small>${L(t.title)}</small>`;
+}
+
+function showQ(){
+  stopAnims();
+  const q = run.qs[run.i];
+  run.q = q; run.done = false; run.mist = 0;
+  const qq = q.q || [`${R(q.name)} menghantar mesej kepada kamu. Bagaimana kamu membalasnya?`,`${q.name[1]} مڠهنتر ميسيج کڤد کامو. باڬايمان کامو ممبالسڽ؟`];
+  run.say = R(qq);
+  let body = "", showQ = true;
+  switch(q.type){
+    case "plane":
+      run.opts = shuffle(q.a.map((t,i)=>({t,ok:i===0})));
+      if(!run.opts.some(o=>isAr(o.t))) run.say += ". " + run.opts.map(o=>R(o.t)).join(". ");
+      body = `<div class="planes">${run.opts.map((o,k)=>`<button class="plane" data-act="plane" data-k="${k}">${PLANE}${T(o.t)}</button>`).join("")}</div>`;
+      break;
+    case "path":
+      showQ = false;
+      run.opts = shuffle(q.a.map((o,i)=>({t:o[0],c:o[1],ok:i===0})));
+      run.say += ". " + run.opts.map(o=>R(o.t)).join(". ");
+      body = `<div class="story">${q.em?`<span class="se" aria-hidden="true">${q.em}</span>`:""}<p>${L(q.q)}</p></div>
+        <p class="hint">${tx("Pilih jalan yang terbaik!","ڤيليه جالن يڠ ترباءيق!")}</p>
+        <div class="fork">${run.opts.map((o,k)=>`<button class="signpost" data-act="path" data-k="${k}"><span class="k" aria-hidden="true">🪧</span>${L(o.t)}</button>`).join("")}</div><div id="cons"></div>`;
+      break;
+    case "chat":
+      run.opts = shuffle(q.a.map((t,i)=>({t,ok:i===0})));
+      body = `<div class="phone"><div class="ph-top"><span class="av" aria-hidden="true">${q.who}</span><span>${L(q.name)}<small>${tx("dalam talian","دالم تالين")}</small></span></div>
+          <div class="ph-body" id="phb">${q.msgs.map((m,i)=>`<div class="pm in" style="animation-delay:${i*.4}s">${L(m)}</div>`).join("")}</div></div>
+        <p class="hint">${tx("Pilih balasan yang paling baik.","ڤيليه بالسن يڠ ڤاليڠ باءيق.")}</p>
+        <div class="replies">${run.opts.map((o,k)=>`<button class="reply" data-act="reply" data-k="${k}">${L(o.t)}</button>`).join("")}</div>`;
+      break;
+    case "spot": {
+      run.left = q.items.filter(x=>x[2]).length;
+      body = `<p class="hint">${q.good?tx("Tekan semua yang betul.","تکن سموا يڠ بتول."):tx("Tekan kelakuan yang salah.","تکن کلاکوان يڠ ساله.")} <span class="counter" id="sleft">🔍 ${run.left} ${tx("lagi","لاڬي")}</span></p>
+        <div class="scene-grid">${shuffle(q.items.map((it,i)=>({it,i}))).map((o,k)=>`<button class="spot ${q.good?"target-good":""}" data-act="spot" data-i="${o.i}" style="--d:-${k*0.4}s"><span class="se" aria-hidden="true">${o.it[0]}</span>${L(o.it[1])}</button>`).join("")}</div>`;
+      break; }
+    case "komik":
+      run.next = 0;
+      body = `<p class="hint">${tx("Tekan panel mengikut urutan cerita.","تکن ڤانل مڠيکوت اوروتن چريتا.")}</p>
+        <div class="frames">${q.panels.map((_,i)=>`<div class="frame" id="f${i}"><span class="fn">${i+1}</span>🎞️</div>`).join("")}</div>
+        <div class="pool">${shuffle(q.panels.map((p,i)=>({p,i}))).map(o=>`<button class="panel" data-act="panel" data-i="${o.i}"><span class="pe" aria-hidden="true">${o.p[0]}</span>${L(o.p[1])}</button>`).join("")}</div>`;
+      break;
+    case "face": {
+      run.queue = shuffle(q.items); run.si = 0;
+      const lb = q.l || [["Baik","باءيق"],["Tidak baik","تيدق باءيق"]];
+      body = `<div class="facecard" id="fc"></div>
+        <div class="faces" dir="ltr"><button class="face f1" data-act="face" data-g="1">${faceSVG(true)}${L(lb[0])}</button><button class="face f0" data-act="face" data-g="0">${faceSVG(false)}${L(lb[1])}</button></div>
+        <div class="bins" dir="ltr"><div id="bin1"></div><div id="bin0"></div></div>`;
+      break; }
+    case "hafaz":
+      run.opts = shuffle(q.a.map((t,i)=>({t,ok:i===0})));
+      body = `<div class="dalil" dir="rtl"><span class="ar" lang="ar">${q.pre}</span><span class="gap" id="gap">؟</span>${q.post?`<span class="ar" lang="ar">${q.post}</span>`:""}</div>
+        ${q.mk?`<p class="mk">${L(q.mk)}</p>`:""}
+        <div class="inks">${run.opts.map((o,k)=>`<button class="ink" data-act="ink" data-k="${k}">${T(o.t)}</button>`).join("")}</div>`;
+      break;
+    case "tf":
+      showQ = false;
+      body = `<div class="tl"><div class="tlight y" id="tlight" aria-hidden="true"><i class="r"></i><i class="y"></i><i class="g"></i></div><div class="stmt">${L(q.q)}</div></div>
+        <div class="lane" id="lane" aria-hidden="true"><span class="cr">🚗</span></div>
+        <div class="tfrow"><button class="yes" data-act="tf" data-v="1"><span aria-hidden="true">🟢</span>${tx("Betul","بتول")}</button><button class="no" data-act="tf" data-v="0"><span aria-hidden="true">🔴</span>${tx("Salah","ساله")}</button></div>`;
+      break;
+  }
+  const tag = q.tag ? `<span class="tag">${P(q.tag)}</span>` : "";
+  app.innerHTML = `
+    <div class="gamehead"><button class="iconbtn" data-act="station-back" aria-label="${tx("Kembali","کمبالي")}">${BACK()}</button><h2>${qTitle()}</h2><span class="pillstat">${HEART} ${run.heart}</span></div>
+    <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="${run.qs.length}" aria-valuenow="${run.i}"><span style="width:${Math.round(run.i/run.qs.length*100)}%"></span></div>
+    <div class="card page-in">
+      <div class="qmeta"><span><span class="qtype">${(isJ()?TYPE_J:TYPE_R)[q.type]}</span>${tag}</span><span style="display:flex;gap:6px;align-items:center"><span style="color:var(--muted);font-size:15px">${run.i+1}/${run.qs.length}</span>${ttsOK?`<button class="pill" data-act="say" aria-label="${tx("Dengar soalan","دڠر سوالن")}">🔊</button>`:""}</span></div>
+      ${showQ?`<p class="qtext">${L(qq)}</p>`:""}
+      ${body}
+      <div id="fb" aria-live="polite"></div>
+    </div>`;
+  if(q.type==="face") showFaceItem();
+}
+
+function finishQ(ok, extra=""){
+  run.done = true;
+  if(ok){ run.score++; run.heart++; run.streak++; } else run.streak = 0;
+  const q = run.q, last = run.i+1 >= run.qs.length;
+  const title = ok ? (run.mist ? tx("Bagus, hampir sempurna!","باڬوس، همڤير سمڤورنا!") : pick(isJ()?PRAISE_J:PRAISE_R)) : tx("Tidak mengapa, mari belajar!","تيدق مڠاڤ، ماري بلاجر!");
+  $("fb").innerHTML = `<div class="feedback">${mascot(ok?"happy":"sad")}<div><strong>${title}</strong>${ok?`<span class="streak">+1 ${tx("hati","هاتي")} ❤️</span> `:""}${ok&&run.streak>=3?`<span class="streak">🔥 ${run.streak} ${tx("berturut-turut!","برتوروت٢!")}</span>`:""}<br>${extra}${L(q.e)}<div class="ref">📖 ${tx("Rujuk buku teks ms.","روجوق بوکو تيکس م.س.")} ${q.p}</div></div></div>
+    <button class="primary" data-act="next">${last?tx("Lihat keputusan","ليهت کڤوتوسن"):tx("Soalan seterusnya","سوالن ستروسڽ")}</button>`;
+  ok ? sfx.ok() : sfx.bad();
+  const b = $("fb").querySelector(".primary"); b.focus({preventScroll:true}); b.scrollIntoView({block:"nearest",behavior:REDUCED?"auto":"smooth"});
+}
+
+/* Kapal terbang kertas */
+function ansPlane(k){
+  if(run.done) return;
+  const btns = [...app.querySelectorAll(".plane")];
+  btns.forEach(b=>b.disabled=true);
+  const right = run.opts.findIndex(o=>o.ok), ok = k===right;
+  sfx.whoosh();
+  if(ok) btns[k].classList.add("ok");
+  else { btns[k].classList.add("bad"); setTimeout(()=>btns[right].classList.add("ok"), 500); }
+  hush(); finishQ(ok);
+}
+/* Pilih jalan */
+function ansPath(k){
+  if(run.done) return;
+  const btns = [...app.querySelectorAll(".signpost")];
+  btns.forEach(b=>b.disabled=true);
+  const o = run.opts[k], ok = o.ok;
+  btns[k].classList.add(ok?"ok":"bad");
+  $("cons").innerHTML = `<div class="cons ${ok?"good":"sad"}"><span class="cf" aria-hidden="true">${ok?"😊":"😟"}</span>${L(o.c)}</div>`;
+  let extra = "";
+  if(!ok){ const b = run.opts.find(x=>x.ok); extra = `${tx("Pilihan terbaik:","ڤيليهن ترباءيق:")} <b>${L(b.t)}</b>. `; btns[run.opts.indexOf(b)].classList.add("ok"); }
+  hush(); setTimeout(()=>finishQ(ok, extra), 500);
+}
+/* Balas mesej */
+async function ansReply(k){
+  if(run.done || run.busy) return;
+  run.busy = true;
+  const btns = [...app.querySelectorAll(".reply")];
+  btns.forEach(b=>b.disabled=true);
+  const ok = run.opts[k].ok, tok = animTok, phb = $("phb");
+  btns[k].classList.add(ok?"ok":"bad");
+  phb.insertAdjacentHTML("beforeend", `<div class="pm out">${L(run.opts[k].t)} ✓✓</div>`); sfx.msg();
+  await wait(500); if(tok!==animTok) return;
+  phb.insertAdjacentHTML("beforeend", `<div class="pm in typing" id="typing"><i>•</i><i>•</i><i>•</i></div>`);
+  await wait(900); if(tok!==animTok) return;
+  $("typing").remove();
+  phb.insertAdjacentHTML("beforeend", `<div class="pm in">${L(run.q.re[ok?0:1])}</div>`); sfx.msg();
+  if(!ok) btns[run.opts.findIndex(o=>o.ok)].classList.add("ok");
+  run.busy = false;
+  hush(); finishQ(ok);
+}
+/* Detektif */
+function ansSpot(b){
+  if(run.done || b.disabled) return;
+  const it = run.q.items[+b.dataset.i];
+  b.disabled = true;
+  if(it[2]){
+    sfx.tap(); b.classList.add("found"); sparkle(b, run.q.good?"⭐":"🔍"); run.left--;
+    $("sleft").textContent = `🔍 ${run.left} ${tx("lagi","لاڬي")}`;
+    if(run.left===0){ app.querySelectorAll(".spot").forEach(x=>x.disabled=true); setTimeout(()=>finishQ(run.mist<=1),350); }
+  } else { run.mist++; sfx.bad(); b.classList.add("nope"); }
+}
+/* Susun komik */
+function ansPanel(b){
+  if(run.done) return;
+  const i = +b.dataset.i;
+  if(i===run.next){
+    sfx.tap();
+    const p = run.q.panels[i], f = $("f"+i);
+    f.className = "frame f"; f.innerHTML = `<span class="fn">${i+1}</span><span class="pe" aria-hidden="true">${p[0]}</span>${L(p[1])}`;
+    b.remove(); run.next++;
+    if(run.next===run.q.panels.length) finishQ(run.mist<=1);
+  } else { run.mist++; sfx.bad(); b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake"); }
+}
+/* Muka ceria / muram */
+function showFaceItem(){
+  const it = run.queue[run.si], c = $("fc"); if(!c) return;
+  c.className = "facecard"; void c.offsetWidth;
+  c.innerHTML = `<span>${L(it[0])}<small>${run.queue.length-run.si} ${tx("lagi","لاڬي")}</small></span>`;
+}
+function ansFace(b){
+  if(run.done || run.busy) return;
+  const g = +b.dataset.g, it = run.queue[run.si], ok = g===it[1];
+  run.busy = true;
+  const target = app.querySelector(`.face[data-g="${it[1]}"]`);
+  target.classList.remove("react"); void target.offsetWidth; target.classList.add("react");
+  if(ok) sfx.tap(); else { run.mist++; sfx.bad(); }
+  $("fc").classList.add(it[1]?"goL":"goR");
+  $("bin"+it[1]).insertAdjacentHTML("beforeend", `<i class="${ok?"":"x"}">${ok?"✓ ":"❗"}${L(it[0])}</i>`);
+  setTimeout(()=>{
+    run.busy = false; run.si++;
+    if(run.si>=run.queue.length){
+      $("fc").className="facecard"; $("fc").innerHTML = tx("Siap! ✔️","سياڤ! ✔️");
+      app.querySelectorAll(".face").forEach(x=>x.disabled=true);
+      finishQ(run.mist<=1, run.mist?tx("Item bertanda ❗ telah dipindahkan ke tempat yang betul. ","ايتم برتندا ❗ تله دڤينداهکن ک تمڤت يڠ بتول. "):"");
+    } else showFaceItem();
+  }, ok?380:650);
+}
+/* Lengkapkan dalil */
+function ansInk(k){
+  if(run.done) return;
+  const btns = [...app.querySelectorAll(".ink")];
+  btns.forEach(b=>b.disabled=true);
+  const right = run.opts.findIndex(o=>o.ok), ok = k===right;
+  btns[right].classList.add("ok"); if(!ok) btns[k].classList.add("bad","shake");
+  const g = $("gap"); g.textContent = run.opts[right].t; g.classList.add("w");
+  hush(); finishQ(ok);
+}
+/* Lampu isyarat */
+function ansTF(btn){
+  if(run.done) return;
+  app.querySelectorAll(".tfrow button").forEach(b=>b.disabled=true);
+  btn.classList.add("picked");
+  const ok = (btn.dataset.v==="1")===run.q.ans;
+  $("tlight").className = "tlight " + (run.q.ans?"g":"r");
+  if(ok){ $("lane").classList.add("go"); sfx.honk(); }
+  hush(); finishQ(ok, `${tx("Jawapan:","جواڤن:")} <b>${run.q.ans?tx("Betul","بتول"):tx("Salah","ساله")}</b>. `);
+}
+
+function nextQ(){
+  run.i++;
+  if(run.i < run.qs.length){ showQ(); window.scrollTo(0,0); }
+  else finishRound();
+}
+function finishRound(){
+  stopAnims();
+  const isFinal = run.station==="final";
+  const key = isFinal ? "final" : LESSONS[+run.station].id;
+  const n = run.qs.length, s = run.score, pct = s/n;
+  const stars = pct>=0.9?3:pct>=0.7?2:pct>=0.5?1:0;
+  const wasFinalOpen = finalUnlocked();
+  const nextIdx = isFinal ? -1 : +run.station+1;
+  const wasNextOpen = nextIdx>0 && nextIdx<LESSONS.length ? unlocked(nextIdx) : true;
+  const prev = best[key];
+  if(stars>prev){ best[key]=stars; save("a3-best",best); }
+  hearts += run.heart; save("a3-hati",hearts);
+  const msgs = [];
+  if(nextIdx>0 && nextIdx<LESSONS.length && !wasNextOpen && unlocked(nextIdx)) msgs.push(tx(`🚶 Tempat baharu dibuka: ${L(LESSONS[nextIdx].place)}!`,`🚶 تمڤت بهارو دبوک: ${L(LESSONS[nextIdx].place)}!`));
+  if(!isFinal && !wasFinalOpen && finalUnlocked()) msgs.push(tx("🎪 Pesta Akhlak kini dibuka!","🎪 ڤستا اخلاق کيني دبوک!"));
+  const titles = isJ() ? ["جوم چوبا سکالي لاڬي","بوليه چوبا لاڬي","باڬوس!","چمرلڠ!"] : ["Jom cuba sekali lagi","Boleh cuba lagi","Bagus!","Cemerlang!"];
+  const label = isFinal ? L(FINAL.title) : `${tx("Pelajaran","ڤلاجرن")} ${key}: ${L(LESSONS[+run.station].title)}`;
+  app.innerHTML = `
+    <div class="card result page-in" style="margin-top:18px">
+      ${mascot(stars>=2?"happy":"idle")}
+      <p style="margin:4px 0 0">${label}</p>
+      <div class="stars" role="img" aria-label="${stars} / 3">${starsHTML(stars)}</div>
+      <h2>${titles[stars]}</h2>
+      <p>${tx(`Kamu menjawab ${s} daripada ${n} soalan dengan betul.`,`کامو منجواب ${s} درڤد ${n} سوالن دڠن بتول.`)}</p>
+      <div class="earned">+${run.heart} ${HEART} ${tx("hati kebaikan","هاتي کباءيقن")}</div>
+      ${stars>prev?`<p>${tx("Rekod baharu!","ريکود بهارو!")}</p>`:""}
+      ${stars===0?`<p>${tx("Dapatkan sekurang-kurangnya 1 bintang (separuh betul) untuk ke tempat seterusnya. Cuba “Tonton & Baca” dahulu.","داڤتکن سکورڠ٢ڽ 1 بينتڠ (سڤاروه بتول) اونتوق ک تمڤت ستروسڽ. چوبا “تونتون & باچ” دهولو.")}</p>`:""}
+      ${msgs.map(m=>`<div class="unlock">${m}</div>`).join("<br>")}
+      ${isFinal&&stars===3?`<div class="unlock">🏆 ${tx("Tahniah! Kamu juara Akhlak Tahun 3!","تهنية! کامو جوارا اخلاق تاهون 3!")}</div>`:""}
+      <button class="primary" data-act="map">${tx("Kembali ke kampung","کمبالي ک کامڤوڠ")} 🏘️</button>
+      <button class="secondary" data-act="again">${tx("Main lagi","ماٴين لاڬي")}</button>
+    </div>`;
+  sfx.win();
+  if(stars===3) rain();
+  window.scrollTo(0,0);
+}
+function rain(){
+  if(REDUCED) return;
+  const box = document.createElement("div"); box.className = "rain";
+  for(let i=0;i<28;i++){
+    const s = document.createElement("span");
+    s.textContent = pick(["❤️","💖","⭐","✨","🌸"]);
+    s.style.left = Math.random()*100+"vw";
+    s.style.animationDuration = (2+Math.random()*2)+"s";
+    s.style.animationDelay = (Math.random()*0.8)+"s";
+    box.appendChild(s);
+  }
+  document.body.appendChild(box);
+  setTimeout(()=>box.remove(), 4500);
+}
+
+/* ============ PERISTIWA ============ */
+app.addEventListener("click", e=>{
+  const b = e.target.closest("button");
+  if(!b || b.disabled) return;
+  switch(b.dataset.act){
+    case "mute": muted=!muted; save("a3-muted",muted); b.textContent=muted?"🔇":"🔊"; b.setAttribute("aria-label",muted?"Hidupkan bunyi":"Matikan bunyi"); if(muted) hush(); break;
+    case "lang": lang = isJ() ? "rumi" : "jawi"; save("kafa-lang",lang); applyLang(); renderMap(); break;
+    case "teacher": teacher=!teacher; save("a3-teacher",teacher); renderMap(); break;
+    case "scrl": $("street").scrollBy({left:+b.dataset.d*GAP*1.5}); break;
+    case "map": renderMap(); window.scrollTo(0,0); break;
+    case "station": openStation(b.dataset.i); break;
+    case "station-back": openStation(run.station); break;
+    case "read": startRead(); window.scrollTo(0,0); break;
+    case "cprev": if(run.c>0){ run.c--; showCard(); } break;
+    case "cnext": { const n=LESSONS[+run.station].cards.length; if(run.c+1<n){ run.c++; showCard(); } else startPlay(); window.scrollTo(0,0); break; }
+    case "play": startPlay(); window.scrollTo(0,0); break;
+    case "say": if(run && run.say) speak(run.say); break;
+    case "plane": ansPlane(+b.dataset.k); break;
+    case "path": ansPath(+b.dataset.k); break;
+    case "reply": ansReply(+b.dataset.k); break;
+    case "spot": ansSpot(b); break;
+    case "panel": ansPanel(b); break;
+    case "face": ansFace(b); break;
+    case "ink": ansInk(+b.dataset.k); break;
+    case "tf": ansTF(b); break;
+    case "next": nextQ(); break;
+    case "again": startPlay(); window.scrollTo(0,0); break;
+  }
+});
+
+applyLang();
+renderMap();
+</script>
+</body>
+</html>

@@ -20,8 +20,10 @@ kafa/
 │   │   └── index.html    ← Game Pengembaraan Sirah
 │   ├── feqah/
 │   │   └── index.html    ← Game Jom Bina Masjid (Feqah)
-│   └── tauhid/
-│       └── index.html    ← Game Kembara Lautan Iman (Tauhid)
+│   ├── tauhid/
+│   │   └── index.html    ← Game Kembara Lautan Iman (Tauhid)
+│   └── akhlak/
+│       └── index.html    ← Game Jalan-jalan Kampung Akhlak (Akhlak)
 ├── tahun4/index.html
 ├── tahun5/index.html
 └── tahun6/index.html

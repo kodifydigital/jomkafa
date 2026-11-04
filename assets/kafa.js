@@ -42,6 +42,12 @@ const READY = {
     r:"Kembara Lautan Iman", j:"کمبارا لاءوتن ايمان",
     dr:"7 zon lautan, 8 jenis permainan", dj:"7 زون لاءوتن، 8 جنيس ڤرماٴينن",
     progress:{ key:"t3-best", max:24 }
+  },
+  "3/akhlak": {
+    path:"akhlak/index.html",
+    r:"Jalan-jalan Kampung Akhlak", j:"جالن٢ کامڤوڠ اخلاق",
+    dr:"8 tempat, 8 jenis permainan", dj:"8 تمڤت، 8 جنيس ڤرماٴينن",
+    progress:{ key:"a3-best", max:27 }
   }
 };
 
