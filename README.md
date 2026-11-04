@@ -18,8 +18,10 @@ kafa/
 │   ├── index.html        ← Senarai subjek Tahun 3
 │   ├── sirah/
 │   │   └── index.html    ← Game Pengembaraan Sirah
-│   └── feqah/
-│       └── index.html    ← Game Jom Bina Masjid (Feqah)
+│   ├── feqah/
+│   │   └── index.html    ← Game Jom Bina Masjid (Feqah)
+│   └── tauhid/
+│       └── index.html    ← Game Kembara Lautan Iman (Tauhid)
 ├── tahun4/index.html
 ├── tahun5/index.html
 └── tahun6/index.html

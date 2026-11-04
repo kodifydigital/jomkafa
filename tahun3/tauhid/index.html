@@ -1,0 +1,1227 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kembara Lautan Iman • Tauhid Tahun 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Noto+Naskh+Arabic:wght@500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#E6F5FA; --surface:#FFFFFF; --ink:#12303D; --muted:#4F6B78; --line:#CDE4EC;
+  --brand:#0E7C9B; --brand-ink:#FFFFFF; --brand-shadow:#095A71; --gold:#E8A317; --coral:#F06A5B;
+  --ok:#1F8A50; --ok-bg:#DDF3E5; --bad:#C8452F; --bad-bg:#FBE1DC; --note:#FFF4D6;
+  --pattern:rgba(14,124,155,.10);
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#071A2B; --surface:#0F2A40; --ink:#E6F3F8; --muted:#A3C1CE; --line:#1F4560;
+    --brand:#3CC3E6; --brand-ink:#04202B; --brand-shadow:#1E8AA8; --gold:#F2C14E; --coral:#FF8A7A;
+    --ok:#2E9E5B; --ok-bg:#173F2B; --bad:#E0634E; --bad-bg:#4A2420; --note:#33301A;
+    --pattern:rgba(60,195,230,.08);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#071A2B; --surface:#0F2A40; --ink:#E6F3F8; --muted:#A3C1CE; --line:#1F4560;
+  --brand:#3CC3E6; --brand-ink:#04202B; --brand-shadow:#1E8AA8; --gold:#F2C14E; --coral:#FF8A7A;
+  --ok:#2E9E5B; --ok-bg:#173F2B; --bad:#E0634E; --bad-bg:#4A2420; --note:#33301A;
+  --pattern:rgba(60,195,230,.08);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100vh;background-color:var(--bg);color:var(--ink);font-family:"Baloo 2","Trebuchet MS","Segoe UI",system-ui,sans-serif;font-size:18px;line-height:1.45;
+  background-image:radial-gradient(circle at 50% 50%,var(--pattern) 3px,transparent 3.5px),radial-gradient(circle at 50% 50%,var(--pattern) 1.5px,transparent 2px);background-size:46px 46px,23px 23px;background-position:0 0,11px 17px}
+.wrap{max-width:720px;margin:0 auto;padding:12px 16px 44px}
+button{font:inherit;cursor:pointer;color:inherit}
+button:disabled{cursor:default}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+svg{max-width:100%}
+.ar{font-family:"Amiri","Noto Naskh Arabic",serif;font-weight:400;line-height:1.9}
+
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:44px}
+a.iconbtn{text-decoration:none;color:inherit}
+.iconbtn{background:var(--surface);border:2px solid var(--line);border-radius:999px;width:44px;height:44px;font-size:20px;display:grid;place-items:center;flex:none;padding:0}
+.pillstat{display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:3px 12px 3px 8px;font-weight:800;font-size:17px}
+.pearl{width:20px;height:20px;flex:none}
+.stats{display:flex;gap:8px;flex-wrap:wrap}
+.langbtn{border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 14px;font-weight:800;font-size:16px;min-height:44px}
+.langbtn .ar{font-family:"Noto Naskh Arabic","Amiri",serif}
+
+.hero{text-align:center;padding:8px 0 2px}
+.hero .sub{display:inline-block;background:var(--brand);color:var(--brand-ink);border-radius:999px;padding:2px 14px;font-weight:700;font-size:15px}
+.hero h1{margin:8px 0 0;font-size:clamp(32px,8.6vw,50px);line-height:1.02;font-weight:800;color:var(--brand)}
+.hero p{margin:6px auto 0;color:var(--muted);max-width:470px}
+
+/* ===== Lautan (peta) ===== */
+.ocean{position:relative;margin:16px auto 0;max-width:540px;border-radius:30px;overflow:hidden;border:2px solid var(--line);
+  background:linear-gradient(180deg,#9BE3F5 0%,#4FB9DF 9%,#1E86BC 30%,#14578F 55%,#0B2F5E 78%,#061632 100%)}
+.ocean svg.route{position:absolute;inset:0;width:100%;height:100%}
+.ocean .ray{position:absolute;top:60px;width:70px;height:520px;background:linear-gradient(180deg,rgba(255,255,255,.28),transparent);transform-origin:top;filter:blur(2px);animation:ray 6s ease-in-out infinite;pointer-events:none}
+@keyframes ray{50%{opacity:.35}}
+.ocean .bub{position:absolute;bottom:-20px;width:var(--s);height:var(--s);border-radius:50%;border:2px solid rgba(255,255,255,.6);background:rgba(255,255,255,.12);animation:rise var(--t) linear infinite;animation-delay:var(--d);pointer-events:none}
+@keyframes rise{from{transform:translateY(0)}to{transform:translateY(calc(-1 * var(--h)))}}
+.ocean .swim{position:absolute;font-size:26px;animation:swimx var(--t) linear infinite;animation-delay:var(--d);pointer-events:none}
+@keyframes swimx{from{left:-12%}to{left:108%}}
+.ocean .swim.l{animation-name:swiml}
+@keyframes swiml{from{left:108%}to{left:-12%}}
+.ocean .ship{position:absolute;left:50%;top:6px;width:120px;transform:translateX(-50%);animation:shipbob 3s ease-in-out infinite}
+@keyframes shipbob{50%{transform:translate(-50%,4px) rotate(2deg)}}
+.ocean .waves{position:absolute;left:0;right:0;top:44px;height:30px}
+.ocean .floor{position:absolute;left:0;right:0;bottom:0;height:120px}
+.ocean .depth{position:absolute;transform:translateY(-50%);font-size:12px;font-weight:800;color:rgba(255,255,255,.75);background:rgba(0,0,0,.25);border-radius:999px;padding:0 8px;pointer-events:none}
+.node{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:0;padding:0;width:176px;text-align:center}
+.node .port{position:relative;width:86px;height:86px;border-radius:50%;display:grid;place-items:center;font-size:38px;background:radial-gradient(circle at 35% 30%,color-mix(in srgb,var(--tc) 70%,#fff),var(--tc));box-shadow:0 0 0 6px #C8923C,0 0 0 9px #8A5A24,0 8px 16px rgba(0,0,0,.35);transition:transform .1s}
+.node:active .port{transform:scale(.95)}
+.node .num{position:absolute;top:-10px;right:-10px;background:var(--gold);color:#2A1B00;border-radius:999px;font-size:14px;font-weight:800;min-width:28px;height:28px;display:grid;place-items:center;padding:0 6px;box-shadow:0 2px 0 #9A6A0A}
+.node .gem{position:absolute;bottom:-8px;left:-8px;font-size:24px;animation:gem 2s ease-in-out infinite}
+@keyframes gem{50%{transform:translateY(-3px) rotate(-8deg)}}
+.node .lbl{font-weight:800;font-size:15px;line-height:1.15;margin-top:12px;background:var(--surface);border-radius:14px;padding:4px 10px;border:2px solid var(--line);box-shadow:0 3px 0 rgba(0,0,0,.2)}
+.node .lbl small{display:block;font-size:12.5px;color:var(--muted);font-weight:700}
+.node .st{font-size:14px;letter-spacing:1px;background:rgba(0,0,0,.3);border-radius:999px;padding:0 8px;margin-top:3px}
+.node .st .off{opacity:.3;filter:grayscale(1)}
+.node.locked .port{background:radial-gradient(circle at 35% 30%,#5C7A8A,#2C4352);font-size:30px}
+.node.locked .lbl{opacity:.75}
+.node.current .port{animation:sonar 2s ease-out infinite}
+@keyframes sonar{0%{box-shadow:0 0 0 6px #C8923C,0 0 0 9px #8A5A24,0 0 0 9px rgba(255,255,255,.6)}100%{box-shadow:0 0 0 6px #C8923C,0 0 0 9px #8A5A24,0 0 0 34px rgba(255,255,255,0)}}
+.subm{position:absolute;width:92px;transform:translate(-50%,-50%);pointer-events:none;animation:subbob 2.6s ease-in-out infinite}
+@keyframes subbob{50%{margin-top:-6px}}
+.subm .prop{animation:spin .5s linear infinite;transform-box:fill-box;transform-origin:center}
+@keyframes spin{to{transform:scaleY(-1)}}
+.teacher{display:flex;justify-content:center;margin-top:20px}
+.toggle{display:inline-flex;align-items:center;gap:10px;background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:6px 14px;font-size:16px;font-weight:700}
+.toggle .sw{width:42px;height:24px;border-radius:99px;background:var(--line);position:relative;flex:none;transition:background .2s}
+.toggle .sw::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .2s}
+.toggle[aria-pressed="true"] .sw{background:var(--brand)}
+.toggle[aria-pressed="true"] .sw::after{left:21px}
+.foot{margin-top:16px;color:var(--muted);font-size:15px;text-align:center}
+
+/* ===== Stesen ===== */
+.banner{border-radius:26px;padding:18px 18px 20px;background:linear-gradient(160deg,color-mix(in srgb,var(--tc) 80%,#fff),var(--tc) 60%,color-mix(in srgb,var(--tc) 70%,#000));color:#fff;position:relative;overflow:hidden;box-shadow:0 6px 0 color-mix(in srgb,var(--tc) 55%,#000)}
+.banner .kick{font-weight:700;opacity:.92;font-size:16px}
+.banner h2{margin:0;font-size:clamp(25px,6.4vw,33px);line-height:1.12}
+.banner .big{position:absolute;inset-inline-end:-4px;bottom:-12px;font-size:92px;opacity:.25}
+.banner .stars{margin-top:6px;font-size:20px}
+.banner .stars .off{opacity:.35;filter:grayscale(1)}
+.banner .chip{display:inline-block;margin-top:8px;background:rgba(255,255,255,.22);border-radius:999px;padding:1px 12px;font-weight:700;font-size:15px}
+.banner .bb{position:absolute;border-radius:50%;border:2px solid rgba(255,255,255,.45);animation:rise 5s linear infinite;--h:220px;bottom:-30px}
+.units{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:8px}
+.units li{background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:8px 12px;display:flex;gap:10px;align-items:center;line-height:1.25}
+.units .u{background:var(--tc);color:#fff;border-radius:10px;font-size:13px;font-weight:800;padding:2px 8px;flex:none}
+.actions{display:grid;gap:12px;margin-top:18px}
+.bigbtn{display:flex;align-items:center;gap:14px;width:100%;text-align:start;border:0;border-radius:20px;padding:14px 16px;font-weight:800;font-size:21px;line-height:1.15}
+.bigbtn small{display:block;font-weight:600;font-size:15px;opacity:.9}
+.bigbtn .e{font-size:34px;flex:none}
+.bigbtn.read{background:var(--surface);border:2px solid var(--line);box-shadow:0 4px 0 var(--line)}
+.bigbtn.play{background:var(--brand);color:var(--brand-ink);box-shadow:0 5px 0 var(--brand-shadow)}
+.bigbtn:active{transform:translateY(3px)}
+
+/* ===== Umum ===== */
+.gamehead{display:flex;align-items:center;gap:10px;margin:2px 0 10px}
+.gamehead h2{margin:0;font-size:20px;flex:1;line-height:1.15;color:var(--brand)}
+.gamehead h2 small{display:block;font-size:14px;color:var(--muted);font-weight:600}
+.progress{position:relative;height:14px;background:var(--line);border-radius:99px;overflow:visible;margin:4px 0 16px}
+.progress span{display:block;height:100%;background:linear-gradient(90deg,#3CC3E6,#0E7C9B);border-radius:99px;transition:width .3s}
+.progress i{position:absolute;top:50%;transform:translate(-50%,-50%);font-style:normal;font-size:22px;transition:left .3s}
+html[dir="rtl"] .progress i{transform:translate(50%,-50%) scaleX(-1)}
+.card{background:var(--surface);border:2px solid var(--line);border-radius:24px;padding:18px}
+.page-in{animation:pagein .35s ease}
+@keyframes pagein{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.qmeta{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.qtype{display:inline-block;background:var(--note);border-radius:999px;padding:1px 12px;font-size:14.5px;font-weight:700}
+.tag{display:inline-block;background:var(--gold);color:#2A1B00;border-radius:999px;padding:1px 10px;font-size:13.5px;font-weight:800;margin-inline-start:4px}
+.pill{border:2px solid var(--line);background:var(--bg);border-radius:999px;padding:3px 12px;font-size:15px;font-weight:700}
+.qtext{font-size:clamp(20px,4.8vw,25px);font-weight:700;line-height:1.32;margin:4px 0 14px}
+.hint{color:var(--muted);font-size:15.5px;margin:-6px 0 12px}
+.shake{animation:shake .4s}
+@keyframes shake{20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+@keyframes pop{50%{transform:scale(1.06)}}
+.counter{display:inline-block;background:var(--note);border-radius:999px;padding:0 12px;font-weight:800;font-size:15px}
+
+/* Peti harta */
+.chests{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.chest{display:flex;flex-direction:column;align-items:center;gap:4px;border:2px solid var(--line);background:var(--bg);border-radius:18px;padding:8px 8px 10px;font-weight:700;font-size:16.5px;line-height:1.25;box-shadow:0 4px 0 var(--line)}
+.chest:active{transform:translateY(3px)}
+.chest svg{width:78px;height:62px;overflow:visible}
+.chest .lid{transition:transform .5s cubic-bezier(.3,1.5,.5,1);transform-box:view-box;transform-origin:8px 30px}
+.chest .inside{transition:transform .5s .15s;transform-box:view-box}
+.chest.open .lid{transform:rotate(-38deg)}
+.chest.open .inside{transform:translateY(-22px)}
+.chest .ar{font-size:21px;line-height:1.6}
+.chest.ok{border-color:var(--ok);background:var(--ok-bg)}
+.chest.bad{border-color:var(--bad);background:var(--bad-bg)}
+
+/* Pancing */
+.sea{position:relative;height:290px;border-radius:20px;overflow:hidden;background:linear-gradient(180deg,#7ED6F0,#2386C0 55%,#135A8E);margin-bottom:6px}
+.sea::before{content:"";position:absolute;inset:auto 0 0 0;height:36px;background:radial-gradient(ellipse at 20% 100%,#E9D7A6 30%,transparent 31%),radial-gradient(ellipse at 70% 100%,#E3CC92 35%,transparent 36%),linear-gradient(transparent 60%,#D9C38C 60%)}
+.sea .boat{position:absolute;top:-4px;left:50%;transform:translateX(-50%);font-size:30px}
+.fish{position:absolute;left:-45%;top:var(--y);height:50px;padding:0 18px 0 30px;border:0;border-radius:60% 45% 45% 60% / 50%;background:var(--fc);color:#fff;font-weight:800;font-size:15px;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,.35);box-shadow:inset -8px -6px 0 rgba(0,0,0,.12);animation:swim var(--s) linear infinite;animation-delay:var(--d)}
+.fish::before{content:"";position:absolute;left:-18px;top:50%;transform:translateY(-50%);border:13px solid transparent;border-left:20px solid var(--fc);border-right:0}
+.fish::after{content:"";position:absolute;right:11px;top:14px;width:8px;height:8px;border-radius:50%;background:#fff;box-shadow:inset 2px 1px 0 2px #12303D}
+html[dir="rtl"] .fish{padding:0 30px 0 18px}
+@keyframes swim{from{left:-45%}to{left:104%}}
+.fish.caught{animation-play-state:paused;transition:transform .7s cubic-bezier(.5,-0.4,.6,1),opacity .7s;transform:translateY(-260px) rotate(-25deg);opacity:0;pointer-events:none}
+.fish.nope{background:#7C8C96;--fc:#7C8C96;animation-duration:4s!important;opacity:.75}
+.hookline{position:absolute;top:0;width:2px;background:#fff;opacity:.9;transition:height .25s;pointer-events:none}
+
+/* Timbang */
+.scalebox{position:relative}
+.scalebox svg{display:block;width:100%;height:auto}
+.scalebox .beam{transition:transform .7s cubic-bezier(.3,1.4,.5,1);transform-box:view-box;transform-origin:150px 40px}
+.scalebox .pan{transition:transform .7s cubic-bezier(.3,1.4,.5,1)}
+.weight{display:grid;place-items:center;min-height:74px;margin:0 auto 8px;max-width:420px;text-align:center;background:var(--note);border:3px solid var(--gold);border-radius:16px;padding:8px 12px;font-weight:800;font-size:clamp(18px,4.6vw,22px);line-height:1.25;animation:pagein .3s}
+.weight small{display:block;font-size:13px;color:var(--muted)}
+.weight.dropL{transition:transform .4s ease-in,opacity .4s;transform:translate(-30%,60px) scale(.5);opacity:0}
+.weight.dropR{transition:transform .4s ease-in,opacity .4s;transform:translate(30%,60px) scale(.5);opacity:0}
+.swbtns{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.swbtn{border:0;border-radius:18px;padding:12px 8px;font-size:19px;font-weight:800;color:#fff;line-height:1.15}
+.swbtn span{display:block;font-size:24px}
+.swbtn.s0{background:#0E7C9B;box-shadow:0 5px 0 #095A71}
+.swbtn.s1{background:#D1495B;box-shadow:0 5px 0 #973341}
+.swbtn:active{transform:translateY(3px)}
+.swbtn:disabled{opacity:.45}
+.bins{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.bins div{display:flex;flex-wrap:wrap;gap:5px;align-content:flex-start;justify-content:center}
+.bins i{font-style:normal;background:var(--bg);border:2px solid var(--line);border-radius:10px;padding:0 8px;font-size:13.5px;font-weight:700;animation:pop .3s}
+.bins i.x{border-color:var(--bad)}
+
+/* Teka siapa */
+.clues{list-style:none;margin:0 0 12px;padding:0;display:grid;gap:8px}
+.clues li{display:flex;gap:10px;align-items:center;border-radius:14px;padding:8px 12px;font-weight:700;line-height:1.3}
+.clues li.on{background:var(--note);border:2px solid var(--gold);animation:pagein .4s}
+.clues li.off{border:2px dashed var(--line);color:var(--muted)}
+.clues .n{width:30px;height:30px;border-radius:50%;background:var(--gold);color:#2A1B00;display:grid;place-items:center;font-weight:800;flex:none}
+.clues li.off .n{background:var(--line);color:var(--muted)}
+.cluebtn{display:block;margin:0 auto 14px;border:2px solid var(--brand);color:var(--brand);background:transparent;border-radius:999px;padding:6px 16px;font-weight:800;font-size:16px}
+.cluebtn:disabled{opacity:.4}
+.guesses{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.guess{min-height:58px;border:2px solid var(--line);background:var(--bg);border-radius:16px;padding:8px;font-size:18px;font-weight:800;line-height:1.25;box-shadow:0 4px 0 var(--line)}
+.guess.ok{border-color:var(--ok);background:var(--ok-bg)}
+.guess.bad{border-color:var(--bad);background:var(--bad-bg)}
+.bonus{display:inline-block;background:var(--gold);color:#2A1B00;border-radius:999px;padding:0 10px;font-weight:800;font-size:14px;margin-inline-start:6px}
+
+/* Garis padan */
+.lines{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:12px 40px}
+.lines .col{display:grid;gap:10px;align-content:start}
+.lines svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.lines path{fill:none;stroke-width:5;stroke-linecap:round;stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:draw .45s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.lbtn{position:relative;z-index:1;width:100%;min-height:54px;border:2px solid var(--line);background:var(--bg);border-radius:14px;padding:8px 10px;font-size:16.5px;font-weight:700;line-height:1.2;box-shadow:0 3px 0 var(--line)}
+.lbtn .ar{font-size:20px;line-height:1.5}
+.lbtn.sel{border-color:var(--gold);background:var(--note);outline:3px solid var(--gold);outline-offset:1px}
+.lbtn.done{color:#fff;border-color:transparent;box-shadow:none;animation:pop .3s}
+.lbtn .dot{position:absolute;top:50%;width:12px;height:12px;border-radius:50%;background:var(--line);transform:translateY(-50%)}
+
+/* Susun kalimah */
+.sentence{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;min-height:62px;background:var(--note);border:2px dashed var(--gold);border-radius:16px;padding:10px;margin-bottom:14px}
+.wslot{min-width:56px;border-bottom:3px dashed color-mix(in srgb,var(--gold) 70%,transparent);text-align:center;color:var(--muted)}
+.wslot.f{border-bottom:3px solid var(--ok);color:var(--ink);animation:pop .3s}
+.wslot .ar,.wbub .ar{font-size:24px;line-height:1.6}
+.wbubs{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.wbub{border:2px solid rgba(255,255,255,.7);background:radial-gradient(circle at 30% 30%,#E9FBFF,#8FDCF0 60%,#4FB9DF);color:#0B2F45;border-radius:999px;padding:6px 18px;font-weight:800;font-size:18px;box-shadow:inset -4px -6px 0 rgba(0,0,0,.08),0 4px 0 rgba(14,124,155,.3);animation:wob 3s ease-in-out infinite;animation-delay:var(--d)}
+@keyframes wob{50%{transform:translateY(-5px)}}
+.wbub.shake{animation:shake .4s;background:var(--bad-bg)}
+.wbub.gone{visibility:hidden}
+
+/* Betul / salah */
+.tfbubble{position:relative;margin:4px auto 16px;max-width:460px;text-align:center;background:radial-gradient(circle at 30% 25%,#FFFFFF,#D9F4FB 55%,#A8E3F2);color:#0B2F45;border-radius:40px;padding:22px 20px;font-size:clamp(19px,4.8vw,23px);font-weight:800;line-height:1.35;box-shadow:inset -10px -12px 0 rgba(14,124,155,.12),0 6px 0 rgba(14,124,155,.25);animation:wob 3.4s ease-in-out infinite}
+.tfbubble.popit{animation:burst .45s ease forwards}
+@keyframes burst{40%{transform:scale(1.12)}100%{transform:scale(.9);opacity:.35}}
+.tfrow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tfrow button{border:0;border-radius:18px;padding:12px 8px;font-size:21px;font-weight:800;color:#fff;line-height:1.15}
+.tfrow button span{display:block;font-size:28px}
+.tfrow .yes{background:var(--ok);box-shadow:0 4px 0 color-mix(in srgb,var(--ok) 70%,#000)}
+.tfrow .no{background:var(--bad);box-shadow:0 4px 0 color-mix(in srgb,var(--bad) 70%,#000)}
+.tfrow button:disabled{opacity:.4}
+.tfrow button.picked{opacity:1;outline:3px solid var(--gold);outline-offset:3px}
+
+/* Susun (urutan) */
+.slots{list-style:none;margin:0 0 14px;padding:0;display:grid;gap:7px}
+.slot{display:flex;gap:10px;align-items:center;min-height:46px;border:2px dashed var(--line);border-radius:14px;padding:6px 12px;line-height:1.25}
+.slot .n{width:30px;height:30px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:800;flex:none;font-size:15px}
+.slot.filled{border-style:solid;border-color:var(--ok);background:var(--ok-bg);font-weight:700;animation:pop .3s ease}
+.slot.filled .n{background:var(--ok);color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.chip{border:2px solid var(--line);background:var(--bg);border-radius:999px;padding:7px 16px;font-size:18px;font-weight:700;line-height:1.25;box-shadow:0 3px 0 var(--line)}
+.chip.shake{border-color:var(--bad);background:var(--bad-bg)}
+
+/* ===== Kad bacaan ===== */
+.unitlbl{display:inline-block;background:var(--tc);color:#fff;border-radius:999px;padding:1px 12px;font-weight:800;font-size:14.5px;margin-bottom:6px}
+.readtext{font-size:clamp(19px,4.4vw,22px);font-weight:600;line-height:1.5;margin:0 0 12px}
+.arbox{background:var(--note);border:2px solid var(--gold);border-radius:16px;padding:8px 14px;margin:0 0 10px;text-align:center}
+.arbox .ar{font-size:clamp(21px,5.2vw,27px);display:block}
+.arbox small{display:block;color:var(--muted);font-weight:700;font-size:14px}
+.maksud{font-size:16.5px;color:var(--muted);font-weight:600;margin:-2px 0 12px;font-style:italic}
+.rlist{list-style:none;margin:0 0 12px;padding:0;display:grid;gap:6px;counter-reset:r}
+.rlist li{display:flex;gap:10px;align-items:center;background:var(--bg);border-radius:12px;padding:5px 10px;font-weight:700;line-height:1.3;animation:pagein .4s both;animation-delay:calc(var(--i) * 70ms)}
+.rlist li::before{counter-increment:r;content:counter(r);width:26px;height:26px;border-radius:50%;background:var(--tc);color:#fff;display:grid;place-items:center;font-size:14px;flex:none}
+.tip{background:var(--note);border-radius:16px;padding:8px 12px;margin:0 0 12px;font-weight:600;font-size:17px}
+.tip b{display:block;font-size:15px;color:var(--muted)}
+.ref{margin-top:6px;font-size:14.5px;font-weight:700;color:var(--muted)}
+.navrow{display:grid;grid-template-columns:52px auto 1fr;gap:8px;align-items:center}
+.navrow .secondary,.navrow .primary{margin:0;padding:11px 6px;font-size:18px}
+.navrow .secondary:disabled{opacity:.35}
+.dots{display:flex;justify-content:center;gap:6px;margin-top:12px;flex-wrap:wrap}
+.dots i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--brand);width:22px;border-radius:99px}
+.scene{border-radius:18px;overflow:hidden;aspect-ratio:2/1;margin:0 0 12px;position:relative}
+.scene svg{display:block;width:100%;height:100%}
+.seaweed{animation:sway 4s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes sway{50%{transform:rotate(6deg)}}
+.fishgo{animation:fishgo 12s linear infinite}
+@keyframes fishgo{from{transform:translateX(-80px)}to{transform:translateX(400px)}}
+.bubup{animation:bubup 4s linear infinite}
+@keyframes bubup{from{transform:translateY(0);opacity:.9}to{transform:translateY(-190px);opacity:0}}
+.turtle{animation:turt 9s ease-in-out infinite}
+@keyframes turt{0%{transform:translate(-40px,0)}50%{transform:translate(160px,-14px)}100%{transform:translate(-40px,0)}}
+/* Dialog */
+.chat{display:grid;gap:8px;margin:0 0 12px}
+.msg{display:flex;gap:8px;align-items:flex-end;animation:msgin .45s both;animation-delay:var(--d)}
+.msg .who{font-size:30px;line-height:1;flex:none}
+.msg .b{background:var(--bg);border:2px solid var(--line);border-radius:18px 18px 18px 4px;padding:6px 12px;font-weight:600;line-height:1.35;max-width:82%}
+html[dir="rtl"] .msg .b{border-radius:18px 18px 4px 18px}
+.msg .b small{display:block;font-size:12.5px;font-weight:800;color:var(--muted)}
+.msg.r{flex-direction:row-reverse}
+.msg.r .b{background:color-mix(in srgb,var(--tc) 16%,var(--surface));border-color:color-mix(in srgb,var(--tc) 40%,var(--line));border-radius:18px 18px 4px 18px}
+html[dir="rtl"] .msg.r .b{border-radius:18px 18px 18px 4px}
+@keyframes msgin{from{opacity:0;transform:translateY(10px) scale(.95)}}
+/* 25 rasul */
+.r25{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:0 0 12px}
+.r25 span{display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 30% 30%,#E9FBFF,#8FDCF0 60%,#3BAFD6);color:#0B2F45;font-weight:800;font-size:12.5px;line-height:1.05;text-align:center;animation:popin .4s both;animation-delay:calc(var(--i) * 70ms);box-shadow:0 3px 0 rgba(14,124,155,.35)}
+.r25 span b{font-size:11px;opacity:.7}
+.r25 span.hl{background:radial-gradient(circle at 30% 30%,#FFF6D8,#F6D27A 60%,#E8A317)}
+@keyframes popin{from{opacity:0;transform:scale(.3)}70%{transform:scale(1.1)}}
+html[dir="rtl"] .r25 span{font-size:13px}
+/* Kerang ulul azmi */
+.clam{position:relative;margin:0 0 12px;text-align:center}
+.clam svg{width:100%;max-width:340px;height:auto}
+.clam .top{animation:clamopen 1s .2s both;transform-box:view-box;transform-origin:40px 120px}
+@keyframes clamopen{from{transform:rotate(0)}to{transform:rotate(-32deg)}}
+.clam .pr{animation:popin .5s both}
+/* Kad sifat (kerang berpusing) */
+.flipgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:0 0 12px;perspective:900px}
+.flip{position:relative;height:150px}
+.flip.big{height:200px;max-width:320px;margin:0 auto 12px}
+.flip .in{position:absolute;inset:0;transform-style:preserve-3d;animation:flipy 7s ease-in-out infinite;animation-delay:var(--d)}
+@keyframes flipy{0%,38%{transform:rotateY(0)}50%,88%{transform:rotateY(180deg)}100%{transform:rotateY(360deg)}}
+.flip .f,.flip .k{position:absolute;inset:0;border-radius:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;padding:8px;text-align:center;font-weight:800;line-height:1.2}
+.flip .f{background:radial-gradient(circle at 30% 25%,#FFF6D8,#F6D27A 55%,#D9951A);color:#3A2600}
+.flip .k{transform:rotateY(180deg);background:radial-gradient(circle at 30% 25%,#D7E2EA,#8DA3B3 55%,#5A7284);color:#14232E}
+.flip .t{font-size:12.5px;text-transform:uppercase;letter-spacing:.5px;opacity:.8;margin-bottom:10px;line-height:1.2}
+.flip .a{font-family:"Amiri",serif;font-size:30px;line-height:1.3;font-weight:700}
+.flip.big .a{font-size:44px}
+.flip .n{font-size:17px}
+.flip .e{font-size:15px;font-weight:700;opacity:.85}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 12px}
+.cmp div{border-radius:16px;padding:10px;background:var(--bg);border:2px solid var(--line)}
+.cmp h3{margin:0 0 6px;font-size:18px;text-align:center;color:var(--tc)}
+.cmp ul{margin:0;padding-inline-start:18px;font-weight:600;font-size:16px;line-height:1.35}
+.khatam{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;align-items:center;margin:4px 0 12px}
+.khatam i{width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff,#9FD9EA);animation:popin .3s both;animation-delay:calc(var(--i) * 80ms)}
+.khatam b{display:flex;flex-direction:column;align-items:center;font-size:13px;color:var(--muted);animation:popin .6s both;animation-delay:2.1s}
+.khatam b span{width:48px;height:48px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#FFF6D8,#F6D27A 55%,#E8A317);box-shadow:0 0 0 0 rgba(232,163,23,.6);animation:halo 1.8s 2.6s ease-out infinite}
+@keyframes halo{to{box-shadow:0 0 0 18px rgba(232,163,23,0)}}
+
+/* Maklum balas & keputusan */
+.feedback{display:flex;gap:12px;align-items:center;margin-top:16px;padding:12px 14px;border-radius:18px;background:var(--note);font-size:17px;line-height:1.4}
+.feedback .mascot{width:80px}
+.feedback strong{display:block;font-size:21px}
+.streak{display:inline-block;background:var(--gold);color:#3A2600;border-radius:999px;padding:0 10px;font-weight:800;font-size:15px;margin:2px 0 4px}
+.primary{display:block;width:100%;margin-top:14px;border:0;border-radius:16px;padding:13px;background:var(--brand);color:var(--brand-ink);font-size:20px;font-weight:800;box-shadow:0 4px 0 var(--brand-shadow)}
+.primary:active{transform:translateY(3px);box-shadow:0 1px 0 var(--brand-shadow)}
+.secondary{display:block;width:100%;margin-top:12px;border:2px solid var(--line);background:transparent;border-radius:16px;padding:11px;font-size:18px;font-weight:700}
+.result{text-align:center}
+.result .mascot{width:130px;margin:0 auto}
+.result .stars{font-size:54px;letter-spacing:6px;line-height:1.1;margin:4px 0}
+.result .stars .off{filter:grayscale(1);opacity:.25}
+.result h2{margin:4px 0 2px;font-size:32px;color:var(--brand)}
+.result p{margin:0 0 6px;color:var(--muted)}
+.unlock{display:inline-block;margin:8px 0 0;background:var(--note);border:2px solid var(--gold);border-radius:999px;padding:3px 14px;font-weight:800}
+.earned{display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:20px;margin:4px 0}
+.rain{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:50}
+.rain span{position:absolute;bottom:-50px;font-size:28px;animation:float linear forwards}
+@keyframes float{to{transform:translateY(-120vh) rotate(40deg)}}
+.sparkle{position:fixed;pointer-events:none;font-size:26px;z-index:40;animation:spark .8s ease-out forwards}
+@keyframes spark{to{transform:translateY(-44px) scale(1.4);opacity:0}}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:18px;font-weight:700;z-index:60;max-width:92vw;text-align:center}
+.mascot{display:block;height:auto;flex:none}
+.mascot.happy{animation:hop .45s ease 2}
+.mascot.sad{animation:tilt .9s ease}
+@keyframes hop{50%{transform:translateY(-10px)}}
+@keyframes tilt{30%{transform:rotate(-8deg)}70%{transform:rotate(4deg)}}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rain,.ocean .bub,.ocean .swim{display:none}
+  .sea{height:auto;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:44px 10px 46px}
+  .fish{position:relative;left:auto!important;top:auto}
+  .fish.caught{opacity:.25}
+  .flip .in{transform:none}
+}
+html[dir="rtl"] body{font-family:"Noto Naskh Arabic","Amiri","Baloo 2",serif;font-size:20px;line-height:1.8}
+html[dir="rtl"] .qtext,html[dir="rtl"] .readtext{line-height:1.85}
+html[dir="rtl"] .hero h1{font-weight:700;line-height:1.35}
+html[dir="rtl"] .banner h2{line-height:1.5}
+html[dir="rtl"] .node .lbl{font-size:15.5px;line-height:1.5}
+html[dir="rtl"] .chest,html[dir="rtl"] .guess,html[dir="rtl"] .lbtn,html[dir="rtl"] .chip,html[dir="rtl"] .tfbubble,html[dir="rtl"] .weight{line-height:1.6}
+@media (max-width:400px){
+  .node{width:150px}
+  .node .port{width:74px;height:74px;font-size:32px}
+  .lines{gap:10px 26px}
+  .lbtn{font-size:15px}
+  .chest{font-size:15px}
+}
+</style>
+</head>
+<body>
+<main class="wrap" id="app"></main>
+
+<script>
+/* ============ KANDUNGAN (berdasarkan Buku Teks JAIS Tauhid Tahun 3) ============
+   Teks Melayu ditulis sebagai [Rumi, Jawi]. Teks Arab ditulis sebagai rentetan biasa.
+   Jenis soalan:
+   chest : peti harta (pilih jawapan), a[0] betul
+   tf    : gelembung betul/salah, ans = true|false
+   fish  : pancing ikan yang betul, items = [teks, true|false]
+   scale : timbang ke kiri/kanan, l = dua label, items = [teks, 0|1]
+   clue  : teka siapa, clues = 3 petunjuk, a[0] betul (kurang petunjuk = lebih mutiara)
+   lines : garis padan, pairs = [[kiri, kanan], ...]
+   words : susun kalimah, words ikut urutan betul
+   order : susun ikut urutan (items ikut urutan betul)
+   p = muka surat buku teks. */
+
+const SIFAT = {
+  qudrah:{w:["Qudrah","قدرة"],wa:"قُدْرَةٌ",we:["Berkuasa","برکواس"],m:["'Ajz","عجز"],ma:"عَجْزٌ",me:["Lemah","لمه"]},
+  iradah:{w:["Iradah","ارادة"],wa:"إِرَادَةٌ",we:["Berkehendak","برکهندق"],m:["Karahah","کراهة"],ma:"كَرَاهَةٌ",me:["Terpaksa","ترڤقسا"]},
+  ilm:   {w:["'Ilm","علم"],wa:"عِلْمٌ",we:["Mengetahui","مڠتاهوءي"],m:["Jahl","جهل"],ma:"جَهْلٌ",me:["Dungu","دوڠو"]},
+  hayah: {w:["Hayah","حياة"],wa:"حَيَاةٌ",we:["Hidup","هيدوڤ"],m:["Mawt","موت"],ma:"مَوْتٌ",me:["Mati","ماتي"]},
+  sam:   {w:["Sam'","سمع"],wa:"سَمْعٌ",we:["Mendengar","مندڠر"],m:["Summ","صم"],ma:"صُمٌّ",me:["Pekak","ڤکق"]},
+  basar: {w:["Basar","بصر"],wa:"بَصَرٌ",we:["Melihat","مليهت"],m:["'Umyu","عمي"],ma:"عُمْيٌ",me:["Buta","بوتا"]},
+  kalam: {w:["Kalam","کلام"],wa:"كَلَامٌ",we:["Berkata-kata","برکات٢"],m:["Bukm","بکم"],ma:"بُكْمٌ",me:["Bisu","بيسو"]}
+};
+const S = k => SIFAT[k].w, SM = k => SIFAT[k].m;
+const RASUL = [["Adam","آدم"],["Idris","ادريس"],["Nuh","نوح"],["Hud","هود"],["Saleh","صالح"],["Ibrahim","ابراهيم"],["Lut","لوط"],["Ismail","اسماعيل"],["Ishak","اسحاق"],["Yaakub","يعقوب"],["Yusuf","يوسف"],["Ayub","ايوب"],["Syuaib","شعيب"],["Musa","موسى"],["Harun","هارون"],["Zulkifli","ذوالکفل"],["Daud","داود"],["Sulaiman","سليمان"],["Ilyas","الياس"],["Ilyasa'","اليسع"],["Yunus","يونس"],["Zakaria","زکريا"],["Yahya","يحيى"],["Isa","عيسى"],["Muhammad","محمد"]];
+const N = i => [`Nabi ${RASUL[i][0]}`,`نبي ${RASUL[i][1]}`];
+const ULUL = [2,5,13,23,24];
+const YA = [["Betul","بتول"],["Salah","ساله"]];
+
+const LESSONS = [
+{
+  id:1, title:["Beriman kepada Rasul","برايمان کڤد رسول"], icon:"📜", color:"#1F8FB0", pages:"1–4",
+  zone:["Teluk Cetek","تلوق چيتيق"], depth:10,
+  units:[["Pengertian beriman kepada rasul","ڤڠرتين برايمان کڤد رسول"],["Hukum beriman kepada rasul","حکوم برايمان کڤد رسول"],["Dalil naqli: al-Baqarah ayat 285","دليل نقلي: البقرة اية 285"]],
+  cards:[
+    {u:["Jom berbual!","جوم بربوال!"],p:2,chat:[["👳",["Ustaz","استاذ"],["Ahmad, apakah rukun iman keempat?","احمد، اڤاکه رکن ايمان کامڤت؟"]],["👦",["Ahmad","احمد"],["Rukun iman keempat ialah beriman kepada rasul.","رکن ايمان کامڤت اياله برايمان کڤد رسول."]],["👳",["Ustaz","استاذ"],["Bagus, Ahmad.","باڬوس، احمد."]],["👦",["Ahmad","احمد"],["Ustaz, apakah erti beriman kepada rasul?","استاذ، اڤاکه ارتي برايمان کڤد رسول؟"]],["👳",["Ustaz","استاذ"],["Percaya bahawa rasul ialah lelaki mulia yang diutus Allah SWT untuk menyampaikan wahyu kepada manusia dan jin.","ڤرچاي بهاوا رسول اياله للاکي موليا يڠ دأوتوس الله ﷻ اونتوق مڽمڤايکن وحي کڤد منوسيا دان جن."]]]},
+    {u:["Pengertian","ڤڠرتين"],sc:"ocean",p:3,t:["Beriman kepada rasul ialah percaya bahawa rasul adalah seorang lelaki yang mulia dan diutus Allah SWT untuk menyampaikan wahyu kepada umat manusia dan jin.","برايمان کڤد رسول اياله ڤرچاي بهاوا رسول اداله سأورڠ للاکي يڠ موليا دان دأوتوس الله ﷻ اونتوق مڽمڤايکن وحي کڤد امة منوسيا دان جن."]},
+    {u:["Hukum","حکوم"],p:3,list:[["Percaya kepada rasul ialah rukun iman yang keempat.","ڤرچاي کڤد رسول اياله رکن ايمان يڠ کامڤت."],["Pengutusan Rasulullah SAW mesti diimani.","ڤڠوتوسن رسول الله ﷺ مستي دايماني."],["Sesiapa yang tidak beriman kepada rasul adalah kafir.","سسياڤ يڠ تيدق برايمان کڤد رسول اداله کافر."]]},
+    {u:["Dalil naqli","دليل نقلي"],p:3,ar:"ءَامَنَ ٱلرَّسُولُ بِمَآ أُنزِلَ إِلَيْهِ مِن رَّبِّهِۦ وَٱلْمُؤْمِنُونَ ۚ كُلٌّ ءَامَنَ بِٱللَّهِ وَمَلَـٰٓئِكَتِهِۦ وَكُتُبِهِۦ وَرُسُلِهِۦ",src:["Surah al-Baqarah: 285","سورة البقرة: 285"],t:["Maksudnya: Rasulullah telah beriman kepada apa yang diturunkan kepadanya dari Tuhannya, dan juga orang-orang yang beriman; semuanya beriman kepada Allah, malaikat-malaikat-Nya, kitab-kitab-Nya dan rasul-rasul-Nya.","مقصودڽ: رسول الله تله برايمان کڤد اڤ يڠ دتورونکن کڤداڽ دري توهنڽ، دان جوڬ اورڠ٢ يڠ برايمان؛ سمواڽ برايمان کڤد الله، ملائکة٢ڽ، کتاب٢ڽ دان رسول٢ڽ."]},
+    {u:["Tahukah anda?","تاهوکه اندا؟"],sc:"ocean",p:4,t:["Antara keistimewaan Nabi Sulaiman a.s. ialah boleh berkomunikasi dengan haiwan.","انتارا کإيستيميواٴن نبي سليمان عليه السلام اياله بوليه برکومونيکاسي دڠن حيوان."],tip:["Amalkan: Perbanyakkan selawat untuk mendapat syafaat Rasulullah SAW.","عملکن: ڤربڽقکن صلوات اونتوق منداڤت شفاعة رسول الله ﷺ."]}
+  ],
+  qs:[
+    {type:"chest",q:["Beriman kepada rasul ialah rukun iman yang ke…","برايمان کڤد رسول اياله رکن ايمان يڠ ک…"],a:[["Empat","امڤت"],["Satu","ساتو"],["Dua","دوا"],["Enam","انم"]],e:["Beriman kepada rasul ialah rukun iman yang keempat.","برايمان کڤد رسول اياله رکن ايمان يڠ کامڤت."],p:3},
+    {type:"chest",q:["Rasul diutus untuk menyampaikan wahyu kepada…","رسول دأوتوس اونتوق مڽمڤايکن وحي کڤد…"],a:[["Manusia dan jin","منوسيا دان جن"],["Malaikat sahaja","ملائکة سهاج"],["Haiwan sahaja","حيوان سهاج"],["Dirinya sahaja","ديريڽ سهاج"]],e:["Rasul menyampaikan wahyu kepada umat manusia dan jin.","رسول مڽمڤايکن وحي کڤد امة منوسيا دان جن."],p:3},
+    {type:"tf",q:["Sesiapa yang tidak beriman kepada rasul adalah kafir.","سسياڤ يڠ تيدق برايمان کڤد رسول اداله کافر."],ans:true,e:["Betul. Ini hukum beriman kepada rasul.","بتول. اين حکوم برايمان کڤد رسول."],p:3},
+    {type:"fish",q:["Pancing perkara yang diimani dalam ayat 285 Surah al-Baqarah!","ڤنچيڠ ڤرکارا يڠ دايماني دالم اية 285 سورة البقرة!"],items:[[["Allah","الله"],true],[["Malaikat","ملائکة"],true],[["Kitab","کتاب"],true],[["Rasul","رسول"],true],[["Harta","هرتا"],false],[["Bintang","بينتڠ"],false],[["Permainan","ڤرماٴينن"],false]],e:["Ayat ini menyebut beriman kepada Allah, malaikat, kitab dan rasul.","اية اين مڽبوت برايمان کڤد الله، ملائکة، کتاب دان رسول."],p:3},
+    {type:"words",q:["Susun kalimah dalil ini dengan betul.","سوسون کليمه دليل اين دڠن بتول."],words:["ءَامَنَ","ٱلرَّسُولُ","بِمَآ","أُنزِلَ","إِلَيْهِ","مِن رَّبِّهِۦ"],e:["Surah al-Baqarah ayat 285: “Rasulullah telah beriman kepada apa yang diturunkan kepadanya dari Tuhannya…”","سورة البقرة اية 285: “رسول الله تله برايمان کڤد اڤ يڠ دتورونکن کڤداڽ دري توهنڽ…”"],p:3},
+    {type:"chest",q:["Dalil naqli beriman kepada rasul terdapat dalam…","دليل نقلي برايمان کڤد رسول ترداڤت دالم…"],a:[["Surah al-Baqarah ayat 285","سورة البقرة اية 285"],["Surah al-Fatihah ayat 1","سورة الفاتحة اية 1"],["Surah al-Ikhlas ayat 1","سورة الإخلاص اية 1"],["Surah an-Nas ayat 6","سورة الناس اية 6"]],e:["Dalilnya Surah al-Baqarah ayat 285.","دليلڽ سورة البقرة اية 285."],p:3},
+    {type:"order",q:["Susun ikut ayat 285: beriman kepada…","سوسون ايکوت اية 285: برايمان کڤد…"],items:[["Allah","الله"],["Malaikat","ملائکة"],["Kitab","کتاب"],["Rasul","رسول"]],e:["Allah, malaikat-malaikat-Nya, kitab-kitab-Nya dan rasul-rasul-Nya.","الله، ملائکة٢ڽ، کتاب٢ڽ دان رسول٢ڽ."],p:3},
+    {type:"clue",q:["Teka siapa saya?","تيک سياڤ ساي؟"],clues:[["Saya salah seorang daripada 25 rasul.","ساي ساله سأورڠ درڤد 25 رسول."],["Dalam senarai, nama saya selepas Nabi Daud.","دالم سناراي، نام ساي سلڤس نبي داود."],["Saya boleh berkomunikasi dengan haiwan.","ساي بوليه برکومونيکاسي دڠن حيوان."]],a:[N(17),N(16),N(13),N(0)],e:["Nabi Sulaiman a.s. boleh berkomunikasi dengan haiwan.","نبي سليمان عليه السلام بوليه برکومونيکاسي دڠن حيوان."],p:4},
+    {type:"tf",q:["Rasul ialah seorang lelaki yang mulia.","رسول اياله سأورڠ للاکي يڠ موليا."],ans:true,e:["Betul. Rasul ialah lelaki mulia yang diutus Allah SWT.","بتول. رسول اياله للاکي موليا يڠ دأوتوس الله ﷻ."],p:3},
+    {type:"lines",q:["Lukis garis untuk memadankan.","لوکيس ڬاريس اونتوق ممادنکن."],pairs:[[["Rukun iman keempat","رکن ايمان کامڤت"],["Beriman kepada rasul","برايمان کڤد رسول"]],[["Tidak beriman kepada rasul","تيدق برايمان کڤد رسول"],["Kafir","کافر"]],[["Ayat 285","اية 285"],["Surah al-Baqarah","سورة البقرة"]],[["Rasul","رسول"],["Menyampaikan wahyu","مڽمڤايکن وحي"]]],e:["Semua padanan ini ada dalam buku teks ms. 3.","سموا ڤادنن اين اد دالم بوکو تيکس م.س. 3."],p:3},
+    {type:"chest",q:["Amalan untuk mendapat syafaat Rasulullah SAW ialah…","عملن اونتوق منداڤت شفاعة رسول الله ﷺ اياله…"],a:[["Memperbanyakkan selawat","ممڤربڽقکن صلوات"],["Tidur awal","تيدور اول"],["Bermain sepanjang hari","برماٴين سڤنجڠ هاري"],["Makan banyak","ماکن باڽق"]],e:["Perbanyakkan selawat untuk mendapat syafaat Rasulullah SAW.","ڤربڽقکن صلوات اونتوق منداڤت شفاعة رسول الله ﷺ."],p:4}
+  ]
+},
+{
+  id:2, title:["Nabi, Rasul dan 25 Nama Rasul","نبي، رسول دان 25 نام رسول"], icon:"🐋", color:"#2C6FB7", pages:"5–9",
+  zone:["Taman Rumpai Laut","تامن رومڤاي لاءوت"], depth:20,
+  units:[["Pengertian nabi dan rasul","ڤڠرتين نبي دان رسول"],["Perbezaan tugas nabi dan rasul","ڤربيذاٴن توڬس نبي دان رسول"],["25 nama rasul yang wajib diketahui","25 نام رسول يڠ واجب دکتاهوءي"]],
+  cards:[
+    {u:["Jom berbual!","جوم بربوال!"],p:5,chat:[["👧",["Aishah","عائشة"],["Ibu, apakah erti nabi?","ايبو، اڤاکه ارتي نبي؟"]],["👩",["Ibu","ايبو"],["Nabi ialah lelaki merdeka yang dipilih Allah SWT, menerima wahyu untuk diri sendiri dan meneruskan syariat yang sedia ada.","نبي اياله للاکي مرديکا يڠ دڤيليه الله ﷻ، منريما وحي اونتوق ديري سنديري دان منروسکن شريعة يڠ سديا اد."]],["👧",["Aishah","عائشة"],["Apakah pula erti rasul?","اڤاکه ڤولا ارتي رسول؟"]],["👩",["Ibu","ايبو"],["Rasul ialah lelaki merdeka yang dipilih Allah SWT, menerima wahyu dan diperintahkan menyampaikannya kepada umatnya.","رسول اياله للاکي مرديکا يڠ دڤيليه الله ﷻ، منريما وحي دان دڤرينتهکن مڽمڤايکنڽ کڤد امتڽ."]],["👧",["Aishah","عائشة"],["Terima kasih, ibu!","تريما کاسيه، ايبو!"]]]},
+    {u:["Perbezaan nabi dan rasul","ڤربيذاٴن نبي دان رسول"],p:6,cmp:[[["Nabi","نبي"],[["Menerima wahyu daripada Allah SWT","منريما وحي درڤد الله ﷻ"],["Meneruskan syariat sedia ada","منروسکن شريعة سديا اد"]]],[["Rasul","رسول"],[["Menerima wahyu daripada Allah SWT","منريما وحي درڤد الله ﷻ"],["Menyampaikan wahyu kepada manusia dan jin","مڽمڤايکن وحي کڤد منوسيا دان جن"]]]]},
+    {u:["25 rasul yang wajib diketahui","25 رسول يڠ واجب دکتاهوءي"],sc:"r25",p:7,t:["Nama-nama rasul yang disebut dalam al-Quran dan wajib diketahui ada 25 orang. Jom hafaz!","نام٢ رسول يڠ دسبوت دالم القرءان دان واجب دکتاهوءي اد 25 اورڠ. جوم حافظ!"]},
+    {u:["Tahukah anda?","تاهوکه اندا؟"],sc:"ocean",p:9,t:["Setiap mukallaf wajib mengenal sifat yang wajib, mustahil dan harus bagi Allah SWT dan para rasul.","ستياڤ مکلف واجب مڠنل صفة يڠ واجب، مستحيل دان هاروس باڬي الله ﷻ دان ڤارا رسول."],ar:"اَللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ",tip:["Amalkan selawat ke atas Nabi Muhammad SAW.","عملکن صلوات ک اتس نبي محمد ﷺ."]}
+  ],
+  qs:[
+    {type:"scale",q:["Timbang! Ini tugas nabi atau rasul?","تيمبڠ! اين توڬس نبي اتاو رسول؟"],l:[["Nabi","نبي"],["Rasul","رسول"]],items:[[["Meneruskan syariat sedia ada","منروسکن شريعة سديا اد"],0],[["Menyampaikan wahyu kepada umat","مڽمڤايکن وحي کڤد امة"],1],[["Menerima wahyu untuk diri sendiri sahaja","منريما وحي اونتوق ديري سنديري سهاج"],0],[["Diperintahkan menyampaikan wahyu kepada umatnya","دڤرينتهکن مڽمڤايکن وحي کڤد امتڽ"],1]],e:["Nabi meneruskan syariat sedia ada. Rasul menyampaikan wahyu kepada umatnya.","نبي منروسکن شريعة سديا اد. رسول مڽمڤايکن وحي کڤد امتڽ."],p:6},
+    {type:"chest",q:["Berapakah bilangan rasul yang wajib diketahui?","براڤاکه بيلڠن رسول يڠ واجب دکتاهوءي؟"],a:[["25","25"],["10","10"],["5","5"],["100","100"]],e:["Ada 25 orang rasul yang wajib diketahui.","اد 25 اورڠ رسول يڠ واجب دکتاهوءي."],p:7},
+    {type:"order",q:["Susun nama rasul nombor 1 hingga 6.","سوسون نام رسول نومبور 1 هيڠڬ 6."],items:RASUL.slice(0,6),e:["Adam, Idris, Nuh, Hud, Saleh, Ibrahim.","آدم، ادريس، نوح، هود، صالح، ابراهيم."],p:7},
+    {type:"fish",q:["Pancing nama yang ADA dalam senarai 25 rasul!","ڤنچيڠ نام يڠ اد دالم سناراي 25 رسول!"],items:[[RASUL[10],true],[RASUL[11],true],[RASUL[12],true],[RASUL[14],true],[RASUL[15],true],[["Luqman","لقمان"],false],[["Ali","علي"],false],[["Hamzah","حمزة"],false]],e:["Yusuf, Ayub, Syuaib, Harun dan Zulkifli ada dalam senarai. Luqman, Ali dan Hamzah tiada.","يوسف، ايوب، شعيب، هارون دان ذوالکفل اد دالم سناراي. لقمان، علي دان حمزة تياد."],p:7},
+    {type:"tf",q:["Nabi dan rasul sama-sama menerima wahyu daripada Allah SWT.","نبي دان رسول سام٢ منريما وحي درڤد الله ﷻ."],ans:true,e:["Betul. Bezanya, rasul diperintah menyampaikan wahyu kepada umat.","بتول. بيذاڽ، رسول دڤرينته مڽمڤايکن وحي کڤد امة."],p:6},
+    {type:"clue",q:["Teka siapa saya?","تيک سياڤ ساي؟"],clues:[["Saya salah seorang daripada 25 rasul.","ساي ساله سأورڠ درڤد 25 رسول."],["Nama saya selepas Nabi Lut dan sebelum Nabi Ishak.","نام ساي سلڤس نبي لوط دان سبلوم نبي اسحاق."],["Saya rasul yang ke-8 dalam senarai.","ساي رسول يڠ ک-8 دالم سناراي."]],a:[N(7),N(8),N(6),N(9)],e:["Nabi Ismail a.s. ialah rasul ke-8.","نبي اسماعيل عليه السلام اياله رسول ک-8."],p:7},
+    {type:"lines",q:["Padankan nombor dengan nama rasul.","ڤادنکن نومبور دڠن نام رسول."],pairs:[[["Ke-1","ک-1"],RASUL[0]],[["Ke-14","ک-14"],RASUL[13]],[["Ke-21","ک-21"],RASUL[20]],[["Ke-25","ک-25"],RASUL[24]]],e:["1 Adam, 14 Musa, 21 Yunus, 25 Muhammad SAW.","1 آدم، 14 موسى، 21 يونس، 25 محمد ﷺ."],p:8},
+    {type:"order",q:["Susun nama rasul nombor 19 hingga 25.","سوسون نام رسول نومبور 19 هيڠڬ 25."],items:RASUL.slice(18),e:["Ilyas, Ilyasa', Yunus, Zakaria, Yahya, Isa, Muhammad SAW.","الياس، اليسع، يونس، زکريا، يحيى، عيسى، محمد ﷺ."],p:8},
+    {type:"chest",q:["Nabi menerima wahyu untuk…","نبي منريما وحي اونتوق…"],a:[["Diri sendiri dan meneruskan syariat sedia ada","ديري سنديري دان منروسکن شريعة سديا اد"],["Disampaikan kepada semua umat","دسمڤايکن کڤد سموا امة"],["Ditulis dalam buku cerita","دتوليس دالم بوکو چريتا"],["Diberi kepada malaikat","دبري کڤد ملائکة"]],e:["Nabi menerima wahyu untuk diri sendiri dan meneruskan syariat sedia ada.","نبي منريما وحي اونتوق ديري سنديري دان منروسکن شريعة سديا اد."],p:5},
+    {type:"words",q:["Susun selawat ini.","سوسون صلوات اين."],words:["اَللَّهُمَّ","صَلِّ","وَسَلِّمْ","عَلَى مُحَمَّدٍ","وَعَلَى","آلِ مُحَمَّدٍ"],e:["Amalkan selawat ke atas Nabi Muhammad SAW.","عملکن صلوات ک اتس نبي محمد ﷺ."],p:9},
+    {type:"tf",q:["Setiap mukallaf wajib mengenal sifat wajib, mustahil dan harus bagi Allah SWT dan para rasul.","ستياڤ مکلف واجب مڠنل صفة واجب، مستحيل دان هاروس باڬي الله ﷻ دان ڤارا رسول."],ans:true,e:["Betul. Ini fakta Tahukah anda di ms. 9.","بتول. اين فکتا تاهوکه اندا د م.س. 9."],p:9}
+  ]
+},
+{
+  id:3, title:["Rasul Ulul Azmi","رسول اولوالعزم"], icon:"🛡️", color:"#127C7C", pages:"10–12",
+  zone:["Gua Penyu","ڬوا ڤڽو"], depth:30,
+  units:[["Pengertian rasul ulul azmi","ڤڠرتين رسول اولوالعزم"],["Nama-nama rasul ulul azmi","نام٢ رسول اولوالعزم"]],
+  cards:[
+    {u:["Jom berbual!","جوم بربوال!"],p:10,chat:[["👧",["Murid","موريد"],["Ustazah, apakah erti rasul ulul azmi?","استاذه، اڤاکه ارتي رسول اولوالعزم؟"]],["🧕",["Ustazah","استاذه"],["Rasul yang mempunyai kesabaran tinggi dalam menghadapi ujian dan cabaran.","رسول يڠ ممڤوڽاٴي کسابرن تيڠڬي دالم مڠهادڤي اوجين دان چابرن."]],["👧",["Murid","موريد"],["Siapakah mereka?","سياڤاکه مريک؟"]],["🧕",["Ustazah","استاذه"],["Nabi Nuh, Nabi Ibrahim, Nabi Musa, Nabi Isa dan Nabi Muhammad SAW. Semuanya lima orang.","نبي نوح، نبي ابراهيم، نبي موسى، نبي عيسى دان نبي محمد ﷺ. سمواڽ ليم اورڠ."]]]},
+    {u:["Pengertian","ڤڠرتين"],sc:"ocean",p:11,t:["Rasul ulul azmi ialah rasul yang mempunyai kesabaran tinggi dalam menghadapi ujian dan cabaran berat ketika berdakwah kepada umat dan kaum mereka.","رسول اولوالعزم اياله رسول يڠ ممڤوڽاٴي کسابرن تيڠڬي دالم مڠهادڤي اوجين دان چابرن برت کتيک بردعوه کڤد امة دان قوم مريک."]},
+    {u:["Lima rasul ulul azmi","ليم رسول اولوالعزم"],sc:"clam",p:11,list:ULUL.map(N)},
+    {u:["Tahukah anda?","تاهوکه اندا؟"],sc:"ocean",p:12,t:["Nabi Muhammad SAW pernah dibaling dengan batu dan najis oleh orang kafir Quraisy, tetapi baginda tetap sabar.","نبي محمد ﷺ ڤرنه دباليڠ دڠن باتو دان نجس اوليه اورڠ کافر قريش، تتاڤي بڬيندا تتڤ سابر."],tip:["Amalkan: Sabar dan tabah menghadapi ujian serta cabaran dalam kehidupan seharian.","عملکن: سابر دان تابه مڠهادڤي اوجين سرتا چابرن دالم کهيدوڤن سهارين."]}
+  ],
+  qs:[
+    {type:"chest",q:["Rasul ulul azmi ialah rasul yang mempunyai…","رسول اولوالعزم اياله رسول يڠ ممڤوڽاٴي…"],a:[["Kesabaran tinggi menghadapi ujian","کسابرن تيڠڬي مڠهادڤي اوجين"],["Harta yang banyak","هرتا يڠ باڽق"],["Istana yang besar","ايستان يڠ بسر"],["Kapal yang laju","کاڤل يڠ لاجو"]],e:["Ulul azmi: kesabaran tinggi menghadapi ujian dan cabaran.","اولوالعزم: کسابرن تيڠڬي مڠهادڤي اوجين دان چابرن."],p:11},
+    {type:"fish",q:["Pancing rasul ULUL AZMI!","ڤنچيڠ رسول اولوالعزم!"],items:[[RASUL[2],true],[RASUL[5],true],[RASUL[13],true],[RASUL[23],true],[RASUL[24],true],[RASUL[0],false],[RASUL[10],false],[RASUL[17],false]],e:["Ulul azmi: Nuh, Ibrahim, Musa, Isa dan Muhammad SAW.","اولوالعزم: نوح، ابراهيم، موسى، عيسى دان محمد ﷺ."],p:11},
+    {type:"chest",q:["Berapakah bilangan rasul ulul azmi?","براڤاکه بيلڠن رسول اولوالعزم؟"],a:[["5","5"],["25","25"],["4","4"],["7","7"]],e:["Rasul ulul azmi ada lima orang.","رسول اولوالعزم اد ليم اورڠ."],p:10},
+    {type:"order",q:["Susun rasul ulul azmi mengikut buku teks.","سوسون رسول اولوالعزم مڠيکوت بوکو تيکس."],items:ULUL.map(i=>RASUL[i]),e:["Nuh, Ibrahim, Musa, Isa, Muhammad SAW.","نوح، ابراهيم، موسى، عيسى، محمد ﷺ."],p:11},
+    {type:"scale",q:["Timbang! Ulul azmi atau bukan?","تيمبڠ! اولوالعزم اتاو بوکن؟"],l:[["Ulul azmi","اولوالعزم"],["Bukan ulul azmi","بوکن اولوالعزم"]],items:[[N(2),0],[N(20),1],[N(5),0],[N(16),1],[N(23),0],[N(1),1]],e:["Nuh, Ibrahim dan Isa ialah ulul azmi. Yunus, Daud dan Idris bukan.","نوح، ابراهيم دان عيسى اياله اولوالعزم. يونس، داود دان ادريس بوکن."],p:11},
+    {type:"tf",q:["Nabi Adam a.s. ialah salah seorang rasul ulul azmi.","نبي آدم عليه السلام اياله ساله سأورڠ رسول اولوالعزم."],ans:false,e:["Salah. Nabi Adam a.s. tiada dalam senarai lima rasul ulul azmi.","ساله. نبي آدم عليه السلام تياد دالم سناراي ليم رسول اولوالعزم."],p:11},
+    {type:"clue",q:["Teka siapa saya?","تيک سياڤ ساي؟"],clues:[["Saya rasul ulul azmi.","ساي رسول اولوالعزم."],["Saya pernah dibaling batu dan najis oleh kafir Quraisy.","ساي ڤرنه دباليڠ باتو دان نجس اوليه کافر قريش."],["Saya rasul yang ke-25.","ساي رسول يڠ ک-25."]],a:[N(24),N(13),N(2),N(23)],e:["Nabi Muhammad SAW tetap sabar walaupun dibaling batu dan najis.","نبي محمد ﷺ تتڤ سابر والاوڤون دباليڠ باتو دان نجس."],p:12},
+    {type:"lines",q:["Padankan nombor dengan rasul ulul azmi.","ڤادنکن نومبور دڠن رسول اولوالعزم."],pairs:[[["Ke-3","ک-3"],RASUL[2]],[["Ke-6","ک-6"],RASUL[5]],[["Ke-14","ک-14"],RASUL[13]],[["Ke-24","ک-24"],RASUL[23]]],e:["Nuh ke-3, Ibrahim ke-6, Musa ke-14, Isa ke-24.","نوح ک-3، ابراهيم ک-6، موسى ک-14، عيسى ک-24."],p:7},
+    {type:"tf",q:["Nabi Muhammad SAW pernah dibaling batu dan najis oleh kafir Quraisy.","نبي محمد ﷺ ڤرنه دباليڠ باتو دان نجس اوليه کافر قريش."],ans:true,e:["Betul. Baginda tetap sabar dan tabah.","بتول. بڬيندا تتڤ سابر دان تابه."],p:12},
+    {type:"chest",q:["Apakah yang boleh kita contohi daripada rasul ulul azmi?","اڤاکه يڠ بوليه کيت چونتوهي درڤد رسول اولوالعزم؟"],a:[["Sabar dan tabah menghadapi ujian","سابر دان تابه مڠهادڤي اوجين"],["Cepat marah","چڤت مراه"],["Mudah putus asa","موده ڤوتوس اسا"],["Suka bergaduh","سوک برڬادوه"]],e:["Amalkan sifat sabar dan tabah dalam kehidupan seharian.","عملکن صفة سابر دان تابه دالم کهيدوڤن سهارين."],p:12}
+  ]
+},
+{
+  id:4, title:["Taat kepada Rasulullah SAW","طاعة کڤد رسول الله ﷺ"], icon:"🤲", color:"#2E8B57", pages:"13–16",
+  zone:["Terumbu Karang","ترومبو کارڠ"], depth:40,
+  units:[["Maksud taat kepada Rasulullah SAW","مقصود طاعة کڤد رسول الله ﷺ"],["Larangan Rasulullah SAW","لارڠن رسول الله ﷺ"],["Sunnah Rasulullah SAW","سنة رسول الله ﷺ"]],
+  cards:[
+    {u:["Jom berbual!","جوم بربوال!"],p:13,chat:[["🧔",["Ayah","ايه"],["Anakku, apakah maksud taat kepada Rasulullah SAW?","انقکو، اڤاکه مقصود طاعة کڤد رسول الله ﷺ؟"]],["🧕",["Anak","انق"],["Mengamalkan segala suruhan baginda dan meninggalkan segala larangannya.","مڠعملکن سڬالا سوروهن بڬيندا دان منيڠڬلکن سڬالا لارڠنڽ."]],["🧔",["Ayah","ايه"],["Apakah contoh larangannya?","اڤاکه چونتوه لارڠنڽ؟"]],["🧕",["Anak","انق"],["Syirik, derhaka kepada ibu bapa, mungkir janji, hasad dengki, berbohong dan khianat.","شيرک، درهاک کڤد ايبو باڤ، موڠکير جنجي، حسد دڠکي، بربوهوڠ دان خيانت."]]]},
+    {u:["Sunnah dalam kehidupan","سنة دالم کهيدوڤن"],p:14,chat:[["🧔",["Ayah","ايه"],["Sebutkan sunnah Rasulullah SAW dalam kehidupan seharian.","سبوتکن سنة رسول الله ﷺ دالم کهيدوڤن سهارين."]],["🧕",["Anak","انق"],["Menghormati orang tua, menjaga kebersihan, memberi salam, makan dan minum dengan tangan kanan serta membaca doa.","مڠحرمتي اورڠ توا، منجاڬ کبرسيهن، ممبري سلام، ماکن دان مينوم دڠن تاڠن کانن سرتا ممباچ دعاء."]],["🧔",["Ayah","ايه"],["Bagus! Setiap pekerjaan baik hendaklah dimulakan dengan Bismillah.","باڬوس! ستياڤ ڤکرجاٴن باءيق هندقله دمولاکن دڠن بسم الله."]]]},
+    {u:["Maksud taat","مقصود طاعة"],p:15,t:["Taat kepada Rasulullah SAW ialah mematuhi suruhan Rasulullah SAW dan meninggalkan larangannya.","طاعة کڤد رسول الله ﷺ اياله ممتوهي سوروهن رسول الله ﷺ دان منيڠڬلکن لارڠنڽ."],ar:"يَـٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوٓا۟ أَطِيعُوا۟ ٱللَّهَ وَأَطِيعُوا۟ ٱلرَّسُولَ وَأُو۟لِى ٱلْأَمْرِ مِنكُمْ",src:["Surah an-Nisa': 59","سورة النساء: 59"],mk:["Maksudnya: Wahai orang yang beriman, taatlah kamu kepada Allah, taatlah kepada Rasulullah dan juga kepada Ulil Amri (orang yang berkuasa) dari kalangan kamu.","مقصودڽ: واهاي اورڠ يڠ برايمان، طاعتله کامو کڤد الله، طاعتله کڤد رسول الله دان جوڬ کڤد اولي الامر (اورڠ يڠ برکواس) دري کالڠن کامو."]},
+    {u:["Amalkan","عملکن"],sc:"ocean",p:16,list:[["Menunaikan solat secara berjemaah","منونايکن صلاة سچارا برجماعه"],["Menghidupkan sunnah Rasulullah SAW dalam kehidupan seharian","مڠهيدوڤکن سنة رسول الله ﷺ دالم کهيدوڤن سهارين"]]}
+  ],
+  qs:[
+    {type:"scale",q:["Timbang! Suruhan atau larangan Rasulullah SAW?","تيمبڠ! سوروهن اتاو لارڠن رسول الله ﷺ؟"],l:[["Suruhan","سوروهن"],["Larangan","لارڠن"]],items:[[["Memberi salam","ممبري سلام"],0],[["Berbohong","بربوهوڠ"],1],[["Makan dengan tangan kanan","ماکن دڠن تاڠن کانن"],0],[["Mungkir janji","موڠکير جنجي"],1],[["Menjaga kebersihan","منجاڬ کبرسيهن"],0],[["Hasad dengki","حسد دڠکي"],1]],e:["Taat bermaksud buat suruhan dan tinggalkan larangan.","طاعة برمقصود بوات سوروهن دان تيڠڬلکن لارڠن."],p:13},
+    {type:"fish",q:["Pancing SUNNAH Rasulullah SAW!","ڤنچيڠ سنة رسول الله ﷺ!"],items:[[["Menghormati orang tua","مڠحرمتي اورڠ توا"],true],[["Memberi salam","ممبري سلام"],true],[["Makan dengan tangan kanan","ماکن دڠن تاڠن کانن"],true],[["Membaca doa","ممباچ دعاء"],true],[["Berbohong","بربوهوڠ"],false],[["Khianat","خيانت"],false],[["Syirik","شيرک"],false]],e:["Sunnah: hormat orang tua, beri salam, tangan kanan dan baca doa.","سنة: حرمت اورڠ توا، بري سلام، تاڠن کانن دان باچ دعاء."],p:14},
+    {type:"chest",q:["Taat kepada Rasulullah SAW bermaksud…","طاعة کڤد رسول الله ﷺ برمقصود…"],a:[["Mematuhi suruhan dan meninggalkan larangannya","ممتوهي سوروهن دان منيڠڬلکن لارڠنڽ"],["Mengikut kawan","مڠيکوت کاون"],["Buat apa sahaja yang kita suka","بوات اڤ سهاج يڠ کيت سوک"],["Hanya pada hari Jumaat","هاڽ ڤد هاري جمعة"]],e:["Taat ialah mematuhi suruhan dan meninggalkan larangannya.","طاعة اياله ممتوهي سوروهن دان منيڠڬلکن لارڠنڽ."],p:15},
+    {type:"chest",q:["Setiap pekerjaan yang baik hendaklah dimulakan dengan…","ستياڤ ڤکرجاٴن يڠ باءيق هندقله دمولاکن دڠن…"],a:["بِسْمِ اللَّهِ","اَلْحَمْدُ لِلَّهِ","أَسْتَغْفِرُ اللَّهَ","سُبْحَانَ اللَّهِ"],e:["Mulakan pekerjaan yang baik dengan Bismillah.","مولاکن ڤکرجاٴن يڠ باءيق دڠن بسم الله."],p:14},
+    {type:"words",q:["Susun kalimah dalil taat ini.","سوسون کليمه دليل طاعة اين."],words:["يَـٰٓأَيُّهَا","ٱلَّذِينَ ءَامَنُوٓا۟","أَطِيعُوا۟ ٱللَّهَ","وَأَطِيعُوا۟ ٱلرَّسُولَ","وَأُو۟لِى ٱلْأَمْرِ مِنكُمْ"],e:["Surah an-Nisa' ayat 59: taatlah kepada Allah, Rasul dan Ulil Amri.","سورة النساء اية 59: طاعتله کڤد الله، رسول دان اولي الامر."],p:15},
+    {type:"chest",q:["Dalil taat kepada Rasulullah SAW terdapat dalam…","دليل طاعة کڤد رسول الله ﷺ ترداڤت دالم…"],a:[["Surah an-Nisa' ayat 59","سورة النساء اية 59"],["Surah al-Baqarah ayat 285","سورة البقرة اية 285"],["Surah al-Ahzab ayat 40","سورة الاحزاب اية 40"],["Surah al-Fil ayat 1","سورة الفيل اية 1"]],e:["Dalilnya Surah an-Nisa' ayat 59.","دليلڽ سورة النساء اية 59."],p:15},
+    {type:"tf",q:["Mungkir janji ialah perkara yang disuruh oleh Rasulullah SAW.","موڠکير جنجي اياله ڤرکارا يڠ دسوروه اوليه رسول الله ﷺ."],ans:false,e:["Salah. Mungkir janji dilarang oleh Rasulullah SAW.","ساله. موڠکير جنجي دلارڠ اوليه رسول الله ﷺ."],p:13},
+    {type:"lines",q:["Apa yang patut kamu buat? Padankan.","اڤ يڠ ڤاتوت کامو بوات؟ ڤادنکن."],pairs:[[["Hendak makan","هندق ماکن"],["Guna tangan kanan","ڬونا تاڠن کانن"]],[["Bertemu kawan","برتمو کاون"],["Memberi salam","ممبري سلام"]],[["Datuk datang","داتوق داتڠ"],["Menghormati orang tua","مڠحرمتي اورڠ توا"]],[["Bilik bersepah","بيليق برسڤه"],["Menjaga kebersihan","منجاڬ کبرسيهن"]]],e:["Inilah sunnah Rasulullah SAW dalam kehidupan seharian.","اينله سنة رسول الله ﷺ دالم کهيدوڤن سهارين."],p:14},
+    {type:"clue",q:["Teka sunnah apakah ini?","تيک سنة اڤاکه اين؟"],clues:[["Ia sunnah Rasulullah SAW dalam kehidupan seharian.","اي سنة رسول الله ﷺ دالم کهيدوڤن سهارين."],["Kita melakukannya apabila bertemu orang lain.","کيت ملاکوکنڽ اڤابيلا برتمو اورڠ لاٴين."],["Lafaznya “Assalamualaikum”.","لفظڽ “السلام عليکم”."]],a:[["Memberi salam","ممبري سلام"],["Membaca doa","ممباچ دعاء"],["Menjaga kebersihan","منجاڬ کبرسيهن"],["Makan dengan tangan kanan","ماکن دڠن تاڠن کانن"]],e:["Memberi salam ialah sunnah Rasulullah SAW.","ممبري سلام اياله سنة رسول الله ﷺ."],p:14},
+    {type:"tf",q:["Menunaikan solat secara berjemaah ialah amalan yang digalakkan.","منونايکن صلاة سچارا برجماعه اياله عملن يڠ دڬالقکن."],ans:true,e:["Betul. Ini salah satu amalan dalam buku teks.","بتول. اين ساله ساتو عملن دالم بوکو تيکس."],p:16}
+  ]
+},
+{
+  id:5, title:["Nabi Muhammad SAW Khatamul Anbiya'","نبي محمد ﷺ خاتم الانبياء"], icon:"🌟", color:"#C27C0E", pages:"17–19",
+  zone:["Kapal Karam","کاڤل کارم"], depth:50,
+  units:[["Nabi Muhammad SAW nabi terakhir","نبي محمد ﷺ نبي تراخير"],["Dalil naqli: al-Ahzab ayat 40","دليل نقلي: الاحزاب اية 40"]],
+  cards:[
+    {u:["Jom berbual!","جوم بربوال!"],p:17,chat:[["👦",["Anak","انق"],["Ibu, siapakah nabi yang terakhir?","ايبو، سياڤاکه نبي يڠ تراخير؟"]],["👩",["Ibu","ايبو"],["Nabi yang terakhir ialah Nabi Muhammad SAW, atau disebut khatamul anbiya'.","نبي يڠ تراخير اياله نبي محمد ﷺ، اتاو دسبوت خاتم الانبياء."]],["👦",["Anak","انق"],["Adakah nabi lain selepas baginda?","اداکه نبي لاٴين سلڤس بڬيندا؟"]],["👩",["Ibu","ايبو"],["Tidak ada lagi nabi selepas Nabi Muhammad SAW, dan wajib kita mempercayainya.","تيدق اد لاڬي نبي سلڤس نبي محمد ﷺ، دان واجب کيت ممڤرچاياٴيڽ."]]]},
+    {u:["Khatamul anbiya'","خاتم الانبياء"],sc:"khatam",p:17,t:["Nabi Muhammad SAW ialah nabi yang terakhir. Tiada lagi nabi selepas baginda.","نبي محمد ﷺ اياله نبي يڠ تراخير. تياد لاڬي نبي سلڤس بڬيندا."]},
+    {u:["Dalil naqli","دليل نقلي"],p:18,ar:"مَّا كَانَ مُحَمَّدٌ أَبَآ أَحَدٍ مِّن رِّجَالِكُمْ وَلَـٰكِن رَّسُولَ ٱللَّهِ وَخَاتَمَ ٱلنَّبِيِّـۧنَ",src:["Surah al-Ahzab: 40","سورة الاحزاب: 40"],mk:["Maksudnya: Bukanlah Nabi Muhammad itu bapa yang sebenar bagi seseorang lelaki kamu, tetapi ia adalah Rasul Allah dan kesudahan segala nabi-nabi.","مقصودڽ: بوکنله نبي محمد ايت باڤ يڠ سبنر باڬي سسأورڠ للاکي کامو، تتاڤي اي اداله رسول الله دان کسوداهن سڬالا نبي٢."]},
+    {u:["Amalkan","عملکن"],sc:"ocean",p:19,t:["Segera berselawat ke atas Nabi Muhammad SAW setiap kali nama baginda disebut.","سڬرا برصلوات ک اتس نبي محمد ﷺ ستياڤ کالي نام بڬيندا دسبوت."]}
+  ],
+  qs:[
+    {type:"chest",q:["Nabi yang terakhir ialah…","نبي يڠ تراخير اياله…"],a:[["Nabi Muhammad SAW","نبي محمد ﷺ"],N(23),N(0),N(13)],e:["Nabi Muhammad SAW ialah khatamul anbiya'.","نبي محمد ﷺ اياله خاتم الانبياء."],p:17},
+    {type:"chest",q:["Khatamul anbiya' bermaksud…","خاتم الانبياء برمقصود…"],a:[["Nabi yang terakhir","نبي يڠ تراخير"],["Nabi yang pertama","نبي يڠ ڤرتام"],["Nabi yang paling kaya","نبي يڠ ڤاليڠ کاي"],["Nabi yang paling tinggi","نبي يڠ ڤاليڠ تيڠڬي"]],e:["Khatamul anbiya' ialah nabi yang terakhir, kesudahan segala nabi.","خاتم الانبياء اياله نبي يڠ تراخير، کسوداهن سڬالا نبي."],p:17},
+    {type:"tf",q:["Ada nabi lain selepas Nabi Muhammad SAW.","اد نبي لاٴين سلڤس نبي محمد ﷺ."],ans:false,e:["Salah. Tiada lagi nabi selepas Nabi Muhammad SAW.","ساله. تياد لاڬي نبي سلڤس نبي محمد ﷺ."],p:17},
+    {type:"words",q:["Susun kalimah dalil ini.","سوسون کليمه دليل اين."],words:["مَّا كَانَ مُحَمَّدٌ","أَبَآ أَحَدٍ","مِّن رِّجَالِكُمْ","وَلَـٰكِن رَّسُولَ ٱللَّهِ","وَخَاتَمَ ٱلنَّبِيِّـۧنَ"],e:["Surah al-Ahzab ayat 40: “…tetapi ia adalah Rasul Allah dan kesudahan segala nabi-nabi.”","سورة الاحزاب اية 40: “…تتاڤي اي اداله رسول الله دان کسوداهن سڬالا نبي٢.”"],p:18},
+    {type:"chest",q:["Dalil Nabi Muhammad SAW khatamul anbiya' terdapat dalam…","دليل نبي محمد ﷺ خاتم الانبياء ترداڤت دالم…"],a:[["Surah al-Ahzab ayat 40","سورة الاحزاب اية 40"],["Surah an-Nisa' ayat 59","سورة النساء اية 59"],["Surah al-Baqarah ayat 285","سورة البقرة اية 285"],["Surah Taha ayat 52","سورة طه اية 52"]],e:["Dalilnya Surah al-Ahzab ayat 40.","دليلڽ سورة الاحزاب اية 40."],p:18},
+    {type:"chest",q:["Perkataan manakah bermaksud “kesudahan segala nabi”?","ڤرکاتاٴن مناکه برمقصود “کسوداهن سڬالا نبي”؟"],a:["وَخَاتَمَ ٱلنَّبِيِّـۧنَ","رَّسُولَ ٱللَّهِ","مُحَمَّدٌ","مِّن رِّجَالِكُمْ"],e:["خَاتَمَ ٱلنَّبِيِّـۧنَ = kesudahan segala nabi.","خَاتَمَ ٱلنَّبِيِّـۧنَ = کسوداهن سڬالا نبي."],p:18},
+    {type:"clue",q:["Teka siapa saya?","تيک سياڤ ساي؟"],clues:[["Saya rasul ulul azmi.","ساي رسول اولوالعزم."],["Saya rasul yang ke-25.","ساي رسول يڠ ک-25."],["Saya khatamul anbiya'.","ساي خاتم الانبياء."]],a:[N(24),N(23),N(13),N(2)],e:["Nabi Muhammad SAW ialah rasul ke-25 dan khatamul anbiya'.","نبي محمد ﷺ اياله رسول ک-25 دان خاتم الانبياء."],p:17},
+    {type:"fish",q:["Pancing kenyataan yang BETUL tentang Nabi Muhammad SAW!","ڤنچيڠ کڽاتاٴن يڠ بتول تنتڠ نبي محمد ﷺ!"],items:[[["Nabi terakhir","نبي تراخير"],true],[["Rasul ke-25","رسول ک-25"],true],[["Rasul ulul azmi","رسول اولوالعزم"],true],[["Rasul Allah","رسول الله"],true],[["Nabi pertama","نبي ڤرتام"],false],[["Ada nabi selepas baginda","اد نبي سلڤس بڬيندا"],false],[["Rasul ke-10","رسول ک-10"],false]],e:["Baginda nabi terakhir, rasul ke-25, ulul azmi dan Rasul Allah.","بڬيندا نبي تراخير، رسول ک-25، اولوالعزم دان رسول الله."],p:17},
+    {type:"lines",q:["Padankan surah dengan ayatnya.","ڤادنکن سورة دڠن ايتڽ."],pairs:[[["Surah al-Ahzab","سورة الاحزاب"],["Ayat 40","اية 40"]],[["Surah an-Nisa'","سورة النساء"],["Ayat 59","اية 59"]],[["Surah al-Baqarah","سورة البقرة"],["Ayat 285","اية 285"]]],e:["al-Ahzab 40 (khatamul anbiya'), an-Nisa' 59 (taat), al-Baqarah 285 (beriman kepada rasul).","الاحزاب 40 (خاتم الانبياء)، النساء 59 (طاعة)، البقرة 285 (برايمان کڤد رسول)."],p:18},
+    {type:"tf",q:["Kita hendaklah segera berselawat setiap kali nama Nabi Muhammad SAW disebut.","کيت هندقله سڬرا برصلوات ستياڤ کالي نام نبي محمد ﷺ دسبوت."],ans:true,e:["Betul. Inilah amalan dalam buku teks ms. 19.","بتول. اينله عملن دالم بوکو تيکس م.س. 19."],p:19}
+  ]
+},
+{
+  id:6, title:["Sifat Wajib dan Mustahil (1)","صفة واجب دان مستحيل (1)"], icon:"✨", color:"#6A4FB6", pages:"20–31",
+  zone:["Lautan Dalam","لاءوتن دالم"], depth:60,
+  units:[[S("qudrah")[0]+" – "+SM("qudrah")[0], S("qudrah")[1]+" – "+SM("qudrah")[1]],[S("iradah")[0]+" – "+SM("iradah")[0], S("iradah")[1]+" – "+SM("iradah")[1]],[S("ilm")[0]+" – "+SM("ilm")[0], S("ilm")[1]+" – "+SM("ilm")[1]],[S("hayah")[0]+" – "+SM("hayah")[0], S("hayah")[1]+" – "+SM("hayah")[1]]],
+  cards:[
+    {u:["Sifat wajib dan lawannya","صفة واجب دان لاونڽ"],flips:["qudrah","iradah","ilm","hayah"],p:21,t:["Kerang emas = sifat WAJIB bagi Allah SWT. Kerang kelabu = lawannya, sifat MUSTAHIL.","کرڠ امس = صفة واجب باڬي الله ﷻ. کرڠ کلابو = لاونڽ، صفة مستحيل."],tip:["Setiap sifat wajib ini maujud (ada), qadim (tiada permulaan) dan berdiri pada zat Allah SWT.","ستياڤ صفة واجب اين موجود (اد)، قديم (تياد ڤرمولاٴن) دان بردييري ڤد ذات الله ﷻ."]},
+    {u:[S("qudrah")[0],S("qudrah")[1]],flip:"qudrah",p:23,list:[["Allah SWT Maha Berkuasa dan tiada yang dapat mengatasi-Nya.","الله ﷻ مها برکواس دان تياد يڠ داڤت مڠاتسيڽ."],["Allah SWT Maha Berkuasa selama-lamanya.","الله ﷻ مها برکواس سلاما٢ڽ."],["Mustahil Allah SWT lemah. Lemah ialah sifat kekurangan.","مستحيل الله ﷻ لمه. لمه اياله صفة ککوراڠن."]],ar:"إِنَّ ٱللَّهَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ",src:["Surah al-Baqarah: 109","سورة البقرة: 109"],mk:["Maksudnya: Sesungguhnya Allah amat berkuasa atas tiap-tiap sesuatu.","مقصودڽ: سسوڠڬوهڽ الله امت برکواس اتس تياڤ٢ سسواتو."]},
+    {u:[S("iradah")[0],S("iradah")[1]],flip:"iradah",p:25,list:[["Allah SWT menentukan sesuatu sama ada hendak menjadikannya atau tidak.","الله ﷻ مننتوکن سسواتو سام اد هندق منجاديکنڽ اتاو تيدق."],["Kehendak Allah SWT mengatasi kehendak makhluk.","کهندق الله ﷻ مڠاتسي کهندق مخلوق."],["Mustahil sesuatu terjadi tanpa kehendak Allah SWT.","مستحيل سسواتو ترجادي تنڤا کهندق الله ﷻ."]],ar:"وَمَا تَشَآءُونَ إِلَّآ أَن يَشَآءَ ٱللَّهُ رَبُّ ٱلْعَٰلَمِينَ",src:["Surah at-Takwir: 29","سورة التکوير: 29"],mk:["Maksudnya: Dan kamu tidak dapat menentukan kemahuan kamu, kecuali dengan cara yang diatur oleh Allah, Tuhan sekalian alam.","مقصودڽ: دان کامو تيدق داڤت مننتوکن کماهوان کامو، کچوالي دڠن چارا يڠ دأتور اوليه الله، توهن سکالين عالم."]},
+    {u:[S("ilm")[0],S("ilm")[1]],flip:"ilm",sc:"ocean",p:27,list:[["Ilmu Allah SWT meliputi setiap sesuatu.","علمو الله ﷻ مليڤوتي ستياڤ سسواتو."],["Ilmu Allah SWT tidak didahului jahil.","علمو الله ﷻ تيدق دداهولوءي جاهيل."],["Maha Suci Allah SWT daripada sifat dungu.","مها سوچي الله ﷻ درڤد صفة دوڠو."]],ar:"وَيَعْلَمُ مَا فِي ٱلْبَرِّ وَٱلْبَحْرِ ۚ وَمَا تَسْقُطُ مِن وَرَقَةٍ إِلَّا يَعْلَمُهَا",src:["Surah al-An'am: 59","سورة الانعام: 59"],mk:["Maksudnya: Dan Allah mengetahui apa yang ada di darat dan di laut, dan tidak gugur sehelai daun pun melainkan Dia mengetahuinya.","مقصودڽ: دان الله مڠتاهوءي اڤ يڠ اد د دارت دان د لاءوت، دان تيدق ڬوڬور سهلاي داون ڤون ملاٴينکن دي مڠتاهوءيڽ."]},
+    {u:[S("hayah")[0],S("hayah")[1]],flip:"hayah",p:30,list:[["Hidup Allah SWT tiada dengan roh dan kekal selama-lamanya.","هيدوڤ الله ﷻ تياد دڠن روح دان ککل سلاما٢ڽ."],["Hidup menjadi syarat wujudnya sifat-sifat yang lain.","هيدوڤ منجادي شرط وجودڽ صفة٢ يڠ لاٴين."],["Mustahil Allah SWT mati.","مستحيل الله ﷻ ماتي."]],ar:"وَتَوَكَّلْ عَلَى ٱلْحَيِّ ٱلَّذِي لَا يَمُوتُ",src:["Surah al-Furqan: 58","سورة الفرقان: 58"],mk:["Maksudnya: Dan berserahlah engkau kepada Allah Tuhan yang Hidup, yang tidak mati.","مقصودڽ: دان برسراهله اڠکاو کڤد الله توهن يڠ هيدوڤ، يڠ تيدق ماتي."]}
+  ],
+  qs:[
+    {type:"lines",q:["Lukis garis: sifat wajib dengan lawannya.","لوکيس ڬاريس: صفة واجب دڠن لاونڽ."],pairs:["qudrah","iradah","ilm","hayah"].map(k=>[S(k),SM(k)]),e:["Qudrah–'Ajz, Iradah–Karahah, 'Ilm–Jahl, Hayah–Mawt.","قدرة–عجز، ارادة–کراهة، علم–جهل، حياة–موت."],p:21},
+    {type:"lines",q:["Lukis garis: sifat dengan ertinya.","لوکيس ڬاريس: صفة دڠن ارتيڽ."],pairs:["qudrah","iradah","ilm","hayah"].map(k=>[S(k),SIFAT[k].we]),e:["Qudrah berkuasa, Iradah berkehendak, 'Ilm mengetahui, Hayah hidup.","قدرة برکواس، ارادة برکهندق، علم مڠتاهوءي، حياة هيدوڤ."],p:23},
+    {type:"scale",q:["Timbang! Wajib atau mustahil bagi Allah SWT?","تيمبڠ! واجب اتاو مستحيل باڬي الله ﷻ؟"],l:[["Wajib","واجب"],["Mustahil","مستحيل"]],items:[[["Berkuasa","برکواس"],0],[["Lemah","لمه"],1],[["Mengetahui","مڠتاهوءي"],0],[["Dungu","دوڠو"],1],[["Hidup","هيدوڤ"],0],[["Mati","ماتي"],1],[["Berkehendak","برکهندق"],0],[["Terpaksa","ترڤقسا"],1]],e:["Sifat wajib ialah sifat kesempurnaan. Sifat mustahil ialah sifat kekurangan.","صفة واجب اياله صفة کسمڤورناٴن. صفة مستحيل اياله صفة ککوراڠن."],p:21},
+    {type:"chest",q:["Qudrah ertinya…","قدرة ارتيڽ…"],a:[["Berkuasa","برکواس"],["Mengetahui","مڠتاهوءي"],["Hidup","هيدوڤ"],["Melihat","مليهت"]],e:["Qudrah ertinya berkuasa, lawannya 'ajz ertinya lemah.","قدرة ارتيڽ برکواس، لاونڽ عجز ارتيڽ لمه."],p:23},
+    {type:"chest",q:["Lawan bagi sifat iradah ialah…","لاون باڬي صفة ارادة اياله…"],a:[SM("iradah"),SM("qudrah"),SM("ilm"),SM("hayah")],e:["Iradah (berkehendak) lawannya karahah (terpaksa).","ارادة (برکهندق) لاونڽ کراهة (ترڤقسا)."],p:25},
+    {type:"words",q:["Susun kalimah dalil qudrah.","سوسون کليمه دليل قدرة."],words:["إِنَّ","ٱللَّهَ","عَلَىٰ","كُلِّ","شَيْءٍ","قَدِيرٌ"],e:["“Sesungguhnya Allah amat berkuasa atas tiap-tiap sesuatu.” (al-Baqarah: 109)","“سسوڠڬوهڽ الله امت برکواس اتس تياڤ٢ سسواتو.” (البقرة: 109)"],p:23},
+    {type:"clue",q:["Teka sifat apakah saya?","تيک صفة اڤاکه ساي؟"],clues:[["Saya sifat wajib bagi Allah SWT.","ساي صفة واجب باڬي الله ﷻ."],["Lawan saya ialah jahl.","لاون ساي اياله جهل."],["Erti saya ialah mengetahui.","ارتي ساي اياله مڠتاهوءي."]],a:[S("ilm"),S("qudrah"),S("hayah"),S("iradah")],e:["'Ilm ertinya mengetahui, lawannya jahl (dungu).","علم ارتيڽ مڠتاهوءي، لاونڽ جهل (دوڠو)."],p:27},
+    {type:"fish",q:["Pancing sifat MUSTAHIL bagi Allah SWT!","ڤنچيڠ صفة مستحيل باڬي الله ﷻ!"],items:[[SM("qudrah"),true],[SM("iradah"),true],[SM("ilm"),true],[SM("hayah"),true],[S("qudrah"),false],[S("iradah"),false],[S("hayah"),false]],e:["'Ajz, karahah, jahl dan mawt mustahil bagi Allah SWT.","عجز، کراهة، جهل دان موت مستحيل باڬي الله ﷻ."],p:21},
+    {type:"tf",q:["Hidup Allah SWT kekal selama-lamanya dan tiada dengan roh.","هيدوڤ الله ﷻ ککل سلاما٢ڽ دان تياد دڠن روح."],ans:true,e:["Betul. Ini sifat hayah.","بتول. اين صفة حياة."],p:30},
+    {type:"tf",q:["Ada sesuatu yang boleh terjadi tanpa kehendak Allah SWT.","اد سسواتو يڠ بوليه ترجادي تنڤا کهندق الله ﷻ."],ans:false,e:["Salah. Mustahil sesuatu terjadi tanpa kehendak Allah SWT.","ساله. مستحيل سسواتو ترجادي تنڤا کهندق الله ﷻ."],p:26},
+    {type:"chest",q:["Allah SWT mengetahui apa yang ada di darat dan di laut. Ini sifat…","الله ﷻ مڠتاهوءي اڤ يڠ اد د دارت دان د لاءوت. اين صفة…"],a:[S("ilm"),S("hayah"),S("qudrah"),S("iradah")],e:["Surah al-An'am ayat 59 ialah dalil sifat 'ilm.","سورة الانعام اية 59 اياله دليل صفة علم."],p:28},
+    {type:"chest",q:["Sifat wajib ini qadim. Qadim bermaksud…","صفة واجب اين قديم. قديم برمقصود…"],a:[["Tiada permulaan","تياد ڤرمولاٴن"],["Ada penghujung","اد ڤڠهوجوڠ"],["Baru dicipta","بارو دچيڤتا"],["Boleh berubah","بوليه بروبه"]],e:["Qadim ertinya tiada permulaan.","قديم ارتيڽ تياد ڤرمولاٴن."],p:23}
+  ]
+},
+{
+  id:7, title:["Sifat Wajib dan Mustahil (2)","صفة واجب دان مستحيل (2)"], icon:"💫", color:"#D1495B", pages:"32–39",
+  zone:["Palung Bercahaya","ڤالوڠ برچهاي"], depth:70,
+  units:[[S("sam")[0]+" – "+SM("sam")[0], S("sam")[1]+" – "+SM("sam")[1]],[S("basar")[0]+" – "+SM("basar")[0], S("basar")[1]+" – "+SM("basar")[1]],[S("kalam")[0]+" – "+SM("kalam")[0], S("kalam")[1]+" – "+SM("kalam")[1]],["Empat bahagian sifat wajib","امڤت بهاڬين صفة واجب"]],
+  cards:[
+    {u:[S("sam")[0],S("sam")[1]],flip:"sam",p:32,list:[["Allah SWT mendengar segala sesuatu tanpa melalui telinga.","الله ﷻ مندڠر سڬالا سسواتو تنڤا ملالوءي تليڠا."],["Allah SWT mendengar sama ada bersuara atau tidak.","الله ﷻ مندڠر سام اد برسوارا اتاو تيدق."],["Allah SWT mendengar tanpa halangan atau batasan.","الله ﷻ مندڠر تنڤا هالڠن اتاو باتسن."],["Pekak adalah sifat makhluk.","ڤکق اداله صفة مخلوق."]],ar:"إِنَّ ٱللَّهَ سَمِيعٌ عَلِيمٌ",src:["Surah al-Baqarah: 181","سورة البقرة: 181"],mk:["Maksudnya: Sesungguhnya Allah Maha Mendengar lagi Maha Mengetahui.","مقصودڽ: سسوڠڬوهڽ الله مها مندڠر لاڬي مها مڠتاهوءي."]},
+    {u:[S("basar")[0],S("basar")[1]],flip:"basar",p:34,list:[["Allah SWT melihat tanpa perantaraan mata.","الله ﷻ مليهت تنڤا ڤرانتاراٴن مات."],["Allah SWT melihat tanpa halangan atau batasan.","الله ﷻ مليهت تنڤا هالڠن اتاو باتسن."],["Allah SWT melihat sama ada ketika terang atau gelap.","الله ﷻ مليهت سام اد کتيک تراڠ اتاو ڬلڤ."],["Buta adalah sifat makhluk.","بوتا اداله صفة مخلوق."]],ar:"إِنَّ ٱللَّهَ بِمَا تَعْمَلُونَ بَصِيرٌ",src:["Surah al-Baqarah: 237","سورة البقرة: 237"],mk:["Maksudnya: Sesungguhnya Allah Maha Melihat segala apa yang kamu kerjakan.","مقصودڽ: سسوڠڬوهڽ الله مها مليهت سڬالا اڤ يڠ کامو کرجاکن."]},
+    {u:[S("kalam")[0],S("kalam")[1]],flip:"kalam",p:36,list:[["Allah SWT berkata-kata tanpa bersuara.","الله ﷻ برکات٢ تنڤا برسوارا."],["Allah SWT berkata-kata tanpa mulut dan lidah.","الله ﷻ برکات٢ تنڤا مولوت دان ليده."],["Al-Quran adalah kalam Allah SWT.","القرءان اداله کلام الله ﷻ."],["Bisu adalah sifat makhluk.","بيسو اداله صفة مخلوق."]],ar:"وَكَلَّمَ ٱللَّهُ مُوسَىٰ تَكْلِيمًا",src:["Surah an-Nisa': 164","سورة النساء: 164"],mk:["Maksudnya: Dan Allah berkata-kata kepada Nabi Musa secara langsung, tanpa perantaraan.","مقصودڽ: دان الله برکات٢ کڤد نبي موسى سچارا لڠسوڠ، تنڤا ڤرانتاراٴن."]},
+    {u:["Tujuh pasangan sifat","توجوه ڤاسڠن صفة"],flips:Object.keys(SIFAT),p:38,t:["Jom hafaz ketujuh-tujuh pasangan sifat wajib dan mustahil!","جوم حافظ کتوجوه٢ ڤاسڠن صفة واجب دان مستحيل!"]},
+    {u:["Tahukah anda?","تاهوکه اندا؟"],sc:"ocean",p:39,list:[["Nafsiyyah: sifat yang menunjukkan wujudnya zat Allah SWT","نفسية: صفة يڠ منونجوقکن وجودڽ ذات الله ﷻ"],["Salbiyyah: sifat yang menafikan kekurangan bagi Allah SWT","سلبية: صفة يڠ منافيکن ککوراڠن باڬي الله ﷻ"],["Ma'ani: sifat yang berdiri pada zat Allah SWT","معاني: صفة يڠ بردييري ڤد ذات الله ﷻ"],["Ma'nawiyyah: sifat yang ada kerana adanya sifat ma'ani","معنوية: صفة يڠ اد کران اداڽ صفة معاني"]],tip:["Amalan: Sentiasa memohon pertolongan Allah SWT: “Ya Allah, tolonglah aku.”","عملن: سنتياس مموهون ڤرتولوڠن الله ﷻ: “يا الله، تولوڠله اکو.”"]}
+  ],
+  qs:[
+    {type:"lines",q:["Lukis garis: sifat wajib dengan lawannya.","لوکيس ڬاريس: صفة واجب دڠن لاونڽ."],pairs:["sam","basar","kalam","hayah"].map(k=>[S(k),SM(k)]),e:["Sam'–Summ, Basar–'Umyu, Kalam–Bukm, Hayah–Mawt.","سمع–صم، بصر–عمي، کلام–بکم، حياة–موت."],p:22},
+    {type:"lines",q:["Lukis garis: sifat dengan ertinya.","لوکيس ڬاريس: صفة دڠن ارتيڽ."],pairs:[[S("sam"),SIFAT.sam.we],[S("basar"),SIFAT.basar.we],[S("kalam"),SIFAT.kalam.we],[SM("sam"),SIFAT.sam.me]],e:["Sam' mendengar, Basar melihat, Kalam berkata-kata, Summ pekak.","سمع مندڠر، بصر مليهت، کلام برکات٢، صم ڤکق."],p:32},
+    {type:"scale",q:["Timbang! Sifat Allah SWT atau sifat makhluk?","تيمبڠ! صفة الله ﷻ اتاو صفة مخلوق؟"],l:[["Sifat Allah SWT","صفة الله ﷻ"],["Sifat makhluk","صفة مخلوق"]],items:[[["Mendengar tanpa telinga","مندڠر تنڤا تليڠا"],0],[["Pekak","ڤکق"],1],[["Melihat tanpa mata","مليهت تنڤا مات"],0],[["Buta","بوتا"],1],[["Berkata-kata tanpa mulut","برکات٢ تنڤا مولوت"],0],[["Bisu","بيسو"],1]],e:["Pekak, buta dan bisu ialah sifat makhluk, mustahil bagi Allah SWT.","ڤکق، بوتا دان بيسو اياله صفة مخلوق، مستحيل باڬي الله ﷻ."],p:33},
+    {type:"chest",q:["Al-Quran ialah…","القرءان اياله…"],a:[["Kalam Allah SWT","کلام الله ﷻ"],["Kata-kata malaikat","کات٢ ملائکة"],["Buku cerita","بوکو چريتا"],["Syair Arab","شعير عرب"]],e:["Al-Quran adalah kalam Allah SWT.","القرءان اداله کلام الله ﷻ."],p:36},
+    {type:"chest",q:["Allah SWT berkata-kata secara langsung kepada…","الله ﷻ برکات٢ سچارا لڠسوڠ کڤد…"],a:[N(13),N(2),N(20),N(0)],e:["Surah an-Nisa' ayat 164: Allah berkata-kata kepada Nabi Musa.","سورة النساء اية 164: الله برکات٢ کڤد نبي موسى."],p:36},
+    {type:"clue",q:["Teka sifat apakah saya?","تيک صفة اڤاکه ساي؟"],clues:[["Saya sifat wajib bagi Allah SWT.","ساي صفة واجب باڬي الله ﷻ."],["Dengan saya, Allah SWT tahu apa berlaku ketika terang atau gelap.","دڠن ساي، الله ﷻ تاهو اڤ برلاکو کتيک تراڠ اتاو ڬلڤ."],["Lawan saya ialah 'umyu (buta).","لاون ساي اياله عمي (بوتا)."]],a:[S("basar"),S("sam"),S("kalam"),S("qudrah")],e:["Basar ertinya melihat, lawannya 'umyu (buta).","بصر ارتيڽ مليهت، لاونڽ عمي (بوتا)."],p:34},
+    {type:"fish",q:["Pancing sifat WAJIB bagi Allah SWT!","ڤنچيڠ صفة واجب باڬي الله ﷻ!"],items:[[S("sam"),true],[S("basar"),true],[S("kalam"),true],[S("qudrah"),true],[SM("sam"),false],[SM("basar"),false],[SM("kalam"),false]],e:["Sam', basar, kalam dan qudrah wajib bagi Allah SWT.","سمع، بصر، کلام دان قدرة واجب باڬي الله ﷻ."],p:21},
+    {type:"words",q:["Susun kalimah dalil sifat sam'.","سوسون کليمه دليل صفة سمع."],words:["إِنَّ","ٱللَّهَ","سَمِيعٌ","عَلِيمٌ"],e:["“Sesungguhnya Allah Maha Mendengar lagi Maha Mengetahui.” (al-Baqarah: 181)","“سسوڠڬوهڽ الله مها مندڠر لاڬي مها مڠتاهوءي.” (البقرة: 181)"],p:32},
+    {type:"tf",q:["Allah SWT mendengar doa kita walaupun kita berdoa tanpa bersuara.","الله ﷻ مندڠر دعاء کيت والاوڤون کيت بردعاء تنڤا برسوارا."],ans:true,e:["Betul. Allah mendengar sama ada bersuara atau tidak.","بتول. الله مندڠر سام اد برسوارا اتاو تيدق."],p:32},
+    {type:"tf",q:["Allah SWT tidak dapat melihat dalam gelap.","الله ﷻ تيدق داڤت مليهت دالم ڬلڤ."],ans:false,e:["Salah. Allah SWT melihat sama ada ketika terang atau gelap.","ساله. الله ﷻ مليهت سام اد کتيک تراڠ اتاو ڬلڤ."],p:34},
+    {type:"order",q:["Susun empat bahagian sifat wajib mengikut buku teks.","سوسون امڤت بهاڬين صفة واجب مڠيکوت بوکو تيکس."],items:[["Nafsiyyah","نفسية"],["Salbiyyah","سلبية"],["Ma'ani","معاني"],["Ma'nawiyyah","معنوية"]],e:["Nafsiyyah, Salbiyyah, Ma'ani dan Ma'nawiyyah.","نفسية، سلبية، معاني دان معنوية."],p:39},
+    {type:"chest",q:["Sifat ma'ani ialah sifat yang…","صفة معاني اياله صفة يڠ…"],a:[["Berdiri pada zat Allah SWT","بردييري ڤد ذات الله ﷻ"],["Menafikan kekurangan","منافيکن ککوراڠن"],["Menunjukkan wujud zat Allah","منونجوقکن وجود ذات الله"],["Ada kerana sifat ma'ani","اد کران صفة معاني"]],e:["Ma'ani ialah sifat yang berdiri pada zat Allah SWT.","معاني اياله صفة يڠ بردييري ڤد ذات الله ﷻ."],p:39}
+  ]
+}
+];
+
+const FINAL = {
+  title:["Istana Mutiara","ايستان موتيارا"], sub:["Cabaran Akhir • Pelajaran 1–7","چابرن اخير • ڤلاجرن 1–7"], icon:"🦪", color:"#E8A317", depth:80,
+  qs:[
+    {tag:"P2 • P3 • P7",type:"clue",q:["Teka siapa saya?","تيک سياڤ ساي؟"],clues:[["Saya rasul yang ke-14.","ساي رسول يڠ ک-14."],["Saya rasul ulul azmi.","ساي رسول اولوالعزم."],["Allah SWT berkata-kata dengan saya secara langsung.","الله ﷻ برکات٢ دڠن ساي سچارا لڠسوڠ."]],a:[N(13),N(14),N(2),N(23)],e:["Nabi Musa a.s.: rasul ke-14, ulul azmi, dan Allah berkata-kata dengannya.","نبي موسى عليه السلام: رسول ک-14، اولوالعزم، دان الله برکات٢ دڠنڽ."],p:36},
+    {tag:"P1 • P3 • P5 • P6",type:"lines",q:["Lukis garis untuk memadankan.","لوکيس ڬاريس اونتوق ممادنکن."],pairs:[[["Rukun iman keempat","رکن ايمان کامڤت"],["Beriman kepada rasul","برايمان کڤد رسول"]],[["Khatamul anbiya'","خاتم الانبياء"],["Nabi Muhammad SAW","نبي محمد ﷺ"]],[["Ulul azmi","اولوالعزم"],["Kesabaran tinggi","کسابرن تيڠڬي"]],[S("qudrah"),["Berkuasa","برکواس"]]],e:["Semua fakta ini daripada Pelajaran 1 hingga 4 buku teks.","سموا فکتا اين درڤد ڤلاجرن 1 هيڠڬ 4 بوکو تيکس."],p:3},
+    {tag:"P6 • P7",type:"fish",q:["Pancing sifat MUSTAHIL bagi Allah SWT!","ڤنچيڠ صفة مستحيل باڬي الله ﷻ!"],items:[[SM("ilm"),true],[SM("hayah"),true],[SM("sam"),true],[SM("kalam"),true],[SM("qudrah"),true],[S("kalam"),false],[S("basar"),false],[S("hayah"),false]],e:["Jahl, mawt, summ, bukm dan 'ajz mustahil bagi Allah SWT.","جهل، موت، صم، بکم دان عجز مستحيل باڬي الله ﷻ."],p:21},
+    {tag:"P4",type:"scale",q:["Timbang! Suruhan atau larangan?","تيمبڠ! سوروهن اتاو لارڠن؟"],l:[["Suruhan","سوروهن"],["Larangan","لارڠن"]],items:[[["Syirik","شيرک"],1],[["Membaca doa","ممباچ دعاء"],0],[["Khianat","خيانت"],1],[["Menghormati orang tua","مڠحرمتي اورڠ توا"],0],[["Derhaka kepada ibu bapa","درهاک کڤد ايبو باڤ"],1]],e:["Syirik, khianat dan derhaka dilarang. Membaca doa dan menghormati orang tua disuruh.","شيرک، خيانت دان درهاک دلارڠ. ممباچ دعاء دان مڠحرمتي اورڠ توا دسوروه."],p:13},
+    {tag:"P2",type:"order",q:["Susun nama rasul nombor 12 hingga 18.","سوسون نام رسول نومبور 12 هيڠڬ 18."],items:RASUL.slice(11,18),e:["Ayub, Syuaib, Musa, Harun, Zulkifli, Daud, Sulaiman.","ايوب، شعيب، موسى، هارون، ذوالکفل، داود، سليمان."],p:8},
+    {tag:"P3",type:"chest",q:["Rasul ulul azmi yang pertama dalam senarai buku teks ialah…","رسول اولوالعزم يڠ ڤرتام دالم سناراي بوکو تيکس اياله…"],a:[N(2),N(0),N(5),N(13)],e:["Senarai ulul azmi bermula dengan Nabi Nuh a.s.","سناراي اولوالعزم برمولا دڠن نبي نوح عليه السلام."],p:11},
+    {tag:"P2",type:"tf",q:["Nabi menerima wahyu untuk diri sendiri dan meneruskan syariat sedia ada.","نبي منريما وحي اونتوق ديري سنديري دان منروسکن شريعة سديا اد."],ans:true,e:["Betul. Ini pengertian nabi.","بتول. اين ڤڠرتين نبي."],p:5},
+    {tag:"P6",type:"words",q:["Susun kalimah dalil sifat hayah.","سوسون کليمه دليل صفة حياة."],words:["وَتَوَكَّلْ","عَلَى","ٱلْحَيِّ","ٱلَّذِي","لَا يَمُوتُ"],e:["“Dan berserahlah engkau kepada Allah Tuhan yang Hidup, yang tidak mati.” (al-Furqan: 58)","“دان برسراهله اڠکاو کڤد الله توهن يڠ هيدوڤ، يڠ تيدق ماتي.” (الفرقان: 58)"],p:30},
+    {tag:"P4",type:"chest",q:["Ali selalu berbohong kepada ibunya. Mengapa ini salah?","علي سلالو بربوهوڠ کڤد ايبوڽ. مڠاڤ اين ساله؟"],a:[["Berbohong dilarang oleh Rasulullah SAW","بربوهوڠ دلارڠ اوليه رسول الله ﷺ"],["Berbohong ialah sunnah","بربوهوڠ اياله سنة"],["Berbohong tidak mengapa jika sedikit","بربوهوڠ تيدق مڠاڤ جک سديکيت"],["Ibu tidak akan tahu","ايبو تيدق اکن تاهو"]],e:["Taat kepada Rasulullah SAW bermaksud meninggalkan larangannya, termasuk berbohong.","طاعة کڤد رسول الله ﷺ برمقصود منيڠڬلکن لارڠنڽ، ترماسوق بربوهوڠ."],p:13},
+    {tag:"P7",type:"chest",q:["Sifat yang wajib bagi Allah SWT terbahagi kepada … bahagian.","صفة يڠ واجب باڬي الله ﷻ ترباهاڬي کڤد … بهاڬين."],a:[["4","4"],["7","7"],["13","13"],["20","20"]],e:["Empat bahagian: nafsiyyah, salbiyyah, ma'ani dan ma'nawiyyah.","امڤت بهاڬين: نفسية، سلبية، معاني دان معنوية."],p:39},
+    {tag:"P7",type:"tf",q:["Mustahil Allah SWT bersifat bisu kerana bisu adalah sifat makhluk.","مستحيل الله ﷻ برصفة بيسو کران بيسو اداله صفة مخلوق."],ans:true,e:["Betul. Allah SWT bersifat kalam.","بتول. الله ﷻ برصفة کلام."],p:37},
+    {tag:"P2 • P3",type:"clue",q:["Teka siapa saya?","تيک سياڤ ساي؟"],clues:[["Saya rasul ulul azmi.","ساي رسول اولوالعزم."],["Nama saya selepas Nabi Saleh dalam senarai.","نام ساي سلڤس نبي صالح دالم سناراي."],["Saya rasul yang ke-6.","ساي رسول يڠ ک-6."]],a:[N(5),N(7),N(6),N(2)],e:["Nabi Ibrahim a.s. ialah rasul ke-6 dan ulul azmi.","نبي ابراهيم عليه السلام اياله رسول ک-6 دان اولوالعزم."],p:7},
+    {tag:"P1 • P4 • P5",type:"lines",q:["Padankan dalil dengan tajuknya.","ڤادنکن دليل دڠن تاجوقڽ."],pairs:[[["an-Nisa' 59","النساء 59"],["Taat kepada Rasulullah","طاعة کڤد رسول الله"]],[["al-Ahzab 40","الاحزاب 40"],["Khatamul anbiya'","خاتم الانبياء"]],[["al-Baqarah 285","البقرة 285"],["Beriman kepada rasul","برايمان کڤد رسول"]]],e:["Hafaz dalil-dalil ini!","حافظ دليل٢ اين!"],p:18},
+    {tag:"P6 • P7",type:"scale",q:["Timbang! Wajib atau mustahil?","تيمبڠ! واجب اتاو مستحيل؟"],l:[["Wajib","واجب"],["Mustahil","مستحيل"]],items:[[S("kalam"),0],[SM("kalam"),1],[S("iradah"),0],[SM("iradah"),1],[S("basar"),0],[SM("basar"),1]],e:["Kalam, iradah dan basar wajib. Bukm, karahah dan 'umyu mustahil.","کلام، ارادة دان بصر واجب. بکم، کراهة دان عمي مستحيل."],p:21}
+  ]
+};
+
+const PRAISE_R = ["Betul! MasyaAllah!","Hebat!","Tepat sekali!","Bagus!","Syabas!"];
+const PRAISE_J = ["بتول! ماشاءالله!","هيبت!","تڤت سکالي!","باڬوس!","شاباس!"];
+const TYPE_R = {chest:"🧰 Buka peti harta",tf:"🫧 Betul atau salah",fish:"🎣 Pancing ikan",scale:"⚖️ Timbang",clue:"🕵️ Teka siapa",lines:"🔗 Garis padan",words:"🐚 Susun kalimah",order:"🔢 Susun urutan"};
+const TYPE_J = {chest:"🧰 بوک ڤيتي هرتا",tf:"🫧 بتول اتاو ساله",fish:"🎣 ڤنچيڠ ايکن",scale:"⚖️ تيمبڠ",clue:"🕵️ تيک سياڤ",lines:"🔗 ڬاريس ڤادن",words:"🐚 سوسون کليمه",order:"🔢 سوسون اوروتن"};
+const LINE_COLORS = ["#0E7C9B","#D1495B","#6A4FB6","#2E8B57","#C27C0E"];
+const FISH_COLORS = ["#F06A5B","#F2A93B","#9B5DE5","#2FA58A","#E8559A","#3E8EDE","#F07F3C","#1F9AA8"];
+
+/* ============ STATE ============ */
+const app = document.getElementById("app");
+const $ = id => document.getElementById(id);
+const shuffle = arr => { const a=arr.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]} return a; };
+const pick = arr => arr[Math.floor(Math.random()*arr.length)];
+const wait = ms => new Promise(r=>setTimeout(r,ms));
+function load(k,f){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):f; }catch(e){ return f; } }
+function save(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+
+let best = Object.assign({1:0,2:0,3:0,4:0,5:0,6:0,7:0,final:0}, load("t3-best",{}));
+let pearls = load("t3-mutiara",0);
+let teacher = load("t3-teacher",false);
+let muted = load("t3-muted",false);
+let lang = load("kafa-lang","jawi");
+let run = null, animTok = 0;
+const REDUCED = (()=>{ try{ return matchMedia("(prefers-reduced-motion: reduce)").matches; }catch(e){ return false; } })();
+const isJ = () => lang==="jawi";
+const tx = (r,j) => isJ() ? j : r;
+const L = s => Array.isArray(s) ? (isJ() ? s[1] : s[0]) : s;
+const R = s => Array.isArray(s) ? s[0] : s;
+const isAr = s => typeof s==="string" && /[؀-ۿ]/.test(s);
+const T = s => isAr(s) ? `<span class="ar" dir="rtl" lang="ar">${s}</span>` : `<span>${L(s)}</span>`;
+const P = s => isJ() ? String(s).replace(/P/g,"ڤ") : s;
+const BACK = () => isJ() ? "→" : "←";
+function applyLang(){ document.documentElement.dir = isJ() ? "rtl" : "ltr"; document.documentElement.lang = isJ() ? "ms-Arab" : "ms"; }
+const totalStars = () => Object.values(best).reduce((a,b)=>a+b,0);
+const unlocked = i => teacher || i===0 || best[LESSONS[i-1].id]>=1;
+const finalUnlocked = () => teacher || LESSONS.every(t=>best[t.id]>=1);
+function stopAnims(){ animTok++; hush(); window.onresize = null; }
+
+/* ============ BUNYI & SUARA ============ */
+let actx;
+function tone(freqs, dur=0.12, type="sine"){
+  if(muted) return;
+  try{
+    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    const t = actx.currentTime;
+    freqs.forEach((f,i)=>{
+      const o=actx.createOscillator(), g=actx.createGain();
+      o.type=type; o.frequency.value=f;
+      const s=t+i*dur;
+      g.gain.setValueAtTime(0.0001,s);
+      g.gain.exponentialRampToValueAtTime(0.18,s+0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001,s+dur);
+      o.connect(g).connect(actx.destination);
+      o.start(s); o.stop(s+dur+0.02);
+    });
+  }catch(e){}
+}
+const sfx = { ok:()=>tone([660,880]), bad:()=>tone([240,180],0.15,"triangle"), tap:()=>tone([520],0.06,"triangle"), blub:()=>tone([380,620,900],0.05), splash:()=>tone([700,1100,1500],0.05), creak:()=>tone([180,240],0.09,"triangle"), win:()=>tone([523,659,784,1047],0.14) };
+const ttsOK = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+let voice = null;
+function pickVoice(){ try{ const vs=speechSynthesis.getVoices(); voice = vs.find(v=>/^ms/i.test(v.lang)) || vs.find(v=>/^id/i.test(v.lang)) || null; }catch(e){} }
+if(ttsOK){ pickVoice(); try{ speechSynthesis.onvoiceschanged = pickVoice; }catch(e){} }
+function speak(text){
+  if(!ttsOK || !text) return;
+  try{
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(String(text).replace(/\bSAW\b/g,"sallallahu alaihi wasallam").replace(/\bSWT\b/g,"subhanahu wa taala").replace(/\ba\.s\./g,"alaihissalam").replace(/[“”…'’]/g,"").replace(/[؀-ۿ]+/g,""));
+    u.lang = voice ? voice.lang : "ms-MY";
+    if(voice) u.voice = voice;
+    u.rate = 0.9;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function hush(){ if(ttsOK){ try{ speechSynthesis.cancel(); }catch(e){} } }
+
+/* ============ GRAFIK ============ */
+function mascot(mood="idle", cls=""){
+  // Pupu si penyu
+  const mouth = mood==="sad"
+    ? `<path d="M96 46 Q101 42 106 46" stroke="#173B2A" stroke-width="2.2" fill="none" stroke-linecap="round"/>`
+    : `<path d="M95 43 Q101 50 107 43" stroke="#173B2A" stroke-width="2.2" fill="none" stroke-linecap="round"/>`;
+  return `<svg class="mascot ${mood} ${cls}" viewBox="0 0 130 100" aria-hidden="true">
+    <ellipse cx="30" cy="76" rx="16" ry="8" fill="#5FB878" transform="rotate(-25 30 76)"/><ellipse cx="78" cy="80" rx="16" ry="8" fill="#5FB878" transform="rotate(25 78 80)"/>
+    <ellipse cx="34" cy="44" rx="14" ry="7" fill="#5FB878" transform="rotate(-35 34 44)"/>
+    <path d="M14 66 Q16 30 54 28 Q86 28 88 62 Z" fill="#2F8F5B"/>
+    <path d="M14 66 Q16 30 54 28 Q86 28 88 62 Z" fill="none" stroke="#1F6B42" stroke-width="3"/>
+    <g fill="#5FB878" opacity=".9"><path d="M40 40 l8 -5 l9 4 l0 10 l-9 5 l-8 -5Z"/><path d="M60 42 l8 -4 l8 5 l-1 9 l-8 4 l-7 -5Z"/><path d="M24 54 l7 -6 l9 3 l1 9 l-8 3Z"/><path d="M46 56 l8 -4 l8 4 l0 8 l-16 0Z"/></g>
+    <rect x="12" y="62" width="80" height="9" rx="4.5" fill="#E9D7A6"/>
+    <path d="M86 58 Q90 36 100 34 Q116 32 117 46 Q117 58 102 60 Z" fill="#7ACB8E"/>
+    <circle cx="106" cy="40" r="4" fill="#173B2A"/><circle cx="107.3" cy="38.7" r="1.3" fill="#fff"/>
+    <circle cx="112" cy="49" r="3" fill="#F2A0A0" opacity=".7"/>
+    ${mouth}
+  </svg>`;
+}
+const PEARL = `<svg class="pearl" viewBox="0 0 24 24" aria-hidden="true"><defs><radialGradient id="pg" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".6" stop-color="#F3E3F0"/><stop offset="1" stop-color="#C9A7C4"/></radialGradient></defs><circle cx="12" cy="12" r="9.5" fill="url(#pg)" stroke="#B48BAE" stroke-width="1"/><circle cx="9" cy="8.5" r="2.4" fill="#fff"/></svg>`;
+const starsHTML = n => [0,1,2].map(i=>`<span class="${i<n?"":"off"}">⭐</span>`).join("");
+const muteBtn = () => `<button class="iconbtn" data-act="mute" aria-label="${muted?"Hidupkan bunyi":"Matikan bunyi"}">${muted?"🔇":"🔊"}</button>`;
+function toast(msg){
+  document.querySelectorAll(".toast").forEach(t=>t.remove());
+  const t=document.createElement("div"); t.className="toast"; t.setAttribute("role","status"); t.textContent=msg;
+  document.body.appendChild(t); setTimeout(()=>t.remove(),2800);
+}
+function sparkle(el, txt){
+  const r = el.getBoundingClientRect(), s = document.createElement("span");
+  s.className="sparkle"; s.textContent = txt; s.style.left=(r.left+r.width/2-13)+"px"; s.style.top=(r.top+r.height/4)+"px";
+  document.body.appendChild(s); setTimeout(()=>s.remove(),900);
+}
+const subSVG = () => `<svg viewBox="0 0 120 70" aria-hidden="true">
+  <rect x="58" y="6" width="5" height="16" fill="#E8A317"/><rect x="58" y="6" width="14" height="5" rx="2" fill="#E8A317"/>
+  <path d="M40 22 h30 q8 0 8 8 v4 h-46 v-4 q0 -8 8 -8Z" fill="#F6C343"/>
+  <ellipse cx="60" cy="44" rx="46" ry="20" fill="#FFD34E"/><ellipse cx="60" cy="38" rx="40" ry="8" fill="#FFE27A" opacity=".7"/>
+  <circle cx="44" cy="44" r="7" fill="#7FD3F0" stroke="#C8923C" stroke-width="3"/><circle cx="64" cy="44" r="7" fill="#7FD3F0" stroke="#C8923C" stroke-width="3"/><circle cx="84" cy="44" r="7" fill="#7FD3F0" stroke="#C8923C" stroke-width="3"/>
+  <circle cx="84" cy="44" r="4" fill="#5FB878"/><circle cx="85.5" cy="42.5" r="1.2" fill="#fff"/>
+  <path d="M14 44 l-8 -8 v16 Z" fill="#E8A317"/><g class="prop"><ellipse cx="7" cy="44" rx="3" ry="10" fill="#C8923C"/></g>
+</svg>`;
+function oceanScene(){
+  const bubs = [40,90,200,250,300].map((x,i)=>`<circle class="bubup" style="animation-delay:${i*0.8}s" cx="${x}" cy="170" r="${3+i%3*2}" fill="none" stroke="#fff" stroke-width="1.5"/>`).join("");
+  return `<div class="scene"><svg viewBox="0 0 320 160" role="img" aria-label="${tx("Pemandangan dasar laut","ڤمندڠن داسر لاءوت")}">
+    <defs><linearGradient id="oc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7ED6F0"/><stop offset="1" stop-color="#14578F"/></linearGradient></defs>
+    <rect width="320" height="160" fill="url(#oc)"/>
+    <g fill="#fff" opacity=".18"><path d="M40 0 L70 0 L120 160 L80 160Z"/><path d="M170 0 L190 0 L230 160 L200 160Z"/></g>
+    <path d="M0 140 Q60 128 120 138 T240 134 T320 136 V160 H0Z" fill="#E3CC92"/>
+    <g class="seaweed"><path d="M30 145 Q20 120 32 100 Q42 82 30 64" stroke="#2F8F5B" stroke-width="6" fill="none" stroke-linecap="round"/></g>
+    <g class="seaweed" style="animation-delay:-1.5s"><path d="M290 145 Q300 118 288 98 Q278 80 292 66" stroke="#3FA36B" stroke-width="6" fill="none" stroke-linecap="round"/></g>
+    <g class="seaweed" style="animation-delay:-.7s"><path d="M262 148 Q270 128 260 112" stroke="#2F8F5B" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+    <g fill="#F06A5B"><circle cx="70" cy="142" r="6"/><circle cx="80" cy="138" r="5"/><circle cx="64" cy="136" r="4"/></g>
+    <path d="M220 146 l6 -12 l6 12 l12 2 l-10 6 l2 10 l-10 -6 l-10 6 l2 -10 l-10 -6Z" fill="#F2A93B" transform="scale(.7) translate(100 50)"/>
+    <g class="fishgo"><g transform="translate(0 50)"><ellipse cx="0" cy="0" rx="14" ry="8" fill="#F2A93B"/><path d="M-12 0 l-10 -7 v14Z" fill="#F2A93B"/><circle cx="6" cy="-2" r="2" fill="#12303D"/></g></g>
+    <g class="fishgo" style="animation-delay:-6s;animation-duration:16s"><g transform="translate(0 92)"><ellipse cx="0" cy="0" rx="11" ry="6" fill="#9B5DE5"/><path d="M-9 0 l-8 -6 v12Z" fill="#9B5DE5"/><circle cx="5" cy="-1.5" r="1.6" fill="#12303D"/></g></g>
+    <g class="turtle"><g transform="translate(60 70) scale(.42)">${mascot().replace(/<\/?svg[^>]*>/g,"")}</g></g>
+    ${bubs}
+  </svg></div>`;
+}
+function clamScene(){
+  const names = ULUL.map(i=>L(RASUL[i]));
+  return `<div class="clam"><svg viewBox="0 -70 320 240" role="img" aria-label="${tx("Kerang terbuka dengan lima mutiara","کرڠ تربوک دڠن ليم موتيارا")}">
+    <defs><radialGradient id="cp" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="#fff"/><stop offset=".6" stop-color="#F3E3F0"/><stop offset="1" stop-color="#C9A7C4"/></radialGradient></defs>
+    <path d="M40 120 Q160 190 280 120 Q160 150 40 120Z" fill="#E28B9A"/><path d="M40 120 Q160 172 280 120" fill="none" stroke="#B85C6E" stroke-width="3"/>
+    ${names.map((n,i)=>{ const x=70+i*45, y=118-(i===2?8:i%2?4:0); return `<g class="pr" style="animation-delay:${1+i*0.35}s"><circle cx="${x}" cy="${y-6}" r="17" fill="url(#cp)" stroke="#B48BAE"/><circle cx="${x-5}" cy="${y-12}" r="4" fill="#fff"/><text x="${x}" y="${y+26+(i%2)*15}" text-anchor="middle" font-size="12.5" font-weight="800" fill="currentColor">${n}</text></g>`; }).join("")}
+    <g class="top"><path d="M40 120 Q60 30 160 26 Q260 30 280 120 Q160 100 40 120Z" fill="#F4A6B4"/>${[80,120,160,200,240].map(x=>`<path d="M160 118 L${x} 34" stroke="#E28B9A" stroke-width="3"/>`).join("")}</g>
+  </svg></div>`;
+}
+function r25HTML(){
+  return `<div class="r25">${RASUL.map((r,i)=>`<span class="${ULUL.includes(i)?"hl":""}" style="--i:${i}"><b>${i+1}</b>${L(r)}</span>`).join("")}</div><p class="hint" style="margin:0 0 10px">🟡 ${tx("Emas = rasul ulul azmi","امس = رسول اولوالعزم")}</p>`;
+}
+function khatamHTML(){
+  return `<div class="khatam">${RASUL.slice(0,24).map((_,i)=>`<i style="--i:${i}"></i>`).join("")}<b><span></span>${tx("Ke-25","ک-25")}</b></div>`;
+}
+const flipCard = (k,i=0,big=false) => { const s=SIFAT[k]; return `<div class="flip ${big?"big":""}"><div class="in" style="--d:${i*0.6}s">
+  <div class="f"><span class="t">${tx("Wajib","واجب")}</span><span class="a">${s.wa}</span><span class="n">${L(s.w)}</span><span class="e">${L(s.we)}</span></div>
+  <div class="k"><span class="t">${tx("Mustahil","مستحيل")}</span><span class="a">${s.ma}</span><span class="n">${L(s.m)}</span><span class="e">${L(s.me)}</span></div></div></div>`; };
+const chestSVG = () => `<svg viewBox="0 0 80 64" aria-hidden="true"><g class="inside"><text x="40" y="36" text-anchor="middle" font-size="22"></text></g>
+  <rect x="8" y="30" width="64" height="30" rx="4" fill="#8B5A2B"/><rect x="8" y="30" width="64" height="5" fill="#E8B33A"/><rect x="36" y="30" width="8" height="30" fill="#E8B33A"/><rect x="37" y="38" width="6" height="7" rx="1" fill="#6B3E14"/>
+  <g class="lid"><path d="M8 32 V22 Q40 4 72 22 V32Z" fill="#A0622D"/><path d="M8 26 Q40 9 72 26" stroke="#E8B33A" stroke-width="3" fill="none"/><rect x="36" y="13" width="8" height="19" fill="#E8B33A"/></g></svg>`;
+
+/* ============ PETA LAUTAN ============ */
+function renderMap(){
+  stopAnims(); run = null;
+  const nodes = [...LESSONS.map((t,i)=>({t,i})), {final:true}];
+  const rowH = 150, top = 170, H = top + nodes.length*rowH + 70;
+  const xs = nodes.map((_,i)=> i%2===0 ? 30 : 70);
+  const ys = nodes.map((_,i)=> top + i*rowH + 40);
+  let d = `M 50 60 C 50 100, ${xs[0]} ${ys[0]-70}, ${xs[0]} ${ys[0]}`;
+  for(let i=1;i<nodes.length;i++) d += ` C ${xs[i-1]} ${ys[i-1]+rowH*.55}, ${xs[i]} ${ys[i]-rowH*.55}, ${xs[i]} ${ys[i]}`;
+  let current = LESSONS.findIndex(t=>best[t.id]<1);
+  if(current<0) current = LESSONS.length;
+  if(current<LESSONS.length && !unlocked(current)) current = -1;
+  const nodeHTML = nodes.map((n,i)=>{
+    const x = xs[i], y = ys[i];
+    const depth = `<span class="depth" style="left:${i%2===0?72:6}%;top:${y}px">−${n.final?FINAL.depth:n.t.depth} m</span>`;
+    if(n.final){
+      const open = finalUnlocked();
+      return depth+`<button class="node ${open?"":"locked"} ${current===LESSONS.length?"current":""}" style="left:${x}%;top:${y}px;--tc:#E8A317" data-act="station" data-i="final">
+        <span class="port">${open?FINAL.icon:"🔒"}${best.final>=1?`<span class="gem">👑</span>`:""}</span>
+        <span class="lbl"><small>${tx("Cabaran Akhir","چابرن اخير")}</small>${L(FINAL.title)}</span>
+        <span class="st">${starsHTML(best.final)}</span></button>`;
+    }
+    const t = n.t, open = unlocked(n.i);
+    return depth+`<button class="node ${open?"":"locked"} ${current===n.i?"current":""}" style="left:${x}%;top:${y}px;--tc:${t.color}" data-act="station" data-i="${n.i}" aria-label="${tx("Pelajaran","ڤلاجرن")} ${t.id}: ${L(t.title)}">
+      <span class="port">${open?t.icon:"🔒"}<span class="num">${t.id}</span>${best[t.id]>=1?`<span class="gem">🦪</span>`:""}</span>
+      <span class="lbl"><small>${L(t.zone)}</small>${L(t.title)}</span>
+      <span class="st">${starsHTML(best[t.id])}</span></button>`;
+  }).join("");
+  const sub = current>=0 ? `<div class="subm" style="left:${xs[current]+(current%2===0?27:-27)}%;top:${ys[current]-46}px">${subSVG()}</div>` : "";
+  const bubs = [...Array(16)].map((_,i)=>`<span class="bub" style="left:${(i*37)%96+2}%;--s:${6+i%4*4}px;--t:${7+i%5*2}s;--d:-${i*1.3}s;--h:${H+40}px"></span>`).join("");
+  const fish = [["🐠",260,22,"",0],["🐟",560,28,"l",-8],["🐡",880,32,"",-14],["🦈",1180,40,"l",-5],["🐙",1420,36,"",-20],["🐬",420,26,"l",-11]].filter(f=>f[1]<H-80).map(([e,y,t,c,dl])=>`<span class="swim ${c}" style="top:${y}px;--t:${t}s;--d:${dl}s">${c==="l"?e:`<span style="display:inline-block;transform:scaleX(-1)">${e}</span>`}</span>`).join("");
+  const rays = [8,30,58,80].map((x,i)=>`<span class="ray" style="left:${x}%;transform:rotate(${i%2?14:-12}deg);animation-delay:-${i*1.4}s"></span>`).join("");
+  app.innerHTML = `
+    <div class="topbar">
+      <div class="stats"><a class="iconbtn" href="../index.html" aria-label="${tx("Kembali ke Tahun 3","کمبالي ک تاهون 3")}">${BACK()}</a><span class="pillstat" aria-label="${pearls} mutiara">${PEARL} ${pearls}</span><span class="pillstat" aria-label="${totalStars()} bintang">⭐ ${totalStars()}</span></div>
+      <span style="display:flex;gap:8px"><button class="langbtn" data-act="lang" aria-label="${tx("Tukar ke tulisan Jawi","Tukar ke tulisan Rumi")}">${isJ()?"Rumi":'<span class="ar">جاوي</span>'}</button>${muteBtn()}</span>
+    </div>
+    <header class="hero">
+      <span class="sub">${tx("Tauhid Tahun 3 • KAFA","توحيد تاهون 3 • کافا")}</span>
+      <h1>${tx("Kembara Lautan Iman","کمبارا لاءوتن ايمان")}</h1>
+      <p>${tx("Naik kapal selam bersama Pupu si Penyu! Lulus setiap zon untuk menyelam lebih dalam dan kumpul mutiara.","نايق کاڤل سلم برسام ڤوڤو سي ڤڽو! لولوس ستياڤ زون اونتوق مڽلم لبيه دالم دان کومڤول موتيارا.")}</p>
+    </header>
+    <div class="ocean" style="height:${H}px">
+      ${rays}${bubs}
+      <svg class="waves" viewBox="0 0 540 30" preserveAspectRatio="none" aria-hidden="true"><path d="M0 12 Q30 0 60 12 T120 12 T180 12 T240 12 T300 12 T360 12 T420 12 T480 12 T540 12 V30 H0Z" fill="rgba(255,255,255,.35)"/></svg>
+      <svg class="ship" viewBox="0 0 120 70" aria-hidden="true"><path d="M58 4 V44" stroke="#6B3E14" stroke-width="3"/><path d="M60 6 L92 40 H60Z" fill="#fff"/><path d="M56 10 L30 40 H56Z" fill="#F06A5B"/><path d="M58 4 l12 4 l-12 4Z" fill="#D1495B"/><path d="M14 44 H106 L94 62 H26Z" fill="#8B5A2B"/><rect x="26" y="50" width="68" height="3" fill="#E8B33A"/></svg>
+      <svg class="route" viewBox="0 0 100 ${H}" preserveAspectRatio="none" aria-hidden="true"><path d="${d}" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 12" vector-effect="non-scaling-stroke"/></svg>
+      ${fish}
+      <svg class="floor" viewBox="0 0 540 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 70 Q90 40 180 66 T360 60 T540 64 V120 H0Z" fill="#3A3A5C"/><path d="M0 90 Q120 70 260 88 T540 84 V120 H0Z" fill="#2A2A48"/></svg>
+      ${nodeHTML}${sub}
+    </div>
+    <div class="teacher"><button class="toggle" data-act="teacher" aria-pressed="${teacher}"><span class="sw" aria-hidden="true"></span>${tx("Mod guru: buka semua zon","مود ڬورو: بوک سموا زون")}</button></div>
+    <p class="foot">${tx("Kandungan berdasarkan Buku Teks Tauhid Tahun 3 (JAIS). Setiap soalan menunjukkan muka surat rujukan.","کندوڠن برداسرکن بوکو تيکس توحيد تاهون 3 (جايس). ستياڤ سوالن منونجوقکن موک سورت روجوکن.")}</p>`;
+}
+
+/* ============ STESEN ============ */
+function openStation(key){
+  stopAnims();
+  const isFinal = key==="final";
+  if(isFinal && !finalUnlocked()){ sfx.bad(); toast("🔒 "+tx("Lulus semua 7 zon (sekurang-kurangnya 1 bintang) untuk ke Istana Mutiara.","لولوس سموا 7 زون (سکورڠ٢ڽ 1 بينتڠ) اونتوق ک ايستان موتيارا.")); return; }
+  if(!isFinal && !unlocked(+key)){ sfx.bad(); toast("🔒 "+tx(`Lulus Pelajaran ${+key} dahulu untuk menyelam ke zon ini.`,`لولوس ڤلاجرن ${+key} دهولو اونتوق مڽلم ک زون اين.`)); return; }
+  run = {station:key};
+  const bb = [10,30,55,75,88].map((x,i)=>`<span class="bb" style="left:${x}%;width:${8+i%3*6}px;height:${8+i%3*6}px;animation-delay:-${i}s"></span>`).join("");
+  const top = `<div class="topbar"><button class="iconbtn" data-act="map" aria-label="${tx("Kembali ke lautan","کمبالي ک لاءوتن")}">${BACK()}</button><span class="pillstat">${PEARL} ${pearls}</span></div>`;
+  if(isFinal){
+    app.innerHTML = `${top}
+      <div class="banner page-in" style="--tc:${FINAL.color}">${bb}
+        <div class="kick">${L(FINAL.sub)} • −${FINAL.depth} m</div><h2>${L(FINAL.title)}</h2>
+        <div class="stars">${starsHTML(best.final)}</div><span class="chip">👑 ${tx("Buka kerang gergasi!","بوک کرڠ ڬرڬاسي!")}</span><span class="big" aria-hidden="true">🦪</span>
+      </div>
+      <ul class="units" style="--tc:${FINAL.color}">${LESSONS.map(t=>`<li><span class="u">${P("P"+t.id)}</span>${L(t.title)}</li>`).join("")}</ul>
+      <div class="actions"><button class="bigbtn play" data-act="play"><span class="e" aria-hidden="true">🤿</span><span>${tx("Mula Cabaran Akhir","مولا چابرن اخير")}<small>${FINAL.qs.length} ${tx("soalan pelbagai jenis","سوالن ڤلباڬاي جنيس")}</small></span></button></div>`;
+    window.scrollTo(0,0); return;
+  }
+  const t = LESSONS[+key];
+  app.innerHTML = `${top}
+    <div class="banner page-in" style="--tc:${t.color}">${bb}
+      <div class="kick">${tx("Pelajaran","ڤلاجرن")} ${t.id} • ${tx("Buku teks ms.","بوکو تيکس م.س.")} ${t.pages}</div><h2>${L(t.title)}</h2>
+      <div class="stars">${starsHTML(best[t.id])}</div><span class="chip">🌊 ${L(t.zone)} • −${t.depth} m</span><span class="big" aria-hidden="true">${t.icon}</span>
+    </div>
+    <ul class="units" style="--tc:${t.color}">${t.units.map((u,i)=>`<li><span class="u">${tx("Unit","اونيت")} ${i+1}</span>${L(u)}</li>`).join("")}</ul>
+    <div class="actions">
+      <button class="bigbtn read" data-act="read"><span class="e" aria-hidden="true">📖</span><span>${tx("Tonton & Baca","تونتون & باچ")}<small>${t.cards.length} ${tx("kad beranimasi","کد برانيماسي")}</small></span></button>
+      <button class="bigbtn play" data-act="play"><span class="e" aria-hidden="true">🤿</span><span>${tx("Mula Menyelam","مولا مڽلم")}<small>${t.qs.length} ${tx("soalan, 8 jenis permainan","سوالن، 8 جنيس ڤرماٴينن")}</small></span></button>
+    </div>`;
+  window.scrollTo(0,0);
+}
+
+/* ============ TONTON & BACA ============ */
+function startRead(){ run.c = 0; showCard(); }
+function showCard(){
+  stopAnims();
+  const t = LESSONS[+run.station], c = t.cards[run.c], n = t.cards.length;
+  run.say = c.chat ? c.chat.map(m=>R(m[2])).join(". ") : [R(c.t), ...(c.list||[]).map(R), R(c.mk)].filter(Boolean).join(". ");
+  let body = "";
+  if(c.sc==="ocean") body += oceanScene();
+  if(c.sc==="clam") body += clamScene();
+  if(c.sc==="r25") body += r25HTML();
+  if(c.sc==="khatam") body += khatamHTML();
+  if(c.flip) body += flipCard(c.flip,0,true);
+  if(c.flips) body += `<div class="flipgrid">${c.flips.map((k,i)=>flipCard(k,i)).join("")}</div>`;
+  body += `<span class="unitlbl">${L(c.u)}</span>`;
+  if(c.chat){
+    const first = c.chat[0][1][0];
+    body += `<div class="chat">${c.chat.map((m,i)=>`<div class="msg ${m[1][0]===first?"":"r"}" style="--d:${i*0.9}s"><span class="who" aria-hidden="true">${m[0]}</span><div class="b"><small>${L(m[1])}</small>${L(m[2])}</div></div>`).join("")}</div>`;
+  }
+  if(c.cmp) body += `<div class="cmp">${c.cmp.map(([h,items])=>`<div><h3>${L(h)}</h3><ul>${items.map(x=>`<li>${L(x)}</li>`).join("")}</ul></div>`).join("")}</div>`;
+  if(c.t) body += `<p class="readtext">${L(c.t)}</p>`;
+  if(c.list) body += `<ol class="rlist">${c.list.map((x,i)=>`<li style="--i:${i}">${L(x)}</li>`).join("")}</ol>`;
+  if(c.ar) body += `<div class="arbox"><span class="ar" dir="rtl" lang="ar">${c.ar}</span>${c.src?`<small>${L(c.src)}</small>`:""}</div>`;
+  if(c.mk) body += `<p class="maksud">${L(c.mk)}</p>`;
+  if(c.tip) body += `<div class="tip"><b>💡 ${tx("Ingat!","ايڠت!")}</b>${L(c.tip)}</div>`;
+  body += `<p class="ref" style="margin:-4px 0 12px">📖 ${tx("Buku teks ms.","بوکو تيکس م.س.")} ${c.p}</p>`;
+  app.innerHTML = `
+    <div class="gamehead"><button class="iconbtn" data-act="station-back" aria-label="${tx("Kembali","کمبالي")}">${BACK()}</button><h2>${tx("Tonton & Baca","تونتون & باچ")}<small>${L(t.title)}</small></h2><span class="pill">${run.c+1}/${n}</span></div>
+    <div class="progress"><span style="width:${Math.round((run.c+1)/n*100)}%"></span></div>
+    <div class="card page-in" style="--tc:${t.color}">
+      ${body}
+      <div class="navrow">
+        <button class="secondary" data-act="cprev" aria-label="${tx("Kad sebelum","کد سبلوم")}" ${run.c===0?"disabled":""}>${isJ()?"▶":"◀"}</button>
+        ${ttsOK&&run.say?`<button class="pill" data-act="say" style="padding:9px 12px">🔊 ${tx("Dengar","دڠر")}</button>`:"<span></span>"}
+        <button class="primary" data-act="cnext">${run.c+1<n?tx("Seterusnya","ستروسڽ"):tx("Mula Menyelam","مولا مڽلم")} ${isJ()?"◀":"▶"}</button>
+      </div>
+      <div class="dots" aria-hidden="true">${[...Array(n)].map((_,i)=>`<i class="${i===run.c?"on":""}"></i>`).join("")}</div>
+    </div>`;
+}
+
+/* ============ CABARAN ============ */
+function startPlay(){
+  const src = run.station==="final" ? FINAL.qs : LESSONS[+run.station].qs;
+  run = Object.assign(run, {qs:shuffle(src), i:0, score:0, pearl:0, streak:0});
+  showQ();
+}
+function qTitle(){
+  if(run.station==="final") return `${L(FINAL.title)}<small>${L(FINAL.sub)}</small>`;
+  const t = LESSONS[+run.station];
+  return `${tx("Pelajaran","ڤلاجرن")} ${t.id}<small>${L(t.title)}</small>`;
+}
+
+function showQ(){
+  stopAnims();
+  const q = run.qs[run.i];
+  run.q = q; run.done = false; run.mist = 0;
+  run.say = R(q.q);
+  let body = "";
+  switch(q.type){
+    case "chest":
+      run.opts = shuffle(q.a.map((t,i)=>({t,ok:i===0})));
+      if(!run.opts.some(o=>isAr(o.t))) run.say += ". " + run.opts.map(o=>R(o.t)).join(". ");
+      body = `<p class="hint">${tx("Pilih satu peti. Peti yang betul ada mutiara!","ڤيليه ساتو ڤيتي. ڤيتي يڠ بتول اد موتيارا!")}</p><div class="chests">${run.opts.map((o,k)=>`<button class="chest" data-act="chest" data-k="${k}">${chestSVG()}${T(o.t)}</button>`).join("")}</div>`;
+      break;
+    case "tf":
+      body = `<div class="tfbubble" id="tfb">${L(q.q)}</div>
+        <div class="tfrow"><button class="yes" data-act="tf" data-v="1"><span aria-hidden="true">✅</span>${tx("Betul","بتول")}</button><button class="no" data-act="tf" data-v="0"><span aria-hidden="true">❌</span>${tx("Salah","ساله")}</button></div>`;
+      break;
+    case "fish": {
+      run.left = q.items.filter(x=>x[1]).length;
+      const lanes = [16,98,180];
+      const order = shuffle(q.items.map((it,i)=>({it,i})));
+      body = `<p class="hint">${tx("Tekan ikan yang betul untuk memancingnya.","تکن ايکن يڠ بتول اونتوق ممنچيڠڽ.")} <span class="counter" id="fleft">🎣 ${run.left} ${tx("lagi","لاڬي")}</span></p>
+        <div class="sea" id="sea"><span class="boat" aria-hidden="true">🛶</span><span class="hookline" id="hook"></span>${order.map((o,k)=>{ const lane=k%3, nIn=Math.ceil(order.length/3), s=13+lane*2.5; return `<button class="fish" data-act="fish" data-i="${o.i}" style="--fc:${FISH_COLORS[k%FISH_COLORS.length]};--y:${lanes[lane]}px;--s:${s}s;--d:-${(Math.floor(k/3)/nIn)*s+lane*1.7}s">${L(o.it[0])}</button>`; }).join("")}</div>`;
+      break; }
+    case "scale":
+      run.queue = shuffle(q.items); run.si = 0; run.cnt = [0,0];
+      body = `<div class="weight" id="wt"></div>
+        <div class="scalebox">${scaleSVG(q)}</div>
+        <div class="swbtns" dir="ltr">${q.l.map((l,k)=>`<button class="swbtn s${k}" data-act="pan" data-g="${k}"><span aria-hidden="true">${k?"➡️":"⬅️"}</span>${L(l)}</button>`).join("")}</div>
+        <div class="bins" dir="ltr"><div id="bin0"></div><div id="bin1"></div></div>`;
+      break;
+    case "clue":
+      run.shown = 1;
+      run.opts = shuffle(q.a.map((t,i)=>({t,ok:i===0})));
+      body = `<ol class="clues" id="clues"></ol>
+        <button class="cluebtn" data-act="clue" id="cluebtn">🔎 ${tx("Buka petunjuk seterusnya","بوک ڤتونجوق ستروسڽ")}</button>
+        <div class="guesses">${run.opts.map((o,k)=>`<button class="guess" data-act="guess" data-k="${k}">${T(o.t)}</button>`).join("")}</div>`;
+      break;
+    case "lines": {
+      run.sel = null; run.matched = [];
+      const left = shuffle(q.pairs.map((p,i)=>({t:p[0],i}))), right = shuffle(q.pairs.map((p,i)=>({t:p[1],i})));
+      body = `<p class="hint">${tx("Tekan satu kotak di kiri, kemudian pasangannya di kanan.","تکن ساتو کوتق د کيري، کمودين ڤاسڠنڽ د کانن.")}</p>
+        <div class="lines" id="lines" dir="ltr"><svg id="lsvg" aria-hidden="true"></svg>
+          <div class="col">${left.map(o=>`<button class="lbtn" data-act="ll" data-i="${o.i}" dir="auto">${T(o.t)}</button>`).join("")}</div>
+          <div class="col">${right.map(o=>`<button class="lbtn" data-act="lr" data-i="${o.i}" dir="auto">${T(o.t)}</button>`).join("")}</div>
+        </div>`;
+      break; }
+    case "words": {
+      run.next = 0;
+      const rtl = isAr(q.words[0]);
+      body = `<p class="hint">${tx("Tekan gelembung mengikut urutan ayat.","تکن ڬلمبوڠ مڠيکوت اوروتن ايات.")}</p>
+        <div class="sentence" dir="${rtl?"rtl":"ltr"}">${q.words.map((_,i)=>`<span class="wslot" id="w${i}">…</span>`).join("")}</div>
+        <div class="wbubs" dir="${rtl?"rtl":"ltr"}">${shuffle(q.words.map((w,i)=>({w,i}))).map((o,k)=>`<button class="wbub" data-act="word" data-i="${o.i}" style="--d:-${k*0.5}s">${T(o.w)}</button>`).join("")}</div>`;
+      break; }
+    case "order":
+      run.next = 0;
+      body = `<p class="hint">${tx("Tekan mengikut urutan, bermula dengan yang pertama.","تکن مڠيکوت اوروتن، برمولا دڠن يڠ ڤرتام.")}</p>
+        <ol class="slots">${q.items.map((_,i)=>`<li class="slot" id="s${i}"><span class="n">${i+1}</span><span class="st">🐚</span></li>`).join("")}</ol>
+        <div class="chips">${shuffle(q.items.map((t,i)=>({t,i}))).map(o=>`<button class="chip" data-act="ord" data-i="${o.i}">${T(o.t)}</button>`).join("")}</div>`;
+      break;
+  }
+  const tag = q.tag ? `<span class="tag">${P(q.tag)}</span>` : "";
+  const pct = Math.round(run.i/run.qs.length*100);
+  app.innerHTML = `
+    <div class="gamehead"><button class="iconbtn" data-act="station-back" aria-label="${tx("Kembali","کمبالي")}">${BACK()}</button><h2>${qTitle()}</h2><span class="pillstat">${PEARL} ${run.pearl}</span></div>
+    <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="${run.qs.length}" aria-valuenow="${run.i}"><span style="width:${pct}%"></span><i style="${isJ()?"right":"left"}:${pct}%" aria-hidden="true">🐠</i></div>
+    <div class="card page-in">
+      <div class="qmeta"><span><span class="qtype">${(isJ()?TYPE_J:TYPE_R)[q.type]}</span>${tag}</span><span style="display:flex;gap:6px;align-items:center"><span style="color:var(--muted);font-size:15px">${run.i+1}/${run.qs.length}</span>${ttsOK?`<button class="pill" data-act="say" aria-label="${tx("Dengar soalan","دڠر سوالن")}">🔊</button>`:""}</span></div>
+      ${q.type==="tf"?"":`<p class="qtext">${L(q.q)}</p>`}
+      ${body}
+      <div id="fb" aria-live="polite"></div>
+    </div>`;
+  if(q.type==="scale"){ showWeight(); tiltScale(); }
+  if(q.type==="clue") drawClues();
+  if(q.type==="lines") window.onresize = drawLines;
+}
+
+function finishQ(ok, extra="", bonus=0){
+  run.done = true;
+  const gain = ok ? 1 + bonus : 0;
+  if(ok){ run.score++; run.pearl += gain; run.streak++; } else run.streak = 0;
+  const q = run.q, last = run.i+1 >= run.qs.length;
+  const title = ok ? (run.mist ? tx("Bagus, hampir sempurna!","باڬوس، همڤير سمڤورنا!") : pick(isJ()?PRAISE_J:PRAISE_R)) : tx("Tidak mengapa, mari belajar!","تيدق مڠاڤ، ماري بلاجر!");
+  $("fb").innerHTML = `<div class="feedback">${mascot(ok?"happy":"sad")}<div><strong>${title}</strong>${ok?`<span class="streak">+${gain} ${tx("mutiara","موتيارا")}</span> `:""}${ok&&run.streak>=3?`<span class="streak">🔥 ${run.streak} ${tx("berturut-turut!","برتوروت٢!")}</span>`:""}<br>${extra}${L(q.e)}<div class="ref">📖 ${tx("Rujuk buku teks ms.","روجوق بوکو تيکس م.س.")} ${q.p}</div></div></div>
+    <button class="primary" data-act="next">${last?tx("Lihat keputusan","ليهت کڤوتوسن"):tx("Soalan seterusnya","سوالن ستروسڽ")}</button>`;
+  ok ? sfx.ok() : sfx.bad();
+  const b = $("fb").querySelector(".primary"); b.focus({preventScroll:true}); b.scrollIntoView({block:"nearest",behavior:REDUCED?"auto":"smooth"});
+}
+
+/* Peti harta */
+function ansChest(k){
+  if(run.done) return;
+  const btns = [...app.querySelectorAll(".chest")];
+  btns.forEach(b=>b.disabled=true);
+  const right = run.opts.findIndex(o=>o.ok), ok = k===right;
+  const open = (b, txt) => { b.querySelector(".inside text").textContent = txt; b.classList.add("open"); };
+  sfx.creak();
+  open(btns[k], ok ? "🦪" : "🦀");
+  btns[k].classList.add(ok?"ok":"bad");
+  if(!ok) setTimeout(()=>{ open(btns[right],"🦪"); btns[right].classList.add("ok"); }, 450);
+  else sparkle(btns[k],"✨");
+  hush(); finishQ(ok);
+}
+/* Betul / salah */
+function ansTF(btn){
+  if(run.done) return;
+  app.querySelectorAll(".tfrow button").forEach(b=>b.disabled=true);
+  btn.classList.add("picked");
+  const ok = (btn.dataset.v==="1")===run.q.ans;
+  const bub = $("tfb"); bub.classList.add("popit"); sfx.blub();
+  hush(); finishQ(ok, `${tx("Jawapan:","جواڤن:")} <b>${run.q.ans?tx("Betul","بتول"):tx("Salah","ساله")}</b>. `);
+}
+/* Pancing */
+function ansFish(b){
+  if(run.done || b.disabled) return;
+  const it = run.q.items[+b.dataset.i];
+  b.disabled = true;
+  if(it[1]){
+    const sea = $("sea"), r = b.getBoundingClientRect(), sr = sea.getBoundingClientRect(), hook = $("hook");
+    hook.style.left = (r.left - sr.left + r.width/2)+"px"; hook.style.height = (r.top - sr.top + 10)+"px";
+    setTimeout(()=>{ hook.style.height = "0px"; }, 350);
+    sfx.splash(); sparkle(b,"🎣"); b.classList.add("caught"); run.left--;
+    $("fleft").textContent = `🎣 ${run.left} ${tx("lagi","لاڬي")}`;
+    if(run.left===0){
+      app.querySelectorAll(".fish").forEach(x=>x.disabled=true);
+      setTimeout(()=>finishQ(run.mist<=1, run.mist?`${tx("Ikan kelabu bukan jawapan:","ايکن کلابو بوکن جواڤن:")} ${run.q.items.filter(x=>!x[1]).map(x=>L(x[0])).join(", ")}. `:""), 400);
+    }
+  } else { run.mist++; sfx.bad(); b.classList.add("nope","shake"); b.prepend("❌ "); }
+}
+/* Timbang */
+function scaleSVG(q){
+  return `<svg viewBox="0 0 300 175" role="img" aria-label="${tx("Neraca","نراچا")}">
+    <path d="M110 170 h80 l-12 -12 h-56Z" fill="#8B5A2B"/><rect x="146" y="40" width="8" height="122" fill="#A0622D"/>
+    <g class="beam" id="beam"><rect x="40" y="36" width="220" height="8" rx="4" fill="#C8923C"/></g>
+    <circle cx="150" cy="40" r="9" fill="#E8B33A"/>
+    ${[0,1].map(k=>`<g class="pan" id="pan${k}"><path d="M0 0 L-34 54 M0 0 L34 54" stroke="#8A6A3A" stroke-width="1.6"/><path d="M-44 54 h88 q-6 18 -44 18 q-38 0 -44 -18Z" fill="${k?"#D1495B":"#0E7C9B"}"/><g id="pp${k}"></g><text y="88" text-anchor="middle" font-size="13" font-weight="800" fill="currentColor">${L(q.l[k])}</text></g>`).join("")}
+  </svg>`;
+}
+function tiltScale(){
+  const d = run.cnt[1]-run.cnt[0], th = Math.max(-16, Math.min(16, d*6)), r = th*Math.PI/180;
+  const beam = $("beam"); if(!beam) return;
+  beam.style.transform = `rotate(${th}deg)`;
+  [[0,-1],[1,1]].forEach(([k,s])=>{ $("pan"+k).style.transform = `translate(${150+s*106*Math.cos(r)}px,${40+s*106*Math.sin(r)}px)`; });
+  [0,1].forEach(k=>{ $("pp"+k).innerHTML = [...Array(run.cnt[k])].map((_,i)=>`<circle cx="${-28+(i%5)*14}" cy="${48-Math.floor(i/5)*12}" r="6" fill="#F3E3F0" stroke="#B48BAE"/>`).join(""); });
+}
+function showWeight(){
+  const it = run.queue[run.si], w = $("wt"); if(!w) return;
+  w.className = "weight"; void w.offsetWidth;
+  w.innerHTML = `<span>${T(it[0])}<small>${run.queue.length-run.si} ${tx("lagi","لاڬي")}</small></span>`;
+}
+function ansPan(g){
+  if(run.done || run.busy) return;
+  const it = run.queue[run.si], ok = g===it[1];
+  run.busy = true;
+  if(ok) sfx.tap(); else { run.mist++; sfx.bad(); }
+  $("wt").classList.add(it[1]?"dropR":"dropL");
+  setTimeout(()=>{
+    run.cnt[it[1]]++; tiltScale();
+    $("bin"+it[1]).insertAdjacentHTML("beforeend", `<i class="${ok?"":"x"}">${ok?"✓ ":"❗"}${L(it[0])}</i>`);
+    run.busy = false; run.si++;
+    if(run.si>=run.queue.length){
+      $("wt").className="weight"; $("wt").innerHTML = run.cnt[0]===run.cnt[1] ? tx("⚖️ Seimbang!","⚖️ سايمبڠ!") : tx("Siap! ✔️","سياڤ! ✔️");
+      app.querySelectorAll(".swbtn").forEach(b=>b.disabled=true);
+      finishQ(run.mist<=1, run.mist?tx("Item bertanda ❗ telah dipindahkan ke dulang yang betul. ","ايتم برتندا ❗ تله دڤينداهکن ک دولڠ يڠ بتول. "):"");
+    } else showWeight();
+  }, ok?380:650);
+}
+/* Teka siapa */
+function drawClues(){
+  const q = run.q;
+  $("clues").innerHTML = q.clues.map((c,i)=> i<run.shown
+    ? `<li class="on"><span class="n">${i+1}</span>${L(c)}</li>`
+    : `<li class="off"><span class="n">${i+1}</span>🔒 ${tx("Petunjuk tersembunyi","ڤتونجوق ترسمبوڽي")}</li>`).join("");
+  const b = $("cluebtn"); if(b){ b.disabled = run.shown>=q.clues.length || run.done; }
+}
+function ansGuess(k){
+  if(run.done) return;
+  const btns = [...app.querySelectorAll(".guess")];
+  btns.forEach(b=>b.disabled=true);
+  const right = run.opts.findIndex(o=>o.ok), ok = k===right;
+  btns[right].classList.add("ok"); if(!ok) btns[k].classList.add("bad","shake");
+  const bonus = ok ? run.q.clues.length - run.shown : 0;
+  run.shown = run.q.clues.length; drawClues();
+  hush(); finishQ(ok, ok&&bonus?`<span class="bonus">🕵️ +${bonus} ${tx("bonus detektif","بونوس ديتيکتيف")}</span><br>`:"", bonus);
+}
+/* Garis padan */
+function lineEnds(a, b){
+  const box = $("lines").getBoundingClientRect(), ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect();
+  const ax = (ra.left < rb.left ? ra.right : ra.left) - box.left, bx = (ra.left < rb.left ? rb.left : rb.right) - box.left;
+  return [ax, ra.top+ra.height/2-box.top, bx, rb.top+rb.height/2-box.top];
+}
+function linePath([x1,y1,x2,y2]){ const m=(x1+x2)/2; return `M${x1} ${y1} C${m} ${y1}, ${m} ${y2}, ${x2} ${y2}`; }
+function drawLines(){
+  const svg = $("lsvg"); if(!svg) return;
+  svg.innerHTML = run.matched.map(([a,b,c])=>{ const e=lineEnds(a,b); return `<path d="${linePath(e)}" stroke="${c}" style="--len:400;animation:none;stroke-dasharray:none"/>`; }).join("");
+}
+function ansLine(b, side){
+  if(run.done || b.classList.contains("done")) return;
+  if(side==="l"){ app.querySelectorAll('.lbtn[data-act="ll"]').forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); run.sel=b; sfx.tap(); return; }
+  if(!run.sel){ b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake"); return; }
+  const a = run.sel, svg = $("lsvg"), e = lineEnds(a,b), len = Math.ceil(Math.hypot(e[2]-e[0],e[3]-e[1])*1.3);
+  if(a.dataset.i===b.dataset.i){
+    const c = LINE_COLORS[run.matched.length % LINE_COLORS.length];
+    svg.insertAdjacentHTML("beforeend", `<path d="${linePath(e)}" stroke="${c}" style="--len:${len}"/>`);
+    [a,b].forEach(x=>{ x.classList.remove("sel"); x.classList.add("done"); x.style.background=c; x.disabled=true; });
+    run.matched.push([a,b,c]); run.sel=null; sfx.tap();
+    if(run.matched.length===run.q.pairs.length) setTimeout(()=>finishQ(run.mist<=1),300);
+  } else {
+    run.mist++; sfx.bad();
+    svg.insertAdjacentHTML("beforeend", `<path class="wrongl" d="${linePath(e)}" stroke="#C8452F" stroke-dasharray="6 6" style="--len:${len}"/>`);
+    setTimeout(()=>svg.querySelectorAll(".wrongl").forEach(p=>p.remove()), 600);
+    b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake");
+  }
+}
+/* Susun kalimah */
+function ansWord(b){
+  if(run.done) return;
+  const i = +b.dataset.i;
+  if(i===run.next){
+    sfx.blub();
+    const s = $("w"+i); s.innerHTML = T(run.q.words[i]); s.classList.add("f");
+    b.classList.add("gone"); b.disabled = true; run.next++;
+    if(run.next===run.q.words.length) finishQ(run.mist<=1);
+  } else { run.mist++; sfx.bad(); b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake"); }
+}
+/* Susun urutan */
+function ansOrder(b){
+  if(run.done) return;
+  const i = +b.dataset.i;
+  if(i===run.next){
+    sfx.tap();
+    const s=$("s"+i); s.classList.add("filled"); s.querySelector(".st").innerHTML = T(run.q.items[i]);
+    b.remove(); run.next++;
+    if(run.next===run.q.items.length) finishQ(run.mist<=1);
+  } else { run.mist++; sfx.bad(); app.querySelectorAll(".chip.shake").forEach(x=>x.classList.remove("shake")); void b.offsetWidth; b.classList.add("shake"); }
+}
+
+function nextQ(){
+  run.i++;
+  if(run.i < run.qs.length){ showQ(); window.scrollTo(0,0); }
+  else finishRound();
+}
+function finishRound(){
+  stopAnims();
+  const isFinal = run.station==="final";
+  const key = isFinal ? "final" : LESSONS[+run.station].id;
+  const n = run.qs.length, s = run.score, pct = s/n;
+  const stars = pct>=0.9?3:pct>=0.7?2:pct>=0.5?1:0;
+  const wasFinalOpen = finalUnlocked();
+  const nextIdx = isFinal ? -1 : +run.station+1;
+  const wasNextOpen = nextIdx>0 && nextIdx<LESSONS.length ? unlocked(nextIdx) : true;
+  const prev = best[key];
+  if(stars>prev){ best[key]=stars; save("t3-best",best); }
+  pearls += run.pearl; save("t3-mutiara",pearls);
+  const msgs = [];
+  if(nextIdx>0 && nextIdx<LESSONS.length && !wasNextOpen && unlocked(nextIdx)) msgs.push(tx(`🤿 Zon baharu dibuka: ${L(LESSONS[nextIdx].zone)} (−${LESSONS[nextIdx].depth} m)!`,`🤿 زون بهارو دبوک: ${L(LESSONS[nextIdx].zone)} (−${LESSONS[nextIdx].depth} m)!`));
+  if(!isFinal && !wasFinalOpen && finalUnlocked()) msgs.push(tx("👑 Istana Mutiara kini dibuka!","👑 ايستان موتيارا کيني دبوک!"));
+  const titles = isJ() ? ["جوم چوبا سکالي لاڬي","بوليه چوبا لاڬي","باڬوس!","چمرلڠ!"] : ["Jom cuba sekali lagi","Boleh cuba lagi","Bagus!","Cemerlang!"];
+  const label = isFinal ? L(FINAL.title) : `${tx("Pelajaran","ڤلاجرن")} ${key}: ${L(LESSONS[+run.station].title)}`;
+  app.innerHTML = `
+    <div class="card result page-in" style="margin-top:18px">
+      ${mascot(stars>=2?"happy":"idle")}
+      <p style="margin:4px 0 0">${label}</p>
+      <div class="stars" role="img" aria-label="${stars} / 3">${starsHTML(stars)}</div>
+      <h2>${titles[stars]}</h2>
+      <p>${tx(`Kamu menjawab ${s} daripada ${n} soalan dengan betul.`,`کامو منجواب ${s} درڤد ${n} سوالن دڠن بتول.`)}</p>
+      <div class="earned">+${run.pearl} ${PEARL} ${tx("mutiara","موتيارا")}</div>
+      ${stars>prev?`<p>${tx("Rekod baharu!","ريکود بهارو!")}</p>`:""}
+      ${stars===0?`<p>${tx("Dapatkan sekurang-kurangnya 1 bintang (separuh betul) untuk menyelam ke zon seterusnya. Cuba “Tonton & Baca” dahulu.","داڤتکن سکورڠ٢ڽ 1 بينتڠ (سڤاروه بتول) اونتوق مڽلم ک زون ستروسڽ. چوبا “تونتون & باچ” دهولو.")}</p>`:""}
+      ${msgs.map(m=>`<div class="unlock">${m}</div>`).join("<br>")}
+      ${isFinal&&stars===3?`<div class="unlock">👑 ${tx("Tahniah! Kamu juara Tauhid Tahun 3!","تهنية! کامو جوارا توحيد تاهون 3!")}</div>`:""}
+      <button class="primary" data-act="map">${tx("Kembali ke lautan","کمبالي ک لاءوتن")} 🌊</button>
+      <button class="secondary" data-act="again">${tx("Main lagi","ماٴين لاڬي")}</button>
+    </div>`;
+  sfx.win();
+  if(stars===3) rain();
+  window.scrollTo(0,0);
+}
+function rain(){
+  if(REDUCED) return;
+  const box = document.createElement("div"); box.className = "rain";
+  for(let i=0;i<28;i++){
+    const s = document.createElement("span");
+    s.textContent = pick(["🫧","⭐","🐠","🦪","✨","🐚"]);
+    s.style.left = Math.random()*100+"vw";
+    s.style.animationDuration = (2.5+Math.random()*2)+"s";
+    s.style.animationDelay = (Math.random()*0.8)+"s";
+    box.appendChild(s);
+  }
+  document.body.appendChild(box);
+  setTimeout(()=>box.remove(), 5000);
+}
+
+/* ============ PERISTIWA ============ */
+app.addEventListener("click", e=>{
+  const b = e.target.closest("button");
+  if(!b || b.disabled) return;
+  switch(b.dataset.act){
+    case "mute": muted=!muted; save("t3-muted",muted); b.textContent=muted?"🔇":"🔊"; b.setAttribute("aria-label",muted?"Hidupkan bunyi":"Matikan bunyi"); if(muted) hush(); break;
+    case "lang": lang = isJ() ? "rumi" : "jawi"; save("kafa-lang",lang); applyLang(); renderMap(); break;
+    case "teacher": teacher=!teacher; save("t3-teacher",teacher); renderMap(); break;
+    case "map": renderMap(); window.scrollTo(0,0); break;
+    case "station": openStation(b.dataset.i); break;
+    case "station-back": openStation(run.station); break;
+    case "read": startRead(); window.scrollTo(0,0); break;
+    case "cprev": if(run.c>0){ run.c--; showCard(); } break;
+    case "cnext": { const n=LESSONS[+run.station].cards.length; if(run.c+1<n){ run.c++; showCard(); } else startPlay(); window.scrollTo(0,0); break; }
+    case "play": startPlay(); window.scrollTo(0,0); break;
+    case "say": if(run && run.say) speak(run.say); break;
+    case "chest": ansChest(+b.dataset.k); break;
+    case "tf": ansTF(b); break;
+    case "fish": ansFish(b); break;
+    case "pan": ansPan(+b.dataset.g); break;
+    case "clue": if(!run.done && run.shown<run.q.clues.length){ run.shown++; sfx.blub(); drawClues(); } break;
+    case "guess": ansGuess(+b.dataset.k); break;
+    case "ll": ansLine(b,"l"); break;
+    case "lr": ansLine(b,"r"); break;
+    case "word": ansWord(b); break;
+    case "ord": ansOrder(b); break;
+    case "next": nextQ(); break;
+    case "again": startPlay(); window.scrollTo(0,0); break;
+  }
+});
+
+applyLang();
+renderMap();
+</script>
+</body>
+</html>

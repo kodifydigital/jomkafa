@@ -36,6 +36,12 @@ const READY = {
     r:"Jom Bina Masjid", j:"جوم بينا مسجد",
     dr:"7 pelajaran, 10 jenis permainan", dj:"7 ڤلاجرن، 10 جنيس ڤرماٴينن",
     progress:{ key:"f3-best", max:24 }
+  },
+  "3/tauhid": {
+    path:"tauhid/index.html",
+    r:"Kembara Lautan Iman", j:"کمبارا لاءوتن ايمان",
+    dr:"7 zon lautan, 8 jenis permainan", dj:"7 زون لاءوتن، 8 جنيس ڤرماٴينن",
+    progress:{ key:"t3-best", max:24 }
   }
 };
 
