@@ -146,6 +146,26 @@ html[dir="rtl"] .praise{line-height:1.6}
 @keyframes praise{0%{transform:translate(-50%,-50%) scale(.3);opacity:0}20%{transform:translate(-50%,-50%) scale(1.15);opacity:1}70%{opacity:1}100%{transform:translate(-50%,-90%) scale(1);opacity:0}}
 .ctlrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
 .ctlrow button{border:0;border-radius:16px;padding:10px;font-size:26px;background:var(--surface);border:2px solid var(--line);box-shadow:0 3px 0 var(--line)}
+/* Susun: dulang jawapan di bawah, langkah bernombor */
+.field.tall{height:min(76vh,680px);min-height:480px}
+.prompt .ord{margin-top:2px;font-size:14.5px;opacity:1;color:#FFF3B0}
+.tray{position:absolute;left:8px;right:8px;bottom:8px;z-index:6;padding:8px 10px 10px;border-radius:18px;background:rgba(255,255,255,.94);color:#1E1640;box-shadow:0 6px 18px rgba(0,0,0,.35),0 0 0 3px var(--wa)}
+.thead{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px;margin-bottom:8px}
+.tnext{font-weight:800;font-size:clamp(17px,3.6vw,21px)}
+.tnext b{display:inline-block;min-width:30px;text-align:center;border-radius:10px;padding:0 8px;margin:0 2px;color:#fff;background:var(--w1)}
+.tnext small{font-size:14px;color:#5F5689}
+.tdots{display:flex;gap:5px}
+.tdots i{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;font-style:normal;font-weight:800;font-size:14px;background:#ECE8F6;color:#5F5689;border:2px solid #DCD3F5}
+.tdots i.ok{background:#2BC173;border-color:#2BC173;color:#fff}
+.tdots i.cur{background:var(--w1);border-color:var(--wa);color:#fff;animation:pop 1s ease-in-out infinite}
+.tbtns{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.tbtns button{border:0;border-radius:14px;padding:8px 10px;min-height:56px;font-weight:800;font-size:clamp(16px,3.4vw,19px);line-height:1.25;color:#1E1640;
+  background:linear-gradient(180deg,#fff,#F3EFFF);box-shadow:0 4px 0 color-mix(in srgb,var(--w1) 55%,#000),0 0 0 2px color-mix(in srgb,var(--w1) 35%,transparent) inset;transition:transform .12s}
+html[dir="rtl"] .tbtns button{line-height:1.6}
+.tbtns button .ar{font-size:clamp(20px,4vw,26px)}
+.tbtns button:hover{transform:translateY(-2px)}
+.tbtns button:active{transform:translateY(3px);box-shadow:0 1px 0 color-mix(in srgb,var(--w1) 55%,#000)}
+.tbtns button.no{background:#FFB3B5;animation:shake .35s}
 .lanehud{position:absolute;left:8px;right:8px;top:8px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;z-index:6}
 .lanehud:empty{display:none}
 .lanehud button{border:3px solid var(--wa);background:rgba(255,255,255,.95);color:#1E1640;border-radius:14px;font-weight:800;font-size:clamp(14px,2.4vw,21px);padding:4px 6px;line-height:1.2;min-height:56px;box-shadow:0 3px 0 rgba(0,0,0,.35)}
@@ -954,7 +974,7 @@ const HOW = {
   catch:(n,c)=>[[`Seret jari (atau tekan ◀ ▶) untuk menggerakkan ${c[0]}.`,`سرت جاري (اتاو تکن ◀ ▶) اونتوق مڠڬرقکن ${c[1]}.`],[`Tangkap ${n[0]} yang betul sahaja.`,`تڠکڤ ${n[1]} يڠ بتول سهاج.`],[`Elakkan ${n[0]} yang salah!`,`ايلقکن ${n[1]} يڠ ساله!`]],
   pop:n=>[[`Lihat ${n[0]} yang naik dari bawah.`,`ليهت ${n[1]} يڠ نايق دري باواه.`],[`Tekan ${n[0]} yang membawa jawapan betul.`,`تکن ${n[1]} يڠ ممباوا جواڤن بتول.`],[`Jangan tekan ${n[0]} yang salah!`,`جاڠن تکن ${n[1]} يڠ ساله!`]],
   run:n=>[[`Pintu dengan 3 jawapan datang ke arah ${n[0]}.`,`ڤينتو دڠن 3 جواڤن داتڠ ک اره ${n[1]}.`],["Tekan jawapan pada papan di atas (atau ◀ ▶) untuk tukar lorong.","تکن جواڤن ڤد ڤاڤن د اتس (اتاو ◀ ▶) اونتوق توکر لوروڠ."],["Lalu pintu yang betul untuk kumpul mata!","لالو ڤينتو يڠ بتول اونتوق کومڤول مات!"]],
-  climb:n=>[["Tekan jawapan mengikut urutan yang betul.","تکن جواڤن مڠيکوت اوروتن يڠ بتول."],[`Setiap jawapan betul menambah satu bahagian ${n[0]}.`,`ستياڤ جواڤن بتول منمبه ساتو بهاڬين ${n[1]}.`],[`Siapkan ${n[0]} sebanyak mungkin sebelum masa tamat!`,`سياڤکن ${n[1]} سباڽق موڠکين سبلوم ماس تامت!`]],
+  climb:n=>[["Tekan jawapan di bawah ikut urutan, bermula dengan yang PERTAMA.","تکن جواڤن د باوه ايکوت اوروتن، برمولا دڠن يڠ ڤرتام."],[`Setiap jawapan betul menambah satu bahagian ${n[0]}.`,`ستياڤ جواڤن بتول منمبه ساتو بهاڬين ${n[1]}.`],[`Siapkan ${n[0]} sebanyak mungkin sebelum masa tamat!`,`سياڤکن ${n[1]} سباڽق موڠکين سبلوم ماس تامت!`]],
   duel:n=>[["Dua pihak menjawab soalan yang sama serentak.","دوا ڤيهق منجواب سوالن يڠ سام سرنتق."],[`Jawapan betul yang paling pantas menggerakkan ${n[0]} ke hadapan.`,`جواڤن بتول يڠ ڤاليڠ ڤنتس مڠڬرقکن ${n[1]} ک هادڤن.`],["Salah tekan? Pihak itu disekat untuk soalan tersebut.","ساله تکن؟ ڤيهق ايت دسکت اونتوق سوالن ترسبوت."]]
 };
 const BCOL = [0xFF5C8A,0xFFB020,0x3DD6F5,0x7CE36A,0xB57BFF,0xFF7A45];
@@ -1238,6 +1258,15 @@ function colsSetup(dist, minPx){
 }
 function freeCol(clear){ const f = G.cols.filter(c=>!c.last || !G.items.includes(c.last) || clear(c.last)); return f.length ? pick(f) : null; }
 
+const numCache = new Map();
+function numTex(n){
+  if(numCache.has(n)) return numCache.get(n);
+  const c = document.createElement("canvas"); c.width = c.height = 128; const x = c.getContext("2d");
+  const gr = x.createRadialGradient(48, 40, 6, 64, 64, 62); gr.addColorStop(0, "#FFF6C8"); gr.addColorStop(1, "#F5B400");
+  x.beginPath(); x.arc(64, 64, 60, 0, Math.PI*2); x.fillStyle = gr; x.fill(); x.lineWidth = 7; x.strokeStyle = "#8A5A00"; x.stroke();
+  x.fillStyle = "#3A2600"; x.font = '800 70px "Baloo 2","Trebuchet MS",sans-serif'; x.textAlign = "center"; x.textBaseline = "middle"; x.fillText(String(n), 64, 70);
+  const t = new THREE.CanvasTexture(c); numCache.set(n, t); return t;
+}
 /* ---------- Kesan ---------- */
 function addFx(t, step, end){ G.fxs.push({t:0, max:t, step, end}); }
 function stepFx(dt){ G.fxs = G.fxs.filter(f=>{ f.t += dt; const k = Math.min(1, f.t/f.max); f.step(k, dt); if(k>=1){ if(f.end) f.end(); return false; } return true; }); }
@@ -1644,8 +1673,8 @@ MOD3.climb = {
     G.camY = 0; G.camX = 0; G.camD = 8.5 + 1.6/asp;
     cam.position.set(0, 4.2, G.camD); cam.lookAt(0, 1.6, 0);
     ground(); dress("climb");
-    G.train = !!wg.train;
-    G.pickG = new THREE.Group(); scene.add(G.pickG);
+    // lebar blok ikut lebar skrin supaya tulisan pada menara mudah dibaca di telefon
+    G.train = !!wg.train; G.bw = Math.min(3.2, Math.max(2.2, W3.halfW(G.camD + 1.5)*2*0.62));
     if(G.train){
       for(const d of [-0.42, 0.42]) mk(BOX(80, 0.1, 0.08), M(0x9AA3AB, {metalness:.7, roughness:.3}), -20, 0.08, -1.5+d, scene);
       for(let i=0;i<60;i++) mk(BOX(0.2, 0.06, 1.3), M(0x6B4A2B), 20 - i*1.2, 0.03, -1.5, scene);
@@ -1661,30 +1690,69 @@ MOD3.climb = {
   newLoco(){
     const l = C.loco(); l.userData.type = "loco"; l.rotation.y = Math.PI/2; l.position.set(3.2, 0, -1.5); G.scene.add(l); G.loco = l; G.trainX = 3.2 - 1.75;
   },
+  // Jawapan dipaparkan dalam dulang di bawah skrin (butang besar), supaya menara / kereta api 3D tidak terlindung.
   newSeq(s){
-    G.pickG.children.slice().forEach(c=>G.pickG.remove(c)); G.blocks = [];
-    const n = s.items.length, order = shuffle(s.items.map((it,k)=>({it,k})));
-    const span = W3.halfW(G.camD-2.5)*2*0.92, cols3 = n>4 && span>6.6 ? 3 : 2;
-    G.bw = Math.min(2.4, span/cols3 - 0.2);
-    const pal = G.wg.blocks;
-    order.forEach((o,i)=>{
-      const c = i % cols3, r = Math.floor(i / cols3);
-      const {t, a} = labelTex(o.it, {w:Array.isArray(o.it)?260:520});
-      const w = G.bw, h = Math.max(0.6, Math.min(1.3, w/a));
-      const face = new THREE.MeshStandardMaterial({map:t, roughness:.7});
-      const side = M(pal[i % pal.length], G.w.neon ? {} : FLAT);
-      const m = new THREE.Mesh(BOX(w, h, 0.7), [side, side, side, side, face, side]); m.castShadow = true;
-      if(G.train){ [-1,1].forEach(k=>{ const wh = mk(CYL(0.2, 0.2, 0.08, 14), M(0x2B2B3A), k*(w/2-0.35), -h/2-0.05, 0.37, m); wh.rotation.x = Math.PI/2; }); }
-      m.position.set((c-(cols3-1)/2)*(w+0.2), 0.45 + h/2 + r*1.05 + (G.train?0.15:0), 2.5 - r*1.1); m.rotation.x = -0.35;
-      m.userData = {k:o.k, h, x0:m.position.x}; G.pickG.add(m);
-      G.blocks.push({m, it:o.it, k:o.k, shake:0});
-    });
+    G.trayOrder = shuffle(s.items.map((_,k)=>k)); G.placed = new Set();
+    this.drawTray();
+  },
+  drawTray(){
+    let t = $("tray");
+    if(!t){ t = document.createElement("div"); t.className = "tray"; t.id = "tray"; G.field.appendChild(t); }
+    const n = G.seq.items.length, i = Math.min(G.next, n-1), done = G.next>=n;
+    t.innerHTML = `<div class="thead"><span class="tnext">${done ? "🎉 "+tx("Lengkap!","لڠکڤ!")
+        : G.next===0 ? `👉 ${tx("Pilih yang","ڤيليه يڠ")} <b>${tx("PERTAMA","ڤرتام")}</b>`
+        : `👉 ${tx("Pilih yang ke-","ڤيليه يڠ ک-")}<b>${G.next+1}</b> <small>${tx("daripada","درڤد")} ${n}</small>`}</span>
+      <span class="tdots" dir="ltr">${G.seq.items.map((_,k)=>`<i class="${k<G.next?"ok":k===i&&!done?"cur":""}">${k<G.next?"✓":k+1}</i>`).join("")}</span></div>
+      <div class="tbtns">${G.trayOrder.filter(k=>!G.placed.has(k)).map(k=>`<button data-act="pick" data-k="${k}">${LAB(G.seq.items[k])}</button>`).join("")}</div>`;
+    // anjak kamera ke atas supaya objek 3D berada di ruang di atas dulang
+    const th = t.offsetHeight;
+    if(G.R && th !== G.trayH){ G.trayH = th; G.cam.setViewOffset(G.W, G.H, 0, Math.round(th*0.55), G.W, G.H); }
+  },
+  // Blok bersudut bulat (bertepi lembut) + label di hadapan + lencana nombor urutan di kiri
+  block(it, i){
+    const {t, a} = labelTex(it, {w:Array.isArray(it)?260:520});
+    const w = G.bw, lw = w - 0.78, lh = Math.min(1.15, lw / a), h = Math.max(0.78, lh + 0.32);
+    const col = new THREE.Color(G.wg.blocks[i % G.wg.blocks.length]);
+    const s = new THREE.Shape(), r = 0.2, x0 = -w/2, y0 = -h/2;
+    s.moveTo(x0+r, y0); s.lineTo(x0+w-r, y0); s.quadraticCurveTo(x0+w, y0, x0+w, y0+r); s.lineTo(x0+w, y0+h-r); s.quadraticCurveTo(x0+w, y0+h, x0+w-r, y0+h);
+    s.lineTo(x0+r, y0+h); s.quadraticCurveTo(x0, y0+h, x0, y0+h-r); s.lineTo(x0, y0+r); s.quadraticCurveTo(x0, y0, x0+r, y0);
+    const geo = new THREE.ExtrudeGeometry(s, {depth:0.56, bevelEnabled:true, bevelThickness:0.08, bevelSize:0.07, bevelSegments:3, curveSegments:8}); geo.center();
+    const m = new THREE.Mesh(geo, MU(col, {roughness:.38, metalness:.08, emissive:col, emissiveIntensity:G.w.neon ? .25 : .06})); m.castShadow = true; m.receiveShadow = true;
+    // label (sudut lutsinar kini menampakkan warna blok, bukan hitam)
+    const lab = new THREE.Mesh(new THREE.PlaneGeometry(lw, lh), new THREE.MeshBasicMaterial({map:t, transparent:true}));
+    lab.position.set(0.3, 0, 0.37); m.add(lab);
+    // lencana nombor urutan
+    const bd = new THREE.Mesh(new THREE.CircleGeometry(0.24, 28), new THREE.MeshBasicMaterial({map:numTex(i+1), transparent:true}));
+    bd.position.set(-w/2 + 0.34, 0, 0.37); m.add(bd);
+    if(G.train){
+      mk(BOX(w - 0.2, 0.16, 0.5), M(0x2B2B3A), 0, -h/2 - 0.12, 0, m);
+      [-1,1].forEach(k=>{ const wh = mk(CYL(0.22, 0.22, 0.1, 18), M(0x2B2B3A), k*(w/2-0.4), -h/2-0.2, 0.32, m); wh.rotation.x = Math.PI/2;
+        mk(CYL(0.08, 0.08, 0.12, 10), M(0xF5C542, {metalness:.4}), 0, 0, 0, wh); });
+    }
+    m.userData = {h: h + 0.16 + (G.train ? 0.2 : 0)}; return m;
+  },
+  pick(k, btn){
+    if(G.depart || G.placed.has(k) || G.next>=G.seq.items.length) return;
+    const it = G.seq.items[k], want = G.seq.items[G.next];
+    const r = btn.getBoundingClientRect(), f = G.field.getBoundingClientRect(), px = r.left - f.left + r.width/2, py = r.top - f.top + r.height/2;
+    if(key(it)!==key(want)){ btn.classList.remove("no"); void btn.offsetWidth; btn.classList.add("no"); bad(px, py, it, want); return; }
+    // blok 3D terbang dari butang yang ditekan ke menara / kereta api
+    const m = this.block(it, G.tower.length);
+    const dir = new THREE.Vector3(px/G.W*2-1, -(py/G.H*2-1), 0.5).unproject(G.cam).sub(G.cam.position).normalize();
+    const start = G.cam.position.clone().addScaledVector(dir, 6);
+    m.position.copy(start); m.rotation.x = -0.35; G.scene.add(m);
+    let dest;
+    if(G.train){ const x = G.trainX - (G.tower.length+0.5)*(G.bw+0.18); dest = new THREE.Vector3(x, 0.45 + m.userData.h/2, -1.5); }
+    else { const y = G.tower.reduce((a,t)=>a+t.userData.h, 0) + 0.4 + m.userData.h/2; dest = new THREE.Vector3(0, y, -1.5); }
+    G.fly.push({m, a:start, b:dest, t:0, spin:G.train ? 0 : Math.random()<0.5?1:0});
+    G.tower.push(m); G.placed.add(k); G.next++; G.steps = (G.steps||0) + 1;
+    good(px, py, want); this.drawTray();
+    if(G.next===G.seq.items.length) this.done(dest);
   },
   update(dt){
     G.fly = G.fly.filter(f=>{ f.t += dt/0.5; const k = Math.min(1, f.t), e = 1-Math.pow(1-k, 3);
       f.m.position.lerpVectors(f.a, f.b, e); f.m.position.y += Math.sin(k*Math.PI)*1.6; f.m.rotation.x = -0.35*(1-e); f.m.rotation.y = e*Math.PI*2*(f.spin||0);
       return k<1; });
-    G.blocks.forEach(b=>{ if(b.shake>0){ b.shake -= dt; b.m.position.x = b.m.userData.x0 + Math.sin(b.shake*60)*0.08*(b.shake/0.35); } });
     if(G.train){
       // kamera ikut gerabak terakhir (kereta api memanjang ke kiri)
       const want = G.tower.length ? Math.min(G.trainX, G.tower[G.tower.length-1].position.x + 1.2) : G.trainX;
@@ -1695,26 +1763,8 @@ MOD3.climb = {
       if(!G.depart) G.camY += (Math.max(0, top - 2.2) - G.camY)*Math.min(1, dt*3);
     }
     if(G.depart) G.depart(dt);
-    G.pickG.position.set(G.camX, G.camY, 0);
     G.cam.position.set(G.camX + Math.sin(G.el*0.4)*0.8, 4.2 + G.camY, G.camD); G.cam.lookAt(G.camX, 1.6 + G.camY, 0);
     W3.frame(dt);
-  },
-  pointer(e, ndc){
-    if(G.depart) return;
-    const h = W3.hit(ndc, G.blocks.map(b=>b.m)); if(!h) return;
-    const b = G.blocks.find(x=>x.m===h.object || x.m===h.object.parent); if(!b) return;
-    const want = G.seq.items[G.next], wp = b.m.getWorldPosition(new THREE.Vector3()), p = W3.screen(wp);
-    if(key(b.it)===key(want)){
-      G.blocks = G.blocks.filter(x=>x!==b);
-      G.pickG.remove(b.m); b.m.position.copy(wp); G.scene.add(b.m);
-      let dest;
-      if(G.train){ const x = G.trainX - (G.tower.length+0.5)*(G.bw+0.18); dest = new THREE.Vector3(x, 0.45 + b.m.userData.h/2, -1.5); }
-      else { const y = G.tower.reduce((a,t)=>a+t.userData.h, 0) + 0.4 + b.m.userData.h/2; dest = new THREE.Vector3(0, y, -1.5); }
-      G.fly.push({m:b.m, a:wp, b:dest, t:0, spin:G.train ? 0 : Math.random()<0.5?1:0});
-      G.tower.push(b.m); G.next++; G.steps = (G.steps||0) + 1;
-      good(p.x, p.y, want);
-      if(G.next===G.seq.items.length) this.done(dest);
-    } else { b.shake = 0.35; bad(p.x, p.y, b.it, want); }
   },
   // urutan lengkap: hiasan teratas, kemudian menara/roket/kereta api berlepas
   done(dest){
@@ -1975,7 +2025,7 @@ function start(){
   const team = G.turns[G.ti];
   Object.assign(G, {score:0, lives:LIVES, dur: team==="solo"?DUR.solo:DUR.kelas, el:0, streak:0, good:0, badn:0, log:[], set:null, setHits:0, setT:0, items:[], uid:0, over:false, paused:true, spawnT:0});
   G.tok = Math.random();
-  app.innerHTML = `${hudHTML()}<div class="field f3d" id="field" dir="ltr"></div>${g.id==="catch"||g.id==="run"?`<div class="ctlrow"><button data-act="left" aria-label="Kiri">◀</button><button data-act="right" aria-label="Kanan">▶</button></div>`:""}`;
+  app.innerHTML = `${hudHTML()}<div class="field f3d${g.id==="climb"?" tall":""}" id="field" dir="ltr"></div>${g.id==="catch"||g.id==="run"?`<div class="ctlrow"><button data-act="left" aria-label="Kiri">◀</button><button data-act="right" aria-label="Kanan">▶</button></div>`:""}`;
   G.field = $("field"); G.W = G.field.clientWidth; G.H = G.field.clientHeight;
   G.mod = MOD3[g.id];
   try{ G.mod.init(); }catch(e){ console.error(e); return noGL(); }
@@ -2016,7 +2066,7 @@ function newSet(){
 }
 function showPrompt(p, sub){
   const el = $("prompt"); if(!el) return;
-  el.innerHTML = `${subj==="mix"?`<small>${SUB(sub).icon} ${tx(SUB(sub).r,SUB(sub).j)}</small>`:""}🎯 ${L(p)}`;
+  el.innerHTML = `${subj==="mix"?`<small>${SUB(sub).icon} ${tx(SUB(sub).r,SUB(sub).j)}</small>`:""}🎯 ${L(p)}${G.g.id==="climb"?`<small class="ord">🔢 ${tx("Mula dari yang PERTAMA ➜ hingga yang terakhir","مولا دري يڠ ڤرتام ➜ هيڠڬ يڠ ترآخير")}</small>`:""}`;
   el.classList.remove("new"); void el.offsetWidth; el.classList.add("new");
   if(G.el>0.5) sfx.level();
 }
@@ -2363,6 +2413,7 @@ function handle(b, e){
     case "pause": togglePause(); break;
     case "resume": togglePause(); break;
     case "quit": renderMap(); break;
+    case "pick": if(G && !G.paused && !G.over && G.mod.pick) G.mod.pick(+b.dataset.k, b); break;
     case "lane3": if(G && !G.paused && !G.over && G.mod.setLane) G.mod.setLane(+b.dataset.l); break;
     case "left": if(G && !G.over && G.mod.nudge) G.mod.nudge(-1); break;
     case "right": if(G && !G.over && G.mod.nudge) G.mod.nudge(1); break;
@@ -2380,12 +2431,12 @@ function handle(b, e){
 app.addEventListener("pointerdown", e=>{
   const b = e.target.closest("[data-act]");
   if(!b || b.disabled) return;
-  if(["lane3","dopt"].includes(b.dataset.act)){ e.preventDefault(); handle(b, e); }
+  if(["lane3","dopt","pick"].includes(b.dataset.act)){ e.preventDefault(); handle(b, e); }
 });
 app.addEventListener("click", e=>{
   const b = e.target.closest("[data-act]");
   if(!b || b.disabled) return;
-  if(["lane3","dopt"].includes(b.dataset.act)){ if(e.detail===0) handle(b, e); return; }
+  if(["lane3","dopt","pick"].includes(b.dataset.act)){ if(e.detail===0) handle(b, e); return; }
   handle(b, e);
 });
 
