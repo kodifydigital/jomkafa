@@ -1,5 +1,13 @@
 // JOM KAFA sebagai web app (PWA): daftar service worker dan urus butang "Pasang aplikasi".
 // Dimuatkan dalam <head> setiap halaman (tanpa defer) supaya KafaPWA sedia sebelum halaman dilukis.
+// Matikan zum "ketik dua kali" di semua halaman (contoh: tekan ◀ ▶ dengan pantas di iPhone/iPad).
+// touch-action: manipulation masih membenarkan tatal dan zum dua jari untuk kebolehcapaian.
+(() => {
+  const st = document.createElement("style");
+  st.textContent = "html,body,button,a,input,select,label,[data-act]{touch-action:manipulation}";
+  (document.head || document.documentElement).appendChild(st);
+})();
+
 window.KafaPWA = (() => {
   const ua = navigator.userAgent || "";
   const P = {
