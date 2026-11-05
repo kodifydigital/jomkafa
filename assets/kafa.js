@@ -145,7 +145,7 @@ function renderHome(app){
       <div class="greet">${mascot()}<div class="bubble">${tx("Assalamualaikum! Saya Kiki. Pilih tahun kamu untuk mula belajar.","السلام عليکم! ساي کيکي. ڤيليه تاهون کامو اونتوق مولا بلاجر.")}</div></div>
     </header>
     <nav class="gates" aria-label="${tx("Pilih tahun","ڤيليه تاهون")}">${gates}</nav>
-    <p class="foot">${tx("Dibina untuk murid KAFA. Subjek baharu akan ditambah dari semasa ke semasa.","دبينا اونتوق موريد کافا. سوبجيک بهارو اکن دتمبه دري سماس ک سماس.")}</p>`;
+    <p class="foot">${tx("Dibina untuk murid KAFA. Subjek baharu akan ditambah dari semasa ke semasa.","دبينا اونتوق موريد کافا. سوبجيک بهارو اکن دتمبه دري سماس ک سماس.")}<br><a href="privasi.html" style="color:inherit">${tx("Dasar Privasi","داسر ڤريۏاسي")}</a></p>`;
 }
 
 /* ===================== Laman tahun ===================== */
