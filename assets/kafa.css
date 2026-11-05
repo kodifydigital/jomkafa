@@ -218,3 +218,43 @@ html[dir="rtl"] .wcard .bar i{margin-inline-start:0}
 /* Jawi (kanan ke kiri): cerminkan hiasan supaya matahari/bulan berada di sebelah maskot, bukan di belakang tajuk */
 html[dir="rtl"] .wcard .scene,html[dir="rtl"] .arc .scene{transform:scaleX(-1)}
 .arc .scene{opacity:.5}
+
+/* ===== Tab laman tahun: Belajar / Zon Arked ===== */
+.ytabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px;padding:6px;background:var(--surface);border:2px solid var(--line);border-radius:22px}
+.ytabs button{display:flex;flex-direction:column;align-items:center;justify-content:center;border:0;border-radius:16px;padding:8px 10px;background:none;font-weight:800;font-size:19px;line-height:1.2;color:var(--muted);min-height:58px}
+html[dir="rtl"] .ytabs button{line-height:1.6}
+.ytabs button small{font-size:13px;font-weight:700;opacity:.8}
+.ytabs button[aria-selected="true"]{color:#fff;background:linear-gradient(135deg,var(--y3),#0A3F35);box-shadow:0 4px 0 #062B24}
+.ytabs button[data-t="arcade"][aria-selected="true"]{background:linear-gradient(120deg,#F97316,#EC4899 55%,#06B6D4);box-shadow:0 4px 0 #7A1C4F}
+.ytabs button[data-t="arcade"]:not([aria-selected="true"]){background:linear-gradient(120deg,#F97316,#EC4899 55%,#06B6D4);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ===== Zon Arked (laman tahun): aurora berwarna, bingkai neon pelangi ===== */
+.arcade{margin-top:18px;padding:20px 18px 18px;background:#0B1026;box-shadow:0 8px 0 #050814,0 18px 40px rgba(6,182,212,.18);isolation:isolate}
+.arcade::before{content:"";position:absolute;inset:-60%;z-index:-2;background:conic-gradient(from 0deg,#F97316,#EC4899,#8B5CF6,#06B6D4,#22C55E,#FACC15,#F97316);animation:spin 8s linear infinite}
+.arcade::after{content:"";position:absolute;inset:4px;z-index:-1;border-radius:24px;background:#0B1026}
+@keyframes spin{to{transform:rotate(360deg)}}
+.arcade .aurora{position:absolute;inset:4px;z-index:-1;border-radius:24px;overflow:hidden;pointer-events:none;
+  background:radial-gradient(40% 50% at 15% 20%,rgba(249,115,22,.55),transparent 70%),radial-gradient(45% 55% at 85% 15%,rgba(236,72,153,.5),transparent 70%),
+  radial-gradient(50% 60% at 70% 95%,rgba(6,182,212,.5),transparent 70%),radial-gradient(35% 45% at 10% 95%,rgba(34,197,94,.35),transparent 70%);
+  background-size:140% 140%;animation:aurora 12s ease-in-out infinite alternate}
+@keyframes aurora{50%{background-position:30% 20%}100%{background-position:100% 60%}}
+.ahero{display:grid;grid-template-columns:1fr 210px;gap:14px;align-items:center}
+@media (max-width:620px){.ahero{grid-template-columns:1fr}.ahero .orbit{order:-1;margin:0 auto}}
+.atext .pill{display:inline-block;font-size:14px;font-weight:800;background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.3);border-radius:999px;padding:1px 12px}
+.arcade h2{margin:6px 0 0;font-size:clamp(32px,7vw,46px);line-height:1.1;text-shadow:none;
+  background:linear-gradient(90deg,#FFD166,#FF7AB6 45%,#7DF9FF);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 3px 0 rgba(0,0,0,.35))}
+.arcade p{margin:6px 0 0}
+.feats{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.feats li{font-size:14.5px;font-weight:800;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.22);border-radius:999px;padding:2px 12px}
+.play{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:10px 26px;border-radius:999px;font-size:20px;font-weight:800;color:#1B0B2E;text-decoration:none;
+  background:linear-gradient(90deg,#FFD166,#FF7AB6,#7DF9FF,#FFD166);background-size:200% 100%;box-shadow:0 5px 0 #7A1C4F,0 0 22px rgba(255,122,182,.55);animation:shimmer 3s linear infinite;transition:transform .15s}
+@keyframes shimmer{to{background-position:200% 0}}
+.play:hover{transform:translateY(-2px) scale(1.04)}
+.play:active{transform:translateY(3px);box-shadow:0 2px 0 #7A1C4F}
+/* maskot dunia mengorbit kayu bedik */
+.orbit{position:relative;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.12),transparent 65%);animation:spin 26s linear infinite}
+.orbit b{position:absolute;inset:0;display:grid;place-items:center;font-size:64px;animation:spin 26s linear infinite reverse;filter:drop-shadow(0 6px 10px rgba(0,0,0,.5))}
+.orbit span{position:absolute;left:50%;top:50%;width:0;height:0;transform:rotate(calc(var(--k) / var(--n) * 360deg)) translateY(-84px)}
+.orbit i{position:absolute;left:-20px;top:-20px;font-style:normal;font-size:34px;line-height:40px;width:40px;text-align:center;transform:rotate(calc(var(--k) / var(--n) * -360deg));animation:spin 26s linear infinite reverse}
+.arcade h3{position:relative;margin:18px 0 0;font-size:18px;opacity:.95}
+.arcade .arcgrid{margin-top:10px}

@@ -187,9 +187,13 @@ function renderYear(app, y){
       </div>
       ${mascot()}
     </header>
-    <section class="${nReady?"wgrid":"subjects"}" aria-label="${tx("Subjek","سوبجيک")}">${tiles}</section>
-    ${arcadeHTML(y)}`;
+    ${ARCADE[y] ? `<div class="ytabs" role="tablist">
+      <button role="tab" data-act="ytab" data-t="learn" aria-selected="${yTab!=="arcade"}">📚 ${tx("Belajar","بلاجر")}<small>${tx(`${nReady} subjek`,`${nReady} سوبجيک`)}</small></button>
+      <button role="tab" data-act="ytab" data-t="arcade" aria-selected="${yTab==="arcade"}">🕹️ ${tx("Zon Arked 3D","زون ارکيد 3D")}<small>${tx("6 permainan","6 ڤرماٴينن")}</small></button></div>` : ""}
+    ${ARCADE[y] && yTab==="arcade" ? arcadeHTML(y) : `<section class="${nReady?"wgrid":"subjects"}" aria-label="${tx("Subjek","سوبجيک")}">${tiles}</section>`}`;
 }
+// tab laman tahun: #arked membuka Zon Arked terus (boleh dikongsi)
+let yTab = location.hash==="#arked" ? "arcade" : "learn";
 // Kad dunia subjek: latar bertema, maskot terapung, bar kemajuan bintang
 function worldCard(s, entry, i){
   const t = THEMES[s.id] || THEMES.mix, st = starsOf(entry);
@@ -212,11 +216,18 @@ function arcadeHTML(y){
   const cards = [...A.subjects.map(id=>SUBJECTS.find(s=>s.id===id)), {id:"mix", icon:"🎲", r:"Campur semua", j:"چمڤور سموا"}].map((s,i)=>
     `<a class="arc tilt" href="${A.path}?s=${s.id}" data-deco="${(THEMES[s.id]||THEMES.mix).deco}" style="${themeVars(s.id)};--i:${i}"><span class="scene" aria-hidden="true"></span><span class="shine" aria-hidden="true"></span>
       <span class="ic" aria-hidden="true">${(THEMES[s.id]||THEMES.mix).m}</span><b>${tx(s.r,s.j)}</b><small>🏆 ${best(s.id)}</small></a>`).join("");
+  const orbit = A.subjects.map((id,i)=>`<span style="--k:${i};--n:${A.subjects.length}"><i>${(THEMES[id]||THEMES.mix).m}</i></span>`).join("");
   return `<section class="arcade" aria-label="${tx("Zon Arked","زون ارکيد")}">
-      <span class="bulbs" aria-hidden="true"></span>
-      <div class="ahead"><div><h2>🕹️ ${tx("Zon Arked","زون ارکيد")}</h2>
-        <p>${tx("Permainan aksi 3D mengikut dunia setiap subjek: padang pasir Sirah, masjid Feqah, lautan Tauhid, kampung Akhlak, kolam Arab, angkasa Tajwid dan kereta api Hafazan. Main sendiri atau lawan pasukan dalam kelas!","ڤرماٴينن اکسي 3D مڠيکوت دنيا ستياڤ سوبجيک: ڤادڠ ڤاسير سيره، مسجد فقه، لاءوتن توحيد، کامڤوڠ اخلاق، کولم عرب، اڠکاس تجويد دان کريتا اڤي حفظن. ماٴين سنديري اتاو لاون ڤاسوقن دالم کلس!")}</p></div>
-        <span class="games" aria-hidden="true">🐪🕌🐢🏡🐸🚀🚂</span></div>
+      <span class="aurora" aria-hidden="true"></span>
+      <div class="ahero">
+        <div class="atext"><span class="pill">✨ ${tx("Belajar sambil bermain","بلاجر سمبيل برماٴين")}</span>
+          <h2>${tx("Zon Arked 3D","زون ارکيد 3D")}</h2>
+        <p>${tx("Permainan aksi 3D mengikut dunia setiap subjek: padang pasir Sirah, masjid Feqah, lautan Tauhid, kampung Akhlak, kolam Arab, angkasa Tajwid dan kereta api Hafazan. Main sendiri atau lawan pasukan dalam kelas!","ڤرماٴينن اکسي 3D مڠيکوت دنيا ستياڤ سوبجيک: ڤادڠ ڤاسير سيره، مسجد فقه، لاءوتن توحيد، کامڤوڠ اخلاق، کولم عرب، اڠکاس تجويد دان کريتا اڤي حفظن. ماٴين سنديري اتاو لاون ڤاسوقن دالم کلس!")}</p>
+          <ul class="feats"><li>🎮 ${tx("6 permainan 3D setiap dunia","6 ڤرماٴينن 3D ستياڤ دنيا")}</li><li>🏆 ${tx("Papan pendahulu","ڤاڤن ڤندهولو")}</li><li>🏫 ${tx("Mod kelas & duel","مود کلس & دوايل")}</li></ul>
+          <a class="play" href="${A.path}">▶ ${tx("Masuk Zon Arked","ماسوق زون ارکيد")}</a></div>
+        <div class="orbit" aria-hidden="true"><b>🕹️</b>${orbit}</div>
+      </div>
+      <h3>🌍 ${tx("Atau terus pilih dunia","اتاو تروس ڤيليه دنيا")}</h3>
       <div class="arcgrid">${cards}</div>
     </section>`;
 }
@@ -231,6 +242,7 @@ const KafaPortal = {
       const b = e.target.closest("[data-act]");
       if(!b) return;
       if(b.dataset.act==="lang"){ LANG = isJ() ? "rumi" : "jawi"; kSave("kafa-lang", LANG); applyLang(); draw(); }
+      if(b.dataset.act==="ytab"){ yTab = b.dataset.t; try{ history.replaceState(null, "", yTab==="arcade" ? "#arked" : location.pathname); }catch(err){} draw(); window.scrollTo(0,0); }
       if(b.dataset.act==="soon"){ toast(tx(`${b.dataset.name} akan datang, insya-Allah.`,`${b.dataset.name} اکن داتڠ، ان شاء الله.`)); }
     });
     // kad dunia condong mengikut tetikus / jari (dimatikan jika pengguna memilih kurang animasi)
