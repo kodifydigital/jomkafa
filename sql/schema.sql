@@ -35,3 +35,18 @@ create table if not exists plays (     -- log ringkas untuk had kekerapan hantar
   at timestamptz not null default now()
 );
 create index if not exists plays_player on plays (player, at desc);
+
+-- Nama yang ditetapkan guru dikunci (murid tidak boleh menukarnya semula)
+alter table players add column if not exists locked boolean not null default false;
+create table if not exists mistakes (  -- kesilapan murid untuk papan pemuka guru
+  player text not null references players(id) on delete cascade,
+  subj text not null,
+  qkey text not null,                  -- kunci soalan (teks Rumi)
+  wkey text not null,                  -- kunci jawapan salah
+  q jsonb not null,                    -- soalan [Rumi, Jawi]
+  w jsonb not null,                    -- jawapan salah
+  r jsonb,                             -- jawapan betul (jika ada)
+  n int not null default 1,
+  last_at timestamptz not null default now(),
+  primary key (player, subj, qkey, wkey)
+);

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Noto+Naskh+Arabic:wght@500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<title>Papan Pemuka Guru • Jom Belajar KAFA</title>
+<link rel="stylesheet" href="../assets/kafa.css">
+<script src="../assets/config.js"></script>
+<script src="../assets/auth.js"></script>
+<style>
+.ar{font-family:"Amiri","Noto Naskh Arabic",serif;font-weight:700;font-size:1.15em;line-height:1.5}
+.iconbtn{background:var(--surface);border:2px solid var(--line);border-radius:999px;width:auto;min-width:44px;height:44px;white-space:nowrap;font-size:18px;display:inline-grid;place-items:center;padding:0 12px;font-weight:800;text-decoration:none}
+.grp{display:flex;gap:8px;align-items:center}
+.head{margin:10px 0 0;border-radius:24px;padding:16px 18px;color:#fff;background:linear-gradient(135deg,var(--brand),#0A3F35)}
+.head h1{margin:0;font-size:clamp(26px,6vw,36px);line-height:1.15}
+.head p{margin:4px 0 0;opacity:.92}
+.card{background:var(--surface);border:2px solid var(--line);border-radius:20px;padding:14px 16px;margin-top:14px}
+.card h2{margin:0 0 8px;font-size:20px}
+.msg{text-align:center;padding:26px 16px}
+.msg .big{font-size:48px;line-height:1}
+.btn{display:inline-block;border:0;border-radius:14px;padding:10px 18px;background:var(--brand);color:var(--brand-ink);font-weight:800;font-size:17px;text-decoration:none}
+.btn.alt{background:var(--surface);color:var(--ink);border:2px solid var(--line)}
+.btn.sm{padding:4px 10px;font-size:15px;border-radius:10px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 6px}
+.chips button{flex:none;border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 14px;font-weight:800;min-height:42px}
+.chips button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
+.code{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:6px}
+.code b{font-size:24px;letter-spacing:3px;color:var(--brand);font-family:ui-monospace,Consolas,monospace}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+@media (max-width:620px){.stats{grid-template-columns:1fr 1fr}}
+.stat{background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:10px 12px}
+.stat b{display:block;font-size:30px;line-height:1.1;color:var(--brand)}
+.stat span{font-size:14px;color:var(--muted);font-weight:700}
+.bars{display:grid;grid-template-columns:repeat(14,1fr);gap:4px;align-items:end;height:110px;margin-top:6px}
+.bars div{display:flex;flex-direction:column;align-items:center;justify-content:end;height:100%;gap:2px}
+.bars i{display:block;width:100%;border-radius:6px 6px 2px 2px;background:var(--brand);min-height:3px}
+.bars i.zero{background:var(--line)}
+.bars small{font-size:11px;color:var(--muted);line-height:1}
+.tbl{overflow-x:auto;margin:0 -6px}
+table{border-collapse:separate;border-spacing:0;width:100%;min-width:640px;font-size:16px}
+th,td{padding:6px 8px;text-align:center;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-size:14px;color:var(--muted);position:sticky;top:0;background:var(--surface)}
+td.nm,th.nm{text-align:start;position:sticky;inset-inline-start:0;background:var(--surface);max-width:180px;overflow:hidden;text-overflow:ellipsis}
+td.nm small{display:block;color:var(--muted);font-size:13px}
+td .s{display:inline-block;min-width:36px;border-radius:8px;padding:0 6px;font-weight:800}
+td .s.on{background:color-mix(in srgb,var(--brand) 16%,transparent)}
+td.idle{color:var(--muted)}
+.acts button{border:2px solid var(--line);background:var(--bg);border-radius:10px;width:36px;height:34px;padding:0}
+.edit{display:flex;gap:6px}
+.edit input{width:130px;font:inherit;font-size:16px;border:2px solid var(--brand);border-radius:10px;padding:2px 8px;background:var(--bg);color:var(--ink)}
+.miss{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.miss li{background:var(--bg);border-radius:14px;padding:8px 12px;line-height:1.4}
+.miss .q{font-weight:800}
+.miss .x{color:#C8452F;font-weight:700}
+.miss .ok{color:#1F8A50;font-weight:700}
+.miss .n{float:inline-end;font-size:14px;font-weight:800;background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:0 10px;margin-inline-start:8px}
+.muted{color:var(--muted)}
+.err{color:#C8452F;font-weight:700}
+.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:16px;font-weight:700;z-index:60}
+</style>
+</head>
+<body>
+<main class="wrap" id="app"></main>
+<script>
+/* Papan Pemuka Guru: kemajuan murid dalam kelas milik guru (data daripada /api/dashboard). */
+const SUBJ = [["sirah","🐪","Sirah","سيره"],["feqah","🕌","Feqah","فقه"],["tauhid","☝️","Tauhid","توحيد"],["akhlak","💎","Akhlak","اخلاق"],
+  ["arab","🗣️","Bahasa Arab","بهاس عرب"],["tajwid","🎙️","Tajwid","تجويد"],["hafazan","🧠","Hafazan","حفظن"],["mix","🎲","Campur","چمڤور"]];
+const app = document.getElementById("app"), $ = id => document.getElementById(id);
+function load(k,f){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : f; }catch(e){ return f; } }
+function save(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+let lang = load("kafa-lang","jawi");
+const isJ = () => lang==="jawi", tx = (r,j) => isJ() ? j : r, L = s => Array.isArray(s) ? (isJ() ? s[1] : s[0]) : s;
+const esc = s => String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const T = v => Array.isArray(v) ? esc(L(v)) : `<span class="ar" lang="ar" dir="rtl">${esc(v)}</span>`;
+function applyLang(){ document.documentElement.dir = isJ() ? "rtl" : "ltr"; document.documentElement.lang = isJ() ? "ms-Arab" : "ms"; }
+function toast(m){ document.querySelectorAll(".toast").forEach(t=>t.remove()); const t = document.createElement("div"); t.className = "toast"; t.textContent = m; document.body.appendChild(t); setTimeout(()=>t.remove(), 2800); }
+const errMsg = e => ({"rude-name":tx("Nama ini tidak sesuai. Pilih nama yang sopan.","نام اين تيدق سسواي. ڤيليه نام يڠ سوڤن."),
+  "bad-name":tx("Nama mesti 2–16 huruf atau nombor.","نام مستي 2–16 حروف اتاو نومبور."), "not-owner":tx("Hanya pemilik kelas boleh berbuat begini.","هاڽ ڤميليق کلس بوليه بربوات بڬيني.")}[e.code]
+  || (e.status===401 ? tx("Sila log masuk semula.","سيلا لوڬ ماسوق سمولا.") : tx("Tidak dapat disambung ke pelayan. Semak internet.","تيدق داڤت دسمبوڠ ک ڤلاين. سمق اينترنيت.")));
+function ago(t){
+  if(!t) return tx("Belum main","بلوم ماٴين");
+  const d = Math.floor((Date.now() - new Date(t)) / 864e5);
+  return d<=0 ? tx("Hari ini","هاري اين") : d===1 ? tx("Semalam","سمالم") : `${d} ${tx("hari lalu","هاري لالو")}`;
+}
+let D = null, cls = new URLSearchParams(location.search).get("k") || load("guru-cls", null), editing = null;
+
+function shell(inner){
+  app.innerHTML = `<div class="topbar"><a class="iconbtn" href="../tahun3/arked/" aria-label="${tx("Kembali ke Zon Arked","کمبالي ک زون ارکيد")}">${isJ()?"→":"←"}</a>
+    <div class="grp"><button class="iconbtn" data-act="lang">${isJ()?"Rumi":'<span class="ar">جاوي</span>'}</button>
+    ${KafaAuth.uid?`<button class="iconbtn" data-act="logout">🚪 ${tx("Log keluar","لوڬ کلوار")}</button>`:""}</div></div>
+    <header class="head"><h1>📊 ${tx("Papan Pemuka Guru","ڤاڤن ڤموک ڬورو")}</h1>
+    <p>${tx("Pantau kemajuan murid dalam kelas anda di Zon Arked.","ڤنتاو کماجوان موريد دالم کلس اندا د زون ارکيد.")}</p></header>${inner}`;
+}
+const msg = (e, t, extra="") => shell(`<div class="card msg"><div class="big">${e}</div><p>${t}</p>${extra}</div>`);
+
+async function draw(){
+  applyLang();
+  if(!KafaAuth.on) return msg("⚙️", tx("Papan pemuka belum disediakan (kunci Clerk tiada) atau dibuka terus dari fail.","ڤاڤن ڤموک بلوم دسدياکن (کونچي Clerk تيادا) اتاو دبوک تروس دري فايل."));
+  if(!D) msg("⏳", tx("Memuatkan…","ممواتکن…"));
+  await KafaAuth.init();
+  if(KafaAuth.failed) return msg("⚠️", tx("Log masuk tidak dapat dimuatkan. Semak internet.","لوڬ ماسوق تيدق داڤت دمواتکن. سمق اينترنيت."));
+  if(!KafaAuth.uid) return msg("👩‍🏫", tx("Log masuk dengan akaun Google yang anda gunakan untuk mencipta kelas.","لوڬ ماسوق دڠن اکاٴون Google يڠ اندا ڬوناکن اونتوق منچيڤتا کلس."),
+    `<button class="btn" data-act="login">👤 ${tx("Log masuk","لوڬ ماسوق")}</button>`);
+  try{ D = await KafaAuth.api("dashboard" + (cls ? "?class="+encodeURIComponent(cls) : "")); }
+  catch(e){
+    if(e.status===403 && cls){ cls = null; save("guru-cls", null); return draw(); }
+    return msg("⚠️", errMsg(e), `<button class="btn alt" data-act="reload">🔄 ${tx("Cuba lagi","چوبا لاڬي")}</button>`);
+  }
+  if(!D.cls) return msg("🏫", tx("Anda belum mencipta kelas. Cipta kelas di Zon Arked: tekan nama anda, kemudian “Untuk guru / ibu bapa: cipta kelas”.","اندا بلوم منچيڤتا کلس. چيڤتا کلس د زون ارکيد: تکن نام اندا، کمودين “اونتوق ڬورو / ايبو باڤ: چيڤتا کلس”."),
+    `<a class="btn" href="../tahun3/arked/">🕹️ ${tx("Ke Zon Arked","ک زون ارکيد")}</a>`);
+  cls = D.cls.code; save("guru-cls", cls);
+  render();
+}
+function render(){
+  const P = D.pupils, active = P.filter(p=>p.week>0).length, week = P.reduce((a,p)=>a+p.week, 0);
+  const used = SUBJ.filter(s=>P.some(p=>p.subj[s[0]]));
+  // 14 hari terakhir (waktu Malaysia), termasuk hari tanpa aktiviti
+  const days = [...Array(14)].map((_,i)=>{ const d = new Date(Date.now() + 8*36e5 - (13-i)*864e5); return d.toISOString().slice(0,10); });
+  const byDay = Object.fromEntries(D.activity.map(a=>[a.day, a.n])), max = Math.max(1, ...days.map(d=>byDay[d]||0));
+  shell(`
+    ${D.classes.length>1?`<div class="chips" role="group" style="margin-top:12px">${D.classes.map(c=>`<button data-act="cls" data-c="${c.code}" aria-pressed="${c.code===cls}">🏫 <span dir="auto">${esc(c.name)}</span></button>`).join("")}</div>`:""}
+    <div class="card"><h2>🏫 <span dir="auto">${esc(D.cls.name)}</span></h2>
+      <div class="code">${tx("Kod kelas","کود کلس")}: <b dir="ltr">${D.cls.code}</b><button class="btn alt sm" data-act="copy">📋 ${tx("Salin","سالين")}</button>
+      <span class="muted">${tx("Murid sertai di Zon Arked → nama mereka → Sertai kelas.","موريد سرتاٴي د زون ارکيد → نام مريک → سرتاٴي کلس.")}</span></div></div>
+    <div class="stats">
+      <div class="stat"><b>${P.length}</b><span>👦 ${tx("Murid","موريد")}</span></div>
+      <div class="stat"><b>${active}</b><span>🔥 ${tx("Aktif 7 hari","اکتيف 7 هاري")}</span></div>
+      <div class="stat"><b>${week}</b><span>🎮 ${tx("Permainan 7 hari","ڤرماٴينن 7 هاري")}</span></div>
+      <div class="stat"><b>${D.mistakes.length}</b><span>❗ ${tx("Soalan sukar","سوالن سوکر")}</span></div>
+    </div>
+    <div class="card"><h2>📈 ${tx("Aktiviti 14 hari","اکتيۏيتي 14 هاري")}</h2>
+      <div class="bars" dir="ltr">${days.map(d=>{ const n = byDay[d]||0; return `<div title="${d}: ${n}"><small>${n||""}</small><i class="${n?"":"zero"}" style="height:${Math.max(3, n/max*80)}px"></i><small>${+d.slice(8)}</small></div>`; }).join("")}</div></div>
+    <div class="card"><h2>👦 ${tx("Kemajuan murid","کماجوان موريد")}</h2>
+      ${P.length ? `<div class="tbl"><table><thead><tr><th class="nm">${tx("Nama","نام")}</th>${used.map(s=>`<th title="${tx(s[2],s[3])}">${s[1]}<br>${tx(s[2],s[3])}</th>`).join("")}
+        <th>🎮 ${tx("Main","ماٴين")}</th><th>🕒 ${tx("Terakhir","ترآخير")}</th><th></th></tr></thead><tbody>
+        ${P.map(p=>`<tr><td class="nm">${editing===p.id
+          ? `<span class="edit"><input id="ednm" maxlength="16" value="${esc(p.name)}"><button class="btn sm" data-act="saveName" data-p="${p.id}">💾</button><button class="btn alt sm" data-act="cancel">✕</button></span>`
+          : `<span dir="auto">${esc(p.name)}</span>${p.locked?` <small>🔒 ${tx("ditetapkan guru","دتتڤکن ڬورو")}</small>`:""}`}</td>
+          ${used.map(s=>{ const v = p.subj[s[0]]; return `<td>${v?`<span class="s on" title="${v.plays} ${tx("kali main","کالي ماٴين")}">${v.best}</span>`:`<span class="s muted">–</span>`}</td>`; }).join("")}
+          <td>${p.plays}</td><td class="${p.week?"":"idle"}">${p.week?"":"😴 "}${ago(p.last)}</td>
+          <td class="acts"><button data-act="edit" data-p="${p.id}" title="${tx("Tukar nama","توکر نام")}" aria-label="${tx("Tukar nama","توکر نام")}">✏️</button>
+            <button data-act="kick" data-p="${p.id}" title="${tx("Keluarkan dari kelas","کلوارکن دري کلس")}" aria-label="${tx("Keluarkan dari kelas","کلوارکن دري کلس")}">🚫</button></td></tr>`).join("")}
+      </tbody></table></div>
+      <p class="muted" style="font-size:14px;margin:8px 0 0">${tx("Nombor = jumlah skor terbaik semua permainan dalam subjek itu. 😴 = tiada aktiviti 7 hari.","نومبور = جومله سکور تربايق سموا ڤرماٴينن دالم سوبجيک ايت. 😴 = تيادا اکتيۏيتي 7 هاري.")}</p>`
+      : `<p class="muted">${tx("Belum ada murid. Kongsi kod kelas di atas dengan murid anda.","بلوم اد موريد. کوڠسي کود کلس د اتس دڠن موريد اندا.")}</p>`}</div>
+    <div class="card"><h2>❗ ${tx("Soalan paling kerap salah","سوالن ڤاليڠ کرڤ ساله")}</h2>
+      ${D.mistakes.length ? `<ul class="miss">${D.mistakes.map(m=>{ const s = SUBJ.find(x=>x[0]===m.subj) || ["","🎯",m.subj,m.subj];
+        return `<li><span class="n">👦 ${m.pupils} • ${m.times}×</span><span class="q">${s[1]} ${T(m.q)}</span><br>
+          <span class="x">✗ ${T(m.w)}</span>${m.r?` &nbsp; <span class="ok">✓ ${T(m.r)}</span>`:""}</li>`; }).join("")}</ul>
+        <p class="muted" style="font-size:14px;margin:8px 0 0">${tx("Disusun ikut bilangan murid yang tersilap. Gunakan untuk ulang kaji di dalam kelas.","دسوسون ايکوت بيلڠن موريد يڠ ترسيلڤ. ڬوناکن اونتوق اولڠ کاجي د دالم کلس.")}</p>`
+      : `<p class="muted">${tx("Belum ada kesilapan direkod. Data muncul selepas murid bermain dalam mod Main Sendiri.","بلوم اد کسيلڤن درکود. دات مونچول سلڤس موريد برماٴين دالم مود ماٴين سنديري.")}</p>`}</div>
+    <p class="muted" style="text-align:center;font-size:14px;margin-top:14px">${tx("Hanya skor mod Main Sendiri dikira.","هاڽ سکور مود ماٴين سنديري دکيرا.")}</p>`);
+  const i = $("ednm"); if(i){ i.focus(); i.select(); }
+}
+async function act(b){
+  const a = b.dataset.act, pid = b.dataset.p;
+  if(a==="lang"){ lang = isJ() ? "rumi" : "jawi"; save("kafa-lang", lang); applyLang(); return D && D.cls ? render() : draw(); }
+  if(a==="login") return KafaAuth.signIn();
+  if(a==="logout") return KafaAuth.signOut();
+  if(a==="reload") return draw();
+  if(a==="cls"){ cls = b.dataset.c; editing = null; return draw(); }
+  if(a==="copy"){ try{ await navigator.clipboard.writeText(D.cls.code); toast("📋 "+tx("Kod disalin","کود دسالين")); }catch(e){ toast(D.cls.code); } return; }
+  if(a==="edit"){ editing = pid; return render(); }
+  if(a==="cancel"){ editing = null; return render(); }
+  if(a==="saveName" || a==="kick"){
+    const p = D.pupils.find(x=>x.id===pid); if(!p) return;
+    if(a==="kick" && !confirm(tx(`Keluarkan ${p.name} daripada kelas ini?`,`کلوارکن ${p.name} درڤد کلس اين؟`))) return;
+    b.disabled = true;
+    try{
+      if(a==="saveName") await KafaAuth.api("class", {action:"rename", code:cls, player:pid, name:$("ednm").value});
+      else await KafaAuth.api("class", {action:"kick", code:cls, player:pid});
+      editing = null; toast(a==="kick" ? "🚫 "+tx("Murid dikeluarkan","موريد دکلوارکن") : "✏️ "+tx("Nama ditukar dan dikunci","نام دتوکر دان دکونچي"));
+      await draw();
+    }catch(e){ b.disabled = false; toast("⚠️ "+errMsg(e)); }
+  }
+}
+app.addEventListener("click", e=>{ const b = e.target.closest("[data-act]"); if(b && !b.disabled) act(b); });
+app.addEventListener("keydown", e=>{ if(e.key==="Enter" && e.target.id==="ednm"){ const b = app.querySelector('[data-act="saveName"]'); if(b) b.click(); } if(e.key==="Escape" && editing){ editing = null; render(); } });
+KafaAuth.onChange(()=>{ D = null; draw(); });
+draw();
+</script>
+</body>
+</html>

@@ -15,6 +15,7 @@ kafa/
 │   ├── kafa.css          ← Gaya bersama
 │   ├── kafa.js           ← Senarai subjek dan game yang sudah siap
 │   ├── config.js         ← Kunci awam Clerk (leaderboard)
+│   ├── auth.js           ← Log masuk Clerk + panggilan /api (dikongsi Zon Arked & papan pemuka guru)
 │   └── vendor/
 │       └── three.min.js  ← three.js r128 untuk Zon Arked 3D (boleh main tanpa internet)
 ├── tahun3/
@@ -35,7 +36,9 @@ kafa/
 │   │   └── index.html    ← Game Kereta Api Hafazan (Hafazan)
 │   └── arked/
 │       └── index.html    ← Zon Arked 3D: 6 permainan bertema dunia setiap subjek (?s=idSubjek)
-├── api/                  ← API leaderboard (Vercel Functions): me, class, score, leaderboard
+├── guru/index.html       ← Papan Pemuka Guru (kemajuan murid, soalan kerap salah, urus nama murid)
+├── privasi.html          ← Dasar Privasi
+├── api/                  ← API (Vercel Functions): me, class, score, leaderboard, dashboard
 ├── sql/schema.sql        ← Skema pangkalan data Neon
 ├── package.json          ← Kebergantungan API (@neondatabase/serverless, @clerk/backend)
 ├── tahun4/index.html
@@ -90,3 +93,6 @@ Cara guna:
 - Murid log masuk dengan Google (akaun ibu bapa), pilih **nama samaran** — nama sebenar Google tidak dipaparkan.
 - Guru log masuk, buka 👤 → *Untuk guru: cipta kelas*, dan kongsi kod 6 aksara dengan murid.
 - Hanya skor **Main Sendiri** dihantar. Pelayan menolak skor yang mustahil dan menghadkan kekerapan hantar.
+- Nama samaran dan nama kelas yang mengandungi perkataan kasar ditolak (penapis dalam `api/_lib.js`).
+- **Papan Pemuka Guru** (`/guru/`): pemilik kelas melihat skor murid ikut subjek, aktiviti 14 hari dan soalan paling kerap salah,
+  serta boleh menukar nama murid (nama itu dikunci) atau mengeluarkan murid. Dibuka melalui 👤 → kelas → 📊 Papan pemuka.

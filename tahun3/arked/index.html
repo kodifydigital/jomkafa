@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Noto+Naskh+Arabic:wght@500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 <script src="../../assets/config.js"></script>
+<script src="../../assets/auth.js"></script>
 <style>
 :root{
   --bg:#F1ECFF; --surface:#FFFFFF; --ink:#1E1640; --muted:#5F5689; --line:#DCD3F5;
@@ -232,7 +233,10 @@ html[dir="rtl"] .sheet h2{margin:0 0 8px 40px}
 .sheet input:focus{outline:3px solid var(--wa);outline-offset:1px}
 .btn.sm{width:auto;margin:0;padding:6px 14px;font-size:16px;flex:none}
 .sheet .cls{list-style:none;margin:0;padding:0;display:grid;gap:6px}
-.sheet .cls li{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--bg);border-radius:12px;padding:6px 10px}
+.sheet .cls li{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;background:var(--bg);border-radius:12px;padding:6px 10px}
+.sheet .cls li>span{flex:1 1 160px}
+.btn.dash{text-decoration:none;text-align:center}
+.sheet input:disabled{opacity:.7}
 .sheet code{font-size:17px;font-weight:800;letter-spacing:2px;color:var(--w1)}
 .sheet details{margin-top:12px}
 .sheet summary{font-weight:700;cursor:pointer}
@@ -1980,7 +1984,7 @@ function good(x, y, it, extra=0){
 }
 function bad(x, y, it, right){
   G.lives--; G.streak = 0; G.badn++;
-  G.log.push({p:G.set.p, it, right});
+  G.log.push({p:G.set.p, it, right, s:G.set.sub});
   fx(x, y, "✗", true); sfx.bad();
   const f = document.createElement("div"); f.className = "flash"; G.field.appendChild(f); setTimeout(()=>f.remove(), 400);
   if(navigator.vibrate) try{ navigator.vibrate(80); }catch(e){}
@@ -2108,7 +2112,7 @@ function endTurn(){
       <p class="got">${w.coin.e} ${tx("Kamu kumpul","کامو کومڤول")} <b>${G.good}</b> ${tx(w.coin.r, w.coin.j)} • ❌ ${G.badn} • 🎯 ${acc}%</p>
       <p class="cheer">${w.emoji} ${L(w.cheer)}</p>
       ${LB.on ? '<div class="lbres" id="lbres"></div>' : ""}`, rec || stars===3, G.log);
-    if(LB.on) lbSubmit({subj, game:gk, score:G.score, good:G.good, bad:G.badn});
+    if(LB.on) lbSubmit({subj, game:gk, score:G.score, good:G.good, bad:G.badn, mistakes:G.log.slice(0,20)});
   } else {
     const r = G.results.red.score, b = G.results.blue.score, win = r===b ? null : r>b ? "red" : "blue";
     showResult(`<div class="trophy">${win?"🏆":"🤝"}</div>
@@ -2144,37 +2148,22 @@ function rain(){
 /* ============ PAPAN PENDAHULU (Clerk + /api di Vercel + Neon) ============
    Log masuk Google melalui Clerk. Murid memilih nama samaran (nama sebenar tidak dipaparkan).
    Hanya skor "Main Sendiri" dihantar. Jika kunci Clerk tiada atau laman dibuka dari fail, bahagian ini disembunyikan. */
-const CFG = window.KAFA_CONFIG || {};
+// Log masuk dan API dikongsi dengan Papan Pemuka Guru melalui assets/auth.js (KafaAuth)
 const LB = {
-  on: !!CFG.clerkKey && /^https?:$/.test(location.protocol),
+  on: !!(window.KafaAuth && KafaAuth.on),
   clerk:null, uid:null, me:null, failed:false, pending:null, loadP:null,
   game: load("ark3-lbgame","all"), scope: load("ark3-lbscope","all"),
   init(){
     if(!this.on) return Promise.resolve(null);
-    if(!this.loadP) this.loadP = (async()=>{
-      // kunci publishable mengandungi domain Frontend API Clerk (base64, berakhir dengan "$")
-      const fapi = atob(CFG.clerkKey.split("_")[2]).replace(/\$/, "");
-      await new Promise((res, rej)=>{ const s = document.createElement("script");
-        s.src = `https://${fapi}/npm/@clerk/clerk-js@5/dist/clerk.browser.js`; s.async = true; s.crossOrigin = "anonymous";
-        s.setAttribute("data-clerk-publishable-key", CFG.clerkKey); s.onload = res; s.onerror = rej; document.head.appendChild(s); });
-      await window.Clerk.load();
-      this.clerk = window.Clerk;
-      this.uid = this.clerk.user ? this.clerk.user.id : null;
+    if(!this.loadP) this.loadP = KafaAuth.init().then(async c=>{
+      this.clerk = c; this.failed = KafaAuth.failed; this.uid = KafaAuth.uid;
       if(this.uid) await this.fetchMe();
-      this.clerk.addListener(({user})=>{ const id = user ? user.id : null; if(id!==this.uid){ this.uid = id; this.me = null; this.changed(); } });
-      return this.clerk;
-    })().catch(e=>{ console.warn("Clerk", e); this.failed = true; return null; });
+      if(c) KafaAuth.onChange(()=>{ this.uid = KafaAuth.uid; this.me = null; this.changed(); });
+      return c;
+    });
     return this.loadP;
   },
-  async api(path, body){
-    const h = {"Content-Type":"application/json"};
-    const t = this.clerk && this.clerk.session ? await this.clerk.session.getToken() : null;
-    if(t) h.Authorization = "Bearer "+t;
-    const r = await fetch("/api/"+path, {method:body?"POST":"GET", headers:h, body:body?JSON.stringify(body):undefined});
-    const j = await r.json().catch(()=>({}));
-    if(!r.ok) throw Object.assign(new Error(j.error || "Ralat"), {status:r.status});
-    return j;
-  },
+  api(path, body){ return KafaAuth.api(path, body); },
   async fetchMe(){ try{ this.me = await this.api("me"); }catch(e){ this.me = null; } return this.me; },
   async changed(){
     if(this.uid) await this.fetchMe();
@@ -2184,7 +2173,12 @@ const LB = {
   },
   name(){ return this.me && this.me.player ? this.me.player.name : null; }
 };
-const lbErr = e => ({401:tx("Sila log masuk semula.","سيلا لوڬ ماسوق سمولا."), 403:tx("Kamu bukan ahli kelas ini.","کامو بوکن اهلي کلس اين."),
+// mesej ralat ikut kod daripada pelayan, kemudian ikut status HTTP
+const lbErr = e => ({"rude-name":tx("Nama ini tidak sesuai. Pilih nama yang sopan.","نام اين تيدق سسواي. ڤيليه نام يڠ سوڤن."),
+  "bad-name":tx("Nama samaran mesti 2–16 huruf atau nombor.","نام سامرن مستي 2–16 حروف اتاو نومبور."),
+  "name-locked":tx("Nama kamu telah ditetapkan oleh guru.","نام کامو تله دتتڤکن اوليه ڬورو."),
+  "bad-class":tx("Nama kelas terlalu pendek.","نام کلس ترلالو ڤندق."), "class-limit":tx("Had 10 kelas telah dicapai.","حد 10 کلس تله دچاڤاي.")}[e.code]
+  || {401:tx("Sila log masuk semula.","سيلا لوڬ ماسوق سمولا."), 403:tx("Kamu bukan ahli kelas ini.","کامو بوکن اهلي کلس اين."),
   404:tx("Kod kelas tidak dijumpai.","کود کلس تيدق دجومڤاٴي."), 409:tx("Pilih nama samaran dahulu.","ڤيليه نام سامرن دهولو."),
   429:tx("Terlalu pantas, cuba sebentar lagi.","ترلالو ڤنتس، چوبا سبنتر لاڬي.")}[e.status]
   || (e.status===400 && !isJ() ? e.message : tx("Tidak dapat disambung ke pelayan. Semak internet.","تيدق داڤت دسمبوڠ ک ڤلاين. سمق اينترنيت.")));
@@ -2239,16 +2233,16 @@ function acctSheet(first){
     <button class="iconbtn x" data-act="sheetclose" aria-label="${tx("Tutup","توتوڤ")}">✕</button>
     <h2>${first ? "👋 "+tx("Selamat datang!","سلامت داتڠ!") : "👤 "+tx("Akaun saya","اکاٴون ساي")}</h2>
     <label for="lbname">${tx("Nama samaran (bukan nama sebenar)","نام سامرن (بوکن نام سبنر)")}</label>
-    <div class="row"><input id="lbname" maxlength="16" autocomplete="off" value="${esc(LB.name()||"")}" placeholder="${tx("cth. Ali Bintang","چونتوه: علي بينتڠ")}"><button class="btn sm" data-act="lbname">💾 ${tx("Simpan","سيمڤن")}</button></div>
+    <div class="row"><input id="lbname" maxlength="16" autocomplete="off" ${me.player&&me.player.locked?"disabled":""} value="${esc(LB.name()||"")}" placeholder="${tx("cth. Ali Bintang","چونتوه: علي بينتڠ")}">${me.player&&me.player.locked?"":`<button class="btn sm" data-act="lbname">💾 ${tx("Simpan","سيمڤن")}</button>`}</div>${me.player&&me.player.locked?`<small class="muted">🔒 ${tx("Nama ini ditetapkan oleh guru.","نام اين دتتڤکن اوليه ڬورو.")}</small>`:""}
     ${me.player ? `
     <h3>🏫 ${tx("Kelas saya","کلس ساي")}</h3>
-    ${cl.length ? `<ul class="cls">${cl.map(c=>`<li><span><b dir="auto">${esc(c.name)}</b>${c.owner?` <small>• ${tx("Kod","کود")}: <code>${c.code}</code> • ${c.size} ${tx("ahli","اهلي")}</small>`:` <small>• ${c.size} ${tx("ahli","اهلي")}</small>`}</span><button class="btn alt sm" data-act="lbleave" data-c="${c.code}">${c.owner?tx("Padam","ڤادم"):tx("Keluar","کلوار")}</button></li>`).join("")}</ul>`
+    ${cl.length ? `<ul class="cls">${cl.map(c=>`<li><span><b dir="auto">${esc(c.name)}</b>${c.owner?` <small>• ${tx("Kod","کود")}: <code>${c.code}</code> • ${c.size} ${tx("ahli","اهلي")}</small>`:` <small>• ${c.size} ${tx("ahli","اهلي")}</small>`}</span><button class="btn alt sm" data-act="lbleave" data-c="${c.code}">${c.owner?tx("Padam","ڤادم"):tx("Keluar","کلوار")}</button>${c.owner?`<a class="btn sm dash" href="../../guru/?k=${c.code}">📊 ${tx("Papan pemuka","ڤاڤن ڤموک")}</a>`:""}</li>`).join("")}</ul>`
       : `<p class="muted">${tx("Belum menyertai kelas. Minta kod kelas daripada guru.","بلوم مڽرتاٴي کلس. مينتا کود کلس درڤد ڬورو.")}</p>`}
     <label for="lbcode">${tx("Sertai kelas dengan kod","سرتاٴي کلس دڠن کود")}</label>
     <div class="row"><input id="lbcode" maxlength="6" autocomplete="off" placeholder="ABC234" style="text-transform:uppercase" dir="ltr"><button class="btn sm" data-act="lbjoin">➕ ${tx("Sertai","سرتاٴي")}</button></div>
-    <details><summary>👩‍🏫 ${tx("Untuk guru: cipta kelas","اونتوق ڬورو: چيڤتا کلس")}</summary>
+    <details><summary>👩‍🏫 ${tx("Untuk guru / ibu bapa: cipta kelas","اونتوق ڬورو / ايبو باڤ: چيڤتا کلس")}</summary>
       <div class="row"><input id="lbcname" maxlength="30" placeholder="${tx("cth. 3 Bestari","چونتوه: 3 بستاري")}"><button class="btn sm" data-act="lbcreate">🏫 ${tx("Cipta","چيڤتا")}</button></div>
-      <small class="muted">${tx("Kongsi kod kelas dengan murid supaya mereka boleh menyertai papan kelas.","کوڠسي کود کلس دڠن موريد سوڤايا مريک بوليه مڽرتاٴي ڤاڤن کلس.")}</small></details>` : ""}
+      <small class="muted">${tx("Kongsi kod dengan murid atau anak supaya mereka boleh menyertai papan kelas. Ibu bapa boleh mencipta kumpulan keluarga.","کوڠسي کود دڠن موريد اتاو انق سوڤايا مريک بوليه مڽرتاٴي ڤاڤن کلس. ايبو باڤ بوليه منچيڤتا کومڤولن کلوارڬ.")}</small></details>` : ""}
     <p class="err" id="lberr" role="alert"></p>
     <button class="btn alt" data-act="logout">🚪 ${tx("Log keluar","لوڬ کلوار")}</button></div>`;
   app.appendChild(s);
