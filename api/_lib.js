@@ -46,6 +46,8 @@ export async function userId(req, required = true) {
     const p = await verifyToken(token, { secretKey: process.env.CLERK_SECRET_KEY });
     return p.sub;
   } catch (e) {
+    // contoh sebab: "jwk-kid-mismatch" / "token-invalid-signature" = CLERK_SECRET_KEY bukan dari instans Clerk yang sama
+    console.error("Clerk verifyToken gagal:", e.reason || "", e.message);
     if (required) throw new HttpError(401, "Sesi tidak sah, sila log masuk semula");
     return null;
   }
