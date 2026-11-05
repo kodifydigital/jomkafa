@@ -28,8 +28,10 @@ kafa/
 │   │   └── index.html    ← Game Lompat Katak (Bahasa Arab)
 │   ├── tajwid/
 │   │   └── index.html    ← Game Angkasa Tajwid (Tajwid)
-│   └── hafazan/
-│       └── index.html    ← Game Kereta Api Hafazan (Hafazan)
+│   ├── hafazan/
+│   │   └── index.html    ← Game Kereta Api Hafazan (Hafazan)
+│   └── arked/
+│       └── index.html    ← Zon Arked: 6 permainan aksi untuk semua subjek (?s=idSubjek)
 ├── tahun4/index.html
 ├── tahun5/index.html
 └── tahun6/index.html

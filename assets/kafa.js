@@ -70,6 +70,12 @@ const READY = {
   }
 };
 
+// Zon Arked: permainan aksi yang menggunakan soalan daripada subjek yang sudah siap.
+// subjects = id subjek yang ada bank soalan dalam arked/index.html. hiKey = rekod skor tertinggi.
+const ARCADE = {
+  3: { path:"arked/index.html", hiKey:"ark3-hi", subjects:["sirah","feqah","tauhid","akhlak","arab","tajwid","hafazan"] }
+};
+
 /* ===================== Bahasa (Jawi / Rumi) ===================== */
 function kLoad(k,f){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):f; }catch(e){ return f; } }
 function kSave(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
@@ -176,7 +182,22 @@ function renderYear(app, y){
       </div>
       ${mascot()}
     </header>
-    <section class="subjects" aria-label="${tx("Subjek","سوبجيک")}">${tiles}</section>`;
+    <section class="subjects" aria-label="${tx("Subjek","سوبجيک")}">${tiles}</section>
+    ${arcadeHTML(y)}`;
+}
+function arcadeHTML(y){
+  const A = ARCADE[y]; if(!A) return "";
+  const hi = kLoad(A.hiKey, {});
+  const best = id => Math.max(0, ...Object.values(hi[id]||{}));
+  const cards = [...A.subjects.map(id=>SUBJECTS.find(s=>s.id===id)), {id:"mix", icon:"🎲", r:"Campur semua", j:"چمڤور سموا"}].map((s,i)=>
+    `<a class="arc" href="${A.path}?s=${s.id}" style="--i:${i}"><span class="ic" aria-hidden="true">${s.icon}</span><b>${tx(s.r,s.j)}</b><small>🏆 ${best(s.id)}</small></a>`).join("");
+  return `<section class="arcade" aria-label="${tx("Zon Arked","زون ارکيد")}">
+      <span class="bulbs" aria-hidden="true"></span>
+      <div class="ahead"><div><h2>🕹️ ${tx("Zon Arked","زون ارکيد")}</h2>
+        <p>${tx("Permainan aksi pantas: ketuk mol, tangkap bintang, pecah belon, lari lorong, panjat susun dan duel. Main sendiri atau lawan pasukan dalam kelas!","ڤرماٴينن اکسي ڤنتس: کتوق مول، تڠکڤ بينتڠ، ڤچه بلون، لاري لوروڠ، ڤنجت سوسون دان دوايل. ماٴين سنديري اتاو لاون ڤاسوقن دالم کلس!")}</p></div>
+        <span class="games" aria-hidden="true">🐹🧺🎈🏃🧗⚔️</span></div>
+      <div class="arcgrid">${cards}</div>
+    </section>`;
 }
 
 /* ===================== Mula ===================== */
