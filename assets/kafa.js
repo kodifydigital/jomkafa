@@ -139,6 +139,30 @@ function langBtn(){
   return `<button class="langbtn" data-act="lang" aria-label="${tx("Tukar ke tulisan Jawi","Tukar ke tulisan Rumi")}">${isJ()?"Rumi":'<span class="ar">جاوي</span>'}</button>`;
 }
 
+/* ===================== Pasang aplikasi (PWA) ===================== */
+// Kad "Pasang JOM KAFA": Android/Chrome/Edge membuka tetingkap pasang; iPhone/iPad diberi panduan Kongsi → Tambah ke Skrin Utama.
+function installCard(){
+  const P = window.KafaPWA;
+  if(!P || !P.canInstall() || kLoad("kafa-pwa-hide", 0) > Date.now()) return '<div id="pwa"></div>';
+  return `<section class="install" id="pwa">
+      <img src="/icons/icon-192.png" alt="" width="64" height="64">
+      <div><b>📲 ${tx("Pasang JOM KAFA","ڤاسڠ JOM KAFA")}</b>
+        <p>${tx("Buka terus dari skrin utama, penuh skrin, dan boleh main walaupun tiada internet.","بوک تروس دري سکرين اوتام، ڤنوه سکرين، دان بوليه ماٴين والاٴوڤون تيادا اينترنيت.")}</p></div>
+      <button class="ibtn" data-act="install">${tx("Pasang","ڤاسڠ")}</button>
+      <button class="ix" data-act="pwahide" aria-label="${tx("Tutup","توتوڤ")}">✕</button>
+    </section>`;
+}
+function iosGuide(){
+  document.querySelectorAll(".iosg").forEach(x=>x.remove());
+  const d = document.createElement("div"); d.className = "iosg"; d.setAttribute("role","dialog"); d.setAttribute("aria-modal","true");
+  d.innerHTML = `<div class="card"><button class="ix" data-act="iosclose" aria-label="${tx("Tutup","توتوڤ")}">✕</button>
+    <img src="/icons/icon-192.png" alt="" width="72" height="72"><h2>${tx("Pasang di iPhone / iPad","ڤاسڠ د iPhone / iPad")}</h2>
+    <ol><li>${tx("Tekan butang <b>Kongsi</b>","تکن بوتڠ <b>کوڠسي</b>")} <span class="sh">⬆️</span> ${tx("di Safari (bawah atau atas skrin).","د Safari (باوه اتاو اتس سکرين).")}</li>
+      <li>${tx("Pilih <b>Tambah ke Skrin Utama</b> (Add to Home Screen).","ڤيليه <b>تمبه ک سکرين اوتام</b> (Add to Home Screen).")}</li>
+      <li>${tx("Tekan <b>Tambah</b>. Ikon JOM KAFA akan muncul di skrin utama.","تکن <b>تمبه</b>. ايکون JOM KAFA اکن مونچول د سکرين اوتام.")}</li></ol></div>`;
+  document.body.appendChild(d);
+}
+
 /* ===================== Laman utama ===================== */
 function renderHome(app){
   document.title = tx("Jom Belajar KAFA","جوم بلاجر کافا");
@@ -158,6 +182,7 @@ function renderHome(app){
       <div class="greet">${mascot()}<div class="bubble">${tx("Assalamualaikum! Saya Kiki. Pilih tahun kamu untuk mula belajar.","السلام عليکم! ساي کيکي. ڤيليه تاهون کامو اونتوق مولا بلاجر.")}</div></div>
     </header>
     <nav class="gates" aria-label="${tx("Pilih tahun","ڤيليه تاهون")}">${gates}</nav>
+    ${installCard()}
     <p class="foot">${tx("Dibina untuk murid KAFA. Subjek baharu akan ditambah dari semasa ke semasa.","دبينا اونتوق موريد کافا. سوبجيک بهارو اکن دتمبه دري سماس ک سماس.")}<br><a href="privasi.html" style="color:inherit">${tx("Dasar Privasi","داسر ڤريۏاسي")}</a></p>`;
 }
 
@@ -242,6 +267,8 @@ const KafaPortal = {
       const b = e.target.closest("[data-act]");
       if(!b) return;
       if(b.dataset.act==="lang"){ LANG = isJ() ? "rumi" : "jawi"; kSave("kafa-lang", LANG); applyLang(); draw(); }
+      if(b.dataset.act==="install" && window.KafaPWA){ KafaPWA.install().then(o=>{ if(o==="manual") iosGuide(); }); }
+      if(b.dataset.act==="pwahide"){ kSave("kafa-pwa-hide", Date.now() + 7*864e5); const p = document.getElementById("pwa"); if(p) p.outerHTML = '<div id="pwa"></div>'; }
       if(b.dataset.act==="ytab"){ yTab = b.dataset.t; try{ history.replaceState(null, "", yTab==="arcade" ? "#arked" : location.pathname); }catch(err){} draw(); window.scrollTo(0,0); }
       if(b.dataset.act==="soon"){ toast(tx(`${b.dataset.name} akan datang, insya-Allah.`,`${b.dataset.name} اکن داتڠ، ان شاء الله.`)); }
     });
@@ -256,6 +283,8 @@ const KafaPortal = {
       });
       app.addEventListener("pointerout", e=>{ const c = e.target.closest(".tilt"); if(c && !c.contains(e.relatedTarget)){ c.style.removeProperty("--rx"); c.style.removeProperty("--ry"); } });
     }
+    document.addEventListener("kafa-pwa", ()=>{ const p = document.getElementById("pwa"); if(p) p.outerHTML = installCard(); });
+    document.addEventListener("click", e=>{ if(e.target.closest('[data-act="iosclose"]') || e.target.classList.contains("iosg")) document.querySelectorAll(".iosg").forEach(x=>x.remove()); });
     draw();
   }
 };

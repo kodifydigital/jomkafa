@@ -258,3 +258,21 @@ html[dir="rtl"] .ytabs button{line-height:1.6}
 .orbit i{position:absolute;left:-20px;top:-20px;font-style:normal;font-size:34px;line-height:40px;width:40px;text-align:center;transform:rotate(calc(var(--k) / var(--n) * -360deg));animation:spin 26s linear infinite reverse}
 .arcade h3{position:relative;margin:18px 0 0;font-size:18px;opacity:.95}
 .arcade .arcgrid{margin-top:10px}
+
+/* ===== Pasang aplikasi (PWA) ===== */
+.install{position:relative;display:flex;align-items:center;gap:14px;margin-top:22px;padding:14px 16px;border-radius:24px;color:#fff;
+  background:linear-gradient(135deg,#1A9E7E,#0B4F44);box-shadow:0 6px 0 #062B24,0 12px 26px rgba(11,79,68,.35);animation:wpop .5s both}
+.install img{flex:none;width:64px;height:64px;border-radius:16px;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+.install b{font-size:20px}
+.install p{margin:2px 0 0;font-size:15px;opacity:.92;line-height:1.35}
+html[dir="rtl"] .install p{line-height:1.7}
+.install .ibtn{flex:none;margin-inline-start:auto;border:0;border-radius:999px;padding:8px 20px;font-weight:800;font-size:18px;color:#0B4F44;background:#FFD166;box-shadow:0 4px 0 #8A5A00}
+.install .ibtn:active{transform:translateY(3px);box-shadow:0 1px 0 #8A5A00}
+.install .ix,.iosg .ix{position:absolute;top:6px;inset-inline-end:8px;border:0;background:none;color:inherit;opacity:.7;font-size:16px;padding:4px}
+@media (max-width:520px){.install{flex-wrap:wrap}.install .ibtn{width:100%;margin-top:4px}}
+.iosg{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:16px;background:rgba(10,20,18,.6)}
+.iosg .card{position:relative;width:min(420px,100%);background:var(--surface);border:2px solid var(--line);border-radius:24px;padding:18px;text-align:center}
+.iosg .card img{border-radius:16px}
+.iosg h2{margin:6px 0 4px;font-size:22px}
+.iosg ol{text-align:start;margin:8px 0 0;padding-inline-start:22px;display:grid;gap:8px;font-size:16.5px}
+.iosg .sh{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:8px;background:#E8F2FF}

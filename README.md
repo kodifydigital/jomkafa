@@ -16,6 +16,7 @@ kafa/
 │   ├── kafa.js           ← Senarai subjek dan game yang sudah siap
 │   ├── config.js         ← Kunci awam Clerk (leaderboard)
 │   ├── auth.js           ← Log masuk Clerk + panggilan /api (dikongsi Zon Arked & papan pemuka guru)
+│   ├── pwa.js            ← Daftar service worker + butang "Pasang JOM KAFA"
 │   └── vendor/
 │       └── three.min.js  ← three.js r128 untuk Zon Arked 3D (boleh main tanpa internet)
 ├── tahun3/
@@ -38,6 +39,9 @@ kafa/
 │       └── index.html    ← Zon Arked 3D: 6 permainan bertema dunia setiap subjek (?s=idSubjek)
 ├── guru/index.html       ← Papan Pemuka Guru (kemajuan murid, soalan kerap salah, urus nama murid)
 ├── privasi.html          ← Dasar Privasi
+├── manifest.webmanifest  ← Web app (PWA): nama JOM KAFA, ikon, warna
+├── sw.js                 ← Service worker: simpan halaman & permainan untuk main tanpa internet
+├── icons/                ← Ikon aplikasi (192, 512, maskable, Apple, favicon)
 ├── api/                  ← API (Vercel Functions): me, class, score, leaderboard, dashboard
 ├── sql/schema.sql        ← Skema pangkalan data Neon
 ├── package.json          ← Kebergantungan API (@neondatabase/serverless, @clerk/backend)
@@ -96,3 +100,16 @@ Cara guna:
 - Nama samaran dan nama kelas yang mengandungi perkataan kasar ditolak (penapis dalam `api/_lib.js`).
 - **Papan Pemuka Guru** (`/guru/`): pemilik kelas melihat skor murid ikut subjek, aktiviti 14 hari dan soalan paling kerap salah,
   serta boleh menukar nama murid (nama itu dikunci) atau mengeluarkan murid. Dibuka melalui 👤 → kelas → 📊 Papan pemuka.
+
+## Web app (PWA) — JOM KAFA
+
+Portal boleh dipasang seperti aplikasi di telefon, tablet dan iPad:
+- **Android / Chrome / Edge:** kad **📲 Pasang JOM KAFA** di laman utama membuka tetingkap pasang.
+- **iPhone / iPad (Safari):** kad yang sama memaparkan panduan *Kongsi → Tambah ke Skrin Utama*.
+
+`sw.js` menyimpan semua halaman, permainan dan three.js semasa dibuka kali pertama, jadi pelajaran dan Zon Arked boleh dimain
+tanpa internet. Log masuk dan papan pendahulu masih perlukan internet.
+- Halaman (HTML) diambil dari rangkaian dahulu, jadi kemas kini terus kelihatan apabila ada internet.
+- Gaya/skrip diambil dari cache dahulu dan dikemas kini di latar belakang (versi baharu kelihatan pada bukaan seterusnya).
+- Jika menambah halaman baharu, tambah laluannya dalam `CORE` di `sw.js` dan naikkan `VERSION`.
+- Setiap halaman baharu perlu tag PWA dalam `<head>` (salin daripada `index.html`: manifest, ikon, `/assets/pwa.js`).
