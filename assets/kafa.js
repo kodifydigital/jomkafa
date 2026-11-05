@@ -76,6 +76,19 @@ const ARCADE = {
   3: { path:"arked/index.html", hiKey:"ark3-hi", subjects:["sirah","feqah","tauhid","akhlak","arab","tajwid","hafazan"] }
 };
 
+// Tema dunia setiap subjek (sama seperti dunia dalam Zon Arked): warna, maskot dan hiasan latar kad
+const THEMES = {
+  sirah:   { c1:"#F08A3C", c2:"#7A3B12", a:"#FFD08A", m:"🐪", deco:"dunes" },
+  feqah:   { c1:"#1BB394", c2:"#0B4F44", a:"#9FF5DD", m:"🕌", deco:"arches" },
+  tauhid:  { c1:"#1394B8", c2:"#073B4C", a:"#9EE7FF", m:"🐢", deco:"bubbles" },
+  akhlak:  { c1:"#E5487E", c2:"#7A1A3E", a:"#FFC2D8", m:"🏡", deco:"hills" },
+  arab:    { c1:"#34B05A", c2:"#14532D", a:"#BDF5C9", m:"🐸", deco:"pads" },
+  tajwid:  { c1:"#6C5CE7", c2:"#1C1B3A", a:"#D2CCFF", m:"🚀", deco:"stars" },
+  hafazan: { c1:"#D64532", c2:"#5E1A14", a:"#FFC9BF", m:"🚂", deco:"rails" },
+  mix:     { c1:"#8B45F0", c2:"#120634", a:"#FF8CE6", m:"🎲", deco:"stars" }
+};
+const themeVars = id => { const t = THEMES[id] || THEMES.mix; return `--c1:${t.c1};--c2:${t.c2};--a:${t.a}`; };
+
 /* ===================== Bahasa (Jawi / Rumi) ===================== */
 function kLoad(k,f){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):f; }catch(e){ return f; } }
 function kSave(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
@@ -152,19 +165,11 @@ function renderHome(app){
 function renderYear(app, y){
   document.title = tx(`Tahun ${y} • KAFA`,`تاهون ${y} • کافا`);
   const nReady = readyFor(y).length;
-  const sorted = [...SUBJECTS].sort((a,b)=> (READY[`${y}/${b.id}`]?1:0) - (READY[`${y}/${a.id}`]?1:0));
-  const tiles = sorted.map(s=>{
-    const entry = READY[`${y}/${s.id}`];
-    if(entry){
-      const st = starsOf(entry);
-      return `<a class="subj ready ${nReady<=2?"feature":""}" href="${entry.path}" style="--c:${yearColor(y)}">
-        <span class="ic" aria-hidden="true">${s.icon}</span>
-        <h2>${tx(s.r,s.j)}</h2>
-        <p>${tx(entry.r,entry.j)} • ${tx(entry.dr,entry.dj)}</p>
-        ${st?`<span class="prog">⭐ ${st.got}/${st.max}</span>`:""}
-        <span class="go">${tx("Main sekarang","ماٴين سکارڠ")} ▶</span>
-      </a>`;
-    }
+  // Tahun yang sudah ada subjek sedia hanya memaparkan subjek itu (kad dunia), ikut susunan Zon Arked.
+  // Tahun yang belum ada subjek memaparkan senarai "Akan datang".
+  const order = ARCADE[y] ? ARCADE[y].subjects : [];
+  const pos = s => { const i = order.indexOf(s.id); return i<0 ? 99 : i; };
+  const tiles = nReady ? readyFor(y).sort((a,b)=>pos(a)-pos(b)).map((s,i)=>worldCard(s, READY[`${y}/${s.id}`], i)).join("") : SUBJECTS.map(s=>{
     return `<button class="subj soon" data-act="soon" data-name="${tx(s.r,s.j)}">
       <span class="ic" aria-hidden="true">${s.icon}</span>
       <h2>${tx(s.r,s.j)}</h2>
@@ -182,15 +187,31 @@ function renderYear(app, y){
       </div>
       ${mascot()}
     </header>
-    <section class="subjects" aria-label="${tx("Subjek","سوبجيک")}">${tiles}</section>
+    <section class="${nReady?"wgrid":"subjects"}" aria-label="${tx("Subjek","سوبجيک")}">${tiles}</section>
     ${arcadeHTML(y)}`;
+}
+// Kad dunia subjek: latar bertema, maskot terapung, bar kemajuan bintang
+function worldCard(s, entry, i){
+  const t = THEMES[s.id] || THEMES.mix, st = starsOf(entry);
+  const pct = st ? Math.min(100, Math.round(st.got / st.max * 100)) : 0;
+  return `<a class="wcard tilt" href="${entry.path}" data-deco="${t.deco}" style="${themeVars(s.id)};--i:${i}">
+      <span class="scene" aria-hidden="true"></span><span class="shine" aria-hidden="true"></span>
+      <span class="mas" aria-hidden="true">${t.m}</span>
+      <span class="chip">${s.icon} ${tx(s.r,s.j)}</span>
+      <h2>${tx(entry.r,entry.j)}</h2>
+      <p>${tx(entry.dr,entry.dj)}</p>
+      ${st ? `<span class="bar" role="img" aria-label="${st.got}/${st.max}"><i style="width:${pct}%"></i></span>
+      <span class="stars">⭐ ${st.got}/${st.max}${st.got>=st.max ? " 🏆" : ""}</span>` : ""}
+      <span class="go">${st && st.got ? tx("Sambung","سمبوڠ") : tx("Mula main","مولا ماٴين")} ▶</span>
+    </a>`;
 }
 function arcadeHTML(y){
   const A = ARCADE[y]; if(!A) return "";
   const hi = kLoad(A.hiKey, {});
   const best = id => Math.max(0, ...Object.values(hi[id]||{}));
   const cards = [...A.subjects.map(id=>SUBJECTS.find(s=>s.id===id)), {id:"mix", icon:"🎲", r:"Campur semua", j:"چمڤور سموا"}].map((s,i)=>
-    `<a class="arc" href="${A.path}?s=${s.id}" style="--i:${i}"><span class="ic" aria-hidden="true">${s.icon}</span><b>${tx(s.r,s.j)}</b><small>🏆 ${best(s.id)}</small></a>`).join("");
+    `<a class="arc tilt" href="${A.path}?s=${s.id}" data-deco="${(THEMES[s.id]||THEMES.mix).deco}" style="${themeVars(s.id)};--i:${i}"><span class="scene" aria-hidden="true"></span><span class="shine" aria-hidden="true"></span>
+      <span class="ic" aria-hidden="true">${(THEMES[s.id]||THEMES.mix).m}</span><b>${tx(s.r,s.j)}</b><small>🏆 ${best(s.id)}</small></a>`).join("");
   return `<section class="arcade" aria-label="${tx("Zon Arked","زون ارکيد")}">
       <span class="bulbs" aria-hidden="true"></span>
       <div class="ahead"><div><h2>🕹️ ${tx("Zon Arked","زون ارکيد")}</h2>
@@ -212,6 +233,17 @@ const KafaPortal = {
       if(b.dataset.act==="lang"){ LANG = isJ() ? "rumi" : "jawi"; kSave("kafa-lang", LANG); applyLang(); draw(); }
       if(b.dataset.act==="soon"){ toast(tx(`${b.dataset.name} akan datang, insya-Allah.`,`${b.dataset.name} اکن داتڠ، ان شاء الله.`)); }
     });
+    // kad dunia condong mengikut tetikus / jari (dimatikan jika pengguna memilih kurang animasi)
+    const calm = (()=>{ try{ return matchMedia("(prefers-reduced-motion: reduce)").matches; }catch(e){ return false; } })();
+    if(!calm){
+      app.addEventListener("pointermove", e=>{
+        const c = e.target.closest(".tilt"); if(!c) return;
+        const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+        c.style.setProperty("--rx", (-y * 10).toFixed(2) + "deg"); c.style.setProperty("--ry", (x * 12).toFixed(2) + "deg");
+        c.style.setProperty("--mx", ((x + 0.5) * 100).toFixed(0) + "%");
+      });
+      app.addEventListener("pointerout", e=>{ const c = e.target.closest(".tilt"); if(c && !c.contains(e.relatedTarget)){ c.style.removeProperty("--rx"); c.style.removeProperty("--ry"); } });
+    }
     draw();
   }
 };

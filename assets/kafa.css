@@ -143,3 +143,78 @@ html[dir="rtl"] .arc b{line-height:1.6}
 .arc small{font-size:13px;font-weight:700;background:rgba(0,0,0,.3);border-radius:999px;padding:0 10px}
 .arc:hover{border-color:#00E5FF}
 .arc:active{transform:scale(.96)}
+
+/* ===== Kad dunia subjek (laman tahun) ===== */
+.wgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:22px;perspective:900px}
+.wgrid>.wcard:last-child:nth-child(odd){grid-column:1/-1;min-height:190px}
+@media (max-width:560px){.wgrid{grid-template-columns:1fr;gap:12px}}
+.wcard,.arc{--rx:0deg;--ry:0deg;--mx:50%}
+.wcard{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-height:220px;padding:16px 18px 16px;border-radius:26px;overflow:hidden;isolation:isolate;
+  color:#fff;text-decoration:none;background:linear-gradient(150deg,var(--c1),var(--c2));
+  box-shadow:0 8px 0 color-mix(in srgb,var(--c2) 75%,#000),0 14px 28px color-mix(in srgb,var(--c2) 40%,transparent);
+  transform:rotateX(var(--rx)) rotateY(var(--ry));transition:transform .18s ease-out,box-shadow .18s;animation:wpop .55s both;animation-delay:calc(var(--i) * 70ms)}
+@keyframes wpop{from{opacity:0;transform:translateY(18px) scale(.96)}}
+.wcard:hover{box-shadow:0 10px 0 color-mix(in srgb,var(--c2) 75%,#000),0 0 0 3px var(--a),0 18px 34px color-mix(in srgb,var(--c1) 45%,transparent)}
+.wcard:active{transform:translateY(5px) scale(.99);box-shadow:0 3px 0 color-mix(in srgb,var(--c2) 75%,#000)}
+.wcard .scene,.arc .scene{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.9}
+.wcard .shine,.arc .shine{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0;transition:opacity .2s;
+  background:radial-gradient(circle at var(--mx) 0%,rgba(255,255,255,.35),transparent 45%)}
+.wcard:hover .shine,.arc:hover .shine{opacity:1}
+.wcard .mas{position:absolute;inset-inline-end:14px;top:12px;font-size:76px;line-height:1;filter:drop-shadow(0 8px 0 rgba(0,0,0,.18));animation:float 3.2s ease-in-out infinite;animation-delay:calc(var(--i) * -400ms)}
+@keyframes float{50%{transform:translateY(-9px) rotate(-5deg)}}
+.wcard .chip{display:inline-flex;gap:6px;align-items:center;font-size:14px;font-weight:800;background:rgba(0,0,0,.24);border:2px solid rgba(255,255,255,.28);border-radius:999px;padding:1px 12px}
+.wcard h2{margin:2px 0 0;font-size:clamp(23px,4.6vw,28px);line-height:1.15;max-width:calc(100% - 92px);text-shadow:0 2px 0 rgba(0,0,0,.2)}
+html[dir="rtl"] .wcard h2{line-height:1.6}
+.wcard p{margin:0;font-size:15.5px;opacity:.94;max-width:calc(100% - 92px)}
+.wcard .bar{display:block;width:100%;height:10px;margin-top:auto;border-radius:99px;background:rgba(0,0,0,.25);overflow:hidden}
+.wcard .bar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--a),#fff);box-shadow:0 0 10px var(--a)}
+html[dir="rtl"] .wcard .bar i{margin-inline-start:0}
+.wcard .stars{font-size:14px;font-weight:800}
+.wcard .go{display:inline-flex;align-items:center;gap:6px;margin-top:4px;background:#fff;color:var(--c2);border-radius:999px;padding:4px 18px;font-weight:800;font-size:17px;box-shadow:0 3px 0 rgba(0,0,0,.2);transition:transform .15s}
+.wcard:hover .go{transform:scale(1.06)}
+.wcard:not(:has(.bar)) .go{margin-top:auto}
+
+/* Hiasan latar mengikut dunia */
+[data-deco="dunes"] .scene{background:
+  radial-gradient(circle at 78% 26%,#FFE6A8 0 22px,rgba(255,230,168,.35) 23px 34px,transparent 35px),
+  radial-gradient(120% 55% at 18% 112%,rgba(255,214,150,.55) 50%,transparent 51%),
+  radial-gradient(110% 60% at 92% 118%,rgba(233,167,90,.6) 50%,transparent 51%)}
+[data-deco="arches"] .scene{background:
+  radial-gradient(circle at 50% 100%,transparent 0 16px,rgba(255,255,255,.14) 17px 20px,transparent 21px) 0 100%/44px 38px repeat-x,
+  radial-gradient(circle at 82% 24%,rgba(255,255,255,.25) 0 14px,transparent 15px),
+  radial-gradient(circle,rgba(255,255,255,.35) 1.4px,transparent 2px) 0 0/36px 30px}
+[data-deco="bubbles"] .scene{background:
+  radial-gradient(circle,transparent 5px,rgba(255,255,255,.22) 6px,transparent 7.5px) 0 0/58px 64px,
+  radial-gradient(circle,transparent 3px,rgba(255,255,255,.18) 4px,transparent 5.5px) 22px 30px/44px 52px,
+  linear-gradient(180deg,transparent 84%,rgba(230,211,163,.35) 85%);animation:bubup 9s linear infinite}
+@keyframes bubup{to{background-position:0 -640px,22px -490px,0 0}}
+[data-deco="hills"] .scene{background:
+  radial-gradient(circle at 80% 22%,#FFF1B0 0 18px,transparent 19px),
+  radial-gradient(90% 50% at 25% 112%,rgba(124,203,97,.55) 50%,transparent 51%),
+  radial-gradient(80% 55% at 85% 116%,rgba(91,170,79,.55) 50%,transparent 51%)}
+[data-deco="pads"] .scene{background:
+  radial-gradient(ellipse 26px 11px at 20% 86%,rgba(140,230,150,.55) 98%,transparent),
+  radial-gradient(ellipse 22px 9px at 52% 92%,rgba(140,230,150,.45) 98%,transparent),
+  radial-gradient(ellipse 18px 8px at 70% 80%,rgba(255,170,210,.6) 98%,transparent),
+  repeating-radial-gradient(circle at 30% 120%,transparent 0 14px,rgba(255,255,255,.08) 15px 16px)}
+[data-deco="stars"] .scene{background:
+  radial-gradient(circle at 84% 26%,#FFF3B0 0 13px,transparent 14px),
+  radial-gradient(circle at 18% 78%,rgba(255,170,120,.55) 0 22px,transparent 23px),
+  radial-gradient(circle,#fff 1.1px,transparent 1.8px) 0 0/31px 27px,
+  radial-gradient(circle,rgba(255,255,255,.6) 1px,transparent 1.6px) 13px 9px/47px 41px;animation:twinkle 3s ease-in-out infinite}
+@keyframes twinkle{50%{opacity:.6}}
+[data-deco="rails"] .scene{background:
+  linear-gradient(transparent calc(100% - 22px),rgba(255,255,255,.35) calc(100% - 22px) calc(100% - 19px),transparent calc(100% - 19px) calc(100% - 9px),rgba(255,255,255,.35) calc(100% - 9px) calc(100% - 6px),transparent calc(100% - 6px)),
+  repeating-linear-gradient(90deg,rgba(90,50,30,.45) 0 6px,transparent 6px 22px) 0 100%/100% 26px no-repeat,
+  radial-gradient(circle at 80% 24%,rgba(255,255,255,.3) 0 16px,transparent 17px)}
+
+/* Kad Zon Arked di laman tahun: mengikut warna dunia */
+.arcgrid{perspective:800px}
+.arc{animation:wpop .5s both;animation-delay:calc(var(--i) * 60ms);position:relative;overflow:hidden;isolation:isolate;border:0;padding:12px 6px 10px;background:linear-gradient(150deg,var(--c1),var(--c2));
+  box-shadow:0 5px 0 color-mix(in srgb,var(--c2) 70%,#000),0 0 0 2px rgba(255,255,255,.18) inset;transform:rotateX(var(--rx)) rotateY(var(--ry));transition:transform .18s ease-out,box-shadow .18s}
+.arc:hover{box-shadow:0 5px 0 color-mix(in srgb,var(--c2) 70%,#000),0 0 0 3px var(--a),0 0 18px var(--a)}
+.arc .ic{font-size:38px;filter:drop-shadow(0 4px 0 rgba(0,0,0,.2));animation:float 3s ease-in-out infinite;animation-delay:calc(var(--i) * -300ms)}
+.arc b,.arc small{position:relative}
+/* Jawi (kanan ke kiri): cerminkan hiasan supaya matahari/bulan berada di sebelah maskot, bukan di belakang tajuk */
+html[dir="rtl"] .wcard .scene,html[dir="rtl"] .arc .scene{transform:scaleX(-1)}
+.arc .scene{opacity:.5}
