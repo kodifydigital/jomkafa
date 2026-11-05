@@ -5,8 +5,8 @@ window.KAFA_CONFIG = {
 
   // Jualan ikut tahun (beli sekali, seumur hidup). Pengguna membuka tahun dengan kod pengaktifan.
   shop: {
-    whatsapp: "",            // nombor WhatsApp untuk butang "Beli", format antarabangsa tanpa + (contoh: "60123456789")
-    price: { 3: "" }         // harga yang dipaparkan, contoh: { 3: "RM 29" }. Kosong = harga tidak dipaparkan
+    whatsapp: "60135818932", // nombor WhatsApp untuk butang "Beli", format antarabangsa tanpa + (contoh: "60123456789")
+    price: { 3: "RM65" }     // harga yang dipaparkan, contoh: { 3: "RM 29" }. Kosong = harga tidak dipaparkan
   },
 
   // Versi percubaan percuma bagi tahun yang dijual. Tahun yang tiada di sini dibuka seperti biasa.
