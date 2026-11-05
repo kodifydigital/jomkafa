@@ -18,6 +18,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Noto+Naskh+Arabic:wght@500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 <script src="../../assets/config.js"></script>
 <script src="../../assets/auth.js"></script>
+<script src="../../assets/access.js"></script>
 <style>
 :root{
   --bg:#F1ECFF; --surface:#FFFFFF; --ink:#1E1640; --muted:#5F5689; --line:#DCD3F5;
@@ -115,6 +116,12 @@ html[dir="rtl"] .cab .mq b{line-height:1.6}
 html[dir="rtl"] .cab small{line-height:1.6}
 .cab .hi{align-self:center;margin-top:8px;font-size:13px;font-weight:800;background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.2);border-radius:999px;padding:0 10px}
 .cab.lock{filter:grayscale(.8) brightness(.75)}
+.cab.paid .scr .ic,.cab.paid .mq b{opacity:.55}
+.cab.paid{filter:saturate(.6)}
+.cab .plock{position:absolute;z-index:3;top:42%;left:50%;transform:translate(-50%,-50%);display:grid;place-items:center;width:64px;height:64px;border-radius:50%;font-size:32px;
+  background:rgba(10,8,25,.72);border:3px solid rgba(255,255,255,.5);box-shadow:0 6px 18px rgba(0,0,0,.4);animation:bob 2s ease-in-out infinite}
+.wt.lk{position:relative}
+.wt.lk::after{content:"🔒";position:absolute;top:6px;inset-inline-end:8px;font-size:15px}
 @media (max-width:560px){.cab .mq b{font-size:15px}.cab small{font-size:12.5px}}
 .foot{margin-top:18px;color:var(--muted);font-size:15px;text-align:center}
 
@@ -1983,7 +1990,7 @@ function renderMap(){
       <button role="tab" data-act="tab" data-t="games" aria-selected="${tab==="games"}">🕹️ ${tx("Permainan","ڤرماٴينن")}</button>
       <button role="tab" data-act="tab" data-t="board" aria-selected="${tab==="board"}">🏆 ${tx("Papan Pendahulu","ڤاڤن ڤندهولو")}</button></div>` : ""}
     <div class="sec">📚 ${tx("Pilih dunia subjek","ڤيليه دنيا سوبجيک")}</div>
-    <div class="wtiles" role="group" id="wtiles">${SUBJ.map((x,i)=>{ const W = WORLD[x.id]; return `<button class="wt tilt" data-act="subj" data-s="${x.id}" aria-pressed="${x.id===subj}" style="--t1:${W.c1};--t2:${W.c2};--ta:${W.accent};--i:${i}"><span class="e" aria-hidden="true">${W.emoji}</span><b>${tx(x.r,x.j)}</b><small>${tx(W.name[0],W.name[1])}</small></button>`; }).join("")}</div>
+    <div class="wtiles" role="group" id="wtiles">${SUBJ.map((x,i)=>{ const W = WORLD[x.id]; return `<button class="wt tilt${worldLocked(x.id)?" lk":""}" data-act="subj" data-s="${x.id}" aria-pressed="${x.id===subj}" style="--t1:${W.c1};--t2:${W.c2};--ta:${W.accent};--i:${i}"><span class="e" aria-hidden="true">${W.emoji}</span><b>${tx(x.r,x.j)}</b><small>${tx(W.name[0],W.name[1])}</small></button>`; }).join("")}</div>
     ${tab==="board" ? lbSection() : `<div class="sec">👥 ${tx("Cara bermain","چارا برماٴين")}</div>
     <div class="modes">
       <button class="mode" data-act="pmode" data-m="solo" aria-pressed="${pmode==="solo"}"><span class="e">🙋</span>${tx("Main Sendiri","ماٴين سنديري")}<small>${tx("Kejar skor tertinggi kamu","کجر سکور ترتيڠڬي کامو")}</small></button>
@@ -1991,7 +1998,9 @@ function renderMap(){
     </div>
     <div class="sec">${w.emoji} ${tx("Pilih permainan","ڤيليه ڤرماٴينن")} — ${tx(s.r,s.j)}</div>
     <div class="cabs">${GAMES.map((g0,i)=>{ const g = GW(g0.id), off = g.order && !hasOrder, h = hiOf(subj, g.id);
-      return `<button class="cab tilt ${off?"lock":""}" style="--c:${g0.c};--i:${i}" data-act="game" data-g="${g.id}" ${off?"disabled":""}>
+      const paid = !off && !canPlay(subj, g.id);
+      return `<button class="cab tilt ${off?"lock":""} ${paid?"paid":""}" style="--c:${g0.c};--i:${i}" data-act="game" data-g="${g.id}" ${off?"disabled":""}>
+        ${paid ? `<span class="plock" aria-hidden="true">🔒</span>` : ""}
         <span class="mq"><b>${tx(g.r,g.j)}</b></span>
         <span class="scr"><span class="ic">${g.icon}</span><span class="dimtag">3D</span></span>
         <span class="deck" aria-hidden="true"><i class="joy"></i><i class="bt"></i><i class="bt b2"></i></span>
@@ -2004,7 +2013,11 @@ function renderMap(){
 
 /* ============ PERMAINAN: ASAS ============ */
 function stopGame(){ if(G){ drop3D(); G.over = true; G.tok = -1; } G = null; document.removeEventListener("keydown", onKey); }
+const AY = 3, ACC = () => window.KafaAccess;
+const canPlay = (s, gid) => !ACC() || ACC().canArcade(AY, s, gid);
+const worldLocked = s => ACC() && !ACC().has(AY) && ((ACC().trial(AY)||{}).arcade||{}).subj !== s;
 function openGame(gid){
+  if(!canPlay(subj, gid)) return ACC().sheet(AY, {msg:tx("Permainan ini dibuka selepas membeli. Versi percuma: dunia Sirah, permainan pertama.","ڤرماٴينن اين دبوک سلڤس ممبلي. ۏرسي ڤرچوما: دنيا سيره، ڤرماٴينن ڤرتام.")});
   const g = GW(gid);
   if(g.order && !orders().length) return;
   stopGame();
@@ -2312,8 +2325,9 @@ const LB = {
     return this.loadP;
   },
   api(path, body){ return KafaAuth.api(path, body); },
-  async fetchMe(){ try{ this.me = await this.api("me"); }catch(e){ this.me = null; } return this.me; },
+  async fetchMe(){ try{ this.me = await this.api("me"); if(ACC() && this.me) ACC().set(this.uid, this.me.years || []); }catch(e){ this.me = null; } return this.me; },
   async changed(){
+    if(!this.uid && ACC() && ACC().uid()) ACC().clear();
     if(this.uid){ KafaAuth.loading(true, tx("Menyemak akaun","مڽمق اکاٴون"), WD().emoji); try{ await this.fetchMe(); } finally { KafaAuth.loading(false); } }
     if(this.uid && this.me && !this.me.player) return acctSheet(true);
     if(this.pending && $("lbres")) return lbSubmit(this.pending);
@@ -2491,6 +2505,7 @@ if(!REDUCED){
   });
   app.addEventListener("pointerout", e=>{ const c = e.target.closest(".tilt"); if(c && !c.contains(e.relatedTarget)){ c.style.removeProperty("--rx"); c.style.removeProperty("--ry"); } });
 }
+document.addEventListener("kafa-access", ()=>{ if(!G && $("wtiles")) renderMap(); });
 app.addEventListener("keydown", e=>{ if(e.key==="Enter" && e.target.matches(".sheet input")){ const b = e.target.parentElement.querySelector("button"); if(b) b.click(); } });
 
 applyLang();

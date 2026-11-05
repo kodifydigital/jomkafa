@@ -286,3 +286,31 @@ html,body{overflow-x:hidden}
   .cab,.wcard,.arc{transform:none;transform-style:flat}
   .wt[aria-pressed="true"]{transform:translateY(-3px) scale(1.03)}
 }
+
+/* ===== Jualan ikut tahun: kad beli, kad berkunci, reben percubaan ===== */
+.buy{position:relative;margin-top:18px;padding:16px;border-radius:24px;color:#fff;overflow:hidden;
+  background:radial-gradient(circle at 90% 0%,rgba(255,209,102,.35),transparent 45%),linear-gradient(135deg,#7C3AED,#C026D3 60%,#F97316);box-shadow:0 6px 0 #4C1D95,0 14px 30px rgba(124,58,237,.35);animation:wpop .5s both}
+.buy .bt{display:flex;align-items:flex-start;gap:12px}
+.buy .bl{font-size:40px;line-height:1;animation:float 3s ease-in-out infinite}
+.buy b{font-size:22px}
+.buy p{margin:4px 0 0;font-size:15px;opacity:.95;line-height:1.4}
+html[dir="rtl"] .buy p{line-height:1.7}
+.buy .pr{flex:none;margin-inline-start:auto;text-align:center;font-size:26px;font-weight:800;background:rgba(255,255,255,.18);border:2px solid rgba(255,255,255,.35);border-radius:16px;padding:4px 12px;line-height:1.1}
+.buy .pr small{display:block;font-size:12px;font-weight:700;opacity:.9}
+.buy .bb{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.buy .b{flex:1 1 160px;border:0;border-radius:14px;padding:10px 12px;font:inherit;font-size:16.5px;font-weight:800;text-align:center;text-decoration:none;cursor:pointer}
+.buy .b.wa{background:#25D366;color:#063B1B;box-shadow:0 4px 0 #128C4A}
+.buy .b.code{background:#FFD166;color:#3A2600;box-shadow:0 4px 0 #8A5A00}
+.buy .b.alt{background:rgba(255,255,255,.16);color:#fff;border:2px solid rgba(255,255,255,.4)}
+.owned{margin-top:16px;padding:10px 14px;border-radius:16px;font-weight:800;color:#0B4F44;background:#D7F5E9;border:2px solid #7FD9B8}
+.wcard .ribbon{position:absolute;top:12px;inset-inline-end:-38px;z-index:3;transform:rotate(35deg);padding:3px 42px;font-size:13px;font-weight:800;color:#3A2600;background:#FFD166;box-shadow:0 3px 8px rgba(0,0,0,.25)}
+html[dir="rtl"] .wcard .ribbon{transform:rotate(-35deg)}
+.wcard.locked{border:0;font:inherit;text-align:start;cursor:pointer;filter:saturate(.55) brightness(.85)}
+.wcard.locked .mas{opacity:.55}
+.wcard.locked .lockb{margin-top:auto;display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,.35);border:2px solid rgba(255,255,255,.35);border-radius:999px;padding:4px 14px;font-weight:800;font-size:15px}
+.wcard.locked:hover{filter:saturate(.8) brightness(.95)}
+.arc.lk{filter:saturate(.45) brightness(.8)}
+.arc.lk::after{content:"🔒";position:absolute;top:6px;inset-inline-end:8px;font-size:16px}
+.kbuy .kin{display:block;width:100%;margin-top:12px;padding:10px 12px;border-radius:14px;border:3px solid #DCD3F5;font:800 22px/1.2 ui-monospace,Consolas,monospace;letter-spacing:2px;text-align:center;text-transform:uppercase;color:#1E1640;background:#fff}
+.kbuy .kin:focus{outline:none;border-color:#7C3AED}
+.kbuy .kerr{min-height:1.2em;margin:8px 0 0;color:#C8452F;font-weight:700;font-size:15px}

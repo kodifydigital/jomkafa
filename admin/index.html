@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0F6B5A">
+<link rel="icon" type="image/png" href="/icons/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<title>Admin • JOM KAFA</title>
+<link rel="stylesheet" href="/assets/kafa.css">
+<script src="/assets/config.js"></script>
+<script src="/assets/auth.js"></script>
+<style>
+.head{margin:10px 0 0;border-radius:24px;padding:16px 18px;color:#fff;background:linear-gradient(135deg,#7C3AED,#C026D3 60%,#F97316)}
+.head h1{margin:0;font-size:32px;line-height:1.15}
+.head p{margin:4px 0 0;opacity:.92}
+.card{background:var(--surface);border:2px solid var(--line);border-radius:20px;padding:14px 16px;margin-top:14px}
+.card h2{margin:0 0 8px;font-size:20px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}
+@media (max-width:620px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stat{background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:10px 12px}
+.stat b{display:block;font-size:20px}
+.stat span{display:block;font-size:14px;color:var(--muted);font-weight:700}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:end}
+.row label{display:flex;flex-direction:column;gap:2px;font-size:14px;font-weight:700;color:var(--muted)}
+input,select{font:inherit;font-size:17px;border:2px solid var(--line);border-radius:12px;padding:6px 10px;background:var(--bg);color:var(--ink);min-width:0}
+.btn{display:inline-block;border:0;border-radius:14px;padding:9px 18px;background:var(--brand);color:var(--brand-ink);font-weight:800;font-size:17px;text-decoration:none;cursor:pointer}
+.btn.alt{background:var(--surface);color:var(--ink);border:2px solid var(--line)}
+.btn.sm{padding:3px 10px;font-size:14px;border-radius:10px}
+textarea{width:100%;min-height:150px;margin-top:8px;font:600 15px/1.5 ui-monospace,Consolas,monospace;border:2px solid var(--line);border-radius:12px;padding:8px;background:var(--bg);color:var(--ink)}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px}
+th,td{padding:6px 8px;text-align:start;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-size:13px;color:var(--muted)}
+code{font-weight:800;letter-spacing:1px}
+.ok{color:#1F8A50;font-weight:800}.no{color:var(--muted)}
+.msg{text-align:center;padding:26px 16px}
+.msg .big{font-size:48px;line-height:1}
+.err{color:#C8452F;font-weight:700}
+.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:16px;font-weight:700;z-index:60}
+</style>
+</head>
+<body>
+<main class="wrap" id="app"></main>
+<script>
+/* Halaman admin JOM KAFA: jana kod pengaktifan, beri akses terus, lihat penggunaan kod.
+   Hanya akaun dengan e-mel dalam ADMIN_EMAILS (Vercel) boleh menggunakan /api/admin. */
+const app = document.getElementById("app"), $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const YEARS = [3,4,5,6];
+const when = t => t ? new Date(t).toLocaleString("ms-MY", {day:"numeric", month:"short", year:"numeric", hour:"2-digit", minute:"2-digit"}) : "";
+function toast(m){ document.querySelectorAll(".toast").forEach(t=>t.remove()); const t = document.createElement("div"); t.className = "toast"; t.textContent = m; document.body.appendChild(t); setTimeout(()=>t.remove(), 2800); }
+let D = null, made = null;
+
+const shell = inner => { app.innerHTML = `<div class="topbar"><a class="iconbtn" href="/" aria-label="Laman utama">←</a>
+  <div class="grp">${KafaAuth.uid ? `<button class="iconbtn" style="width:auto;padding:0 14px" data-act="logout">🚪 Log keluar</button>` : ""}</div></div>
+  <header class="head"><h1>🛠️ Admin JOM KAFA</h1><p>Jana kod pengaktifan, beri akses dan pantau pembelian.</p></header>${inner}`; };
+const msg = (e, t, extra="") => shell(`<div class="card msg"><div class="big">${e}</div><p>${t}</p>${extra}</div>`);
+
+async function draw(){
+  if(!KafaAuth.on) return msg("⚙️", "Admin hanya boleh dibuka di laman rasmi (kunci Clerk tiada).");
+  await KafaAuth.init();
+  if(KafaAuth.failed) return msg("⚠️", "Log masuk tidak dapat dimuatkan. Semak internet.");
+  if(!KafaAuth.uid) return msg("🔐", "Log masuk dengan akaun Google admin.", `<button class="btn" data-act="login">👤 Log masuk</button>`);
+  KafaAuth.loading(true, "Memuatkan data", "🛠️");
+  try{ D = await KafaAuth.api("admin"); }
+  catch(e){ KafaAuth.loading(false);
+    return e.status===403 ? msg("⛔", "Akaun ini bukan admin. Tambah e-mel anda dalam <b>ADMIN_EMAILS</b> di Vercel, kemudian redeploy.")
+      : msg("⚠️", "Tidak dapat disambung ke pelayan.", `<button class="btn alt" data-act="reload">🔄 Cuba lagi</button>`); }
+  KafaAuth.loading(false); render();
+}
+function render(){
+  shell(`
+    <div class="stats">${D.summary.map(s=>`<div class="stat"><b>Tahun ${s.year}</b><span>🎟️ ${s.codes} kod • ${s.used} digunakan</span><span>👤 ${s.owners} pemilik</span></div>`).join("")}</div>
+    <div class="card"><h2>🎟️ Jana kod pengaktifan</h2>
+      <div class="row">
+        <label>Tahun<select id="gy">${YEARS.map(y=>`<option value="${y}">Tahun ${y}</option>`).join("")}</select></label>
+        <label>Bilangan<input id="gn" type="number" min="1" max="500" value="1" style="width:90px"></label>
+        <label style="flex:1 1 200px">Nota (contoh: nama pembeli / sekolah)<input id="gnote" maxlength="60" placeholder="cth. Ibu Ali / SK Seri Bestari"></label>
+        <button class="btn" data-act="gen">✨ Jana</button>
+      </div>
+      ${made ? `<p style="margin:10px 0 0"><b>${made.codes.length} kod Tahun ${made.year}</b>${made.note?` — ${esc(made.note)}`:""}</p>
+        <textarea id="gout" readonly>${made.codes.join("\n")}</textarea>
+        <div class="row" style="margin-top:6px"><button class="btn alt sm" data-act="copy">📋 Salin semua</button><button class="btn alt sm" data-act="csv">⬇️ Muat turun CSV</button>
+        <button class="btn alt sm" data-act="wa">💬 Mesej untuk pembeli</button></div>` : ""}
+    </div>
+    <div class="card"><h2>👤 Beri akses terus (contoh: bayaran manual)</h2>
+      <div class="row">
+        <label style="flex:1 1 220px">E-mel Google pembeli<input id="ge" type="email" placeholder="ibubapa@gmail.com"></label>
+        <label>Tahun<select id="gey">${YEARS.map(y=>`<option value="${y}">Tahun ${y}</option>`).join("")}</select></label>
+        <button class="btn" data-act="grant">🔓 Buka</button>
+      </div>
+      <p class="no" style="font-size:14px;margin:6px 0 0">Pembeli perlu log masuk sekali dahulu di JOM KAFA dengan e-mel ini.</p>
+    </div>
+    <div class="card"><h2>📋 100 kod terkini</h2>
+      <div class="tbl"><table><thead><tr><th>Kod</th><th>Tahun</th><th>Nota</th><th>Status</th><th>Dicipta</th><th></th></tr></thead><tbody>
+      ${D.recent.map(c=>`<tr><td><code>${c.code}</code></td><td>${c.year}</td><td>${esc(c.note)}</td>
+        <td>${c.used_at ? `<span class="ok">✓ ${esc(c.used_email || "digunakan")}</span><br><small class="no">${when(c.used_at)}</small>` : `<span class="no">Belum digunakan</span>`}</td>
+        <td><small>${when(c.created_at)}</small></td><td>${c.used_at ? "" : `<button class="btn alt sm" data-act="del" data-c="${c.code}" title="Padam kod">🗑️</button>`}</td></tr>`).join("") || `<tr><td colspan="6" class="no">Belum ada kod.</td></tr>`}
+      </tbody></table></div></div>
+    <div class="card"><h2>🧾 Pembelian terkini</h2>
+      ${D.grants.length ? `<div class="tbl"><table><thead><tr><th>E-mel</th><th>Tahun</th><th>Cara</th><th>Masa</th></tr></thead><tbody>
+        ${D.grants.map(g=>`<tr><td>${esc(g.email || "-")}</td><td>${g.year}</td><td>${g.source==="code" ? "🎟️ Kod" : "👤 Admin"}</td><td><small>${when(g.created_at)}</small></td></tr>`).join("")}</tbody></table></div>` : `<p class="no">Belum ada pembelian.</p>`}
+    </div>`);
+}
+async function act(b){
+  const a = b.dataset.act;
+  if(a==="login") return KafaAuth.signIn("Membuka log masuk", "🛠️");
+  if(a==="logout") return KafaAuth.signOut("Log keluar", "🛠️");
+  if(a==="reload") return draw();
+  if(a==="copy"){ try{ await navigator.clipboard.writeText(made.codes.join("\n")); toast("📋 Disalin"); }catch(e){ $("gout").select(); } return; }
+  if(a==="csv"){ const csv = "kod,tahun,nota\n" + made.codes.map(c=>`${c},${made.year},"${String(made.note||"").replace(/"/g,'""')}"`).join("\n");
+    const url = URL.createObjectURL(new Blob([csv], {type:"text/csv"})), l = document.createElement("a"); l.href = url; l.download = `kod-tahun${made.year}.csv`; l.click(); setTimeout(()=>URL.revokeObjectURL(url), 1000); return; }
+  if(a==="wa"){ const t = `Terima kasih kerana membeli JOM KAFA Tahun ${made.year}!\n\nKod pengaktifan: ${made.codes[0]}\n\nCara guna:\n1. Buka ${location.origin}/tahun${made.year}/index.html\n2. Tekan "Masukkan kod" dan log masuk dengan akaun Google\n3. Taip kod di atas. Tahun ${made.year} akan dibuka seumur hidup.`;
+    try{ await navigator.clipboard.writeText(t); toast("💬 Mesej (dengan kod pertama) disalin"); }catch(e){ toast(t); } return; }
+  KafaAuth.busy(b, true);
+  try{
+    if(a==="gen"){ made = await KafaAuth.api("admin", {action:"generate", year:+$("gy").value, count:+$("gn").value, note:$("gnote").value}); toast(`✨ ${made.codes.length} kod dijana`); }
+    if(a==="grant"){ const r = await KafaAuth.api("admin", {action:"grant", email:$("ge").value, year:+$("gey").value}); toast(`🔓 Tahun ${r.year} dibuka untuk ${r.email}`); }
+    if(a==="del"){ if(!confirm(`Padam kod ${b.dataset.c}?`)) return KafaAuth.busy(b, false); await KafaAuth.api("admin", {action:"delete", code:b.dataset.c}); toast("🗑️ Kod dipadam"); }
+    D = await KafaAuth.api("admin"); render();
+  }catch(e){ KafaAuth.busy(b, false); toast("⚠️ " + (e.message || "Ralat")); }
+}
+app.addEventListener("click", e=>{ const b = e.target.closest("[data-act]"); if(b && !b.disabled) act(b); });
+KafaAuth.onChange(()=>{ D = null; made = null; draw(); });
+draw();
+</script>
+</body>
+</html>

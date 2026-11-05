@@ -1,7 +1,27 @@
 // Fungsi bersama API leaderboard (fail bermula "_" tidak menjadi laluan API di Vercel).
 // Pemboleh ubah persekitaran Vercel: DATABASE_URL (Neon), CLERK_SECRET_KEY (Clerk).
 import { neon } from "@neondatabase/serverless";
-import { verifyToken } from "@clerk/backend";
+import { verifyToken, createClerkClient } from "@clerk/backend";
+
+// Tahun yang boleh dibeli (kod pengaktifan). Tambah tahun baharu di sini apabila kandungannya siap.
+export const SELL_YEARS = [3, 4, 5, 6];
+
+let _clerk = null;
+export const clerk = () => _clerk || (_clerk = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY }));
+// E-mel pengguna Clerk (dicache dalam instans fungsi)
+const emailCache = new Map();
+export async function userEmails(uid) {
+  if (emailCache.has(uid)) return emailCache.get(uid);
+  const u = await clerk().users.getUser(uid);
+  const list = (u.emailAddresses || []).map(e => e.emailAddress.toLowerCase());
+  emailCache.set(uid, list); return list;
+}
+// Admin = e-mel dalam pemboleh ubah Vercel ADMIN_EMAILS (dipisah dengan koma)
+export async function isAdmin(uid) {
+  const admins = String(process.env.ADMIN_EMAILS || "").toLowerCase().split(",").map(s => s.trim()).filter(Boolean);
+  if (!uid || !admins.length) return false;
+  try { return (await userEmails(uid)).some(e => admins.includes(e)); } catch { return false; }
+}
 
 export const SUBJECTS = ["sirah", "feqah", "tauhid", "akhlak", "arab", "tajwid", "hafazan", "mix"];
 export const GAMES = ["whack", "catch", "pop", "run", "climb"];
@@ -31,6 +51,10 @@ export function ensureSchema() {
       // nama yang ditetapkan guru dikunci supaya murid tidak boleh menukarnya semula
       await sql`alter table players add column if not exists locked boolean not null default false`;
       await sql`create table if not exists mistakes (player text not null references players(id) on delete cascade, subj text not null, qkey text not null, wkey text not null, q jsonb not null, w jsonb not null, r jsonb, n int not null default 1, last_at timestamptz not null default now(), primary key (player, subj, qkey, wkey))`;
+      // pembelian: kod pengaktifan dan tahun yang dibuka bagi setiap pengguna (seumur hidup)
+      await sql`create table if not exists codes (code text primary key, year int not null, note text, created_at timestamptz not null default now(), used_by text, used_email text, used_at timestamptz)`;
+      await sql`create table if not exists entitlements (player text not null, year int not null, source text not null, code text, email text, created_at timestamptz not null default now(), primary key (player, year))`;
+      await sql`create table if not exists redeem_fails (player text not null, at timestamptz not null default now())`;
     })().catch(e => { ready = null; throw e; });
   }
   return ready;

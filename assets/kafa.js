@@ -194,7 +194,7 @@ function renderYear(app, y){
   // Tahun yang belum ada subjek memaparkan senarai "Akan datang".
   const order = ARCADE[y] ? ARCADE[y].subjects : [];
   const pos = s => { const i = order.indexOf(s.id); return i<0 ? 99 : i; };
-  const tiles = nReady ? readyFor(y).sort((a,b)=>pos(a)-pos(b)).map((s,i)=>worldCard(s, READY[`${y}/${s.id}`], i)).join("") : SUBJECTS.map(s=>{
+  const tiles = nReady ? readyFor(y).sort((a,b)=>pos(a)-pos(b)).map((s,i)=>worldCard(s, READY[`${y}/${s.id}`], i, y)).join("") : SUBJECTS.map(s=>{
     return `<button class="subj soon" data-act="soon" data-name="${tx(s.r,s.j)}">
       <span class="ic" aria-hidden="true">${s.icon}</span>
       <h2>${tx(s.r,s.j)}</h2>
@@ -212,18 +212,83 @@ function renderYear(app, y){
       </div>
       ${mascot()}
     </header>
+    ${buyCard(y)}
     ${ARCADE[y] ? `<div class="ytabs" role="tablist">
       <button role="tab" data-act="ytab" data-t="learn" aria-selected="${yTab!=="arcade"}">📚 ${tx("Belajar","بلاجر")}<small>${tx(`${nReady} subjek`,`${nReady} سوبجيک`)}</small></button>
       <button role="tab" data-act="ytab" data-t="arcade" aria-selected="${yTab==="arcade"}">🕹️ ${tx("Zon Arked 3D","زون ارکيد 3D")}<small>${tx("6 permainan","6 ڤرماٴينن")}</small></button></div>` : ""}
     ${ARCADE[y] && yTab==="arcade" ? arcadeHTML(y) : `<section class="${nReady?"wgrid":"subjects"}" aria-label="${tx("Subjek","سوبجيک")}">${tiles}</section>`}`;
 }
+// Kad "Buka penuh Tahun N" (versi percubaan) atau tanda "milik kamu" selepas membeli
+function buyCard(y){
+  const AC = window.KafaAccess; if(!AC || !AC.sold(y)) return "";
+  if(AC.has(y)) return `<div class="owned">✅ ${tx(`Tahun ${y} milik kamu — semua subjek & Zon Arked dibuka`,`تاهون ${y} ميليق کامو — سموا سوبجيک & زون ارکيد دبوک`)}</div>`;
+  const price = AC.price(y), wa = AC.waLink(y);
+  return `<section class="buy" aria-label="${tx("Beli","بلي")}">
+      <div class="bt"><span class="bl" aria-hidden="true">🔓</span><div><b>${tx(`Buka penuh Tahun ${y}`,`بوک ڤنوه تاهون ${y}`)}</b>
+        <p>${tx("Kamu sedang mencuba versi percuma: Sirah (tajuk pertama) dan satu permainan Zon Arked. Beli sekali untuk membuka semua subjek, semua tajuk dan Zon Arked penuh — seumur hidup.","کامو سدڠ منچوبا ۏرسي ڤرچوما: سيره (تاجوق ڤرتام) دان ساتو ڤرماٴينن زون ارکيد. بلي سکالي اونتوق ممبوک سموا سوبجيک، سموا تاجوق دان زون ارکيد ڤنوه — سأومور هيدوڤ.")}</p></div>
+        ${price ? `<span class="pr">${price}<small>${tx("sekali bayar","سکالي باير")}</small></span>` : ""}</div>
+      <div class="bb">${wa ? `<a class="b wa" href="${wa}" target="_blank" rel="noopener">💬 ${tx("Beli melalui WhatsApp","بلي ملالوٴي WhatsApp")}</a>` : ""}
+        <button class="b code" data-act="redeem" data-y="${y}">🔑 ${tx("Masukkan kod","ماسوقکن کود")}</button>
+        <button class="b alt" data-act="relogin" data-y="${y}">👤 ${tx("Sudah beli? Log masuk","سوده بلي؟ لوڬ ماسوق")}</button></div>
+    </section>`;
+}
+// Tebus kod: perlu log masuk dahulu (kod diikat kepada akaun Google)
+let redeemYear = null;
+async function redeemFlow(y){
+  if(!window.KafaAuth || !KafaAuth.on) return toast(tx("Pembelian hanya tersedia di laman rasmi.","ڤمبليان هاڽ ترسديا د لامن رسمي."));
+  await KafaAuth.init();
+  if(!KafaAuth.uid){ redeemYear = y; return KafaAuth.signIn(tx("Membuka log masuk","ممبوک لوڬ ماسوق")); }
+  codeSheet(y);
+}
+function codeSheet(y){
+  document.querySelectorAll(".kbuy").forEach(x=>x.remove());
+  const d = document.createElement("div"); d.className = "kbuy"; d.setAttribute("role","dialog"); d.setAttribute("aria-modal","true");
+  d.innerHTML = `<div class="kcard"><button class="kx" data-k="close" aria-label="${tx("Tutup","توتوڤ")}">✕</button>
+    <div class="klock">🔑</div><h2>${tx("Masukkan kod pengaktifan","ماسوقکن کود ڤڠکتيفن")}</h2>
+    <p class="kmsg">${tx("Kod diterima selepas pembelian, contohnya","کود دتريما سلڤس ڤمبليان، چونتوهڽ")} <b dir="ltr">T${y}-ABCD-2345</b></p>
+    <input class="kin" id="kcode" maxlength="16" autocomplete="off" autocapitalize="characters" spellcheck="false" dir="ltr" placeholder="T${y}-XXXX-XXXX">
+    <p class="kerr" id="kerr" role="alert"></p>
+    <button class="kbtn code" data-k="go">✨ ${tx("Buka Tahun","بوک تاهون")} ${y}</button></div>`;
+  document.body.appendChild(d);
+  const inp = d.querySelector("#kcode"); inp.focus();
+  const go = async btn=>{
+    const err = d.querySelector("#kerr"); err.textContent = "";
+    KafaAuth.busy(btn, true, tx("Menyemak kod","مڽمق کود"));
+    try{
+      const r = await KafaAuth.api("redeem", {code: inp.value});
+      KafaAccess.set(KafaAuth.uid, r.years); d.remove();
+      toast(r.already ? tx(`Tahun ${r.year} memang sudah dibuka untuk akaun ini.`,`تاهون ${r.year} ممڠ سوده دبوک اونتوق اکاٴون اين.`) : "🎉 "+tx(`Tahun ${r.year} kini dibuka sepenuhnya!`,`تاهون ${r.year} کيني دبوک سڤنوهڽ!`));
+    }catch(e){
+      KafaAuth.busy(btn, false);
+      err.textContent = "⚠️ " + ({"bad-code":tx("Kod tidak sah. Semak semula ejaan kod.","کود تيدق صح. سمق سمولا ايجاٴن کود."), "code-used":tx("Kod ini telah digunakan oleh akaun lain.","کود اين تله دڬوناکن اوليه اکاٴون لاٴين."),
+        "too-many":tx("Terlalu banyak cubaan. Cuba lagi selepas sejam.","ترلالو باڽق چوباٴن. چوبا لاڬي سلڤس سجم.")}[e.code] || (e.status===401 ? tx("Sila log masuk semula.","سيلا لوڬ ماسوق سمولا.") : tx("Tidak dapat disambung ke pelayan. Semak internet.","تيدق داڤت دسمبوڠ ک ڤلاين. سمق اينترنيت.")));
+    }
+  };
+  d.addEventListener("click", e=>{ const k = e.target.closest("[data-k]"); if(e.target===d) return d.remove(); if(!k) return;
+    if(k.dataset.k==="close") d.remove(); if(k.dataset.k==="go") go(k); });
+  inp.addEventListener("keydown", e=>{ if(e.key==="Enter") go(d.querySelector('[data-k="go"]')); });
+}
+// Semak tahun yang dibeli dengan pelayan (sekali setiap kali laman tahun dibuka)
+async function syncAccess(){
+  if(!window.KafaAuth || !KafaAuth.on || !window.KafaAccess) return;
+  const c = await KafaAuth.init(); if(!c) return;
+  if(!KafaAuth.uid){ if(KafaAccess.uid()) KafaAccess.clear(); return; }
+  try{ const me = await KafaAuth.api("me"); KafaAccess.set(KafaAuth.uid, me.years || []); }catch(e){}
+}
 // tab laman tahun: #arked membuka Zon Arked terus (boleh dikongsi)
 let yTab = location.hash==="#arked" ? "arcade" : "learn";
 // Kad dunia subjek: latar bertema, maskot terapung, bar kemajuan bintang
-function worldCard(s, entry, i){
+function worldCard(s, entry, i, y){
   const t = THEMES[s.id] || THEMES.mix, st = starsOf(entry);
   const pct = st ? Math.min(100, Math.round(st.got / st.max * 100)) : 0;
+  const AC = window.KafaAccess, owned = !AC || AC.has(y), open = owned || AC.canSubject(y, s.id);
+  // subjek berkunci: tetingkap beli; subjek percubaan: reben "Cuba percuma"
+  if(!open) return `<button class="wcard locked" data-act="buy" data-y="${y}" data-deco="${t.deco}" style="${themeVars(s.id)};--i:${i}">
+      <span class="scene" aria-hidden="true"></span><span class="mas" aria-hidden="true">${t.m}</span>
+      <span class="chip">${s.icon} ${tx(s.r,s.j)}</span><h2>${tx(entry.r,entry.j)}</h2><p>${tx(entry.dr,entry.dj)}</p>
+      <span class="lockb">🔒 ${tx("Buka penuh untuk bermain","بوک ڤنوه اونتوق برماٴين")}</span></button>`;
   return `<a class="wcard tilt" href="${entry.path}" data-deco="${t.deco}" style="${themeVars(s.id)};--i:${i}">
+      ${owned ? "" : `<span class="ribbon">🎁 ${tx("Cuba percuma","چوبا ڤرچوما")}</span>`}
       <span class="scene" aria-hidden="true"></span><span class="shine" aria-hidden="true"></span>
       <span class="mas" aria-hidden="true">${t.m}</span>
       <span class="chip">${s.icon} ${tx(s.r,s.j)}</span>
@@ -239,7 +304,7 @@ function arcadeHTML(y){
   const hi = kLoad(A.hiKey, {});
   const best = id => Math.max(0, ...Object.values(hi[id]||{}));
   const cards = [...A.subjects.map(id=>SUBJECTS.find(s=>s.id===id)), {id:"mix", icon:"🎲", r:"Campur semua", j:"چمڤور سموا"}].map((s,i)=>
-    `<a class="arc tilt" href="${A.path}?s=${s.id}" data-deco="${(THEMES[s.id]||THEMES.mix).deco}" style="${themeVars(s.id)};--i:${i}"><span class="scene" aria-hidden="true"></span><span class="shine" aria-hidden="true"></span>
+    `<a class="arc tilt${window.KafaAccess && !KafaAccess.has(y) && (KafaAccess.trial(y).arcade||{}).subj!==s.id ? " lk" : ""}" href="${A.path}?s=${s.id}" data-deco="${(THEMES[s.id]||THEMES.mix).deco}" style="${themeVars(s.id)};--i:${i}"><span class="scene" aria-hidden="true"></span><span class="shine" aria-hidden="true"></span>
       <span class="ic" aria-hidden="true">${(THEMES[s.id]||THEMES.mix).m}</span><b>${tx(s.r,s.j)}</b><small>🏆 ${best(s.id)}</small></a>`).join("");
   const orbit = A.subjects.map((id,i)=>`<span style="--k:${i};--n:${A.subjects.length}"><i>${(THEMES[id]||THEMES.mix).m}</i></span>`).join("");
   return `<section class="arcade" aria-label="${tx("Zon Arked","زون ارکيد")}">
@@ -270,6 +335,9 @@ const KafaPortal = {
       if(b.dataset.act==="install" && window.KafaPWA){ KafaPWA.install().then(o=>{ if(o==="manual") iosGuide(); }); }
       if(b.dataset.act==="pwahide"){ kSave("kafa-pwa-hide", Date.now() + 7*864e5); const p = document.getElementById("pwa"); if(p) p.outerHTML = '<div id="pwa"></div>'; }
       if(b.dataset.act==="ytab"){ yTab = b.dataset.t; try{ history.replaceState(null, "", yTab==="arcade" ? "#arked" : location.pathname); }catch(err){} draw(); window.scrollTo(0,0); }
+      if(b.dataset.act==="buy"){ KafaAccess.sheet(+b.dataset.y, {onCode:()=>redeemFlow(+b.dataset.y)}); }
+      if(b.dataset.act==="redeem"){ redeemFlow(+b.dataset.y); }
+      if(b.dataset.act==="relogin"){ KafaAuth.signIn(tx("Membuka log masuk","ممبوک لوڬ ماسوق")); }
       if(b.dataset.act==="soon"){ toast(tx(`${b.dataset.name} akan datang, insya-Allah.`,`${b.dataset.name} اکن داتڠ، ان شاء الله.`)); }
     });
     // kad dunia condong mengikut tetikus / jari (dimatikan jika pengguna memilih kurang animasi)
@@ -283,6 +351,12 @@ const KafaPortal = {
         c.style.setProperty("--mx", ((x + 0.5) * 100).toFixed(0) + "%");
       });
       app.addEventListener("pointerout", e=>{ const c = e.target.closest(".tilt"); if(c && !c.contains(e.relatedTarget)){ c.style.removeProperty("--rx"); c.style.removeProperty("--ry"); } });
+    }
+    // akses berbayar: lukis semula bila berubah; selepas log masuk, semak pembelian dan teruskan tebus kod jika diminta
+    if(page==="year" && window.KafaAccess){
+      document.addEventListener("kafa-access", ()=>draw());
+      if(window.KafaAuth && KafaAuth.on) KafaAuth.onChange(async ()=>{ KafaAuth.loading(true, tx("Menyemak pembelian","مڽمق ڤمبليان")); await syncAccess(); KafaAuth.loading(false); if(redeemYear && KafaAuth.uid){ const y2 = redeemYear; redeemYear = null; codeSheet(y2); } });
+      syncAccess().then(()=>{ if(location.hash==="#kod"){ try{ history.replaceState(null, "", location.pathname); }catch(err){} redeemFlow(year); } });
     }
     document.addEventListener("kafa-pwa", ()=>{ const p = document.getElementById("pwa"); if(p) p.outerHTML = installCard(); });
     document.addEventListener("click", e=>{ if(e.target.closest('[data-act="iosclose"]') || e.target.classList.contains("iosg")) document.querySelectorAll(".iosg").forEach(x=>x.remove()); });

@@ -1,9 +1,9 @@
 // Service worker JOM KAFA: simpan halaman, gaya, skrip dan three.js supaya boleh main tanpa internet.
 // Tukar VERSION setiap kali mahu memaksa semua peranti memuat turun semula fail teras.
-const VERSION = "jomkafa-v3";
+const VERSION = "jomkafa-v4";
 const CORE = [
   "/", "/index.html", "/privasi.html", "/manifest.webmanifest",
-  "/assets/kafa.css", "/assets/kafa.js", "/assets/config.js", "/assets/auth.js", "/assets/pwa.js", "/assets/vendor/three.min.js",
+  "/assets/kafa.css", "/assets/kafa.js", "/assets/config.js", "/assets/auth.js", "/assets/pwa.js", "/assets/access.js", "/assets/vendor/three.min.js",
   "/icons/icon-192.png", "/icons/icon-512.png", "/icons/apple-touch-icon.png", "/icons/favicon.png",
   "/tahun3/index.html", "/tahun4/index.html", "/tahun5/index.html", "/tahun6/index.html",
   "/tahun3/sirah/index.html", "/tahun3/feqah/index.html", "/tahun3/tauhid/index.html", "/tahun3/akhlak/index.html",

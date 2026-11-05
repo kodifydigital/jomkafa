@@ -1,13 +1,15 @@
 // GET  /api/me            -> profil murid (nama samaran) dan kelas yang disertai
 // POST /api/me {name}     -> cipta / tukar nama samaran (kecuali nama sudah dikunci oleh guru)
-import { db, userId, cleanName, body, handler, HttpError } from "./_lib.js";
+// Turut memulangkan years (tahun yang telah dibeli) dan admin (boleh buka /admin/).
+import { db, userId, cleanName, body, handler, HttpError, isAdmin } from "./_lib.js";
 
 export async function profile(sql, uid) {
   const [p] = await sql`select name, locked from players where id = ${uid}`;
   const classes = await sql`select c.code, c.name, (c.owner = ${uid}) as owner,
       (select count(*)::int from members x where x.code = c.code) as size
     from members m join classes c on c.code = m.code where m.player = ${uid} order by c.created_at`;
-  return { player: p ? { name: p.name, locked: p.locked } : null, classes };
+  const years = (await sql`select year from entitlements where player = ${uid} order by year`).map(r => r.year);
+  return { player: p ? { name: p.name, locked: p.locked } : null, classes, years, admin: await isAdmin(uid) };
 }
 
 export default handler(["GET", "POST"], async (req) => {

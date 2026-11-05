@@ -17,6 +17,7 @@ kafa/
 │   ├── config.js         ← Kunci awam Clerk (leaderboard)
 │   ├── auth.js           ← Log masuk Clerk + panggilan /api (dikongsi Zon Arked & papan pemuka guru)
 │   ├── pwa.js            ← Daftar service worker + butang "Pasang JOM KAFA"
+│   ├── access.js         ← Akses berbayar ikut tahun: kunci versi percubaan + tetingkap beli
 │   └── vendor/
 │       └── three.min.js  ← three.js r128 untuk Zon Arked 3D (boleh main tanpa internet)
 ├── tahun3/
@@ -37,6 +38,7 @@ kafa/
 │   │   └── index.html    ← Game Kereta Api Hafazan (Hafazan)
 │   └── arked/
 │       └── index.html    ← Zon Arked 3D: 6 permainan bertema dunia setiap subjek (?s=idSubjek)
+├── admin/index.html      ← Admin: jana kod pengaktifan, beri akses, lihat pembelian
 ├── guru/index.html       ← Papan Pemuka Guru (kemajuan murid, soalan kerap salah, urus nama murid)
 ├── privasi.html          ← Dasar Privasi
 ├── manifest.webmanifest  ← Web app (PWA): nama JOM KAFA, ikon, warna
@@ -113,3 +115,14 @@ tanpa internet. Log masuk dan papan pendahulu masih perlukan internet.
 - Gaya/skrip diambil dari cache dahulu dan dikemas kini di latar belakang (versi baharu kelihatan pada bukaan seterusnya).
 - Jika menambah halaman baharu, tambah laluannya dalam `CORE` di `sw.js` dan naikkan `VERSION`.
 - Setiap halaman baharu perlu tag PWA dalam `<head>` (salin daripada `index.html`: manifest, ikon, `/assets/pwa.js`).
+
+## Jualan ikut tahun (kod pengaktifan)
+
+Setiap tahun dibeli sekali dan dibuka seumur hidup untuk akaun Google pembeli.
+- **Versi percubaan** (`trial` dalam `assets/config.js`): Tahun 3 → subjek Sirah tajuk pertama + Zon Arked dunia Sirah permainan pertama.
+  Tahun yang tiada dalam `trial` dibuka seperti biasa (belum dijual).
+- **Harga & WhatsApp** (`shop` dalam `assets/config.js`): nombor WhatsApp untuk butang "Beli" dan harga yang dipaparkan.
+- **Admin** (`/admin/`): tambah pemboleh ubah Vercel `ADMIN_EMAILS` = e-mel Google admin (pisahkan dengan koma), kemudian redeploy.
+  Di situ: jana kod (contoh 40 kod untuk satu kelas), salin/CSV, beri akses terus kepada e-mel, padam kod yang belum digunakan.
+- **Pembeli**: Laman Tahun → "Masukkan kod" → log masuk Google → taip kod `T3-XXXX-XXXX`.
+- Kunci dibuat di peranti (tahun yang dibeli disemak dengan pelayan dan disimpan di peranti); pengguna yang mahir teknikal masih boleh memintasnya.
