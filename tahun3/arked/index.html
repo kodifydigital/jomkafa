@@ -199,6 +199,14 @@ html[dir="rtl"] .pan .ops button{line-height:1.6}
 .field.f3d{background:#000}
 .field.f3d canvas{width:100%!important;height:100%!important;touch-action:none}
 .cab .dimtag{position:absolute;top:8px;inset-inline-end:8px;background:#00E5FF;color:#08203A;font-size:12px;font-weight:800;border-radius:999px;padding:0 8px;z-index:1}
+.lanehud{position:absolute;left:8px;right:8px;top:8px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;z-index:6}
+.lanehud:empty{display:none}
+.lanehud button{border:3px solid #00E5FF;background:rgba(255,255,255,.95);color:#1E1640;border-radius:14px;font-weight:800;font-size:clamp(14px,2.4vw,21px);padding:4px 6px;line-height:1.2;min-height:56px;box-shadow:0 3px 0 rgba(0,0,0,.35)}
+html[dir="rtl"] .lanehud button{line-height:1.6}
+.lanehud button .ar{font-size:clamp(20px,3.2vw,28px)}
+.lanehud button.me{outline:4px solid #FFE45C;outline-offset:2px}
+.lanehud button.ok{background:#B8F5CF;border-color:#2BC173}
+.lanehud button.no{background:#FFB3B5;border-color:#FF6B6F}
 /* Lapisan */
 .over{position:absolute;inset:0;display:grid;place-items:center;z-index:20;background:rgba(10,3,32,.72);color:#fff;text-align:center;padding:16px;border-radius:inherit}
 .over .cd{font-size:110px;font-weight:800;line-height:1;text-shadow:0 0 24px #FF4FD8;animation:cd .9s ease-out}
@@ -613,7 +621,7 @@ const W3 = {
   onPlane(ndc, plane){ G.ray.setFromCamera(ndc, G.cam); const p = new THREE.Vector3(); return G.ray.ray.intersectPlane(plane, p) ? p : null; },
   screen(v){ const p = v.clone().project(G.cam); return {x:(p.x+1)/2*G.W, y:(1-p.y)/2*G.H}; },
   halfW(dist){ return Math.tan(G.cam.fov*Math.PI/360)*dist*G.cam.aspect; },
-  render(){ if(G.R) G.R.render(G.scene, G.cam); },
+  render(){ if(G.R){ sizeLabels(); G.R.render(G.scene, G.cam); } },
   dispose(){ if(G && G.R){ try{ G.R.dispose(); G.R.forceContextLoss(); }catch(e){} G.R.domElement.remove(); G.R = null; } }
 };
 window.addEventListener("resize", ()=>{
@@ -626,35 +634,61 @@ const mat = (c, o) => new THREE.MeshStandardMaterial(Object.assign({color:c, rou
 
 /* Label teks sebagai tekstur (Rumi, Jawi atau teks al-Quran) */
 const texCache = new Map();
-function labelTex(it, o={}){
+function labelTex(it, o){
+  o = o || {};
   const txt = Array.isArray(it) ? L(it) : it, ar = /[؀-ۿ]/.test(txt), quran = !Array.isArray(it);
   const k = `${txt}|${o.bg||""}|${o.w||0}`;
   if(texCache.has(k)) return texCache.get(k);
   const c = document.createElement("canvas"), x = c.getContext("2d");
-  const fs = quran ? 60 : ar ? 48 : 44;
+  const fs = quran ? 84 : ar ? 70 : 62;
   const font = `700 ${fs}px ${quran ? 'Amiri,"Noto Naskh Arabic",serif' : ar ? '"Noto Naskh Arabic",Amiri,serif' : '"Baloo 2","Trebuchet MS",sans-serif'}`;
   x.font = font;
-  const maxW = o.w || 400, lines = []; let cur = "";
+  const maxW = (o.w || 400) * fs/44, lines = []; let cur = "";
   for(const w of txt.split(" ")){ const t = cur ? cur+" "+w : w; if(x.measureText(t).width > maxW && cur){ lines.push(cur); cur = w; } else cur = t; }
   lines.push(cur);
   const lh = fs*(ar?1.5:1.18), tw = Math.max(...lines.map(l=>x.measureText(l).width));
   c.width = Math.ceil(Math.max(tw, o.minW||0) + 52); c.height = Math.ceil(lh*lines.length + 30);
   x.font = font; x.direction = ar ? "rtl" : "ltr"; x.textAlign = "center"; x.textBaseline = "middle";
-  const r = 26, W_ = c.width, H_ = c.height;
+  const r = 34, W_ = c.width, H_ = c.height;
   x.beginPath(); x.moveTo(r,0); x.arcTo(W_,0,W_,H_,r); x.arcTo(W_,H_,0,H_,r); x.arcTo(0,H_,0,0,r); x.arcTo(0,0,W_,0,r); x.closePath();
-  x.fillStyle = o.bg || "#FFFFFF"; x.fill(); x.lineWidth = 6; x.strokeStyle = o.line || "rgba(30,22,64,.25)"; x.stroke();
+  x.fillStyle = o.bg || "#FFFFFF"; x.fill(); x.lineWidth = 8; x.strokeStyle = o.line || "rgba(30,22,64,.25)"; x.stroke();
   x.fillStyle = o.fg || "#1E1640";
   lines.forEach((l,i)=>x.fillText(l, W_/2, 15 + lh*(i+0.5) + (ar?fs*0.06:fs*0.04)));
   const t = new THREE.CanvasTexture(c); t.anisotropy = 4;
-  const res = {t, a:W_/H_}; texCache.set(k, res); return res;
+  const res = {t, a:W_/H_, n:lines.length, ar}; texCache.set(k, res); return res;
 }
-function labelSprite(it, h=0.55, o){
-  const {t, a} = labelTex(it, o);
-  const s = new THREE.Sprite(new THREE.SpriteMaterial({map:t, depthTest:false}));
-  s.scale.set(h*a, h, 1); s.renderOrder = 10; s.userData.h = h; return s;
+// Label sentiasa dipaparkan pada saiz piksel yang mudah dibaca (bukan saiz dunia 3D),
+// jadi tulisan tetap besar pada skrin lebar, projektor atau telefon. anchor = titik tumpu label.
+function labelSprite(it, h, o, anchor=0.5){
+  const T = labelTex(it, o);
+  const s = new THREE.Sprite(new THREE.SpriteMaterial({map:T.t, depthTest:false}));
+  s.center.set(0.5, anchor); s.renderOrder = 10; s.userData = {a:T.a, n:T.n, ar:T.ar};
+  (G.labels = G.labels || []).push(s); return s;
 }
-function setLabel(s, it, o){ const {t, a} = labelTex(it, o); s.material.map = t; s.material.needsUpdate = true; s.scale.set(s.userData.h*a, s.userData.h, 1); }
+function setLabel(s, it, o){ const T = labelTex(it, o); s.material.map = T.t; s.material.needsUpdate = true; Object.assign(s.userData, {a:T.a, n:T.n, ar:T.ar}); }
+const inScene = o => { while(o){ if(o===G.scene) return true; o = o.parent; } return false; };
+function sizeLabels(){
+  if(!G.labels) return;
+  G.labels = G.labels.filter(inScene);
+  const tanF = Math.tan(G.cam.fov*Math.PI/360), v = new THREE.Vector3();
+  const line = Math.max(30, Math.min(48, G.H*0.075)), maxW = Math.max(150, G.W*0.36);
+  for(const s of G.labels){
+    const u = s.userData, mw = u.maxPx || maxW; s.getWorldPosition(v);
+    const wpp = 2*tanF*v.distanceTo(G.cam.position)/G.H;
+    let px = (u.ar ? line*1.25 : line)*u.n + 18;
+    if(px*u.a > mw) px = Math.max(mw/u.a, (u.ar?22:18)*u.n + 12);
+    s.scale.set(px*wpp*u.a, px*wpp, 1);
+  }
+}
 function fitLabel(s, maxW){ if(s.scale.x > maxW){ const k = maxW/s.scale.x; s.scale.multiplyScalar(k); } }
+// Lajur: setiap item jatuh/naik dalam lajurnya sendiri dan label dihadkan pada lebar lajur,
+// supaya label tidak bertindih dan murid boleh membaca semuanya.
+function colsSetup(dist, minPx){
+  const n = Math.max(3, Math.min(6, Math.floor(G.W/minPx)));
+  G.cols = [...Array(n)].map((_,i)=>({x:((i+0.5)/n*2-1)*W3.halfW(dist-0.8)*0.86, last:null}));
+  G.colPx = G.W/n*0.86 - 12;
+}
+function freeCol(clear){ const f = G.cols.filter(c=>!c.last || !G.items.includes(c.last) || clear(c.last)); return f.length ? pick(f) : null; }
 function burst(pos, color, n=10){
   const parts = [];
   for(let i=0;i<n;i++){
@@ -704,7 +738,7 @@ MOD3.whack = {
       const belly = new THREE.Mesh(new THREE.SphereGeometry(0.36, 16, 12), mat(0xF2C9A0)); belly.position.set(0, 0.38, 0.32); g.add(belly);
       [-0.18, 0.18].forEach(ex=>{ const e = new THREE.Mesh(eyeGeo, mat(0x111111)); e.position.set(ex, 0.78, 0.47); g.add(e); const ear = new THREE.Mesh(new THREE.SphereGeometry(0.14, 10, 8), mat(0xE39B9B)); ear.position.set(ex*2.2, 1.12, 0); g.add(ear); });
       const nose = new THREE.Mesh(new THREE.SphereGeometry(0.08, 10, 8), mat(0xFF6F91)); nose.position.set(0, 0.66, 0.55); g.add(nose);
-      const lab = labelSprite(["…","…"], 0.66); lab.position.set(0, 1.7, 0); g.add(lab);
+      const lab = labelSprite(["…","…"], 0, null, 0); lab.position.set(0, 1.3, 0); g.add(lab);
       scene.add(g);
       const hit = new THREE.Mesh(new THREE.CylinderGeometry(1.05, 1.05, 2.6, 12), new THREE.MeshBasicMaterial({visible:false}));
       hit.position.set(x, 1.2, z); hit.userData.i = i; scene.add(hit); G.hitters.push(hit);
@@ -726,7 +760,7 @@ MOD3.whack = {
         G.items = G.holes.filter(x=>x.up).map(x=>({it:x.it, ok:x.ok}));
         const d = drawItem();
         Object.assign(h, {up:true, t:Math.max(1.15, 2.1 - G.el*0.012), it:d.it, ok:d.ok, hit:false});
-        setLabel(h.lab, d.it, {w:380}); fitLabel(h.lab, 2.35);
+        setLabel(h.lab, d.it, {w:300}); h.lab.userData.maxPx = G.W/3 - 12;
       }
     }
     G.holes.forEach((h,i)=>{
@@ -785,16 +819,18 @@ MOD3.catch = {
     const glow = new THREE.PointLight(0x00E5FF, 0.8, 4); glow.position.y = 1.2; b.add(glow);
     scene.add(b); G.basket = b; G.bx = 0; G.tx = 0; G.sgeo = starGeo();
     G.plane = new THREE.Plane(new THREE.Vector3(0,0,1), 0);
+    colsSetup(10, 200);
   },
   update(dt){
     G.spawnT -= dt;
-    if(G.spawnT<=0){
+    const cc = G.spawnT<=0 && freeCol(l=>l.g.position.y < 8.5 - (l.lab.scale.y + 1.2));
+    if(cc){
       G.spawnT = Math.max(0.6, 1.15 - G.el*0.008);
       const d = drawItem(), g = new THREE.Group();
       const st = new THREE.Mesh(G.sgeo, mat(0xFFC93C, {emissive:0xFF9F1C, emissiveIntensity:.35, metalness:.3, roughness:.35})); g.add(st);
-      const lab = labelSprite(d.it, 0.5); lab.position.y = 0.62; fitLabel(lab, 2.6); g.add(lab);
-      g.position.set(rnd(-G.xr+0.4, G.xr-0.4), 8.5, 0); G.scene.add(g);
-      G.items.push({g, st, it:d.it, ok:d.ok, vy:Math.min(4.2, 1.6 + G.el*0.045)});
+      const lab = labelSprite(d.it, 0, {w:300}, 0); lab.position.y = 0.45; lab.userData.maxPx = G.colPx; g.add(lab);
+      g.position.set(cc.x, 8.5, 0); G.scene.add(g);
+      const o = {g, st, lab, it:d.it, ok:d.ok, vy:Math.min(3.6, 1.5 + G.el*0.035)}; G.items.push(o); cc.last = o;
     }
     if(G.hold) G.tx = G.bx + G.hold*4*dt*3;
     G.tx = Math.max(-G.xr, Math.min(G.xr, G.tx));
@@ -836,23 +872,25 @@ MOD3.pop = {
     }
     [[-7,-6],[7,-7],[-4,-9]].forEach(([x,z])=>{ const t = tree(x, z, 1.5); t.position.y = -1.5; scene.add(t); });
     G.bgeo = new THREE.SphereGeometry(0.62, 28, 20);
+    colsSetup(10, 200);
   },
   update(dt){
     G.spawnT -= dt;
-    if(G.spawnT<=0 && G.items.length<7){
+    const cc = G.spawnT<=0 && freeCol(l=>l.g.position.y + 2.6 > Math.max(1.6, l.lab.scale.y) + 0.5);
+    if(cc){
       G.spawnT = Math.max(0.55, 1.0 - G.el*0.007);
       const d = drawItem(), col = new THREE.Color(pick(BCOL)), g = new THREE.Group();
       const b = new THREE.Mesh(G.bgeo, mat(col, {roughness:.25, metalness:.05})); b.scale.set(1, 1.18, 1); g.add(b);
       const knot = new THREE.Mesh(new THREE.ConeGeometry(0.1, 0.16, 8), mat(col)); knot.position.y = -0.78; knot.rotation.x = Math.PI; g.add(knot);
       const sg = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,-0.85,0), new THREE.Vector3(0.08,-1.4,0), new THREE.Vector3(-0.05,-2,0)]);
       g.add(new THREE.Line(sg, new THREE.LineBasicMaterial({color:0xffffff})));
-      const lab = labelSprite(d.it, 0.5); lab.position.set(0, 0, 0.7); fitLabel(lab, 1.7); g.add(lab);
-      const x0 = rnd(-G.xr+0.5, G.xr-0.5);
-      g.position.set(x0, -2.6, rnd(-0.6, 0.6)); G.scene.add(g); b.userData.o = true;
-      G.items.push({g, b, lab, it:d.it, ok:d.ok, x0, ph:rnd(0,6), vy:Math.min(2.3, 1.0 + G.el*0.022), col});
+      const lab = labelSprite(d.it, 0, {w:300}); lab.position.set(0, 0, 0.7); lab.userData.maxPx = G.colPx; g.add(lab);
+      const x0 = cc.x;
+      g.position.set(x0, -2.6, 0); G.scene.add(g); b.userData.o = true;
+      const o = {g, b, lab, it:d.it, ok:d.ok, x0, ph:rnd(0,6), vy:Math.min(2.0, 0.95 + G.el*0.018), col}; G.items.push(o); cc.last = o;
     }
     for(const o of G.items.slice()){
-      o.ph += dt*1.6; o.g.position.y += o.vy*dt; o.g.position.x = o.x0 + Math.sin(o.ph)*0.35; o.g.rotation.z = Math.sin(o.ph)*0.12;
+      o.ph += dt*1.6; o.g.position.y += o.vy*dt; o.g.position.x = o.x0 + Math.sin(o.ph)*0.12; o.g.rotation.z = Math.sin(o.ph)*0.12;
       if(o.g.position.y > 9.5) this.rm(o);
     }
     G.clouds.forEach((c,i)=>{ c.position.x += dt*(0.25+i*0.05); if(c.position.x > 12) c.position.x = -12; });
@@ -876,7 +914,8 @@ MOD3.run = {
   init(){
     W3.setup({bg:0x2A0E61, fov:58, fog:[18,55]});
     const {scene, cam} = G, asp = G.W/G.H;
-    cam.position.set(0, 3.4 + 1.2/asp, 7.5 + 1.5/asp); cam.lookAt(0, 1, -6);
+    // kamera lebih tinggi supaya jawapan pada pintu mudah dibaca semasa menghampiri
+    cam.position.set(0, 6.4 + 1.6/asp, 7 + 1.3/asp); cam.lookAt(0, 0.6, -8);
     sky(scene, 80, 30);
     const road = new THREE.Mesh(new THREE.PlaneGeometry(6.6, 140), mat(0x3A3550)); road.rotation.x = -Math.PI/2; road.position.z = -50; scene.add(road);
     const grass = new THREE.Mesh(new THREE.PlaneGeometry(80, 140), mat(0x1F5A35)); grass.rotation.x = -Math.PI/2; grass.position.set(0, -0.02, -50); scene.add(grass);
@@ -890,25 +929,34 @@ MOD3.run = {
     G.legs = [-0.15, 0.15].map(x=>{ const l = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.6, 0.18), mat(0x2F7BFF)); l.geometry.translate(0, -0.3, 0); l.position.set(x, 0.62, 0); p.add(l); return l; });
     G.arms = [-0.42, 0.42].map(x=>{ const a = new THREE.Mesh(new THREE.BoxGeometry(0.13, 0.55, 0.14), mat(0xFF7A45)); a.geometry.translate(0, -0.25, 0); a.position.set(x, 1.4, 0); p.add(a); return a; });
     p.position.set(0, 0, 2); p.rotation.y = Math.PI; scene.add(p); G.player = p;
-    G.lane = 1; G.px = 0; G.gate = null; G.gwait = 0.6; G.speed = 9;
+    G.lane = 1; G.px = 0; G.gate = null; G.gwait = 0.6; G.speed = 5.5;
   },
   spawn(){
     const ok = pick(G.set.ok), nos = shuffle(G.set.no).slice(0,2);
     const cells = shuffle([{it:ok, ok:true}, ...nos.map(it=>({it, ok:false}))]);
     const g = new THREE.Group(), panels = [];
     cells.forEach((c,i)=>{
-      const {t, a} = labelTex(c.it, {w:380, minW:300});
-      const w = 1.9, h = Math.min(1.5, w/a);
+      const {t, a} = labelTex(c.it, {w:260, minW:200});
+      const w = 2.05, h = Math.min(1.75, w/a);
       const pm = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({map:t, transparent:true}));
-      pm.position.set((i-1)*2.2, 1.7, 0); pm.userData.lane = i; g.add(pm); panels.push(pm);
-      const frame = new THREE.Mesh(new THREE.BoxGeometry(w+0.16, h+0.16, 0.06), mat(0x00E5FF, {emissive:0x00A5C0, emissiveIntensity:.6})); frame.position.set((i-1)*2.2, 1.7, -0.05); g.add(frame); c.frame = frame;
+      const pg = new THREE.Group(); pg.position.set((i-1)*2.2, 1.7, 0); pg.rotation.x = -0.55; g.add(pg);
+      pm.position.z = 0.04; pm.userData.lane = i; pg.add(pm); panels.push(pm);
+      const frame = new THREE.Mesh(new THREE.BoxGeometry(w+0.16, h+0.16, 0.06), mat(0x00E5FF, {emissive:0x00A5C0, emissiveIntensity:.6})); pg.add(frame); c.frame = frame;
     });
     [-3.3, 3.3].forEach(x=>{ const post = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 2.6, 8), mat(0xFF4FD8, {emissive:0xFF4FD8, emissiveIntensity:.5})); post.position.set(x, 1.3, 0); g.add(post); });
     g.position.z = -45; G.scene.add(g);
     G.gate = {g, cells, panels, done:false};
+    this.board();
+  },
+  // Papan jawapan besar di atas skrin, ikut susunan lorong (kiri, tengah, kanan)
+  board(){
+    let b = $("lanehud");
+    if(!b){ b = document.createElement("div"); b.className = "lanehud"; b.id = "lanehud"; G.field.appendChild(b); }
+    const g = G.gate;
+    b.innerHTML = g ? g.cells.map((c,i)=>`<button data-act="lane3" data-l="${i}" class="${i===G.lane?"me":""} ${g.done?(c.ok?"ok":"no"):""}"><span dir="auto">${LAB(c.it)}</span></button>`).join("") : "";
   },
   update(dt){
-    G.speed = Math.min(20, 9 + G.el*0.17);
+    G.speed = Math.min(11, 5.5 + G.el*0.08);
     const mv = G.speed*dt;
     G.dashes.forEach(d=>{ d.position.z += mv; if(d.position.z > 10) d.position.z -= 70; });
     G.trees.forEach(t=>{ t.position.z += mv; if(t.position.z > 12) t.position.z -= 70; });
@@ -925,12 +973,13 @@ MOD3.run = {
         const c = g.cells[G.lane], p = W3.screen(new THREE.Vector3(G.px, 2.2, G.player.position.z));
         burst(new THREE.Vector3(G.px, 1.6, G.player.position.z - 0.5), c.ok ? 0xFFE45C : 0xFF6B6F, 10);
         c.ok ? good(p.x, p.y, c.it) : bad(p.x, p.y, c.it, g.cells.find(z=>z.ok).it);
+        this.board();
       }
-      if(g.g.position.z > 12){ G.scene.remove(g.g); G.gate = null; G.gwait = 0.25; }
+      if(g.g.position.z > 12){ G.scene.remove(g.g); G.gate = null; G.gwait = 0.25; this.board(); }
     }
     stepParts(dt); W3.render();
   },
-  setLane(l){ G.lane = Math.max(0, Math.min(2, l)); sfx.tick(); },
+  setLane(l){ G.lane = Math.max(0, Math.min(2, l)); sfx.tick(); if(G.gate && !G.gate.done) this.board(); },
   nudge(dir){ this.setLane(G.lane + dir); },
   pointer(e, ndc){
     if(G.gate && !G.gate.done){ const h = W3.hit(ndc, G.gate.panels); if(h){ this.setLane(h.object.userData.lane); return; } }
@@ -938,7 +987,7 @@ MOD3.run = {
     if(x < p.x - 25) this.nudge(-1); else if(x > p.x + 25) this.nudge(1);
   },
   key(e){ if(e.key==="ArrowLeft"){ this.nudge(-1); e.preventDefault(); } if(e.key==="ArrowRight"){ this.nudge(1); e.preventDefault(); } },
-  clear(){ if(G.gate){ G.scene.remove(G.gate.g); G.gate = null; G.gwait = 0.5; } },
+  clear(){ if(G.gate){ G.scene.remove(G.gate.g); G.gate = null; G.gwait = 0.5; } this.board(); },
   dispose(){ W3.dispose(); }
 };
 
@@ -961,8 +1010,8 @@ MOD3.climb = {
     G.bw = Math.min(2.4, span/cols3 - 0.2);
     order.forEach((o,i)=>{
       const c = i % cols3, r = Math.floor(i / cols3), rows = Math.ceil(n/cols3);
-      const {t, a} = labelTex(o.it, {w:Array.isArray(o.it)?360:700});
-      const w = G.bw, h = Math.max(0.55, Math.min(1.1, w/a));
+      const {t, a} = labelTex(o.it, {w:Array.isArray(o.it)?260:520});
+      const w = G.bw, h = Math.max(0.6, Math.min(1.3, w/a));
       const face = new THREE.MeshStandardMaterial({map:t, roughness:.7});
       const side = mat(pick([0xFF5C8A,0x3DD6F5,0x7CE36A,0xB57BFF,0xFFB020]));
       const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.7), [side, side, side, side, face, side]);
@@ -1386,7 +1435,7 @@ MOD.run = {
     const el = document.createElement("div"); el.className = "gaterow";
     el.innerHTML = cells.map(c=>`<div class="gt"><span class="lab" dir="auto">${LAB(c.it)}</span></div>`).join("");
     G.field.appendChild(el);
-    G.gate = {el, cells, y:-90, v:Math.min(300, 120 + G.el*2.6), done:false};
+    G.gate = {el, cells, y:-90, v:Math.min(220, 95 + G.el*1.6), done:false};
   },
   update(dt){
     if(!G.gate){ G.gwait -= dt; if(G.gwait<=0) this.spawn(); return; }
@@ -1568,6 +1617,7 @@ function handle(b, e){
     case "hole": if(G && !G.paused && !G.over) MOD.whack.tap(b); break;
     case "it": if(G && !G.paused && !G.over && G.g.id==="pop") MOD.pop.tap(b); break;
     case "lane": if(G && !G.paused && !G.over) MOD.run.setLane(+b.dataset.l); break;
+    case "lane3": if(G && !G.paused && !G.over && G.mod.setLane) G.mod.setLane(+b.dataset.l); break;
     case "cpk": if(G && !G.paused && !G.over) MOD.climb.tap(b); break;
     case "left": if(G && !G.over){ if(G.mod.nudge) G.mod.nudge(-1); else if(G.g.id==="run") MOD.run.setLane(G.lane-1); else G.tx = G.bx-90; } break;
     case "right": if(G && !G.over){ if(G.mod.nudge) G.mod.nudge(1); else if(G.g.id==="run") MOD.run.setLane(G.lane+1); else G.tx = G.bx+90; } break;
@@ -1578,14 +1628,14 @@ app.addEventListener("pointerdown", e=>{
   const b = e.target.closest("[data-act]");
   if(G && !G.over && !G.paused && G.g && G.g.id==="catch" && !G.is3d && e.target.closest("#field")){ MOD.catch.move(e); G.drag = true; }
   if(!b || b.disabled) return;
-  if(["hole","it","lane","cpk","dopt"].includes(b.dataset.act)){ e.preventDefault(); handle(b, e); }
+  if(["hole","it","lane","lane3","cpk","dopt"].includes(b.dataset.act)){ e.preventDefault(); handle(b, e); }
 });
 app.addEventListener("pointermove", e=>{ if(G && G.drag && G.g && G.g.id==="catch" && !G.is3d && !G.paused) MOD.catch.move(e); });
 window.addEventListener("pointerup", ()=>{ if(G) G.drag = false; });
 app.addEventListener("click", e=>{
   const b = e.target.closest("[data-act]");
   if(!b || b.disabled) return;
-  if(["hole","it","lane","cpk","dopt"].includes(b.dataset.act)){ if(e.detail===0) handle(b, e); return; }
+  if(["hole","it","lane","lane3","cpk","dopt"].includes(b.dataset.act)){ if(e.detail===0) handle(b, e); return; }
   handle(b, e);
 });
 
