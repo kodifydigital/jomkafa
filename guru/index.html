@@ -108,13 +108,15 @@ const msg = (e, t, extra="") => shell(`<div class="card msg"><div class="big">${
 async function draw(){
   applyLang();
   if(!KafaAuth.on) return msg("⚙️", tx("Papan pemuka belum disediakan (kunci Clerk tiada) atau dibuka terus dari fail.","ڤاڤن ڤموک بلوم دسدياکن (کونچي Clerk تيادا) اتاو دبوک تروس دري فايل."));
-  if(!D) msg("⏳", tx("Memuatkan…","ممواتکن…"));
+  if(!D) msg("📊", tx("Memuatkan papan pemuka…","ممواتکن ڤاڤن ڤموک…"));
   await KafaAuth.init();
   if(KafaAuth.failed) return msg("⚠️", tx("Log masuk tidak dapat dimuatkan. Semak internet.","لوڬ ماسوق تيدق داڤت دمواتکن. سمق اينترنيت."));
   if(!KafaAuth.uid) return msg("👩‍🏫", tx("Log masuk dengan akaun Google yang anda gunakan untuk mencipta kelas.","لوڬ ماسوق دڠن اکاٴون Google يڠ اندا ڬوناکن اونتوق منچيڤتا کلس."),
     `<button class="btn" data-act="login">👤 ${tx("Log masuk","لوڬ ماسوق")}</button>`);
-  try{ D = await KafaAuth.api("dashboard" + (cls ? "?class="+encodeURIComponent(cls) : "")); }
+  KafaAuth.loading(true, tx("Memuatkan data kelas","ممواتکن دات کلس"), "📊");
+  try{ D = await KafaAuth.api("dashboard" + (cls ? "?class="+encodeURIComponent(cls) : "")); KafaAuth.loading(false); }
   catch(e){
+    KafaAuth.loading(false);
     if(e.status===403 && cls){ cls = null; save("guru-cls", null); return draw(); }
     return msg("⚠️", errMsg(e), `<button class="btn alt" data-act="reload">🔄 ${tx("Cuba lagi","چوبا لاڬي")}</button>`);
   }
@@ -167,8 +169,8 @@ function render(){
 async function act(b){
   const a = b.dataset.act, pid = b.dataset.p;
   if(a==="lang"){ lang = isJ() ? "rumi" : "jawi"; save("kafa-lang", lang); applyLang(); return D && D.cls ? render() : draw(); }
-  if(a==="login") return KafaAuth.signIn();
-  if(a==="logout") return KafaAuth.signOut();
+  if(a==="login") return KafaAuth.signIn(tx("Membuka log masuk","ممبوک لوڬ ماسوق"), "👩‍🏫");
+  if(a==="logout") return KafaAuth.signOut(tx("Log keluar","لوڬ کلوار"), "👩‍🏫");
   if(a==="reload") return draw();
   if(a==="cls"){ cls = b.dataset.c; editing = null; return draw(); }
   if(a==="copy"){ try{ await navigator.clipboard.writeText(D.cls.code); toast("📋 "+tx("Kod disalin","کود دسالين")); }catch(e){ toast(D.cls.code); } return; }
@@ -177,13 +179,13 @@ async function act(b){
   if(a==="saveName" || a==="kick"){
     const p = D.pupils.find(x=>x.id===pid); if(!p) return;
     if(a==="kick" && !confirm(tx(`Keluarkan ${p.name} daripada kelas ini?`,`کلوارکن ${p.name} درڤد کلس اين؟`))) return;
-    b.disabled = true;
+    KafaAuth.busy(b, true, "&#8203;");
     try{
       if(a==="saveName") await KafaAuth.api("class", {action:"rename", code:cls, player:pid, name:$("ednm").value});
       else await KafaAuth.api("class", {action:"kick", code:cls, player:pid});
       editing = null; toast(a==="kick" ? "🚫 "+tx("Murid dikeluarkan","موريد دکلوارکن") : "✏️ "+tx("Nama ditukar dan dikunci","نام دتوکر دان دکونچي"));
       await draw();
-    }catch(e){ b.disabled = false; toast("⚠️ "+errMsg(e)); }
+    }catch(e){ KafaAuth.busy(b, false); toast("⚠️ "+errMsg(e)); }
   }
 }
 app.addEventListener("click", e=>{ const b = e.target.closest("[data-act]"); if(b && !b.disabled) act(b); });

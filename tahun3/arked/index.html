@@ -295,6 +295,8 @@ body{background-image:radial-gradient(1100px 620px at 50% -12%,color-mix(in srgb
 .lbrows .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left}
 html[dir="rtl"] .lbrows .nm{text-align:right}
 .lbrows b{font-size:20px;color:var(--w1)}
+.lbrows .kskel{height:1.05em}
+.podium .pd .kskel{display:block}
 .lbrows li.lbmsg{display:block;text-align:center;font-weight:600;color:var(--muted)}
 .lbmsg{text-align:center;color:var(--muted);margin:8px 0}
 .lbfoot{text-align:center;margin-top:8px}
@@ -2041,7 +2043,7 @@ function hudHTML(){
 // three.js mungkin masih dimuatkan semasa butang Mula ditekan
 function begin(b){
   if(window.THREE) return start();
-  if(b){ b.disabled = true; b.textContent = "⏳ "+tx("Memuatkan dunia 3D…","ممواتکن دنيا 3D…"); }
+  if(b){ b.disabled = true; b.innerHTML = '<span class="kspin" aria-hidden="true"></span>'+tx("Memuatkan dunia 3D…","ممواتکن دنيا 3D…"); }
   need3D().then(ok=>{ if(!G) return;
     if(ok) return start();
     if(b){ b.disabled = false; b.textContent = "▶ "+tx("Cuba lagi","چوبا لاڬي"); }
@@ -2312,7 +2314,7 @@ const LB = {
   api(path, body){ return KafaAuth.api(path, body); },
   async fetchMe(){ try{ this.me = await this.api("me"); }catch(e){ this.me = null; } return this.me; },
   async changed(){
-    if(this.uid) await this.fetchMe();
+    if(this.uid){ KafaAuth.loading(true, tx("Menyemak akaun","مڽمق اکاٴون"), WD().emoji); try{ await this.fetchMe(); } finally { KafaAuth.loading(false); } }
     if(this.uid && this.me && !this.me.player) return acctSheet(true);
     if(this.pending && $("lbres")) return lbSubmit(this.pending);
     if($("lbbox")) renderMap();
@@ -2339,7 +2341,7 @@ function acctBtn(){
 }
 function lbSection(){
   if(!LB.on) return "";
-  return `<div class="sec" id="lbsec">🏆 ${tx("Papan Pendahulu","ڤاڤن ڤندهولو")} — ${tx(SUB(subj).r, SUB(subj).j)}</div><div class="lb card" id="lbbox"><p class="lbmsg">⏳ ${tx("Memuatkan…","ممواتکن…")}</p></div>`;
+  return `<div class="sec" id="lbsec">🏆 ${tx("Papan Pendahulu","ڤاڤن ڤندهولو")} — ${tx(SUB(subj).r, SUB(subj).j)}</div><div class="lb card" id="lbbox">${lbSkel()}</div>`;
 }
 async function lbPaint(){
   if(!LB.on || !$("lbbox")) return;
@@ -2356,7 +2358,7 @@ async function lbPaint(){
       `<button data-act="lbscope" data-c="${c.code}" aria-pressed="${c.code===LB.scope}">${c.name}</button>`).join("")}</div>
     <div class="lbtabs games" role="group">${games.map(g=>`<button data-act="lbgame" data-g="${g.id}" aria-pressed="${g.id===LB.game}">${g.icon} ${tx(g.r,g.j)}</button>`).join("")}</div>
     <div class="podium" id="podium" dir="ltr"></div>
-    <ol class="lbrows" id="lbrows"><li class="lbmsg">⏳ ${tx("Memuatkan…","ممواتکن…")}</li></ol>
+    <ol class="lbrows" id="lbrows">${lbSkelRows()}</ol>
     <div class="lbfoot" id="lbfoot"></div>`;
   const q = `leaderboard?subj=${subj}&game=${LB.game}${LB.scope!=="all"?"&class="+LB.scope:""}`;
   try{
@@ -2399,9 +2401,15 @@ function acctSheet(first){
   app.appendChild(s);
   const i = $("lbname"); if(i && first) i.focus();
 }
+// kerangka berkilau semasa papan pendahulu dimuatkan
+const lbSkelRows = () => [...Array(5)].map((_,i)=>`<li aria-hidden="true"><span class="kskel" style="width:30px"></span><span class="kskel" style="width:${70-i*8}%"></span><span class="kskel" style="width:46px"></span></li>`).join("");
+const lbSkel = () => `<div class="lbtabs" aria-hidden="true"><span class="kskel" style="width:120px;height:36px;border-radius:999px"></span><span class="kskel" style="width:110px;height:36px;border-radius:999px"></span></div>
+  <div class="podium" aria-hidden="true">${[70,96,52].map(h=>`<div class="pd"><span class="kskel" style="width:42px;height:42px;border-radius:50%"></span><span class="kskel" style="width:70%;margin-top:6px"></span><span class="step kskel" style="height:${h}px"></span></div>`).join("")}</div>
+  <ol class="lbrows" role="status" aria-label="${tx("Memuatkan","ممواتکن")}">${lbSkelRows()}</ol>`;
 async function lbAct(act, b){
   const err = $("lberr"); if(err) err.textContent = "";
-  const busy = b.disabled; if(busy) return; b.disabled = true;
+  if(b.disabled) return;
+  KafaAuth.busy(b, true, {lbname:tx("Menyimpan","مڽيمڤن"), lbjoin:tx("Menyertai","مڽرتاٴي"), lbcreate:tx("Mencipta","منچيڤتا"), lbleave:tx("Memproses","ممڤروسيس")}[act]);
   try{
     if(act==="lbname") LB.me = await LB.api("me", {name:$("lbname").value});
     if(act==="lbjoin") LB.me = await LB.api("class", {action:"join", code:$("lbcode").value});
@@ -2412,7 +2420,7 @@ async function lbAct(act, b){
     acctSheet(false);
     if(act==="lbcreate") toast("🏫 "+tx("Kelas dicipta! Kongsi kod dengan murid.","کلس دچيڤتا! کوڠسي کود دڠن موريد."));
   }catch(e){ const er = $("lberr"); if(er) er.textContent = "⚠️ "+lbErr(e); }
-  finally{ b.disabled = false; }
+  finally{ if(b.isConnected) KafaAuth.busy(b, false); }
 }
 // hantar skor selepas permainan (Main Sendiri)
 async function lbSubmit(r){
@@ -2421,7 +2429,7 @@ async function lbSubmit(r){
   if(!LB.clerk){ box.remove(); return; }
   if(!LB.uid){ LB.pending = r; box.innerHTML = `<p>🏆 ${tx("Log masuk untuk menyimpan skor ini dalam papan pendahulu!","لوڬ ماسوق اونتوق مڽيمڤن سکور اين دالم ڤاڤن ڤندهولو!")}</p><button class="btn" data-act="login">👤 ${tx("Log masuk dengan Google","لوڬ ماسوق دڠن Google")}</button>`; return; }
   if(!LB.name()){ LB.pending = r; box.innerHTML = `<p>🏆 ${tx("Pilih nama samaran untuk masuk papan pendahulu.","ڤيليه نام سامرن اونتوق ماسوق ڤاڤن ڤندهولو.")}</p><button class="btn" data-act="acct">✏️ ${tx("Pilih nama","ڤيليه نام")}</button>`; return; }
-  box.innerHTML = `<p>⏳ ${tx("Menyimpan skor…","مڽيمڤن سکور…")}</p>`;
+  box.innerHTML = `<p><span class="kspin" aria-hidden="true"></span>${tx("Menyimpan skor…","مڽيمڤن سکور…")}</p>`;
   try{
     const o = await LB.api("score", r); LB.pending = null;
     if(!$("lbres")) return;
@@ -2451,10 +2459,10 @@ function handle(b, e){
     case "lane3": if(G && !G.paused && !G.over && G.mod.setLane) G.mod.setLane(+b.dataset.l); break;
     case "left": if(G && !G.over && G.mod.nudge) G.mod.nudge(-1); break;
     case "right": if(G && !G.over && G.mod.nudge) G.mod.nudge(1); break;
-    case "login": LB.init().then(()=>{ if(LB.clerk) LB.clerk.openSignIn({}); else toast("⚠️ "+tx("Log masuk tidak dapat dimuatkan.","لوڬ ماسوق تيدق داڤت دمواتکن.")); }); break;
+    case "login": if(!LB.clerk) KafaAuth.loading(true, tx("Membuka log masuk","ممبوک لوڬ ماسوق"), WD().emoji); LB.init().then(()=>{ KafaAuth.loading(false); if(LB.clerk) LB.clerk.openSignIn({}); else toast("⚠️ "+tx("Log masuk tidak dapat dimuatkan.","لوڬ ماسوق تيدق داڤت دمواتکن.")); }); break;
     case "acct": acctSheet(!LB.name()); break;
     case "sheetclose": document.querySelectorAll(".sheet").forEach(s=>s.remove()); break;
-    case "logout": document.querySelectorAll(".sheet").forEach(s=>s.remove()); if(LB.clerk) LB.clerk.signOut(); break;
+    case "logout": document.querySelectorAll(".sheet").forEach(s=>s.remove()); KafaAuth.signOut(tx("Log keluar","لوڬ کلوار"), WD().emoji); break;
     case "lbscope": LB.scope = b.dataset.c; save("ark3-lbscope", LB.scope); lbPaint(); break;
     case "lbgame": LB.game = b.dataset.g; save("ark3-lbgame", LB.game); lbPaint(); break;
     case "lbview": LB.game = b.dataset.g; LB.scope = "all"; tab = "board"; tabURL(); renderMap(); break;
