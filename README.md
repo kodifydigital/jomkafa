@@ -13,7 +13,9 @@ kafa/
 ├── index.html            ← Laman utama (pilih Tahun 3, 4, 5, 6)
 ├── assets/
 │   ├── kafa.css          ← Gaya bersama
-│   └── kafa.js           ← Senarai subjek dan game yang sudah siap
+│   ├── kafa.js           ← Senarai subjek dan game yang sudah siap
+│   └── vendor/
+│       └── three.min.js  ← three.js r128 untuk Zon Arked 3D (boleh main tanpa internet)
 ├── tahun3/
 │   ├── index.html        ← Senarai subjek Tahun 3
 │   ├── sirah/
@@ -31,7 +33,7 @@ kafa/
 │   ├── hafazan/
 │   │   └── index.html    ← Game Kereta Api Hafazan (Hafazan)
 │   └── arked/
-│       └── index.html    ← Zon Arked: 6 permainan aksi untuk semua subjek (?s=idSubjek)
+│       └── index.html    ← Zon Arked 3D: 6 permainan bertema dunia setiap subjek (?s=idSubjek)
 ├── tahun4/index.html
 ├── tahun5/index.html
 └── tahun6/index.html

@@ -194,8 +194,8 @@ function arcadeHTML(y){
   return `<section class="arcade" aria-label="${tx("Zon Arked","زون ارکيد")}">
       <span class="bulbs" aria-hidden="true"></span>
       <div class="ahead"><div><h2>🕹️ ${tx("Zon Arked","زون ارکيد")}</h2>
-        <p>${tx("Permainan aksi pantas: ketuk mol, tangkap bintang, pecah belon, lari lorong, panjat susun dan duel. Main sendiri atau lawan pasukan dalam kelas!","ڤرماٴينن اکسي ڤنتس: کتوق مول، تڠکڤ بينتڠ، ڤچه بلون، لاري لوروڠ، ڤنجت سوسون دان دوايل. ماٴين سنديري اتاو لاون ڤاسوقن دالم کلس!")}</p></div>
-        <span class="games" aria-hidden="true">🐹🧺🎈🏃🧗⚔️</span></div>
+        <p>${tx("Permainan aksi 3D mengikut dunia setiap subjek: padang pasir Sirah, masjid Feqah, lautan Tauhid, kampung Akhlak, kolam Arab, angkasa Tajwid dan kereta api Hafazan. Main sendiri atau lawan pasukan dalam kelas!","ڤرماٴينن اکسي 3D مڠيکوت دنيا ستياڤ سوبجيک: ڤادڠ ڤاسير سيره، مسجد فقه، لاءوتن توحيد، کامڤوڠ اخلاق، کولم عرب، اڠکاس تجويد دان کريتا اڤي حفظن. ماٴين سنديري اتاو لاون ڤاسوقن دالم کلس!")}</p></div>
+        <span class="games" aria-hidden="true">🐪🕌🐢🏡🐸🚀🚂</span></div>
       <div class="arcgrid">${cards}</div>
     </section>`;
 }
