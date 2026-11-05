@@ -85,9 +85,9 @@ html[dir="rtl"] .marquee h1{line-height:1.5;font-weight:700}
 .mode .e{font-size:28px;display:block}
 .mode[aria-pressed="true"]{border-color:var(--w1);box-shadow:0 0 0 3px color-mix(in srgb,var(--w1) 30%,transparent)}
 /* Kabinet arked 3D: papan nama bercahaya, skrin dunia, panel kawalan; condong ikut tetikus */
-.cabs{display:grid;grid-template-columns:repeat(3,1fr);gap:22px 18px;perspective:1100px;padding-top:4px}
-@media (max-width:560px){.cabs{grid-template-columns:1fr 1fr;gap:16px 12px}}
-.cab{--rx:0deg;--ry:0deg;position:relative;display:flex;flex-direction:column;align-items:stretch;text-align:center;border:0;padding:0 0 12px;color:#fff;
+.cabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px 18px;perspective:1100px;padding-top:4px}
+@media (max-width:560px){.cabs{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 12px}}
+.cab{--rx:0deg;--ry:0deg;min-width:0;position:relative;display:flex;flex-direction:column;align-items:stretch;text-align:center;border:0;padding:0 0 12px;color:#fff;
   border-radius:20px 20px 14px 14px;background:linear-gradient(180deg,color-mix(in srgb,var(--c) 62%,#0B0718),color-mix(in srgb,var(--c) 22%,#05030C));
   box-shadow:7px 8px 0 color-mix(in srgb,var(--c) 30%,#000),0 16px 26px rgba(0,0,0,.45),inset 0 2px 0 rgba(255,255,255,.22),inset 3px 0 0 rgba(255,255,255,.08);
   transform:rotateX(var(--rx)) rotateY(var(--ry));transform-style:preserve-3d;transition:transform .18s ease-out,box-shadow .18s;animation:cabin .5s both;animation-delay:calc(var(--i) * 70ms)}
@@ -244,7 +244,7 @@ html[dir="rtl"] .review li{line-height:1.7}
 .howto li{background:var(--bg);border-radius:12px;padding:4px 10px;font-size:16px;line-height:1.35}
 html[dir="rtl"] .howto li{line-height:1.7}
 /* Pemilih dunia subjek: kad kecil berwarna mengikut dunia */
-.wtiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:6px 0 4px;perspective:900px}
+.wtiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;padding:6px 0 4px;perspective:900px}
 .wt{--rx:0deg;--ry:0deg;min-width:0;min-height:118px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;text-align:center;
   border:0;border-radius:20px;padding:10px 6px;color:#fff;background:linear-gradient(150deg,var(--t1),var(--t2));
   box-shadow:0 5px 0 color-mix(in srgb,var(--t2) 70%,#000);opacity:.75;filter:saturate(.8);transform:rotateX(var(--rx)) rotateY(var(--ry));transition:transform .18s,opacity .18s,filter .18s,box-shadow .18s;animation:wtin .45s both;animation-delay:calc(var(--i) * 45ms)}
@@ -325,6 +325,16 @@ html[dir="rtl"] .sheet h2{margin:0 0 8px 40px}
 .sheet summary{font-weight:700;cursor:pointer}
 .sheet .muted{color:var(--muted)}
 .sheet .err{color:var(--bad);font-weight:700;min-height:1.2em;margin:8px 0 0}
+
+/* Telefon & tablet: halaman tidak boleh melebar ke kiri/kanan; tiada perspektif 3D pada peranti sentuh */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+html,body{overflow-x:hidden}
+.wrap{overflow-x:clip}
+@media (hover:none),(pointer:coarse){
+  .cabs,.wtiles,.wgrid,.arcgrid{perspective:none}
+  .cab,.wcard,.arc{transform:none;transform-style:flat}
+  .wt[aria-pressed="true"]{transform:translateY(-3px) scale(1.03)}
+}
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .rain{display:none}
@@ -2451,6 +2461,7 @@ app.addEventListener("click", e=>{
 
 if(!REDUCED){
   app.addEventListener("pointermove", e=>{
+    if(e.pointerType!=="mouse") return; // jari/pen: tiada condong (elak halaman melebar semasa menatal)
     const c = e.target.closest(".tilt"); if(!c) return;
     const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
     c.style.setProperty("--rx", (-y * 12).toFixed(2) + "deg"); c.style.setProperty("--ry", (x * 14).toFixed(2) + "deg");

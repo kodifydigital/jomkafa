@@ -133,8 +133,8 @@ html[dir="rtl"] .arcade h2{line-height:1.6}
 .arcade p{margin:4px 0 0;font-size:15.5px;opacity:.92;max-width:520px}
 .arcade .games{font-size:26px;letter-spacing:2px;writing-mode:vertical-rl;line-height:1.1}
 @media (max-width:460px){.arcade .games{display:none}}
-.arcgrid{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
-@media (max-width:560px){.arcgrid{grid-template-columns:repeat(2,1fr)}}
+.arcgrid{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}
+@media (max-width:560px){.arcgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .arc{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;text-decoration:none;color:#fff;border-radius:18px;padding:10px 6px;
   background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.25);box-shadow:0 0 12px rgba(0,229,255,.25) inset;animation:rise .5s both;animation-delay:calc(var(--i) * 60ms);transition:transform .12s}
 .arc .ic{font-size:32px;line-height:1.1}
@@ -145,11 +145,11 @@ html[dir="rtl"] .arc b{line-height:1.6}
 .arc:active{transform:scale(.96)}
 
 /* ===== Kad dunia subjek (laman tahun) ===== */
-.wgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:22px;perspective:900px}
+.wgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:22px;perspective:900px}
 .wgrid>.wcard:last-child:nth-child(odd){grid-column:1/-1;min-height:190px}
 @media (max-width:560px){.wgrid{grid-template-columns:1fr;gap:12px}}
 .wcard,.arc{--rx:0deg;--ry:0deg;--mx:50%}
-.wcard{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-height:220px;padding:16px 18px 16px;border-radius:26px;overflow:hidden;isolation:isolate;
+.wcard{min-width:0;position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-height:220px;padding:16px 18px 16px;border-radius:26px;overflow:hidden;isolation:isolate;
   color:#fff;text-decoration:none;background:linear-gradient(150deg,var(--c1),var(--c2));
   box-shadow:0 8px 0 color-mix(in srgb,var(--c2) 75%,#000),0 14px 28px color-mix(in srgb,var(--c2) 40%,transparent);
   transform:rotateX(var(--rx)) rotateY(var(--ry));transition:transform .18s ease-out,box-shadow .18s;animation:wpop .55s both;animation-delay:calc(var(--i) * 70ms)}
@@ -276,3 +276,13 @@ html[dir="rtl"] .install p{line-height:1.7}
 .iosg h2{margin:6px 0 4px;font-size:22px}
 .iosg ol{text-align:start;margin:8px 0 0;padding-inline-start:22px;display:grid;gap:8px;font-size:16.5px}
 .iosg .sh{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:8px;background:#E8F2FF}
+
+/* Telefon & tablet: halaman tidak boleh melebar ke kiri/kanan; tiada perspektif 3D pada peranti sentuh */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+html,body{overflow-x:hidden}
+.wrap{overflow-x:clip}
+@media (hover:none),(pointer:coarse){
+  .cabs,.wtiles,.wgrid,.arcgrid{perspective:none}
+  .cab,.wcard,.arc{transform:none;transform-style:flat}
+  .wt[aria-pressed="true"]{transform:translateY(-3px) scale(1.03)}
+}

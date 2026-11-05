@@ -276,6 +276,7 @@ const KafaPortal = {
     const calm = (()=>{ try{ return matchMedia("(prefers-reduced-motion: reduce)").matches; }catch(e){ return false; } })();
     if(!calm){
       app.addEventListener("pointermove", e=>{
+        if(e.pointerType!=="mouse") return; // jari/pen: tiada condong (elak halaman melebar semasa menatal)
         const c = e.target.closest(".tilt"); if(!c) return;
         const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
         c.style.setProperty("--rx", (-y * 10).toFixed(2) + "deg"); c.style.setProperty("--ry", (x * 12).toFixed(2) + "deg");
