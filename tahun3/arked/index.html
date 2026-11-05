@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Noto+Naskh+Arabic:wght@500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<script src="../../assets/config.js"></script>
 <style>
 :root{
   --bg:#F1ECFF; --surface:#FFFFFF; --ink:#1E1640; --muted:#5F5689; --line:#DCD3F5;
@@ -195,6 +196,48 @@ html[dir="rtl"] .review li{line-height:1.7}
 .howto{display:grid;gap:6px;margin:8px 0 0;padding:0;list-style:none;text-align:start}
 .howto li{background:var(--bg);border-radius:12px;padding:4px 10px;font-size:16px;line-height:1.35}
 html[dir="rtl"] .howto li{line-height:1.7}
+/* Papan pendahulu & akaun */
+.acct{border:2px solid var(--wa);background:var(--surface);border-radius:999px;padding:4px 12px;font-weight:800;font-size:15px;min-height:44px;max-width:44vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb{padding:12px}
+.lbtabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.lbtabs button{flex:none;border:2px solid var(--line);background:var(--bg);border-radius:999px;padding:2px 12px;font-weight:800;font-size:15px;min-height:40px}
+.lbtabs button[aria-pressed="true"]{background:var(--w1);border-color:var(--w1);color:#fff}
+.lbtabs.games button[aria-pressed="true"]{background:var(--wa);border-color:var(--wa);color:var(--w2)}
+.lbrows{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:4px}
+.lbrows li{display:grid;grid-template-columns:48px 1fr auto;align-items:center;gap:8px;background:var(--bg);border-radius:12px;padding:4px 12px;font-weight:700}
+.lbrows li.top{background:color-mix(in srgb,var(--gold) 18%,var(--bg))}
+.lbrows li.me{outline:3px solid var(--wa);outline-offset:-1px}
+.lbrows .rk{font-size:20px;text-align:center}
+.lbrows .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left}
+html[dir="rtl"] .lbrows .nm{text-align:right}
+.lbrows b{font-size:20px;color:var(--w1)}
+.lbrows li.lbmsg{display:block;text-align:center;font-weight:600;color:var(--muted)}
+.lbmsg{text-align:center;color:var(--muted);margin:8px 0}
+.lbfoot{text-align:center;margin-top:8px}
+.lbfoot p{margin:4px 0}
+.lbfoot small{display:block;color:var(--muted);font-size:13px;margin-top:6px}
+.lbres{margin-top:12px;border:2px solid var(--wa);border-radius:16px;padding:8px 12px;background:color-mix(in srgb,var(--wa) 10%,var(--surface))}
+.lbres p{margin:4px 0}
+.lbres .rank{font-size:20px;font-weight:800}
+.lbres .rank b{font-size:28px;color:var(--w1)}
+.sheet{position:fixed;inset:0;z-index:70;display:grid;place-items:center;padding:16px;background:rgba(10,3,32,.6)}
+.sheet .card{position:relative;width:min(460px,100%);max-height:90vh;overflow:auto}
+.sheet h2{margin:0 40px 8px 0;font-size:24px}
+html[dir="rtl"] .sheet h2{margin:0 0 8px 40px}
+.sheet h3{margin:14px 0 4px;font-size:18px}
+.sheet .x{position:absolute;top:10px;inset-inline-end:10px;width:38px;height:38px}
+.sheet label{display:block;font-weight:700;font-size:15px;margin-top:10px}
+.sheet .row{display:flex;gap:8px;margin-top:4px}
+.sheet input{flex:1;min-width:0;font:inherit;font-size:18px;border:2px solid var(--line);border-radius:12px;padding:6px 10px;background:var(--bg);color:var(--ink)}
+.sheet input:focus{outline:3px solid var(--wa);outline-offset:1px}
+.btn.sm{width:auto;margin:0;padding:6px 14px;font-size:16px;flex:none}
+.sheet .cls{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.sheet .cls li{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--bg);border-radius:12px;padding:6px 10px}
+.sheet code{font-size:17px;font-weight:800;letter-spacing:2px;color:var(--w1)}
+.sheet details{margin-top:12px}
+.sheet summary{font-weight:700;cursor:pointer}
+.sheet .muted{color:var(--muted)}
+.sheet .err{color:var(--bad);font-weight:700;min-height:1.2em;margin:8px 0 0}
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .rain{display:none}
@@ -1781,7 +1824,7 @@ function renderMap(){
   const s = SUB(subj), w = WD(), hasOrder = orders().length>0, got = coins[subj]||0;
   app.innerHTML = `
     <div class="topbar"><a class="iconbtn" href="../index.html" aria-label="${tx("Kembali ke Tahun 3","کمبالي ک تاهون 3")}">${BACK()}</a>
-      <div class="grp"><button class="langbtn" data-act="lang">${isJ()?"Rumi":'<span class="ar">جاوي</span>'}</button>${muteBtn()}</div></div>
+      <div class="grp">${acctBtn()}<button class="langbtn" data-act="lang">${isJ()?"Rumi":'<span class="ar">جاوي</span>'}</button>${muteBtn()}</div></div>
     <header class="marquee"><span class="bulbs" aria-hidden="true"></span>
       <span class="sub">🕹️ ${tx("Zon Arked 3D","زون ارکيد 3D")}</span>
       <h1>${tx(w.name[0], w.name[1])}</h1>
@@ -1801,9 +1844,10 @@ function renderMap(){
         <span class="knob" aria-hidden="true"></span><span class="dimtag">3D</span><span class="scr"><span>${g.icon}</span></span>
         <b>${tx(g.r,g.j)}</b><small>${off?tx("Tiada urutan untuk subjek ini","تيادا اوروتن اونتوق سوبجيک اين"):g.duel?tx("Siapa paling pantas menjawab dengan betul?","سياڤ ڤاليڠ ڤنتس منجواب دڠن بتول؟"):tx(g.dr,g.dj)}</small>
         ${g.duel?`<span class="hi">${pmode==="solo"?tx("Lawan Robot 🤖","لاون روبوت 🤖"):tx("Merah lawan Biru","ميره لاون بيرو")}</span>`:`<span class="hi">🏆 ${h}</span>`}</button>`; }).join("")}</div>
+    ${lbSection()}
     <p class="foot">${tx("Soalan diambil daripada pelajaran Tahun 3 dalam portal ini (berdasarkan buku teks JAIS).","سوالن دأمبيل درڤد ڤلاجرن تاهون 3 دالم ڤورتل اين (برداسرکن بوکو تيکس جايس).")}</p>`;
-  window.scrollTo(0,0);
-  need3D();
+  if(LB.view){ LB.view = false; const s = $("lbsec"); if(s) s.scrollIntoView(); } else window.scrollTo(0,0);
+  need3D(); lbPaint();
 }
 
 /* ============ PERMAINAN: ASAS ============ */
@@ -2062,7 +2106,9 @@ function endTurn(){
       <div class="big">${G.score}</div>
       <p>${rec?`🎉 ${tx("Rekod baharu!","ريکود بهارو!")}`:`🏆 ${tx("Rekod","ريکود")}: ${prev}`}</p>
       <p class="got">${w.coin.e} ${tx("Kamu kumpul","کامو کومڤول")} <b>${G.good}</b> ${tx(w.coin.r, w.coin.j)} • ❌ ${G.badn} • 🎯 ${acc}%</p>
-      <p class="cheer">${w.emoji} ${L(w.cheer)}</p>`, rec || stars===3, G.log);
+      <p class="cheer">${w.emoji} ${L(w.cheer)}</p>
+      ${LB.on ? '<div class="lbres" id="lbres"></div>' : ""}`, rec || stars===3, G.log);
+    if(LB.on) lbSubmit({subj, game:gk, score:G.score, good:G.good, bad:G.badn});
   } else {
     const r = G.results.red.score, b = G.results.blue.score, win = r===b ? null : r>b ? "red" : "blue";
     showResult(`<div class="trophy">${win?"🏆":"🤝"}</div>
@@ -2094,6 +2140,152 @@ function rain(){
   document.body.appendChild(box); setTimeout(()=>box.remove(), 4500);
 }
 
+
+/* ============ PAPAN PENDAHULU (Clerk + /api di Vercel + Neon) ============
+   Log masuk Google melalui Clerk. Murid memilih nama samaran (nama sebenar tidak dipaparkan).
+   Hanya skor "Main Sendiri" dihantar. Jika kunci Clerk tiada atau laman dibuka dari fail, bahagian ini disembunyikan. */
+const CFG = window.KAFA_CONFIG || {};
+const LB = {
+  on: !!CFG.clerkKey && /^https?:$/.test(location.protocol),
+  clerk:null, uid:null, me:null, failed:false, pending:null, loadP:null,
+  game: load("ark3-lbgame","all"), scope: load("ark3-lbscope","all"),
+  init(){
+    if(!this.on) return Promise.resolve(null);
+    if(!this.loadP) this.loadP = (async()=>{
+      // kunci publishable mengandungi domain Frontend API Clerk (base64, berakhir dengan "$")
+      const fapi = atob(CFG.clerkKey.split("_")[2]).replace(/\$/, "");
+      await new Promise((res, rej)=>{ const s = document.createElement("script");
+        s.src = `https://${fapi}/npm/@clerk/clerk-js@5/dist/clerk.browser.js`; s.async = true; s.crossOrigin = "anonymous";
+        s.setAttribute("data-clerk-publishable-key", CFG.clerkKey); s.onload = res; s.onerror = rej; document.head.appendChild(s); });
+      await window.Clerk.load();
+      this.clerk = window.Clerk;
+      this.uid = this.clerk.user ? this.clerk.user.id : null;
+      if(this.uid) await this.fetchMe();
+      this.clerk.addListener(({user})=>{ const id = user ? user.id : null; if(id!==this.uid){ this.uid = id; this.me = null; this.changed(); } });
+      return this.clerk;
+    })().catch(e=>{ console.warn("Clerk", e); this.failed = true; return null; });
+    return this.loadP;
+  },
+  async api(path, body){
+    const h = {"Content-Type":"application/json"};
+    const t = this.clerk && this.clerk.session ? await this.clerk.session.getToken() : null;
+    if(t) h.Authorization = "Bearer "+t;
+    const r = await fetch("/api/"+path, {method:body?"POST":"GET", headers:h, body:body?JSON.stringify(body):undefined});
+    const j = await r.json().catch(()=>({}));
+    if(!r.ok) throw Object.assign(new Error(j.error || "Ralat"), {status:r.status});
+    return j;
+  },
+  async fetchMe(){ try{ this.me = await this.api("me"); }catch(e){ this.me = null; } return this.me; },
+  async changed(){
+    if(this.uid) await this.fetchMe();
+    if(this.uid && this.me && !this.me.player) return acctSheet(true);
+    if(this.pending && $("lbres")) return lbSubmit(this.pending);
+    if($("lbbox")) renderMap();
+  },
+  name(){ return this.me && this.me.player ? this.me.player.name : null; }
+};
+const lbErr = e => ({401:tx("Sila log masuk semula.","سيلا لوڬ ماسوق سمولا."), 403:tx("Kamu bukan ahli kelas ini.","کامو بوکن اهلي کلس اين."),
+  404:tx("Kod kelas tidak dijumpai.","کود کلس تيدق دجومڤاٴي."), 409:tx("Pilih nama samaran dahulu.","ڤيليه نام سامرن دهولو."),
+  429:tx("Terlalu pantas, cuba sebentar lagi.","ترلالو ڤنتس، چوبا سبنتر لاڬي.")}[e.status]
+  || (e.status===400 && !isJ() ? e.message : tx("Tidak dapat disambung ke pelayan. Semak internet.","تيدق داڤت دسمبوڠ ک ڤلاين. سمق اينترنيت.")));
+const esc = s => String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const medal = r => r===1 ? "🥇" : r===2 ? "🥈" : r===3 ? "🥉" : "#"+r;
+
+// butang akaun di bar atas
+function acctBtn(){
+  if(!LB.on) return "";
+  const n = LB.name();
+  return `<button class="acct" id="acct" data-act="${LB.uid?"acct":"login"}">👤 ${LB.uid ? esc(n || tx("Akaun","اکاٴون")) : tx("Log masuk","لوڬ ماسوق")}</button>`;
+}
+function lbSection(){
+  if(!LB.on) return "";
+  return `<div class="sec" id="lbsec">🏆 ${tx("Papan Pendahulu","ڤاڤن ڤندهولو")}</div><div class="lb card" id="lbbox"><p class="lbmsg">⏳ ${tx("Memuatkan…","ممواتکن…")}</p></div>`;
+}
+async function lbPaint(){
+  if(!LB.on || !$("lbbox")) return;
+  await LB.init();
+  const box = $("lbbox"); if(!box) return;
+  const a = $("acct"); if(a) a.outerHTML = acctBtn();
+  if(LB.failed){ box.innerHTML = `<p class="lbmsg">⚠️ ${tx("Papan pendahulu tidak dapat dimuatkan. Semak sambungan internet.","ڤاڤن ڤندهولو تيدق داڤت دمواتکن. سمق سمبوڠن اينترنيت.")}</p>`; return; }
+  const games = [{id:"all", icon:"👑", r:"Juara Subjek", j:"جوارا سوبجيک"}, ...GAMES.filter(g=>!g.duel).map(g=>GW(g.id))];
+  if(!games.some(g=>g.id===LB.game)) LB.game = "all";
+  const classes = (LB.me && LB.me.classes) || [];
+  if(LB.scope!=="all" && !classes.some(c=>c.code===LB.scope)) LB.scope = "all";
+  box.innerHTML = `
+    <div class="lbtabs" role="group">${[{code:"all", name:tx("🌏 Semua murid","🌏 سموا موريد")}, ...classes.map(c=>({code:c.code, name:"🏫 "+esc(c.name)}))].map(c=>
+      `<button data-act="lbscope" data-c="${c.code}" aria-pressed="${c.code===LB.scope}">${c.name}</button>`).join("")}</div>
+    <div class="lbtabs games" role="group">${games.map(g=>`<button data-act="lbgame" data-g="${g.id}" aria-pressed="${g.id===LB.game}">${g.icon} ${tx(g.r,g.j)}</button>`).join("")}</div>
+    <ol class="lbrows" id="lbrows"><li class="lbmsg">⏳ ${tx("Memuatkan…","ممواتکن…")}</li></ol>
+    <div class="lbfoot" id="lbfoot"></div>`;
+  const q = `leaderboard?subj=${subj}&game=${LB.game}${LB.scope!=="all"?"&class="+LB.scope:""}`;
+  try{
+    const d = await LB.api(q);
+    const rows = $("lbrows"), foot = $("lbfoot"); if(!rows) return;
+    rows.innerHTML = d.rows.length ? d.rows.map(r=>`<li class="${r.me?"me":""} ${r.rank<=3?"top":""}"><span class="rk">${medal(r.rank)}</span><span class="nm" dir="auto">${esc(r.name)}${r.me?` <small>(${tx("kamu","کامو")})</small>`:""}</span><b>${r.best}</b></li>`).join("")
+      : `<li class="lbmsg">🌱 ${tx("Belum ada skor. Jadilah yang pertama!","بلوم اد سکور. جاديله يڠ ڤرتام!")}</li>`;
+    foot.innerHTML = !LB.uid
+      ? `<p>${tx("Log masuk dengan Google untuk bersaing dengan murid lain!","لوڬ ماسوق دڠن Google اونتوق برساٴيڠ دڠن موريد لاٴين!")}</p><button class="btn" data-act="login">👤 ${tx("Log masuk","لوڬ ماسوق")}</button>`
+      : d.me ? `<p>⭐ ${tx("Kedudukan kamu","کدودوقن کامو")}: <b>${medal(d.me.rank)}</b> ${tx("daripada","درڤد")} ${d.total} ${tx("murid","موريد")}</p>`
+      : `<p>🎯 ${tx("Main dalam mod Main Sendiri untuk masuk senarai ini!","ماٴين دالم مود ماٴين سنديري اونتوق ماسوق سناراي اين!")}</p>`;
+    foot.insertAdjacentHTML("beforeend", `<small>${tx("Hanya skor Main Sendiri dikira. Senarai menunjukkan skor terbaik setiap murid.","هاڽ سکور ماٴين سنديري دکيرا. سناراي منونجوقکن سکور تربايق ستياڤ موريد.")}</small>`);
+  }catch(e){ const rows = $("lbrows"); if(rows) rows.innerHTML = `<li class="lbmsg">⚠️ ${lbErr(e)}</li>`; }
+}
+// panel akaun: nama samaran, kelas (sertai / cipta untuk guru), log keluar
+function acctSheet(first){
+  document.querySelectorAll(".sheet").forEach(s=>s.remove());
+  const me = LB.me || {}, cl = me.classes || [];
+  const s = document.createElement("div"); s.className = "sheet"; s.setAttribute("role","dialog"); s.setAttribute("aria-modal","true");
+  s.innerHTML = `<div class="card">
+    <button class="iconbtn x" data-act="sheetclose" aria-label="${tx("Tutup","توتوڤ")}">✕</button>
+    <h2>${first ? "👋 "+tx("Selamat datang!","سلامت داتڠ!") : "👤 "+tx("Akaun saya","اکاٴون ساي")}</h2>
+    <label for="lbname">${tx("Nama samaran (bukan nama sebenar)","نام سامرن (بوکن نام سبنر)")}</label>
+    <div class="row"><input id="lbname" maxlength="16" autocomplete="off" value="${esc(LB.name()||"")}" placeholder="${tx("cth. Ali Bintang","چونتوه: علي بينتڠ")}"><button class="btn sm" data-act="lbname">💾 ${tx("Simpan","سيمڤن")}</button></div>
+    ${me.player ? `
+    <h3>🏫 ${tx("Kelas saya","کلس ساي")}</h3>
+    ${cl.length ? `<ul class="cls">${cl.map(c=>`<li><span><b dir="auto">${esc(c.name)}</b>${c.owner?` <small>• ${tx("Kod","کود")}: <code>${c.code}</code> • ${c.size} ${tx("ahli","اهلي")}</small>`:` <small>• ${c.size} ${tx("ahli","اهلي")}</small>`}</span><button class="btn alt sm" data-act="lbleave" data-c="${c.code}">${c.owner?tx("Padam","ڤادم"):tx("Keluar","کلوار")}</button></li>`).join("")}</ul>`
+      : `<p class="muted">${tx("Belum menyertai kelas. Minta kod kelas daripada guru.","بلوم مڽرتاٴي کلس. مينتا کود کلس درڤد ڬورو.")}</p>`}
+    <label for="lbcode">${tx("Sertai kelas dengan kod","سرتاٴي کلس دڠن کود")}</label>
+    <div class="row"><input id="lbcode" maxlength="6" autocomplete="off" placeholder="ABC234" style="text-transform:uppercase" dir="ltr"><button class="btn sm" data-act="lbjoin">➕ ${tx("Sertai","سرتاٴي")}</button></div>
+    <details><summary>👩‍🏫 ${tx("Untuk guru: cipta kelas","اونتوق ڬورو: چيڤتا کلس")}</summary>
+      <div class="row"><input id="lbcname" maxlength="30" placeholder="${tx("cth. 3 Bestari","چونتوه: 3 بستاري")}"><button class="btn sm" data-act="lbcreate">🏫 ${tx("Cipta","چيڤتا")}</button></div>
+      <small class="muted">${tx("Kongsi kod kelas dengan murid supaya mereka boleh menyertai papan kelas.","کوڠسي کود کلس دڠن موريد سوڤايا مريک بوليه مڽرتاٴي ڤاڤن کلس.")}</small></details>` : ""}
+    <p class="err" id="lberr" role="alert"></p>
+    <button class="btn alt" data-act="logout">🚪 ${tx("Log keluar","لوڬ کلوار")}</button></div>`;
+  app.appendChild(s);
+  const i = $("lbname"); if(i && first) i.focus();
+}
+async function lbAct(act, b){
+  const err = $("lberr"); if(err) err.textContent = "";
+  const busy = b.disabled; if(busy) return; b.disabled = true;
+  try{
+    if(act==="lbname") LB.me = await LB.api("me", {name:$("lbname").value});
+    if(act==="lbjoin") LB.me = await LB.api("class", {action:"join", code:$("lbcode").value});
+    if(act==="lbcreate") LB.me = await LB.api("class", {action:"create", name:$("lbcname").value});
+    if(act==="lbleave") LB.me = await LB.api("class", {action:"leave", code:b.dataset.c});
+    if(act==="lbname" && LB.pending && $("lbres")){ document.querySelectorAll(".sheet").forEach(s=>s.remove()); return lbSubmit(LB.pending); }
+    if($("lbbox")) renderMap();
+    acctSheet(false);
+    if(act==="lbcreate") toast("🏫 "+tx("Kelas dicipta! Kongsi kod dengan murid.","کلس دچيڤتا! کوڠسي کود دڠن موريد."));
+  }catch(e){ const er = $("lberr"); if(er) er.textContent = "⚠️ "+lbErr(e); }
+  finally{ b.disabled = false; }
+}
+// hantar skor selepas permainan (Main Sendiri)
+async function lbSubmit(r){
+  const box = $("lbres"); if(!box) return;
+  await LB.init();
+  if(!LB.clerk){ box.remove(); return; }
+  if(!LB.uid){ LB.pending = r; box.innerHTML = `<p>🏆 ${tx("Log masuk untuk menyimpan skor ini dalam papan pendahulu!","لوڬ ماسوق اونتوق مڽيمڤن سکور اين دالم ڤاڤن ڤندهولو!")}</p><button class="btn" data-act="login">👤 ${tx("Log masuk dengan Google","لوڬ ماسوق دڠن Google")}</button>`; return; }
+  if(!LB.name()){ LB.pending = r; box.innerHTML = `<p>🏆 ${tx("Pilih nama samaran untuk masuk papan pendahulu.","ڤيليه نام سامرن اونتوق ماسوق ڤاڤن ڤندهولو.")}</p><button class="btn" data-act="acct">✏️ ${tx("Pilih nama","ڤيليه نام")}</button>`; return; }
+  box.innerHTML = `<p>⏳ ${tx("Menyimpan skor…","مڽيمڤن سکور…")}</p>`;
+  try{
+    const o = await LB.api("score", r); LB.pending = null;
+    if(!$("lbres")) return;
+    $("lbres").innerHTML = `<p class="rank">🌏 ${tx("Kedudukan","کدودوقن")} <b>${medal(o.rank)}</b> ${tx("dalam semua murid","دالم سموا موريد")}</p>
+      <p>${o.improved ? "🎉 "+tx("Skor terbaik kamu disimpan!","سکور تربايق کامو دسيمڤن!") : "🏆 "+tx("Skor terbaik kamu","سکور تربايق کامو")+": "+o.best}</p>
+      <button class="btn alt" data-act="lbview" data-g="${r.game}">🏆 ${tx("Lihat papan pendahulu","ليهت ڤاڤن ڤندهولو")}</button>`;
+  }catch(e){ const x = $("lbres"); if(x) x.innerHTML = `<p>⚠️ ${lbErr(e)}</p>`; }
+}
+
 /* ============ PERISTIWA ============ */
 function handle(b, e){
   switch(b.dataset.act){
@@ -2112,6 +2304,14 @@ function handle(b, e){
     case "lane3": if(G && !G.paused && !G.over && G.mod.setLane) G.mod.setLane(+b.dataset.l); break;
     case "left": if(G && !G.over && G.mod.nudge) G.mod.nudge(-1); break;
     case "right": if(G && !G.over && G.mod.nudge) G.mod.nudge(1); break;
+    case "login": LB.init().then(()=>{ if(LB.clerk) LB.clerk.openSignIn({}); else toast("⚠️ "+tx("Log masuk tidak dapat dimuatkan.","لوڬ ماسوق تيدق داڤت دمواتکن.")); }); break;
+    case "acct": acctSheet(!LB.name()); break;
+    case "sheetclose": document.querySelectorAll(".sheet").forEach(s=>s.remove()); break;
+    case "logout": document.querySelectorAll(".sheet").forEach(s=>s.remove()); if(LB.clerk) LB.clerk.signOut(); break;
+    case "lbscope": LB.scope = b.dataset.c; save("ark3-lbscope", LB.scope); lbPaint(); break;
+    case "lbgame": LB.game = b.dataset.g; save("ark3-lbgame", LB.game); lbPaint(); break;
+    case "lbview": LB.game = b.dataset.g; LB.scope = "all"; LB.view = true; renderMap(); break;
+    case "lbname": case "lbjoin": case "lbcreate": case "lbleave": lbAct(b.dataset.act, b); break;
     case "dopt": if(G && G.dq && !(G.solo && b.dataset.t==="red")) duelAns(b.dataset.t, +b.dataset.i, b); break;
   }
 }
@@ -2126,6 +2326,8 @@ app.addEventListener("click", e=>{
   if(["lane3","dopt"].includes(b.dataset.act)){ if(e.detail===0) handle(b, e); return; }
   handle(b, e);
 });
+
+app.addEventListener("keydown", e=>{ if(e.key==="Enter" && e.target.matches(".sheet input")){ const b = e.target.parentElement.querySelector("button"); if(b) b.click(); } });
 
 applyLang();
 renderMap();

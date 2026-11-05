@@ -1,0 +1,11 @@
+{
+  "name": "jomkafa",
+  "private": true,
+  "type": "module",
+  "description": "Portal KAFA: laman statik + API leaderboard (Vercel Functions, Neon, Clerk)",
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "@clerk/backend": "^1.15.0",
+    "@neondatabase/serverless": "^0.10.4"
+  }
+}
