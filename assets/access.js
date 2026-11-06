@@ -13,8 +13,14 @@ window.KafaAccess = (() => {
     sold: y => !!A.trial(y),
     has: y => !A.sold(y) || (read().years || []).includes(+y),
     uid: () => read().uid || null,
-    set(uid, years) { try { localStorage.setItem(KEY, JSON.stringify({ uid, years: years || [], t: Date.now() })); } catch (e) {} document.dispatchEvent(new CustomEvent("kafa-access")); },
-    clear() { try { localStorage.removeItem(KEY); } catch (e) {} document.dispatchEvent(new CustomEvent("kafa-access")); },
+    // isyarat "kafa-access" hanya dihantar jika akaun atau tahun yang dibeli benar-benar berubah
+    // (elak halaman dilukis semula dua kali setiap kali dibuka)
+    set(uid, years) {
+      const o = read(), ys = (years || []).map(Number).sort(), same = o.uid === uid && JSON.stringify((o.years || []).map(Number).sort()) === JSON.stringify(ys);
+      try { localStorage.setItem(KEY, JSON.stringify({ uid, years: ys, t: Date.now() })); } catch (e) {}
+      if (!same) document.dispatchEvent(new CustomEvent("kafa-access"));
+    },
+    clear() { const had = !!read().uid; try { localStorage.removeItem(KEY); } catch (e) {} if (had) document.dispatchEvent(new CustomEvent("kafa-access")); },
     canSubject: (y, s) => A.has(y) || (A.trial(y) || {}).subject === s,
     canStation: (y, s, i) => A.has(y) || ((A.trial(y) || {}).subject === s && String(i) === String(A.trial(y).station)),
     canArcade: (y, s, g) => { if (A.has(y)) return true; const a = (A.trial(y) || {}).arcade || {}; return a.subj === s && a.game === g; },
