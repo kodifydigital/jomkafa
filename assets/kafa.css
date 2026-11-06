@@ -3,7 +3,7 @@
   --bg:#F3EBDD; --surface:#FFFDF8; --ink:#2B2118; --muted:#6B5B4B; --line:#E3D5BE;
   --gold:#E8A317; --brand:#0F6B5A; --brand-ink:#FFFFFF;
   --pattern:rgba(184,136,74,.13);
-  --y3:#0F6B5A; --y4:#1F6FA8; --y5:#B8432E; --y6:#5B4BB7;
+  --y1:#C77A12; --y2:#B83A6B; --y3:#0F6B5A; --y4:#1F6FA8; --y5:#B8432E; --y6:#5B4BB7;
   color-scheme:light;
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px);
@@ -13,14 +13,14 @@
   :root:not([data-theme="light"]){
     --bg:#17130F; --surface:#241D17; --ink:#F3EBDD; --muted:#C2B29E; --line:#3D3227;
     --gold:#F2C14E; --brand:#2FA58A; --brand-ink:#04160F; --pattern:rgba(201,160,106,.10);
-    --y3:#1F8F77; --y4:#2C83C2; --y5:#C9563F; --y6:#6E5FD0;
+    --y1:#D98E2B; --y2:#CC4F80; --y3:#1F8F77; --y4:#2C83C2; --y5:#C9563F; --y6:#6E5FD0;
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
   --bg:#17130F; --surface:#241D17; --ink:#F3EBDD; --muted:#C2B29E; --line:#3D3227;
   --gold:#F2C14E; --brand:#2FA58A; --brand-ink:#04160F; --pattern:rgba(201,160,106,.10);
-  --y3:#1F8F77; --y4:#2C83C2; --y5:#C9563F; --y6:#6E5FD0;
+  --y1:#D98E2B; --y2:#CC4F80; --y3:#1F8F77; --y4:#2C83C2; --y5:#C9563F; --y6:#6E5FD0;
   color-scheme:dark;
 }
 *,*::before,*::after{box-sizing:inherit}
@@ -53,7 +53,7 @@ html[dir="rtl"] .welcome h1{font-weight:700;line-height:1.3;letter-spacing:0}
 html[dir="rtl"] .bubble{border-radius:18px 18px 4px 18px;line-height:1.8}
 
 /* Pintu gerbang tahun: elemen utama */
-.gates{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:22px;align-items:end}
+.gates{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px;align-items:end;max-width:640px;margin-inline:auto}
 @media (max-width:640px){.gates{grid-template-columns:repeat(2,1fr);gap:14px}}
 .gate{
   position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;

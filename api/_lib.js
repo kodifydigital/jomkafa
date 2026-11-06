@@ -4,7 +4,7 @@ import { neon } from "@neondatabase/serverless";
 import { verifyToken, createClerkClient } from "@clerk/backend";
 
 // Tahun yang boleh dibeli (kod pengaktifan). Tambah tahun baharu di sini apabila kandungannya siap.
-export const SELL_YEARS = [3, 4, 5, 6];
+export const SELL_YEARS = [1, 2, 3, 4, 5, 6];
 
 let _clerk = null;
 export const clerk = () => _clerk || (_clerk = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY }));

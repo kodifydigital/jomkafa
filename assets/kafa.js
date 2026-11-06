@@ -8,7 +8,7 @@
                      dr:"Hafal surah pilihan", dj:"حفظ سورة ڤيليهن" },
    ===================================================================== */
 
-const YEARS = [3, 4, 5, 6];
+const YEARS = [1, 2, 3, 4, 5, 6];
 
 // Senarai subjek KAFA. r = Rumi, j = Jawi, dr/dj = penerangan ringkas.
 const SUBJECTS = [

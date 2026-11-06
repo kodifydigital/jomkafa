@@ -1,6 +1,6 @@
 # Jom Belajar KAFA
 
-Portal permainan pembelajaran untuk murid KAFA, Tahun 3 hingga Tahun 6.
+Portal permainan pembelajaran untuk murid KAFA, Tahun 1 hingga Tahun 6.
 
 ## Cara buka
 
@@ -10,7 +10,7 @@ Klik dua kali `index.html` untuk buka dalam pelayar (Chrome/Edge). Tidak perlu i
 
 ```
 kafa/
-├── index.html            ← Laman utama (pilih Tahun 3, 4, 5, 6)
+├── index.html            ← Laman utama (pilih Tahun 1 hingga 6)
 ├── assets/
 │   ├── kafa.css          ← Gaya bersama
 │   ├── kafa.js           ← Senarai subjek dan game yang sudah siap
@@ -47,6 +47,8 @@ kafa/
 ├── api/                  ← API (Vercel Functions): me, class, score, leaderboard, dashboard
 ├── sql/schema.sql        ← Skema pangkalan data Neon
 ├── package.json          ← Kebergantungan API (@neondatabase/serverless, @clerk/backend)
+├── tahun1/index.html
+├── tahun2/index.html
 ├── tahun4/index.html
 ├── tahun5/index.html
 └── tahun6/index.html
