@@ -63,8 +63,8 @@ html[dir="rtl"] .kbuy{font-family:"Noto Naskh Arabic","Amiri","Baloo 2",serif}
 @keyframes kbin{from{opacity:0}}
 .kbuy .kcard{position:relative;width:min(420px,100%);max-height:92vh;overflow:auto;padding:20px 20px 16px;border-radius:26px;text-align:center;color:#1E1640;background:linear-gradient(180deg,#FFFFFF,#F4F0FF);box-shadow:0 18px 50px rgba(0,0,0,.4);animation:kbpop .3s ease}
 @keyframes kbpop{from{transform:scale(.88)}}
-.kbuy .kx{position:absolute;top:10px;inset-inline-end:10px;width:36px;height:36px;border-radius:50%;border:2px solid #DCD3F5;background:#fff;font-size:16px;cursor:pointer}
-.kbuy .klock{font-size:46px;line-height:1;animation:kwob 1.6s ease-in-out infinite}
+.kbuy .kx{position:absolute;z-index:3;top:10px;inset-inline-end:10px;width:36px;height:36px;border-radius:50%;border:2px solid #DCD3F5;background:#fff;font-size:16px;cursor:pointer}
+.kbuy .klock{display:inline-block;font-size:46px;line-height:1;animation:kwob 1.6s ease-in-out infinite}
 @keyframes kwob{50%{transform:rotate(-10deg) scale(1.08)}}
 .kbuy h2{margin:6px 0 4px;font-size:25px;line-height:1.25}
 .kbuy .kmsg{margin:0;color:#5F5689;font-size:15.5px;line-height:1.45}

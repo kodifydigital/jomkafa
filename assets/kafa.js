@@ -338,10 +338,10 @@ function arcadeHTML(y){
           <h2>${tx("Zon Arked 3D","زون ارکيد 3D")}</h2>
         <p>${tx("Permainan aksi 3D mengikut dunia setiap subjek: padang pasir Sirah, masjid Feqah, lautan Tauhid, kampung Akhlak, kolam Arab, angkasa Tajwid dan kereta api Hafazan. Main sendiri atau lawan pasukan dalam kelas!","ڤرماٴينن اکسي 3D مڠيکوت دنيا ستياڤ سوبجيک: ڤادڠ ڤاسير سيره، مسجد فقه، لاءوتن توحيد، کامڤوڠ اخلاق، کولم عرب، اڠکاس تجويد دان کريتا اڤي حفظن. ماٴين سنديري اتاو لاون ڤاسوقن دالم کلس!")}</p>
           <ul class="feats"><li>🎮 ${tx("6 permainan 3D setiap dunia","6 ڤرماٴينن 3D ستياڤ دنيا")}</li><li>🏆 ${tx("Papan pendahulu","ڤاڤن ڤندهولو")}</li><li>🏫 ${tx("Mod kelas & duel","مود کلس & دوايل")}</li></ul>
-          <a class="play" href="${A.path}">▶ ${tx("Masuk Zon Arked","ماسوق زون ارکيد")}</a></div>
+          </div>
         <div class="orbit" aria-hidden="true"><b>🕹️</b>${orbit}</div>
       </div>
-      <h3>🌍 ${tx("Atau terus pilih dunia","اتاو تروس ڤيليه دنيا")}</h3>
+      <h3>🌍 ${tx("Pilih dunia untuk bermain","ڤيليه دنيا اونتوق برماٴين")}</h3>
       <div class="arcgrid">${cards}</div>
     </section>`;
 }

@@ -1978,7 +1978,7 @@ function renderMap(){
   if(!LB.on) tab = "games";
   const s = SUB(subj), w = WD(), hasOrder = orders().length>0, got = coins[subj]||0;
   app.innerHTML = `
-    <div class="topbar"><a class="iconbtn" href="../index.html" aria-label="${tx("Kembali ke Tahun 3","کمبالي ک تاهون 3")}">${BACK()}</a>
+    <div class="topbar"><a class="iconbtn" href="../index.html#arked" aria-label="${tx("Kembali ke Tahun 3","کمبالي ک تاهون 3")}">${BACK()}</a>
       <div class="grp">${acctBtn()}<button class="langbtn" data-act="lang">${isJ()?"Rumi":'<span class="ar">جاوي</span>'}</button>${muteBtn()}</div></div>
     <header class="marquee"><span class="bulbs" aria-hidden="true"></span>
       <span class="sub">🕹️ ${tx("Zon Arked 3D","زون ارکيد 3D")}</span>
@@ -1989,8 +1989,6 @@ function renderMap(){
     ${LB.on ? `<div class="tabs" role="tablist">
       <button role="tab" data-act="tab" data-t="games" aria-selected="${tab==="games"}">🕹️ ${tx("Permainan","ڤرماٴينن")}</button>
       <button role="tab" data-act="tab" data-t="board" aria-selected="${tab==="board"}">🏆 ${tx("Papan Pendahulu","ڤاڤن ڤندهولو")}</button></div>` : ""}
-    <div class="sec">📚 ${tx("Pilih dunia subjek","ڤيليه دنيا سوبجيک")}</div>
-    <div class="wtiles" role="group" id="wtiles">${SUBJ.map((x,i)=>{ const W = WORLD[x.id]; return `<button class="wt tilt${worldLocked(x.id)?" lk":""}" data-act="subj" data-s="${x.id}" aria-pressed="${x.id===subj}" style="--t1:${W.c1};--t2:${W.c2};--ta:${W.accent};--i:${i}"><span class="e" aria-hidden="true">${W.emoji}</span><b>${tx(x.r,x.j)}</b><small>${tx(W.name[0],W.name[1])}</small></button>`; }).join("")}</div>
     ${tab==="board" ? lbSection() : `<div class="sec">👥 ${tx("Cara bermain","چارا برماٴين")}</div>
     <div class="modes">
       <button class="mode" data-act="pmode" data-m="solo" aria-pressed="${pmode==="solo"}"><span class="e">🙋</span>${tx("Main Sendiri","ماٴين سنديري")}<small>${tx("Kejar skor tertinggi kamu","کجر سکور ترتيڠڬي کامو")}</small></button>
@@ -2505,7 +2503,7 @@ if(!REDUCED){
   });
   app.addEventListener("pointerout", e=>{ const c = e.target.closest(".tilt"); if(c && !c.contains(e.relatedTarget)){ c.style.removeProperty("--rx"); c.style.removeProperty("--ry"); } });
 }
-document.addEventListener("kafa-access", ()=>{ if(!G && $("wtiles")) renderMap(); });
+document.addEventListener("kafa-access", ()=>{ if(!G && $("lbsec") || !G && document.querySelector(".cabs")) renderMap(); });
 app.addEventListener("keydown", e=>{ if(e.key==="Enter" && e.target.matches(".sheet input")){ const b = e.target.parentElement.querySelector("button"); if(b) b.click(); } });
 
 applyLang();
