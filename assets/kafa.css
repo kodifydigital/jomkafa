@@ -289,19 +289,20 @@ html,body{overflow-x:hidden}
 
 /* ===== Jualan ikut tahun: kad beli, kad berkunci, reben percubaan ===== */
 .buy{position:relative;margin-top:18px;padding:16px;border-radius:24px;color:#fff;overflow:hidden;
-  background:radial-gradient(circle at 90% 0%,rgba(255,209,102,.35),transparent 45%),linear-gradient(135deg,#7C3AED,#C026D3 60%,#F97316);box-shadow:0 6px 0 #4C1D95,0 14px 30px rgba(124,58,237,.35);animation:wpop .5s both}
+  background:radial-gradient(circle at 92% 0%,rgba(245,197,66,.28),transparent 42%),radial-gradient(circle at 0% 100%,rgba(6,182,212,.18),transparent 45%),linear-gradient(135deg,#1E2A5A,#121836);
+  box-shadow:0 0 0 2px #F5C542 inset,0 6px 0 #0A0F26,0 14px 30px rgba(18,24,54,.45);animation:wpop .5s both}
 .buy .bt{display:flex;align-items:flex-start;gap:12px}
 .buy .bl{font-size:40px;line-height:1;animation:float 3s ease-in-out infinite}
 .buy b{font-size:22px}
 .buy p{margin:4px 0 0;font-size:15px;opacity:.95;line-height:1.4}
 html[dir="rtl"] .buy p{line-height:1.7}
-.buy .pr{flex:none;margin-inline-start:auto;text-align:center;font-size:26px;font-weight:800;background:rgba(255,255,255,.18);border:2px solid rgba(255,255,255,.35);border-radius:16px;padding:4px 12px;line-height:1.1}
-.buy .pr small{display:block;font-size:12px;font-weight:700;opacity:.9}
+.buy .pr{flex:none;margin-inline-start:auto;text-align:center;font-size:26px;font-weight:800;color:#3A2600;background:linear-gradient(180deg,#FFE08A,#F5B400);border-radius:16px;padding:4px 12px;line-height:1.1;box-shadow:0 4px 0 #8A5A00}
+.buy .pr small{display:block;font-size:12px;font-weight:700;opacity:.85}
 .buy .bb{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .buy .b{flex:1 1 160px;border:0;border-radius:14px;padding:10px 12px;font:inherit;font-size:16.5px;font-weight:800;text-align:center;text-decoration:none;cursor:pointer}
 .buy .b.wa{background:#25D366;color:#063B1B;box-shadow:0 4px 0 #128C4A}
 .buy .b.code{background:#FFD166;color:#3A2600;box-shadow:0 4px 0 #8A5A00}
-.buy .b.alt{background:rgba(255,255,255,.16);color:#fff;border:2px solid rgba(255,255,255,.4)}
+.buy .b.alt{background:rgba(255,255,255,.08);color:#fff;border:2px solid rgba(245,197,66,.6)}
 .owned{margin-top:16px;padding:10px 14px;border-radius:16px;font-weight:800;color:#0B4F44;background:#D7F5E9;border:2px solid #7FD9B8}
 .wcard .ribbon{position:absolute;top:12px;inset-inline-end:-38px;z-index:3;transform:rotate(35deg);padding:3px 42px;font-size:13px;font-weight:800;color:#3A2600;background:#FFD166;box-shadow:0 3px 8px rgba(0,0,0,.25)}
 html[dir="rtl"] .wcard .ribbon{transform:rotate(-35deg)}

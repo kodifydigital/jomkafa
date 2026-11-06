@@ -268,6 +268,30 @@ function codeSheet(y){
     if(k.dataset.k==="close") d.remove(); if(k.dataset.k==="go") go(k); });
   inp.addEventListener("keydown", e=>{ if(e.key==="Enter") go(d.querySelector('[data-k="go"]')); });
 }
+// "Sudah beli? Log masuk": jika belum log masuk, buka log masuk; jika sudah, semak semula pembelian
+// dan tunjuk akaun yang sedang digunakan (pembelian mungkin dibuat dengan e-mel lain)
+async function relogin(y){
+  if(!window.KafaAuth || !KafaAuth.on) return;
+  await KafaAuth.init();
+  if(!KafaAuth.uid) return KafaAuth.signIn(tx("Membuka log masuk","ممبوک لوڬ ماسوق"));
+  KafaAuth.loading(true, tx("Menyemak pembelian","مڽمق ڤمبليان")); await syncAccess(); KafaAuth.loading(false);
+  if(KafaAccess.has(y)) return toast("✅ "+tx(`Tahun ${y} sudah dibuka untuk akaun ini.`,`تاهون ${y} سوده دبوک اونتوق اکاٴون اين.`));
+  const u = KafaAuth.clerk && KafaAuth.clerk.user, email = u && u.primaryEmailAddress ? u.primaryEmailAddress.emailAddress : "";
+  document.querySelectorAll(".kbuy").forEach(x=>x.remove());
+  const d = document.createElement("div"); d.className = "kbuy"; d.setAttribute("role","dialog"); d.setAttribute("aria-modal","true");
+  d.innerHTML = `<div class="kcard"><button class="kx" data-k="close" aria-label="${tx("Tutup","توتوڤ")}">✕</button>
+    <div class="klock">👤</div><h2>${tx("Anda sudah log masuk","اندا سوده لوڬ ماسوق")}</h2>
+    <p class="kmsg">${tx("Akaun:","اکاٴون:")} <b dir="ltr">${email || "-"}</b></p>
+    <p class="kmsg">${tx(`Tiada pembelian Tahun ${y} untuk akaun ini. Jika anda membeli dengan e-mel lain, tukar akaun. Jika anda ada kod, masukkan kod.`,`تيادا ڤمبليان تاهون ${y} اونتوق اکاٴون اين. جک اندا ممبلي دڠن اي-ميل لاٴين، توکر اکاٴون. جک اندا اد کود، ماسوقکن کود.`)}</p>
+    <button class="kbtn code" data-k="code">🔑 ${tx("Masukkan kod","ماسوقکن کود")}</button>
+    <button class="kbtn alt" data-k="switch">🔄 ${tx("Tukar akaun","توکر اکاٴون")}</button></div>`;
+  d.addEventListener("click", async e=>{ const k = e.target.closest("[data-k]"); if(e.target===d) return d.remove(); if(!k) return;
+    if(k.dataset.k==="close") d.remove();
+    if(k.dataset.k==="code"){ d.remove(); codeSheet(y); }
+    if(k.dataset.k==="switch"){ d.remove(); await KafaAuth.signOut(tx("Log keluar","لوڬ کلوار")); KafaAuth.signIn(tx("Membuka log masuk","ممبوک لوڬ ماسوق")); }
+  });
+  document.body.appendChild(d);
+}
 // Semak tahun yang dibeli dengan pelayan (sekali setiap kali laman tahun dibuka)
 async function syncAccess(){
   if(!window.KafaAuth || !KafaAuth.on || !window.KafaAccess) return;
@@ -337,7 +361,7 @@ const KafaPortal = {
       if(b.dataset.act==="ytab"){ yTab = b.dataset.t; try{ history.replaceState(null, "", yTab==="arcade" ? "#arked" : location.pathname); }catch(err){} draw(); window.scrollTo(0,0); }
       if(b.dataset.act==="buy"){ KafaAccess.sheet(+b.dataset.y, {onCode:()=>redeemFlow(+b.dataset.y)}); }
       if(b.dataset.act==="redeem"){ redeemFlow(+b.dataset.y); }
-      if(b.dataset.act==="relogin"){ KafaAuth.signIn(tx("Membuka log masuk","ممبوک لوڬ ماسوق")); }
+      if(b.dataset.act==="relogin"){ relogin(+b.dataset.y); }
       if(b.dataset.act==="soon"){ toast(tx(`${b.dataset.name} akan datang, insya-Allah.`,`${b.dataset.name} اکن داتڠ، ان شاء الله.`)); }
     });
     // kad dunia condong mengikut tetikus / jari (dimatikan jika pengguna memilih kurang animasi)
