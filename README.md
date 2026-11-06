@@ -47,7 +47,10 @@ kafa/
 ├── api/                  ← API (Vercel Functions): me, class, score, leaderboard, dashboard
 ├── sql/schema.sql        ← Skema pangkalan data Neon
 ├── package.json          ← Kebergantungan API (@neondatabase/serverless, @clerk/backend)
-├── tahun1/index.html
+├── tahun1/
+│   ├── index.html        ← Senarai subjek Tahun 1
+│   └── akhlak/
+│       └── index.html    ← Game Pokok Adab Hoho (Akhlak Tahun 1, reka bentuk berbeza daripada Tahun 3)
 ├── tahun2/index.html
 ├── tahun4/index.html
 ├── tahun5/index.html

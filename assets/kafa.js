@@ -26,6 +26,14 @@ const SUBJECTS = [
 // Game yang sudah siap. Kunci = "tahun/idSubjek". path adalah relatif kepada folder tahun.
 // progress (pilihan): cara membaca bintang yang disimpan oleh game itu.
 const READY = {
+  // Tahun 1: reka bentuk sendiri (theme menggantikan tema dunia Tahun 3 pada kad subjek)
+  "1/akhlak": {
+    path:"akhlak/index.html",
+    r:"Pokok Adab Hoho", j:"ڤوکوق اداب هوهو",
+    dr:"10 stesen, 8 jenis permainan", dj:"10 ستيسن، 8 جنيس ڤرماٴينن",
+    progress:{ key:"a1-best", max:33 },
+    theme:{ c1:"#FF9F1C", c2:"#2E7D32", a:"#FFE066", m:"🦉", deco:"tree" }
+  },
   "3/sirah": {
     path:"sirah/index.html",
     r:"Pengembaraan Sirah", j:"ڤڠمباراٴن سيره",
@@ -87,7 +95,7 @@ const THEMES = {
   hafazan: { c1:"#D64532", c2:"#5E1A14", a:"#FFC9BF", m:"🚂", deco:"rails" },
   mix:     { c1:"#8B45F0", c2:"#120634", a:"#FF8CE6", m:"🎲", deco:"stars" }
 };
-const themeVars = id => { const t = THEMES[id] || THEMES.mix; return `--c1:${t.c1};--c2:${t.c2};--a:${t.a}`; };
+const themeVars = (id, t) => { t = t || THEMES[id] || THEMES.mix; return `--c1:${t.c1};--c2:${t.c2};--a:${t.a}`; };
 
 /* ===================== Bahasa (Jawi / Rumi) ===================== */
 function kLoad(k,f){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):f; }catch(e){ return f; } }
@@ -303,15 +311,15 @@ async function syncAccess(){
 let yTab = location.hash==="#arked" ? "arcade" : "learn";
 // Kad dunia subjek: latar bertema, maskot terapung, bar kemajuan bintang
 function worldCard(s, entry, i, y){
-  const t = THEMES[s.id] || THEMES.mix, st = starsOf(entry);
+  const t = entry.theme || THEMES[s.id] || THEMES.mix, st = starsOf(entry);
   const pct = st ? Math.min(100, Math.round(st.got / st.max * 100)) : 0;
   const AC = window.KafaAccess, owned = !AC || AC.has(y), open = owned || AC.canSubject(y, s.id);
   // subjek berkunci: tetingkap beli; subjek percubaan: reben "Cuba percuma"
-  if(!open) return `<button class="wcard locked" data-act="buy" data-y="${y}" data-deco="${t.deco}" style="${themeVars(s.id)};--i:${i}">
+  if(!open) return `<button class="wcard locked" data-act="buy" data-y="${y}" data-deco="${t.deco}" style="${themeVars(s.id, entry.theme)};--i:${i}">
       <span class="scene" aria-hidden="true"></span><span class="mas" aria-hidden="true">${t.m}</span>
       <span class="chip">${s.icon} ${tx(s.r,s.j)}</span><h2>${tx(entry.r,entry.j)}</h2><p>${tx(entry.dr,entry.dj)}</p>
       <span class="lockb">🔒 ${tx("Buka penuh untuk bermain","بوک ڤنوه اونتوق برماٴين")}</span></button>`;
-  return `<a class="wcard tilt" href="${entry.path}" data-deco="${t.deco}" style="${themeVars(s.id)};--i:${i}">
+  return `<a class="wcard tilt" href="${entry.path}" data-deco="${t.deco}" style="${themeVars(s.id, entry.theme)};--i:${i}">
       ${owned ? "" : `<span class="ribbon">🎁 ${tx("Cuba percuma","چوبا ڤرچوما")}</span>`}
       <span class="scene" aria-hidden="true"></span><span class="shine" aria-hidden="true"></span>
       <span class="mas" aria-hidden="true">${t.m}</span>
