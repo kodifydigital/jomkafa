@@ -34,6 +34,27 @@ const READY = {
     progress:{ key:"a1-best", max:33 },
     theme:{ c1:"#FF9F1C", c2:"#2E7D32", a:"#FFE066", m:"🦉", deco:"tree" }
   },
+  "1/tauhid": {
+    path:"tauhid/index.html",
+    r:"Taman Bunga Iman", j:"تامن بوڠا ايمان",
+    dr:"8 stesen, 7 jenis permainan", dj:"8 ستيسن، 7 جنيس ڤرماٴينن",
+    progress:{ key:"tw1-best", max:27 },
+    theme:{ c1:"#FFC94A", c2:"#F08A00", a:"#FF6FA8", m:"🐝", deco:"garden" }
+  },
+  "1/feqah": {
+    path:"feqah/index.html",
+    r:"Pulau Titisan Suci", j:"ڤولاو تيتيسن سوچي",
+    dr:"9 pulau, 8 jenis permainan", dj:"9 ڤولاو، 8 جنيس ڤرماٴينن",
+    progress:{ key:"f1-best", max:30 },
+    theme:{ c1:"#12B5D6", c2:"#0B4A6E", a:"#FFD166", m:"💧", deco:"rainbow" }
+  },
+  "1/jawi": {
+    path:"jawi/index.html",
+    r:"Zoo Huruf Jaja", j:"زو حروف جاجا",
+    dr:"10 kandang, 9 jenis permainan", dj:"10 کندڠ، 9 جنيس ڤرماٴينن",
+    progress:{ key:"j1-best", max:33 },
+    theme:{ c1:"#9CCB52", c2:"#4E8F2A", a:"#FFC83D", m:"🐘", deco:"savanna" }
+  },
   "3/sirah": {
     path:"sirah/index.html",
     r:"Pengembaraan Sirah", j:"ڤڠمباراٴن سيره",

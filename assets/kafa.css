@@ -209,6 +209,25 @@ html[dir="rtl"] .wcard .bar i{margin-inline-start:0}
   radial-gradient(ellipse at 50% 120%,#5CC46A 0 38%,transparent 38.5%),
   radial-gradient(circle at 12% 16%,#FFE066 0 7%,transparent 7.5%),
   linear-gradient(180deg,#7FD0FF,#FF9F1C 140%)}
+[data-deco="savanna"] .scene{background:
+  radial-gradient(circle at 80% 24%,#FFE38A 0 16px,rgba(255,200,61,.35) 17px 26px,transparent 27px),
+  radial-gradient(ellipse 36px 11px at 24% 50%,rgba(70,110,35,.6) 98%,transparent),
+  linear-gradient(rgba(110,70,30,.5),rgba(110,70,30,.5)) 23.5% 58%/4px 30% no-repeat,
+  radial-gradient(110% 50% at 20% 115%,rgba(156,203,82,.55) 50%,transparent 51%),
+  radial-gradient(90% 55% at 88% 118%,rgba(233,204,138,.55) 50%,transparent 51%)}
+[data-deco="rainbow"] .scene{background:
+  radial-gradient(circle at 78% 112%,transparent 0 46%,rgba(255,111,145,.55) 46% 50%,rgba(255,209,102,.55) 50% 54%,rgba(52,199,123,.5) 54% 58%,rgba(127,227,240,.55) 58% 62%,transparent 62%),
+  radial-gradient(ellipse 30px 10px at 20% 88%,rgba(248,226,174,.75) 98%,transparent),
+  radial-gradient(ellipse 18px 7px at 44% 94%,rgba(248,226,174,.6) 98%,transparent),
+  radial-gradient(circle at 50% 30%,rgba(255,255,255,.45) 0 2.5px,transparent 3.5px) 0 0/26px 34px,
+  linear-gradient(180deg,transparent 80%,rgba(127,227,240,.35) 80.5%)}
+[data-deco="garden"] .scene{background:
+  radial-gradient(circle at 82% 24%,#FFF3B0 0 16px,rgba(255,243,176,.35) 17px 26px,transparent 27px),
+  radial-gradient(circle at 18% 84%,rgba(255,111,168,.6) 0 9px,transparent 10px),
+  radial-gradient(circle at 36% 90%,rgba(255,255,255,.65) 0 7px,transparent 8px),
+  radial-gradient(circle at 62% 86%,rgba(255,111,168,.5) 0 8px,transparent 9px),
+  radial-gradient(90% 50% at 40% 118%,rgba(124,203,97,.6) 50%,transparent 51%),
+  conic-gradient(from 30deg,rgba(255,255,255,.14) 0 60deg,transparent 60deg 120deg) 0 0/34px 30px}
 [data-deco="rails"] .scene{background:
   linear-gradient(transparent calc(100% - 22px),rgba(255,255,255,.35) calc(100% - 22px) calc(100% - 19px),transparent calc(100% - 19px) calc(100% - 9px),rgba(255,255,255,.35) calc(100% - 9px) calc(100% - 6px),transparent calc(100% - 6px)),
   repeating-linear-gradient(90deg,rgba(90,50,30,.45) 0 6px,transparent 6px 22px) 0 100%/100% 26px no-repeat,
