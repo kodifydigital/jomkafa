@@ -228,6 +228,8 @@ html[dir="rtl"] .wcard .bar i{margin-inline-start:0}
   radial-gradient(circle at 62% 86%,rgba(255,111,168,.5) 0 8px,transparent 9px),
   radial-gradient(90% 50% at 40% 118%,rgba(124,203,97,.6) 50%,transparent 51%),
   conic-gradient(from 30deg,rgba(255,255,255,.14) 0 60deg,transparent 60deg 120deg) 0 0/34px 30px}
+[data-deco="karnival"] .scene{background:radial-gradient(circle at 18% 22%,rgba(255,210,63,.55) 0 4px,transparent 5px),radial-gradient(circle at 62% 14%,rgba(255,255,255,.7) 0 3px,transparent 4px),radial-gradient(circle at 84% 30%,rgba(255,79,154,.5) 0 5px,transparent 6px),repeating-linear-gradient(90deg,#FF4F9A 0 18px,#fff 18px 36px) bottom/100% 14px no-repeat,linear-gradient(180deg,#2B1055,#5B2A9E 60%,#B36AD8)}
+[data-deco="dawn"] .scene{background:radial-gradient(circle at 50% 115%,#FFC94D 0 22%,#FFE6A8 23% 30%,transparent 31%),radial-gradient(ellipse at 25% 40%,rgba(255,255,255,.9) 0 9%,transparent 10%),radial-gradient(ellipse at 72% 28%,rgba(255,255,255,.85) 0 7%,transparent 8%),linear-gradient(180deg,#3B3470 0%,#8E7CC3 40%,#FF9A8B 75%,#FFD27F 100%)}
 [data-deco="rails"] .scene{background:
   linear-gradient(transparent calc(100% - 22px),rgba(255,255,255,.35) calc(100% - 22px) calc(100% - 19px),transparent calc(100% - 19px) calc(100% - 9px),rgba(255,255,255,.35) calc(100% - 9px) calc(100% - 6px),transparent calc(100% - 6px)),
   repeating-linear-gradient(90deg,rgba(90,50,30,.45) 0 6px,transparent 6px 22px) 0 100%/100% 26px no-repeat,

@@ -55,6 +55,20 @@ const READY = {
     progress:{ key:"j1-best", max:33 },
     theme:{ c1:"#9CCB52", c2:"#4E8F2A", a:"#FFC83D", m:"🐘", deco:"savanna" }
   },
+  "1/hafazan": {
+    path:"hafazan/index.html",
+    r:"Belon Udara Hafiz", j:"بلون اودارا حافظ",
+    dr:"10 surah, 7 jenis permainan", dj:"10 سورة، 7 جنيس ڤرماٴينن",
+    progress:{ key:"h1-best", max:33 },
+    theme:{ c1:"#FF9A8B", c2:"#8E7CC3", a:"#FFC94D", m:"🎈", deco:"dawn" }
+  },
+  "1/arab": {
+    path:"arab/index.html",
+    r:"Karnival Kalimah", j:"کارنيۏل کليمة",
+    dr:"9 gerai, 8 jenis permainan", dj:"9 ڬراي، 8 جنيس ڤرماٴينن",
+    progress:{ key:"r1-best", max:30 },
+    theme:{ c1:"#5B2A9E", c2:"#FF4F9A", a:"#FFD23F", m:"🐱", deco:"karnival" }
+  },
   "3/sirah": {
     path:"sirah/index.html",
     r:"Pengembaraan Sirah", j:"ڤڠمباراٴن سيره",

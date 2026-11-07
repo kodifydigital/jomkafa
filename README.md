@@ -53,7 +53,9 @@ kafa/
 │   │   └── index.html    ← Game Pokok Adab Hoho (Akhlak Tahun 1, reka bentuk berbeza daripada Tahun 3)
 │   ├── jawi/index.html   ← Game Zoo Huruf Jaja (Jawi Tahun 1)
 │   ├── feqah/index.html  ← Game Pulau Titisan Suci (Feqah Tahun 1)
-│   └── tauhid/index.html ← Game Taman Bunga Iman (Tauhid Tahun 1)
+│   ├── tauhid/index.html ← Game Taman Bunga Iman (Tauhid Tahun 1)
+│   ├── arab/index.html   ← Game Karnival Kalimah (Bahasa Arab Tahun 1)
+│   └── hafazan/index.html← Game Belon Udara Hafiz (Hafazan Tahun 1)
 ├── tahun2/index.html
 ├── tahun4/index.html
 ├── tahun5/index.html
