@@ -353,7 +353,7 @@ const STATIONS = [
   t:["Huruf Jawi","حروف جاوي"], u:["Pelajaran 1 • Kandang Singa","ڤلاجرن 1 • کندڠ سيڠا"],
   read:[
     { pic:"🔤", h:["Huruf Jawi ada 37","حروف جاوي اد 37"], text:["Huruf Jawi mengandungi 37 huruf. Tekan huruf untuk dengar namanya.","حروف جاوي مڠاندوڠي 37 حروف. تکن حروف اونتوق دڠر نامڽ."],
-      chips:[["ا","alif"],["ب","ba"],["ت","ta"],["ة","ta marbutah"],["ث","sa"],["ج","jim"],["چ","ca"],["ح","ha"],["خ","kho"],["د","dal"],["ذ","zal"],["ر","ro"],["ز","zai"],["س","sin"],["ش","syin"],["ص","sod"],["ض","dhod"],["ط","to"],["ظ","zo"],["ع","ain"],["غ","ghain"],["ڠ","nga"],["ف","fa"],["ڤ","pa"],["ق","qaf"],["ک","kaf"],["ڬ","ga"],["ل","lam"],["م","mim"],["ن","nun"],["و","wau"],["ۏ","va"],["ه","ha"],["ء","hamzah"],["ي","ya"],["ى","ye"],["ڽ","nya"]], p:"2–4" },
+      chips:[["ا","alif"],["ب","ba"],["ت","ta"],["ة","ta marbutoh"],["ث","tha"],["ج","jim"],["چ","ca"],["ح","ha"],["خ","kho"],["د","dal"],["ذ","dhal"],["ر","ro"],["ز","zai"],["س","sin"],["ش","syin"],["ص","sod"],["ض","dhod"],["ط","to"],["ظ","zo"],["ع","ain"],["غ","ghain"],["ڠ","nga"],["ف","fa"],["ڤ","pa"],["ق","qof"],["ک","kaf"],["ڬ","ga"],["ل","lam"],["م","mim"],["ن","nun"],["و","wau"],["ۏ","va"],["ه","ha"],["ء","hamzah"],["ي","ya"],["ى","ye"],["ڽ","nya"]], p:"2–4" },
     { pic:"✍️", h:["Kanan ke kiri","کانن ک کيري"], list:[
       ["Huruf Jawi ditulis dari kanan ke kiri.","حروف جاوي دتوليس دري کانن ک کيري."],
       ["Asal huruf Jawi diambil dari tulisan Arab.","اصل حروف جاوي دامبيل دري توليسن عرب."]],
@@ -386,7 +386,7 @@ const STATIONS = [
       ["Huruf yang tidak boleh disambung selepasnya","حروف يڠ تيدق بوليه دسمبوڠ سلڤسڽ"],
       ["Huruf yang boleh disambung sebelum dan selepasnya","حروف يڠ بوليه دسمبوڠ سبلوم دان سلڤسڽ"],
       ["Huruf yang tidak boleh disambung sebelum dan selepasnya","حروف يڠ تيدق بوليه دسمبوڠ سبلوم دان سلڤسڽ"]], p:7 },
-    { pic:"✋", h:["Tidak boleh disambung selepasnya","تيدق بوليه دسمبوڠ سلڤسڽ"], chips:[["ا","alif"],["د","dal"],["ذ","zal"],["ر","ro"],["ز","zai"],["و","wau"],["ۏ","va"],["ة","ta marbutah"],["ى","ye"]],
+    { pic:"✋", h:["Tidak boleh disambung selepasnya","تيدق بوليه دسمبوڠ سلڤسڽ"], chips:[["ا","alif"],["د","dal"],["ذ","dhal"],["ر","ro"],["ز","zai"],["و","wau"],["ۏ","va"],["ة","ta marbutoh"],["ى","ye"]],
       words:[["🪵","kayu","کايو"],["🖌️","berus","بروس"],["🗑️","buang","بواڠ"],["💰","zakat","زکاة"]], p:8 },
     { pic:"🧩", h:["Awal, tengah, akhir","اول، تڠه، اخير"], text:["Huruf berubah bentuk apabila bersambung.","حروف بروبه بنتوق اڤابيلا برسمبوڠ."],
       chips:[["بـ","awal"],["ـبـ","tengah"],["ـب","akhir"],["عـ","awal"],["ـعـ","tengah"],["ـع","akhir"]],
@@ -724,8 +724,8 @@ function speak(text, force){
 function hush(){ if(ttsOK){ try{ speechSynthesis.cancel(); }catch(e){} } stopHuruf(); }
 
 /* ---------- Sebutan nama huruf: rakaman suara Malaysia (assets/huruf/uXXXX.mp3) ---------- */
-const HURUF = { "ا":"alif","ب":"ba","ت":"ta","ة":"ta marbutah","ث":"sa","ج":"jim","چ":"ca","ح":"ha","خ":"kho","د":"dal","ذ":"zal","ر":"ro","ز":"zai",
-  "س":"sin","ش":"syin","ص":"sod","ض":"dhod","ط":"to","ظ":"zo","ع":"ain","غ":"ghain","ڠ":"nga","ف":"fa","ڤ":"pa","ق":"qaf","ک":"kaf","ك":"kaf","ڬ":"ga",
+const HURUF = { "ا":"alif","ب":"ba","ت":"ta","ة":"ta marbutoh","ث":"tha","ج":"jim","چ":"ca","ح":"ha","خ":"kho","د":"dal","ذ":"dhal","ر":"ro","ز":"zai",
+  "س":"sin","ش":"syin","ص":"sod","ض":"dhod","ط":"to","ظ":"zo","ع":"ain","غ":"ghain","ڠ":"nga","ف":"fa","ڤ":"pa","ق":"qof","ک":"kaf","ك":"kaf","ڬ":"ga",
   "ل":"lam","م":"mim","ن":"nun","و":"wau","ۏ":"va","ه":"ha","ء":"hamzah","ي":"ya","ى":"ye","ڽ":"nya" };
 const hurufFile = ch => "/assets/huruf/u" + (ch==="ک" ? "0643" : ch.codePointAt(0).toString(16).padStart(4,"0")) + ".mp3";
 const isHurufName = (ch, name) => !!ch && HURUF[ch]!==undefined && String(name).trim().toLowerCase()===HURUF[ch];
