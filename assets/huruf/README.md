@@ -8,3 +8,4 @@ Untuk guna rakaman ustaz/ustazah sendiri: rakam setiap huruf, simpan sebagai MP3
 
 - Lam alif (لا): u0644_u0627.mp3 = klip lam + klip alif disambung (nama fail = kod setiap huruf dipisah "_"). Huruf ye (ى) telah dibuang daripada senarai.
 - Huruf ۏ (va, u06cf.mp3): rakaman suara Zul sendiri (TTS Melayu sebut v macam f).
+- Va (ۏ, u06cf): ejaan "vah" pada kadar -30% (ejaan "vaa" disebut seperti "faa" oleh suara ini).
