@@ -7,3 +7,4 @@ Satu fail bagi setiap huruf, dinamakan ikut kod Unicode huruf itu (contoh: ب U+
 Untuk guna rakaman ustaz/ustazah sendiri: rakam setiap huruf, simpan sebagai MP3 dengan nama fail yang sama, dan gantikan fail di sini. Kod permainan tidak perlu diubah.
 
 - Lam alif (لا): u0644_u0627.mp3 = klip lam + klip alif disambung (nama fail = kod setiap huruf dipisah "_"). Huruf ye (ى) telah dibuang daripada senarai.
+- Huruf ۏ (va, u06cf.mp3): rakaman suara Zul sendiri (TTS Melayu sebut v macam f).
