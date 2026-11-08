@@ -1,0 +1,1264 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#E8483B">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" type="image/png" href="/icons/favicon.png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="JOM KAFA">
+<script src="/assets/pwa.js"></script>
+<script src="/assets/config.js"></script>
+<script src="/assets/access.js"></script>
+<title>Dapur Adab Chef Mimi • Akhlak Tahun 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chewy&family=Nunito:wght@600;700;800;900&family=Noto+Naskh+Arabic:wght@500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ===== Akhlak Tahun 2: "Dapur Adab Chef Mimi" — dapur hangat, jubin pudina, kad resipi ===== */
+:root{
+  --tile:#CFF1E3; --tile2:#B4E7D2; --grout:#E9FBF3;
+  --bg:#FFF6E8; --card:#FFFDF8; --ink:#4A2C2A; --muted:#86625C; --line:#4A2C2A;
+  --tom:#E8483B; --tom2:#C2352A; --butter:#FFD66B; --butter2:#F5B83D; --mint:#3FBF8F; --crust:#D98B4A;
+  --ok:#2FA36B; --okbg:#DDF7E9; --bad:#E8483B; --badbg:#FFE1DC; --note:#FFF1C7; --paper:#FFFBF0;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --tile:#1E3B34; --tile2:#183229; --grout:#26473F;
+    --bg:#1D1716; --card:#2B2220; --ink:#FFF1E6; --muted:#D9BFB3; --line:#120C0B;
+    --note:#3D3218; --okbg:#173B2A; --badbg:#4A221D; --paper:#332826; color-scheme:dark;
+  }
+}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;min-height:100vh;overflow-x:hidden;color:var(--ink);font-family:"Nunito","Trebuchet MS",system-ui,sans-serif;font-weight:700;font-size:18px;line-height:1.45;
+  background-color:var(--tile);
+  background-image:linear-gradient(var(--grout) 3px,transparent 3px),linear-gradient(90deg,var(--grout) 3px,transparent 3px),linear-gradient(135deg,var(--tile) 0 50%,var(--tile2) 50% 100%);
+  background-size:56px 56px,56px 56px,56px 56px;background-attachment:fixed}
+html[dir="rtl"] body{font-family:"Noto Naskh Arabic","Amiri","Nunito",serif;font-size:20px;line-height:1.85;font-weight:600}
+h1,h2,h3,.disp{font-family:"Chewy","Nunito",cursive;font-weight:400;letter-spacing:.3px}
+html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3,html[dir="rtl"] .disp{font-family:"Noto Naskh Arabic","Amiri",serif;font-weight:700;letter-spacing:0}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:4px solid var(--butter2);outline-offset:3px}
+.wrap{max-width:640px;margin:0 auto;padding:10px 12px 70px;position:relative}
+.ar{font-family:"Amiri","Noto Naskh Arabic",serif;direction:rtl;font-weight:700}
+
+/* jalur awning di atas */
+.awning{position:fixed;inset:0 0 auto 0;height:22px;z-index:0;pointer-events:none;
+  background:repeating-linear-gradient(90deg,var(--tom) 0 34px,#fff 34px 68px);
+  -webkit-mask:radial-gradient(17px 12px at 17px 10px,#000 98%,transparent) 0 0/34px 22px;mask:radial-gradient(17px 12px at 17px 10px,#000 98%,transparent) 0 0/34px 22px}
+
+/* bar atas */
+.top{display:flex;align-items:center;gap:8px;margin:14px 0 8px;position:relative;z-index:2}
+.top .sp{flex:1}
+.ib{min-width:48px;height:48px;border-radius:14px;border:3px solid var(--line);background:var(--card);display:inline-grid;place-items:center;
+  font-size:20px;font-weight:900;text-decoration:none;color:var(--ink);box-shadow:0 4px 0 var(--line);padding:0 10px}
+.ib:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.pill{background:var(--butter);color:#4A2C2A;border:3px solid var(--line);border-radius:999px;padding:6px 14px;font-weight:900;box-shadow:0 4px 0 var(--line)}
+
+/* hero */
+.hero{display:flex;align-items:center;gap:10px;background:var(--card);border:3px solid var(--line);border-radius:24px;padding:10px 14px;box-shadow:0 6px 0 var(--line);position:relative;z-index:1}
+.hero h1{margin:0;font-size:30px;line-height:1.1;color:var(--tom)}
+.hero p{margin:4px 0 0;font-size:16px;color:var(--muted)}
+.mimi{width:96px;height:96px;flex:0 0 auto}
+.mimi.bob{animation:bob 2.4s ease-in-out infinite}
+.mimi.yay{animation:yay .9s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-5px) rotate(-3deg)}}
+@keyframes yay{30%{transform:translateY(-10px) rotate(6deg)}60%{transform:translateY(0) rotate(-6deg)}}
+
+/* rak hidangan (pelekat) */
+.sttl{margin:16px 4px 6px;font-weight:900}
+.shelf{display:flex;justify-content:space-around;gap:4px;background:var(--card);border:3px solid var(--line);border-radius:16px;padding:8px 6px 4px;position:relative;box-shadow:0 6px 0 var(--crust)}
+.shelf::after{content:"";position:absolute;left:8px;right:8px;bottom:-12px;height:8px;background:var(--crust);border-radius:0 0 8px 8px;border:3px solid var(--line);border-top:0}
+.shelf span{font-size:32px;filter:grayscale(1) opacity(.3);transition:.3s}
+.shelf span.got{filter:none;animation:pop .5s}
+@keyframes pop{0%{transform:scale(.3)}70%{transform:scale(1.25)}}
+
+/* peta: kad resipi di dinding jubin */
+.menu{position:relative;margin:26px 0 10px;padding:6px 0 4px}
+.menu::before{content:"";position:absolute;top:0;bottom:0;left:50%;width:0;border-left:6px dotted var(--tom);transform:translateX(-50%);opacity:.6}
+.rc{position:relative;display:flex;align-items:center;gap:12px;width:86%;margin:0 0 22px;text-align:start;
+  background:var(--paper);border:3px solid var(--line);border-radius:18px;padding:12px 12px 12px 14px;box-shadow:0 6px 0 var(--line);
+  background-image:repeating-linear-gradient(180deg,transparent 0 27px,rgba(232,72,59,.13) 27px 29px)}
+.rc.l{margin-inline-start:0;transform:rotate(-1.6deg)}
+.rc.r{margin-inline-start:14%;transform:rotate(1.6deg)}
+.rc::before{content:"📌";position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:24px}
+.rc:active{transform:translateY(3px)}
+.rc .pot{flex:0 0 66px;height:66px;border-radius:50%;display:grid;place-items:center;font-size:34px;background:var(--c);border:3px solid var(--line);position:relative;box-shadow:inset 0 -6px 0 rgba(0,0,0,.15)}
+.rc .num{position:absolute;top:-8px;inset-inline-start:-8px;width:28px;height:28px;border-radius:50%;background:var(--butter);color:#4A2C2A;border:3px solid var(--line);font-size:14px;font-weight:900;display:grid;place-items:center;font-family:Nunito,sans-serif}
+.rc .tx{flex:1;min-width:0}
+.rc .nm{display:block;font-weight:900;font-size:18px;line-height:1.25}
+.rc .lb{display:block;font-size:13px;color:var(--muted)}
+.rc .st{font-size:15px;letter-spacing:-2px}
+.rc .st .off,.stars .off{filter:grayscale(1) opacity(.3)}
+.rc.lock{filter:grayscale(.8) opacity(.65)}
+.rc.lock .pot::after{content:"🔒";position:absolute;bottom:-6px;inset-inline-end:-8px;font-size:22px}
+.rc.now{border-color:var(--tom);box-shadow:0 6px 0 var(--tom2);animation:wig 2.6s ease-in-out infinite}
+@keyframes wig{50%{translate:0 -3px}}
+.rc .peek{position:absolute;inset-inline-end:-6px;top:-36px;width:58px;height:58px;pointer-events:none}
+.rc.final{width:100%;margin-inline-start:0;transform:none;background:linear-gradient(135deg,#FFE7A3,#FFC2B4);color:#4A2C2A;min-height:96px}
+.rc.final .pot{flex-basis:76px;height:76px;font-size:42px}
+.counter{margin-top:6px;text-align:center;font-weight:900;background:var(--crust);color:#fff;border:3px solid var(--line);border-radius:14px;padding:8px}
+</style>
+<style>
+/* kepala stesen */
+.shead{display:flex;align-items:center;gap:12px;margin:4px 2px 12px}
+.shead .pot{flex:0 0 58px;height:58px;border-radius:50%;display:grid;place-items:center;font-size:30px;background:var(--c);border:3px solid var(--line)}
+.shead h2{margin:0;font-size:24px;line-height:1.15}
+.shead small{color:var(--muted);font-size:14px}
+/* kad */
+.card{background:var(--card);border:3px solid var(--line);border-radius:22px;padding:16px;box-shadow:0 6px 0 var(--line);position:relative;margin-bottom:16px}
+.card.recipe{background:var(--paper);background-image:linear-gradient(90deg,transparent 30px,rgba(232,72,59,.35) 30px 32px,transparent 32px);padding-inline-start:44px}
+html[dir="rtl"] .card.recipe{background-image:linear-gradient(270deg,transparent 30px,rgba(232,72,59,.35) 30px 32px,transparent 32px)}
+.rpic{font-size:56px;text-align:center;line-height:1.1}
+.rh{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:6px 0 8px;font-size:23px;color:var(--tom)}
+.rtext{margin:6px 0}
+.rlist{list-style:none;margin:6px 0;padding:0}
+.rlist li{position:relative;padding:6px 0;padding-inline-start:34px;border-bottom:2px dashed rgba(134,98,92,.3);animation:inl .4s both;animation-delay:calc(var(--i)*80ms)}
+.rlist li::before{content:"🥄";position:absolute;inset-inline-start:0;top:6px}
+.rlist.num{counter-reset:n}
+.rlist.num li::before{counter-increment:n;content:counter(n);width:26px;height:26px;border-radius:50%;background:var(--butter);border:2px solid var(--line);display:grid;place-items:center;font:900 14px Nunito,sans-serif;color:#4A2C2A}
+.rlist.bad li::before{content:"🔥"}
+@keyframes inl{from{opacity:0;transform:translateY(6px)}}
+.abox{background:var(--note);border:3px dashed var(--butter2);border-radius:16px;padding:12px;margin:10px 0;display:flex;flex-direction:column;gap:6px;text-align:center}
+.abox .ar{font-size:26px;line-height:2}
+.abox .mk{font-size:16px}
+.abox small{color:var(--muted);font-size:13px}
+.tip{display:flex;gap:8px;align-items:flex-start;background:var(--okbg);border-radius:14px;padding:10px;margin-top:10px;font-size:16px}
+.tip.am{background:var(--badbg)}
+.ref{margin-top:10px;font-size:14px;color:var(--muted);text-align:end}
+.navr{display:flex;gap:10px;margin-top:14px}
+.btn{flex:1;min-height:56px;border-radius:16px;border:3px solid var(--line);background:var(--butter);color:#4A2C2A;font-weight:900;font-size:19px;box-shadow:0 5px 0 var(--line);padding:6px 12px;width:100%}
+.btn.go{background:var(--tom);color:#fff}
+.btn.alt{background:var(--card);color:var(--ink)}
+.btn:disabled{opacity:.4}
+.btn:active:not(:disabled){transform:translateY(4px);box-shadow:0 1px 0 var(--line)}
+.dots{display:flex;justify-content:center;gap:6px;margin-top:12px}
+.dots i{width:12px;height:12px;border-radius:50%;background:rgba(134,98,92,.3)}
+.dots i.on{background:var(--tom);width:26px;border-radius:6px}
+.say{border:2px solid var(--line);background:var(--butter);border-radius:12px;min-width:44px;height:44px;font-size:20px;flex:0 0 auto}
+/* kemajuan: pinggan */
+.prog{display:flex;justify-content:center;gap:6px;margin:0 0 12px;flex-wrap:wrap}
+.prog span{width:40px;height:40px;border-radius:50%;background:var(--card);border:3px solid var(--line);display:grid;place-items:center;font-size:20px}
+.prog span.done{background:var(--butter)}
+.prog span.cur{border-color:var(--tom);box-shadow:0 0 0 4px rgba(232,72,59,.3)}
+.q{display:flex;gap:10px;align-items:center;justify-content:space-between;background:var(--note);border-radius:14px;padding:10px 12px;margin-bottom:12px}
+.q p{margin:0;font-weight:900;font-size:19px}
+.qar{text-align:center;font-size:26px;line-height:2.1;margin:6px 0 12px;background:var(--paper);border:3px solid var(--line);border-radius:14px;padding:6px 10px}
+.qar .gap{display:inline-block;min-width:80px;border-bottom:4px dashed var(--tom);color:var(--tom)}
+.cnt{text-align:center;color:var(--muted);font-size:15px;margin-top:10px}
+.hint{margin-top:12px;background:var(--badbg);border-radius:14px;padding:10px;font-size:16px}
+.shake{animation:shake .4s}
+@keyframes shake{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+/* butang pilihan umum */
+.opt{display:block;width:100%;text-align:start;min-height:54px;margin:8px 0;border:3px solid var(--line);border-radius:14px;background:var(--card);padding:8px 12px;box-shadow:0 4px 0 var(--line);font-weight:800}
+.opt.right{background:var(--okbg);border-color:var(--ok)}
+.opt.wrong{background:var(--badbg)}
+/* kacau: periuk */
+.potz{position:relative;height:190px;display:grid;place-items:end center}
+.potz svg{width:200px;height:170px}
+.potz .lvl{transition:height .5s,y .5s}
+.spoon{transform-origin:100px 60px;animation:stir 2s ease-in-out infinite}
+@keyframes stir{50%{transform:rotate(14deg)}}
+.ings{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.ing{min-height:64px;border:3px solid var(--line);border-radius:16px;background:var(--card);box-shadow:0 4px 0 var(--line);padding:6px 8px;display:flex;align-items:center;gap:6px;font-size:15px;font-weight:800;text-align:start}
+.ing .em{font-size:26px}
+.ing.in{animation:drop .5s forwards;pointer-events:none}
+@keyframes drop{to{transform:translateY(-60px) scale(.2);opacity:0}}
+/* resepi: garis masa memasak */
+.tl{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;border-inline-start:5px dotted var(--tom);padding-inline-start:10px}
+.slot{min-height:46px;border:3px dashed rgba(134,98,92,.5);border-radius:12px;display:flex;align-items:center;gap:8px;padding:4px 8px;font-size:15px}
+.slot b{flex:0 0 30px;height:30px;border-radius:50%;background:var(--butter);border:2px solid var(--line);display:grid;place-items:center;font:900 14px Nunito,sans-serif;color:#4A2C2A}
+.slot.full{border-style:solid;border-color:var(--ok);background:var(--okbg);animation:pop .35s}
+.rcds{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.rcd{min-height:60px;border:3px solid var(--line);border-radius:14px;background:var(--paper);box-shadow:0 4px 0 var(--line);padding:6px;font-size:15px;font-weight:800;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.rcd .em{font-size:24px}
+.rcd.used{visibility:hidden}
+/* ketuhar */
+.oven{background:#9AA5B1;border:4px solid var(--line);border-radius:20px;padding:10px;box-shadow:0 6px 0 var(--line)}
+.oven .knobs{display:flex;gap:8px;justify-content:flex-end;margin-bottom:8px;align-items:center}
+.oven .knobs i{width:22px;height:22px;border-radius:50%;background:#4A2C2A;display:block}
+.oven .timer{flex:1;height:14px;background:#5E6A76;border-radius:7px;overflow:hidden}
+.oven .timer span{display:block;height:100%;background:var(--butter);transition:width .4s}
+.ow{background:radial-gradient(circle at 50% 120%,#FF9A3C,#3B2620 70%);color:#FFF6E8;border:4px solid var(--line);border-radius:14px;min-height:120px;display:grid;place-items:center;text-align:center;padding:12px;font-size:19px;font-weight:900}
+.tfb{display:flex;gap:10px;margin-top:12px}
+.tfb button{flex:1;min-height:64px;border:3px solid var(--line);border-radius:16px;font-weight:900;font-size:18px;box-shadow:0 4px 0 var(--line)}
+.tfb .t{background:var(--okbg)}.tfb .f{background:var(--badbg)}
+/* hidang: pelanggan & pinggan */
+.custs{display:flex;flex-direction:column;gap:8px}
+.cust{display:flex;align-items:center;gap:8px;border:3px solid var(--line);border-radius:16px;background:var(--card);padding:6px 8px;min-height:64px;text-align:start;box-shadow:0 4px 0 var(--line)}
+.cust .face{font-size:34px;flex:0 0 auto}
+.cust .bub{flex:1;background:var(--note);border-radius:12px;padding:4px 8px;font-size:15px}
+.cust .srv{flex:0 0 40px;font-size:28px;text-align:center}
+.cust.done{background:var(--okbg);border-color:var(--ok)}
+.plates{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;justify-content:center}
+.plate{flex:1 1 44%;min-height:60px;border:3px solid var(--line);border-radius:30px;background:var(--paper);box-shadow:0 4px 0 var(--line);padding:6px 10px;font-size:15px;font-weight:800;display:flex;align-items:center;gap:6px}
+.plate .em{font-size:24px}
+.plate.sel{background:var(--butter);transform:translateY(-4px)}
+.plate.gone{visibility:hidden}
+</style>
+<style>
+/* rempah: balang */
+.jars{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:6px}
+.jar{flex:1 1 30%;min-width:100px;min-height:120px;border:3px solid var(--line);border-radius:12px 12px 22px 22px;background:linear-gradient(180deg,var(--jc) 0 26%,var(--paper) 26%);box-shadow:0 4px 0 var(--line);padding:34px 6px 8px;position:relative;font-size:22px;line-height:1.7}
+.jar::before{content:"";position:absolute;top:-10px;left:14%;right:14%;height:14px;background:var(--crust);border:3px solid var(--line);border-radius:6px}
+.jar.full{flex-basis:100%;min-height:0;font-size:20px}
+.jar.right{background:var(--okbg);border-color:var(--ok)}
+.jar.wrong{opacity:.5}
+/* kek: lapisan kek cawan */
+.cake{display:flex;flex-direction:column-reverse;align-items:center;min-height:150px;justify-content:flex-start;margin-bottom:8px}
+.cake .base{width:150px;height:56px;background:repeating-linear-gradient(90deg,#E49A5A 0 14px,#D07E3E 14px 22px);border:3px solid var(--line);border-radius:4px 4px 26px 26px;clip-path:polygon(0 0,100% 0,88% 100%,12% 100%)}
+.cake .top{font-size:40px;line-height:.9;animation:pop .45s}
+.cake .cream{width:160px;height:34px;background:#FFF6FA;border:3px solid var(--line);border-radius:30px 30px 10px 10px;animation:pop .45s}
+.kq{font-weight:900;margin:4px 0}
+.kn{text-align:center;color:var(--muted);font-size:14px}
+/* bekal */
+.tray{display:flex;gap:6px;justify-content:center;background:var(--crust);border:3px solid var(--line);border-radius:18px;padding:8px;min-height:72px;margin-bottom:12px}
+.tray span{flex:0 0 31%;background:var(--paper);border:3px dashed var(--line);border-radius:12px;display:grid;place-items:center;font-size:28px;min-height:52px}
+.items{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.it{min-height:64px;border:3px solid var(--line);border-radius:14px;background:var(--card);box-shadow:0 4px 0 var(--line);padding:6px;font-size:15px;font-weight:800;display:flex;align-items:center;gap:6px;text-align:start}
+.it .em{font-size:24px}
+.it.on{background:var(--butter);transform:translateY(-3px)}
+.it.bad{background:var(--badbg)}
+/* pinggan: susun doa */
+.stack{display:flex;flex-wrap:wrap;direction:rtl;justify-content:center;align-items:center;gap:6px;min-height:70px;margin-bottom:12px;padding:8px;border-radius:16px;background:var(--note);border:3px dashed var(--butter2)}
+.stack .pl{background:var(--paper);border:3px solid var(--line);border-radius:999px;padding:2px 18px;font-size:22px;animation:pop .35s}
+.pool{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.pbtn{min-height:56px;min-width:90px;border:3px solid var(--line);border-radius:999px;background:var(--bc);box-shadow:0 4px 0 var(--line);padding:4px 14px;font-size:22px;color:#4A2C2A}
+.pbtn.used{visibility:hidden}
+/* maklum balas */
+.fb{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:12px;animation:up .3s}
+.fb .in{max-width:620px;margin:0 auto;background:var(--card);border:3px solid var(--line);border-radius:22px;padding:12px;box-shadow:0 -4px 0 var(--ok),0 8px 30px rgba(0,0,0,.3)}
+.fb .row1{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.fb .mimi{width:70px;height:70px}
+.fb strong{font-size:22px;color:var(--ok)}
+.fb p{margin:2px 0 0;font-size:16px}
+@keyframes up{from{transform:translateY(100%)}}
+.res{text-align:center}
+.res .mimi{width:130px;height:130px}
+.res h2{font-size:30px;margin:6px 0;color:var(--tom)}
+.stars{font-size:46px}
+.stars span{display:inline-block;animation:pop .6s both}
+.gotst{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--note);border-radius:16px;padding:10px;margin:12px 0;font-weight:900}
+.gotst span{font-size:44px;animation:pop .7s}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:14px;z-index:60;max-width:90vw;text-align:center}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}
+.confetti span{position:absolute;top:-40px;font-size:26px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+@media (max-width:380px){.hero h1{font-size:26px}.mimi{width:80px;height:80px}.ing,.it,.rcd,.plate{font-size:14px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="awning" aria-hidden="true"></div>
+<main class="wrap" id="app"></main>
+<script>
+/* ============ KANDUNGAN (Buku Teks KAFA Akhlak Tahun 2, JAKIM/JAIS) ============
+   Teks = [Rumi, Jawi]. p = muka surat bercetak (ms.1 = fail p9; offset +8).
+   Jenis permainan "Dapur Adab":
+     kacau   : masukkan bahan baik (adab) ke dalam periuk; bahan buruk ditolak   items:[[em,t,ok]]
+     resepi  : susun kad langkah ikut garis masa memasak                       steps:[[em,t]] (urutan betul)
+     ketuhar : tingkap ketuhar betul (masak) / salah (hangus)                   items:[[t,1|0]]
+     hidang  : pilih pinggan, hidang kepada pelanggan yang betul                pairs:[[face,situasi,em,adab]]
+     rempah  : pilih balang rempah (perkataan/doa Arab) yang betul              ar (dengan ___), a:[betul,...], full?
+     kek     : 3 soalan; setiap jawapan betul menambah hiasan kek               qs:[[soalan,[betul,...]]]
+     bekal   : pilih TEPAT 3 bahan untuk bekas bekal, kemudian tutup            items:[[em,t,ok]] (3 ok)
+     pinggan : susun pinggan perkataan doa ikut urutan                          parts:[...], mk  */
+
+const STATIONS = [
+/* ---------- 1. MAKAN DAN MINUM ---------- */
+{ id:1, icon:"🍽️", sticker:"🍛", c:"#FFB4A2",
+  t:["Adab Makan dan Minum","ادب ماکن دان مينوم"], u:["Pelajaran 1 • ms. 1–7","ڤلاجرن 1 • م.س. 1–7"],
+  read:[
+    { pic:"🧼", h:["Sebelum makan dan minum","سبلوم ماکن دان مينوم"], list:[
+      ["Membasuh tangan hingga bersih","ممباسوه تاڠن هيڠڬ برسيه"],
+      ["Membaca doa makan","ممباچ دعاء ماکن"],
+      ["Duduk dengan tertib dan menghadap makanan dengan tenang","دودوق دڠن ترتيب دان مڠهادڤ ماکنن دڠن تنڠ"],
+      ["Berpakaian bersih dan kemas","برڤاکاين برسيه دان کمس"]], p:1 },
+    { pic:"🍚", h:["Ketika makan dan minum","کتيک ماکن دان مينوم"], list:[
+      ["Mengutamakan orang yang lebih tua","مڠوتاماکن اورڠ يڠ لبيه توا"],
+      ["Jangan gelojoh ketika makan dan minum","جاڠن ڬلوجوه کتيک ماکن دان مينوم"],
+      ["Menggunakan tangan kanan ketika makan","مڠڬوناکن تاڠن کانن کتيک ماکن"],
+      ["Dahulukan mengambil makanan yang terdekat","دهولوکن مڠمبيل ماکنن يڠ تردکت"],
+      ["Jangan bercakap perkara tidak elok, kotor dan jijik","جاڠن برچاکڤ ڤرکارا تيدق ايلوق، کوتور دان جيجيق"],
+      ["Jangan mencaci makanan yang dihidangkan","جاڠن منچاچي ماکنن يڠ دهيدڠکن"]], p:2 },
+    { pic:"📜", h:["Dalil adab makan","دليل ادب ماکن"],
+      text:["Daripada Ibn Abi Salamah RA, Rasulullah SAW bersabda:","درڤد ابن أبي سلمة رضي الله عنه، رسول الله ﷺ برسبدا:"],
+      ar:"يَا غُلَامُ سَمِّ اللَّهَ وَكُلْ بِيَمِينِكَ وَكُلْ مِمَّا يَلِيكَ",
+      mk:["Wahai anak, bacalah Bismillah (sebelum makan) dan makanlah dengan tangan kananmu, serta makanlah makanan yang hampir denganmu.","واهاي انق، باچاله بسم الله (سبلوم ماکن) دان ماکنله دڠن تاڠن کانن‌مو، سرتا ماکنله ماکنن يڠ همڤير دڠنمو."],
+      src:["Riwayat al-Bukhari dan Muslim","رواية البخاري دان مسلم"], p:2 },
+    { pic:"🤲", h:["Doa sebelum makan","دعاء سبلوم ماکن"],
+      ar:"اَللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا وَقِنَا عَذَابَ النَّارِ",
+      mk:["Wahai Allah, berkatilah rezeki yang Engkau berikan kepada kami dan peliharalah kami daripada azab api neraka.","واهاي الله، برکتيله رزقي يڠ اڠکاو بريکن کڤد کامي دان ڤليهاراله کامي درڤد عذاب اڤي نراک."], p:3 },
+    { pic:"😋", h:["Doa selepas makan","دعاء سلڤس ماکن"],
+      ar:"اَلْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنَا وَسَقَانَا وَجَعَلَنَا مِنَ الْمُسْلِمِينَ",
+      mk:["Segala puji bagi Allah yang memberi makan dan minum kepada kami dan menjadikan kami daripada kalangan orang Islam.","سکالا ڤوجي باڬي الله يڠ ممبري ماکن دان مينوم کڤد کامي دان منجاديکن کامي درڤد کالڠن اورڠ إسلام."],
+      tip:["Terlupa Bismillah? Bacalah: بِسْمِ اللَّهِ فِي أَوَّلِهِ وَآخِرِهِ (Dengan nama Allah di awalnya dan di akhirnya).","ترلوڤا بسم الله؟ باچاله: بِسْمِ اللَّهِ فِي أَوَّلِهِ وَآخِرِهِ (دڠن نام الله دأولڽ دان دأخيرڽ)."], p:3 },
+    { pic:"🌟", h:["Fadhilat beradab ketika makan","فضيلة برادب کتيک ماکن"], list:[
+      ["Mendapat keredaan Allah SWT dan Rasulullah SAW","منداڤت کريضاءن الله سبحانه وتعالى دان رسول الله ﷺ"],
+      ["Dipandang mulia oleh orang ramai","دڤندڠ موليا اوليه اورڠ راماي"],
+      ["Tidak menimbulkan kebencian kepada orang lain","تيدق منيمبولکن کبنچين کڤد اورڠ لاءين"],
+      ["Mengelakkan pembaziran","مڠيلقکن ڤمبذيرن"],
+      ["Dapat menjaga kebersihan dan kesihatan tubuh badan","داڤت منجاڬ کبرسيهن دان کصيحتن توبوه بادن"]], p:4 },
+    { pic:"🍔", h:["Akibat tidak beradab","عاقبة تيدق برادب"], bad:true, list:[
+      ["Tidak disayangi oleh Allah SWT dan Rasulullah SAW","تيدق دسايڠي اوليه الله سبحانه وتعالى دان رسول الله ﷺ"],
+      ["Dipandang hina oleh orang lain","دڤندڠ هينا اوليه اورڠ لاءين"],
+      ["Mendatangkan penyakit","منداتڠکن ڤڽاکيت"],
+      ["Menyebabkan pembaziran","مڽببکن ڤمبذيرن"]],
+      tip:["Orang yang tidak membaca doa sebelum makan dan minum, syaitan akan makan dan minum bersama-samanya.","اورڠ يڠ تيدق ممباچ دعاء سبلوم ماکن دان مينوم، شيطان اکن ماکن دان مينوم برساما-سامڽ."],
+      am:["Berdoa setiap kali hendak makan dan minum.","بردعاء ستياڤ کالي هندق ماکن دان مينوم."], p:"4, 7" }
+  ],
+  games:[
+    {type:"kacau", q:["Masukkan adab SEBELUM makan ke dalam periuk!","ماسوقکن ادب سبلوم ماکن ک دالم ڤريوق!"], items:[
+      ["🧼",["Basuh tangan hingga bersih","باسوه تاڠن هيڠڬ برسيه"],1],
+      ["🤲",["Baca doa makan","باچ دعاء ماکن"],1],
+      ["🪑",["Duduk dengan tertib","دودوق دڠن ترتيب"],1],
+      ["👕",["Pakai baju bersih dan kemas","ڤاکاي باجو برسيه دان کمس"],1],
+      ["🏃",["Makan sambil berlari","ماکن سمبيل برلاري"],0],
+      ["🖐️",["Makan dengan tangan kotor","ماکن دڠن تاڠن کوتور"],0]],
+      e:["Basuh tangan, baca doa, duduk tertib dan berpakaian kemas. (ms. 1)","باسوه تاڠن، باچ دعاء، دودوق ترتيب دان برڤاکاين کمس. (م.س. 1)"]},
+    {type:"hidang", q:["Hidangkan adab yang betul kepada setiap pelanggan!","هيدڠکن ادب يڠ بتول کڤد ستياڤ ڤلڠڬن!"], pairs:[
+      ["👵",["Nenek duduk semeja dengan kita.","نينيق دودوق سميجا دڠن کيت."],"🙇",["Utamakan orang yang lebih tua","اوتاماکن اورڠ يڠ لبيه توا"]],
+      ["🍗",["Lauk ada yang dekat dan yang jauh.","لاوق اد يڠ دکت دان يڠ جاءوه."],"🍽️",["Ambil makanan yang terdekat","امبيل ماکنن يڠ تردکت"]],
+      ["🍚",["Mahu menyuap nasi.","ماءو مڽواڤ ناسي."],"✋",["Guna tangan kanan","ڬونا تاڠن کانن"]]],
+      e:["Hadis: makanlah dengan tangan kanan dan makanan yang hampir denganmu. (ms. 2)","حديث: ماکنله دڠن تاڠن کانن دان ماکنن يڠ همڤير دڠنمو. (م.س. 2)"]},
+    {type:"rempah", q:["Doa sebelum makan: pilih balang perkataan yang hilang.","دعاء سبلوم ماکن: ڤيليه بالڠ ڤرکاتاءن يڠ هيلڠ."],
+      ar:"اَللَّهُمَّ بَارِكْ لَنَا فِيمَا ___ وَقِنَا عَذَابَ النَّارِ", a:["رَزَقْتَنَا","أَطْعَمَنَا","سَقَانَا"],
+      e:["فِيمَا رَزَقْتَنَا = pada rezeki yang Engkau berikan kepada kami. (ms. 3)","فِيمَا رَزَقْتَنَا = ڤد رزقي يڠ اڠکاو بريکن کڤد کامي. (م.س. 3)"]},
+    {type:"pinggan", q:["Susun pinggan doa SELEPAS makan ikut urutan.","سوسون ڤيڠڬن دعاء سلڤس ماکن ايکوت اوروتن."],
+      parts:["اَلْحَمْدُ لِلَّهِ","الَّذِي","أَطْعَمَنَا","وَسَقَانَا","وَجَعَلَنَا","مِنَ","الْمُسْلِمِينَ"],
+      mk:["Segala puji bagi Allah yang memberi makan dan minum kepada kami dan menjadikan kami daripada kalangan orang Islam.","سکالا ڤوجي باڬي الله يڠ ممبري ماکن دان مينوم کڤد کامي دان منجاديکن کامي درڤد کالڠن اورڠ إسلام."],
+      e:["Syabas! Kamu sudah menyusun doa selepas makan. (ms. 3)","شاباس! کامو سوده مڽوسون دعاء سلڤس ماکن. (م.س. 3)"]},
+    {type:"ketuhar", q:["Betul atau salah? Masak atau hangus!","بتول اتاو سالله؟ ماسق اتاو هڠوس!"], items:[
+      [["Kita tidak boleh mencaci makanan yang dihidangkan.","کيت تيدق بوليه منچاچي ماکنن يڠ دهيدڠکن."],1],
+      [["Boleh makan dengan gelojoh jika lapar.","بوليه ماکن دڠن ڬلوجوه جک لاڤر."],0],
+      [["Jika tidak membaca doa, syaitan makan bersama kita.","جک تيدق ممباچ دعاء، شيطان ماکن برسام کيت."],1],
+      [["Beradab ketika makan menyebabkan pembaziran.","برادب کتيک ماکن مڽببکن ڤمبذيرن."],0]],
+      e:["Beradab ketika makan mengelakkan pembaziran. (ms. 4, 7)","برادب کتيک ماکن مڠيلقکن ڤمبذيرن. (م.س. 4، 7)"]},
+    {type:"bekal", q:["Isi bekal dengan 3 FADHILAT beradab ketika makan.","ايسي بکل دڠن 3 فضيلة برادب کتيک ماکن."], items:[
+      ["💖",["Mendapat keredaan Allah dan Rasul","منداڤت کريضاءن الله دان رسول"],1],
+      ["😊",["Dipandang mulia oleh orang ramai","دڤندڠ موليا اوليه اورڠ راماي"],1],
+      ["♻️",["Mengelakkan pembaziran","مڠيلقکن ڤمبذيرن"],1],
+      ["🤒",["Mendatangkan penyakit","منداتڠکن ڤڽاکيت"],0],
+      ["😒",["Dipandang hina oleh orang lain","دڤندڠ هينا اوليه اورڠ لاءين"],0],
+      ["🗑️",["Menyebabkan pembaziran","مڽببکن ڤمبذيرن"],0]],
+      e:["Itulah fadhilat beradab ketika makan dan minum. (ms. 4)","ايتوله فضيلة برادب کتيک ماکن دان مينوم. (م.س. 4)"]},
+    {type:"kek", q:["Jawab 3 soalan untuk menghias kek!","جواب 3 سوالن اونتوق مڠهياس کيک!"], qs:[
+      [["Kita makan dengan tangan …","کيت ماکن دڠن تاڠن …"],[["kanan","کانن"],["kiri","کيري"],["dua-dua","دوا-دوا"]]],
+      [["Terlupa Bismillah sebelum makan? Baca …","ترلوڤا بسم الله سبلوم ماکن؟ باچ …"],[["Bismillahi fi awwalihi wa akhirihi","بِسْمِ اللَّهِ فِي أَوَّلِهِ وَآخِرِهِ"],["Subhanallazi sakhkhara lana","سُبْحَانَ الَّذِي سَخَّرَ لَنَا"],["Alhamdulillah sahaja","اَلْحَمْدُ لِلَّهِ سهاج"]]],
+      [["Siapa yang kita utamakan ketika makan?","سياڤ يڠ کيت اوتاماکن کتيک ماکن؟"],[["Orang yang lebih tua","اورڠ يڠ لبيه توا"],["Diri sendiri","ديري سنديري"],["Kucing","کوچيڠ"]]]],
+      e:["Kek kamu cantik! Ingat adab makan setiap hari. (ms. 2–3)","کيک کامو چنتيق! ايڠت ادب ماکن ستياڤ هاري. (م.س. 2–3)"]}
+  ]},
+/* ---------- 2. TIDUR ---------- */
+{ id:2, icon:"🛏️", sticker:"🥛", c:"#C9B8FF",
+  t:["Adab Tidur","ادب تيدور"], u:["Pelajaran 2 • ms. 8–15","ڤلاجرن 2 • م.س. 8–15"],
+  read:[
+    { pic:"🪥", h:["Adab sebelum tidur","ادب سبلوم تيدور"], num:true, list:[
+      ["Menggosok gigi sebelum tidur","مڠڬوسوق ڬيڬي سبلوم تيدور"],
+      ["Mengambil wuduk","مڠمبيل وضوء"],
+      ["Memohon maaf daripada kedua-dua ibu bapa","مموهون معاف درڤد کدوا-دوا ايبو باڤ"],
+      ["Berpakaian bersih","برڤاکاين برسيه"],
+      ["Membaca doa","ممباچ دعاء"]], p:9 },
+    { pic:"🌅", h:["Adab selepas bangun tidur","ادب سلڤس باڠون تيدور"], list:[
+      ["Membaca doa bangun tidur","ممباچ دعاء باڠون تيدور"],
+      ["Gosok gigi","ڬوسوق ڬيڬي"],
+      ["Kemaskan bilik tidur","کمسکن بيليق تيدور"],
+      ["Mandi dan bersuci","مندي دان برسوچي"],
+      ["Berpakaian bersih dan kemas","برڤاکاين برسيه دان کمس"]], p:10 },
+    { pic:"🌙", h:["Doa sebelum tidur","دعاء سبلوم تيدور"],
+      text:["Daripada Huzaifah RA, Rasulullah SAW bersabda:","درڤد حذيفة رضي الله عنه، رسول الله ﷺ برسبدا:"],
+      ar:"بِسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا",
+      mk:["Dengan nama-Mu ya Allah, aku mati dan aku hidup.","دڠن نامامو يا الله، اکو ماتي دان اکو هيدوڤ."],
+      src:["Riwayat al-Bukhari","رواية البخاري"], p:11 },
+    { pic:"☀️", h:["Doa selepas bangun tidur","دعاء سلڤس باڠون تيدور"],
+      text:["Daripada Abu Zar al-Ghifari RA, Rasulullah SAW bersabda:","درڤد أبو ذر الغفاري رضي الله عنه، رسول الله ﷺ برسبدا:"],
+      ar:"اَلْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ",
+      mk:["Segala puji bagi Allah yang menghidupkan kami selepas mematikan kami dan kepada-Nya kami akan kembali.","سکالا ڤوجي باڬي الله يڠ مڠهيدوڤکن کامي سلڤس مماتيکن کامي دان کڤداڽ کامي اکن کمبالي."],
+      src:["Riwayat al-Bukhari","رواية البخاري"], p:11 },
+    { pic:"💪", h:["Fadhilat adab tidur","فضيلة ادب تيدور"], list:[
+      ["Dapat mengamalkan sunnah Nabi Muhammad SAW","داڤت مڠعملکن سنة نبي محمد ﷺ"],
+      ["Dapat menjaga kesihatan tubuh badan","داڤت منجاڬ کصيحتن توبوه بادن"],
+      ["Melatih diri supaya sentiasa berdisiplin","ملاتيه ديري سوڤايا سنتياس برديسيڤلين"],
+      ["Tidak rasa mengantuk dan letih ketika belajar","تيدق راس مڠنتوق دان لتيه کتيک بلاجر"],
+      ["Fikiran sentiasa cergas dan cerdas","فيکيرن سنتياس چرڬس دان چردس"],
+      ["Disayangi oleh keluarga dan masyarakat","دسايڠي اوليه کلوارڬ دان مشارکت"]], p:12 },
+    { pic:"🥱", h:["Akibat tidak beradab","عاقبة تيدق برادب"], bad:true, list:[
+      ["Rasa mengantuk ketika belajar","راس مڠنتوق کتيک بلاجر"],
+      ["Mudah mendapat penyakit","موده منداڤت ڤڽاکيت"],
+      ["Hilang rasa disiplin diri","هيلڠ راس ديسيڤلين ديري"],
+      ["Susah mengingat pelajaran","سوسه مڠيڠت ڤلاجرن"],
+      ["Hilang selera makan","هيلڠ سليرا ماکن"]], p:13 },
+    { pic:"😴", h:["Tidur merehatkan badan","تيدور مريحتکن بادن"],
+      text:["Tidur dapat merehatkan badan.","تيدور داڤت مريحتکن بادن."],
+      ar:"وَجَعَلْنَا نَوْمَكُمْ سُبَاتًا",
+      mk:["Kami (Allah) jadikan tidur kamu sebagai rehat.","کامي (الله) جاديکن تيدور کامو سباڬاي بريحت."],
+      src:["Surah an-Naba': 9","سورة النبأ: 9"],
+      am:["Hendaklah membaca doa sebelum dan selepas bangun tidur.","هندقله ممباچ دعاء سبلوم دان سلڤس باڠون تيدور."], p:"14–15" }
+  ],
+  games:[
+    {type:"resepi", q:["Resipi malam: susun adab sebelum tidur ikut urutan.","رسيڤي مالم: سوسون ادب سبلوم تيدور ايکوت اوروتن."], steps:[
+      ["🪥",["Gosok gigi","ڬوسوق ڬيڬي"]],
+      ["💧",["Ambil wuduk","امبيل وضوء"]],
+      ["🤝",["Mohon maaf kepada ibu bapa","موهون معاف کڤد ايبو باڤ"]],
+      ["👕",["Pakai pakaian bersih","ڤاکاي ڤاکاين برسيه"]],
+      ["🤲",["Baca doa","باچ دعاء"]]],
+      e:["Itulah 5 adab sebelum tidur mengikut buku. (ms. 9)","ايتوله 5 ادب سبلوم تيدور مڠيکوت بوکو. (م.س. 9)"]},
+    {type:"kacau", q:["Pagi! Masukkan adab SELEPAS bangun tidur ke dalam periuk.","ڤاڬي! ماسوقکن ادب سلڤس باڠون تيدور ک دالم ڤريوق."], items:[
+      ["🤲",["Baca doa bangun tidur","باچ دعاء باڠون تيدور"],1],
+      ["🛏️",["Kemaskan bilik tidur","کمسکن بيليق تيدور"],1],
+      ["🚿",["Mandi dan bersuci","مندي دان برسوچي"],1],
+      ["🪥",["Gosok gigi","ڬوسوق ڬيڬي"],1],
+      ["😪",["Sambung tidur hingga tengah hari","سمبوڠ تيدور هيڠڬ تڠه هاري"],0],
+      ["🧦",["Biarkan bilik bersepah","بيارکن بيليق برسڤه"],0]],
+      e:["Baca doa, gosok gigi, kemas bilik, mandi dan berpakaian kemas. (ms. 10)","باچ دعاء، ڬوسوق ڬيڬي، کمس بيليق، مندي دان برڤاکاين کمس. (م.س. 10)"]},
+    {type:"rempah", full:true, q:["Mahu tidur. Pilih balang doa SEBELUM tidur.","ماءو تيدور. ڤيليه بالڠ دعاء سبلوم تيدور."],
+      a:["بِسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا","اَلْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا","اَللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا"],
+      e:["Dengan nama-Mu ya Allah, aku mati dan aku hidup. (ms. 11)","دڠن نامامو يا الله، اکو ماتي دان اکو هيدوڤ. (م.س. 11)"]},
+    {type:"pinggan", q:["Susun pinggan doa selepas BANGUN tidur.","سوسون ڤيڠڬن دعاء سلڤس باڠون تيدور."],
+      parts:["اَلْحَمْدُ لِلَّهِ","الَّذِي","أَحْيَانَا","بَعْدَ مَا","أَمَاتَنَا","وَإِلَيْهِ","النُّشُورُ"],
+      mk:["Segala puji bagi Allah yang menghidupkan kami selepas mematikan kami dan kepada-Nya kami akan kembali.","سکالا ڤوجي باڬي الله يڠ مڠهيدوڤکن کامي سلڤس مماتيکن کامي دان کڤداڽ کامي اکن کمبالي."],
+      e:["Doa ini diriwayatkan oleh al-Bukhari. (ms. 11)","دعاء اين دريوايتکن اوليه البخاري. (م.س. 11)"]},
+    {type:"hidang", q:["Hidangkan adab yang betul kepada setiap pelanggan!","هيدڠکن ادب يڠ بتول کڤد ستياڤ ڤلڠڬن!"], pairs:[
+      ["🧒",["Malam, mahu tidur. Wuduk belum ada.","مالم، ماءو تيدور. وضوء بلوم اد."],"💧",["Ambil wuduk","امبيل وضوء"]],
+      ["🥱",["Baru sahaja bangun tidur.","بارو سهاج باڠون تيدور."],"🤲",["Baca doa bangun tidur","باچ دعاء باڠون تيدور"]],
+      ["🛌",["Selimut dan bantal bersepah.","سليموت دان بنتل برسڤه."],"🧺",["Kemaskan bilik tidur","کمسکن بيليق تيدور"]]],
+      e:["Adab tidur menjadikan kita berdisiplin. (ms. 9–12)","ادب تيدور منجاديکن کيت برديسيڤلين. (م.س. 9–12)"]},
+    {type:"bekal", q:["Isi bekal dengan 3 FADHILAT adab tidur.","ايسي بکل دڠن 3 فضيلة ادب تيدور."], items:[
+      ["🧠",["Fikiran cergas dan cerdas","فيکيرن چرڬس دان چردس"],1],
+      ["📚",["Tidak mengantuk ketika belajar","تيدق مڠنتوق کتيک بلاجر"],1],
+      ["👨‍👩‍👧",["Disayangi keluarga dan masyarakat","دسايڠي کلوارڬ دان مشارکت"],1],
+      ["🍽️",["Hilang selera makan","هيلڠ سليرا ماکن"],0],
+      ["🤧",["Mudah mendapat penyakit","موده منداڤت ڤڽاکيت"],0],
+      ["😵",["Susah mengingat pelajaran","سوسه مڠيڠت ڤلاجرن"],0]],
+      e:["Adab tidur membawa banyak kebaikan. (ms. 12–13)","ادب تيدور ممباوا باڽق کباءيقن. (م.س. 12–13)"]},
+    {type:"ketuhar", q:["Betul atau salah? Masak atau hangus!","بتول اتاو سالله؟ ماسق اتاو هڠوس!"], items:[
+      [["Tidur dapat merehatkan badan.","تيدور داڤت مريحتکن بادن."],1],
+      [["Solat Subuh ada tiga rakaat.","صلاة صبح اد تيڬ رکعة."],0],
+      [["Kita memohon maaf kepada ibu bapa sebelum tidur.","کيت مموهون معاف کڤد ايبو باڤ سبلوم تيدور."],1],
+      [["Tidur tanpa adab membuat kita rasa mengantuk ketika belajar.","تيدور تنڤا ادب ممبوات کيت راس مڠنتوق کتيک بلاجر."],1]],
+      e:["Syair: Solat Subuh dua rakaat, perintah Allah wajib ditaat. (ms. 14)","شعير: صلاة صبح دوا رکعة، ڤرينته الله واجب دطاعة. (م.س. 14)"]}
+  ]},
+/* ---------- 3. BERKENDERAAN ---------- */
+{ id:3, icon:"🚌", sticker:"🧃", c:"#FFD66B",
+  t:["Adab Berkenderaan","ادب برکندراءن"], u:["Pelajaran 3 • ms. 16–21","ڤلاجرن 3 • م.س. 16–21"],
+  read:[
+    { pic:"🚗", h:["Adab ketika menaiki kenderaan","ادب کتيک منايقي کندراءن"], list:[
+      ["Kenderaan yang digunakan adalah selamat dan sempurna","کندراءن يڠ دڬوناکن اداله سلامت دان سمڤورنا"],
+      ["Melangkah masuk ke dalam kenderaan dengan kaki kanan","ملڠکه ماسوق کدالم کندراءن دڠن کاکي کانن"],
+      ["Beratur dan mendahulukan yang lebih tua dan uzur","براتور دان مندهولوکن يڠ لبيه توا دان عذور"],
+      ["Membaca doa memulakan perjalanan","ممباچ دعاء مولاکن ڤرجالنن"],
+      ["Tidak bergurau ketika di dalam kenderaan","تيدق برڬوراو کتيک ددالم کندراءن"],
+      ["Mematuhi peraturan jalan raya","مماتوهي ڤراتورن جالن راي"]], p:17 },
+    { pic:"🤲", h:["Doa ketika memulakan perjalanan","دعاء کتيک مولاکن ڤرجالنن"],
+      ar:"سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَٰذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ ۝ وَإِنَّا إِلَىٰ رَبِّنَا لَمُنْقَلِبُونَ",
+      mk:["Maha suci Tuhan yang telah memudahkan kenderaan ini untuk kami, sedang kami sebelum ini tidak terdaya menguasainya. Dan sesungguhnya kepada Tuhan kamilah, kami akan kembali.","مها سوچي توهن يڠ تله ممودهکن کندراءن اين اونتوق کامي، سدڠ کامي سبلوم اين تيدق ترداي مڠواساءيڽ. دان سسوڠڬوهڽ کڤد توهن کاميله، کامي اکن کمبالي."],
+      src:["Surah az-Zukhruf: 13–14","سورة الزخرف: 13–14"], p:18 },
+    { pic:"🛣️", h:["Fadhilat beradab ketika menaiki kenderaan","فضيلة برادب کتيک منايقي کندراءن"], list:[
+      ["Mendapat ganjaran pahala daripada Allah SWT","منداڤت ڬنجرن ڤهالا درڤد الله سبحانه وتعالى"],
+      ["Selamat dalam perjalanan","سلامت دالم ڤرجالنن"],
+      ["Melatih diri supaya berdisiplin di jalan raya","ملاتيه ديري سوڤايا برديسيڤلين دجالن راي"],
+      ["Kurang kesesakan lalu lintas","کورڠ کسسقن لالو لينتس"],
+      ["Mudah sampai ke tempat yang dituju","موده سمڤاي کتمڤت يڠ دتوجو"],
+      ["Membantu kelancaran pengguna jalan raya","ممبنتو کلنچرن ڤڠڬونا جالن راي"]], p:18 },
+    { pic:"💥", h:["Akibat tidak beradab","عاقبة تيدق برادب"], bad:true, list:[
+      ["Menimbulkan kemarahan pengguna jalan raya","منيمبولکن کمارهن ڤڠڬونا جالن راي"],
+      ["Berlaku kemalangan","برلاکو کمالڠن"],
+      ["Menyebabkan kesesakan jalan raya","مڽببکن کسسقن جالن راي"],
+      ["Lambat sampai ke tempat yang dituju","لمبت سمڤاي کتمڤت يڠ دتوجو"]], p:19 },
+    { pic:"🚸", h:["Tahukah anda?","تاهوکه اندا؟"],
+      text:["Digalakkan bermusafir secara berjemaah kerana ia lebih selamat.","دڬالقکن برمسافير سچارا برجماعه کران اي لبيه سلامت."],
+      list:[["Berdoa ketika menaiki kenderaan","بردعاء کتيک منايقي کندراءن"],
+        ["Mengingati Allah SWT walau di mana kita berada","مڠيڠتي الله سبحانه وتعالى والاو دمان کيت براد"],
+        ["Segera bersyukur apabila sampai ke tempat yang dituju dengan selamat","سڬرا برشکور اڤابيلا سمڤاي کتمڤت يڠ دتوجو دڠن سلامت"],
+        ["Sayangi nyawa anda dan orang lain","سايڠي ڽاوا اندا دان اورڠ لاءين"]], p:21 }
+  ],
+  games:[
+    {type:"kacau", q:["Masukkan adab ketika menaiki kenderaan ke dalam periuk!","ماسوقکن ادب کتيک منايقي کندراءن ک دالم ڤريوق!"], items:[
+      ["🦶",["Masuk dengan kaki kanan","ماسوق دڠن کاکي کانن"],1],
+      ["🧍",["Beratur dan dahulukan yang tua","براتور دان دهولوکن يڠ توا"],1],
+      ["🤲",["Baca doa memulakan perjalanan","باچ دعاء مولاکن ڤرجالنن"],1],
+      ["🚦",["Patuhi peraturan jalan raya","ڤاتوهي ڤراتورن جالن راي"],1],
+      ["🤪",["Bergurau di dalam bas","برڬوراو د دالم بس"],0],
+      ["💨",["Berebut-rebut naik bas","بررابوت-رابوت نايق بس"],0]],
+      e:["Itulah adab ketika menaiki kenderaan. (ms. 17)","ايتوله ادب کتيک منايقي کندراءن. (م.س. 17)"]},
+    {type:"hidang", q:["Hidangkan adab yang betul kepada setiap penumpang!","هيدڠکن ادب يڠ بتول کڤد ستياڤ ڤنومڤڠ!"], pairs:[
+      ["👴",["Ada atuk mahu naik bas juga.","اد اتوق ماءو نايق بس جوڬ."],"🧍",["Beratur dan dahulukan yang lebih tua","براتور دان دهولوکن يڠ لبيه توا"]],
+      ["🚙",["Mahu melangkah masuk ke kereta.","ماءو ملڠکه ماسوق ک کريتا."],"🦶",["Dahulukan kaki kanan","دهولوکن کاکي کانن"]],
+      ["🛣️",["Kereta mula bergerak.","کريتا مولا برڬرق."],"🤲",["Baca doa memulakan perjalanan","باچ دعاء مولاکن ڤرجالنن"]]],
+      e:["Beradab dalam kenderaan membuat perjalanan selamat. (ms. 17–18)","برادب دالم کندراءن ممبوات ڤرجالنن سلامت. (م.س. 17–18)"]},
+    {type:"pinggan", q:["Susun pinggan doa naik kenderaan ikut urutan.","سوسون ڤيڠڬن دعاء نايق کندراءن ايکوت اوروتن."],
+      parts:["سُبْحَانَ","الَّذِي","سَخَّرَ لَنَا","هَٰذَا","وَمَا كُنَّا","لَهُ مُقْرِنِينَ"],
+      mk:["Maha suci Tuhan yang telah memudahkan kenderaan ini untuk kami, sedang kami sebelum ini tidak terdaya menguasainya.","مها سوچي توهن يڠ تله ممودهکن کندراءن اين اونتوق کامي، سدڠ کامي سبلوم اين تيدق ترداي مڠواساءيڽ."],
+      e:["Ayat ini daripada Surah az-Zukhruf, ayat 13. (ms. 18)","ايات اين درڤد سورة الزخرف، ايات 13. (م.س. 18)"]},
+    {type:"rempah", q:["Doa naik kenderaan: pilih balang perkataan yang hilang.","دعاء نايق کندراءن: ڤيليه بالڠ ڤرکاتاءن يڠ هيلڠ."],
+      ar:"وَإِنَّا إِلَىٰ رَبِّنَا ___", a:["لَمُنْقَلِبُونَ","مُقْرِنِينَ","الْمُسْلِمِينَ"],
+      e:["Dan sesungguhnya kepada Tuhan kamilah, kami akan kembali. (ms. 18)","دان سسوڠڬوهڽ کڤد توهن کاميله، کامي اکن کمبالي. (م.س. 18)"]},
+    {type:"ketuhar", q:["Betul atau salah? Masak atau hangus!","بتول اتاو سالله؟ ماسق اتاو هڠوس!"], items:[
+      [["Bermusafir secara berjemaah lebih selamat.","برمسافير سچارا برجماعه لبيه سلامت."],1],
+      [["Bergurau di dalam kenderaan ialah adab yang baik.","برڬوراو د دالم کندراءن اياله ادب يڠ باءيق."],0],
+      [["Doa naik kenderaan ialah ayat daripada Surah az-Zukhruf.","دعاء نايق کندراءن اياله ايات درڤد سورة الزخرف."],1],
+      [["Tidak beradab boleh menyebabkan kemalangan.","تيدق برادب بوليه مڽببکن کمالڠن."],1]],
+      e:["Sayangi nyawa anda dan orang lain. (ms. 19, 21)","سايڠي ڽاوا اندا دان اورڠ لاءين. (م.س. 19، 21)"]},
+    {type:"kek", q:["Jawab 3 soalan untuk menghias kek!","جواب 3 سوالن اونتوق مڠهياس کيک!"], qs:[
+      [["Apakah fadhilat beradab ketika menaiki kenderaan?","اڤاکه فضيلة برادب کتيک منايقي کندراءن؟"],[["Selamat dalam perjalanan","سلامت دالم ڤرجالنن"],["Lambat sampai","لمبت سمڤاي"],["Jalan raya sesak","جالن راي سسق"]]],
+      [["Apakah akibat tidak beradab di jalan raya?","اڤاکه عاقبة تيدق برادب دجالن راي؟"],[["Berlaku kemalangan","برلاکو کمالڠن"],["Dapat pahala","داڤت ڤهالا"],["Kurang kesesakan","کورڠ کسسقن"]]],
+      [["Sampai ke tempat yang dituju dengan selamat. Kita …","سمڤاي کتمڤت يڠ دتوجو دڠن سلامت. کيت …"],[["Segera bersyukur","سڬرا برشکور"],["Terus bergurau","تروس برڬوراو"],["Lupa berdoa","لوڤا بردعاء"]]]],
+      e:["Kek perjalanan selamat siap! (ms. 18–21)","کيک ڤرجالنن سلامت سياڤ! (م.س. 18–21)"]}
+  ]},
+/* ---------- 4. MASJID ---------- */
+{ id:4, icon:"🕌", sticker:"🍮", c:"#A8E6CF",
+  t:["Adab di Masjid","ادب دمسجد"], u:["Pelajaran 4 • ms. 22–28","ڤلاجرن 4 • م.س. 22–28"],
+  read:[
+    { pic:"🕌", h:["Adab masuk masjid","ادب ماسوق مسجد"], num:true, list:[
+      ["Berkeadaan suci dan bersih","برکأداءن سوچي دان برسيه"],
+      ["Membaca doa masuk masjid","ممباچ دعاء ماسوق مسجد"],
+      ["Mendahulukan kaki kanan","مندهولوکن کاکي کانن"],
+      ["Solat sunat tahiyyatul masjid","صلاة سنة تحية المسجد"],
+      ["Berniat iktikaf","برنية اعتکاف"],
+      ["Berzikir dan membaca al-Quran","برذيکير دان ممباچ القرءان"],
+      ["Tidak bergurau dan membuat bising","تيدق برڬوراو دان ممبوات بيسيڠ"]], p:23 },
+    { pic:"🚪", h:["Adab keluar masjid","ادب کلوار مسجد"], num:true, list:[
+      ["Membaca doa","ممباچ دعاء"],
+      ["Melangkah keluar dengan kaki kiri","ملڠکه کلوار دڠن کاکي کيري"],
+      ["Berniat untuk datang semula","برنية اونتوق داتڠ سمولا"],
+      ["Beradab sopan ketika keluar dari masjid","برادب سوڤن کتيک کلوار دري مسجد"],
+      ["Tidak mengambil barang milik orang lain","تيدق مڠمبيل بارڠ ميليق اورڠ لاءين"]], p:24 },
+    { pic:"🤲", h:["Doa masuk masjid","دعاء ماسوق مسجد"],
+      text:["Daripada Fatimah RA, Rasulullah SAW bersabda:","درڤد فاطمة رضي الله عنها، رسول الله ﷺ برسبدا:"],
+      ar:"اَللَّهُمَّ اغْفِرْ لِي ذُنُوبِي وَافْتَحْ لِي أَبْوَابَ رَحْمَتِكَ",
+      mk:["Wahai Allah, Engkau ampunilah dosaku dan bukakanlah kepadaku pintu-pintu rahmat-Mu.","واهاي الله، اڠکاو امڤونيله دوساکو دان بوکاکنله کڤداکو ڤينتو٢ رحمتمو."],
+      src:["Riwayat Ibn Majah dan Ahmad","رواية ابن ماجه دان احمد"], p:25 },
+    { pic:"👣", h:["Doa keluar masjid","دعاء کلوار مسجد"],
+      ar:"اَللَّهُمَّ اغْفِرْ لِي ذُنُوبِي وَافْتَحْ لِي أَبْوَابَ فَضْلِكَ",
+      mk:["Wahai Allah, Engkau ampunilah dosaku dan bukakanlah kepadaku pintu-pintu kelebihan-Mu.","واهاي الله، اڠکاو امڤونيله دوساکو دان بوکاکنله کڤداکو ڤينتو٢ کلبيهنمو."],
+      src:["Riwayat Ibn Majah dan Ahmad","رواية ابن ماجه دان احمد"], p:25 },
+    { pic:"💚", h:["Fadhilat beradab di masjid","فضيلة برادب دمسجد"], list:[
+      ["Dapat meningkatkan keimanan kepada Allah SWT","داڤت منيڠکتکن کأيمانن کڤد الله سبحانه وتعالى"],
+      ["Dapat mengeratkan silaturrahim antara jemaah","داڤت مڠرتکن صلة الرحم انتارا جماعه"],
+      ["Beroleh ketenangan jiwa","براوليه کتنڠن جيوا"],
+      ["Dapat bergaul dengan kawan-kawan yang baik","داڤت برڬاءول دڠن کاون٢ يڠ باءيق"],
+      ["Dihormati oleh orang lain","دحرمتي اوليه اورڠ لاءين"],
+      ["Dapat ganjaran pahala","داڤت ڬنجرن ڤهالا"]], p:26 },
+    { pic:"🏃", h:["Akibat tidak beradab di masjid","عاقبة تيدق برادب دمسجد"], bad:true, list:[
+      ["Merosakkan keimanan diri","مروسقکن کأيمانن ديري"],
+      ["Menimbulkan kemarahan jemaah masjid","منيمبولکن کمارهن جماعه مسجد"],
+      ["Tidak dihormati oleh jemaah masjid","تيدق دحرمتي اوليه جماعه مسجد"],
+      ["Berdosa","بردوسا"]],
+      tip:["Berniat iktikaf ketika berada di dalam masjid adalah sunat dan mendapat pahala.","برنية اعتکاف کتيک براد ددالم مسجد اداله سنة دان منداڤت ڤهالا."],
+      am:["Menjaga adab sopan ketika berada di dalam masjid.","منجاڬ ادب سوڤن کتيک براد ددالم مسجد."], p:"27–28" }
+  ],
+  games:[
+    {type:"resepi", q:["Resipi masuk masjid: susun 5 langkah pertama.","رسيڤي ماسوق مسجد: سوسون 5 لڠکه ڤرتام."], steps:[
+      ["🧼",["Suci dan bersih","سوچي دان برسيه"]],
+      ["🤲",["Baca doa masuk masjid","باچ دعاء ماسوق مسجد"]],
+      ["🦶",["Dahulukan kaki kanan","دهولوکن کاکي کانن"]],
+      ["🧎",["Solat sunat tahiyyatul masjid","صلاة سنة تحية المسجد"]],
+      ["💭",["Berniat iktikaf","برنية اعتکاف"]]],
+      e:["Selepas itu, berzikir dan membaca al-Quran dengan tenang. (ms. 23)","سلڤس ايت، برذيکير دان ممباچ القرءان دڠن تنڠ. (م.س. 23)"]},
+    {type:"resepi", q:["Resipi keluar masjid: susun langkah ikut urutan.","رسيڤي کلوار مسجد: سوسون لڠکه ايکوت اوروتن."], steps:[
+      ["🤲",["Baca doa","باچ دعاء"]],
+      ["👣",["Keluar dengan kaki kiri","کلوار دڠن کاکي کيري"]],
+      ["🔁",["Berniat untuk datang semula","برنية اونتوق داتڠ سمولا"]],
+      ["😊",["Beradab sopan ketika keluar","برادب سوڤن کتيک کلوار"]],
+      ["👟",["Tidak ambil barang orang lain","تيدق امبيل بارڠ اورڠ لاءين"]]],
+      e:["Masuk kaki kanan, keluar kaki kiri. (ms. 24)","ماسوق کاکي کانن، کلوار کاکي کيري. (م.س. 24)"]},
+    {type:"rempah", full:true, q:["Mahu MASUK masjid. Pilih balang doa yang betul.","ماءو ماسوق مسجد. ڤيليه بالڠ دعاء يڠ بتول."],
+      a:["اَللَّهُمَّ اغْفِرْ لِي ذُنُوبِي وَافْتَحْ لِي أَبْوَابَ رَحْمَتِكَ","اَللَّهُمَّ اغْفِرْ لِي ذُنُوبِي وَافْتَحْ لِي أَبْوَابَ فَضْلِكَ","بِسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا"],
+      e:["Masuk masjid: pintu-pintu RAHMAT-Mu (رَحْمَتِكَ). (ms. 25)","ماسوق مسجد: ڤينتو٢ رحمتمو (رَحْمَتِكَ). (م.س. 25)"]},
+    {type:"rempah", q:["Doa KELUAR masjid: pilih balang perkataan yang hilang.","دعاء کلوار مسجد: ڤيليه بالڠ ڤرکاتاءن يڠ هيلڠ."],
+      ar:"اَللَّهُمَّ اغْفِرْ لِي ذُنُوبِي وَافْتَحْ لِي أَبْوَابَ ___", a:["فَضْلِكَ","رَحْمَتِكَ","النَّارِ"],
+      e:["Keluar masjid: pintu-pintu KELEBIHAN-Mu (فَضْلِكَ). (ms. 25)","کلوار مسجد: ڤينتو٢ کلبيهنمو (فَضْلِكَ). (م.س. 25)"]},
+    {type:"kacau", q:["Di dalam masjid: masukkan perbuatan yang beradab ke dalam periuk.","د دالم مسجد: ماسوقکن ڤربواتن يڠ برادب ک دالم ڤريوق."], items:[
+      ["📿",["Berzikir","برذيکير"],1],
+      ["📖",["Membaca al-Quran","ممباچ القرءان"],1],
+      ["🧎",["Solat tahiyyatul masjid","صلاة تحية المسجد"],1],
+      ["💭",["Berniat iktikaf","برنية اعتکاف"],1],
+      ["🏃",["Berlari-lari dan bergurau","برلاري-لاري دان برڬوراو"],0],
+      ["📢",["Membuat bising","ممبوات بيسيڠ"],0]],
+      e:["Berlari dan membuat bising menimbulkan kemarahan jemaah. (ms. 23, 27)","برلاري دان ممبوات بيسيڠ منيمبولکن کمارهن جماعه. (م.س. 23، 27)"]},
+    {type:"bekal", q:["Isi bekal dengan 3 FADHILAT beradab di masjid.","ايسي بکل دڠن 3 فضيلة برادب دمسجد."], items:[
+      ["💚",["Meningkatkan keimanan","منيڠکتکن کأيمانن"],1],
+      ["🤝",["Mengeratkan silaturrahim","مڠرتکن صلة الرحم"],1],
+      ["😌",["Ketenangan jiwa","کتنڠن جيوا"],1],
+      ["💔",["Merosakkan keimanan diri","مروسقکن کأيمانن ديري"],0],
+      ["😠",["Kemarahan jemaah","کمارهن جماعه"],0],
+      ["⚠️",["Berdosa","بردوسا"],0]],
+      e:["Beradab di masjid mendapat ganjaran pahala. (ms. 26)","برادب دمسجد منداڤت ڬنجرن ڤهالا. (م.س. 26)"]}
+  ]},
+/* ---------- 5. BELAJAR ---------- */
+{ id:5, icon:"📚", sticker:"🍪", c:"#9FD8FF",
+  t:["Adab Belajar","ادب بلاجر"], u:["Pelajaran 5 • ms. 29–35","ڤلاجرن 5 • م.س. 29–35"],
+  read:[
+    { pic:"✏️", h:["Adab ketika belajar","ادب کتيک بلاجر"], list:[
+      ["Membaca doa sebelum belajar","ممباچ دعاء سبلوم بلاجر"],
+      ["Memberi tumpuan ketika guru mengajar","ممبري تومڤوان کتيک ڬورو مڠاجر"],
+      ["Duduk dengan sopan","دودوق دڠن سوڤن"],
+      ["Tidak berbual-bual ketika guru mengajar","تيدق بربوال-بوال کتيک ڬورو مڠاجر"],
+      ["Taat dan patuh arahan guru","طاعة دان ڤاتوه ارهن ڬورو"],
+      ["Meminta izin guru sekiranya ada keperluan untuk keluar kelas","ممينتا ايذين ڬورو سکيراڽ اد کڤرلوان اونتوق کلوار کلس"]], p:30 },
+    { pic:"🤲", h:["Doa sebelum belajar","دعاء سبلوم بلاجر"],
+      ar:"رَبِّ زِدْنِي عِلْمًا وَارْزُقْنِي فَهْمًا",
+      mk:["Wahai Tuhanku, tambahkan ilmuku dan luaskanlah kefahamanku.","واهاي توهنکو، تمبهکن علموکو دان لواسکنله کفهمنکو."],
+      text:["Ini permulaan doa sebelum belajar. Baca doa penuh dalam buku teks.","اين ڤرمولاءن دعاء سبلوم بلاجر. باچ دعاء ڤنوه دالم بوکو تيکس."], p:31 },
+    { pic:"📕", h:["Doa selepas belajar","دعاء سلڤس بلاجر"],
+      ar:"رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِنْ لَدُنْكَ رَحْمَةً إِنَّكَ أَنْتَ الْوَهَّابُ",
+      mk:["Wahai Tuhan kami, janganlah Engkau pesongkan hati kami sesudah Engkau kurniakan kepada kami petunjuk …","واهاي توهن کامي، جاڠنله اڠکاو ڤسوڠکن هاتي کامي سسوده اڠکاو کورنياکن کڤد کامي ڤتونجوق …"],
+      text:["Ini permulaan doa selepas belajar.","اين ڤرمولاءن دعاء سلڤس بلاجر."], p:32 },
+    { pic:"🏆", h:["Fadhilat beradab ketika belajar","فضيلة برادب کتيک بلاجر"], list:[
+      ["Membentuk peribadi dan akhlak yang mulia","ممبنتوق ڤريبادي دان اخلاق يڠ موليا"],
+      ["Memperoleh kejayaan di dunia dan di akhirat","ممڤراوليه کجاياءن ددنيا دان دأخيرة"],
+      ["Ilmu yang dipelajari diberkati Allah SWT","علمو يڠ دڤلاجري دبرکتي الله سبحانه وتعالى"],
+      ["Mudah ingat dan faham pengajaran guru","موده ايڠت دان فهم ڤڠاجرن ڬورو"],
+      ["Mendapat keberkatan ilmu daripada guru","منداڤت کبرکتن علمو درڤد ڬورو"]], p:33 },
+    { pic:"😓", h:["Akibat tidak beradab ketika belajar","عاقبة تيدق برادب کتيک بلاجر"], bad:true, list:[
+      ["Tidak disukai oleh kawan-kawan","تيدق دسوکاءي اوليه کاون٢"],
+      ["Tidak disenangi guru","تيدق دسنڠي ڬورو"],
+      ["Susah untuk memahami pelajaran","سوسه اونتوق ممهمي ڤلاجرن"],
+      ["Ilmu tidak diberkati Allah SWT","علمو تيدق دبرکتي الله سبحانه وتعالى"]], p:33 },
+    { pic:"🌟", h:["Ulama pewaris nabi","علماء ڤواريث نبي"],
+      text:["Kita tidak akan mendapat ilmu jika tiada ulama di muka bumi ini. Daripada Abu Darda' RA, Rasulullah SAW bersabda:","کيت تيدق اکن منداڤت علمو جک تياد علماء دموک بومي اين. درڤد أبو الدرداء رضي الله عنه، رسول الله ﷺ برسبدا:"],
+      ar:"إِنَّ الْعُلَمَاءَ وَرَثَةُ الْأَنْبِيَاءِ",
+      mk:["Sesungguhnya ulama adalah pewaris para nabi.","سسوڠڬوهڽ علماء اداله ڤواريث ڤارا نبي."],
+      src:["Riwayat Abu Daud dan at-Tirmizi","رواية أبو داود دان الترمذي"],
+      am:["Membaca adalah kunci ilmu. Ilmu yang dipelajari hendaklah diamalkan dan disampaikan.","ممباچ اداله کونچي علمو. علمو يڠ دڤلاجري هندقله دعملکن دان دسمڤايکن."], p:"34–35" }
+  ],
+  games:[
+    {type:"kacau", q:["Masukkan adab ketika belajar ke dalam periuk!","ماسوقکن ادب کتيک بلاجر ک دالم ڤريوق!"], items:[
+      ["🤲",["Baca doa sebelum belajar","باچ دعاء سبلوم بلاجر"],1],
+      ["👀",["Beri tumpuan kepada guru","بري تومڤوان کڤد ڬورو"],1],
+      ["🪑",["Duduk dengan sopan","دودوق دڠن سوڤن"],1],
+      ["✅",["Taat dan patuh arahan guru","طاعة دان ڤاتوه ارهن ڬورو"],1],
+      ["💬",["Berbual ketika guru mengajar","بربوال کتيک ڬورو مڠاجر"],0],
+      ["🚪",["Keluar kelas tanpa izin","کلوار کلس تنڤا ايذين"],0]],
+      e:["Itulah adab ketika belajar. (ms. 30)","ايتوله ادب کتيک بلاجر. (م.س. 30)"]},
+    {type:"hidang", q:["Hidangkan adab yang betul kepada setiap murid!","هيدڠکن ادب يڠ بتول کڤد ستياڤ موريد!"], pairs:[
+      ["👩‍🏫",["Cikgu sedang mengajar di depan.","چيکڬو سدڠ مڠاجر د دڤن."],"👀",["Beri tumpuan","بري تومڤوان"]],
+      ["🚻",["Mahu ke tandas semasa kelas.","ماءو ک تاندس سماس کلس."],"🙋",["Minta izin guru","مينتا ايذين ڬورو"]],
+      ["📝",["Cikgu memberi arahan menulis.","چيکڬو ممبري ارهن منوليس."],"✅",["Taat dan patuh arahan guru","طاعة دان ڤاتوه ارهن ڬورو"]]],
+      e:["Murid beradab mudah faham pengajaran guru. (ms. 30, 33)","موريد برادب موده فهم ڤڠاجرن ڬورو. (م.س. 30، 33)"]},
+    {type:"pinggan", q:["Susun pinggan permulaan doa sebelum belajar.","سوسون ڤيڠڬن ڤرمولاءن دعاء سبلوم بلاجر."],
+      parts:["رَبِّ","زِدْنِي","عِلْمًا","وَارْزُقْنِي","فَهْمًا"],
+      mk:["Wahai Tuhanku, tambahkan ilmuku dan luaskanlah kefahamanku.","واهاي توهنکو، تمبهکن علموکو دان لواسکنله کفهمنکو."],
+      e:["Bacalah doa ini sebelum belajar. (ms. 31)","باچاله دعاء اين سبلوم بلاجر. (م.س. 31)"]},
+    {type:"rempah", q:["Doa selepas belajar: pilih balang perkataan yang hilang.","دعاء سلڤس بلاجر: ڤيليه بالڠ ڤرکاتاءن يڠ هيلڠ."],
+      ar:"رَبَّنَا لَا تُزِغْ ___ بَعْدَ إِذْ هَدَيْتَنَا", a:["قُلُوبَنَا","عِلْمًا","فَهْمًا"],
+      e:["قُلُوبَنَا = hati kami. Janganlah Engkau pesongkan hati kami. (ms. 32)","قُلُوبَنَا = هاتي کامي. جاڠنله اڠکاو ڤسوڠکن هاتي کامي. (م.س. 32)"]},
+    {type:"bekal", q:["Isi bekal dengan 3 FADHILAT beradab ketika belajar.","ايسي بکل دڠن 3 فضيلة برادب کتيک بلاجر."], items:[
+      ["😇",["Akhlak yang mulia","اخلاق يڠ موليا"],1],
+      ["🏆",["Berjaya di dunia dan di akhirat","برجاي ددنيا دان دأخيرة"],1],
+      ["✨",["Ilmu diberkati Allah","علمو دبرکتي الله"],1],
+      ["😕",["Susah memahami pelajaran","سوسه ممهمي ڤلاجرن"],0],
+      ["🙅",["Tidak disukai kawan-kawan","تيدق دسوکاءي کاون٢"],0],
+      ["😞",["Tidak disenangi guru","تيدق دسنڠي ڬورو"],0]],
+      e:["Beradab ketika belajar membawa kejayaan. (ms. 33)","برادب کتيک بلاجر ممباوا کجاياءن. (م.س. 33)"]},
+    {type:"ketuhar", q:["Betul atau salah? Masak atau hangus!","بتول اتاو سالله؟ ماسق اتاو هڠوس!"], items:[
+      [["Ulama adalah pewaris para nabi.","علماء اداله ڤواريث ڤارا نبي."],1],
+      [["Membaca adalah kunci ilmu.","ممباچ اداله کونچي علمو."],1],
+      [["Ilmu cukup dihafal, tidak perlu diamalkan.","علمو چوکوڤ دحفظ، تيدق ڤرلو دعملکن."],0],
+      [["Doa sebelum belajar dibaca selepas kelas tamat.","دعاء سبلوم بلاجر دباچ سلڤس کلس تامت."],0]],
+      e:["Ilmu hendaklah diamalkan dan disampaikan. (ms. 34–35)","علمو هندقله دعملکن دان دسمڤايکن. (م.س. 34–35)"]},
+    {type:"kek", q:["Jawab 3 soalan untuk menghias kek!","جواب 3 سوالن اونتوق مڠهياس کيک!"], qs:[
+      [["Siapakah pewaris para nabi?","سياڤاکه ڤواريث ڤارا نبي؟"],[["Ulama","علماء"],["Raja","راج"],["Pedagang","ڤداڬڠ"]]],
+      [["Imam Syafie: mahukan dunia dan akhirat, perlu ada …","امام شافعي: ماءوکن دنيا دان اخيرة، ڤرلو اد …"],[["ilmu","علمو"],["wang","واڠ"],["mainan","ماءينن"]]],
+      [["'Rabbi zidni 'ilma' bermaksud …","رَبِّ زِدْنِي عِلْمًا برمقصود …"],[["Tambahkan ilmuku","تمبهکن علموکو"],["Ampunkan dosaku","امڤونکن دوساکو"],["Berkatilah rezeki kami","برکتيله رزقي کامي"]]]],
+      e:["Kek ilmu siap! Teruskan belajar dengan beradab. (ms. 31–35)","کيک علمو سياڤ! تروسکن بلاجر دڠن برادب. (م.س. 31–35)"]}
+  ]},
+/* ---------- 6. MUSHAF AL-QURAN ---------- */
+{ id:6, icon:"📖", sticker:"🍯", c:"#FFC6E0",
+  t:["Adab dengan Mushaf al-Quran","ادب دڠن مصحف القرءان"], u:["Pelajaran 6 • ms. 36–42","ڤلاجرن 6 • م.س. 36–42"],
+  read:[
+    { pic:"🧕", h:["Adab membawa mushaf al-Quran","ادب ممباوا مصحف القرءان"], num:true, list:[
+      ["Berwuduk","بروضوء"],
+      ["Memegang mushaf al-Quran dengan tangan kanan","ممڬڠ مصحف القرءان دڠن تاڠن کانن"],
+      ["Mengangkat mushaf al-Quran sekurang-kurangnya separas dada","مڠڠکت مصحف القرءان سکورڠ-کورڠڽ سڤارس دادا"],
+      ["Berpakaian bersih dan menutup aurat","برڤاکاين برسيه دان منوتوڤ عورة"],
+      ["Menjaga al-Quran dengan cermat","منجاڬ القرءان دڠن چرمت"]], p:37 },
+    { pic:"📖", h:["Adab membaca al-Quran","ادب ممباچ القرءان"], num:true, list:[
+      ["Membaca dalam keadaan berwuduk dan menutup aurat","ممباچ دالم کأداءن بروضوء دان منوتوڤ عورة"],
+      ["Memulakan bacaan dengan ta'awuz dan basmalah","مولاکن باچاءن دڠن أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ دان بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ"],
+      ["Memberi tumpuan ketika membaca al-Quran","ممبري تومڤوان کتيک ممباچ القرءان"],
+      ["Membaca dengan bertajwid dan bertarannum","ممباچ دڠن برتجويد دان برترنم"],
+      ["Sujud tilawah selepas membaca ayat yang disunatkan sujud","سجود تلاوة سلڤس ممباچ ايات يڠ دسنتکن سجود"],
+      ["Mengambil iktibar daripada apa yang dibaca","مڠمبيل اعتبار درڤد اڤ يڠ دباچ"]],
+      ar:"أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ ۝ بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", p:38 },
+    { pic:"🗄️", h:["Adab menyimpan mushaf al-Quran","ادب ميمڤن مصحف القرءان"], list:[
+      ["Membawa dengan penuh hormat","ممباوا دڠن ڤنوه حرمت"],
+      ["Meletakkannya di tempat yang sesuai","ملتقکنڽ دتمڤت يڠ سسواي"],
+      ["Menutup mushaf al-Quran selepas membacanya","منوتوڤ مصحف القرءان سلڤس ممباچاڽ"],
+      ["Tidak meletakkan sesuatu benda di atas mushaf","تيدق ملتقکن سسواتو بندا دأتس مصحف"]], p:38 },
+    { pic:"🤲", h:["Doa selepas membaca al-Quran","دعاء سلڤس ممباچ القرءان"],
+      ar:"اَللَّهُمَّ ارْحَمْنَا بِالْقُرْآنِ وَاجْعَلْهُ لَنَا إِمَامًا وَنُورًا وَهُدًى وَرَحْمَةً",
+      mk:["Wahai Allah, kasihanilah kami dengan berkat al-Quran dan jadikannya sebagai pemimpin, cahaya, petunjuk dan rahmat untuk kami.","واهاي الله، کاسيهيله کامي دڠن برکت القرءان دان جاديکنڽ سباڬاي ڤيمڤينن، چهاي، ڤتونجوق دان رحمة اونتوق کامي."],
+      text:["Ini permulaan doa. Baca doa penuh dalam buku teks.","اين ڤرمولاءن دعاء. باچ دعاء ڤنوه دالم بوکو تيکس."], p:39 },
+    { pic:"💫", h:["Fadhilat beradab dengan mushaf","فضيلة برادب دڠن مصحف"], num:true, list:[
+      ["Mendapat keberkatan hidup","منداڤت کبرکتن هيدوڤ"],
+      ["Jiwa tenang dan tenteram","جيوا تنڠ دان تنترم"],
+      ["Memahami dan menghayati ayat-ayat yang dibaca","ممهمي دان مڠهاياتي ايات٢ يڠ دباچ"],
+      ["Mendapat syafaat","منداڤت شفاعة"],
+      ["Mendapat ganjaran pahala","منداڤت ڬنجرن ڤهالا"]], p:40 },
+    { pic:"🌙", h:["Tahukah anda?","تاهوکه اندا؟"], list:[
+      ["Al-Quran akan memberikan syafaat (pertolongan) di dunia dan di akhirat.","القرءان اکن ممبريکن شفاعة (ڤرتولوڠن) ددنيا دان دأخيرة."],
+      ["Al-Quran adalah mukjizat Rasulullah SAW yang kekal sehingga hari kiamat.","القرءان اداله معجزة رسول الله ﷺ يڠ ککل سهيڠڬ هاري قيامة."]],
+      ar:"خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ",
+      mk:["Sebaik-baik kamu ialah siapa yang belajar al-Quran dan mengajarkannya.","سباءيق-باءيق کامو اياله سياڤا يڠ بلاجر القرءان دان مڠاجرکنڽ."],
+      src:["Daripada Ali bin Abi Talib RA. Riwayat at-Tirmizi, Abu Daud dan Ibn Majah","درڤد علي بن أبي طالب رضي الله عنه. رواية الترمذي، أبو داود دان ابن ماجه"],
+      am:["Sentiasa membaca al-Quran dan mengajarkannya kepada orang lain.","سنتياس ممباچ القرءان دان مڠاجرکنڽ کڤد اورڠ لاءين."], p:42 }
+  ],
+  games:[
+    {type:"resepi", q:["Resipi membawa mushaf: susun langkah ikut urutan.","رسيڤي ممباوا مصحف: سوسون لڠکه ايکوت اوروتن."], steps:[
+      ["💧",["Berwuduk","بروضوء"]],
+      ["✋",["Pegang dengan tangan kanan","ڤڬڠ دڠن تاڠن کانن"]],
+      ["⬆️",["Angkat sekurang-kurangnya separas dada","اڠکت سکورڠ-کورڠڽ سڤارس دادا"]],
+      ["🧕",["Pakaian bersih dan tutup aurat","ڤاکاين برسيه دان توتوڤ عورة"]],
+      ["💝",["Jaga al-Quran dengan cermat","جاڬ القرءان دڠن چرمت"]]],
+      e:["Itulah 5 adab membawa mushaf al-Quran. (ms. 37)","ايتوله 5 ادب ممباوا مصحف القرءان. (م.س. 37)"]},
+    {type:"resepi", q:["Resipi membaca al-Quran: susun 4 langkah pertama.","رسيڤي ممباچ القرءان: سوسون 4 لڠکه ڤرتام."], steps:[
+      ["💧",["Berwuduk dan tutup aurat","بروضوء دان توتوڤ عورة"]],
+      ["🗣️",["Mula dengan ta'awuz dan basmalah","مولا دڠن تعوذ دان بسملة"]],
+      ["👀",["Beri tumpuan","بري تومڤوان"]],
+      ["🎵",["Baca dengan bertajwid","باچ دڠن برتجويد"]]],
+      e:["Kemudian sujud tilawah jika perlu dan ambil iktibar. (ms. 38)","کمودين سجود تلاوة جک ڤرلو دان امبيل اعتبار. (م.س. 38)"]},
+    {type:"rempah", full:true, q:["Mula membaca al-Quran. Pilih balang bacaan pertama.","مولا ممباچ القرءان. ڤيليه بالڠ باچاءن ڤرتام."],
+      a:["أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ","اَلْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنَا وَسَقَانَا","سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَٰذَا"],
+      e:["Mulakan dengan ta'awuz, kemudian basmalah. (ms. 38)","مولاکن دڠن تعوذ، کمودين بسملة. (م.س. 38)"]},
+    {type:"kacau", q:["Menyimpan mushaf: masukkan adab yang betul ke dalam periuk.","ميمڤن مصحف: ماسوقکن ادب يڠ بتول ک دالم ڤريوق."], items:[
+      ["🙏",["Bawa dengan penuh hormat","باوا دڠن ڤنوه حرمت"],1],
+      ["🗄️",["Letak di tempat yang sesuai","لتق دتمڤت يڠ سسواي"],1],
+      ["📕",["Tutup selepas membaca","توتوڤ سلڤس ممباچ"],1],
+      ["🚫",["Tidak letak benda di atas mushaf","تيدق لتق بندا دأتس مصحف"],1],
+      ["🎒",["Letak beg di atas mushaf","لتق بڬ دأتس مصحف"],0],
+      ["🧹",["Biarkan mushaf di lantai","بيارکن مصحف دلنتاي"],0]],
+      e:["Simpan mushaf dengan penuh hormat. (ms. 38)","سيمڤن مصحف دڠن ڤنوه حرمت. (م.س. 38)"]},
+    {type:"bekal", q:["Isi bekal dengan 3 FADHILAT beradab dengan mushaf.","ايسي بکل دڠن 3 فضيلة برادب دڠن مصحف."], items:[
+      ["🍀",["Keberkatan hidup","کبرکتن هيدوڤ"],1],
+      ["😌",["Jiwa tenang dan tenteram","جيوا تنڠ دان تنترم"],1],
+      ["🤝",["Mendapat syafaat","منداڤت شفاعة"],1],
+      ["😣",["Jiwa resah","جيوا رسه"],0],
+      ["💤",["Cepat mengantuk","چڤت مڠنتوق"],0],
+      ["🌀",["Lupa semua ilmu","لوڤا سموا علمو"],0]],
+      e:["Juga mendapat ganjaran pahala. (ms. 40)","جوڬ منداڤت ڬنجرن ڤهالا. (م.س. 40)"]},
+    {type:"ketuhar", q:["Betul atau salah? Masak atau hangus!","بتول اتاو سالله؟ ماسق اتاو هڠوس!"], items:[
+      [["Al-Quran ialah mukjizat Rasulullah SAW yang kekal hingga hari kiamat.","القرءان اياله معجزة رسول الله ﷺ يڠ ککل هيڠڬ هاري قيامة."],1],
+      [["Mushaf boleh dipegang dengan tangan kiri sambil bermain.","مصحف بوليه دڤڬڠ دڠن تاڠن کيري سمبيل برماءين."],0],
+      [["Al-Quran memberi syafaat di dunia dan di akhirat.","القرءان ممبري شفاعة ددنيا دان دأخيرة."],1],
+      [["Sebaik-baik kamu ialah yang belajar al-Quran dan mengajarkannya.","سباءيق-باءيق کامو اياله يڠ بلاجر القرءان دان مڠاجرکنڽ."],1]],
+      e:["Sentiasa membaca al-Quran dan mengajarkannya. (ms. 42)","سنتياس ممباچ القرءان دان مڠاجرکنڽ. (م.س. 42)"]},
+    {type:"pinggan", q:["Susun pinggan hadis ini ikut urutan.","سوسون ڤيڠڬن حديث اين ايکوت اوروتن."],
+      parts:["خَيْرُكُمْ","مَنْ","تَعَلَّمَ","الْقُرْآنَ","وَعَلَّمَهُ"],
+      mk:["Sebaik-baik kamu ialah siapa yang belajar al-Quran dan mengajarkannya.","سباءيق-باءيق کامو اياله سياڤا يڠ بلاجر القرءان دان مڠاجرکنڽ."],
+      e:["Hadis riwayat at-Tirmizi, Abu Daud dan Ibn Majah. (ms. 42)","حديث رواية الترمذي، أبو داود دان ابن ماجه. (م.س. 42)"]}
+  ]},
+/* ---------- 7. HARTA BENDA AWAM ---------- */
+{ id:7, icon:"🏞️", sticker:"🍉", c:"#B5E48C",
+  t:["Adab Memelihara Harta Benda Awam","ادب مميليهارا هرتا بندا عوام"], u:["Pelajaran 7 • ms. 43–48","ڤلاجرن 7 • م.س. 43–48"],
+  read:[
+    { pic:"🚏", h:["Pengertian harta benda awam","ڤڠرتين هرتا بندا عوام"],
+      text:["Harta benda awam ialah kemudahan yang disediakan untuk kegunaan orang ramai.","هرتا بندا عوام اياله کمودهن يڠ دسدياکن اونتوق کڬوناءن اورڠ راماي."],
+      list:[["🚻 Tandas awam","🚻 تاندس عوام"],["☎️ Telefon awam","☎️ تيليفون عوام"],["🚏 Pondok menunggu bas","🚏 ڤوندوق منوڠڬو بس"],["🛝 Taman permainan kanak-kanak","🛝 تامن ڤرماءينن کانق٢"]], p:44 },
+    { pic:"🧹", h:["Adab menggunakan harta benda awam","ادب مڠڬوناکن هرتا بندا عوام"], list:[
+      ["Mengikut peraturan yang telah ditetapkan","مڠيکوت ڤراتورن يڠ تله دتتڤکن"],
+      ["Bertimbang rasa dengan pengguna yang lain","برتيمبڠ راس دڠن ڤڠڬونا يڠ لاءين"],
+      ["Menggunakannya dengan cermat dan berhati-hati","مڠڬوناکنڽ دڠن چرمت دان برهاتي-هاتي"],
+      ["Tidak menconteng atau merosakkan","تيدق منچونتڠ اتاو مروسقکن"],
+      ["Menjaga kebersihan persekitaran","منجاڬ کبرسيهن ڤرسکيترن"],
+      ["Menjaga keselamatan harta benda awam","منجاڬ کسلامتن هرتا بندا عوام"],
+      ["Melaporkan kerosakan kepada pihak yang bertanggungjawab","ملاڤورکن کروسقن کڤد ڤيهق يڠ برتڠڬوڠجواب"]],
+      tip:["Harta benda awam tanggungjawab bersama.","هرتا بندا عوام تڠڬوڠجواب برسام."], p:45 },
+    { pic:"🌈", h:["Fadhilat memelihara harta benda awam","فضيلة مميليهارا هرتا بندا عوام"], list:[
+      ["Tidak mencemarkan pemandangan","تيدق منچمرکن ڤمندڠن"],
+      ["Memudahkan orang yang memerlukan","ممودهکن اورڠ يڠ ممرلوکن"],
+      ["Tidak berlaku pembaziran","تيدق برلاکو ڤمبذيرن"],
+      ["Dapat digunakan dalam jangka masa yang lama","داڤت دڬوناکن دالم جڠک ماس يڠ لاما"],
+      ["Sebagai tanda syukur atau terima kasih di atas adanya harta benda awam","سباڬاي تندا شکور اتاو تريما کاسيه دأتس اداڽ هرتا بندا عوام"]], p:46 },
+    { pic:"🚧", h:["Akibat tidak memelihara harta benda awam","عاقبة تيدق مميليهارا هرتا بندا عوام"], bad:true, list:[
+      ["Menyusahkan orang yang memerlukannya","مڽوسهکن اورڠ يڠ ممرلوکنڽ"],
+      ["Tidak dapat digunakan dengan sempurna","تيدق داڤت دڬوناکن دڠن سمڤورنا"],
+      ["Melahirkan masyarakat tidak berdisiplin","ملاهيرکن مشارکت تيدق برديسيڤلين"],
+      ["Mencemarkan pemandangan","منچمرکن ڤمندڠن"],
+      ["Melahirkan permusuhan dan kebencian dalam masyarakat","ملاهيرکن ڤرموسوهن دان کبنچين دالم مشارکت"],
+      ["Berlaku pembaziran","برلاکو ڤمبذيرن"]], p:46 },
+    { pic:"💡", h:["Tahukah anda?","تاهوکه اندا؟"], list:[
+      ["Allah SWT tidak suka orang yang melakukan kerosakan.","الله سبحانه وتعالى تيدق سوک اورڠ يڠ ملاکوکن کروسقن."],
+      ["Harta benda awam adalah hak kita bersama.","هرتا بندا عوام اداله حق کيت برسام."]],
+      am:["Kita perlu bertanggungjawab menjaga harta benda awam.","کيت ڤرلو برتڠڬوڠجواب منجاڬ هرتا بندا عوام."], p:48 }
+  ],
+  games:[
+    {type:"kek", q:["Jawab 3 soalan untuk menghias kek!","جواب 3 سوالن اونتوق مڠهياس کيک!"], qs:[
+      [["Harta benda awam ialah …","هرتا بندا عوام اياله …"],[["Kemudahan untuk kegunaan orang ramai","کمودهن اونتوق کڬوناءن اورڠ راماي"],["Barang milik saya seorang","بارڠ ميليق ساي سأورڠ"],["Mainan di rumah","ماءينن د رومه"]]],
+      [["Yang manakah harta benda awam?","يڠ ماناکه هرتا بندا عوام؟"],[["Pondok menunggu bas","ڤوندوق منوڠڬو بس"],["Basikal saya","باسيکل ساي"],["Beg sekolah saya","بڬ سکوله ساي"]]],
+      [["Siapakah yang perlu menjaga harta benda awam?","سياڤاکه يڠ ڤرلو منجاڬ هرتا بندا عوام؟"],[["Kita semua","کيت سموا"],["Orang lain sahaja","اورڠ لاءين سهاج"],["Tiada sesiapa","تياد سسياڤا"]]]],
+      e:["Harta benda awam tanggungjawab bersama. (ms. 44–45)","هرتا بندا عوام تڠڬوڠجواب برسام. (م.س. 44–45)"]},
+    {type:"kacau", q:["Masukkan adab menggunakan harta benda awam ke dalam periuk!","ماسوقکن ادب مڠڬوناکن هرتا بندا عوام ک دالم ڤريوق!"], items:[
+      ["📋",["Ikut peraturan yang ditetapkan","ايکوت ڤراتورن يڠ دتتڤکن"],1],
+      ["🤝",["Bertimbang rasa dengan pengguna lain","برتيمبڠ راس دڠن ڤڠڬونا لاءين"],1],
+      ["🧹",["Jaga kebersihan persekitaran","جاڬ کبرسيهن ڤرسکيترن"],1],
+      ["📞",["Laporkan kerosakan","لاڤورکن کروسقن"],1],
+      ["🖍️",["Menconteng dinding tandas","منچونتڠ دينديڠ تاندس"],0],
+      ["🔨",["Merosakkan buaian taman","مروسقکن بواين تامن"],0]],
+      e:["Tidak menconteng atau merosakkan harta benda awam. (ms. 45)","تيدق منچونتڠ اتاو مروسقکن هرتا بندا عوام. (م.س. 45)"]},
+    {type:"hidang", q:["Hidangkan adab yang betul kepada setiap pelanggan!","هيدڠکن ادب يڠ بتول کڤد ستياڤ ڤلڠڬن!"], pairs:[
+      ["☎️",["Telefon awam sudah rosak.","تيليفون عوام سوده روسق."],"📢",["Laporkan kepada pihak bertanggungjawab","لاڤورکن کڤد ڤيهق برتڠڬوڠجواب"]],
+      ["🛝",["Ramai kawan mahu main gelongsor.","راماي کاون ماءو ماءين ڬلوڠسور."],"🤝",["Bertimbang rasa dengan pengguna lain","برتيمبڠ راس دڠن ڤڠڬونا لاءين"]],
+      ["🚏",["Ada sampah di pondok bas.","اد سمڤه د ڤوندوق بس."],"🧹",["Jaga kebersihan persekitaran","جاڬ کبرسيهن ڤرسکيترن"]]],
+      e:["Kemudahan awam boleh digunakan lama jika dijaga. (ms. 45–46)","کمودهن عوام بوليه دڬوناکن لاما جک دجاڬ. (م.س. 45–46)"]},
+    {type:"bekal", q:["Kali ini, isi bekal dengan 3 AKIBAT tidak memelihara harta awam.","کالي اين، ايسي بکل دڠن 3 عاقبة تيدق مميليهارا هرتا عوام."], items:[
+      ["😩",["Menyusahkan orang yang memerlukan","مڽوسهکن اورڠ يڠ ممرلوکن"],1],
+      ["🏚️",["Mencemarkan pemandangan","منچمرکن ڤمندڠن"],1],
+      ["💸",["Berlaku pembaziran","برلاکو ڤمبذيرن"],1],
+      ["🙏",["Tanda syukur dan terima kasih","تندا شکور دان تريما کاسيه"],0],
+      ["⏳",["Dapat digunakan lama","داڤت دڬوناکن لاما"],0],
+      ["🤗",["Memudahkan orang lain","ممودهکن اورڠ لاءين"],0]],
+      e:["Rosakkan harta awam menyusahkan semua orang. (ms. 46)","روسقکن هرتا عوام مڽوسهکن سموا اورڠ. (م.س. 46)"]},
+    {type:"ketuhar", q:["Betul atau salah? Masak atau hangus!","بتول اتاو سالله؟ ماسق اتاو هڠوس!"], items:[
+      [["Allah SWT tidak suka orang yang melakukan kerosakan.","الله سبحانه وتعالى تيدق سوک اورڠ يڠ ملاکوکن کروسقن."],1],
+      [["Harta benda awam adalah hak kita bersama.","هرتا بندا عوام اداله حق کيت برسام."],1],
+      [["Boleh menconteng dinding tandas awam.","بوليه منچونتڠ دينديڠ تاندس عوام."],0],
+      [["Menjaga harta awam ialah tanda syukur.","منجاڬ هرتا عوام اياله تندا شکور."],1],
+      [["Harta awam boleh dibawa pulang ke rumah.","هرتا عوام بوليه دباوا ڤولڠ ک رومه."],0]],
+      e:["Kita perlu bertanggungjawab menjaga harta benda awam. (ms. 48)","کيت ڤرلو برتڠڬوڠجواب منجاڬ هرتا بندا عوام. (م.س. 48)"]}
+  ]}
+];
+
+/* Cabaran akhir "Kek Juara": [stesen, indeks permainan] — semua 8 jenis */
+const FINAL_PICK = [[1,1],[1,3],[2,0],[2,6],[3,3],[4,5],[5,6],[6,0],[7,1],[7,3]];
+
+/* ===================== ENJIN "Dapur Adab Chef Mimi" (Akhlak Tahun 2) ===================== */
+const KEY = "a2-best", YEAR = 2;
+function load(k,f){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):f; }catch(e){ return f; } }
+function save(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+let LANG = load("kafa-lang","jawi");
+const isJ = () => LANG==="jawi";
+const T = v => v==null ? "" : typeof v==="string" ? v : (isJ() ? v[1] : v[0]);
+const RU = v => v==null ? "" : typeof v==="string" ? "" : v[0];
+const L = (r,j) => isJ() ? j : r;
+function applyLang(){ document.documentElement.dir = isJ() ? "rtl" : "ltr"; document.documentElement.lang = isJ() ? "ms-Arab" : "ms"; }
+const BACK = () => isJ() ? "→" : "←";
+let best = load(KEY, {});
+let voiceOn = load("t2-voice", true);
+const app = document.getElementById("app");
+const $ = s => app.querySelector(s);
+const shuffle = a => { const b=a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; };
+// rombak dan pastikan tidak sama dengan susunan jawapan
+const mix = a => { if(a.length<2) return a.slice(); let b; do{ b=shuffle(a); }while(b.every((x,i)=>x===a[i])); return b; };
+const starsFor = m => m<=1 ? 3 : m<=3 ? 2 : 1;
+const totalStars = () => Object.values(best).reduce((s,v)=>s+(+v||0),0);
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");
+// teks yang mengandungi huruf Arab berharakat: gunakan fon Amiri
+const AR_RX = /[\u064B-\u0652]/;
+const TX = v => { const s = T(v); return AR_RX.test(s) && !isJ() ? `<span class="ar">${s}</span>` : s; };
+
+/* ---------- Maskot: Chef Mimi si anak ayam ---------- */
+function mimi(cls=""){
+  return `<svg class="mimi ${cls}" viewBox="0 0 120 120" aria-hidden="true">
+    <ellipse cx="60" cy="114" rx="30" ry="5" fill="rgba(0,0,0,.15)"/>
+    <path d="M44 108 l-6 6 M44 108 l0 7 M76 108 l6 6 M76 108 l0 7" stroke="#F08A24" stroke-width="4" stroke-linecap="round"/>
+    <ellipse cx="60" cy="74" rx="36" ry="36" fill="#FFD84D" stroke="#4A2C2A" stroke-width="4"/>
+    <path d="M38 80 h44 v18 q-22 12 -44 0 Z" fill="#E8483B" stroke="#4A2C2A" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M56 88 q4 -6 8 0 q-4 6 -8 0 Z M60 86 q3 -4 6 -1 q-1 5 -6 7 q-5 -2 -6 -7 q3 -3 6 1" fill="#fff"/>
+    <path d="M25 70 q-12 6 -6 18 q8 -2 10 -10 Z M95 70 q12 6 6 18 q-8 -2 -10 -10 Z" fill="#F5C232" stroke="#4A2C2A" stroke-width="3" stroke-linejoin="round"/>
+    <circle cx="47" cy="62" r="6.5" fill="#4A2C2A"/><circle cx="73" cy="62" r="6.5" fill="#4A2C2A"/>
+    <circle cx="49" cy="60" r="2.2" fill="#fff"/><circle cx="75" cy="60" r="2.2" fill="#fff"/>
+    <ellipse cx="38" cy="72" rx="6" ry="3.5" fill="#FF8FA3" opacity=".8"/><ellipse cx="82" cy="72" rx="6" ry="3.5" fill="#FF8FA3" opacity=".8"/>
+    <path d="M53 69 L60 77 L67 69 Z" fill="#F08A24" stroke="#4A2C2A" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M36 40 h48 v-4 H36 Z" fill="#fff" stroke="#4A2C2A" stroke-width="3"/>
+    <path d="M38 37 q-14 -4 -8 -18 q6 -10 16 -6 q4 -12 14 -12 q10 0 14 12 q10 -4 16 6 q6 14 -8 18 Z" fill="#fff" stroke="#4A2C2A" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M50 30 v6 M60 26 v10 M70 30 v6" stroke="#E7DCD3" stroke-width="3" stroke-linecap="round"/>
+  </svg>`;
+}
+
+/* ---------- Bunyi ---------- */
+let actx = null;
+function tone(seq){
+  try{
+    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    let t = actx.currentTime;
+    for(const [f,d,type] of seq){
+      const o = actx.createOscillator(), g = actx.createGain();
+      o.type = type||"sine"; o.frequency.value = f; g.gain.setValueAtTime(.18,t); g.gain.exponentialRampToValueAtTime(.001,t+d);
+      o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t+d); t += d*.8;
+    }
+  }catch(e){}
+}
+const sfx = {
+  ok:   () => tone([[660,.12],[880,.18]]),
+  tick: () => tone([[740,.08,"triangle"]]),
+  no:   () => tone([[220,.18,"square"],[180,.2,"square"]]),
+  plop: () => tone([[300,.06,"sine"],[520,.08,"sine"]]),
+  ding: () => tone([[1320,.25,"triangle"]]),
+  win:  () => tone([[523,.14],[659,.14],[784,.14],[1046,.3]])
+};
+
+/* ---------- Suara (baca teks Rumi) ---------- */
+const ttsOK = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+let voice = null;
+function pickVoice(){ try{ const vs = speechSynthesis.getVoices(); voice = vs.find(v=>/^ms/i.test(v.lang)) || vs.find(v=>/^id/i.test(v.lang)) || null; }catch(e){} }
+if(ttsOK){ pickVoice(); try{ speechSynthesis.onvoiceschanged = pickVoice; }catch(e){} }
+function speak(text, force){
+  if(!ttsOK || !text || (!voiceOn && !force)) return;
+  try{
+    speechSynthesis.cancel();
+    const clean = text.replace(/[\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF]+/g," ").replace(/…|___/g," ... ")
+      .replace(/SAW/g,"sallallahu alaihi wasallam").replace(/SWT/g,"subhanahu wa taala").replace(/\bRA\b/g,"radhiallahu anhu").replace(/ms\. /g,"muka surat ");
+    const u = new SpeechSynthesisUtterance(clean);
+    u.lang = voice ? voice.lang : "ms-MY"; if(voice) u.voice = voice; u.rate = .92; u.pitch = 1.15;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function hush(){ if(ttsOK){ try{ speechSynthesis.cancel(); }catch(e){} } }
+
+/* ---------- Bantuan paparan ---------- */
+function toast(msg){ document.querySelectorAll(".toast").forEach(t=>t.remove()); const t=document.createElement("div"); t.className="toast"; t.setAttribute("role","status"); t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2600); }
+function confetti(n=36){
+  const box = document.createElement("div"); box.className="confetti"; box.setAttribute("aria-hidden","true");
+  const em = ["🧁","⭐","🍓","🍩","🎉","🍪"];
+  for(let i=0;i<n;i++){ const s=document.createElement("span"); s.textContent=em[i%em.length]; s.style.left=Math.random()*100+"vw"; s.style.animationDuration=(2+Math.random()*2)+"s"; s.style.animationDelay=Math.random()*.8+"s"; box.appendChild(s); }
+  document.body.appendChild(box); setTimeout(()=>box.remove(),5000);
+}
+const langBtn = () => `<button class="ib" data-act="lang" aria-label="${L("Tukar ke tulisan Jawi","توکر ک توليسن رومي")}">${isJ()?"Rumi":'<span style="font-family:Noto Naskh Arabic">جاوي</span>'}</button>`;
+const voiceBtn = () => `<button class="ib" data-act="voice" aria-label="${L("Suara","سوارا")}" aria-pressed="${voiceOn}">${voiceOn?"🔊":"🔇"}</button>`;
+const sayBtn = txt => ttsOK && txt ? `<button class="say" data-say="${encodeURIComponent(txt)}" aria-label="${L("Dengar","دڠر")}">🔊</button>` : "";
+const starRow = n => [1,2,3].map(i=>`<span class="${i<=n?"":"off"}">⭐</span>`).join("");
+const unlocked = id => id===1 || (best[id-1]||0)>0;
+const allDone = () => STATIONS.every(s => (best[s.id]||0)>0);
+const FINAL_ST = { id:"final", icon:"🎂", c:"#FFC2B4", t:["Kek Juara","کيک جوارا"], u:["Cabaran akhir • soalan semua resipi","چابرن اخير • سوالن سموا رسيڤي"], sticker:"🏆" };
+
+/* ===================== PETA: MENU DAPUR ===================== */
+let S = null; // sesi stesen semasa
+function renderMap(){
+  hush(); S = null;
+  document.title = L("Dapur Adab Chef Mimi • Akhlak Tahun 2","داڤور ادب چيف ميمي • اخلاق تاهون 2");
+  const cur = (STATIONS.find(s => !(best[s.id]>0)) || {id:"final"}).id;
+  const card = (s, side) => {
+    const lock = !unlocked(s.id), st = best[s.id]||0;
+    return `<button class="rc ${side} ${lock?"lock":""} ${cur===s.id?"now":""}" data-act="${lock?"locked":"open"}" data-id="${s.id}" style="--c:${s.c}">
+      <span class="pot"><span class="num">${s.id}</span>${s.icon}</span>
+      <span class="tx"><span class="lb">${T(s.u)}</span><span class="nm">${T(s.t)}</span><span class="st">${st?starRow(st):""}</span></span>
+      ${cur===s.id?mimi("bob peek"):""}</button>`;
+  };
+  const fOpen = allDone(), fSt = best.final||0;
+  app.innerHTML = `
+    <div class="top"><a class="ib" href="../index.html" aria-label="${L("Kembali ke Tahun 2","کمبالي ک تاهون 2")}">${BACK()}</a><span class="sp"></span>
+      <span class="pill" aria-label="${totalStars()} ${L("bintang","بينتڠ")}">⭐ ${totalStars()}</span>${voiceBtn()}${langBtn()}</div>
+    <header class="hero">${mimi("bob")}<div><h1>${L("Dapur Adab Chef Mimi","داڤور ادب چيف ميمي")}</h1>
+      <p>${L("Masak resipi adab bersama Chef Mimi dan penuhkan rak hidangan!","ماسق رسيڤي ادب برسام چيف ميمي دان ڤنوهکن رق هيدڠن!")}</p></div></header>
+    <p class="sttl">🍽️ ${L("Rak hidangan saya","رق هيدڠن ساي")}</p>
+    <div class="shelf">${STATIONS.map(s=>`<span class="${best[s.id]>0?"got":""}" title="${esc(T(s.t))}">${s.sticker}</span>`).join("")}<span class="${best.final>0?"got":""}" title="${esc(T(FINAL_ST.t))}">🏆</span></div>
+    <section class="menu" aria-label="${L("Menu resipi","مينو رسيڤي")}">
+      ${STATIONS.map(s => card(s, s.id%2 ? "l" : "r")).join("")}
+      <button class="rc final ${fOpen?"":"lock"} ${cur==="final"?"now":""}" data-act="${fOpen?"final":"flocked"}" style="--c:#FFE7A3">
+        <span class="pot">🎂</span><span class="tx"><span class="lb">${L("Cabaran akhir","چابرن اخير")}</span><span class="nm">${T(FINAL_ST.t)}</span><span class="st">${fSt?starRow(fSt):""}</span></span>
+        ${cur==="final"?mimi("bob peek"):""}</button>
+    </section>
+    <div class="counter">🍳 ${L("Selamat memasak adab!","سلامت مماسق ادب!")}</div>`;
+  const now = app.querySelector(".rc.now");
+  if(now && cur!==1) setTimeout(()=>{ try{ now.scrollIntoView({block:"center", behavior:"smooth"}); }catch(e){} }, 250);
+}
+
+/* ===================== STESEN: BACA ===================== */
+function openStation(id){
+  const st = STATIONS.find(s=>s.id===id);
+  S = { st, phase:"read", ri:0, gi:0, miss:0, games: st.games.slice() };
+  renderRead();
+}
+function openFinal(){
+  const games = FINAL_PICK.map(([s,i]) => STATIONS.find(x=>x.id===s).games[i]);
+  S = { st:FINAL_ST, phase:"play", gi:0, miss:0, games };
+  renderPlay();
+}
+const head = () => `<div class="top"><button class="ib" data-act="map" aria-label="${L("Kembali ke menu","کمبالي ک مينو")}">${BACK()}</button><span class="sp"></span>${voiceBtn()}${langBtn()}</div>
+  <div class="shead"><span class="pot" style="--c:${S.st.c}">${S.st.icon}</span><div><h2>${T(S.st.t)}</h2><small>${T(S.st.u)}</small></div></div>`;
+function readSpeech(c){
+  return [RU(c.h), RU(c.text), ...(c.list||[]).map(RU), RU(c.mk), c.tip?("Tahukah anda? "+RU(c.tip)):"", c.am?("Amalkan: "+RU(c.am)):""].filter(Boolean).join(". ");
+}
+function renderRead(){
+  hush();
+  const c = S.st.read[S.ri], n = S.st.read.length, last = S.ri===n-1;
+  app.innerHTML = head() + `
+    <article class="card recipe">
+      <div class="rpic" aria-hidden="true">${c.pic}</div>
+      <h3 class="rh"><span>${T(c.h)}</span> ${sayBtn(readSpeech(c))}</h3>
+      ${c.text?`<p class="rtext">${T(c.text)}</p>`:""}
+      ${c.list?`<ul class="rlist ${c.bad?"bad":""} ${c.num?"num":""}">${c.list.map((x,i)=>`<li style="--i:${i}">${T(x)}</li>`).join("")}</ul>`:""}
+      ${c.ar?`<div class="abox"><span class="ar" lang="ar">${c.ar}</span>${c.mk?`<span class="mk">${T(c.mk)}</span>`:""}${c.src?`<small>${T(c.src)}</small>`:""}</div>`:""}
+      ${c.tip?`<div class="tip"><b>💡</b><span><b>${L("Tahukah anda?","تاهوکه اندا؟")}</b> ${T(c.tip)}</span></div>`:""}
+      ${c.am?`<div class="tip am"><b>🌱</b><span><b>${L("Amalkan:","عملکن:")}</b> ${T(c.am)}</span></div>`:""}
+      <div class="ref">📖 ${L("Buku teks ms.","بوکو تيکس م.س.")} ${c.p}</div>
+      <div class="navr">
+        <button class="btn alt" data-act="rprev" ${S.ri?"":"disabled"} aria-label="${L("Sebelum","سبلوم")}" style="flex:0 0 64px;width:64px">${BACK()}</button>
+        <button class="btn ${last?"go":""}" data-act="rnext">${last ? "🍳 "+L("Jom masak!","جوم ماسق!") : L("Seterusnya","ستروسڽ")+" ▶"}</button>
+      </div>
+      <div class="dots">${S.st.read.map((_,i)=>`<i class="${i===S.ri?"on":""}"></i>`).join("")}</div>
+    </article>`;
+  speak(readSpeech(c));
+  window.scrollTo(0,0);
+}
+
+/* ===================== STESEN: MAIN ===================== */
+const DISH = ["🥚","🍳","🥞","🍜","🍲","🥗","🍰","🧁","🍮","🍩"];
+function progressBar(){
+  const n = S.games.length, k = S.gi;
+  return `<div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${k}">${S.games.map((_,i)=>`<span class="${i<k?"done":i===k?"cur":""}">${i<k?DISH[i%DISH.length]:i===k?"🍳":""}</span>`).join("")}</div>`;
+}
+function renderPlay(){
+  hush();
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  const g = S.games[S.gi];
+  app.innerHTML = head() + progressBar() + `<section class="card" id="game"></section>`;
+  const box = $("#game");
+  box.innerHTML = `<div class="q"><p>${T(g.q)}</p>${sayBtn(RU(g.q))}</div><div id="play"></div><div id="hint" aria-live="polite"></div>`;
+  GAMES[g.type]($("#play"), g);
+  speak(RU(g.q));
+  window.scrollTo(0,0);
+}
+function oops(el, hint){
+  S.miss++; sfx.no();
+  if(el){ el.classList.remove("shake"); void el.offsetWidth; el.classList.add("shake"); }
+  const h = $("#hint"); if(h){ h.innerHTML = `<div class="hint">🐥 ${hint || L("Hmm, cuba lagi!","همم، چوبا لاڬي!")}</div>`; }
+}
+const clearHint = () => { const h=$("#hint"); if(h) h.innerHTML=""; };
+const PRAISE = [["Sedap!","سدڤ!"],["Bagus!","باڬوس!"],["Pandai!","ڤنداي!"],["Syabas!","شاباس!"],["MasyaAllah!","ماشاءالله!"]];
+function win(){
+  if(document.querySelector(".fb")) return;
+  sfx.ding();
+  const g = S.games[S.gi], p = PRAISE[Math.floor(Math.random()*PRAISE.length)];
+  const fb = document.createElement("div"); fb.className = "fb"; fb.setAttribute("role","dialog"); fb.setAttribute("aria-live","polite");
+  fb.innerHTML = `<div class="in"><div class="row1">${mimi("yay")}<div><strong>${T(p)}</strong><p>${T(g.e)}</p></div></div>
+    <button class="btn go" data-act="next">${L("Seterusnya","ستروسڽ")} ▶</button></div>`;
+  document.body.appendChild(fb);
+  speak(RU(p)+" "+RU(g.e));
+  setTimeout(()=>{ const b = fb.querySelector("button"); if(b) b.focus(); }, 50);
+}
+function nextGame(){
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  S.gi++;
+  if(S.gi < S.games.length) renderPlay(); else renderResult();
+}
+function renderResult(){
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  const id = S.st.id, stars = starsFor(S.miss), prev = best[id]||0, wasAll = allDone();
+  if(stars > prev){ best[id] = stars; save(KEY, best); }
+  S.res = { stars, first: !prev, openedFinal: id!=="final" && !wasAll && allDone() };
+  S.phase = "result";
+  drawResult(true);
+}
+function drawResult(fresh){
+  hush();
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  const { stars, first, openedFinal } = S.res;
+  const msg = stars===3 ? ["Cemerlang! Masakan adab kamu sempurna.","چمرلڠ! ماسقن ادب کامو سمڤورنا."] : stars===2 ? ["Bagus! Cuba lagi untuk 3 bintang.","باڬوس! چوبا لاڬي اونتوق 3 بينتڠ."] : ["Syabas kerana mencuba! Jom masak lagi.","شاباس کران منچوبا! جوم ماسق لاڬي."];
+  const title = PRAISE[stars===3?4:stars===2?1:3];
+  app.innerHTML = head() + `<section class="card res">
+      ${mimi("yay")}
+      <div class="stars" aria-label="${stars} ${L("bintang","بينتڠ")}">${[1,2,3].map(i=>`<span class="${i<=stars?"":"off"}" style="animation-delay:${i*.25}s">⭐</span>`).join("")}</div>
+      <h2>${T(title)}</h2><p>${T(msg)}</p>
+      ${first ? `<div class="gotst"><span>${S.st.sticker}</span>${L("Hidangan baharu untuk rak kamu!","هيدڠن بهارو اونتوق رق کامو!")}</div>` : ""}
+      ${openedFinal ? `<p><b>🎂 ${L("Cabaran Kek Juara kini dibuka!","چابرن کيک جوارا کيني دبوک!")}</b></p>` : ""}
+      <button class="btn go" data-act="map">🍳 ${L("Kembali ke menu","کمبالي ک مينو")}</button>
+      <button class="btn alt" style="margin-top:10px" data-act="again">🔁 ${L("Main lagi","ماءين لاڬي")}</button>
+    </section>`;
+  if(fresh){ sfx.win(); confetti(); speak(RU(title)+" "+RU(msg)); }
+  window.scrollTo(0,0);
+}
+
+/* ===================== JENIS PERMAINAN DAPUR ===================== */
+const JC = ["#E8483B","#F5B83D","#3FBF8F","#9B7BFF","#4DABF7"];
+const PC = ["#FFE3E3","#FFF3BF","#D3F9D8","#E5DBFF","#D0EBFF","#FFE8CC","#C5F6FA"];
+const potSVG = () => `<svg viewBox="0 0 200 170" aria-hidden="true">
+  <defs><clipPath id="potclip"><path d="M34 70 h132 v58 q0 26 -26 26 h-80 q-26 0 -26 -26 Z"/></clipPath></defs>
+  <g opacity=".7" stroke="#B9A9A4" stroke-width="5" fill="none" stroke-linecap="round"><path d="M70 50 q-10 -14 0 -26 q10 -12 0 -22"><animate attributeName="opacity" values="1;.2;1" dur="2s" repeatCount="indefinite"/></path><path d="M130 50 q-10 -14 0 -26 q10 -12 0 -22"><animate attributeName="opacity" values=".2;1;.2" dur="2s" repeatCount="indefinite"/></path></g>
+  <g class="spoon"><rect x="120" y="10" width="10" height="80" rx="5" fill="#D98B4A" stroke="#4A2C2A" stroke-width="3" transform="rotate(20 125 50)"/></g>
+  <rect x="14" y="78" width="24" height="12" rx="6" fill="#9AA5B1" stroke="#4A2C2A" stroke-width="3"/><rect x="162" y="78" width="24" height="12" rx="6" fill="#9AA5B1" stroke="#4A2C2A" stroke-width="3"/>
+  <path d="M34 70 h132 v58 q0 26 -26 26 h-80 q-26 0 -26 -26 Z" fill="#C8D1DA"/>
+  <rect id="lvl" class="lvl" x="30" y="150" width="140" height="10" fill="#F08A24" clip-path="url(#potclip)"/>
+  <path d="M34 70 h132 v58 q0 26 -26 26 h-80 q-26 0 -26 -26 Z" fill="none" stroke="#4A2C2A" stroke-width="5"/>
+  <rect x="26" y="62" width="148" height="14" rx="7" fill="#E8483B" stroke="#4A2C2A" stroke-width="4"/>
+</svg>`;
+const GAMES = {
+  /* Kacau periuk: masukkan bahan (adab) yang baik sahaja */
+  kacau(el, g){
+    const order = shuffle(g.items.map((_,i)=>i)), need = g.items.filter(x=>x[2]).length; let k = 0;
+    el.innerHTML = `<div class="potz">${potSVG()}</div><div class="cnt" id="cn">🥄 0 / ${need}</div>
+      <div class="ings">${order.map(i=>`<button class="ing" data-i="${i}"><span class="em" aria-hidden="true">${g.items[i][0]}</span><span>${T(g.items[i][1])}</span></button>`).join("")}</div>`;
+    const lvl = el.querySelector("#lvl");
+    el.querySelectorAll(".ing").forEach(b => b.addEventListener("click", () => {
+      if(b.disabled || k>=need) return; const it = g.items[+b.dataset.i];
+      if(it[2]){
+        k++; sfx.plop(); b.classList.add("in"); b.disabled = true; clearHint();
+        const h = 12 + k/need*70; lvl.setAttribute("y", 154-h); lvl.setAttribute("height", h);
+        el.querySelector("#cn").textContent = `🥄 ${k} / ${need}`;
+        if(k===need) setTimeout(win, 550);
+      } else { b.disabled = true; b.style.opacity = ".4"; oops(b, L("Itu bukan adab yang baik. Jangan masukkan ke dalam periuk!","ايت بوکن ادب يڠ باءيق. جاڠن ماسوقکن ک دالم ڤريوق!")); }
+    }));
+  },
+
+  /* Resipi: susun kad langkah pada garis masa memasak */
+  resepi(el, g){
+    const n = g.steps.length, order = mix(g.steps.map((_,i)=>i)); let k = 0;
+    el.innerHTML = `<div class="tl">${g.steps.map((_,i)=>`<div class="slot" data-s="${i}"><b>${i+1}</b><span></span></div>`).join("")}</div>
+      <div class="rcds">${order.map(i=>`<button class="rcd" data-i="${i}"><span class="em" aria-hidden="true">${g.steps[i][0]}</span><span>${T(g.steps[i][1])}</span></button>`).join("")}</div>
+      <div class="cnt">⏱️ ${L("Tekan kad ikut urutan: langkah 1 dahulu.","تکن کد ايکوت اوروتن: لڠکه 1 دهولو.")}</div>`;
+    el.querySelectorAll(".rcd").forEach(b => b.addEventListener("click", () => {
+      if(b.classList.contains("used") || k>=n) return;
+      if(+b.dataset.i===k){
+        const sl = el.querySelector(`.slot[data-s="${k}"]`); sl.classList.add("full");
+        sl.querySelector("span").textContent = g.steps[k][0]+" "+T(g.steps[k][1]);
+        b.classList.add("used"); k++; sfx.tick(); clearHint();
+        if(k===n) setTimeout(win, 400);
+      } else oops(b, L(`Belum lagi. Apakah langkah ke-${k+1}?`,`بلوم لاڬي. اڤاکه لڠکه ک-${k+1}؟`));
+    }));
+  },
+
+  /* Ketuhar: betul (masak) atau salah (hangus) */
+  ketuhar(el, g){
+    const order = shuffle(g.items.map((_,i)=>i)); let k = 0;
+    const draw = () => {
+      const i = order[k];
+      el.innerHTML = `<div class="oven"><div class="knobs"><span class="timer"><span style="width:${k/order.length*100}%"></span></span><i></i><i></i></div>
+        <div class="ow" id="ow" data-i="${i}">${T(g.items[i][0])}</div></div>
+        <div class="tfb"><button class="t" data-v="1">✅ ${L("Betul","بتول")}<br><small>🍞 ${L("masak","ماسق")}</small></button><button class="f" data-v="0">❌ ${L("Salah","سالله")}<br><small>🔥 ${L("hangus","هڠوس")}</small></button></div>
+        <div class="cnt">${k+1} / ${order.length} ${sayBtn(RU(g.items[i][0]))}</div>`;
+      el.querySelectorAll(".tfb button").forEach(b => b.addEventListener("click", () => {
+        if(+b.dataset.v===g.items[i][1]){ sfx.tick(); k++; clearHint(); if(k<order.length) draw(); else win(); }
+        else oops(el.querySelector("#ow"), g.items[i][1] ? L("Kenyataan ini betul. Bacalah sekali lagi.","کڽاتاءن اين بتول. باچاله سکالي لاڬي.") : L("Kenyataan ini salah. Ia akan hangus!","کڽاتاءن اين سالله. اي اکن هڠوس!"));
+      }));
+    };
+    draw();
+  },
+
+  /* Hidang: pilih pinggan, kemudian tekan pelanggan */
+  hidang(el, g){
+    const co = shuffle(g.pairs.map((_,i)=>i)), po = mix(co); let sel = null, k = 0;
+    el.innerHTML = `<div class="custs">${co.map(i=>`<button class="cust" data-i="${i}"><span class="face" aria-hidden="true">${g.pairs[i][0]}</span><span class="bub">${T(g.pairs[i][1])}</span><span class="srv" aria-hidden="true">🍽️</span></button>`).join("")}</div>
+      <div class="plates">${po.map(i=>`<button class="plate" data-i="${i}"><span class="em" aria-hidden="true">${g.pairs[i][2]}</span><span>${T(g.pairs[i][3])}</span></button>`).join("")}</div>
+      <div class="cnt">🍽️ ${L("Tekan pinggan, kemudian tekan pelanggan.","تکن ڤيڠڬن، کمودين تکن ڤلڠڬن.")}</div>`;
+    el.querySelectorAll(".plate").forEach(p => p.addEventListener("click", () => {
+      if(p.classList.contains("gone")) return;
+      el.querySelectorAll(".plate").forEach(x=>x.classList.remove("sel")); p.classList.add("sel"); sel = +p.dataset.i; sfx.tick();
+    }));
+    el.querySelectorAll(".cust").forEach(c => c.addEventListener("click", () => {
+      if(c.classList.contains("done")) return;
+      if(sel===null){ toast(L("Pilih pinggan dahulu 🍽️","ڤيليه ڤيڠڬن دهولو 🍽️")); return; }
+      const p = el.querySelector(`.plate[data-i="${sel}"]`);
+      if(+c.dataset.i===sel){
+        c.classList.add("done"); c.querySelector(".srv").textContent = g.pairs[sel][2]; p.classList.add("gone"); p.classList.remove("sel");
+        sel = null; k++; sfx.plop(); clearHint();
+        if(k===g.pairs.length) setTimeout(win, 400);
+      } else oops(c, L("Pelanggan ini perlukan hidangan lain. Baca semula situasinya.","ڤلڠڬن اين ڤرلوکن هيدڠن لاءين. باچ سمولا سيتواسيڽ."));
+    }));
+  },
+
+  /* Rempah: pilih balang perkataan / doa yang betul */
+  rempah(el, g){
+    const order = shuffle(g.a.map((_,i)=>i)); let done = false;
+    const gap = `<span class="gap" id="gap">؟</span>`;
+    el.innerHTML = `${g.ar?`<div class="qar ar" lang="ar">${g.ar.replace("___", gap)}</div>`:""}
+      <div class="jars">${order.map((i,n)=>`<button class="jar ar ${g.full?"full":""}" lang="ar" data-i="${i}" style="--jc:${JC[(n+S.gi)%JC.length]}">${g.a[i]}</button>`).join("")}</div>
+      <div class="cnt">🫙 ${L("Tekan balang yang betul.","تکن بالڠ يڠ بتول.")}</div>`;
+    el.querySelectorAll(".jar").forEach(b => b.addEventListener("click", () => {
+      if(done || b.classList.contains("wrong")) return;
+      if(+b.dataset.i===0){ done = true; b.classList.add("right"); const gp = el.querySelector("#gap"); if(gp) gp.textContent = g.a[0]; sfx.plop(); clearHint(); setTimeout(win, 500); }
+      else { b.classList.add("wrong"); oops(b, L("Bukan balang itu. Baca kad resipi sekali lagi.","بوکن بالڠ ايت. باچ کد رسيڤي سکالي لاڬي.")); }
+    }));
+  },
+
+  /* Kek: setiap jawapan betul menambah hiasan */
+  kek(el, g){
+    const TOP = ["cream","🍓","🕯️"]; let k = 0;
+    const cake = () => `<div class="cake" aria-hidden="true"><div class="base"></div>${TOP.slice(0,k).map(t=>t==="cream"?`<div class="cream"></div>`:`<div class="top">${t}</div>`).join("")}</div>`;
+    const draw = () => {
+      const [qq, opts] = g.qs[k], order = shuffle(opts.map((_,i)=>i));
+      el.innerHTML = cake() + `<p class="kq">${k+1}. ${TX(qq)} ${sayBtn(RU(qq))}</p>
+        ${order.map(i=>`<button class="opt" data-i="${i}">${TX(opts[i])}</button>`).join("")}
+        <div class="kn">🧁 ${k} / ${g.qs.length}</div>`;
+      el.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => {
+        if(b.classList.contains("wrong") || b.classList.contains("right")) return;
+        if(+b.dataset.i===0){
+          b.classList.add("right"); k++; sfx.plop(); clearHint();
+          if(k<g.qs.length) setTimeout(draw, 350); else { el.querySelector(".cake").outerHTML = cake(); setTimeout(win, 450); }
+        } else { b.classList.add("wrong"); oops(b, L("Bukan itu. Cuba jawapan lain.","بوکن ايت. چوبا جواڤن لاءين.")); }
+      }));
+    };
+    draw();
+  },
+
+  /* Bekal: pilih tepat 3 bahan, kemudian tutup bekas */
+  bekal(el, g){
+    const order = shuffle(g.items.map((_,i)=>i)), on = new Set(); let done = false;
+    el.innerHTML = `<div class="tray" id="tray"></div>
+      <div class="items">${order.map(i=>`<button class="it" data-i="${i}" aria-pressed="false"><span class="em" aria-hidden="true">${g.items[i][0]}</span><span>${T(g.items[i][1])}</span></button>`).join("")}</div>
+      <button class="btn go" id="shut" style="margin-top:14px" disabled>🍱 ${L("Tutup bekal","توتوڤ بکل")}</button>`;
+    const sync = () => {
+      const ids = [...on];
+      el.querySelector("#tray").innerHTML = [0,1,2].map(n=>`<span>${ids[n]!=null?g.items[ids[n]][0]:""}</span>`).join("");
+      el.querySelectorAll(".it").forEach(b => { const v = on.has(+b.dataset.i); b.classList.toggle("on", v); b.setAttribute("aria-pressed", v); });
+      el.querySelector("#shut").disabled = on.size!==3;
+    };
+    el.querySelectorAll(".it").forEach(b => b.addEventListener("click", () => {
+      if(done) return; const i = +b.dataset.i; b.classList.remove("bad");
+      if(on.has(i)) on.delete(i);
+      else if(on.size>=3){ toast(L("Bekal sudah penuh! Tekan semula untuk keluarkan.","بکل سوده ڤنوه! تکن سمولا اونتوق کلوارکن.")); return; }
+      else on.add(i);
+      sfx.tick(); sync();
+    }));
+    el.querySelector("#shut").addEventListener("click", () => {
+      if(done || on.size!==3) return;
+      const bad = [...on].filter(i=>!g.items[i][2]);
+      if(!bad.length){ done = true; sfx.plop(); clearHint(); setTimeout(win, 300); return; }
+      bad.forEach(i => { on.delete(i); el.querySelector(`.it[data-i="${i}"]`).classList.add("bad"); });
+      sync(); oops(el.querySelector("#tray"), L(`${bad.length} bahan tidak sesuai. Gantikan dengan yang betul.`,`${bad.length} بهن تيدق سسواي. ڬنتيکن دڠن يڠ بتول.`));
+    });
+    sync();
+  },
+
+  /* Pinggan: susun perkataan doa ikut urutan */
+  pinggan(el, g){
+    const n = g.parts.length, order = mix(g.parts.map((_,i)=>i)); let k = 0;
+    el.innerHTML = `<div class="stack ar" id="stk" lang="ar" aria-live="polite"></div>
+      <div class="pool">${order.map((i,m)=>`<button class="pbtn ar" lang="ar" data-i="${i}" style="--bc:${PC[m%PC.length]}">${g.parts[i]}</button>`).join("")}</div>
+      <div class="cnt">🍽️ ${L("Mula dari kanan: tekan perkataan pertama doa.","مولا دري کانن: تکن ڤرکاتاءن ڤرتام دعاء.")}</div><div id="mk"></div>`;
+    el.querySelectorAll(".pbtn").forEach(b => b.addEventListener("click", () => {
+      if(b.classList.contains("used") || k>=n) return;
+      if(g.parts[+b.dataset.i]===g.parts[k]){
+        k++; sfx.tick(); b.classList.add("used"); clearHint();
+        el.querySelector("#stk").insertAdjacentHTML("beforeend", `<span class="pl">${b.textContent}</span>`);
+        if(k===n){ el.querySelector("#mk").innerHTML = `<div class="abox"><span class="mk">${T(g.mk)}</span></div>`; setTimeout(win, 500); }
+      } else oops(b, L("Bukan perkataan itu. Baca doa perlahan-lahan.","بوکن ڤرکاتاءن ايت. باچ دعاء ڤرلاهن-لاهن."));
+    }));
+  }
+};
+
+/* ===================== KAWALAN ===================== */
+document.addEventListener("click", e => {
+  const s = e.target.closest("[data-say]");
+  if(s){ speak(decodeURIComponent(s.dataset.say), true); return; }
+  const b = e.target.closest("[data-act]"); if(!b) return;
+  const a = b.dataset.act;
+  if(a==="lang"){ LANG = isJ() ? "rumi" : "jawi"; save("kafa-lang", LANG); applyLang(); redraw(); }
+  else if(a==="voice"){ voiceOn = !voiceOn; save("t2-voice", voiceOn); if(!voiceOn) hush(); redraw(); }
+  else if(a==="open"){ openStation(+b.dataset.id); }
+  else if(a==="locked"){ sfx.no(); toast(L("Siapkan resipi sebelumnya dahulu 🔒","سياڤکن رسيڤي سبلومڽ دهولو 🔒")); }
+  else if(a==="final"){ openFinal(); }
+  else if(a==="flocked"){ sfx.no(); toast(L(`Siapkan semua ${STATIONS.length} resipi untuk membuka Kek Juara 🎂`,`سياڤکن سموا ${STATIONS.length} رسيڤي اونتوق ممبوک کيک جوارا 🎂`)); }
+  else if(a==="map"){ document.querySelectorAll(".fb").forEach(x=>x.remove()); renderMap(); window.scrollTo(0,0); }
+  else if(a==="rprev"){ if(S.ri>0){ S.ri--; renderRead(); } }
+  else if(a==="rnext"){ if(S.ri < S.st.read.length-1){ S.ri++; renderRead(); } else { S.phase="play"; S.gi=0; S.miss=0; renderPlay(); } }
+  else if(a==="next"){ nextGame(); }
+  else if(a==="again"){ S.res = null; S.st.id==="final" ? openFinal() : (S.gi=0, S.miss=0, S.phase="play", renderPlay()); }
+});
+// lukis semula skrin semasa selepas tukar tulisan/suara (tanpa ulang bunyi/konfeti)
+function redraw(){
+  if(!S) return renderMap();
+  if(S.phase==="read") return renderRead();
+  if(S.res && S.phase==="result") return drawResult(false);
+  renderPlay();
+}
+applyLang();
+renderMap();
+</script>
+</body>
+</html>

@@ -208,7 +208,7 @@ html[dir="rtl"] .wcard .bar i{margin-inline-start:0}
   linear-gradient(90deg,transparent 0 79.5%,#8A5A32 79.5% 84.5%,transparent 84.5%),
   radial-gradient(ellipse at 50% 120%,#5CC46A 0 38%,transparent 38.5%),
   radial-gradient(circle at 12% 16%,#FFE066 0 7%,transparent 7.5%),
-  linear-gradient(180deg,#7FD0FF,#FF9F1C 140%)}
+  linear-gradient(170deg,#2F7FC4 0%,#2E6E9E 55%,#B8650A 130%)}
 [data-deco="savanna"] .scene{background:
   radial-gradient(circle at 80% 24%,#FFE38A 0 16px,rgba(255,200,61,.35) 17px 26px,transparent 27px),
   radial-gradient(ellipse 36px 11px at 24% 50%,rgba(70,110,35,.6) 98%,transparent),
@@ -227,9 +227,26 @@ html[dir="rtl"] .wcard .bar i{margin-inline-start:0}
   radial-gradient(circle at 36% 90%,rgba(255,255,255,.65) 0 7px,transparent 8px),
   radial-gradient(circle at 62% 86%,rgba(255,111,168,.5) 0 8px,transparent 9px),
   radial-gradient(90% 50% at 40% 118%,rgba(124,203,97,.6) 50%,transparent 51%),
-  conic-gradient(from 30deg,rgba(255,255,255,.14) 0 60deg,transparent 60deg 120deg) 0 0/34px 30px}
+  conic-gradient(from 30deg,rgba(255,255,255,.14) 0 60deg,transparent 60deg 120deg) 0 0/34px 30px,
+  linear-gradient(160deg,#E08A00 0%,#B5560A 60%,#8A3D12 100%)}
 [data-deco="karnival"] .scene{background:radial-gradient(circle at 18% 22%,rgba(255,210,63,.55) 0 4px,transparent 5px),radial-gradient(circle at 62% 14%,rgba(255,255,255,.7) 0 3px,transparent 4px),radial-gradient(circle at 84% 30%,rgba(255,79,154,.5) 0 5px,transparent 6px),repeating-linear-gradient(90deg,#FF4F9A 0 18px,#fff 18px 36px) bottom/100% 14px no-repeat,linear-gradient(180deg,#2B1055,#5B2A9E 60%,#B36AD8)}
 [data-deco="dawn"] .scene{background:radial-gradient(circle at 50% 115%,#FFC94D 0 22%,#FFE6A8 23% 30%,transparent 31%),radial-gradient(ellipse at 25% 40%,rgba(255,255,255,.9) 0 9%,transparent 10%),radial-gradient(ellipse at 72% 28%,rgba(255,255,255,.85) 0 7%,transparent 8%),linear-gradient(180deg,#3B3470 0%,#8E7CC3 40%,#FF9A8B 75%,#FFD27F 100%)}
+[data-deco="dapur"] .scene{background:
+  repeating-linear-gradient(90deg,#E8483B 0 18px,#FFF6E8 18px 36px) top/100% 12px no-repeat,
+  linear-gradient(rgba(255,255,255,.10) 2px,transparent 2px) 0 0/28px 28px,
+  linear-gradient(90deg,rgba(255,255,255,.10) 2px,transparent 2px) 0 0/28px 28px,
+  radial-gradient(circle at 80% 86%,rgba(255,214,107,.55) 0 14%,transparent 15%),
+  linear-gradient(160deg,#C2362B 0%,#8E2A3B 55%,#2E8A68 100%)}
+[data-deco="airmail"] .scene{background:
+  repeating-linear-gradient(135deg,#D7263D 0 14px,#FFF4E0 14px 22px,#2E6FBA 22px 36px,#FFF4E0 36px 44px) top/100% 12px no-repeat,
+  radial-gradient(circle at 82% 30%,rgba(242,177,52,.45) 0 16%,transparent 17%),
+  linear-gradient(160deg,#B81F33 0%,#7A1B3A 50%,#1F4F8F 100%)}
+[data-deco="istana"] .scene{background:
+  radial-gradient(circle at 82% 22%,rgba(255,233,168,.9) 0 16px,transparent 17px),
+  linear-gradient(90deg,transparent 0 8%,rgba(228,221,240,.6) 8% 30%,transparent 30% 70%,rgba(228,221,240,.6) 70% 92%,transparent 92%) 0 100%/100% 62% no-repeat,
+  repeating-linear-gradient(90deg,rgba(228,221,240,.6) 0 14px,transparent 14px 24px) 0 calc(38% - 10px)/100% 12px no-repeat,
+  radial-gradient(120% 40% at 50% 112%,rgba(98,182,224,.6) 50%,transparent 51%),
+  linear-gradient(180deg,rgba(185,162,245,.35),rgba(123,63,191,.25))}
 [data-deco="rails"] .scene{background:
   linear-gradient(transparent calc(100% - 22px),rgba(255,255,255,.35) calc(100% - 22px) calc(100% - 19px),transparent calc(100% - 19px) calc(100% - 9px),rgba(255,255,255,.35) calc(100% - 9px) calc(100% - 6px),transparent calc(100% - 6px)),
   repeating-linear-gradient(90deg,rgba(90,50,30,.45) 0 6px,transparent 6px 22px) 0 100%/100% 26px no-repeat,

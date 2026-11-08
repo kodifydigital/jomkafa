@@ -42,6 +42,7 @@ kafa/
 ├── guru/index.html       ← Papan Pemuka Guru (kemajuan murid, soalan kerap salah, urus nama murid)
 ├── privasi.html          ← Dasar Privasi
 ├── manifest.webmanifest  ← Web app (PWA): nama JOM KAFA, ikon, warna
+├── assets/huruf/        ← Sebutan nama huruf (MP3) untuk Jawi Tahun 1
 ├── sw.js                 ← Service worker: simpan halaman & permainan untuk main tanpa internet
 ├── icons/                ← Ikon aplikasi (192, 512, maskable, Apple, favicon)
 ├── api/                  ← API (Vercel Functions): me, class, score, leaderboard, dashboard
@@ -56,7 +57,11 @@ kafa/
 │   ├── tauhid/index.html ← Game Taman Bunga Iman (Tauhid Tahun 1)
 │   ├── arab/index.html   ← Game Karnival Kalimah (Bahasa Arab Tahun 1)
 │   └── hafazan/index.html← Game Belon Udara Hafiz (Hafazan Tahun 1)
-├── tahun2/index.html
+├── tahun2/
+│   ├── index.html        ← Senarai subjek Tahun 2
+│   ├── akhlak/index.html ← Game Dapur Adab Chef Mimi (Akhlak Tahun 2)
+│   ├── jawi/index.html   ← Game Pejabat Pos Huruf (Jawi Tahun 2)
+│   └── feqah/index.html  ← Game Istana Suci Naga Nana (Feqah Tahun 2)
 ├── tahun4/index.html
 ├── tahun5/index.html
 └── tahun6/index.html

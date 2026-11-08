@@ -69,6 +69,27 @@ const READY = {
     progress:{ key:"r1-best", max:30 },
     theme:{ c1:"#5B2A9E", c2:"#FF4F9A", a:"#FFD23F", m:"🐱", deco:"karnival" }
   },
+  "2/feqah": {
+    path:"feqah/index.html",
+    r:"Istana Suci Naga Nana", j:"ايستان سوچي ناڬ نانا",
+    dr:"9 menara, 8 jenis permainan", dj:"9 منارا، 8 جنيس ڤرماٴينن",
+    progress:{ key:"f2-best", max:30 },
+    theme:{ c1:"#7B3FBF", c2:"#4A2380", a:"#F2B630", m:"🐲", deco:"istana" }
+  },
+  "2/akhlak": {
+    path:"akhlak/index.html",
+    r:"Dapur Adab Chef Mimi", j:"داڤور ادب چيف ميمي",
+    dr:"7 resipi, 8 jenis permainan", dj:"7 رسيڤي، 8 جنيس ڤرماٴينن",
+    progress:{ key:"a2-best", max:24 },
+    theme:{ c1:"#E8483B", c2:"#3FBF8F", a:"#FFD66B", m:"🐥", deco:"dapur" }
+  },
+  "2/jawi": {
+    path:"jawi/index.html",
+    r:"Pejabat Pos Huruf", j:"ڤجابت ڤوس حروف",
+    dr:"8 rumah, 8 jenis permainan", dj:"8 رومه، 8 جنيس ڤرماٴينن",
+    progress:{ key:"j2-best", max:27 },
+    theme:{ c1:"#D7263D", c2:"#2E6FBA", a:"#F2B134", m:"🕊️", deco:"airmail" }
+  },
   "3/sirah": {
     path:"sirah/index.html",
     r:"Pengembaraan Sirah", j:"ڤڠمباراٴن سيره",
