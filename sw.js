@@ -1,6 +1,6 @@
 // Service worker JOM KAFA: simpan halaman, gaya, skrip dan three.js supaya boleh main tanpa internet.
 // Tukar VERSION setiap kali mahu memaksa semua peranti memuat turun semula fail teras.
-const VERSION = "jomkafa-v12";
+const VERSION = "jomkafa-v13";
 const CORE = [
   "/", "/index.html", "/privasi.html", "/manifest.webmanifest",
   "/assets/kafa.css", "/assets/kafa.js", "/assets/config.js", "/assets/auth.js", "/assets/pwa.js", "/assets/access.js", "/assets/vendor/three.min.js",
@@ -11,11 +11,13 @@ const CORE = [
   "/tahun3/arab/index.html", "/tahun3/tajwid/index.html", "/tahun3/hafazan/index.html", "/tahun3/arked/index.html",
   "/guru/index.html"
 ];
+// sebutan nama huruf (Jawi Tahun 1) supaya boleh didengar tanpa internet
+const HURUF = ["u0621.mp3", "u0627.mp3", "u0628.mp3", "u0629.mp3", "u062a.mp3", "u062b.mp3", "u062c.mp3", "u062d.mp3", "u062e.mp3", "u062f.mp3", "u0630.mp3", "u0631.mp3", "u0632.mp3", "u0633.mp3", "u0634.mp3", "u0635.mp3", "u0636.mp3", "u0637.mp3", "u0638.mp3", "u0639.mp3", "u063a.mp3", "u0641.mp3", "u0642.mp3", "u0643.mp3", "u0644.mp3", "u0645.mp3", "u0646.mp3", "u0647.mp3", "u0648.mp3", "u0649.mp3", "u064a.mp3", "u0686.mp3", "u06a0.mp3", "u06a4.mp3", "u06ac.mp3", "u06bd.mp3", "u06cf.mp3"].map(f => "/assets/huruf/" + f);
 const FONTS = "jomkafa-fonts";
 
 self.addEventListener("install", e => {
   // cache: "reload" supaya fail baharu diambil terus dari pelayan, bukan cache HTTP pelayar
-  e.waitUntil(caches.open(VERSION).then(c => Promise.all(CORE.map(u => c.add(new Request(u, { cache: "reload" })).catch(() => {})))).then(() => self.skipWaiting()));
+  e.waitUntil(caches.open(VERSION).then(c => Promise.all([...CORE, ...HURUF].map(u => c.add(new Request(u, { cache: "reload" })).catch(() => {})))).then(() => self.skipWaiting()));
 });
 self.addEventListener("activate", e => {
   e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== VERSION && k !== FONTS).map(k => caches.delete(k)))).then(() => self.clients.claim()));

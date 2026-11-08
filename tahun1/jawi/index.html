@@ -721,7 +721,21 @@ function speak(text, force){
     speechSynthesis.speak(u);
   }catch(e){}
 }
-function hush(){ if(ttsOK){ try{ speechSynthesis.cancel(); }catch(e){} } }
+function hush(){ if(ttsOK){ try{ speechSynthesis.cancel(); }catch(e){} } stopHuruf(); }
+
+/* ---------- Sebutan nama huruf: rakaman audio (assets/huruf/uXXXX.mp3), bukan suara TTS Melayu ---------- */
+const HURUF = { "ا":"alif","ب":"ba","ت":"ta","ة":"ta marbutah","ث":"sa","ج":"jim","چ":"ca","ح":"ha","خ":"kho","د":"dal","ذ":"zal","ر":"ro","ز":"zai",
+  "س":"sin","ش":"syin","ص":"sod","ض":"dhod","ط":"to","ظ":"zo","ع":"ain","غ":"ghain","ڠ":"nga","ف":"fa","ڤ":"pa","ق":"qaf","ک":"kaf","ك":"kaf","ڬ":"ga",
+  "ل":"lam","م":"mim","ن":"nun","و":"wau","ۏ":"va","ه":"ha","ء":"hamzah","ي":"ya","ى":"ye","ڽ":"nya" };
+const hurufFile = ch => "/assets/huruf/u" + (ch==="ک" ? "0643" : ch.codePointAt(0).toString(16).padStart(4,"0")) + ".mp3";
+const isHurufName = (ch, name) => !!ch && HURUF[ch]!==undefined && String(name).trim().toLowerCase()===HURUF[ch];
+let hurufAudio = null;
+function stopHuruf(){ try{ if(hurufAudio){ hurufAudio.pause(); hurufAudio = null; } }catch(e){} }
+function sayHuruf(ch, force){
+  if(!voiceOn && !force) return;
+  try{ if(ttsOK) speechSynthesis.cancel(); stopHuruf(); hurufAudio = new Audio(hurufFile(ch)); const pr = hurufAudio.play(); if(pr && pr.catch) pr.catch(()=>{}); }catch(e){}
+}
+const hurufBtn = ch => `<button class="say" data-huruf="${ch}" aria-label="${L("Dengar","دڠر")}">🔊</button>`;
 
 /* ---------- Pemasa permainan (dibersihkan setiap kali skrin bertukar) ---------- */
 let TIMERS = [];
@@ -801,7 +815,7 @@ function renderRead(){
       <div class="rpic" aria-hidden="true">${c.pic}</div>
       <h3 class="rh">${T(c.h)} ${sayBtn(readSpeech(c))}</h3>
       ${c.text?`<p class="rtext">${T(c.text)}</p>`:""}
-      ${c.chips?`<div class="chips">${c.chips.map(([j,r],i)=>`<button class="chip" style="--i:${i}" data-say="${encodeURIComponent(r)}" aria-label="${r}">${JW(j)}<small>${r}</small></button>`).join("")}</div>`:""}
+      ${c.chips?`<div class="chips">${c.chips.map(([j,r],i)=>`<button class="chip" style="--i:${i}" ${isHurufName(j,r)?`data-huruf="${j}"`:`data-say="${encodeURIComponent(r)}"`} aria-label="${r}">${JW(j)}<small>${r}</small></button>`).join("")}</div>`:""}
       ${c.list?`<ul class="rlist">${c.list.map((x,i)=>`<li style="--i:${i}">${T(x)}</li>`).join("")}</ul>`:""}
       ${c.words?`<div class="words">${c.words.map(([em,r,j])=>`<button class="word" data-say="${encodeURIComponent(r)}"><span class="em" aria-hidden="true">${em}</span>${JW(j)}<small>${r}</small></button>`).join("")}</div>`:""}
       ${c.ar?`<div class="abox"><span class="ar" lang="ar">${c.ar}</span>${c.mk?`<span class="mk">${T(c.mk)}</span>`:""}</div>`:""}
@@ -892,10 +906,10 @@ const GAMES = {
       const [lab, ans] = g.rounds[r];
       const opts = shuffle([ans, ...shuffle(g.pool.filter(x => x!==ans)).slice(0,3)]);
       el.innerHTML = `<div class="feed"><span class="animal" id="animal" aria-hidden="true">${g.animal}</span>
-          <div class="want" id="want" data-v="${ans}">🗨️ <span>${lab}</span>${sayBtn(lab)}</div></div>
+          <div class="want" id="want" data-v="${ans}">🗨️ <span>${lab}</span>${isHurufName(ans,lab)?hurufBtn(ans):sayBtn(lab)}</div></div>
         <div class="fruits">${opts.map((o,i)=>`<button class="fruit" data-v="${o}" style="--fc:${FRUIT[(i+r)%FRUIT.length]};animation-delay:${i*.06}s">${JW(o)}</button>`).join("")}</div>
         <div class="nuts" aria-label="${r} / ${g.rounds.length}">${g.rounds.map((_,i)=>`<span class="${i<r?"":"off"}">🥜</span>`).join("")}</div>`;
-      speak(lab);
+      isHurufName(ans,lab) ? sayHuruf(ans) : speak(lab);
       el.querySelectorAll(".fruit").forEach(b => b.addEventListener("click", () => {
         if(busy) return;
         if(b.dataset.v===ans){
@@ -927,10 +941,11 @@ const GAMES = {
   /* Telur ajaib: tekan telur yang betul, ia menetas */
   telur(el, g){
     const opts = shuffle(g.a.map((x,i)=>({x, ok:i===0}))); let done = false;
-    el.innerHTML = `${g.say?`<div class="sign">🔊 <span>${g.say}</span>${sayBtn(g.say)}</div>`:""}
+    const hz = g.say && isHurufName(g.a[0], g.say);
+    el.innerHTML = `${g.say?`<div class="sign">🔊 <span>${g.say}</span>${hz?hurufBtn(g.a[0]):sayBtn(g.say)}</div>`:""}
       <div class="nest ${opts.length===3?"n3":""}">${opts.map((o,i)=>`<button class="egg" data-i="${i}" style="--i:${i}">${JW(o.x)}</button>`).join("")}</div>
       <div class="cnt">🥚 ${L("Tekan telur yang betul!","تکن تلور يڠ بتول!")}</div>`;
-    if(g.say) later(()=>speak(g.say), 1800);
+    if(g.say) later(()=>hz ? sayHuruf(g.a[0]) : speak(g.say), 1800);
     el.querySelectorAll(".egg").forEach(b => b.addEventListener("click", () => {
       if(done) return; const o = opts[+b.dataset.i];
       if(o.ok){ done = true; sfx.crack(); b.classList.add("hatch"); later(win, 450); }
@@ -1052,6 +1067,8 @@ const GAMES = {
 
 /* ===================== KAWALAN ===================== */
 document.addEventListener("click", e => {
+  const hz = e.target.closest("[data-huruf]");
+  if(hz){ sayHuruf(hz.dataset.huruf, true); return; }
   const s = e.target.closest("[data-say]");
   if(s){ speak(decodeURIComponent(s.dataset.say), true); return; }
   const b = e.target.closest("[data-act]"); if(!b) return;
