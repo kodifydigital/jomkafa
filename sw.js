@@ -1,6 +1,6 @@
 // Service worker JOM KAFA: simpan halaman, gaya, skrip dan three.js supaya boleh main tanpa internet.
 // Tukar VERSION setiap kali mahu memaksa semua peranti memuat turun semula fail teras.
-const VERSION = "jomkafa-v20";
+const VERSION = "jomkafa-v21";
 const CORE = [
   "/", "/index.html", "/privasi.html", "/manifest.webmanifest",
   "/assets/kafa.css", "/assets/kafa.js", "/assets/config.js", "/assets/auth.js", "/assets/pwa.js", "/assets/access.js", "/assets/vendor/three.min.js",
@@ -12,7 +12,7 @@ const CORE = [
   "/guru/index.html"
 ];
 // sebutan nama huruf (Jawi Tahun 1) supaya boleh didengar tanpa internet
-const HURUF = ["u0621.mp3", "u0627.mp3", "u0628.mp3", "u0629.mp3", "u062a.mp3", "u062b.mp3", "u062c.mp3", "u062d.mp3", "u062e.mp3", "u062f.mp3", "u0630.mp3", "u0631.mp3", "u0632.mp3", "u0633.mp3", "u0634.mp3", "u0635.mp3", "u0636.mp3", "u0637.mp3", "u0638.mp3", "u0639.mp3", "u063a.mp3", "u0641.mp3", "u0642.mp3", "u0643.mp3", "u0644.mp3", "u0645.mp3", "u0646.mp3", "u0647.mp3", "u0648.mp3", "u0649.mp3", "u064a.mp3", "u0686.mp3", "u06a0.mp3", "u06a4.mp3", "u06ac.mp3", "u06bd.mp3", "u06cf.mp3"].map(f => "/assets/huruf/" + f);
+const HURUF = ["u0621.mp3", "u0627.mp3", "u0628.mp3", "u0629.mp3", "u062a.mp3", "u062b.mp3", "u062c.mp3", "u062d.mp3", "u062e.mp3", "u062f.mp3", "u0630.mp3", "u0631.mp3", "u0632.mp3", "u0633.mp3", "u0634.mp3", "u0635.mp3", "u0636.mp3", "u0637.mp3", "u0638.mp3", "u0639.mp3", "u063a.mp3", "u0641.mp3", "u0642.mp3", "u0643.mp3", "u0644.mp3", "u0644_u0627.mp3", "u0645.mp3", "u0646.mp3", "u0647.mp3", "u0648.mp3", "u064a.mp3", "u0686.mp3", "u06a0.mp3", "u06a4.mp3", "u06ac.mp3", "u06bd.mp3", "u06cf.mp3"].map(f => "/assets/huruf/" + f);
 const FONTS = "jomkafa-fonts";
 
 self.addEventListener("install", e => {

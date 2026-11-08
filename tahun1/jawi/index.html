@@ -353,11 +353,11 @@ const STATIONS = [
   t:["Huruf Jawi","حروف جاوي"], u:["Pelajaran 1 • Kandang Singa","ڤلاجرن 1 • کندڠ سيڠا"],
   read:[
     { pic:"🔤", h:["Huruf Jawi ada 37","حروف جاوي اد 37"], text:["Huruf Jawi mengandungi 37 huruf. Tekan huruf untuk dengar namanya.","حروف جاوي مڠاندوڠي 37 حروف. تکن حروف اونتوق دڠر نامڽ."],
-      chips:[["ا","alif"],["ب","ba"],["ت","ta"],["ة","ta marbutoh"],["ث","tsa"],["ج","jim"],["چ","ca"],["ح","ha"],["خ","kho"],["د","dal"],["ذ","zal"],["ر","ro"],["ز","zai"],["س","sin"],["ش","syin"],["ص","sod"],["ض","dhod"],["ط","tho"],["ظ","zo"],["ع","ain"],["غ","ghain"],["ڠ","nga"],["ف","fa"],["ڤ","pa"],["ق","qof"],["ک","kaf"],["ڬ","ga"],["ل","lam"],["م","mim"],["ن","nun"],["و","wau"],["ۏ","va"],["ه","ha"],["ء","hamzah"],["ي","ya"],["ى","ye"],["ڽ","nya"]], p:"2–4" },
+      chips:[["ا","alif"],["ب","ba"],["ت","ta"],["ة","ta marbutoh"],["ث","tsa"],["ج","jim"],["چ","ca"],["ح","ha"],["خ","kho"],["د","dal"],["ذ","zal"],["ر","ro"],["ز","zai"],["س","sin"],["ش","syin"],["ص","sod"],["ض","dhod"],["ط","tho"],["ظ","zo"],["ع","ain"],["غ","ghain"],["ڠ","nga"],["ف","fa"],["ڤ","pa"],["ق","qof"],["ک","kaf"],["ڬ","ga"],["ل","lam"],["م","mim"],["ن","nun"],["و","wau"],["ۏ","va"],["ه","ha"],["لا","lam alif"],["ء","hamzah"],["ي","ya"],["ڽ","nya"]], p:"2–4" },
     { pic:"✍️", h:["Kanan ke kiri","کانن ک کيري"], list:[
       ["Huruf Jawi ditulis dari kanan ke kiri.","حروف جاوي دتوليس دري کانن ک کيري."],
       ["Asal huruf Jawi diambil dari tulisan Arab.","اصل حروف جاوي دامبيل دري توليسن عرب."]],
-      tip:["Huruf ى (ye) ialah bunyi \"e\" pepet di akhir perkataan.","حروف ى (ye) اياله بوڽي \"e\" ڤڤت داخير ڤرکاتاٴن."], p:6 },
+      tip:["Huruf لا (lam alif) ialah gabungan huruf lam dan alif.","حروف لا (لام اليف) اياله ڬابوڠن حروف لام دان اليف."], p:6 },
     { pic:"🇲🇾", h:["Huruf ciptaan Melayu","حروف چيڤتاٴن ملايو"], text:["Enam huruf ini ialah huruf gubalan Melayu:","انم حروف اين اياله حروف ڬوبلن ملايو:"],
       chips:[["چ","ca"],["ڠ","nga"],["ڤ","pa"],["ڬ","ga"],["ۏ","va"],["ڽ","nya"]],
       tip:["Huruf ڽ ialah huruf gubalan Melayu yang tertua di dunia.","حروف ڽ اياله حروف ڬوبلن ملايو يڠ ترتوا ددنيا."], p:6 }
@@ -386,7 +386,7 @@ const STATIONS = [
       ["Huruf yang tidak boleh disambung selepasnya","حروف يڠ تيدق بوليه دسمبوڠ سلڤسڽ"],
       ["Huruf yang boleh disambung sebelum dan selepasnya","حروف يڠ بوليه دسمبوڠ سبلوم دان سلڤسڽ"],
       ["Huruf yang tidak boleh disambung sebelum dan selepasnya","حروف يڠ تيدق بوليه دسمبوڠ سبلوم دان سلڤسڽ"]], p:7 },
-    { pic:"✋", h:["Tidak boleh disambung selepasnya","تيدق بوليه دسمبوڠ سلڤسڽ"], chips:[["ا","alif"],["د","dal"],["ذ","zal"],["ر","ro"],["ز","zai"],["و","wau"],["ۏ","va"],["ة","ta marbutoh"],["ى","ye"]],
+    { pic:"✋", h:["Tidak boleh disambung selepasnya","تيدق بوليه دسمبوڠ سلڤسڽ"], chips:[["ا","alif"],["د","dal"],["ذ","zal"],["ر","ro"],["ز","zai"],["و","wau"],["ۏ","va"],["ة","ta marbutoh"],["لا","lam alif"]],
       words:[["🪵","kayu","کايو"],["🖌️","berus","بروس"],["🗑️","buang","بواڠ"],["💰","zakat","زکاة"]], p:8 },
     { pic:"🧩", h:["Awal, tengah, akhir","اول، تڠه، اخير"], text:["Huruf berubah bentuk apabila bersambung.","حروف بروبه بنتوق اڤابيلا برسمبوڠ."],
       chips:[["بـ","awal"],["ـبـ","tengah"],["ـب","akhir"],["عـ","awal"],["ـعـ","tengah"],["ـع","akhir"]],
@@ -435,7 +435,7 @@ const STATIONS = [
       tiles:[["ب",0],["ا",1],["ت",0],["و",1]], e:["Dalam باتو ada vokal ا dan و.","دالم باتو اد ۏوکل ا دان و."], p:18},
     {type:"cantum", q:["Cantum suku kata untuk bina \"ibu\".","چنتوم سوکو کات اونتوق بينا \"ibu\"."], word:["ibu","ايبو"], pic:"👩",
       parts:["اي","بو"], extra:["او"], e:["اي + بو = ايبو. Vokal i di awal = اي.","اي + بو = ايبو. ۏوکل i داول = اي."], p:17},
-    {type:"intai", q:["Meerkat mengintai! Tekan huruf vokal ي.","ميرکت مڠينتاي! تکن حروف ۏوکل ي."], target:"ي", others:["ب","ت","ن","ث","ى"], need:4,
+    {type:"intai", q:["Meerkat mengintai! Tekan huruf vokal ي.","ميرکت مڠينتاي! تکن حروف ۏوکل ي."], target:"ي", others:["ب","ت","ن","ث","ف"], need:4,
       e:["ي ialah huruf vokal untuk bunyi i dan e taling.","ي اياله حروف ۏوکل اونتوق بوڽي i دان e تاليڠ."], p:18}
   ]},
 
@@ -726,8 +726,8 @@ function hush(){ if(ttsOK){ try{ speechSynthesis.cancel(); }catch(e){} } stopHur
 /* ---------- Sebutan nama huruf: rakaman suara Malaysia (assets/huruf/uXXXX.mp3) ---------- */
 const HURUF = { "ا":"alif","ب":"ba","ت":"ta","ة":"ta marbutoh","ث":"tsa","ج":"jim","چ":"ca","ح":"ha","خ":"kho","د":"dal","ذ":"zal","ر":"ro","ز":"zai",
   "س":"sin","ش":"syin","ص":"sod","ض":"dhod","ط":"tho","ظ":"zo","ع":"ain","غ":"ghain","ڠ":"nga","ف":"fa","ڤ":"pa","ق":"qof","ک":"kaf","ك":"kaf","ڬ":"ga",
-  "ل":"lam","م":"mim","ن":"nun","و":"wau","ۏ":"va","ه":"ha","ء":"hamzah","ي":"ya","ى":"ye","ڽ":"nya" };
-const hurufFile = ch => "/assets/huruf/u" + (ch==="ک" ? "0643" : ch.codePointAt(0).toString(16).padStart(4,"0")) + ".mp3";
+  "ل":"lam","م":"mim","ن":"nun","و":"wau","ۏ":"va","ه":"ha","ء":"hamzah","ي":"ya","ڽ":"nya","لا":"lam alif" };
+const hurufFile = ch => "/assets/huruf/" + [...ch].map(x => "u" + (x==="ک" ? "0643" : x.codePointAt(0).toString(16).padStart(4,"0"))).join("_") + ".mp3";
 const isHurufName = (ch, name) => !!ch && HURUF[ch]!==undefined && String(name).trim().toLowerCase()===HURUF[ch];
 let hurufAudio = null;
 function stopHuruf(){ try{ if(hurufAudio){ hurufAudio.pause(); hurufAudio = null; } }catch(e){} }
