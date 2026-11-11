@@ -146,7 +146,17 @@ html[dir="rtl"] .arc b{line-height:1.6}
 
 /* ===== Kad dunia subjek (laman tahun) ===== */
 .wgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:22px;perspective:900px}
-.wgrid>.wcard:last-child:nth-child(odd){grid-column:1/-1;min-height:190px}
+.wgrid>.wcell:last-child:nth-child(odd){grid-column:1/-1}
+.wgrid>.wcell:last-child:nth-child(odd)>.wcard{min-height:190px}
+.wcell{min-width:0;display:flex;flex-direction:column;gap:10px}
+.wcell>.wcard{flex:1}
+.buku{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:6px 16px;border-radius:999px;
+  font-weight:800;font-size:15.5px;text-decoration:none;color:var(--ink);background:var(--surface);border:2px solid var(--line);
+  box-shadow:0 3px 0 rgba(0,0,0,.12);transition:transform .15s,box-shadow .15s;animation:wpop .55s both;animation-delay:calc(var(--i) * 70ms + 120ms)}
+.buku span{font-size:13px;opacity:.6}
+.buku:hover{transform:translateY(-2px);box-shadow:0 5px 0 rgba(0,0,0,.12)}
+.buku:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.12)}
+.buku:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 @media (max-width:560px){.wgrid{grid-template-columns:1fr;gap:12px}}
 .wcard,.arc{--rx:0deg;--ry:0deg;--mx:50%}
 .wcard{min-width:0;position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-height:220px;padding:16px 18px 16px;border-radius:26px;overflow:hidden;isolation:isolate;

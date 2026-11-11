@@ -25,9 +25,11 @@ const SUBJECTS = [
 
 // Game yang sudah siap. Kunci = "tahun/idSubjek". path adalah relatif kepada folder tahun.
 // progress (pilihan): cara membaca bintang yang disimpan oleh game itu.
+// buku (pilihan): pautan buku teks (anyflip); dipaparkan sebagai "📖 Buku Teks" di bawah kad subjek.
 const READY = {
   // Tahun 1: reka bentuk sendiri (theme menggantikan tema dunia Tahun 3 pada kad subjek)
   "1/akhlak": {
+    buku:"https://online.anyflip.com/lzrtd/mpxk/mobile/index.html",
     path:"akhlak/index.html",
     r:"Pokok Adab Hoho", j:"ڤوکوق اداب هوهو",
     dr:"10 stesen, 8 jenis permainan", dj:"10 ستيسن، 8 جنيس ڤرماٴينن",
@@ -35,6 +37,7 @@ const READY = {
     theme:{ c1:"#FF9F1C", c2:"#2E7D32", a:"#FFE066", m:"🦉", deco:"tree" }
   },
   "1/tauhid": {
+    buku:"https://online.anyflip.com/lzrtd/jmdf/mobile/index.html",
     path:"tauhid/index.html",
     r:"Taman Bunga Iman", j:"تامن بوڠا ايمان",
     dr:"8 stesen, 7 jenis permainan", dj:"8 ستيسن، 7 جنيس ڤرماٴينن",
@@ -42,6 +45,7 @@ const READY = {
     theme:{ c1:"#FFC94A", c2:"#F08A00", a:"#FF6FA8", m:"🐝", deco:"garden" }
   },
   "1/feqah": {
+    buku:"https://online.anyflip.com/lzrtd/tkby/mobile/index.html",
     path:"feqah/index.html",
     r:"Pulau Titisan Suci", j:"ڤولاو تيتيسن سوچي",
     dr:"9 pulau, 8 jenis permainan", dj:"9 ڤولاو، 8 جنيس ڤرماٴينن",
@@ -49,6 +53,7 @@ const READY = {
     theme:{ c1:"#12B5D6", c2:"#0B4A6E", a:"#FFD166", m:"💧", deco:"rainbow" }
   },
   "1/jawi": {
+    buku:"https://online.anyflip.com/lzrtd/avvw/mobile/index.html",
     path:"jawi/index.html",
     r:"Zoo Huruf Jaja", j:"زو حروف جاجا",
     dr:"10 kandang, 9 jenis permainan", dj:"10 کندڠ، 9 جنيس ڤرماٴينن",
@@ -56,6 +61,7 @@ const READY = {
     theme:{ c1:"#9CCB52", c2:"#4E8F2A", a:"#FFC83D", m:"🐘", deco:"savanna" }
   },
   "1/hafazan": {
+    buku:"https://online.anyflip.com/lzrtd/sxgm/mobile/index.html",
     path:"hafazan/index.html",
     r:"Belon Udara Hafiz", j:"بلون اودارا حافظ",
     dr:"10 surah, 7 jenis permainan", dj:"10 سورة، 7 جنيس ڤرماٴينن",
@@ -63,6 +69,7 @@ const READY = {
     theme:{ c1:"#FF9A8B", c2:"#8E7CC3", a:"#FFC94D", m:"🎈", deco:"dawn" }
   },
   "1/arab": {
+    buku:"https://online.anyflip.com/lzrtd/nxau/mobile/index.html",
     path:"arab/index.html",
     r:"Karnival Kalimah", j:"کارنيۏل کليمة",
     dr:"9 gerai, 8 jenis permainan", dj:"9 ڬراي، 8 جنيس ڤرماٴينن",
@@ -70,6 +77,7 @@ const READY = {
     theme:{ c1:"#5B2A9E", c2:"#FF4F9A", a:"#FFD23F", m:"🐱", deco:"karnival" }
   },
   "2/feqah": {
+    buku:"https://online.anyflip.com/nyrmv/cpek/mobile/index.html",
     path:"feqah/index.html",
     r:"Istana Suci Naga Nana", j:"ايستان سوچي ناڬ نانا",
     dr:"9 menara, 8 jenis permainan", dj:"9 منارا، 8 جنيس ڤرماٴينن",
@@ -77,6 +85,7 @@ const READY = {
     theme:{ c1:"#7B3FBF", c2:"#4A2380", a:"#F2B630", m:"🐲", deco:"istana" }
   },
   "2/akhlak": {
+    buku:"https://online.anyflip.com/lzrtd/mazi/mobile/index.html",
     path:"akhlak/index.html",
     r:"Dapur Adab Chef Mimi", j:"داڤور ادب چيف ميمي",
     dr:"7 resipi, 8 jenis permainan", dj:"7 رسيڤي، 8 جنيس ڤرماٴينن",
@@ -84,6 +93,7 @@ const READY = {
     theme:{ c1:"#E8483B", c2:"#3FBF8F", a:"#FFD66B", m:"🐥", deco:"dapur" }
   },
   "2/jawi": {
+    buku:"https://online.anyflip.com/lzrtd/qkze/mobile/index.html",
     path:"jawi/index.html",
     r:"Pejabat Pos Huruf", j:"ڤجابت ڤوس حروف",
     dr:"8 rumah, 8 jenis permainan", dj:"8 رومه، 8 جنيس ڤرماٴينن",
@@ -91,6 +101,7 @@ const READY = {
     theme:{ c1:"#D7263D", c2:"#2E6FBA", a:"#F2B134", m:"🕊️", deco:"airmail" }
   },
   "2/tauhid": {
+    buku:"https://online.anyflip.com/nyrmv/kavn/mobile/",
     path:"tauhid/index.html",
     r:"Ladang Tuai Iman", j:"لادڠ توواي ايمان",
     dr:"8 petak ladang, 7 jenis permainan", dj:"8 ڤتق لادڠ، 7 جنيس ڤرماٴينن",
@@ -98,6 +109,7 @@ const READY = {
     theme:{ c1:"#C8442F", c2:"#7A4A24", a:"#F5C542", m:"🐑", deco:"ladang" }
   },
   "2/arab": {
+    buku:"https://online.anyflip.com/lhat/wymk/mobile/index.html",
     path:"arab/index.html",
     r:"Bas Sekolah Kalimah", j:"باس سکوله کليمة",
     dr:"9 hentian bas, 9 jenis permainan", dj:"٩ هنتين باس، ٩ جنيس ڤرماٴينن",
@@ -105,6 +117,7 @@ const READY = {
     theme:{ c1:"#1E7FD8", c2:"#0E3A6B", a:"#FFC21A", m:"🚌", deco:"basjalan" }
   },
   "2/hafazan": {
+    buku:"https://online.anyflip.com/nyrmv/flhq/mobile/index.html",
     path:"hafazan/index.html",
     r:"Sampan Hafiz", j:"سمڤن حافظ",
     dr:"8 surah, 7 jenis permainan", dj:"8 سورة، 7 جنيس ڤرماٴينن",
@@ -112,6 +125,7 @@ const READY = {
     theme:{ c1:"#0B3C49", c2:"#1B7F8C", a:"#E8FF6B", m:"🛶", deco:"sampan" }
   },
   "3/sirah": {
+    buku:"https://online.anyflip.com/vydoi/hpxt/mobile/index.html",
     path:"sirah/index.html",
     r:"Pengembaraan Sirah", j:"ڤڠمباراٴن سيره",
     dr:"6 pelajaran dan Cabaran Akhir", dj:"6 ڤلاجرن دان چابرن اخير",
@@ -279,7 +293,7 @@ function renderYear(app, y){
   // Tahun yang belum ada subjek memaparkan senarai "Akan datang".
   const order = ARCADE[y] ? ARCADE[y].subjects : [];
   const pos = s => { const i = order.indexOf(s.id); return i<0 ? 99 : i; };
-  const tiles = nReady ? readyFor(y).sort((a,b)=>pos(a)-pos(b)).map((s,i)=>worldCard(s, READY[`${y}/${s.id}`], i, y)).join("") : SUBJECTS.map(s=>{
+  const tiles = nReady ? readyFor(y).sort((a,b)=>pos(a)-pos(b)).map((s,i)=>worldCell(s, READY[`${y}/${s.id}`], i, y)).join("") : SUBJECTS.map(s=>{
     return `<button class="subj soon" data-act="soon" data-name="${tx(s.r,s.j)}">
       <span class="ic" aria-hidden="true">${s.icon}</span>
       <h2>${tx(s.r,s.j)}</h2>
@@ -387,6 +401,11 @@ async function syncAccess(){
 // tab laman tahun: #arked membuka Zon Arked terus (boleh dikongsi)
 let yTab = location.hash==="#arked" ? "arcade" : "learn";
 // Kad dunia subjek: latar bertema, maskot terapung, bar kemajuan bintang
+// Kad subjek + pautan buku teks di bawahnya (pautan di luar <a> kad, bukan bersarang)
+function worldCell(s, entry, i, y){
+  const buku = entry.buku ? `<a class="buku" href="${entry.buku}" target="_blank" rel="noopener" style="--i:${i}" aria-label="${tx(`Buku Teks ${s.r} Tahun ${y} (tab baharu)`,`بوکو تيکس ${s.j} تاهون ${y}`)}">📖 ${tx("Buku Teks","بوکو تيکس")}<span aria-hidden="true">↗</span></a>` : "";
+  return `<div class="wcell">${worldCard(s, entry, i, y)}${buku}</div>`;
+}
 function worldCard(s, entry, i, y){
   const t = entry.theme || THEMES[s.id] || THEMES.mix, st = starsOf(entry);
   const pct = st ? Math.min(100, Math.round(st.got / st.max * 100)) : 0;
