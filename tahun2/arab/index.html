@@ -1,0 +1,1007 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1E7FD8">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" type="image/png" href="/icons/favicon.png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="JOM KAFA">
+<script src="/assets/pwa.js"></script>
+<script src="/assets/config.js"></script>
+<script src="/assets/access.js"></script>
+<title>Bas Sekolah Kalimah • Bahasa Arab Tahun 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Quicksand:wght@600;700&family=Noto+Naskh+Arabic:wght@500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ===== Bahasa Arab Tahun 2: "Bas Sekolah Kalimah" — laluan bas sekolah, hentian bas, Bas Bobo =====
+   Warna: kuning bas, kelabu jalan raya, biru papan tanda, hijau rumput, merah loceng. */
+:root{
+  --sky1:#8FD3FF; --sky2:#E6F6FF; --bg:#EAF6FF; --card:#FFFFFF; --ink:#1F2A3A; --muted:#5A6B80;
+  --bus:#FFC21A; --bus2:#FFE48A; --road:#3B4252; --road2:#596273; --sign:#1E7FD8; --sign2:#CDE6FF; --grass:#6CC36A; --grass2:#D6F2CF;
+  --stop:#E8453C; --stop2:#FFD9D5; --teal:#14A39A; --plum:#8A4FD8;
+  --line:#CFE0F0; --shadow:rgba(20,50,90,.2); --ok:#16A36E; --okbg:#DDF8EC; --bad:#E5484D; --badbg:#FFE3E6; --note:#FFF6CC;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --sky1:#0C1B33; --sky2:#152A4A; --bg:#0E1A2C; --card:#1C2A40; --ink:#F1F6FF; --muted:#A9BCD6;
+    --bus2:#4A3A0E; --sign2:#173A63; --grass2:#173D22; --stop2:#4A1F1C; --road:#262B36; --road2:#3B4252;
+    --line:#2E4060; --shadow:rgba(0,0,0,.5); --okbg:#123D2D; --badbg:#4A1F2A; --note:#3B3312;
+    color-scheme:dark;
+  }
+}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:"Quicksand","Trebuchet MS",system-ui,sans-serif;font-weight:700;font-size:19px;line-height:1.4;
+  background:linear-gradient(180deg,var(--sky1) 0,var(--sky2) 320px,var(--bg) 640px) fixed}
+html[dir="rtl"] body{font-family:"Noto Naskh Arabic","Quicksand",system-ui,sans-serif;font-size:20px;line-height:1.7}
+h1,h2,h3,.ttl{font-family:"Titan One","Quicksand",system-ui,sans-serif;font-weight:400;letter-spacing:.3px}
+html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3{font-family:"Noto Naskh Arabic",serif;font-weight:700}
+.ar{font-family:"Amiri","Noto Naskh Arabic",serif;font-weight:700;direction:rtl;unicode-bidi:isolate;font-size:1.3em;line-height:1.8}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:focus-visible,a:focus-visible{outline:4px solid var(--sign);outline-offset:2px}
+.wrap{max-width:560px;margin:0 auto;padding:10px 12px 40px}
+.top{display:flex;align-items:center;gap:8px;position:sticky;top:0;z-index:20;padding:6px 0}
+.sp{flex:1}
+.ib{min-width:48px;height:48px;border-radius:14px;border:3px solid var(--road);background:var(--bus);color:#1F2A3A;display:inline-flex;align-items:center;justify-content:center;font-size:22px;text-decoration:none;padding:0 10px;box-shadow:0 3px 0 var(--road)}
+.pill{background:var(--card);border:3px solid var(--road);border-radius:999px;padding:6px 12px;font-size:18px}
+/* ===== hero ===== */
+.hero{display:flex;align-items:center;gap:10px;background:var(--card);border:4px solid var(--road);border-radius:22px;padding:10px 12px;box-shadow:0 6px 0 var(--shadow);margin:6px 0 12px}
+.hero .bobo{width:110px;flex:0 0 110px}
+.hero h1{margin:0;font-size:27px;color:var(--sign);line-height:1.1}
+.hero p{margin:4px 0 0;font-size:16px;color:var(--muted)}
+.bobo{display:block;width:96px;height:auto}
+.bobo .wh{transform-origin:center;transform-box:fill-box;animation:spin 1.2s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.bobo.yay{animation:hop .7s ease-in-out infinite alternate}
+@keyframes hop{to{transform:translateY(-6px)}}
+.sttl{margin:8px 4px 4px;font-size:17px;color:var(--muted)}
+.bed{display:flex;flex-wrap:wrap;gap:6px;background:var(--card);border:3px dashed var(--line);border-radius:16px;padding:8px;margin-bottom:12px}
+.bed span{width:40px;height:40px;border-radius:10px;background:var(--sign2);display:flex;align-items:center;justify-content:center;font-size:22px;filter:grayscale(1);opacity:.35}
+.bed span.got{filter:none;opacity:1;background:var(--bus2)}
+/* ===== peta: jalan raya ===== */
+.route{position:relative;margin:0 -4px;border-radius:24px;overflow:hidden;
+  background:radial-gradient(circle at 20% 30%,rgba(255,255,255,.35) 0 18px,transparent 19px),linear-gradient(180deg,var(--grass2),var(--grass) 140%)}
+.route .road{position:absolute;inset:0;width:100%;height:100%}
+.route .road path{fill:none;stroke:var(--road);stroke-width:46;stroke-linecap:round;stroke-linejoin:round}
+.route .road path.e{stroke:var(--road2);stroke-width:54}
+.route .road path.d{stroke:#FFE48A;stroke-width:4;stroke-dasharray:16 14}
+.tree{position:absolute;font-size:30px;pointer-events:none;opacity:.9}
+.node{position:absolute;transform:translate(-50%,0);background:none;border:0;padding:0;width:150px;display:flex;flex-direction:column;align-items:center;z-index:2}
+.node .sign{position:relative;width:76px;height:76px;border-radius:50%;background:var(--c,var(--sign));border:5px solid #fff;box-shadow:0 0 0 4px var(--road),0 7px 0 4px var(--shadow);display:flex;align-items:center;justify-content:center;font-size:36px}
+.node .pole{width:8px;height:22px;background:#9AA6B6;border-radius:0 0 4px 4px;margin-top:2px}
+.node .num{position:absolute;top:-6px;inset-inline-start:22px;background:var(--bus);color:#1F2A3A;border:3px solid var(--road);border-radius:10px;min-width:30px;height:30px;font-family:"Titan One",sans-serif;font-size:17px;display:flex;align-items:center;justify-content:center;z-index:3}
+.node .nm{background:var(--card);border:3px solid var(--road);border-radius:12px;padding:2px 10px;font-size:16px;line-height:1.3;max-width:150px;text-align:center;margin-top:-2px}
+html[dir="rtl"] .node .nm{font-size:17px}
+.node .st{font-size:14px;min-height:18px}
+.node.lock .sign{filter:grayscale(1);opacity:.7}
+.node .lk{position:absolute;bottom:-6px;inset-inline-end:-8px;font-size:24px}
+.node.now .sign{animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 4px var(--road),0 0 0 14px rgba(255,194,26,.55)}}
+.node .park{position:absolute;top:2px;width:84px;z-index:4;pointer-events:none}
+html[dir="rtl"] .node .park svg{transform:scaleX(-1)}
+.node.big{width:220px}
+.node.big .school{width:180px;height:auto;display:block}
+.node.big.lock .school{filter:grayscale(.9);opacity:.75}
+.gate{position:absolute;left:50%;top:10px;transform:translateX(-50%);background:var(--bus);border:3px solid var(--road);border-radius:12px;padding:2px 12px;font-size:15px;white-space:nowrap;z-index:3}
+/* ===== stesen ===== */
+.shead{display:flex;align-items:center;gap:10px;margin:4px 0 10px}
+.badge{width:58px;height:58px;flex:0 0 58px;border-radius:50%;background:var(--c);border:4px solid #fff;box-shadow:0 0 0 3px var(--road);display:flex;align-items:center;justify-content:center;font-size:28px}
+.shead h2{margin:0;font-size:22px;line-height:1.2}
+.shead small{color:var(--muted);font-size:15px;display:block}
+.card{background:var(--card);border:4px solid var(--road);border-radius:22px;padding:14px;box-shadow:0 6px 0 var(--shadow);position:relative}
+.rpic{font-size:52px;text-align:center;line-height:1.1}
+.rh{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;text-align:center;margin:6px 0;font-size:22px}
+.rtext{margin:6px 0;text-align:center}
+.say{border:3px solid var(--road);background:var(--sign2);border-radius:12px;min-width:44px;height:44px;font-size:20px;padding:0 6px}
+.abox{background:var(--bus2);border-radius:16px;padding:8px 12px;text-align:center;margin:8px 0}
+.abox .ar{font-size:1.6em;display:block}
+.mk{display:block;color:var(--muted);font-size:16px}
+.wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px;margin:8px 0}
+.wt{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:6px 4px;display:flex;flex-direction:column;align-items:center;min-height:118px}
+.wt .em{font-size:32px;line-height:1.2}
+.wt small,.ln small{font-size:15px;color:var(--muted);line-height:1.25}
+.lines{display:flex;flex-direction:column;gap:8px;margin:8px 0}
+.ln{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:6px 10px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.ln:nth-child(odd){background:var(--sign2)}
+.tip{display:flex;gap:8px;background:var(--note);border-radius:14px;padding:8px 10px;margin:8px 0;font-size:17px}
+.ref{font-size:14px;color:var(--muted);text-align:center;margin-top:6px}
+.navr{display:flex;gap:10px;margin-top:10px}
+.btn{flex:1;min-height:56px;border:4px solid var(--road);border-radius:16px;background:var(--sign);color:#fff;font-size:20px;box-shadow:0 4px 0 var(--road)}
+.btn.go{background:var(--bus);color:#1F2A3A}
+.btn.alt{background:var(--card);color:var(--ink)}
+.btn[disabled]{opacity:.4}
+.btn:active,.ib:active{transform:translateY(3px);box-shadow:0 1px 0 var(--road)}
+.dots{display:flex;justify-content:center;gap:6px;margin-top:10px}
+.dots i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--bus);box-shadow:0 0 0 2px var(--road)}
+/* ===== bar kemajuan: jalan ===== */
+.prog{position:relative;height:46px;margin:6px 4px 14px;background:var(--road);border-radius:23px;border:3px solid var(--road2)}
+.prog::after{content:"";position:absolute;left:14px;right:14px;top:50%;border-top:3px dashed #FFE48A;opacity:.7}
+.prog .fill{position:absolute;inset-block:0;inset-inline-start:0;background:rgba(255,194,26,.35);border-radius:23px}
+.prog .tk{position:absolute;top:50%;font-size:18px;z-index:1}
+.prog .who{position:absolute;top:50%;width:62px;z-index:2}
+.prog .who .bobo{width:62px}
+/* ===== permainan umum ===== */
+.q{display:flex;align-items:center;gap:8px;justify-content:space-between;margin-bottom:8px}
+.q p{margin:0;font-size:19px}
+.cnt{text-align:center;color:var(--muted);font-size:16px;margin-top:10px}
+.hint{background:var(--badbg);border-radius:14px;padding:8px 10px;margin-top:10px;font-size:17px}
+.shake{animation:shk .4s}
+@keyframes shk{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+.ask{background:var(--sign);color:#fff;border:4px solid #fff;box-shadow:0 0 0 3px var(--road);border-radius:16px;text-align:center;padding:6px 10px;margin:6px 4px 12px;font-size:20px}
+.ask .ar{font-size:1.6em}
+.ask .em{font-size:44px}
+.fb{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--okbg);border-top:5px solid var(--ok);padding:12px 14px calc(14px + env(safe-area-inset-bottom,0px));animation:up .25s}
+@keyframes up{from{transform:translateY(100%)}}
+.fb .in{max-width:560px;margin:0 auto}
+.fb .row1{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.fb .bobo{width:78px;flex:0 0 78px}
+.fb strong{font-family:"Titan One",sans-serif;font-weight:400;font-size:24px;color:var(--ok)}
+html[dir="rtl"] .fb strong{font-family:"Noto Naskh Arabic",serif;font-weight:700}
+.fb p{margin:2px 0 0;font-size:17px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:60;background:var(--road);color:#fff;padding:10px 16px;border-radius:14px;max-width:90vw;text-align:center;font-size:17px}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}
+.confetti span{position:absolute;top:-40px;font-size:26px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+.res{text-align:center}
+.res .bobo{width:140px;margin:0 auto}
+.stars{font-size:46px}
+.stars span{display:inline-block;animation:pop .5s backwards}
+.stars .off{filter:grayscale(1);opacity:.3}
+@keyframes pop{from{transform:scale(0)}}
+.gotst{background:var(--bus2);border-radius:16px;padding:8px;margin:10px 0;display:flex;align-items:center;justify-content:center;gap:10px}
+.gotst span{font-size:38px}
+/* ===== tebuk: tiket konduktor ===== */
+.cond{display:flex;align-items:center;gap:10px;background:var(--sign);color:#fff;border-radius:18px;border:4px solid #fff;box-shadow:0 0 0 3px var(--road);padding:6px 12px;margin:4px 4px 12px}
+.cond .who2{font-size:40px}
+.cond .ar{font-size:1.7em;flex:1;text-align:center}
+.tstrip{display:flex;flex-direction:column;gap:10px}
+.stub{position:relative;display:flex;align-items:center;gap:10px;min-height:66px;border:0;border-radius:12px;background:var(--bus2);padding:6px 14px 6px 46px;text-align:start;box-shadow:0 4px 0 var(--shadow);border-inline-start:6px dashed var(--road)}
+html[dir="rtl"] .stub{padding:6px 46px 6px 14px}
+.stub .em{font-size:32px}
+.stub .hole{position:absolute;inset-inline-start:10px;top:50%;width:24px;height:24px;margin-top:-12px;border-radius:50%;border:3px dashed var(--road2)}
+.stub.punched .hole{background:var(--road);border-style:solid}
+.stub.punched{background:var(--okbg)}
+/* ===== kerusi: duduk penumpang ===== */
+.curb{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;background:var(--road2);border-radius:16px;padding:10px;margin-bottom:10px}
+.pax{border:3px solid var(--road);background:var(--card);border-radius:22px 22px 10px 10px;min-width:84px;min-height:58px;padding:2px 10px;font-size:18px}
+.pax::before{content:"🧒";display:block;font-size:18px;line-height:1}
+.pax.pick{background:var(--bus);transform:translateY(-4px)}
+.pax.gone{visibility:hidden}
+.busin{background:var(--bus);border:4px solid var(--road);border-radius:26px 26px 14px 14px;padding:12px 10px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.seat{border:3px solid var(--road);background:#fff;color:#1F2A3A;border-radius:14px 14px 6px 6px;min-height:76px;padding:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:16px;line-height:1.25}
+.seat .em{font-size:28px}
+.seat.full{background:var(--okbg)}
+.seat .ar{font-size:1.1em;line-height:1.4}
+/* ===== loceng ===== */
+.scard{background:var(--sign2);border:3px solid var(--road);border-radius:18px;text-align:center;padding:8px;margin-bottom:12px}
+.scard .em{font-size:56px;line-height:1.2;display:block}
+.scard .ar{font-size:1.6em}
+.bells{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.bell{min-height:84px;border:4px solid var(--road);border-radius:20px;font-size:19px;box-shadow:0 5px 0 var(--road)}
+.bell b{display:block;font-size:34px}
+.bell[data-v="1"]{background:var(--okbg)} .bell[data-v="0"]{background:var(--stop2)}
+.bell.ring b{animation:ring .5s}
+@keyframes ring{25%{transform:rotate(-20deg)}75%{transform:rotate(20deg)}}
+/* ===== rak bagasi ===== */
+.bags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:12px}
+.bag{border:3px solid var(--road);background:var(--card);border-radius:14px;min-width:80px;min-height:56px;padding:2px 10px;position:relative;font-size:18px}
+.bag::before{content:"";position:absolute;top:-9px;left:50%;width:22px;height:10px;margin-left:-11px;border:3px solid var(--road);border-bottom:0;border-radius:8px 8px 0 0}
+.bag.pick{background:var(--bus)} .bag.used{visibility:hidden}
+.racks{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rack{border:4px solid var(--road);background:var(--sign2);border-radius:16px;min-height:130px;padding:6px;display:flex;flex-direction:column;align-items:center;background-image:repeating-linear-gradient(90deg,transparent 0 18px,rgba(59,66,82,.15) 18px 21px)}
+.rack .lbl{background:var(--sign);color:#fff;border-radius:10px;padding:0 10px;font-size:17px}
+.rack .in{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:6px}
+.rack .in span{background:var(--card);border-radius:8px;padding:0 6px;font-size:15px}
+/* ===== tingkap ===== */
+.windows{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;background:var(--bus);border:4px solid var(--road);border-radius:22px;padding:12px}
+.win{aspect-ratio:1/1;border:4px solid var(--road);border-radius:14px;background:linear-gradient(180deg,#BFE6FF,#E9F7FF);font-size:40px;display:flex;align-items:center;justify-content:center;flex-direction:column}
+.win small{font-size:12px;color:#1F2A3A;line-height:1.1}
+.win.seen{background:var(--okbg)}
+/* ===== papan tanda ===== */
+.rsign{background:var(--teal);color:#fff;border:5px solid #fff;box-shadow:0 0 0 4px var(--road);border-radius:16px;text-align:center;padding:10px;margin:6px 6px 0}
+.rsign .em{font-size:40px;display:block}
+.rsign .ar{font-size:1.5em}
+.gap{display:inline-block;min-width:60px;border-bottom:4px dashed #fff;margin:0 4px}
+.rpost{width:14px;height:26px;background:#9AA6B6;margin:0 auto 12px}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{min-height:60px;border:4px solid var(--road);border-radius:16px;background:var(--card);font-size:18px;box-shadow:0 4px 0 var(--shadow)}
+.opt.ok{background:var(--okbg)}
+/* ===== hentian ===== */
+.stops{display:flex;flex-direction:column;gap:8px}
+.hs{min-height:56px;border:3px solid var(--road);border-radius:14px;background:var(--card);display:flex;align-items:center;gap:10px;padding:4px 12px;font-size:17px}
+.hs::before{content:"🚏";font-size:22px}
+.hs.done{visibility:hidden;height:0;min-height:0;padding:0;border:0;margin:-4px 0}
+.built{display:flex;flex-direction:column;gap:6px;background:var(--road);border-radius:16px;padding:8px;min-height:50px;margin-bottom:10px}
+.built span{background:var(--bus2);border-radius:10px;padding:0 10px;text-align:center}
+.built.row{flex-direction:row;flex-wrap:wrap;justify-content:center;direction:rtl}
+/* ===== tambang ===== */
+.fare{background:var(--road);color:#fff;border-radius:18px;text-align:center;padding:10px;margin-bottom:12px}
+.fare .big{font-family:"Titan One",sans-serif;font-size:34px;direction:ltr;display:block}
+.fare .emr{font-size:24px;line-height:1.3;display:block;direction:ltr}
+.coins{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.coin{min-height:72px;border:4px solid #B8860B;border-radius:40px;background:radial-gradient(circle at 35% 30%,#FFF3B0,#FFC21A);color:#1F2A3A;font-size:17px;box-shadow:0 4px 0 #8A6508}
+/* ===== radio ===== */
+.radio{display:flex;align-items:center;gap:10px;background:var(--plum);color:#fff;border-radius:18px;border:4px solid #fff;box-shadow:0 0 0 3px var(--road);padding:8px 12px;margin:4px 4px 12px}
+.radio .ic{font-size:38px}
+.radio .ar{flex:1;text-align:center;font-size:1.5em}
+.reps{display:flex;flex-direction:column;gap:10px}
+.rep{min-height:60px;border:3px solid var(--road);border-radius:18px 18px 18px 4px;background:var(--card);font-size:18px}
+@media (max-width:370px){ .node{width:130px} .node .nm{font-size:15px} .windows{gap:6px;padding:8px} .win{font-size:32px} }
+</style>
+</head>
+<body>
+<main class="wrap" id="app"></main>
+<script>
+
+/* ============ KANDUNGAN: Buku Teks Bahasa Arab Tahun 2 (KPM, KSSR Semakan) ============
+   Teks Melayu = [Rumi, Jawi]; teks Arab = rentetan biasa (berbaris penuh, disalin daripada buku).
+   p = muka surat bercetak (ms. N = fail pN+12; Tamhid ms. أ–د = fail p9–p12).
+   Jenis permainan (semua tekan sahaja):
+     tebuk   : tebuk tiket konduktor — perkataan Arab → maksud (rounds [ar, makna, em])
+     kerusi  : dudukkan penumpang (Arab) di kerusi maksudnya (pairs [ar, makna, em])
+     loceng  : 🔔 betul / ✋ salah untuk gambar + ayat (rounds [em, ar, ok])
+     rak     : susun beg ke rak bagasi ikut kumpulan (bins [em, label], items [ar, bin])
+     tingkap : intai tingkap bas, cari gambar perkataan Arab (items [em, ar, makna])
+     tanda   : papan tanda: isi tempat kosong ___ (ask, a[0] betul)
+     hentian : tekan hentian bas ikut urutan (seq; row = perkataan dalam satu ayat)
+     tambang : bayar tambang dengan nombor Arab (rounds [n|teks, jawapan], opts, em)
+     radio   : radio pemandu bertanya, pilih jawapan (rounds [soalan, jawapan]) */
+const STATIONS = [
+/* ---------- 1. SALAM PAGI (Tamhid) ---------- */
+{ id:1, icon:"🌅", sticker:"🌞", c:"#FF8A3D",
+  t:["Salam Pagi","سلام ڤاڬي"], u:["Tamhid • Salam dan nombor 1–10","تمهيد • سلام دان نومبور ١–١٠"],
+  read:[
+    { pic:"🌅", h:["Selamat pagi, selamat petang","سلامت ڤاڬي، سلامت ڤتڠ"], lines:[
+      ["صَبَاحَ الْخَيْرِ",["Selamat pagi","سلامت ڤاڬي"]],["صَبَاحَ النُّورِ",["Selamat pagi (jawapan)","سلامت ڤاڬي (جواڤن)"]],
+      ["مَسَاءَ الْخَيْرِ",["Selamat petang","سلامت ڤتڠ"]],["مَسَاءَ النُّورِ",["Selamat petang (jawapan)","سلامت ڤتڠ (جواڤن)"]]],
+      tip:["Kawan kata صَبَاحَ الْخَيْرِ, kita jawab صَبَاحَ النُّورِ.","کاون کات صَبَاحَ الْخَيْرِ، کيت جاوب صَبَاحَ النُّورِ."], p:"ج" },
+    { pic:"🤗", h:["Selamat datang","سلامت داتڠ"], lines:[
+      ["أَهْلًا وَسَهْلًا",["Selamat datang","سلامت داتڠ"]],["أَهْلًا بِكَ",["Selamat datang juga kepada kamu (jawapan)","سلامت داتڠ جوڬ کڤد کامو (جواڤن)"]]], p:"ج" },
+    { pic:"🎈", h:["Nombor 1 hingga 5","نومبور ١ هيڠڬ ٥"], words:[
+      ["1️⃣","وَاحِدٌ",["satu","ساتو"]],["2️⃣","اِثْنَانِ",["dua","دوا"]],["3️⃣","ثَلَاثَةٌ",["tiga","تيڬ"]],["4️⃣","أَرْبَعَةٌ",["empat","امڤت"]],["5️⃣","خَمْسَةٌ",["lima","ليما"]]], p:"د" },
+    { pic:"🎈", h:["Nombor 6 hingga 10","نومبور ٦ هيڠڬ ١٠"], words:[
+      ["6️⃣","سِتَّةٌ",["enam","انم"]],["7️⃣","سَبْعَةٌ",["tujuh","توجوه"]],["8️⃣","ثَمَانِيَةٌ",["lapan","لاڤن"]],["9️⃣","تِسْعَةٌ",["sembilan","سمبيلن"]],["🔟","عَشَرَةٌ",["sepuluh","سڤولوه"]]], p:"د" }
+  ],
+  games:[
+    { type:"radio", q:["Pemandu Bobo beri salam di radio. Pilih jawapan yang betul!","ڤماندو بوبو بري سلام د راديو. ڤيليه جواڤن يڠ بتول!"],
+      rounds:[["صَبَاحَ الْخَيْرِ","صَبَاحَ النُّورِ"],["مَسَاءَ الْخَيْرِ","مَسَاءَ النُّورِ"],["أَهْلًا وَسَهْلًا","أَهْلًا بِكَ"]],
+      e:["Salam dijawab dengan salam yang sepadan.","سلام دجاوب دڠن سلام يڠ سڤادن."] },
+    { type:"loceng", q:["Pagi atau petang? Tekan 🔔 jika betul, ✋ jika salah.","ڤاڬي اتاو ڤتڠ؟ تکن 🔔 جک بتول، ✋ جک ساله."],
+      rounds:[["🌅","صَبَاحَ الْخَيْرِ",1],["🌇","صَبَاحَ الْخَيْرِ",0],["🌇","مَسَاءَ الْخَيْرِ",1],["🌅","مَسَاءَ النُّورِ",0]],
+      e:["صَبَاحٌ = pagi, مَسَاءٌ = petang.","صَبَاحٌ = ڤاڬي، مَسَاءٌ = ڤتڠ."] },
+    { type:"tambang", q:["Kira penumpang, kemudian bayar tambang dengan nombor Arab.","کيرا ڤنومڤڠ، کمودين باير تمبڠ دڠن نومبور عرب."], em:"🧒",
+      rounds:[[3,"ثَلَاثَةٌ"],[7,"سَبْعَةٌ"],[5,"خَمْسَةٌ"],[9,"تِسْعَةٌ"]],
+      opts:["وَاحِدٌ","اِثْنَانِ","ثَلَاثَةٌ","أَرْبَعَةٌ","خَمْسَةٌ","سِتَّةٌ","سَبْعَةٌ","ثَمَانِيَةٌ","تِسْعَةٌ","عَشَرَةٌ"] },
+    { type:"tebuk", q:["Konduktor tunjuk nombor Arab. Tebuk tiket yang betul!","کوندوکتور تونجوق نومبور عرب. تيبوق تيکيت يڠ بتول!"],
+      rounds:[["أَرْبَعَةٌ",["empat","امڤت"],"4️⃣"],["ثَمَانِيَةٌ",["lapan","لاڤن"],"8️⃣"],["اِثْنَانِ",["dua","دوا"],"2️⃣"],["عَشَرَةٌ",["sepuluh","سڤولوه"],"🔟"],["سِتَّةٌ",["enam","انم"],"6️⃣"]] },
+    { type:"hentian", q:["Bas berhenti ikut nombor. Tekan hentian dari satu hingga lima.","باس برهنتي ايکوت نومبور. تکن هنتين دري ساتو هيڠڬ ليما."],
+      seq:["وَاحِدٌ","اِثْنَانِ","ثَلَاثَةٌ","أَرْبَعَةٌ","خَمْسَةٌ"] },
+    { type:"kerusi", q:["Dudukkan setiap penumpang di kerusi maksudnya.","دودوقکن ستياڤ ڤنومڤڠ د کروسي مقصودڽ."],
+      pairs:[["صَبَاحَ الْخَيْرِ",["Selamat pagi","سلامت ڤاڬي"],"🌅"],["مَسَاءَ الْخَيْرِ",["Selamat petang","سلامت ڤتڠ"],"🌇"],["أَهْلًا وَسَهْلًا",["Selamat datang","سلامت داتڠ"],"🤗"],["عَشَرَةٌ",["sepuluh","سڤولوه"],"🔟"]] }
+  ] },
+
+/* ---------- 2. DI DALAM KELAS (Unit 1) ---------- */
+{ id:2, icon:"🧑‍🏫", sticker:"🍎", c:"#1E7FD8",
+  t:["Di Dalam Kelas","د دالم کلس"], u:["Unit 1 • Murid, guru, saya, kamu","اونيت ١ • موريد، ڬورو، ساي، کامو"],
+  read:[
+    { pic:"🧑‍🏫", h:["Guru dan murid","ڬورو دان موريد"], words:[
+      ["👨‍🏫","مُعَلِّمٌ",["guru lelaki","ڬورو للاکي"]],["👩‍🏫","مُعَلِّمَةٌ",["guru perempuan","ڬورو ڤرمڤوان"]],
+      ["👦","تِلْمِيذٌ",["murid lelaki","موريد للاکي"]],["👧","تِلْمِيذَةٌ",["murid perempuan","موريد ڤرمڤوان"]]],
+      tip:["Perkataan yang berakhir dengan ة ialah untuk perempuan.","ڤرکاتاٴن يڠ براخير دڠن ة اياله اونتوق ڤرمڤوان."], p:9 },
+    { pic:"🙋", h:["Saya dan kamu","ساي دان کامو"], words:[
+      ["🙋","أَنَا",["saya","ساي"]],["👦","أَنْتَ",["kamu (lelaki)","کامو (للاکي)"]],["👧","أَنْتِ",["kamu (perempuan)","کامو (ڤرمڤوان)"]]], p:10 },
+    { pic:"💬", h:["Siapa kamu?","سياڤ کامو؟"], lines:[
+      ["مَنْ أَنْتَ؟",["Siapa kamu? (lelaki)","سياڤ کامو؟ (للاکي)"]],["أَنَا تِلْمِيذٌ.",["Saya murid lelaki.","ساي موريد للاکي."]],
+      ["مَنْ أَنْتِ؟",["Siapa kamu? (perempuan)","سياڤ کامو؟ (ڤرمڤوان)"]],["أَنَا تِلْمِيذَةٌ.",["Saya murid perempuan.","ساي موريد ڤرمڤوان."]]], p:13 }
+  ],
+  games:[
+    { type:"tingkap", q:["Intai tingkap bas! Cari gambar untuk perkataan Arab.","اينتاي تيڠکڤ باس! چاري ڬمبر اونتوق ڤرکاتاٴن عرب."],
+      items:[["👨‍🏫","مُعَلِّمٌ",["guru lelaki","ڬورو للاکي"]],["👩‍🏫","مُعَلِّمَةٌ",["guru perempuan","ڬورو ڤرمڤوان"]],["👦","تِلْمِيذٌ",["murid lelaki","موريد للاکي"]],["👧","تِلْمِيذَةٌ",["murid perempuan","موريد ڤرمڤوان"]]] },
+    { type:"rak", q:["Susun beg ke rak: untuk lelaki atau untuk perempuan?","سوسون بيڬ ک رق: اونتوق للاکي اتاو اونتوق ڤرمڤوان؟"],
+      bins:[["👦",["Lelaki","للاکي"]],["👧",["Perempuan","ڤرمڤوان"]]],
+      items:[["مُعَلِّمٌ",0],["مُعَلِّمَةٌ",1],["تِلْمِيذٌ",0],["تِلْمِيذَةٌ",1],["أَنْتَ",0],["أَنْتِ",1]],
+      e:["أَنْتِ dan perkataan dengan ة untuk perempuan.","أَنْتِ دان ڤرکاتاٴن دڠن ة اونتوق ڤرمڤوان."] },
+    { type:"tanda", q:["Baca papan tanda. Pilih perkataan untuk tempat kosong.","باچ ڤاڤن تندا. ڤيليه ڤرکاتاٴن اونتوق تمڤت کوسوڠ."], em:"👧",
+      ask:"مَنْ أَنْتِ؟ أَنَا ___.", a:["تِلْمِيذَةٌ","تِلْمِيذٌ","مُعَلِّمٌ"], e:["أَنَا تِلْمِيذَةٌ = Saya murid perempuan.","أَنَا تِلْمِيذَةٌ = ساي موريد ڤرمڤوان."] },
+    { type:"tanda", q:["Dia murid lelaki. Pilih perkataan untuk tempat kosong.","دي موريد للاکي. ڤيليه ڤرکاتاٴن اونتوق تمڤت کوسوڠ."], em:"👦",
+      ask:"مَنْ ___؟ أَنَا تِلْمِيذٌ.", a:["أَنْتَ","أَنْتِ","أَنَا"], e:["مَنْ أَنْتَ؟ = Siapa kamu? (lelaki)","مَنْ أَنْتَ؟ = سياڤ کامو؟ (للاکي)"] },
+    { type:"tebuk", q:["Tebuk tiket yang sama maksud dengan perkataan Arab.","تيبوق تيکيت يڠ سام مقصود دڠن ڤرکاتاٴن عرب."],
+      rounds:[["أَنَا",["saya","ساي"],"🙋"],["أَنْتَ",["kamu (lelaki)","کامو (للاکي)"],"👦"],["أَنْتِ",["kamu (perempuan)","کامو (ڤرمڤوان)"],"👧"],["مُعَلِّمٌ",["guru lelaki","ڬورو للاکي"],"👨‍🏫"]] },
+    { type:"loceng", q:["Gambar dan perkataan sepadan? 🔔 betul, ✋ salah.","ڬمبر دان ڤرکاتاٴن سڤادن؟ 🔔 بتول، ✋ ساله."],
+      rounds:[["👩‍🏫","مُعَلِّمَةٌ",1],["👦","تِلْمِيذَةٌ",0],["👨‍🏫","مُعَلِّمٌ",1],["👧","أَنْتَ",0]] }
+  ] },
+
+/* ---------- 3. SIAPA NAMA KAMU? (Unit 1) ---------- */
+{ id:3, icon:"💬", sticker:"📛", c:"#14A39A",
+  t:["Siapa Nama Kamu?","سياڤ نام کامو؟"], u:["Unit 1 • Berkenalan dan nombor 11–12","اونيت ١ • برکنلن دان نومبور ١١–١٢"],
+  read:[
+    { pic:"👦", h:["Yusuf berkenalan","يوسف برکنلن"], lines:[
+      ["مَا اسْمُكَ؟",["Siapa nama kamu? (lelaki)","سياڤ نام کامو؟ (للاکي)"]],["اِسْمِي يُوسُفُ.",["Nama saya Yusuf.","نام ساي يوسف."]],
+      ["كَيْفَ حَالُكَ؟",["Apa khabar? (lelaki)","اڤ خبر؟ (للاکي)"]],["أَنَا بِخَيْرٍ.",["Saya sihat.","ساي سيهت."]]], p:12 },
+    { pic:"👧", h:["Su Yin berkenalan","سو يين برکنلن"], lines:[
+      ["مَا اسْمُكِ؟",["Siapa nama kamu? (perempuan)","سياڤ نام کامو؟ (ڤرمڤوان)"]],["اِسْمِي سُو يِينْ.",["Nama saya Su Yin.","نام ساي سو يين."]],
+      ["كَمْ عُمْرُكِ؟",["Berapa umur kamu? (perempuan)","براڤ عمور کامو؟ (ڤرمڤوان)"]],["ثَمَانِي سَنَوَاتٍ.",["Lapan tahun.","لاڤن تاهون."]]], p:12 },
+    { pic:"🏠", h:["Di mana kamu tinggal?","د مان کامو تيڠڬل؟"], lines:[
+      ["أَيْنَ تَسْكُنُ؟",["Di mana kamu tinggal?","د مان کامو تيڠڬل؟"]],["أَسْكُنُ فِي كوالا لمقور.",["Saya tinggal di Kuala Lumpur.","ساي تيڠڬل د کوالا لومڤور."]],
+      ["كَيْفَ حَالُكِ؟",["Apa khabar? (perempuan)","اڤ خبر؟ (ڤرمڤوان)"]],["أَنَا بِخَيْرٍ، وَالْحَمْدُ لِلّٰهِ.",["Saya sihat, alhamdulillah.","ساي سيهت، الحمد لله."]]], p:"13–16" },
+    { pic:"⚽", h:["Nombor 11 dan 12","نومبور ١١ دان ١٢"], words:[
+      ["1️⃣1️⃣","أَحَدَ عَشَرَ",["sebelas","سبلس"]],["1️⃣2️⃣","اِثْنَا عَشَرَ",["dua belas","دوا بلس"]]], p:19 }
+  ],
+  games:[
+    { type:"radio", q:["Radio bas bertanya. Pilih jawapan yang sesuai!","راديو باس برتاڽ. ڤيليه جواڤن يڠ سسواي!"],
+      rounds:[["مَا اسْمُكَ؟","اِسْمِي يُوسُفُ."],["كَيْفَ حَالُكَ؟","أَنَا بِخَيْرٍ."],["كَمْ عُمْرُكِ؟","ثَمَانِي سَنَوَاتٍ."],["مَنْ أَنْتَ؟","أَنَا تِلْمِيذٌ."]] },
+    { type:"hentian", q:["Susun perbualan Su Yin ikut hentian bas.","سوسون ڤربوالن سو يين ايکوت هنتين باس."],
+      seq:["مَا اسْمُكِ؟","اِسْمِي سُو يِينْ.","كَمْ عُمْرُكِ؟","ثَمَانِي سَنَوَاتٍ."] },
+    { type:"tanda", q:["Tanya umur. Pilih perkataan untuk tempat kosong.","تاڽ عمور. ڤيليه ڤرکاتاٴن اونتوق تمڤت کوسوڠ."], em:"🎂",
+      ask:"___ عُمْرُكَ؟", a:["كَمْ","مَا","أَيْنَ"], e:["كَمْ = berapa","كَمْ = براڤ"] },
+    { type:"tanda", q:["Tanya tempat tinggal. Pilih perkataan untuk tempat kosong.","تاڽ تمڤت تيڠڬل. ڤيليه ڤرکاتاٴن اونتوق تمڤت کوسوڠ."], em:"🏠",
+      ask:"___ تَسْكُنُ؟", a:["أَيْنَ","كَمْ","مَنْ"], e:["أَيْنَ = di mana","أَيْنَ = د مان"] },
+    { type:"hentian", q:["Bina ayat: tekan perkataan ikut urutan.","بينا اءيت: تکن ڤرکاتاٴن ايکوت اوروتن."], row:true,
+      seq:["أَنَا","بِخَيْرٍ،","وَالْحَمْدُ","لِلّٰهِ."], e:["Saya sihat, alhamdulillah.","ساي سيهت، الحمد لله."] },
+    { type:"kerusi", q:["Dudukkan soalan di kerusi maksudnya.","دودوقکن سوالن د کروسي مقصودڽ."],
+      pairs:[["مَا اسْمُكَ؟",["Siapa nama kamu?","سياڤ نام کامو؟"],"📛"],["كَيْفَ حَالُكَ؟",["Apa khabar?","اڤ خبر؟"],"😊"],["كَمْ عُمْرُكَ؟",["Berapa umur kamu?","براڤ عمور کامو؟"],"🎂"],["أَيْنَ تَسْكُنُ؟",["Di mana kamu tinggal?","د مان کامو تيڠڬل؟"],"🏠"]] },
+    { type:"tambang", q:["Lihat nombor tiket. Bayar dengan nombor Arab.","ليهت نومبور تيکيت. باير دڠن نومبور عرب."], show:"num",
+      rounds:[[11,"أَحَدَ عَشَرَ"],[12,"اِثْنَا عَشَرَ"],[10,"عَشَرَةٌ"]], opts:["أَحَدَ عَشَرَ","اِثْنَا عَشَرَ","عَشَرَةٌ","ثَمَانِيَةٌ"] }
+  ] },
+
+/* ---------- 4. KELUARGAKU (Unit 2) ---------- */
+{ id:4, icon:"👨‍👩‍👧", sticker:"🏡", c:"#E8453C",
+  t:["Keluargaku","کلوارڬکو"], u:["Unit 2 • Ahli keluarga","اونيت ٢ • اهلي کلوارڬ"],
+  read:[
+    { pic:"👨‍👩‍👧‍👦", h:["Ayah, ibu, abang, kakak","ايه، ايبو، ابڠ، کاکق"], words:[
+      ["👨","أَبٌ",["ayah","ايه"]],["👩","أُمٌّ",["ibu","ايبو"]],["👦","أَخٌ",["abang/adik lelaki","ابڠ/اديق للاکي"]],["👧","أُخْتٌ",["kakak/adik perempuan","کاکق/اديق ڤرمڤوان"]]], p:"32–35" },
+    { pic:"👴", h:["Datuk, nenek, bapa dan ibu saudara","داتوق، نينيق، باڤ دان ايبو سودارا"], words:[
+      ["👴","جَدٌّ",["datuk","داتوق"]],["👵","جَدَّةٌ",["nenek","نينيق"]],["🧔","عَمٌّ",["bapa saudara","باڤ سودارا"]],["🧕","عَمَّةٌ",["ibu saudara","ايبو سودارا"]]], p:"34–35" },
+    { pic:"🧒", h:["Saya anak lelaki, saya anak perempuan","ساي انق للاکي، ساي انق ڤرمڤوان"], lines:[
+      ["أَنَا ابْنٌ.",["Saya anak lelaki.","ساي انق للاکي."]],["أَنَا بِنْتٌ.",["Saya anak perempuan.","ساي انق ڤرمڤوان."]]], p:37 }
+  ],
+  games:[
+    { type:"tingkap", q:["Intai tingkap! Cari ahli keluarga untuk perkataan Arab.","اينتاي تيڠکڤ! چاري اهلي کلوارڬ اونتوق ڤرکاتاٴن عرب."],
+      items:[["👨","أَبٌ",["ayah","ايه"]],["👩","أُمٌّ",["ibu","ايبو"]],["👴","جَدٌّ",["datuk","داتوق"]],["👵","جَدَّةٌ",["nenek","نينيق"]],["👦","أَخٌ",["abang/adik lelaki","ابڠ/اديق للاکي"]],["👧","أُخْتٌ",["kakak/adik perempuan","کاکق/اديق ڤرمڤوان"]]] },
+    { type:"tebuk", q:["Tebuk tiket yang sama maksud dengan perkataan Arab.","تيبوق تيکيت يڠ سام مقصود دڠن ڤرکاتاٴن عرب."],
+      rounds:[["عَمٌّ",["bapa saudara","باڤ سودارا"],"🧔"],["عَمَّةٌ",["ibu saudara","ايبو سودارا"],"🧕"],["جَدَّةٌ",["nenek","نينيق"],"👵"],["اِبْنٌ",["anak lelaki","انق للاکي"],"👦"],["بِنْتٌ",["anak perempuan","انق ڤرمڤوان"],"👧"]] },
+    { type:"kerusi", q:["Dudukkan keluarga di kerusi mereka.","دودوقکن کلوارڬ د کروسي مريک."],
+      pairs:[["أَبٌ",["ayah","ايه"],"👨"],["أُمٌّ",["ibu","ايبو"],"👩"],["جَدٌّ",["datuk","داتوق"],"👴"],["أُخْتٌ",["kakak/adik perempuan","کاکق/اديق ڤرمڤوان"],"👧"]] },
+    { type:"loceng", q:["Gambar dan perkataan sepadan? 🔔 betul, ✋ salah.","ڬمبر دان ڤرکاتاٴن سڤادن؟ 🔔 بتول، ✋ ساله."],
+      rounds:[["👵","جَدَّةٌ",1],["👨","أُمٌّ",0],["🧔","عَمٌّ",1],["👦","أُخْتٌ",0],["👩","أُمٌّ",1]] },
+    { type:"rak", q:["Susun beg: ahli keluarga lelaki atau perempuan?","سوسون بيڬ: اهلي کلوارڬ للاکي اتاو ڤرمڤوان؟"],
+      bins:[["👨",["Lelaki","للاکي"]],["👩",["Perempuan","ڤرمڤوان"]]],
+      items:[["أَبٌ",0],["أُمٌّ",1],["جَدٌّ",0],["جَدَّةٌ",1],["عَمٌّ",0],["عَمَّةٌ",1],["أَخٌ",0],["أُخْتٌ",1]] },
+    { type:"tanda", q:["Dia anak perempuan. Pilih perkataan untuk tempat kosong.","دي انق ڤرمڤوان. ڤيليه ڤرکاتاٴن اونتوق تمڤت کوسوڠ."], em:"👧",
+      ask:"أَنَا ___.", a:["بِنْتٌ","ابْنٌ","أَبٌ"], e:["أَنَا بِنْتٌ = Saya anak perempuan.","أَنَا بِنْتٌ = ساي انق ڤرمڤوان."] }
+  ] },
+
+/* ---------- 5. SIAPA INI? (Unit 2) ---------- */
+{ id:5, icon:"👉", sticker:"🎵", c:"#8A4FD8",
+  t:["Siapa Ini?","سياڤ اين؟"], u:["Unit 2 • هٰذَا / هٰذِهِ dan nombor 13–16","اونيت ٢ • هٰذَا / هٰذِهِ دان نومبور ١٣–١٦"],
+  read:[
+    { pic:"👴", h:["Ini datuk, ini nenek","اين داتوق، اين نينيق"], lines:[
+      ["هٰذَا جَدٌّ.",["Ini datuk.","اين داتوق."]],["هٰذِهِ جَدَّةٌ.",["Ini nenek.","اين نينيق."]],
+      ["هٰذَا أَخٌ.",["Ini abang.","اين ابڠ."]],["هٰذِهِ أُخْتٌ.",["Ini kakak.","اين کاکق."]]],
+      tip:["هٰذَا untuk lelaki, هٰذِهِ untuk perempuan.","هٰذَا اونتوق للاکي، هٰذِهِ اونتوق ڤرمڤوان."], p:"38–39" },
+    { pic:"❓", h:["Siapa ini?","سياڤ اين؟"], lines:[
+      ["مَنْ هٰذَا؟",["Siapa ini? (lelaki)","سياڤ اين؟ (للاکي)"]],["هٰذَا أَبٌ.",["Ini ayah.","اين ايه."]],
+      ["مَنْ هٰذِهِ؟",["Siapa ini? (perempuan)","سياڤ اين؟ (ڤرمڤوان)"]],["هٰذِهِ أُمٌّ.",["Ini ibu.","اين ايبو."]]], p:41 },
+    { pic:"🎵", h:["Jom menyanyi!","جوم مڽاڽي!"], lines:[
+      ["مَنْ هٰذَا؟ هٰذَا أَبٌ،",["Siapa ini? Ini ayah,","سياڤ اين؟ اين ايه،"]],["مَنْ هٰذَا؟ هٰذَا جَدٌّ،",["Siapa ini? Ini datuk,","سياڤ اين؟ اين داتوق،"]],
+      ["أَنَا ابْنٌ، هٰذَا أَخٌ،",["Saya anak lelaki, ini abang,","ساي انق للاکي، اين ابڠ،"]],["أَنَا عَمٌّ، هٰذِهِ أُسْرَتِي.",["Saya bapa saudara, inilah keluarga saya.","ساي باڤ سودارا، اينيله کلوارڬ ساي."]]], p:42 },
+    { pic:"🔢", h:["Nombor 13 hingga 16","نومبور ١٣ هيڠڬ ١٦"], words:[
+      ["1️⃣3️⃣","ثَلَاثَةَ عَشَرَ",["tiga belas","تيڬ بلس"]],["1️⃣4️⃣","أَرْبَعَةَ عَشَرَ",["empat belas","امڤت بلس"]],
+      ["1️⃣5️⃣","خَمْسَةَ عَشَرَ",["lima belas","ليما بلس"]],["1️⃣6️⃣","سِتَّةَ عَشَرَ",["enam belas","انم بلس"]]], p:"43–45" }
+  ],
+  games:[
+    { type:"rak", q:["Susun beg ke rak هٰذَا atau rak هٰذِهِ.","سوسون بيڬ ک رق هٰذَا اتاو رق هٰذِهِ."],
+      bins:[["👨","هٰذَا"],["👩","هٰذِهِ"]],
+      items:[["أَخٌ",0],["جَدَّةٌ",1],["جَدٌّ",0],["أُخْتٌ",1],["عَمٌّ",0],["عَمَّةٌ",1]],
+      e:["هٰذَا untuk lelaki, هٰذِهِ untuk perempuan.","هٰذَا اونتوق للاکي، هٰذِهِ اونتوق ڤرمڤوان."] },
+    { type:"tanda", q:["Ini datuk. Pilih perkataan untuk tempat kosong.","اين داتوق. ڤيليه ڤرکاتاٴن اونتوق تمڤت کوسوڠ."], em:"👴",
+      ask:"___ جَدٌّ.", a:["هٰذَا","هٰذِهِ","أَنَا"], e:["هٰذَا جَدٌّ = Ini datuk.","هٰذَا جَدٌّ = اين داتوق."] },
+    { type:"radio", q:["Lihat gambar. Jawab soalan radio!","ليهت ڬمبر. جاوب سوالن راديو!"],
+      rounds:[["مَنْ هٰذَا؟","هٰذَا أَبٌ.","👨"],["مَنْ هٰذِهِ؟","هٰذِهِ جَدَّةٌ.","👵"],["مَنْ هٰذَا؟","هٰذَا عَمٌّ.","🧔"],["مَنْ هٰذِهِ؟","هٰذِهِ أُمٌّ.","👩"]] },
+    { type:"tanda", q:["Ini ibu. Pilih perkataan untuk tempat kosong.","اين ايبو. ڤيليه ڤرکاتاٴن اونتوق تمڤت کوسوڠ."], em:"👩",
+      ask:"مَنْ هٰذِهِ؟ هٰذِهِ ___.", a:["أُمٌّ","أَبٌ","عَمٌّ"] },
+    { type:"hentian", q:["Susun lagu keluarga ikut urutan.","سوسون لاڬو کلوارڬ ايکوت اوروتن."],
+      seq:["مَنْ هٰذِهِ؟ هٰذِهِ أُمٌّ،","مَنْ هٰذِهِ؟ هٰذِهِ جَدَّةٌ،","أَنَا بِنْتٌ، هٰذِهِ أُخْتٌ،","أَنَا عَمَّةٌ، هٰذِهِ أُسْرَتِي."] },
+    { type:"tambang", q:["Kira jumlah tambang. Bayar dengan nombor Arab.","کيرا جومله تمبڠ. باير دڠن نومبور عرب."],
+      rounds:[["8 + 7","خَمْسَةَ عَشَرَ"],["10 + 4","أَرْبَعَةَ عَشَرَ"],["9 + 4","ثَلَاثَةَ عَشَرَ"],["15 + 1","سِتَّةَ عَشَرَ"]],
+      opts:["أَحَدَ عَشَرَ","اِثْنَا عَشَرَ","ثَلَاثَةَ عَشَرَ","أَرْبَعَةَ عَشَرَ","خَمْسَةَ عَشَرَ","سِتَّةَ عَشَرَ"] }
+  ] },
+
+/* ---------- 6. BADANKU (Unit 3) ---------- */
+{ id:6, icon:"🧍", sticker:"💪", c:"#F06BA8",
+  t:["Badanku","بادنکو"], u:["Unit 3 • Muka dan anggota badan","اونيت ٣ • موک دان اڠڬوتا بادن"],
+  read:[
+    { pic:"😃", h:["Muka saya","موک ساي"], words:[
+      ["👁️","عَيْنٌ",["mata","مات"]],["👃","أَنْفٌ",["hidung","هيدوڠ"]],["👂","أُذُنٌ",["telinga","تليڠا"]],["👄","فَمٌ",["mulut","مولوت"]],
+      ["👅","لِسَانٌ",["lidah","ليده"]],["🦷","أَسْنَانٌ",["gigi","ڬيڬي"]],["😊","خَدٌّ",["pipi","ڤيڤي"]]], p:58 },
+    { pic:"🧍", h:["Anggota badan","اڠڬوتا بادن"], words:[
+      ["🧑","رَأْسٌ",["kepala","کڤالا"]],["💇","شَعْرٌ",["rambut","رمبوت"]],["🤷","كَتِفٌ",["bahu","باهو"]],
+      ["✋","يَدٌ",["tangan","تاڠن"]],["🫃","بَطْنٌ",["perut","ڤروت"]],["🦶","رِجْلٌ",["kaki","کاکي"]]], p:59 },
+    { pic:"👉", h:["Ini hidung, ini mata","اين هيدوڠ، اين مات"], lines:[
+      ["هٰذَا أَنْفٌ.",["Ini hidung.","اين هيدوڠ."]],["هٰذَا فَمٌ.",["Ini mulut.","اين مولوت."]],
+      ["هٰذِهِ عَيْنٌ.",["Ini mata.","اين مات."]],["هٰذِهِ يَدٌ.",["Ini tangan.","اين تاڠن."]]],
+      tip:["Buku teks guna هٰذِهِ untuk عَيْنٌ، أُذُنٌ، يَدٌ، رِجْلٌ، كَتِفٌ dan أَسْنَانٌ.","بوکو تيکس ڬونا هٰذِهِ اونتوق عَيْنٌ، أُذُنٌ، يَدٌ، رِجْلٌ، كَتِفٌ دان أَسْنَانٌ."], p:"61–62" }
+  ],
+  games:[
+    { type:"tingkap", q:["Intai tingkap! Cari anggota untuk perkataan Arab.","اينتاي تيڠکڤ! چاري اڠڬوتا اونتوق ڤرکاتاٴن عرب."],
+      items:[["👁️","عَيْنٌ",["mata","مات"]],["👃","أَنْفٌ",["hidung","هيدوڠ"]],["👂","أُذُنٌ",["telinga","تليڠا"]],["👄","فَمٌ",["mulut","مولوت"]],["✋","يَدٌ",["tangan","تاڠن"]],["🦶","رِجْلٌ",["kaki","کاکي"]]] },
+    { type:"tebuk", q:["Tebuk tiket yang sama maksud dengan perkataan Arab.","تيبوق تيکيت يڠ سام مقصود دڠن ڤرکاتاٴن عرب."],
+      rounds:[["لِسَانٌ",["lidah","ليده"],"👅"],["أَسْنَانٌ",["gigi","ڬيڬي"],"🦷"],["خَدٌّ",["pipi","ڤيڤي"],"😊"],["شَعْرٌ",["rambut","رمبوت"],"💇"],["كَتِفٌ",["bahu","باهو"],"🤷"]] },
+    { type:"rak", q:["Buku teks: rak هٰذَا atau rak هٰذِهِ?","بوکو تيکس: رق هٰذَا اتاو رق هٰذِهِ؟"],
+      bins:[["👉","هٰذَا"],["👉","هٰذِهِ"]],
+      items:[["أَنْفٌ",0],["عَيْنٌ",1],["فَمٌ",0],["أُذُنٌ",1],["رَأْسٌ",0],["يَدٌ",1],["بَطْنٌ",0],["رِجْلٌ",1]] },
+    { type:"kerusi", q:["Dudukkan penumpang di kerusi anggota badan yang betul.","دودوقکن ڤنومڤڠ د کروسي اڠڬوتا بادن يڠ بتول."],
+      pairs:[["رَأْسٌ",["kepala","کڤالا"],"🧑"],["بَطْنٌ",["perut","ڤروت"],"🫃"],["كَتِفٌ",["bahu","باهو"],"🤷"],["رِجْلٌ",["kaki","کاکي"],"🦶"]] },
+    { type:"loceng", q:["Gambar dan ayat sepadan? 🔔 betul, ✋ salah.","ڬمبر دان اءيت سڤادن؟ 🔔 بتول، ✋ ساله."],
+      rounds:[["👂","هٰذِهِ أُذُنٌ.",1],["👃","هٰذَا فَمٌ.",0],["✋","هٰذِهِ يَدٌ.",1],["👅","هٰذَا لِسَانٌ.",1],["🦷","هٰذَا شَعْرٌ.",0]] },
+    { type:"radio", q:["Lihat gambar. Jawab soalan radio!","ليهت ڬمبر. جاوب سوالن راديو!"],
+      rounds:[["مَا هٰذَا؟","هٰذَا بَطْنٌ.","🫃"],["مَا هٰذِهِ؟","هٰذِهِ يَدٌ.","✋"],["مَا هٰذَا؟","هٰذَا خَدٌّ.","😊"],["مَا هٰذِهِ؟","هٰذِهِ كَتِفٌ.","🤷"]] }
+  ] },
+
+/* ---------- 7. SAYA ADA... (Unit 3) ---------- */
+{ id:7, icon:"🧼", sticker:"✨", c:"#2BB24C",
+  t:["Saya Ada…","ساي اد…"], u:["Unit 3 • عِنْدِي, bersih, cantik, nombor 17–20","اونيت ٣ • عِنْدِي، برسيه، چنتيق، نومبور ١٧–٢٠"],
+  read:[
+    { pic:"🙋", h:["Saya ada…","ساي اد…"], lines:[
+      ["عِنْدِي فَمٌ.",["Saya ada mulut.","ساي اد مولوت."]],["عِنْدِي رِجْلٌ.",["Saya ada kaki.","ساي اد کاکي."]],
+      ["عِنْدِي أُذُنٌ.",["Saya ada telinga.","ساي اد تليڠا."]],["عِنْدِي شَعْرٌ.",["Saya ada rambut.","ساي اد رمبوت."]]], p:64 },
+    { pic:"🪥", h:["Bersih dan cantik","برسيه دان چنتيق"], lines:[
+      ["عِنْدِي أَسْنَانٌ نَظِيفَةٌ.",["Saya ada gigi yang bersih.","ساي اد ڬيڬي يڠ برسيه."]],["عِنْدِي شَعْرٌ نَظِيفٌ.",["Saya ada rambut yang bersih.","ساي اد رمبوت يڠ برسيه."]],
+      ["عِنْدِي عَيْنٌ جَمِيلَةٌ.",["Saya ada mata yang cantik.","ساي اد مات يڠ چنتيق."]],["عِنْدِي أَنْفٌ جَمِيلٌ.",["Saya ada hidung yang cantik.","ساي اد هيدوڠ يڠ چنتيق."]]],
+      tip:["نَظِيفٌ = bersih, جَمِيلٌ = cantik. Untuk perkataan هٰذِهِ, tambah ة: نَظِيفَةٌ، جَمِيلَةٌ.","نَظِيفٌ = برسيه، جَمِيلٌ = چنتيق. اونتوق ڤرکاتاٴن هٰذِهِ، تمبه ة: نَظِيفَةٌ، جَمِيلَةٌ."], p:65 },
+    { pic:"🚌", h:["Lagu di atas bas","لاڬو د اتس باس"], lines:[
+      ["مَا هٰذَا؟ مَا هٰذَا؟",["Apa ini? Apa ini?","اڤ اين؟ اڤ اين؟"]],["هٰذَا رَأْسٌ، هٰذَا بَطْنٌ،",["Ini kepala, ini perut,","اين کڤالا، اين ڤروت،"]],
+      ["عِنْدِي لِسَانٌ، لِسَانٌ نَظِيفٌ،",["Saya ada lidah, lidah yang bersih,","ساي اد ليده، ليده يڠ برسيه،"]],["عِنْدِي خَدٌّ، خَدٌّ جَمِيلٌ.",["Saya ada pipi, pipi yang cantik.","ساي اد ڤيڤي، ڤيڤي يڠ چنتيق."]]], p:67 },
+    { pic:"👖", h:["Nombor 17 hingga 20","نومبور ١٧ هيڠڬ ٢٠"], words:[
+      ["1️⃣7️⃣","سَبْعَةَ عَشَرَ",["tujuh belas","توجوه بلس"]],["1️⃣8️⃣","ثَمَانِيَةَ عَشَرَ",["lapan belas","لاڤن بلس"]],
+      ["1️⃣9️⃣","تِسْعَةَ عَشَرَ",["sembilan belas","سمبيلن بلس"]],["2️⃣0️⃣","عِشْرُونَ",["dua puluh","دوا ڤولوه"]]], p:"69–71" }
+  ],
+  games:[
+    { type:"tanda", q:["Gigi yang bersih. Pilih perkataan untuk tempat kosong.","ڬيڬي يڠ برسيه. ڤيليه ڤرکاتاٴن اونتوق تمڤت کوسوڠ."], em:"🦷",
+      ask:"عِنْدِي أَسْنَانٌ ___.", a:["نَظِيفَةٌ","نَظِيفٌ","جَمِيلٌ"], e:["عِنْدِي أَسْنَانٌ نَظِيفَةٌ = Saya ada gigi yang bersih.","عِنْدِي أَسْنَانٌ نَظِيفَةٌ = ساي اد ڬيڬي يڠ برسيه."] },
+    { type:"tanda", q:["Hidung yang cantik. Pilih perkataan untuk tempat kosong.","هيدوڠ يڠ چنتيق. ڤيليه ڤرکاتاٴن اونتوق تمڤت کوسوڠ."], em:"👃",
+      ask:"عِنْدِي أَنْفٌ ___.", a:["جَمِيلٌ","جَمِيلَةٌ","نَظِيفَةٌ"] },
+    { type:"kerusi", q:["Dudukkan setiap perkataan di kerusi maksudnya.","دودوقکن ستياڤ ڤرکاتاٴن د کروسي مقصودڽ."],
+      pairs:[["عِنْدِي",["saya ada","ساي اد"],"🙋"],["نَظِيفٌ",["bersih","برسيه"],"🧼"],["جَمِيلٌ",["cantik","چنتيق"],"🌸"],["أَسْنَانٌ",["gigi","ڬيڬي"],"🦷"]] },
+    { type:"hentian", q:["Bina ayat: tekan perkataan ikut urutan.","بينا اءيت: تکن ڤرکاتاٴن ايکوت اوروتن."], row:true,
+      seq:["عِنْدِي","عَيْنٌ","جَمِيلَةٌ."], e:["Saya ada mata yang cantik.","ساي اد مات يڠ چنتيق."] },
+    { type:"hentian", q:["Susun lagu ikut urutan.","سوسون لاڬو ايکوت اوروتن."],
+      seq:["مَا هٰذِهِ؟ مَا هٰذِهِ؟","هٰذِهِ يَدٌ، هٰذِهِ عَيْنٌ،","عِنْدِي أُذُنٌ، أُذُنٌ نَظِيفَةٌ،","عِنْدِي كَتِفٌ، كَتِفٌ جَمِيلَةٌ."] },
+    { type:"tambang", q:["Kira jumlah tambang. Bayar dengan nombor Arab.","کيرا جومله تمبڠ. باير دڠن نومبور عرب."],
+      rounds:[["13 + 5","ثَمَانِيَةَ عَشَرَ"],["17 + 3","عِشْرُونَ"],["9 + 8","سَبْعَةَ عَشَرَ"],["10 + 9","تِسْعَةَ عَشَرَ"]],
+      opts:["خَمْسَةَ عَشَرَ","سِتَّةَ عَشَرَ","سَبْعَةَ عَشَرَ","ثَمَانِيَةَ عَشَرَ","تِسْعَةَ عَشَرَ","عِشْرُونَ"] },
+    { type:"loceng", q:["Gambar dan ayat sepadan? 🔔 betul, ✋ salah.","ڬمبر دان اءيت سڤادن؟ 🔔 بتول، ✋ ساله."],
+      rounds:[["🦷","عِنْدِي أَسْنَانٌ نَظِيفَةٌ.",1],["👁️","عِنْدِي أَنْفٌ جَمِيلٌ.",0],["💇","عِنْدِي شَعْرٌ نَظِيفٌ.",1],["👄","عِنْدِي رِجْلٌ.",0]] }
+  ] },
+
+/* ---------- 8. ALAT TULISKU (Unit 4) ---------- */
+{ id:8, icon:"✏️", sticker:"🎒", c:"#D98E04",
+  t:["Alat Tulisku","الت توليسکو"], u:["Unit 4 • Alat tulis","اونيت ٤ • الت توليس"],
+  read:[
+    { pic:"🎒", h:["Di dalam beg","د دالم بيڬ"], words:[
+      ["📕","كِتَابٌ",["buku","بوکو"]],["📓","دَفْتَرٌ",["buku tulis","بوکو توليس"]],["📄","وَرَقَةٌ",["kertas","کرتس"]],
+      ["🖍️","قَلَمُ تَلْوِينٍ",["pensel warna","ڤينسيل ورنا"]],["🎒","حَقِيبَةٌ",["beg","بيڬ"]]], p:86 },
+    { pic:"👝", h:["Di dalam bekas pensel","د دالم بيکس ڤينسيل"], words:[
+      ["📏","مِسْطَرَةٌ",["pembaris","ڤمباريس"]],["🧽","مِمْحَاةٌ",["pemadam","ڤمادم"]],["🖊️","قَلَمٌ",["pen","ڤين"]],
+      ["✏️","قَلَمُ رَصَاصٍ",["pensel","ڤينسيل"]],["🌀","مِبْرَاةٌ",["pengasah pensel","ڤڠاسه ڤينسيل"]],["👝","مِقْلَمَةٌ",["bekas pensel","بيکس ڤينسيل"]]], p:"81, 87" },
+    { pic:"🏪", h:["Ini buku, ini beg","اين بوکو، اين بيڬ"], lines:[
+      ["هٰذَا كِتَابٌ.",["Ini buku.","اين بوکو."]],["هٰذَا قَلَمٌ.",["Ini pen.","اين ڤين."]],
+      ["هٰذِهِ حَقِيبَةٌ.",["Ini beg.","اين بيڬ."]],["هٰذِهِ مِسْطَرَةٌ.",["Ini pembaris.","اين ڤمباريس."]]], p:"89–91" },
+    { pic:"🙋", h:["Saya ada…","ساي اد…"], lines:[
+      ["عِنْدِي قَلَمُ تَلْوِينٍ.",["Saya ada pensel warna.","ساي اد ڤينسيل ورنا."]],["عِنْدِي دَفْتَرٌ.",["Saya ada buku tulis.","ساي اد بوکو توليس."]],
+      ["عِنْدِي مِبْرَاةٌ.",["Saya ada pengasah pensel.","ساي اد ڤڠاسه ڤينسيل."]]], p:92 }
+  ],
+  games:[
+    { type:"tingkap", q:["Intai tingkap! Cari alat tulis untuk perkataan Arab.","اينتاي تيڠکڤ! چاري الت توليس اونتوق ڤرکاتاٴن عرب."],
+      items:[["📕","كِتَابٌ",["buku","بوکو"]],["📓","دَفْتَرٌ",["buku tulis","بوکو توليس"]],["📄","وَرَقَةٌ",["kertas","کرتس"]],["🖍️","قَلَمُ تَلْوِينٍ",["pensel warna","ڤينسيل ورنا"]],["🎒","حَقِيبَةٌ",["beg","بيڬ"]],["📏","مِسْطَرَةٌ",["pembaris","ڤمباريس"]]] },
+    { type:"rak", q:["Buku teks: rak هٰذَا atau rak هٰذِهِ?","بوکو تيکس: رق هٰذَا اتاو رق هٰذِهِ؟"],
+      bins:[["👉","هٰذَا"],["👉","هٰذِهِ"]],
+      items:[["كِتَابٌ",0],["وَرَقَةٌ",1],["دَفْتَرٌ",0],["حَقِيبَةٌ",1],["قَلَمٌ",0],["مِسْطَرَةٌ",1],["قَلَمُ رَصَاصٍ",0],["مِمْحَاةٌ",1]] },
+    { type:"tebuk", q:["Tebuk tiket yang sama maksud dengan perkataan Arab.","تيبوق تيکيت يڠ سام مقصود دڠن ڤرکاتاٴن عرب."],
+      rounds:[["مِبْرَاةٌ",["pengasah pensel","ڤڠاسه ڤينسيل"],"🌀"],["مِمْحَاةٌ",["pemadam","ڤمادم"],"🧽"],["مِقْلَمَةٌ",["bekas pensel","بيکس ڤينسيل"],"👝"],["قَلَمُ رَصَاصٍ",["pensel","ڤينسيل"],"✏️"],["قَلَمٌ",["pen","ڤين"],"🖊️"]] },
+    { type:"radio", q:["Lihat gambar. Jawab soalan radio!","ليهت ڬمبر. جاوب سوالن راديو!"],
+      rounds:[["مَا هٰذِهِ؟","هٰذِهِ حَقِيبَةٌ.","🎒"],["مَا هٰذَا؟","هٰذَا قَلَمٌ.","🖊️"],["مَا هٰذَا؟","هٰذَا دَفْتَرٌ.","📓"],["مَا هٰذِهِ؟","هٰذِهِ وَرَقَةٌ.","📄"]] },
+    { type:"kerusi", q:["Dudukkan alat tulis di kerusi maksudnya.","دودوقکن الت توليس د کروسي مقصودڽ."],
+      pairs:[["كِتَابٌ",["buku","بوکو"],"📕"],["دَفْتَرٌ",["buku tulis","بوکو توليس"],"📓"],["مِسْطَرَةٌ",["pembaris","ڤمباريس"],"📏"],["قَلَمُ تَلْوِينٍ",["pensel warna","ڤينسيل ورنا"],"🖍️"]] },
+    { type:"loceng", q:["Gambar dan ayat sepadan? 🔔 betul, ✋ salah.","ڬمبر دان اءيت سڤادن؟ 🔔 بتول، ✋ ساله."],
+      rounds:[["📏","هٰذِهِ مِسْطَرَةٌ.",1],["🎒","هٰذَا كِتَابٌ.",0],["✏️","عِنْدِي قَلَمُ رَصَاصٍ.",1],["📄","عِنْدِي دَفْتَرٌ.",0]] }
+  ] },
+
+/* ---------- 9. DI MANA PEN? (Unit 4) ---------- */
+{ id:9, icon:"🔍", sticker:"🎫", c:"#3949AB",
+  t:["Di Mana Pen?","د مان ڤين؟"], u:["Unit 4 • عَلَى, فِي dan wang RM11–20","اونيت ٤ • عَلَى، فِي دان واڠ RM11–20"],
+  read:[
+    { pic:"📦", h:["Atas dan dalam","اتس دان دالم"], words:[
+      ["⬆️","عَلَى",["atas","اتس"]],["📥","فِي",["dalam","دالم"]],["❓","أَيْنَ",["di mana","د مان"]]], p:"93, 102" },
+    { pic:"🖊️", h:["Di mana pen?","د مان ڤين؟"], lines:[
+      ["أَيْنَ الْقَلَمُ؟",["Di mana pen?","د مان ڤين؟"]],["الْقَلَمُ عَلَى الْكِتَابِ.",["Pen di atas buku.","ڤين د اتس بوکو."]],
+      ["أَيْنَ الْمِبْرَاةُ؟",["Di mana pengasah pensel?","د مان ڤڠاسه ڤينسيل؟"]],["الْمِبْرَاةُ فِي الْمِقْلَمَةِ.",["Pengasah pensel di dalam bekas pensel.","ڤڠاسه ڤينسيل د دالم بيکس ڤينسيل."]],
+      ["أَيْنَ الْمِقْلَمَةُ؟",["Di mana bekas pensel?","د مان بيکس ڤينسيل؟"]],["الْمِقْلَمَةُ فِي الْحَقِيبَةِ.",["Bekas pensel di dalam beg.","بيکس ڤينسيل د دالم بيڬ."]]], p:93 },
+    { pic:"🎤", h:["Jom jaga alat tulis!","جوم جاڬ الت توليس!"], lines:[
+      ["يَا أَصْدِقَائِي..! مَاذَا عِنْدَكُمْ؟",["Wahai kawan-kawan! Apa yang kamu ada?","واهاي کاون٢! اڤ يڠ کامو اد؟"]],
+      ["عِنْدِي قَلَمُ رَصَاصٍ، عِنْدِي مِسْطَرَةٌ.",["Saya ada pensel, saya ada pembaris.","ساي اد ڤينسيل، ساي اد ڤمباريس."]],
+      ["يَا صَدِيقَتِي! مَا هٰذَا؟",["Wahai kawanku! Apa ini?","واهاي کاونکو! اڤ اين؟"]],["هٰذَا دَفْتَرٌ.",["Ini buku tulis.","اين بوکو توليس."]],
+      ["هَيَّا! هَيَّا! هَيَّا نُحَافِظُ عَلَى الْأَدَوَاتِ الدِّرَاسِيَّةِ.",["Mari! Mari kita jaga alat tulis kita!","ماري! ماري کيت جاڬ الت توليس کيت!"]]], p:95 },
+    { pic:"🛍️", h:["Kedai alat tulis","کداي الت توليس"], words:[
+      ["🎒","عِشْرُونَ",["beg: RM20","بيڬ: RM20"]],["📕","تِسْعَةَ عَشَرَ",["buku: RM19","بوکو: RM19"]],["🖍️","ثَمَانِيَةَ عَشَرَ",["pensel warna: RM18","ڤينسيل ورنا: RM18"]],
+      ["🖊️","سَبْعَةَ عَشَرَ",["pen: RM17","ڤين: RM17"]],["📄","سِتَّةَ عَشَرَ",["kertas: RM16","کرتس: RM16"]]], p:99 }
+  ],
+  games:[
+    { type:"tanda", q:["Pen di atas buku. Pilih perkataan untuk tempat kosong.","ڤين د اتس بوکو. ڤيليه ڤرکاتاٴن اونتوق تمڤت کوسوڠ."], em:"🖊️📕",
+      ask:"الْقَلَمُ ___ الْكِتَابِ.", a:["عَلَى","فِي","أَيْنَ"], e:["عَلَى = atas","عَلَى = اتس"] },
+    { type:"tanda", q:["Bekas pensel di dalam beg. Pilih perkataan untuk tempat kosong.","بيکس ڤينسيل د دالم بيڬ. ڤيليه ڤرکاتاٴن اونتوق تمڤت کوسوڠ."], em:"👝🎒",
+      ask:"الْمِقْلَمَةُ ___ الْحَقِيبَةِ.", a:["فِي","عَلَى","مَنْ"], e:["فِي = dalam","فِي = دالم"] },
+    { type:"radio", q:["Radio bas bertanya. Pilih jawapan yang sesuai!","راديو باس برتاڽ. ڤيليه جواڤن يڠ سسواي!"],
+      rounds:[["أَيْنَ الْقَلَمُ؟","الْقَلَمُ عَلَى الْكِتَابِ."],["أَيْنَ الْمِبْرَاةُ؟","الْمِبْرَاةُ فِي الْمِقْلَمَةِ."],["أَيْنَ الْمِقْلَمَةُ؟","الْمِقْلَمَةُ فِي الْحَقِيبَةِ."],["مَاذَا عِنْدَكُمْ؟","عِنْدِي قَلَمُ رَصَاصٍ."]] },
+    { type:"hentian", q:["Susun perbualan ikut hentian bas.","سوسون ڤربوالن ايکوت هنتين باس."],
+      seq:["أَيْنَ الْقَلَمُ يَا صَدِيقِي؟","الْقَلَمُ عَلَى الْكِتَابِ.","يَا صَدِيقِي أَيْنَ الْمِقْلَمَةُ؟","الْمِقْلَمَةُ فِي الْحَقِيبَةِ."] },
+    { type:"hentian", q:["Bina ayat: tekan perkataan ikut urutan.","بينا اءيت: تکن ڤرکاتاٴن ايکوت اوروتن."], row:true,
+      seq:["الْمِبْرَاةُ","فِي","الْمِقْلَمَةِ."], e:["Pengasah pensel di dalam bekas pensel.","ڤڠاسه ڤينسيل د دالم بيکس ڤينسيل."] },
+    { type:"tambang", q:["Lihat harga. Bayar dengan nombor Arab.","ليهت هرڬ. باير دڠن نومبور عرب."],
+      rounds:[["🎒 RM20","عِشْرُونَ"],["📕 RM19","تِسْعَةَ عَشَرَ"],["🖍️ RM18","ثَمَانِيَةَ عَشَرَ"],["🖊️ RM17","سَبْعَةَ عَشَرَ"]],
+      opts:["خَمْسَةَ عَشَرَ","سِتَّةَ عَشَرَ","سَبْعَةَ عَشَرَ","ثَمَانِيَةَ عَشَرَ","تِسْعَةَ عَشَرَ","عِشْرُونَ"] },
+    { type:"kerusi", q:["Dudukkan setiap perkataan di kerusi maksudnya.","دودوقکن ستياڤ ڤرکاتاٴن د کروسي مقصودڽ."],
+      pairs:[["عَلَى",["atas","اتس"],"⬆️"],["فِي",["dalam","دالم"],"📥"],["أَيْنَ",["di mana","د مان"],"❓"],["عِنْدِي",["saya ada","ساي اد"],"🙋"]] }
+  ] }
+];
+/* Cabaran Juara: satu permainan daripada setiap hentian [stesen, indeks] */
+const FINAL_PICK = [[1,3],[2,1],[3,1],[4,2],[5,2],[6,4],[7,0],[8,0],[9,5]];
+
+/* ===================== ENJIN "Bas Sekolah Kalimah" (Bahasa Arab Tahun 2) ===================== */
+const KEY = "r2-best", YEAR = 2, VKEY = "t2-voice";
+function load(k,f){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):f; }catch(e){ return f; } }
+function save(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+let LANG = load("kafa-lang","jawi");
+const isJ = () => LANG==="jawi";
+const T = v => v==null ? "" : typeof v==="string" ? v : (isJ() ? v[1] : v[0]);
+const RU = v => v==null ? "" : typeof v==="string" ? "" : v[0];
+const L = (r,j) => isJ() ? j : r;
+function applyLang(){ document.documentElement.dir = isJ() ? "rtl" : "ltr"; document.documentElement.lang = isJ() ? "ms-Arab" : "ms"; }
+const BACK = () => isJ() ? "→" : "←";
+let best = load(KEY, {});
+let voiceOn = load(VKEY, true);
+const app = document.getElementById("app");
+const $ = s => app.querySelector(s);
+const shuffle = a => { const b=a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; };
+const mix = a => { if(a.length<2) return a.slice(); let b; do{ b=shuffle(a); }while(b.every((x,i)=>x===a[i])); return b; };
+const starsFor = m => m<=1 ? 3 : m<=3 ? 2 : 1;
+const totalStars = () => Object.values(best).reduce((s,v)=>s+(+v||0),0);
+const AR = s => `<span class="ar" lang="ar">${s}</span>`;
+const TX = v => typeof v==="string" ? AR(v) : T(v);
+// teks Melayu yang mengandungi perkataan Arab berbaris: balut bahagian Arab dengan .ar
+const TXmix = v => T(v).replace(/[\u0600-\u06FF]+(?:[ \u060C]+[\u0600-\u06FF]+)*/g, m => /[\u064B-\u0652\u0670]/.test(m) ? `<span class="ar" lang="ar">${m}</span>` : m);
+const enc = s => encodeURIComponent(s), dec = s => decodeURIComponent(s);
+
+/* ---------- Maskot: Bas Bobo (bas sekolah kuning) ---------- */
+function bobo(cls=""){
+  return `<svg class="bobo ${cls}" viewBox="0 0 140 104" aria-hidden="true">
+    <ellipse cx="70" cy="99" rx="56" ry="5" fill="rgba(0,0,0,.18)"/>
+    <path d="M14 30 Q14 12 32 12 H112 Q128 12 130 30 L134 78 Q134 86 126 86 H16 Q8 86 8 78 Z" fill="#FFC21A" stroke="#1F2A3A" stroke-width="4" stroke-linejoin="round"/>
+    <rect x="8" y="58" width="126" height="9" fill="#1F2A3A"/>
+    <rect x="22" y="22" width="22" height="22" rx="5" fill="#BFE6FF" stroke="#1F2A3A" stroke-width="3"/>
+    <rect x="50" y="22" width="22" height="22" rx="5" fill="#BFE6FF" stroke="#1F2A3A" stroke-width="3"/>
+    <rect x="80" y="20" width="42" height="34" rx="8" fill="#fff" stroke="#1F2A3A" stroke-width="3"/>
+    <circle cx="94" cy="36" r="5.5" fill="#1F2A3A"/><circle cx="110" cy="36" r="5.5" fill="#1F2A3A"/>
+    <circle cx="96" cy="34" r="2" fill="#fff"/><circle cx="112" cy="34" r="2" fill="#fff"/>
+    <path d="M94 45 q8 7 16 0" stroke="#1F2A3A" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <circle cx="86" cy="45" r="3.5" fill="#FF8FB1" opacity=".8"/><circle cx="118" cy="45" r="3.5" fill="#FF8FB1" opacity=".8"/>
+    <rect x="124" y="70" width="10" height="7" rx="2" fill="#FFF4B0" stroke="#1F2A3A" stroke-width="2"/>
+    <rect x="20" y="70" width="44" height="8" rx="3" fill="#1E7FD8"/><text x="42" y="77" font-size="7" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700">KAFA</text>
+    <path d="M60 6 h22" stroke="#E8453C" stroke-width="5" stroke-linecap="round"/>
+    <g class="wh"><circle cx="36" cy="88" r="11" fill="#3B4252" stroke="#1F2A3A" stroke-width="3"/><circle cx="36" cy="88" r="4" fill="#C9D2DE"/><path d="M36 79 v4" stroke="#C9D2DE" stroke-width="2"/></g>
+    <g class="wh"><circle cx="106" cy="88" r="11" fill="#3B4252" stroke="#1F2A3A" stroke-width="3"/><circle cx="106" cy="88" r="4" fill="#C9D2DE"/><path d="M106 79 v4" stroke="#C9D2DE" stroke-width="2"/></g>
+  </svg>`;
+}
+function school(){
+  return `<svg class="school" viewBox="0 0 180 130" aria-hidden="true">
+    <rect x="18" y="52" width="144" height="70" fill="#FFF4E0" stroke="#1F2A3A" stroke-width="4"/>
+    <path d="M10 56 L90 14 L170 56 Z" fill="#E8453C" stroke="#1F2A3A" stroke-width="4" stroke-linejoin="round"/>
+    <rect x="76" y="86" width="28" height="36" rx="4" fill="#1E7FD8" stroke="#1F2A3A" stroke-width="3"/>
+    ${[30,52,118,140].map(x=>`<rect x="${x-6}" y="66" width="22" height="20" rx="3" fill="#BFE6FF" stroke="#1F2A3A" stroke-width="3"/>`).join("")}
+    <circle cx="90" cy="40" r="10" fill="#fff" stroke="#1F2A3A" stroke-width="3"/><path d="M90 34 v6 h5" stroke="#1F2A3A" stroke-width="2.5" fill="none"/>
+    <path d="M90 14 V0" stroke="#1F2A3A" stroke-width="3"/><path d="M90 1 h18 l-4 5 l4 5 h-18 Z" fill="#FFC21A" stroke="#1F2A3A" stroke-width="2"/>
+  </svg>`;
+}
+
+/* ---------- Bunyi ---------- */
+let actx = null;
+function tone(seq){
+  try{
+    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    let t = actx.currentTime;
+    for(const [f,d,type] of seq){
+      const o = actx.createOscillator(), g = actx.createGain();
+      o.type = type||"sine"; o.frequency.value = f; g.gain.setValueAtTime(.18,t); g.gain.exponentialRampToValueAtTime(.001,t+d);
+      o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t+d); t += d*.8;
+    }
+  }catch(e){}
+}
+const sfx = {
+  ok:   () => tone([[660,.12],[880,.18]]),
+  tick: () => tone([[740,.08,"triangle"]]),
+  no:   () => tone([[220,.18,"square"],[180,.2,"square"]]),
+  punch:() => tone([[1200,.04,"square"],[500,.06,"triangle"]]),
+  bell: () => tone([[1568,.1],[1568,.18]]),
+  horn: () => tone([[392,.14,"sawtooth"],[392,.2,"sawtooth"]]),
+  win:  () => tone([[523,.14],[659,.14],[784,.14],[1046,.3]])
+};
+
+/* ---------- Suara (Rumi sahaja; tulisan Arab dibuang) ---------- */
+const ttsOK = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+let voice = null;
+function pickVoice(){ try{ const vs = speechSynthesis.getVoices(); voice = vs.find(v=>/^ms/i.test(v.lang)) || vs.find(v=>/^id/i.test(v.lang)) || null; }catch(e){} }
+if(ttsOK){ pickVoice(); try{ speechSynthesis.onvoiceschanged = pickVoice; }catch(e){} }
+const stripAr = t => String(t||"").replace(/[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]+[\s،؟.!…]*/g," ").replace(/…/g," ... ").replace(/[=]/g," ").replace(/\s+/g," ").trim();
+function speak(text, force){
+  if(!ttsOK || !text || (!voiceOn && !force)) return;
+  try{
+    speechSynthesis.cancel();
+    const clean = stripAr(text);
+    if(!clean || !/[a-z]/i.test(clean)) return;
+    const u = new SpeechSynthesisUtterance(clean);
+    u.lang = voice ? voice.lang : "ms-MY"; if(voice) u.voice = voice; u.rate = .9; u.pitch = 1.05;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function hush(){ if(ttsOK){ try{ speechSynthesis.cancel(); }catch(e){} } }
+
+/* ---------- Bantuan paparan ---------- */
+function toast(msg){ document.querySelectorAll(".toast").forEach(t=>t.remove()); const t=document.createElement("div"); t.className="toast"; t.setAttribute("role","status"); t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2600); }
+function confetti(n=34){
+  const box = document.createElement("div"); box.className="confetti"; box.setAttribute("aria-hidden","true");
+  const em = ["🎉","🚌","⭐","🎫","🚏","✨"];
+  for(let i=0;i<n;i++){ const s=document.createElement("span"); s.textContent=em[i%em.length]; s.style.left=Math.random()*100+"vw"; s.style.animationDuration=(2+Math.random()*2)+"s"; s.style.animationDelay=Math.random()*.8+"s"; box.appendChild(s); }
+  document.body.appendChild(box); setTimeout(()=>box.remove(),5000);
+}
+const langBtn = () => `<button class="ib" data-act="lang" aria-label="${L("Tukar ke tulisan Jawi","توکر ک توليسن رومي")}">${isJ()?"Rumi":'<span style="font-family:Noto Naskh Arabic">جاوي</span>'}</button>`;
+const voiceBtn = () => `<button class="ib" data-act="voice" aria-label="${L("Suara","سوارا")}" aria-pressed="${voiceOn}">${voiceOn?"🔊":"🔇"}</button>`;
+const sayBtn = txt => ttsOK && stripAr(txt) ? `<button class="say" data-say="${enc(txt)}" aria-label="${L("Dengar","دڠر")}">🔊</button>` : "";
+const starRow = n => [1,2,3].map(i=>`<span class="${i<=n?"":"off"}">⭐</span>`).join("");
+const unlocked = id => id===1 || (best[id-1]||0)>0;
+const allDone = () => STATIONS.every(s => (best[s.id]||0)>0);
+
+/* ===================== PETA: LALUAN BAS ===================== */
+let S = null;
+function renderMap(){
+  hush(); S = null;
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  document.title = L("Bas Sekolah Kalimah • Bahasa Arab Tahun 2","باس سکوله کليمة • بهاس عرب تاهون 2");
+  const cur = (STATIONS.find(s => !(best[s.id]>0)) || {id:"final"}).id;
+  const GAP = 150, TOP = 56, n = STATIONS.length, fy = TOP + n*GAP, H = fy + 210;
+  const pos = STATIONS.map((s,i)=>[i%2 ? 72 : 28, TOP + i*GAP]);
+  const pts = [[200,0]].concat(pos.map(([x,y])=>[x*4, y+40])).concat([[200, fy+70]]);
+  let d = `M${pts[0][0]} ${pts[0][1]}`;
+  for(let i=1;i<pts.length;i++){ const [x0,y0]=pts[i-1], [x1,y1]=pts[i], my=(y0+y1)/2; d += ` C${x0} ${my} ${x1} ${my} ${x1} ${y1}`; }
+  const deco = ["🌳","🏠","🌴","🏪","🌳","🕌","🌲","🏡","🌳"];
+  const trees = STATIONS.map((s,i)=>`<span class="tree" style="left:${i%2?8:84}%;top:${TOP+i*GAP+70}px">${deco[i%deco.length]}</span>`).join("");
+  const nodes = STATIONS.map((s,i) => {
+    const lock = !unlocked(s.id), st = best[s.id]||0, [x,y] = pos[i], side = i%2 ? "right" : "left";
+    return `<button class="node ${lock?"lock":""} ${cur===s.id?"now":""}" data-act="${lock?"locked":"open"}" data-id="${s.id}" style="left:${x}%;top:${y}px;--c:${s.c}" aria-label="${s.id}. ${T(s.t)}">
+      <span class="sign"><span aria-hidden="true">${s.icon}</span>${lock?`<span class="lk">🔒</span>`:""}</span><span class="pole"></span>
+      <span class="num">${s.id}</span>${cur===s.id?`<span class="park" style="${side}:118px">${bobo()}</span>`:""}
+      <span class="nm">${T(s.t)}</span><span class="st">${st?starRow(st):""}</span></button>`;
+  }).join("");
+  const fOpen = allDone(), fSt = best.final||0;
+  app.innerHTML = `
+    <div class="top"><a class="ib" href="../index.html" aria-label="${L("Kembali ke Tahun 2","کمبالي ک تاهون 2")}">${BACK()}</a><span class="sp"></span>
+      <span class="pill" aria-label="${totalStars()} ${L("bintang","بينتڠ")}">⭐ ${totalStars()}</span>${voiceBtn()}${langBtn()}</div>
+    <header class="hero">${bobo()}<div><h1>${L("Bas Sekolah Kalimah","باس سکوله کليمة")}</h1>
+      <p>${L("Naik Bas Bobo! Belajar bahasa Arab di setiap hentian hingga sampai ke sekolah.","نايق باس بوبو! بلاجر بهاس عرب د ستياڤ هنتين هيڠڬ سمڤاي ک سکوله.")}</p></div></header>
+    <p class="sttl">🎫 ${L("Koleksi tiket saya","کوليکسي تيکيت ساي")}</p>
+    <div class="bed">${STATIONS.map(s=>`<span class="${best[s.id]>0?"got":""}" title="${T(s.t)}"><b>${s.sticker}</b></span>`).join("")}<span class="${fSt?"got":""}"><b>🏆</b></span></div>
+    <section class="route" style="height:${H}px" aria-label="${L("Peta laluan bas","ڤتا لالوان باس")}">
+      <svg class="road" viewBox="0 0 400 ${H}" preserveAspectRatio="none" aria-hidden="true"><path class="e" vector-effect="non-scaling-stroke" d="${d}"/><path vector-effect="non-scaling-stroke" d="${d}"/><path class="d" vector-effect="non-scaling-stroke" d="${d}"/></svg>
+      <div class="gate">🚌 ${L("Mula di sini","مولا د سيني")}</div>
+      ${trees}${nodes}
+      <button class="node big ${fOpen?"":"lock"} ${cur==="final"?"now":""}" data-act="${fOpen?"final":"flocked"}" style="left:50%;top:${fy}px" aria-label="${L("Cabaran Juara","چابرن جوارا")}">
+        ${school()}${fOpen?"":`<span class="lk">🔒</span>`}${cur==="final"?`<span class="park" style="right:178px;top:60px">${bobo("yay")}</span>`:""}
+        <span class="nm">🏆 ${L("Cabaran Juara di Sekolah","چابرن جوارا د سکوله")}</span><span class="st">${fSt?starRow(fSt):""}</span></button>
+    </section>`;
+  const now = app.querySelector(".node.now");
+  if(now && cur!==1) setTimeout(()=>{ try{ now.scrollIntoView({block:"center", behavior:"smooth"}); }catch(e){} }, 250);
+}
+
+/* ===================== STESEN: BACA ===================== */
+function openStation(id){
+  const st = STATIONS.find(s=>s.id===id);
+  S = { st, phase:"read", ri:0, gi:0, miss:0, games: st.games.slice() };
+  renderRead();
+}
+function openFinal(){
+  const games = FINAL_PICK.map(([s,i]) => STATIONS.find(x=>x.id===s).games[i]);
+  S = { st:{ id:"final", icon:"🏫", c:"#E8453C", t:["Cabaran Juara","چابرن جوارا"], u:["Soalan daripada semua hentian","سوالن درڤد سموا هنتين"], sticker:"🏆" }, phase:"play", gi:0, miss:0, games };
+  renderPlay();
+}
+const head = () => `<div class="top"><button class="ib" data-act="map" aria-label="${L("Kembali ke peta","کمبالي ک ڤتا")}">${BACK()}</button><span class="sp"></span>${voiceBtn()}${langBtn()}</div>
+  <div class="shead"><span class="badge" style="--c:${S.st.c}"><span>${S.st.icon}</span></span><div><h2>${T(S.st.t)}</h2><small>${TXmix(S.st.u)}</small></div></div>`;
+function readSpeech(c){
+  return [RU(c.h), RU(c.text), ...(c.words||[]).map(w=>RU(w[2])), ...(c.lines||[]).map(l=>RU(l[1])), RU(c.mk), c.tip?RU(c.tip):""].filter(Boolean).join(". ");
+}
+function renderRead(){
+  hush();
+  const c = S.st.read[S.ri], n = S.st.read.length, last = S.ri===n-1;
+  app.innerHTML = head() + `
+    <article class="card">
+      <div class="rpic" aria-hidden="true">${c.pic}</div>
+      <h3 class="rh">${T(c.h)} ${sayBtn(readSpeech(c))}</h3>
+      ${c.text?`<p class="rtext">${TXmix(c.text)}</p>`:""}
+      ${c.ar?`<div class="abox"><span class="ar" lang="ar">${c.ar}</span>${c.mk?`<span class="mk">${T(c.mk)}</span>`:""}</div>`:""}
+      ${c.words?`<div class="wgrid">${c.words.map(w=>`<button class="wt" data-say="${enc(RU(w[2]))}"><span class="em" aria-hidden="true">${w[0]}</span>${AR(w[1])}<small>${T(w[2])}</small></button>`).join("")}</div>`:""}
+      ${c.lines?`<div class="lines">${c.lines.map(l=>`<button class="ln" data-say="${enc(RU(l[1]))}">${AR(l[0])}<small>${T(l[1])}</small></button>`).join("")}</div>`:""}
+      ${c.tip?`<div class="tip"><b>💡</b><span>${TXmix(c.tip)}</span></div>`:""}
+      <div class="ref">📖 ${L("Buku teks ms.","بوکو تيکس م.س.")} ${c.p}</div>
+      <div class="navr">
+        <button class="btn alt" data-act="rprev" ${S.ri?"":"disabled"} aria-label="${L("Sebelum","سبلوم")}" style="flex:0 0 64px">${BACK()}</button>
+        <button class="btn ${last?"go":""}" data-act="rnext">${last ? "🚌 "+L("Jom main!","جوم ماٴين!") : L("Seterusnya","ستروسڽ")+" ▶"}</button>
+      </div>
+      <div class="dots">${S.st.read.map((_,i)=>`<i class="${i===S.ri?"on":""}"></i>`).join("")}</div>
+    </article>`;
+  speak(readSpeech(c));
+  window.scrollTo(0,0);
+}
+
+/* ===================== STESEN: MAIN ===================== */
+function progressBar(){
+  const n = S.games.length, k = S.gi, pct = k/n*100, side = isJ() ? "right" : "left", tr = isJ() ? "translate(50%,-50%)" : "translate(-50%,-50%)";
+  const tks = S.games.map((_,i)=> i>=k ? `<span class="tk" style="${side}:${(i+.6)/n*100}%;transform:${tr}">🚏</span>` : "").join("");
+  return `<div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${k}"><span class="fill" style="width:${Math.max(8,pct)}%"></span>${tks}
+    <span class="who" style="${side}:${Math.max(7,pct)}%;transform:${isJ()?"translate(50%,-58%) scaleX(-1)":"translate(-50%,-58%)"}">${bobo()}</span></div>`;
+}
+function renderPlay(){
+  hush();
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  const g = S.games[S.gi];
+  app.innerHTML = head() + progressBar() + `<section class="card" id="game"></section>`;
+  const box = $("#game");
+  box.innerHTML = `<div class="q"><p>${TXmix(g.q)}</p>${sayBtn(RU(g.q))}</div><div id="play" data-type="${g.type}"></div><div id="hint"></div>`;
+  GAMES[g.type]($("#play"), g);
+  speak(RU(g.q));
+  window.scrollTo(0,0);
+}
+function oops(el, hint){
+  S.miss++; sfx.no();
+  if(el){ el.classList.remove("shake"); void el.offsetWidth; el.classList.add("shake"); }
+  const h = $("#hint"); if(h){ h.innerHTML = `<div class="hint">🚌 ${hint || L("Hmm, cuba lagi!","همم، چوبا لاڬي!")}</div>`; }
+}
+const clearHint = () => { const h=$("#hint"); if(h) h.innerHTML=""; };
+const PRAISE = [["Hebat!","هيبت!"],["Bagus!","باڬوس!"],["Pandai!","ڤنداي!"],["Syabas!","شاباس!"],["MasyaAllah!","ماشاءالله!"]];
+function win(){
+  if(document.querySelector(".fb")) return;
+  sfx.ok();
+  const g = S.games[S.gi], p = PRAISE[Math.floor(Math.random()*PRAISE.length)];
+  const fb = document.createElement("div"); fb.className = "fb"; fb.setAttribute("role","dialog"); fb.setAttribute("aria-live","polite");
+  fb.innerHTML = `<div class="in"><div class="row1">${bobo("yay")}<div><strong>${T(p)}</strong><p>${TXmix(g.e||["Betul! Bas Bobo boleh jalan lagi.","بتول! باس بوبو بوليه جالن لاڬي."])}</p></div></div>
+    <button class="btn go" data-act="next">${L("Seterusnya","ستروسڽ")} ▶</button></div>`;
+  document.body.appendChild(fb);
+  speak(RU(p)+" "+RU(g.e));
+  setTimeout(()=>{ const b = fb.querySelector("button"); if(b) b.focus(); }, 50);
+}
+function nextGame(){
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  S.gi++;
+  if(S.gi < S.games.length) renderPlay(); else renderResult();
+}
+function renderResult(){
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  const id = S.st.id, stars = starsFor(S.miss), prev = best[id]||0, wasAll = allDone();
+  if(stars > prev){ best[id] = stars; save(KEY, best); }
+  S.phase = "result";
+  S.res = { stars, first: !prev, openedFinal: id!=="final" && !wasAll && allDone() };
+  drawResult(true);
+}
+function drawResult(fresh){
+  hush();
+  const { stars, first, openedFinal } = S.res;
+  const msg = stars===3 ? ["Cemerlang! Bahasa Arab kamu hebat.","چمرلڠ! بهاس عرب کامو هيبت."] : stars===2 ? ["Bagus! Cuba lagi untuk 3 bintang.","باڬوس! چوبا لاڬي اونتوق 3 بينتڠ."] : ["Syabas kerana mencuba! Jom main lagi.","شاباس کران منچوبا! جوم ماٴين لاڬي."];
+  const title = PRAISE[stars===3?4:stars===2?0:3];
+  app.innerHTML = head() + `<section class="card res">
+      ${bobo("yay")}
+      <div class="stars" aria-label="${stars} ${L("bintang","بينتڠ")}">${[1,2,3].map(i=>`<span class="${i<=stars?"":"off"}" style="animation-delay:${i*.25}s">⭐</span>`).join("")}</div>
+      <h2>${T(title)}</h2><p>${T(msg)}</p>
+      ${first ? `<div class="gotst"><span>${S.st.sticker}</span>${L("Tiket baharu dalam koleksi kamu!","تيکيت بهارو دالم کوليکسي کامو!")}</div>` : ""}
+      ${openedFinal ? `<p><b>🏫 ${L("Cabaran Juara di sekolah kini dibuka!","چابرن جوارا د سکوله کيني دبوک!")}</b></p>` : ""}
+      <button class="btn go" data-act="map">🚏 ${L("Kembali ke peta","کمبالي ک ڤتا")}</button>
+      <button class="btn alt" style="margin-top:10px" data-act="again">🔁 ${L("Main lagi","ماٴين لاڬي")}</button>
+    </section>`;
+  if(fresh){ sfx.win(); confetti(); speak(RU(title)+" "+RU(msg)); }
+  window.scrollTo(0,0);
+}
+
+/* ===================== JENIS PERMAINAN (perjalanan bas) ===================== */
+const DIG = n => String(n).replace(/\d/g, d => "٠١٢٣٤٥٦٧٨٩"[d]);
+const others = (arr, i, k) => shuffle(arr.filter((_,j)=>j!==i)).slice(0,k);
+const GAMES = {
+  /* Tebuk tiket konduktor: perkataan Arab → maksud */
+  tebuk(el, g){
+    const order = shuffle(g.rounds.map((_,i)=>i)); let r = 0, busy = false;
+    const draw = () => {
+      const i = order[r], opts = shuffle([i, ...others(g.rounds.map((_,j)=>j), i, 2)]);
+      el.innerHTML = `<div class="cond"><span class="who2" aria-hidden="true">🧑‍✈️</span>${AR(g.rounds[i][0])}</div>
+        <div class="tstrip" id="tw" data-a="${i}">${opts.map(o=>`<button class="stub" data-i="${o}"><span class="hole"></span><span class="em" aria-hidden="true">${g.rounds[o][2]}</span><span>${T(g.rounds[o][1])}</span></button>`).join("")}</div>
+        <div class="cnt">🎫 ${r+1} / ${order.length}</div>`;
+      el.querySelectorAll(".stub").forEach(b => b.addEventListener("click", () => {
+        if(busy) return;
+        if(+b.dataset.i===i){ busy = true; b.classList.add("punched"); sfx.punch(); clearHint(); speak(RU(g.rounds[i][1]));
+          setTimeout(()=>{ busy = false; r++; if(r<order.length) draw(); else win(); }, 280); }
+        else oops(b, L("Bukan tiket itu. Baca perkataan Arab sekali lagi!","بوکن تيکيت ايت. باچ ڤرکاتاٴن عرب سکالي لاڬي!"));
+      }));
+    };
+    draw();
+  },
+
+  /* Dudukkan penumpang di kerusi */
+  kerusi(el, g){
+    const n = g.pairs.length, pax = shuffle(g.pairs.map((_,i)=>i)), seats = mix(pax); let sel = null, k = 0;
+    el.innerHTML = `<div class="curb">${pax.map(i=>`<button class="pax" data-i="${i}">${AR(g.pairs[i][0])}</button>`).join("")}</div>
+      <div class="busin">${seats.map(i=>`<button class="seat" data-i="${i}"><span class="em" aria-hidden="true">${g.pairs[i][2]}</span><span>${T(g.pairs[i][1])}</span></button>`).join("")}</div>
+      <div class="cnt">💺 ${L("Tekan penumpang, kemudian tekan kerusinya.","تکن ڤنومڤڠ، کمودين تکن کروسيڽ.")}</div>`;
+    el.querySelectorAll(".pax").forEach(p => p.addEventListener("click", () => {
+      if(p.classList.contains("gone")) return;
+      el.querySelectorAll(".pax").forEach(x=>x.classList.remove("pick")); p.classList.add("pick"); sel = +p.dataset.i; sfx.tick();
+    }));
+    el.querySelectorAll(".seat").forEach(s => s.addEventListener("click", () => {
+      if(s.classList.contains("full")) return;
+      if(sel===null){ toast(L("Tekan seorang penumpang dahulu 🧒","تکن سأورڠ ڤنومڤڠ دهولو 🧒")); return; }
+      if(+s.dataset.i===sel){
+        const p = el.querySelector(`.pax[data-i="${sel}"]`); p.classList.remove("pick"); p.classList.add("gone");
+        s.classList.add("full"); s.insertAdjacentHTML("beforeend", AR(g.pairs[sel][0])); sel = null; k++; sfx.tick(); clearHint();
+        if(k===n) setTimeout(win, 300);
+      } else oops(s, L("Bukan kerusi itu. Cuba kerusi lain!","بوکن کروسي ايت. چوبا کروسي لاين!"));
+    }));
+  },
+
+  /* Loceng: betul atau salah */
+  loceng(el, g){
+    const rounds = shuffle(g.rounds); let r = 0, busy = false;
+    const draw = () => {
+      const [em, ar, ok] = rounds[r];
+      el.innerHTML = `<div class="scard" id="lc" data-ok="${ok?1:0}"><span class="em" aria-hidden="true">${em}</span>${AR(ar)}</div>
+        <div class="bells"><button class="bell" data-v="1"><b>🔔</b>${L("Betul","بتول")}</button><button class="bell" data-v="0"><b>✋</b>${L("Salah","ساله")}</button></div>
+        <div class="cnt">${r+1} / ${rounds.length}</div>`;
+      el.querySelectorAll(".bell").forEach(b => b.addEventListener("click", () => {
+        if(busy) return;
+        if(+b.dataset.v===(ok?1:0)){ busy = true; b.classList.add("ring"); ok ? sfx.bell() : sfx.horn(); clearHint();
+          setTimeout(()=>{ busy = false; r++; if(r<rounds.length) draw(); else win(); }, 280); }
+        else oops(b, ok ? L("Sebenarnya ayat itu betul. Lihat gambar lagi!","سبنرڽ اءيت ايت بتول. ليهت ڬمبر لاڬي!") : L("Hmm, gambar dan ayat tidak sepadan.","همم، ڬمبر دان اءيت تيدق سڤادن."));
+      }));
+    };
+    draw();
+  },
+
+  /* Rak bagasi: susun ikut kumpulan */
+  rak(el, g){
+    const items = shuffle(g.items.map((x,i)=>({x,i}))); let sel = null, k = 0;
+    el.innerHTML = `<div class="bags">${items.map(o=>`<button class="bag" data-i="${o.i}">${AR(o.x[0])}</button>`).join("")}</div>
+      <div class="racks">${g.bins.map((b,i)=>`<button class="rack" data-b="${i}"><span class="lbl"><span aria-hidden="true">${b[0]}</span> ${TX(b[1])}</span><span class="in" id="in${i}"></span></button>`).join("")}</div>
+      <div class="cnt">🧳 ${L("Tekan beg, kemudian tekan rak.","تکن بيڬ، کمودين تکن رق.")}</div>`;
+    el.querySelectorAll(".bag").forEach(c => c.addEventListener("click", () => {
+      if(c.classList.contains("used")) return;
+      el.querySelectorAll(".bag").forEach(x=>x.classList.remove("pick")); c.classList.add("pick"); sel = +c.dataset.i; sfx.tick();
+    }));
+    el.querySelectorAll(".rack").forEach(c => c.addEventListener("click", () => {
+      if(sel===null){ toast(L("Tekan satu beg dahulu 🧳","تکن ساتو بيڬ دهولو 🧳")); return; }
+      const it = g.items[sel], bag = el.querySelector(`.bag[data-i="${sel}"]`);
+      if(it[1]===+c.dataset.b){
+        bag.classList.remove("pick"); bag.classList.add("used"); sel = null; k++; sfx.tick(); clearHint();
+        el.querySelector("#in"+c.dataset.b).insertAdjacentHTML("beforeend", `<span>${AR(it[0])}</span>`);
+        if(k===g.items.length) setTimeout(win, 300);
+      } else oops(c, L("Bukan rak itu. Cuba rak sebelah!","بوکن رق ايت. چوبا رق سبله!"));
+    }));
+  },
+
+  /* Intai tingkap bas */
+  tingkap(el, g){
+    const asks = shuffle(g.items.map((_,i)=>i)), wins = mix(asks); let r = 0;
+    el.innerHTML = `<div class="ask" id="want"></div>
+      <div class="windows" style="grid-template-columns:repeat(${g.items.length<=4?2:3},1fr)">${wins.map(i=>`<button class="win" data-i="${i}" aria-label="${T(g.items[i][2])}"><span aria-hidden="true">${g.items[i][0]}</span></button>`).join("")}</div>
+      <div class="cnt" id="cc"></div>`;
+    const draw = () => { const w = el.querySelector("#want"); w.dataset.a = asks[r]; w.innerHTML = AR(g.items[asks[r]][1]); el.querySelector("#cc").textContent = `🪟 ${r+1} / ${asks.length}`; };
+    draw();
+    el.querySelectorAll(".win").forEach(b => b.addEventListener("click", () => {
+      if(b.classList.contains("seen") || r>=asks.length) return;
+      if(+b.dataset.i===asks[r]){ b.classList.add("seen"); b.insertAdjacentHTML("beforeend", `<small>${T(g.items[asks[r]][2])}</small>`); sfx.tick(); speak(RU(g.items[asks[r]][2])); r++; clearHint();
+        if(r<asks.length) draw(); else setTimeout(win, 350); }
+      else oops(b, L("Bukan tingkap itu. Baca perkataan Arab!","بوکن تيڠکڤ ايت. باچ ڤرکاتاٴن عرب!"));
+    }));
+  },
+
+  /* Papan tanda: isi tempat kosong */
+  tanda(el, g){
+    const opts = shuffle(g.a.map((x,i)=>({x, ok:i===0}))); let done = false;
+    el.innerHTML = `<div class="rsign">${g.em?`<span class="em" aria-hidden="true">${g.em}</span>`:""}<span class="ar" lang="ar">${g.ask.replace("___",'<span class="gap"></span>')}</span></div><div class="rpost"></div>
+      <div class="opts">${opts.map(o=>`<button class="opt" data-ok="${o.ok?1:0}">${TX(o.x)}</button>`).join("")}</div>`;
+    el.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => {
+      if(done) return;
+      if(b.dataset.ok==="1"){ done = true; b.classList.add("ok"); el.querySelector(".gap").outerHTML = `<u>${g.a[0]}</u>`; sfx.ok(); setTimeout(win, 450); }
+      else oops(b, L("Belum tepat. Baca ayat pada papan tanda!","بلوم تڤت. باچ اءيت ڤد ڤاڤن تندا!"));
+    }));
+  },
+
+  /* Hentian bas: tekan ikut urutan */
+  hentian(el, g){
+    const n = g.seq.length, order = mix(g.seq.map((_,i)=>i)); let k = 0;
+    el.innerHTML = `<div class="built ${g.row?"row":""}" id="built" lang="ar"></div>
+      <div class="stops">${order.map(i=>`<button class="hs" data-v="${enc(g.seq[i])}">${AR(g.seq[i])}</button>`).join("")}</div>
+      <div class="cnt">🚏 ${L("Tekan yang pertama dahulu!","تکن يڠ ڤرتام دهولو!")}</div>`;
+    el.querySelectorAll(".hs").forEach(b => b.addEventListener("click", () => {
+      if(b.classList.contains("done") || k>=n) return;
+      const v = dec(b.dataset.v);
+      if(v===g.seq[k]){ k++; sfx.tick(); b.classList.add("done"); el.querySelector("#built").insertAdjacentHTML("beforeend", `<span class="ar">${v}</span>`); clearHint(); if(k===n) setTimeout(win, 350); }
+      else oops(b, L(`Belum lagi. Cari yang ke-${k+1}.`,`بلوم لاڬي. چاري يڠ ک-${k+1}.`));
+    }));
+  },
+
+  /* Bayar tambang dengan nombor Arab */
+  tambang(el, g){
+    const rounds = shuffle(g.rounds); let r = 0;
+    const draw = () => {
+      const [n, ans] = rounds[r];
+      const show = typeof n==="string" ? `<span class="big">${n}</span>` : g.show==="num" ? `<span class="big">${DIG(n)} <small>(${n})</small></span>` : `<span class="emr">${String(g.em).repeat(n)}</span>`;
+      const opts = shuffle([ans, ...shuffle(g.opts.filter(o=>o!==ans)).slice(0,3)]);
+      el.innerHTML = `<div class="fare" id="fw" data-a="${enc(ans)}">🎫 ${L("Tambang","تمبڠ")}${show}</div>
+        <div class="coins">${opts.map(o=>`<button class="coin" data-v="${enc(o)}">${AR(o)}</button>`).join("")}</div>
+        <div class="cnt">${r+1} / ${rounds.length}</div>`;
+      el.querySelectorAll(".coin").forEach(b => b.addEventListener("click", () => {
+        if(dec(b.dataset.v)===ans){ sfx.punch(); r++; clearHint(); if(r<rounds.length) draw(); else win(); }
+        else oops(b, L("Bukan nombor itu. Kira sekali lagi!","بوکن نومبور ايت. کيرا سکالي لاڬي!"));
+      }));
+    };
+    draw();
+  },
+
+  /* Radio pemandu: soalan → jawapan */
+  radio(el, g){
+    const order = shuffle(g.rounds.map((_,i)=>i)); let r = 0;
+    const draw = () => {
+      const i = order[r], [q, a, em] = g.rounds[i];
+      const pool = [...new Set(g.rounds.map(x=>x[1]).filter(x=>x!==a))];
+      const opts = shuffle([a, ...shuffle(pool).slice(0,2)]);
+      el.innerHTML = `<div class="radio" id="rq" data-a="${enc(a)}"><span class="ic" aria-hidden="true">📻</span>${AR(q)}${em?`<span class="ic" aria-hidden="true">${em}</span>`:""}</div>
+        <div class="reps">${opts.map(o=>`<button class="rep" data-v="${enc(o)}">${AR(o)}</button>`).join("")}</div>
+        <div class="cnt">${r+1} / ${order.length}</div>`;
+      el.querySelectorAll(".rep").forEach(b => b.addEventListener("click", () => {
+        if(dec(b.dataset.v)===a){ sfx.ok(); r++; clearHint(); if(r<order.length) draw(); else win(); }
+        else oops(b, L("Jawapan itu tidak sesuai. Dengar soalan lagi!","جواڤن ايت تيدق سسواي. دڠر سوالن لاڬي!"));
+      }));
+    };
+    draw();
+  }
+};
+
+/* ===================== KAWALAN ===================== */
+document.addEventListener("click", e => {
+  const s = e.target.closest("[data-say]");
+  if(s){ speak(dec(s.dataset.say), true); return; }
+  const b = e.target.closest("[data-act]"); if(!b) return;
+  const a = b.dataset.act;
+  if(a==="lang"){ LANG = isJ() ? "rumi" : "jawi"; save("kafa-lang", LANG); applyLang(); redraw(); }
+  else if(a==="voice"){ voiceOn = !voiceOn; save(VKEY, voiceOn); if(!voiceOn) hush(); redraw(); }
+  else if(a==="open"){ openStation(+b.dataset.id); }
+  else if(a==="locked"){ sfx.no(); toast(L("Selesaikan hentian sebelumnya dahulu 🔒","سلسايکن هنتين سبلومڽ دهولو 🔒")); }
+  else if(a==="final"){ openFinal(); }
+  else if(a==="flocked"){ sfx.no(); toast(L(`Selesaikan semua ${STATIONS.length} hentian untuk membuka Cabaran Juara 🏫`,`سلسايکن سموا ${STATIONS.length} هنتين اونتوق ممبوک چابرن جوارا 🏫`)); }
+  else if(a==="map"){ document.querySelectorAll(".fb").forEach(x=>x.remove()); renderMap(); window.scrollTo(0,0); }
+  else if(a==="rprev"){ if(S.ri>0){ S.ri--; renderRead(); } }
+  else if(a==="rnext"){ if(S.ri < S.st.read.length-1){ S.ri++; renderRead(); } else { S.phase="play"; S.gi=0; S.miss=0; renderPlay(); } }
+  else if(a==="next"){ nextGame(); }
+  else if(a==="again"){ S.res = null; S.st.id==="final" ? openFinal() : (S.gi=0, S.miss=0, S.phase="play", renderPlay()); }
+});
+function redraw(){
+  if(!S) return renderMap();
+  if(S.phase==="read") return renderRead();
+  if(S.res && document.querySelector(".res")) return drawResult(false);
+  renderPlay();
+}
+applyLang();
+renderMap();
+</script>
+</body>
+</html>

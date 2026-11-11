@@ -61,7 +61,10 @@ kafa/
 │   ├── index.html        ← Senarai subjek Tahun 2
 │   ├── akhlak/index.html ← Game Dapur Adab Chef Mimi (Akhlak Tahun 2)
 │   ├── jawi/index.html   ← Game Pejabat Pos Huruf (Jawi Tahun 2)
-│   └── feqah/index.html  ← Game Istana Suci Naga Nana (Feqah Tahun 2)
+│   ├── feqah/index.html  ← Game Istana Suci Naga Nana (Feqah Tahun 2)
+│   ├── tauhid/index.html ← Game Ladang Tuai Iman (Tauhid Tahun 2)
+│   ├── arab/index.html   ← Game Bas Sekolah Kalimah (Bahasa Arab Tahun 2)
+│   └── hafazan/index.html← Game Sampan Hafiz (Hafazan Tahun 2)
 ├── tahun4/index.html
 ├── tahun5/index.html
 └── tahun6/index.html

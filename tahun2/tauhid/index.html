@@ -1,0 +1,1119 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#C8442F">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" type="image/png" href="/icons/favicon.png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="JOM KAFA">
+<script src="/assets/pwa.js"></script>
+<script src="/assets/config.js"></script>
+<script src="/assets/access.js"></script>
+<title>Ladang Tuai Iman • Tauhid Tahun 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gluten:wght@500;700&family=Noto+Naskh+Arabic:wght@500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ===== Tauhid Tahun 2: "Ladang Tuai Iman" — ladang padi, jalan traktor, jelapang merah, Lulu si anak biri-biri ===== */
+:root{
+  --sky1:#8FD3FF; --sky2:#E3F5FF; --bg:#FFF8E8; --card:#FFFDF5; --ink:#3B2414; --muted:#7A5A3E; --line:#3B2414;
+  --brand:#C8442F; --brand2:#9C2F1F; --gold:#F5C542; --gold2:#D9A21B; --grass:#7CC251; --grass2:#4E8F35;
+  --soil:#A56A38; --soil2:#7A4A24; --straw:#F6E3A1; --path:#E8C98E;
+  --ok:#2E9A52; --okbg:#DFF5E2; --bad:#D9442F; --badbg:#FFE3DC; --note:#FFF1C9;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --sky1:#0D1B33; --sky2:#1F2B45; --bg:#16110B; --card:#2A2016; --ink:#FFF2DC; --muted:#DCC5A2; --line:#0A0603;
+    --grass:#3D7A2E; --grass2:#2A5A20; --soil:#6B4423; --soil2:#4E3018; --straw:#5A4A22; --path:#6E5634;
+    --note:#3D3216; --okbg:#173A22; --badbg:#4A231C; color-scheme:dark;
+  }
+}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:"Gluten","Trebuchet MS",system-ui,sans-serif;font-weight:500;font-size:19px;line-height:1.4;
+  background:radial-gradient(circle at 86% 64px,#FFE27A 0 30px,#FFF2B8 31px 38px,transparent 39px),
+  linear-gradient(180deg,var(--sky1) 0,var(--sky2) 300px,var(--grass) 300px,var(--grass) 312px,var(--bg) 360px) fixed}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) body{background:radial-gradient(circle at 86% 64px,#F4EFCF 0 24px,transparent 26px),radial-gradient(1.5px 1.5px at 20% 40px,#fff,transparent),radial-gradient(1px 1px at 55% 110px,#fff,transparent),radial-gradient(1px 1px at 35% 190px,#fff,transparent),linear-gradient(180deg,var(--sky1) 0,var(--sky2) 300px,var(--grass2) 300px,var(--grass2) 312px,var(--bg) 360px) fixed}}
+html[dir="rtl"] body{font-family:"Noto Naskh Arabic","Amiri","Gluten",serif;font-weight:600;font-size:20px;line-height:1.8}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
+.wrap{max-width:680px;margin:0 auto;padding:10px 14px 60px;position:relative}
+.ar{font-family:"Amiri","Noto Naskh Arabic",serif;direction:rtl;unicode-bidi:isolate}
+
+/* bar atas */
+.top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.top .sp{flex:1}
+.ib{min-width:48px;height:48px;border-radius:12px;border:3px solid var(--line);background:var(--card);display:inline-grid;place-items:center;font-size:22px;font-weight:700;text-decoration:none;color:var(--ink);box-shadow:0 4px 0 var(--line);padding:0 10px}
+.ib:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.pill{display:inline-flex;align-items:center;gap:4px;height:48px;padding:0 14px;border-radius:12px;border:3px solid var(--line);background:var(--gold);color:#3A2600;font-weight:700;box-shadow:0 4px 0 var(--line)}
+
+/* papan tanda bangsal */
+.hero{display:flex;align-items:center;gap:12px;background:repeating-linear-gradient(90deg,var(--brand) 0 38px,var(--brand2) 38px 41px);color:#fff;border:3px solid var(--line);border-radius:16px;padding:12px 14px 18px;box-shadow:0 6px 0 var(--line);margin:4px 0 14px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:auto 0 0 0;height:10px;background:repeating-linear-gradient(115deg,var(--gold) 0 8px,var(--gold2) 8px 12px)}
+.hero h1{margin:0;font-size:clamp(24px,6.4vw,32px);line-height:1.12;color:#FFF3C4;text-shadow:0 2px 0 var(--line)}
+html[dir="rtl"] .hero h1{line-height:1.55}
+.hero p{margin:2px 0 4px;color:#FFE9DF;font-size:16px;font-weight:700}
+.lulu{width:86px;height:auto;flex:none;overflow:visible}
+.lulu.bob{animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px) rotate(-3deg)}}
+.lulu.yay{animation:yay .5s ease 2}
+@keyframes yay{50%{transform:translateY(-14px) scale(1.06)}}
+
+/* stiker hasil tuaian */
+.sttl{font-weight:700;font-size:15px;margin:0 0 4px;color:var(--muted)}
+.stickers{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin-bottom:14px}
+.stickers span{aspect-ratio:1;display:grid;place-items:center;font-size:24px;border-radius:50%;border:3px dashed var(--muted);background:var(--card);filter:grayscale(1);opacity:.4}
+.stickers .got{filter:none;opacity:1;border:3px solid var(--line);background:var(--straw);box-shadow:0 3px 0 var(--line)}
+
+/* peta ladang: jalan traktor berliku */
+.farm{position:relative;padding:8px 0 6px;border:3px solid var(--line);border-radius:22px;overflow:hidden;
+  background:repeating-linear-gradient(0deg,transparent 0 26px,rgba(0,0,0,.05) 26px 28px),linear-gradient(180deg,var(--grass) 0,var(--grass2) 100%)}
+.farm::before{content:"";position:absolute;top:0;bottom:0;left:50%;width:46px;transform:translateX(-50%);background:repeating-linear-gradient(180deg,var(--path) 0 22px,#D7B57A 22px 26px);border-left:3px dashed rgba(59,36,20,.35);border-right:3px dashed rgba(59,36,20,.35)}
+.prow{display:flex;justify-content:flex-start;position:relative;padding:8px 10px}
+.prow.r{justify-content:flex-end}
+.plot{position:relative;width:46%;border:none;background:none;padding:0;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
+.plot .bed{width:100%;height:104px;border:3px solid var(--line);border-radius:16px;position:relative;box-shadow:0 5px 0 var(--line);
+  background:repeating-linear-gradient(180deg,var(--soil) 0 14px,var(--soil2) 14px 18px)}
+.plot.done .bed{background:repeating-linear-gradient(180deg,#E9C452 0 14px,#C99A22 14px 18px)}
+.plot .crop{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:2px;font-size:30px;letter-spacing:-4px}
+.plot .badge{position:absolute;top:-10px;inset-inline-start:-8px;width:32px;height:32px;border-radius:50%;background:var(--c);color:#fff;border:3px solid var(--line);display:grid;place-items:center;font-weight:700;font-size:17px;z-index:2}
+.plot .sign{position:absolute;bottom:-12px;inset-inline-end:-6px;font-size:28px;z-index:2}
+.plot .nm{position:relative;z-index:1;background:var(--card);border:3px solid var(--line);border-radius:12px;padding:2px 8px;font-weight:700;font-size:15px;line-height:1.25;margin-top:6px;max-width:100%;overflow-wrap:anywhere}
+html[dir="rtl"] .plot .nm{font-size:15px;line-height:1.6}
+.plot .st{font-size:15px;min-height:20px;letter-spacing:1px}
+.plot.lock .bed{filter:grayscale(.75) brightness(.9)}
+.plot.lock .nm{opacity:.75}
+.plot.now .bed{outline:4px solid var(--gold);outline-offset:3px;animation:glow 1.6s ease-in-out infinite}
+@keyframes glow{50%{outline-color:#fff}}
+.tractor{position:absolute;top:-30px;inset-inline-end:-4px;font-size:40px;z-index:3;animation:bob 2s ease-in-out infinite}
+html[dir="rtl"] .tractor{transform:scaleX(-1)}
+.barnrow{display:flex;justify-content:center;padding:6px 10px 10px;position:relative}
+.barn{border:none;background:none;padding:0;display:flex;flex-direction:column;align-items:center;gap:4px;width:70%;position:relative}
+.barn .bsvg{width:150px;height:auto;filter:drop-shadow(0 5px 0 var(--line))}
+.barn.lock .bsvg{filter:grayscale(.8) drop-shadow(0 5px 0 var(--line))}
+.barn .nm{background:var(--gold);color:#3A2600;border:3px solid var(--line);border-radius:12px;padding:2px 10px;font-weight:700;font-size:17px}
+.barn .lulu{position:absolute;top:-6px;inset-inline-end:-6px;width:64px}
+.gate{position:relative;text-align:center;padding:8px 0 4px}
+.gate span{display:inline-block;background:var(--card);border:3px solid var(--line);border-radius:12px;padding:2px 12px;font-weight:700;font-size:16px;box-shadow:0 3px 0 var(--line)}
+.fence{height:22px;background:repeating-linear-gradient(90deg,transparent 0 18px,#F4E3C1 18px 26px),linear-gradient(180deg,transparent 0 5px,#F4E3C1 5px 9px,transparent 9px 13px,#F4E3C1 13px 17px,transparent 17px);position:relative}
+</style>
+<style>
+/* kad bacaan: papan kayu ladang */
+@keyframes pagein{from{opacity:0;transform:translateY(10px)}}
+@keyframes pop{from{transform:scale(.4);opacity:0}}
+@keyframes spin{from{transform:rotate(-360deg) scale(0)}}
+.card{background:var(--card);border:3px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 6px 0 var(--line);animation:pagein .35s ease both;position:relative}
+.card.board{border-top:14px solid var(--sc);background-image:linear-gradient(180deg,transparent 0 calc(100% - 10px),color-mix(in srgb,var(--sc) 25%,transparent) calc(100% - 10px))}
+.card.board::before,.card.board::after{content:"";position:absolute;top:-11px;width:10px;height:10px;border-radius:50%;background:#FFF3C4;border:2px solid var(--line)}
+.card.board::before{left:16px}.card.board::after{right:16px}
+.shead{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.shead .bub{width:60px;height:60px;flex:none;border-radius:50% 50% 12px 12px;background:var(--c);border:3px solid var(--line);display:grid;place-items:center;font-size:30px;box-shadow:0 4px 0 var(--line)}
+.shead h2{margin:0;font-size:clamp(21px,5.2vw,26px);line-height:1.15}
+html[dir="rtl"] .shead h2{line-height:1.6}
+.shead small{display:block;color:var(--muted);font-weight:700;font-size:14.5px}
+.rpic{font-size:56px;text-align:center;line-height:1.1;margin-bottom:4px;animation:pop .4s both}
+.rh{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 10px;font-size:clamp(20px,5vw,24px);color:var(--brand)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .rh,:root:not([data-theme="light"]) .res h2{color:var(--gold)}}
+.rtext{margin:0 0 10px;font-weight:700;font-size:19px;background:var(--note);border:2px dashed var(--gold2);border-radius:14px;padding:8px 12px}
+.rlist{list-style:none;margin:0 0 10px;padding:0;display:grid;gap:7px;counter-reset:n}
+.rlist li{display:flex;gap:10px;align-items:center;background:var(--bg);border:2px solid color-mix(in srgb,var(--line) 25%,transparent);border-radius:12px;padding:6px 10px;font-weight:700;line-height:1.3;animation:pagein .35s both;animation-delay:calc(var(--i)*70ms)}
+html[dir="rtl"] .rlist li{line-height:1.7}
+.rlist li::before{content:"🌾";flex:none;width:32px;height:32px;border-radius:50%;background:var(--straw);border:2px solid var(--line);display:grid;place-items:center;font-size:16px}
+.rlist.num li::before{counter-increment:n;content:counter(n);background:var(--sc);color:#fff;font-weight:700}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 10px}
+.vs div{border:3px solid var(--line);border-radius:14px;padding:8px;text-align:center;font-weight:700;font-size:16.5px;line-height:1.3}
+html[dir="rtl"] .vs div{line-height:1.7}
+.vs .w{background:var(--okbg)}.vs .m{background:var(--badbg)}
+.vs b{display:block;font-size:13.5px;color:var(--muted)}
+.abox{background:var(--note);border:3px solid var(--line);border-radius:16px;padding:10px 14px;margin:0 0 10px;text-align:center}
+.abox .ar{display:block;font-size:clamp(23px,6vw,30px);line-height:1.95}
+.abox .mk{display:block;font-weight:700;font-size:16px;color:var(--muted);margin-top:4px}
+.abox small{display:block;font-weight:700;font-size:14px;color:var(--muted)}
+.tip{display:flex;gap:8px;align-items:flex-start;background:#FFF0D1;border:2px solid var(--line);border-radius:14px;padding:8px 12px;margin:0 0 8px;font-weight:700;font-size:17px;color:#5A3510}
+.tip.am{background:#E4F6DA;color:#1F4A14}
+.tip b{flex:none}
+.ref{font-size:14px;color:var(--muted);font-weight:700;margin-top:4px}
+.navr{display:flex;gap:8px;margin-top:12px}
+.navr .btn{flex:1}
+.btn{display:block;width:100%;border:3px solid var(--line);border-radius:14px;padding:12px;font-size:21px;font-weight:700;background:var(--brand);color:#fff;box-shadow:0 5px 0 var(--line);text-shadow:0 2px 0 rgba(0,0,0,.18)}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--line)}
+.btn.alt{background:var(--card);color:var(--ink);text-shadow:none}
+.btn.go{background:var(--ok)}
+.btn:disabled{opacity:.4}
+.dots{display:flex;justify-content:center;gap:6px;margin-top:10px}
+.dots i{width:12px;height:12px;border-radius:50% 50% 50% 0;background:color-mix(in srgb,var(--line) 25%,transparent);transform:rotate(-45deg)}
+.dots i.on{background:var(--grass2)}
+.say{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;border:3px solid var(--line);background:var(--gold);font-size:20px;box-shadow:0 3px 0 var(--line);flex:none}
+.say:active{transform:translateY(2px);box-shadow:0 1px 0 var(--line)}
+
+/* bar kemajuan: traktor melalui batas */
+.prog{position:relative;height:50px;margin:2px 4px 12px}
+.prog .row{position:absolute;left:0;right:0;bottom:4px;height:18px;border:3px solid var(--line);border-radius:9px;background:repeating-linear-gradient(90deg,var(--soil) 0 10px,var(--soil2) 10px 13px)}
+.prog .pf{position:absolute;bottom:16px;transform:translateX(-50%);font-size:20px}
+html[dir="rtl"] .prog .pf{transform:translateX(50%)}
+.prog .fly{position:absolute;top:50%;transform:translate(-50%,-62%);font-size:34px;transition:left .4s,right .4s;z-index:2;filter:drop-shadow(0 2px 0 rgba(0,0,0,.25))}
+html[dir="rtl"] .prog .fly{transform:translate(50%,-62%)}
+.q{display:flex;gap:10px;align-items:center;margin:0 0 12px}
+.q p{margin:0;flex:1;font-size:clamp(19px,5vw,23px);font-weight:700;line-height:1.3}
+html[dir="rtl"] .q p{line-height:1.75}
+.qpic{font-size:52px;text-align:center;line-height:1.1;margin:-4px 0 6px}
+.cnt{text-align:center;color:var(--muted);font-weight:700;font-size:15.5px;margin-top:10px}
+.hint{margin-top:10px;background:var(--badbg);border:2px solid var(--line);border-radius:14px;padding:6px 12px;font-weight:700;animation:pop .3s both}
+.shake{animation:shake .4s}
+@keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.tile{border:3px solid var(--line);border-radius:14px;box-shadow:0 4px 0 var(--line);font-weight:700;min-height:56px;background:var(--card);padding:8px 10px;line-height:1.25;overflow-wrap:anywhere}
+html[dir="rtl"] .tile{line-height:1.65}
+.tile:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+</style>
+<style>
+/* petik: pokok buah */
+.tree{position:relative;padding:14px 10px 18px;border:3px solid var(--line);border-radius:46% 46% 22px 22px / 30% 30% 22px 22px;background:radial-gradient(circle at 30% 30%,#9BD86A,#5DA83A 70%);box-shadow:0 5px 0 var(--line)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tree{background:radial-gradient(circle at 30% 30%,#4E8A33,#2C5A1C 70%)}}
+.fruits{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.fruit{min-width:0;overflow-wrap:anywhere;font-size:15px}
+.fruit{display:flex;align-items:center;gap:8px;border:3px solid var(--line);border-radius:22px;background:#FFF6E0;color:#3B2414;padding:6px 8px 6px 4px;box-shadow:0 4px 0 var(--line);font-weight:700;min-height:58px;text-align:start;line-height:1.2}
+html[dir="rtl"] .fruit{padding:6px 6px 6px 12px;line-height:1.6}
+.fruit .em{font-size:24px;flex:none}
+.fruit.drop{animation:drop .6s ease-in forwards}
+@keyframes drop{to{transform:translateY(140px) rotate(25deg);opacity:0}}
+.fruit.wrong{background:var(--badbg)}
+.trunk{width:46px;height:34px;margin:-3px auto 0;background:#8A5527;border:3px solid var(--line);border-top:none}
+.basket{display:flex;align-items:center;justify-content:center;gap:10px;font-size:46px;margin-top:-6px}
+.basket .got{font-size:16px;font-weight:700;background:var(--note);border:3px solid var(--line);border-radius:12px;padding:4px 10px;min-height:40px;display:flex;align-items:center}
+/* guni: isi guni */
+.cart{display:flex;align-items:center;gap:8px;background:var(--straw);border:3px solid var(--line);border-radius:16px;padding:10px 12px;box-shadow:0 4px 0 var(--line);font-weight:700;font-size:20px;min-height:76px;line-height:1.3}
+html[dir="rtl"] .cart{line-height:1.7}
+.cart .em{font-size:34px;flex:none}
+.sacks{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:10px;margin-top:14px}
+.sack{position:relative;border:3px solid var(--line);border-radius:18px 18px 34px 34px;background:linear-gradient(180deg,#E7CB8F,#C9A35E);color:#3B2414;padding:22px 6px 10px;box-shadow:0 5px 0 var(--line);font-weight:700;font-size:17px;line-height:1.25;min-height:110px}
+html[dir="rtl"] .sack{line-height:1.6}
+.sack::before{content:"";position:absolute;top:8px;left:24%;right:24%;height:6px;border-radius:4px;background:#8A5527}
+.sack .em{display:block;font-size:30px}
+.sack .n{display:block;font-size:14px;color:#6B4A20}
+.sack.bump{animation:yay .35s}
+/* bajak: batas berurutan */
+.field{display:grid;gap:6px;background:var(--soil2);border:3px solid var(--line);border-radius:16px;padding:8px}
+.furrow{display:flex;align-items:center;gap:8px;min-height:50px;border-radius:10px;background:repeating-linear-gradient(90deg,var(--soil) 0 16px,#8F5A2D 16px 20px);color:#FFF6E0;padding:4px 8px;font-weight:700;line-height:1.25}
+html[dir="rtl"] .furrow{line-height:1.6}
+.furrow b{flex:none;width:30px;height:30px;border-radius:50%;background:#FFF6E0;color:#3B2414;display:grid;place-items:center;border:2px solid var(--line)}
+.furrow.on{background:linear-gradient(90deg,#7CC251,#5DA83A);color:#173A0C}
+.furrow.on span{background:rgba(255,255,255,.75);border-radius:8px;padding:0 6px}
+.furrow.next{outline:3px dashed var(--gold);outline-offset:-3px}
+.seeds{display:grid;gap:8px;margin-top:12px}
+.sd{text-align:start}
+.sd.used{visibility:hidden}
+/* tunas: isi tempat kosong */
+.bedbox{background:var(--note);border:3px solid var(--line);border-radius:16px;padding:12px;text-align:center}
+.bedbox .plant{font-size:44px;line-height:1;transition:transform .3s}
+.bedbox .plant.grow{animation:pop .5s both}
+.sent{font-weight:700;font-size:20px;margin:8px 0 0;line-height:1.5}
+html[dir="rtl"] .sent{line-height:1.9}
+.blank{display:inline-block;min-width:80px;border-bottom:4px dotted var(--soil);color:var(--soil);padding:0 4px}
+.blank.fill{border-bottom:4px solid var(--ok);color:var(--ok)}
+.packets{display:grid;grid-template-columns:1fr;gap:9px;margin-top:12px}
+.packet{display:flex;align-items:center;gap:10px;text-align:start;background:linear-gradient(90deg,#FFE9B0 0 48px,var(--card) 48px)}
+.packet .em{font-size:26px;width:30px;flex:none;text-align:center}
+.packet.wrong{background:var(--badbg)}
+.packet.right{background:var(--okbg)}
+/* ternak: beri makan haiwan */
+.barnyard{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.col{display:grid;gap:8px;align-content:start}
+.col h4{margin:0;text-align:center;font-size:15px;color:var(--muted)}
+.pen{display:flex;flex-direction:column;align-items:center;gap:2px;background:repeating-linear-gradient(90deg,var(--card) 0 20px,var(--straw) 20px 24px);text-align:center}
+.pen .em{font-size:32px;line-height:1}
+.food{text-align:center;background:#FFF6D8;color:#3B2414}
+.food.sel{outline:4px solid var(--gold);outline-offset:2px;transform:translateY(-2px)}
+.pen.fed,.food.fed{background:var(--okbg);opacity:.75;pointer-events:none}
+/* siram: betul atau salah */
+.sprout{text-align:center;background:var(--note);border:3px solid var(--line);border-radius:16px;padding:10px 12px}
+.sprout .plant{font-size:48px;line-height:1.1}
+.stxt{font-weight:700;font-size:20px;line-height:1.35;margin-top:4px}
+html[dir="rtl"] .stxt{line-height:1.85}
+.cans{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.can{font-size:19px;padding:10px 6px}
+.can .em{display:block;font-size:34px}
+.can[data-v="1"]{background:#D7F0FF;color:#103A55}
+.can[data-v="0"]{background:#FFE0D6;color:#5A1C10}
+/* rumpai: cabut rumpai */
+.plotgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;background:var(--soil2);border:3px solid var(--line);border-radius:16px;padding:10px}
+.patch{display:flex;flex-direction:column;align-items:center;gap:2px;background:#E9F6DC;color:#1F3A12;font-size:16.5px;text-align:center}
+.patch .em{font-size:28px;line-height:1}
+.patch.pulled{background:#F3E2C6;color:#7A5A3E;text-decoration:line-through;pointer-events:none}
+.patch.wrong{background:var(--badbg)}
+
+/* maklum balas & keputusan */
+.fb{position:fixed;left:0;right:0;bottom:0;z-index:40;padding:12px 14px calc(14px + env(safe-area-inset-bottom,0px));background:var(--okbg);border-top:4px solid var(--line);animation:pagein .3s both;max-height:70vh;overflow:auto}
+.fb .in{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
+.fb .row1{display:flex;gap:10px;align-items:center}
+.fb .lulu{width:66px}
+.fb strong{display:block;font-size:24px;color:var(--ok)}
+.fb p{margin:0;font-weight:700;font-size:17px;line-height:1.35}
+html[dir="rtl"] .fb p{line-height:1.75}
+.res{text-align:center}
+.res .lulu{width:130px;margin:0 auto;display:block}
+.res .stars{font-size:58px;letter-spacing:6px;line-height:1.1}
+.res .stars span{display:inline-block;animation:pop .5s cubic-bezier(.2,1.6,.4,1) both}
+.res .stars .off{filter:grayscale(1);opacity:.25}
+.res h2{margin:4px 0;font-size:32px;color:var(--brand)}
+.res p{margin:0 0 8px;color:var(--muted);font-weight:700}
+.gotst{display:inline-flex;align-items:center;gap:10px;background:var(--note);border:3px dashed var(--line);border-radius:18px;padding:8px 16px;font-weight:700;margin:6px 0 10px}
+.gotst span{font-size:44px;animation:spin 1s ease both}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:50;overflow:hidden}
+.confetti span{position:absolute;top:-40px;font-size:28px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(380deg)}}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:16px;font-weight:700;z-index:60;max-width:92vw;text-align:center}
+@media (max-width:370px){.fruits,.barnyard,.plotgrid{gap:7px}.fruit{font-size:16px}.sack{font-size:15px}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="wrap" id="app"></main>
+<script>
+
+/* ===================== KANDUNGAN: Tauhid Tahun 2 (Buku Teks KAFA JAIS) =====================
+   Nombor ms. = nombor bercetak dalam buku (fail pN.jpg tidak ikut susunan; lihat CONTENT.md).
+   Setiap teks = [Rumi, Jawi]. Teks Arab = rentetan biasa dalam medan ar. */
+const AR = {
+  hadid3: "هُوَ ٱلْأَوَّلُ وَٱلْـَٔاخِرُ وَٱلظَّـٰهِرُ وَٱلْبَاطِنُ ۖ وَهُوَ بِكُلِّ شَىْءٍ عَلِيمٌ ﴿٣﴾",
+  rahman: "كُلُّ مَنْ عَلَيْهَا فَانٍ ﴿٢٦﴾ وَيَبْقَىٰ وَجْهُ رَبِّكَ ذُو ٱلْجَلَـٰلِ وَٱلْإِكْرَامِ ﴿٢٧﴾",
+  syura11: "… لَيْسَ كَمِثْلِهِۦ شَىْءٌ ۖ وَهُوَ ٱلسَّمِيعُ ٱلْبَصِيرُ",
+  muhammad38: "… وَٱللَّهُ ٱلْغَنِىُّ وَأَنتُمُ ٱلْفُقَرَآءُ …",
+  ikhlas: "قُلْ هُوَ ٱللَّهُ أَحَدٌ ﴿١﴾ ٱللَّهُ ٱلصَّمَدُ ﴿٢﴾ لَمْ يَلِدْ وَلَمْ يُولَدْ ﴿٣﴾ وَلَمْ يَكُن لَّهُۥ كُفُوًا أَحَدٌۢ ﴿٤﴾",
+  baqarah285: "… كُلٌّ ءَامَنَ بِٱللَّهِ وَمَلَـٰٓئِكَتِهِۦ وَكُتُبِهِۦ وَرُسُلِهِۦ …",
+  nisa136: "يَـٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوٓا۟ ءَامِنُوا۟ بِٱللَّهِ وَرَسُولِهِۦ …"
+};
+const STATIONS = [
+{ id:1, icon:"🌅", c:"#E0892B", sticker:"🌾", crop:"🌾🌾🌾",
+  t:["Qidam","قِدَمٌ"], u:["Lawannya huduth • ms. 1–5","لاونڽ حُدُوثٌ • م.س. ١–٥"],
+  read:[
+    { pic:"🌅", h:["Sifat wajib dan mustahil","صيفت واجب دان مستحيل"],
+      vs:[[["Sifat wajib","صيفت واجب"],["Qidam: sedia ada (tiada permulaan)","قِدَمٌ: سديا اد (تياد ڤرمولاٴن)"]],
+          [["Sifat mustahil","صيفت مستحيل"],["Huduth: baharu (ada permulaan)","حُدُوثٌ: بهارو (اد ڤرمولاٴن)"]]], p:"2" },
+    { pic:"📜", h:["Baca dan faham","باچ دان فهم"], list:[
+      ["Qidam ialah sifat Allah.","قِدَمٌ اياله صيفت الله."],
+      ["Qidam ertinya sedia ada (tiada permulaan).","قِدَمٌ ارتيڽ سديا اد (تياد ڤرمولاٴن)."],
+      ["Qidam maknanya tiada permulaan ada-Nya.","قِدَمٌ معناڽ تياد ڤرمولاٴن اداڽ."],
+      ["Qidam lawannya huduth.","قِدَمٌ لاونڽ حُدُوثٌ."],
+      ["Huduth ertinya baharu (ada permulaan).","حُدُوثٌ ارتيڽ بهارو (اد ڤرمولاٴن)."],
+      ["Mustahil Allah bersifat baharu.","مستحيل الله برصيفت بهارو."]], p:"2" },
+    { pic:"📖", h:["Hukum dan dalil naqli","حکوم دان دليل نقلي"],
+      text:["Hukum mengenal Allah bersifat qidam adalah wajib.","حکوم مڠنل الله برصيفت قِدَمٌ اداله واجب."],
+      ar:AR.hadid3, mk:["Maksudnya: Dialah yang awal dan yang akhir, dan yang zahir serta yang batin, dan Dialah yang Maha Mengetahui akan tiap-tiap sesuatu.","مقصودڽ: دياله يڠ اول دان يڠ اخير، دان يڠ ظاهر سرتا يڠ باطن، دان دياله يڠ مها مڠتاهوءي اکن تياڤ٢ سسواتو."],
+      src:["(Surah al-Hadid: 3)","(سورة الحديد: ٣)"], p:"3" },
+    { pic:"🧠", h:["Dalil aqli","دليل عقلي"], num:1, list:[
+      ["Allah sedia ada (tiada permulaan).","الله سديا اد (تياد ڤرمولاٴن)."],
+      ["Mustahil bagi Allah bersifat baharu (ada permulaan).","مستحيل باڬي الله برصيفت بهارو (اد ڤرمولاٴن)."],
+      ["Jika Allah bersifat baharu, maka bukanlah Dia Tuhan.","جک الله برصيفت بهارو، مک بوکنله دي توهن."]], p:"3" },
+    { pic:"🌻", h:["Faedah mengenal sifat qidam","فائده مڠنل صيفت قِدَمٌ"], list:[
+      ["Iman semakin kukuh.","ايمان سماکين کوکوه."],
+      ["Sentiasa taat kepada perintah Allah.","سنتياس طاعة کڤد ڤرينته الله."],
+      ["Berakhlak mulia pada setiap masa.","براخلاق موليا ڤد ستياڤ ماس."]],
+      tip:["Alam ini ada permulaan dan ada pengakhiran. Alam ini baharu. Setiap yang baharu dicipta oleh Allah.","عالم اين اد ڤرمولاٴن دان اد ڤڠاخيرن. عالم اين بهارو. ستياڤ يڠ بهارو دچيڤتا اوليه الله."],
+      am:["Berzikir dan mengingati Allah walau di mana kita berada.","برذکير دان مڠيڠتي الله والاو د مان کيت برادا."], p:"4–5" }
+  ],
+  games:[
+    { type:"petik", q:["Petik buah yang betul: apakah erti qidam?","ڤتيق بواه يڠ بتول: اڤاکه ارتي قِدَمٌ؟"],
+      a:[["Sedia ada (tiada permulaan)","سديا اد (تياد ڤرمولاٴن)"],["Baharu (ada permulaan)","بهارو (اد ڤرمولاٴن)"],["Binasa","بيناس"],["Berbilang-bilang","بربيلڠ٢"]],
+      e:["Betul! Qidam ertinya sedia ada, tiada permulaan.","بتول! قِدَمٌ ارتيڽ سديا اد، تياد ڤرمولاٴن."] },
+    { type:"guni", q:["Isi guni: qidam atau huduth?","ايسي ڬوني: قِدَمٌ اتاو حُدُوثٌ؟"],
+      cats:[[["Qidam","قِدَمٌ"],"🌟"],[["Huduth","حُدُوثٌ"],"🌱"]],
+      items:[[["Sedia ada","سديا اد"],0],[["Baharu","بهارو"],1],[["Tiada permulaan","تياد ڤرمولاٴن"],0],[["Ada permulaan","اد ڤرمولاٴن"],1],[["Sifat wajib bagi Allah","صيفت واجب باڬي الله"],0],[["Sifat mustahil bagi Allah","صيفت مستحيل باڬي الله"],1]],
+      e:["Hebat! Qidam = sedia ada. Huduth = baharu.","هيبت! قِدَمٌ = سديا اد. حُدُوثٌ = بهارو."] },
+    { type:"tunas", q:["Tanam benih yang betul!","تانم بنيه يڠ بتول!"],
+      text:["Huduth ertinya ___ (ada permulaan).","حُدُوثٌ ارتيڽ ___ (اد ڤرمولاٴن)."],
+      a:[["baharu","بهارو"],["kekal","ککل"],["esa","اس"]],
+      e:["Ya! Huduth ertinya baharu. Mustahil Allah bersifat baharu.","ي! حُدُوثٌ ارتيڽ بهارو. مستحيل الله برصيفت بهارو."] },
+    { type:"siram", q:["Siram jika betul, cabut jika salah!","سيرم جک بتول، چابوت جک ساله!"],
+      items:[[["Qidam ialah sifat Allah.","قِدَمٌ اياله صيفت الله."],1],[["Allah ada permulaan.","الله اد ڤرمولاٴن."],0],[["Alam ini baharu.","عالم اين بهارو."],1],[["Mustahil Allah bersifat baharu.","مستحيل الله برصيفت بهارو."],1],[["Hukum mengenal sifat qidam adalah harus.","حکوم مڠنل صيفت قِدَمٌ اداله هاروس."],0]],
+      e:["Bagus! Hukum mengenal Allah bersifat qidam adalah wajib.","باڬوس! حکوم مڠنل الله برصيفت قِدَمٌ اداله واجب."] },
+    { type:"bajak", q:["Bajak batas: susun dalil aqli ikut buku.","باجق باتس: سوسون دليل عقلي ايکوت بوکو."],
+      steps:[["Allah sedia ada (tiada permulaan).","الله سديا اد (تياد ڤرمولاٴن)."],["Mustahil Allah bersifat baharu.","مستحيل الله برصيفت بهارو."],["Jika Allah baharu, bukanlah Dia Tuhan.","جک الله بهارو، بوکنله دي توهن."]],
+      e:["Tersusun! Itulah dalil aqli sifat qidam.","ترسوسون! ايتوله دليل عقلي صيفت قِدَمٌ."] },
+    { type:"rumpai", q:["Cabut rumpai! Mana yang BUKAN faedah mengenal sifat qidam?","چابوت رومڤاي! مان يڠ بوکن فائده مڠنل صيفت قِدَمٌ؟"],
+      items:[[["Iman semakin kukuh","ايمان سماکين کوکوه"],1],[["Taat kepada perintah Allah","طاعة کڤد ڤرينته الله"],1],[["Berakhlak mulia","براخلاق موليا"],1],[["Malas beribadat","مالس برعبادة"],0],[["Lupa kepada Allah","لوڤا کڤد الله"],0]],
+      e:["Ladang bersih! Faedahnya: iman kukuh, taat dan berakhlak mulia.","لادڠ برسيه! فائدهڽ: ايمان کوکوه، طاعة دان براخلاق موليا."] }
+  ]
+},
+{ id:2, icon:"🏔️", c:"#2F9E8F", sticker:"🌽", crop:"🌽🌽🌽",
+  t:["Baqa'","بَقَاءٌ"], u:["Lawannya fana' • ms. 6–10","لاونڽ فَنَاءٌ • م.س. ٦–١٠"],
+  read:[
+    { pic:"🏔️", h:["Sifat wajib dan mustahil","صيفت واجب دان مستحيل"],
+      vs:[[["Sifat wajib","صيفت واجب"],["Baqa': kekal","بَقَاءٌ: ککل"]],[["Sifat mustahil","صيفت مستحيل"],["Fana': binasa","فَنَاءٌ: بيناس"]]], p:"7" },
+    { pic:"📜", h:["Baca dan faham","باچ دان فهم"], list:[
+      ["Baqa' ialah sifat Allah.","بَقَاءٌ اياله صيفت الله."],
+      ["Baqa' ertinya kekal.","بَقَاءٌ ارتيڽ ککل."],
+      ["Baqa' maknanya tidak binasa bagi zat Allah.","بَقَاءٌ معناڽ تيدق بيناس باڬي ذات الله."],
+      ["Baqa' lawannya fana'.","بَقَاءٌ لاونڽ فَنَاءٌ."],
+      ["Fana' ertinya binasa.","فَنَاءٌ ارتيڽ بيناس."],
+      ["Mustahil Allah bersifat binasa.","مستحيل الله برصيفت بيناس."]], p:"7" },
+    { pic:"🌊", h:["Hukum dan dalil naqli","حکوم دان دليل نقلي"],
+      text:["Hukum mengenal Allah bersifat baqa' adalah wajib. Bangunan dan apa sahaja di bumi boleh musnah, tetapi Allah tetap kekal.","حکوم مڠنل الله برصيفت بَقَاءٌ اداله واجب. بڠونن دان اڤ سهاج د بومي بوليه موسنه، تتاڤي الله تتڤ ککل."],
+      ar:AR.rahman, mk:["Maksudnya: Semua yang ada di muka bumi itu akan binasa. Dan akan kekallah Zat Tuhanmu yang mempunyai kebesaran dan kemuliaan.","مقصودڽ: سموا يڠ اد د موک بومي ايت اکن بيناس. دان اکن ککلله ذات توهنمو يڠ ممڤوڽاٴي کبسرن دان کمولياٴن."],
+      src:["(Surah ar-Rahman: 26–27)","(سورة الرحمن: ٢٦–٢٧)"], p:"6–7" },
+    { pic:"🧠", h:["Dalil aqli dan faedah","دليل عقلي دان فائده"], num:1, list:[
+      ["Allah kekal selama-lamanya.","الله ککل سلاما-لاماڽ."],
+      ["Jika Allah tidak bersifat baqa', tentulah Allah akan binasa.","جک الله تيدق برصيفت بَقَاءٌ، تنتوله الله اکن بيناس."],
+      ["Binasa itu sifat makhluk.","بيناس ايت صيفت مخلوق."]],
+      tip:["Faedahnya: mengakui kebesaran Allah, sentiasa ingat mati dan berterusan melakukan kebaikan.","فائدهڽ: مڠاکوءي کبسرن الله، سنتياس ايڠت ماتي دان برتروسن ملاکوکن کباٴيقن."], p:"8" },
+    { pic:"🐦", h:["Mari berpantun","ماري برڤنتون"], list:[
+      ["Burung terbang di angkasa,","بوروڠ تربڠ دأڠکاس،"],
+      ["Allah mengetahui dengan ilmu-Nya,","الله مڠتاهوءي دڠن علموڽ،"],
+      ["Setiap makhluk akan binasa,","ستياڤ مخلوق اکن بيناس،"],
+      ["Allah kekal selama-lamanya.","الله ککل سلاما-لاماڽ."]],
+      tip:["Allah kekal pada zat, sifat, perbuatan dan nama-nama-Nya.","الله ککل ڤد ذات، صيفت، ڤربواتن دان نام٢ڽ."],
+      am:["Kekalkan amalan baik setiap hari: membantu orang, berzikir, bersedekah, bersabar dan menjaga kebersihan.","ککلکن عملن باٴيق ستياڤ هاري: ممبنتو اورڠ، برذکير، برصدقه، برصبر دان منجاڬ کبرسيهن."], p:"9–10" }
+  ],
+  games:[
+    { type:"petik", q:["Petik buah: apakah lawan sifat baqa'?","ڤتيق بواه: اڤاکه لاون صيفت بَقَاءٌ؟"],
+      a:[["Fana' (binasa)","فَنَاءٌ (بيناس)"],["Qidam (sedia ada)","قِدَمٌ (سديا اد)"],["Wahdaniyyah (esa)","وَحْدَانِيَّةٌ (اس)"]],
+      e:["Betul! Baqa' (kekal) lawannya fana' (binasa).","بتول! بَقَاءٌ (ککل) لاونڽ فَنَاءٌ (بيناس)."] },
+    { type:"ternak", q:["Beri makan haiwan: padankan sifat dengan ertinya.","بري ماکن حيوان: ڤادنکن صيفت دڠن ارتيڽ."],
+      pairs:[[["Qidam","قِدَمٌ"],["Sedia ada","سديا اد"]],[["Huduth","حُدُوثٌ"],["Baharu","بهارو"]],[["Baqa'","بَقَاءٌ"],["Kekal","ککل"]],[["Fana'","فَنَاءٌ"],["Binasa","بيناس"]]],
+      e:["Kenyang semuanya! Kamu ingat erti setiap sifat.","کڽڠ سمواڽ! کامو ايڠت ارتي ستياڤ صيفت."] },
+    { type:"bajak", q:["Bajak batas: susun pantun ikut buku.","باجق باتس: سوسون ڤنتون ايکوت بوکو."],
+      steps:[["Burung terbang di angkasa,","بوروڠ تربڠ دأڠکاس،"],["Allah mengetahui dengan ilmu-Nya,","الله مڠتاهوءي دڠن علموڽ،"],["Setiap makhluk akan binasa,","ستياڤ مخلوق اکن بيناس،"],["Allah kekal selama-lamanya.","الله ککل سلاما-لاماڽ."]],
+      e:["Cantik pantunmu! Setiap makhluk binasa, Allah kekal.","چنتيق ڤنتونمو! ستياڤ مخلوق بيناس، الله ککل."] },
+    { type:"guni", q:["Isi guni: kekal atau akan binasa?","ايسي ڬوني: ککل اتاو اکن بيناس؟"],
+      cats:[[["Kekal","ککل"],"♾️"],[["Akan binasa","اکن بيناس"],"🍂"]],
+      items:[[["Zat Allah","ذات الله"],0],[["Rumah dan bangunan","رومه دان بڠونن"],1],[["Sifat Allah","صيفت الله"],0],[["Setiap makhluk","ستياڤ مخلوق"],1],[["Nama-nama Allah","نام٢ الله"],0],[["Pokok dan bunga","ڤوکوق دان بوڠا"],1]],
+      e:["Tepat! Allah kekal pada zat, sifat, perbuatan dan nama-nama-Nya.","تڤت! الله ککل ڤد ذات، صيفت، ڤربواتن دان نام٢ڽ."] },
+    { type:"siram", q:["Siram jika betul, cabut jika salah!","سيرم جک بتول، چابوت جک ساله!"],
+      items:[[["Baqa' ertinya kekal.","بَقَاءٌ ارتيڽ ککل."],1],[["Allah akan binasa.","الله اکن بيناس."],0],[["Binasa itu sifat makhluk.","بيناس ايت صيفت مخلوق."],1],[["Fana' ertinya kekal.","فَنَاءٌ ارتيڽ ککل."],0]],
+      e:["Syabas! Fana' ertinya binasa. Mustahil Allah binasa.","شاباس! فَنَاءٌ ارتيڽ بيناس. مستحيل الله بيناس."] },
+    { type:"rumpai", q:["Cabut rumpai! Mana yang BUKAN faedah mengenal sifat baqa'?","چابوت رومڤاي! مان يڠ بوکن فائده مڠنل صيفت بَقَاءٌ؟"],
+      items:[[["Mengakui kebesaran Allah","مڠاکوءي کبسرن الله"],1],[["Sentiasa ingat mati","سنتياس ايڠت ماتي"],1],[["Terus melakukan kebaikan","تروس ملاکوکن کباٴيقن"],1],[["Berhenti berbuat baik","برهنتي بربوات باٴيق"],0],[["Sombong dan bongkak","سومبوڠ دان بوڠکق"],0]],
+      e:["Bersih! Ingat mati dan teruskan berbuat baik.","برسيه! ايڠت ماتي دان تروسکن بربوات باٴيق."] }
+  ]
+},
+{ id:3, icon:"🌈", c:"#7A5BD6", sticker:"🍅", crop:"🍅🍅🍅",
+  t:["Mukhalafatuhu ta'ala lil-hawadith","مُخَالَفَتُهُ تَعَالَى لِلْحَوَادِثِ"], u:["Lawannya mumathalatuhu • ms. 11–14","لاونڽ مُمَاثَلَتُهُ • م.س. ١١–١٤"],
+  read:[
+    { pic:"🌈", h:["Sifat wajib dan mustahil","صيفت واجب دان مستحيل"],
+      vs:[[["Sifat wajib: mukhalafatuhu ta'ala lil-hawadith","صيفت واجب: مُخَالَفَتُهُ تَعَالَى لِلْحَوَادِثِ"],["Allah berlainan dengan segala yang baharu (makhluk)","الله برلاٴينن دڠن سڬالا يڠ بهارو (مخلوق)"]],
+          [["Sifat mustahil: mumathalatuhu ta'ala lil-hawadith","صيفت مستحيل: مُمَاثَلَتُهُ تَعَالَى لِلْحَوَادِثِ"],["Allah bersamaan dengan segala yang baharu","الله برسامأن دڠن سڬالا يڠ بهارو"]]], p:"11" },
+    { pic:"📜", h:["Baca dan faham","باچ دان فهم"], list:[
+      ["Mukhalafatuhu ta'ala lil-hawadith ialah sifat Allah.","مُخَالَفَتُهُ تَعَالَى لِلْحَوَادِثِ اياله صيفت الله."],
+      ["Ertinya berlainan dengan yang baharu.","ارتيڽ برلاٴينن دڠن يڠ بهارو."],
+      ["Maknanya zat, sifat dan perbuatan Allah tidak menyamai sekalian yang baharu.","معناڽ ذات، صيفت دان ڤربواتن الله تيدق مڽاماٴي سکالين يڠ بهارو."],
+      ["Lawannya mumathalatuhu ta'ala lil-hawadith (menyamai yang baharu).","لاونڽ مُمَاثَلَتُهُ تَعَالَى لِلْحَوَادِثِ (مڽاماٴي يڠ بهارو)."],
+      ["Mustahil Allah bersamaan dengan sekalian yang baharu.","مستحيل الله برسامأن دڠن سکالين يڠ بهارو."]], p:"11–12" },
+    { pic:"📖", h:["Hukum dan dalil naqli","حکوم دان دليل نقلي"],
+      text:["Hukum mengenal Allah bersifat mukhalafatuhu ta'ala lil-hawadith adalah wajib.","حکوم مڠنل الله برصيفت مُخَالَفَتُهُ تَعَالَى لِلْحَوَادِثِ اداله واجب."],
+      ar:AR.syura11, mk:["Maksudnya: Tiada sesuatu pun yang sebanding dengan (Zat-Nya, sifat-Nya dan pentadbiran-Nya), dan Dialah yang Maha Mendengar, lagi Maha Melihat.","مقصودڽ: تياد سسواتو ڤون يڠ سبانديڠ دڠن (ذاتڽ، صيفتڽ دان ڤنتدبيرنڽ)، دان دياله يڠ مها مندڠر، لاڬي مها مليهت."],
+      src:["(Surah asy-Syura: 11)","(سورة الشورى: ١١)"], p:"12" },
+    { pic:"🧠", h:["Dalil aqli","دليل عقلي"], num:1, list:[
+      ["Jika Allah tidak berlainan dengan yang baharu, tentu Allah sama dengan makhluk.","جک الله تيدق برلاٴينن دڠن يڠ بهارو، تنتو الله سام دڠن مخلوق."],
+      ["Menyerupai makhluk ialah sifat kekurangan.","مڽروڤاٴي مخلوق اياله صيفت ککوراڠن."],
+      ["Kekurangan adalah mustahil bagi Allah.","ککوراڠن اداله مستحيل باڬي الله."]], p:"13" },
+    { pic:"🌻", h:["Faedah","فائده"], list:[
+      ["Mengakui kehebatan Allah.","مڠاکوءي کهيبتن الله."],
+      ["Mengakui kelemahan diri.","مڠاکوءي کلمهن ديري."],
+      ["Tidak menyembah selain Allah.","تيدق مڽمبه سلاٴين الله."],
+      ["Tidak menyamakan Allah dengan makhluk.","تيدق مڽاماکن الله دڠن مخلوق."]],
+      tip:["Sifat Allah tidak sama dengan sifat makhluk.","صيفت الله تيدق سام دڠن صيفت مخلوق."],
+      am:["Membaca surah al-Ikhlas, al-Falaq dan an-Nas sebelum tidur.","ممباچ سورة الإخلاص، الفلق دان الناس سبلوم تيدور."], p:"13–14" }
+  ],
+  games:[
+    { type:"petik", q:["Petik buah: apakah erti mukhalafatuhu ta'ala lil-hawadith?","ڤتيق بواه: اڤاکه ارتي مُخَالَفَتُهُ تَعَالَى لِلْحَوَادِثِ؟"],
+      a:[["Allah berlainan dengan yang baharu","الله برلاٴينن دڠن يڠ بهارو"],["Allah sama dengan makhluk","الله سام دڠن مخلوق"],["Allah ada permulaan","الله اد ڤرمولاٴن"]],
+      e:["Betul! Allah berlainan dengan segala makhluk.","بتول! الله برلاٴينن دڠن سڬالا مخلوق."] },
+    { type:"guni", q:["Isi guni: sifat wajib atau sifat mustahil?","ايسي ڬوني: صيفت واجب اتاو صيفت مستحيل؟"],
+      cats:[[["Wajib","واجب"],"✅"],[["Mustahil","مستحيل"],"🚫"]],
+      items:[[["Qidam","قِدَمٌ"],0],[["Huduth","حُدُوثٌ"],1],[["Baqa'","بَقَاءٌ"],0],[["Fana'","فَنَاءٌ"],1],[["Mukhalafatuhu ta'ala lil-hawadith","مُخَالَفَتُهُ تَعَالَى لِلْحَوَادِثِ"],0],[["Mumathalatuhu ta'ala lil-hawadith","مُمَاثَلَتُهُ تَعَالَى لِلْحَوَادِثِ"],1]],
+      e:["Hebat! Sifat wajib pasti ada pada Allah. Sifat mustahil tidak mungkin ada.","هيبت! صيفت واجب ڤستي اد ڤد الله. صيفت مستحيل تيدق موڠکين اد."] },
+    { type:"tunas", q:["Tanam benih yang betul!","تانم بنيه يڠ بتول!"],
+      text:["Tiada sesuatu pun yang ___ dengan-Nya.","تياد سسواتو ڤون يڠ ___ دڠنڽ."],
+      a:[["sebanding","سبانديڠ"],["berlainan","برلاٴينن"],["binasa","بيناس"]],
+      e:["Ya! Itulah maksud Surah asy-Syura ayat 11.","ي! ايتوله مقصود سورة الشورى ايات ١١."] },
+    { type:"siram", q:["Siram jika betul, cabut jika salah!","سيرم جک بتول، چابوت جک ساله!"],
+      items:[[["Sifat Allah tidak sama dengan sifat makhluk.","صيفت الله تيدق سام دڠن صيفت مخلوق."],1],[["Allah serupa dengan manusia.","الله سروڤ دڠن منوسيا."],0],[["Menyerupai makhluk ialah sifat kekurangan.","مڽروڤاٴي مخلوق اياله صيفت ککوراڠن."],1],[["Allah Maha Mendengar lagi Maha Melihat.","الله مها مندڠر لاڬي مها مليهت."],1],[["Kekurangan boleh ada pada Allah.","ککوراڠن بوليه اد ڤد الله."],0]],
+      e:["Bagus! Kekurangan adalah mustahil bagi Allah.","باڬوس! ککوراڠن اداله مستحيل باڬي الله."] },
+    { type:"bajak", q:["Bajak batas: susun dalil aqli ikut buku.","باجق باتس: سوسون دليل عقلي ايکوت بوکو."],
+      steps:[["Jika Allah tidak berlainan, tentu Allah sama dengan makhluk.","جک الله تيدق برلاٴينن، تنتو الله سام دڠن مخلوق."],["Menyerupai makhluk ialah sifat kekurangan.","مڽروڤاٴي مخلوق اياله صيفت ککوراڠن."],["Kekurangan adalah mustahil bagi Allah.","ککوراڠن اداله مستحيل باڬي الله."]],
+      e:["Tersusun! Maka Allah wajib berlainan dengan makhluk.","ترسوسون! مک الله واجب برلاٴينن دڠن مخلوق."] },
+    { type:"rumpai", q:["Cabut rumpai! Mana yang BUKAN faedahnya?","چابوت رومڤاي! مان يڠ بوکن فائدهڽ؟"],
+      items:[[["Mengakui kehebatan Allah","مڠاکوءي کهيبتن الله"],1],[["Mengakui kelemahan diri","مڠاکوءي کلمهن ديري"],1],[["Tidak menyembah selain Allah","تيدق مڽمبه سلاٴين الله"],1],[["Menyamakan Allah dengan makhluk","مڽاماکن الله دڠن مخلوق"],0],[["Berasa diri paling hebat","براس ديري ڤاليڠ هيبت"],0],[["Tidak menyamakan Allah dengan makhluk","تيدق مڽاماکن الله دڠن مخلوق"],1]],
+      e:["Bersih! Kita akui kehebatan Allah dan kelemahan diri.","برسيه! کيت اکوءي کهيبتن الله دان کلمهن ديري."] }
+  ]
+},
+{ id:4, icon:"💎", c:"#3B8BD0", sticker:"🥕", crop:"🥕🥕🥕",
+  t:["Qiyamuhu ta'ala binafsihi","قِيَامُهُ تَعَالَى بِنَفْسِهِ"], u:["Lawannya qiyamuhu ta'ala bighairihi • ms. 15–18","لاونڽ قِيَامُهُ تَعَالَى بِغَيْرِهِ • م.س. ١٥–١٨"],
+  read:[
+    { pic:"💎", h:["Sifat wajib dan mustahil","صيفت واجب دان مستحيل"],
+      vs:[[["Sifat wajib: qiyamuhu ta'ala binafsihi","صيفت واجب: قِيَامُهُ تَعَالَى بِنَفْسِهِ"],["Allah berdiri dengan sendiri","الله برديري دڠن سنديري"]],
+          [["Sifat mustahil: qiyamuhu ta'ala bighairihi","صيفت مستحيل: قِيَامُهُ تَعَالَى بِغَيْرِهِ"],["Allah berdiri dengan yang lain","الله برديري دڠن يڠ لاٴين"]]], p:"15" },
+    { pic:"📜", h:["Baca dan faham","باچ دان فهم"], list:[
+      ["Qiyamuhu ta'ala binafsihi ialah sifat Allah.","قِيَامُهُ تَعَالَى بِنَفْسِهِ اياله صيفت الله."],
+      ["Ertinya Allah berdiri dengan sendiri-Nya.","ارتيڽ الله برديري دڠن سنديريڽ."],
+      ["Maknanya Allah tidak berhajat kepada tempat dan tidak berhajat kepada yang menjadikan.","معناڽ الله تيدق برحاجت کڤد تمڤت دان تيدق برحاجت کڤد يڠ منجاديکن."],
+      ["Qiyamuhu ta'ala bighairihi ertinya Allah berhajat kepada tempat dan yang menjadikan.","قِيَامُهُ تَعَالَى بِغَيْرِهِ ارتيڽ الله برحاجت کڤد تمڤت دان يڠ منجاديکن."],
+      ["Mustahil Allah berhajat kepada yang lain.","مستحيل الله برحاجت کڤد يڠ لاٴين."]], p:"15–16" },
+    { pic:"📖", h:["Hukum dan dalil naqli","حکوم دان دليل نقلي"],
+      text:["Hukum mengenal Allah bersifat qiyamuhu ta'ala binafsihi adalah wajib.","حکوم مڠنل الله برصيفت قِيَامُهُ تَعَالَى بِنَفْسِهِ اداله واجب."],
+      ar:AR.muhammad38, mk:["Maksudnya: Dan (ingatlah) Allah Maha Kaya (tidak berhajat kepada sesuatu apa pun), sedang kamu semua orang-orang miskin (yang sentiasa berhajat kepada-Nya)…","مقصودڽ: دان (ايڠتله) الله مها کاي (تيدق برحاجت کڤد سسواتو اڤ ڤون)، سدڠ کامو سموا اورڠ٢ مسکين (يڠ سنتياس برحاجت کڤداڽ)…"],
+      src:["(Surah Muhammad: 38)","(سورة محمد: ٣٨)"], p:"16" },
+    { pic:"🧠", h:["Dalil aqli","دليل عقلي"], num:1, list:[
+      ["Allah berdiri dengan sendiri-Nya.","الله برديري دڠن سنديريڽ."],
+      ["Allah bukannya sifat.","الله بوکنڽ صيفت."],
+      ["Allah tidak memerlukan tempat dan yang menjadikan.","الله تيدق ممرلوکن تمڤت دان يڠ منجاديکن."],
+      ["Jika Allah memerlukan, maka Dia serupa dengan makhluk.","جک الله ممرلوکن، مک دي سروڤ دڠن مخلوق."]], p:"17" },
+    { pic:"🌻", h:["Faedah","فائده"], list:[
+      ["Mengakui kekuasaan Allah.","مڠاکوءي ککواساٴن الله."],
+      ["Mengakui kelemahan diri.","مڠاکوءي کلمهن ديري."],
+      ["Makhluk amat memerlukan pertolongan Allah.","مخلوق امت ممرلوکن ڤرتولوڠن الله."]],
+      tip:["Manusia tidak boleh hidup tanpa bertuhankan Allah.","منوسيا تيدق بوليه هيدوڤ تنڤ برتوهنکن الله."],
+      am:["Berdoa: Ya Allah, hidupkanlah aku dalam iman dan Islam.","بردعا: يا الله، هيدوڤکنله اکو دالم ايمان دان اسلام."], p:"17–18" }
+  ],
+  games:[
+    { type:"petik", q:["Petik buah: apakah erti qiyamuhu ta'ala binafsihi?","ڤتيق بواه: اڤاکه ارتي قِيَامُهُ تَعَالَى بِنَفْسِهِ؟"],
+      a:[["Allah berdiri dengan sendiri","الله برديري دڠن سنديري"],["Allah berhajat kepada tempat","الله برحاجت کڤد تمڤت"],["Allah ada permulaan","الله اد ڤرمولاٴن"]],
+      e:["Betul! Allah tidak berhajat kepada tempat dan yang menjadikan.","بتول! الله تيدق برحاجت کڤد تمڤت دان يڠ منجاديکن."] },
+    { type:"guni", q:["Isi guni: sifat Allah atau sifat makhluk?","ايسي ڬوني: صيفت الله اتاو صيفت مخلوق؟"],
+      cats:[[["Allah","الله"],"🌟"],[["Makhluk","مخلوق"],"🐑"]],
+      items:[[["Berdiri dengan sendiri","برديري دڠن سنديري"],0],[["Berhajat kepada tempat","برحاجت کڤد تمڤت"],1],[["Maha Kaya","مها کاي"],0],[["Memerlukan pertolongan Allah","ممرلوکن ڤرتولوڠن الله"],1],[["Berhajat kepada yang menjadikan","برحاجت کڤد يڠ منجاديکن"],1]],
+      e:["Tepat! Allah Maha Kaya. Makhluk sentiasa berhajat kepada Allah.","تڤت! الله مها کاي. مخلوق سنتياس برحاجت کڤد الله."] },
+    { type:"tunas", q:["Tanam benih yang betul!","تانم بنيه يڠ بتول!"],
+      text:["Allah Maha Kaya, sedang kamu semua orang-orang ___ (yang sentiasa berhajat kepada-Nya).","الله مها کاي، سدڠ کامو سموا اورڠ٢ ___ (يڠ سنتياس برحاجت کڤداڽ)."],
+      a:[["miskin","مسکين"],["kaya","کاي"],["kekal","ککل"]],
+      e:["Ya! Kita semua sentiasa berhajat kepada Allah.","ي! کيت سموا سنتياس برحاجت کڤد الله."] },
+    { type:"ternak", q:["Beri makan haiwan: padankan sifat wajib dengan lawannya.","بري ماکن حيوان: ڤادنکن صيفت واجب دڠن لاونڽ."],
+      pairs:[[["Qidam","قِدَمٌ"],["Huduth","حُدُوثٌ"]],[["Baqa'","بَقَاءٌ"],["Fana'","فَنَاءٌ"]],[["Mukhalafatuhu ta'ala lil-hawadith","مُخَالَفَتُهُ تَعَالَى لِلْحَوَادِثِ"],["Mumathalatuhu ta'ala lil-hawadith","مُمَاثَلَتُهُ تَعَالَى لِلْحَوَادِثِ"]],[["Qiyamuhu ta'ala binafsihi","قِيَامُهُ تَعَالَى بِنَفْسِهِ"],["Qiyamuhu ta'ala bighairihi","قِيَامُهُ تَعَالَى بِغَيْرِهِ"]]],
+      e:["Hebat! Setiap sifat wajib ada lawannya, iaitu sifat mustahil.","هيبت! ستياڤ صيفت واجب اد لاونڽ، ايايت صيفت مستحيل."] },
+    { type:"siram", q:["Siram jika betul, cabut jika salah!","سيرم جک بتول، چابوت جک ساله!"],
+      items:[[["Allah bukannya sifat.","الله بوکنڽ صيفت."],1],[["Allah memerlukan tempat.","الله ممرلوکن تمڤت."],0],[["Makhluk amat memerlukan pertolongan Allah.","مخلوق امت ممرلوکن ڤرتولوڠن الله."],1],[["Manusia boleh hidup tanpa Allah.","منوسيا بوليه هيدوڤ تنڤ الله."],0]],
+      e:["Syabas! Manusia tidak boleh hidup tanpa bertuhankan Allah.","شاباس! منوسيا تيدق بوليه هيدوڤ تنڤ برتوهنکن الله."] },
+    { type:"rumpai", q:["Cabut rumpai! Mana yang BUKAN faedahnya?","چابوت رومڤاي! مان يڠ بوکن فائدهڽ؟"],
+      items:[[["Mengakui kekuasaan Allah","مڠاکوءي ککواساٴن الله"],1],[["Mengakui kelemahan diri","مڠاکوءي کلمهن ديري"],1],[["Makhluk memerlukan pertolongan Allah","مخلوق ممرلوکن ڤرتولوڠن الله"],1],[["Tidak mahu berdoa","تيدق ماهو بردعا"],0],[["Berasa tidak perlukan Allah","براس تيدق ڤرلوکن الله"],0]],
+      e:["Bersih! Kita lemah dan sentiasa memerlukan Allah.","برسيه! کيت لمه دان سنتياس ممرلوکن الله."] }
+  ]
+},
+{ id:5, icon:"☝️", c:"#D2495F", sticker:"🍎", crop:"🍎🍎🍎",
+  t:["Wahdaniyyah","وَحْدَانِيَّةٌ"], u:["Lawannya ta'addud • ms. 19–22","لاونڽ تَعَدُّدٌ • م.س. ١٩–٢٢"],
+  read:[
+    { pic:"☝️", h:["Sifat wajib dan mustahil","صيفت واجب دان مستحيل"],
+      vs:[[["Sifat wajib","صيفت واجب"],["Wahdaniyyah: esa","وَحْدَانِيَّةٌ: اس"]],[["Sifat mustahil","صيفت مستحيل"],["Ta'addud: berbilang-bilang (lebih daripada satu)","تَعَدُّدٌ: بربيلڠ٢ (لبيه درڤد ساتو)"]]], p:"20" },
+    { pic:"📜", h:["Baca dan faham","باچ دان فهم"], list:[
+      ["Wahdaniyyah ialah sifat Allah.","وَحْدَانِيَّةٌ اياله صيفت الله."],
+      ["Wahdaniyyah ertinya esa.","وَحْدَانِيَّةٌ ارتيڽ اس."],
+      ["Maknanya tiada berbilang-bilang bagi zat, sifat dan perbuatan Allah.","معناڽ تياد بربيلڠ٢ باڬي ذات، صيفت دان ڤربواتن الله."],
+      ["Wahdaniyyah lawannya ta'addud.","وَحْدَانِيَّةٌ لاونڽ تَعَدُّدٌ."],
+      ["Ta'addud ertinya Allah berbilang-bilang (lebih daripada satu).","تَعَدُّدٌ ارتيڽ الله بربيلڠ٢ (لبيه درڤد ساتو)."],
+      ["Mustahil Allah bersifat berbilang-bilang.","مستحيل الله برصيفت بربيلڠ٢."]], p:"20" },
+    { pic:"📖", h:["Hukum dan dalil naqli","حکوم دان دليل نقلي"],
+      text:["Hukum mengenal Allah bersifat wahdaniyyah adalah wajib.","حکوم مڠنل الله برصيفت وَحْدَانِيَّةٌ اداله واجب."],
+      ar:AR.ikhlas, mk:["Maksudnya: Katakanlah (wahai Muhammad): \"(Tuhanku) ialah Allah yang Maha Esa. Allah yang menjadi tumpuan sekalian makhluk untuk memohon sebarang hajat. Ia tiada beranak, dan Ia pula tidak diperanakkan. Dan tidak ada sesiapa pun yang serupa dengan-Nya.\"","مقصودڽ: کاتاکنله (واهاي محمد): \"(توهنکو) اياله الله يڠ مها اس. الله يڠ منجادي تومڤوان سکالين مخلوق اونتوق مموهون سبارڠ حاجت. اي تياد براناق، دان اي ڤولا تيدق دڤراناقکن. دان تيدق اد سسياڤ ڤون يڠ سروڤ دڠنڽ.\""],
+      src:["(Surah al-Ikhlas: 1–4)","(سورة الإخلاص: ١–٤)"], p:"20–21" },
+    { pic:"🧠", h:["Dalil aqli dan faedah","دليل عقلي دان فائده"], num:1, list:[
+      ["Allah bersifat esa atau tunggal.","الله برصيفت اس اتاو توڠڬل."],
+      ["Mustahil Allah bersifat berbilang-bilang.","مستحيل الله برصيفت بربيلڠ٢."],
+      ["Jika langit dan bumi ditadbir oleh dua tuhan atau lebih, sudah tentulah rosak binasa alam ini.","جک لاڠيت دان بومي دتدبير اوليه دوا توهن اتاو لبيه، سوده تنتوله روسق بيناس عالم اين."]],
+      tip:["Faedahnya: tidak menyembah selain Allah, iman bertambah kukuh dan taat perintah Allah.","فائدهڽ: تيدق مڽمبه سلاٴين الله، ايمان برتمبه کوکوه دان طاعة ڤرينته الله."], p:"21" },
+    { pic:"🙏", h:["Tahukah anda?","تاهوکه اندا؟"], list:[
+      ["Allah itu esa pada zat, sifat dan perbuatan.","الله ايت اس ڤد ذات، صيفت دان ڤربواتن."],
+      ["Zat Allah tidak serupa dengan makhluk.","ذات الله تيدق سروڤ دڠن مخلوق."],
+      ["Keesaan Allah menunjukkan Allah itu Maha Berkuasa.","کاٴيساٴن الله منونجوقکن الله ايت مها برکواس."]],
+      am:["Berdoa dan berserah hanya kepada Allah ketika senang atau susah.","بردعا دان برسره هاڽ کڤد الله کتيک سنڠ اتاو سوسه."], p:"22" }
+  ],
+  games:[
+    { type:"petik", q:["Petik buah: apakah erti wahdaniyyah?","ڤتيق بواه: اڤاکه ارتي وَحْدَانِيَّةٌ؟"],
+      a:[["Esa","اس"],["Berbilang-bilang","بربيلڠ٢"],["Baharu","بهارو"]],
+      e:["Betul! Allah Maha Esa, tiada dua dan tiada tiga.","بتول! الله مها اس، تياد دوا دان تياد تيڬ."] },
+    { type:"bajak", q:["Bajak batas: susun maksud Surah al-Ikhlas.","باجق باتس: سوسون مقصود سورة الإخلاص."],
+      steps:[["Katakanlah: Allah yang Maha Esa.","کاتاکنله: الله يڠ مها اس."],["Allah tumpuan sekalian makhluk memohon hajat.","الله تومڤوان سکالين مخلوق مموهون حاجت."],["Ia tiada beranak dan tidak diperanakkan.","اي تياد براناق دان تيدق دڤراناقکن."],["Tiada sesiapa pun yang serupa dengan-Nya.","تياد سسياڤ ڤون يڠ سروڤ دڠنڽ."]],
+      e:["MasyaAllah! Surah al-Ikhlas ialah dalil sifat wahdaniyyah.","ماشاءالله! سورة الإخلاص اياله دليل صيفت وَحْدَانِيَّةٌ."] },
+    { type:"tunas", q:["Tanam benih yang betul!","تانم بنيه يڠ بتول!"],
+      text:["Jika langit dan bumi ditadbir oleh dua tuhan, sudah tentulah ___ alam ini.","جک لاڠيت دان بومي دتدبير اوليه دوا توهن، سوده تنتوله ___ عالم اين."],
+      a:[["rosak binasa","روسق بيناس"],["bertambah cantik","برتمبه چنتيق"],["kekal","ککل"]],
+      e:["Ya! Alam ini teratur kerana Allah itu esa.","ي! عالم اين تراتور کران الله ايت اس."] },
+    { type:"ternak", q:["Beri makan haiwan: padankan sifat dengan ertinya.","بري ماکن حيوان: ڤادنکن صيفت دڠن ارتيڽ."],
+      pairs:[[["Wahdaniyyah","وَحْدَانِيَّةٌ"],["Esa","اس"]],[["Ta'addud","تَعَدُّدٌ"],["Berbilang-bilang","بربيلڠ٢"]],[["Qiyamuhu ta'ala binafsihi","قِيَامُهُ تَعَالَى بِنَفْسِهِ"],["Berdiri dengan sendiri","برديري دڠن سنديري"]],[["Mukhalafatuhu ta'ala lil-hawadith","مُخَالَفَتُهُ تَعَالَى لِلْحَوَادِثِ"],["Berlainan dengan yang baharu","برلاٴينن دڠن يڠ بهارو"]]],
+      e:["Kenyang semuanya! Kamu kenal sifat-sifat Allah.","کڽڠ سمواڽ! کامو کنل صيفت٢ الله."] },
+    { type:"siram", q:["Siram jika betul, cabut jika salah!","سيرم جک بتول، چابوت جک ساله!"],
+      items:[[["Allah esa pada zat, sifat dan perbuatan.","الله اس ڤد ذات، صيفت دان ڤربواتن."],1],[["Ada dua tuhan yang mentadbir alam.","اد دوا توهن يڠ منتدبير عالم."],0],[["Allah tiada beranak dan tidak diperanakkan.","الله تياد براناق دان تيدق دڤراناقکن."],1],[["Ta'addud ialah sifat wajib bagi Allah.","تَعَدُّدٌ اياله صيفت واجب باڬي الله."],0]],
+      e:["Syabas! Ta'addud ialah sifat mustahil bagi Allah.","شاباس! تَعَدُّدٌ اياله صيفت مستحيل باڬي الله."] },
+    { type:"rumpai", q:["Cabut rumpai! Mana yang BUKAN faedah mengenal sifat wahdaniyyah?","چابوت رومڤاي! مان يڠ بوکن فائده مڠنل صيفت وَحْدَانِيَّةٌ؟"],
+      items:[[["Tidak menyembah selain Allah","تيدق مڽمبه سلاٴين الله"],1],[["Iman bertambah kukuh","ايمان برتمبه کوکوه"],1],[["Taat perintah Allah","طاعة ڤرينته الله"],1],[["Menyembah berhala","مڽمبه برهالا"],0],[["Percaya ada banyak tuhan","ڤرچاي اد باڽق توهن"],0]],
+      e:["Bersih! Kita sembah Allah sahaja, Tuhan Yang Maha Esa.","برسيه! کيت سمبه الله سهاج، توهن يڠ مها اس."] }
+  ]
+},
+{ id:6, icon:"✨", c:"#E2A814", sticker:"🥛", crop:"🥛🥛🥛",
+  t:["Beriman kepada malaikat","برايمان کڤد ملائکة"], u:["Pengertian, hukum, dalil, sifat • ms. 23–32","ڤڠرتين، حکوم، دليل، صيفت • م.س. ٢٣–٣٢"],
+  read:[
+    { pic:"✨", h:["Pengertian beriman kepada malaikat","ڤڠرتين برايمان کڤد ملائکة"], list:[
+      ["Percaya dan yakin bahawa malaikat ialah makhluk Allah yang dicipta daripada cahaya.","ڤرچاي دان يقين بهاوا ملائکة اياله مخلوق الله يڠ دچيڤتا درڤد چهاي."],
+      ["Malaikat tidak makan dan minum, tidak tidur, tidak berjantina dan tidak bernafsu.","ملائکة تيدق ماکن دان مينوم، تيدق تيدور، تيدق برجنتينا دان تيدق برنفسو."],
+      ["Malaikat tidak boleh dilihat oleh pancaindera.","ملائکة تيدق بوليه دليهت اوليه ڤنچاينديرا."],
+      ["Malaikat taat dan patuh kepada perintah Allah.","ملائکة طاعة دان ڤاتوه کڤد ڤرينته الله."],
+      ["Malaikat dicipta dengan tugas-tugas tertentu.","ملائکة دچيڤتا دڠن توڬس٢ ترتنتو."]], p:"25" },
+    { pic:"⚖️", h:["Wajib beriman kepada malaikat","واجب برايمان کڤد ملائکة"], list:[
+      ["Kufur hukumnya sesiapa yang tidak percaya.","کفور حکومڽ سسياڤ يڠ تيدق ڤرچاي."],
+      ["Percaya kepada malaikat ialah rukun iman yang kedua.","ڤرچاي کڤد ملائکة اياله روکون ايمان يڠ کدوا."],
+      ["Bilangan malaikat sangat banyak.","بيلڠن ملائکة ساڠت باڽق."]], p:"24–25" },
+    { pic:"📖", h:["Dalil naqli","دليل نقلي"],
+      ar:AR.baqarah285, mk:["Maksudnya: … Semuanya beriman kepada Allah, dan malaikat-malaikat-Nya, dan kitab-kitab-Nya, dan rasul-rasul-Nya …","مقصودڽ: … سمواڽ برايمان کڤد الله، دان ملائکة٢ڽ، دان کتاب٢ڽ، دان رسول٢ڽ …"],
+      src:["(Surah al-Baqarah: 285)","(سورة البقرة: ٢٨٥)"], p:"26" },
+    { pic:"🕊️", h:["Sifat malaikat","صيفت ملائکة"], list:[
+      ["Sangat patuh dan taat kepada Allah.","ساڠت ڤاتوه دان طاعة کڤد الله."],
+      ["Bukan lelaki dan bukan perempuan.","بوکن للاکي دان بوکن ڤرمڤوان."],
+      ["Tidak bersuami dan tidak beristeri.","تيدق برسوامي دان تيدق برايستري."],
+      ["Dijadikan daripada cahaya.","دجاديکن درڤد چهاي."],
+      ["Tidak tidur, tidak makan dan tidak minum.","تيدق تيدور، تيدق ماکن دان تيدق مينوم."],
+      ["Boleh menyerupai bermacam-macam rupa yang baik dengan izin Allah.","بوليه مڽروڤاٴي برماچم-ماچم روڤ يڠ باٴيق دڠن اذين الله."]], p:"31" },
+    { pic:"🏝️", h:["Mari berpantun","ماري برڤنتون"], list:[
+      ["Allah Maha Pengasih Maha Penyayang,","الله مها ڤڠاسيه مها ڤڽايڠ،"],
+      ["Malaikat dicipta tidak terbilang,","ملائکة دچيڤتا تيدق تربيلڠ،"],
+      ["Menjalankan tugas bukan kepalang,","منجالنکن توڬس بوکن کڤالڠ،"],
+      ["Patuh dan taat malam dan siang.","ڤاتوه دان طاعة مالم دان سياڠ."]],
+      tip:["Malaikat sentiasa mentaati perintah Allah. Malaikat Hafazah sentiasa menjaga manusia.","ملائکة سنتياس منطاعتي ڤرينته الله. ملائکة حفظة سنتياس منجاڬ منوسيا."],
+      am:["Rajin membantu ibu bapa di rumah.","راجين ممبنتو ايبو باڤ د رومه."], p:"28, 32" }
+  ],
+  games:[
+    { type:"petik", q:["Petik buah: malaikat dicipta daripada apa?","ڤتيق بواه: ملائکة دچيڤتا درڤد اڤ؟"],
+      a:[["Cahaya","چهاي"],["Tanah","تانه"],["Air","اءير"]],
+      e:["Betul! Malaikat dicipta daripada cahaya.","بتول! ملائکة دچيڤتا درڤد چهاي."] },
+    { type:"guni", q:["Isi guni: sifat malaikat atau bukan?","ايسي ڬوني: صيفت ملائکة اتاو بوکن؟"],
+      cats:[[["Sifat malaikat","صيفت ملائکة"],"✨"],[["Bukan sifat malaikat","بوکن صيفت ملائکة"],"❌"]],
+      items:[[["Tidak tidur","تيدق تيدور"],0],[["Makan dan minum","ماکن دان مينوم"],1],[["Taat dan patuh kepada Allah","طاعة دان ڤاتوه کڤد الله"],0],[["Ada lelaki dan perempuan","اد للاکي دان ڤرمڤوان"],1],[["Dijadikan daripada cahaya","دجاديکن درڤد چهاي"],0],[["Melanggar perintah Allah","ملڠڬر ڤرينته الله"],1]],
+      e:["Hebat! Malaikat sangat taat, tidak makan, tidak minum dan tidak tidur.","هيبت! ملائکة ساڠت طاعة، تيدق ماکن، تيدق مينوم دان تيدق تيدور."] },
+    { type:"tunas", q:["Tanam benih yang betul!","تانم بنيه يڠ بتول!"],
+      text:["Percaya kepada malaikat ialah rukun iman yang ___.","ڤرچاي کڤد ملائکة اياله روکون ايمان يڠ ___."],
+      a:[["kedua","کدوا"],["pertama","ڤرتام"],["keenam","کأنم"]],
+      e:["Ya! Beriman kepada malaikat ialah rukun iman yang kedua.","ي! برايمان کڤد ملائکة اياله روکون ايمان يڠ کدوا."] },
+    { type:"siram", q:["Siram jika betul, cabut jika salah!","سيرم جک بتول، چابوت جک ساله!"],
+      items:[[["Hukum tidak percaya kepada malaikat ialah kufur.","حکوم تيدق ڤرچاي کڤد ملائکة اياله کفور."],1],[["Malaikat boleh dilihat oleh pancaindera kita.","ملائکة بوليه دليهت اوليه ڤنچاينديرا کيت."],0],[["Malaikat Hafazah menjaga manusia.","ملائکة حفظة منجاڬ منوسيا."],1],[["Malaikat tidur pada waktu malam.","ملائکة تيدور ڤد وقتو مالم."],0],[["Bilangan malaikat sangat banyak.","بيلڠن ملائکة ساڠت باڽق."],1]],
+      e:["Bagus! Malaikat tidak dapat dilihat dan tidak tidur.","باڬوس! ملائکة تيدق داڤت دليهت دان تيدق تيدور."] },
+    { type:"bajak", q:["Bajak batas: susun pantun ikut buku.","باجق باتس: سوسون ڤنتون ايکوت بوکو."],
+      steps:[["Allah Maha Pengasih Maha Penyayang,","الله مها ڤڠاسيه مها ڤڽايڠ،"],["Malaikat dicipta tidak terbilang,","ملائکة دچيڤتا تيدق تربيلڠ،"],["Menjalankan tugas bukan kepalang,","منجالنکن توڬس بوکن کڤالڠ،"],["Patuh dan taat malam dan siang.","ڤاتوه دان طاعة مالم دان سياڠ."]],
+      e:["Cantik! Malaikat patuh dan taat malam dan siang.","چنتيق! ملائکة ڤاتوه دان طاعة مالم دان سياڠ."] },
+    { type:"petik", q:["Petik buah: berapakah bilangan malaikat?","ڤتيق بواه: براڤاکه بيلڠن ملائکة؟"],
+      a:[["Sangat banyak","ساڠت باڽق"],["Sepuluh sahaja","سڤولوه سهاج"],["Dua sahaja","دوا سهاج"]],
+      e:["Betul! Malaikat sangat banyak. Kita wajib tahu sepuluh nama.","بتول! ملائکة ساڠت باڽق. کيت واجب تاهو سڤولوه نام."] }
+  ]
+},
+{ id:7, icon:"📋", c:"#3E9CC4", sticker:"🍯", crop:"🍯🍯🍯",
+  t:["Nama dan tugas malaikat","نام دان توڬس ملائکة"], u:["Sepuluh malaikat • ms. 24, 27–30","سڤولوه ملائکة • م.س. ٢٤، ٢٧–٣٠"],
+  read:[
+    { pic:"🔟", h:["Sepuluh nama malaikat yang wajib diketahui","سڤولوه نام ملائکة يڠ واجب دکتاهوءي"], num:1, list:[
+      ["Jibril","جبريل"],["Mikail","ميکائيل"],["Izrail","عزرائيل"],["Israfil","اسرافيل"],["Munkar","منکر"],
+      ["Nakir","نکير"],["Malik","مالک"],["Ridwan","رضوان"],["Raqib","رقيب"],["Atid","عتيد"]], p:"24" },
+    { pic:"📋", h:["Nama dan tugas (1)","نام دان توڬس (١)"], list:[
+      ["Jibril: menyampaikan wahyu","جبريل: مڽمڤاٴيکن وحي"],
+      ["Mikail: membawa rezeki","ميکائيل: ممباوا رزقي"],
+      ["Izrail: mencabut (mengambil) nyawa sekalian makhluk","عزرائيل: منچابوت (مڠمبيل) ڽاوا سکالين مخلوق"],
+      ["Israfil: meniup sangkakala","اسرافيل: منيوڤ سڠکاکالا"],
+      ["Munkar dan Nakir: menyoal mayat dalam kubur","منکر دان نکير: مڽوٴال ميت دالم قبور"]], p:"30" },
+    { pic:"📒", h:["Nama dan tugas (2)","نام دان توڬس (٢)"], list:[
+      ["Malik: menjaga neraka","مالک: منجاڬ نراک"],
+      ["Ridwan: menjaga syurga","رضوان: منجاڬ شرڬ"],
+      ["Raqib: mencatat segala amalan baik","رقيب: منچاتت سڬالا عملن باٴيق"],
+      ["Atid: mencatat segala amalan buruk","عتيد: منچاتت سڬالا عملن بوروق"]],
+      tip:["Malaikat Hafazah ialah malaikat yang sentiasa menjaga manusia.","ملائکة حفظة اياله ملائکة يڠ سنتياس منجاڬ منوسيا."], p:"28, 30" },
+    { pic:"🎵", h:["Syair Sepuluh Malaikat","شعير سڤولوه ملائکة"], list:[
+      ["Mari menghafaz sepuluh malaikat,","ماري مڠحفظ سڤولوه ملائکة،"],
+      ["Asal ciptaannya daripada cahaya,","اصل چيڤتاٴنڽ درڤد چهايا،"],
+      ["Pembawa wahyu Jibril namanya,","ڤمباوا وحي جبريل نامڽ،"],
+      ["Mikail pula penurun rezeki.","ميکائيل ڤولا ڤنورون رزقي."]],
+      am:["Membaca doa \"Rabbana atina fid-dunya hasanah…\" selepas solat.","ممباچ دعا \"رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً…\" سلڤس صلاة."], p:"27–28" }
+  ],
+  games:[
+    { type:"ternak", q:["Beri makan haiwan: padankan malaikat dengan tugasnya.","بري ماکن حيوان: ڤادنکن ملائکة دڠن توڬسڽ."],
+      pairs:[[["Jibril","جبريل"],["Menyampaikan wahyu","مڽمڤاٴيکن وحي"]],[["Mikail","ميکائيل"],["Membawa rezeki","ممباوا رزقي"]],[["Izrail","عزرائيل"],["Mencabut nyawa","منچابوت ڽاوا"]],[["Israfil","اسرافيل"],["Meniup sangkakala","منيوڤ سڠکاکالا"]]],
+      e:["Hebat! Empat malaikat, empat tugas.","هيبت! امڤت ملائکة، امڤت توڬس."] },
+    { type:"petik", q:["Petik buah: siapakah yang menyoal mayat dalam kubur?","ڤتيق بواه: سياڤاکه يڠ مڽوٴال ميت دالم قبور؟"],
+      a:[["Munkar dan Nakir","منکر دان نکير"],["Raqib dan Atid","رقيب دان عتيد"],["Malik dan Ridwan","مالک دان رضوان"]],
+      e:["Betul! Munkar dan Nakir menyoal mayat dalam kubur.","بتول! منکر دان نکير مڽوٴال ميت دالم قبور."] },
+    { type:"ternak", q:["Beri makan haiwan: padankan malaikat dengan tugasnya.","بري ماکن حيوان: ڤادنکن ملائکة دڠن توڬسڽ."],
+      pairs:[[["Malik","مالک"],["Menjaga neraka","منجاڬ نراک"]],[["Ridwan","رضوان"],["Menjaga syurga","منجاڬ شرڬ"]],[["Raqib","رقيب"],["Mencatat amalan baik","منچاتت عملن باٴيق"]],[["Atid","عتيد"],["Mencatat amalan buruk","منچاتت عملن بوروق"]]],
+      e:["Syabas! Kamu kenal sepuluh malaikat sekarang.","شاباس! کامو کنل سڤولوه ملائکة سکارڠ."] },
+    { type:"guni", q:["Isi guni: Raqib atau Atid yang mencatatnya?","ايسي ڬوني: رقيب اتاو عتيد يڠ منچاتتڽ؟"],
+      cats:[[["Raqib (baik)","رقيب (باٴيق)"],"😇"],[["Atid (buruk)","عتيد (بوروق)"],"📕"]],
+      items:[[["Membantu ibu","ممبنتو ايبو"],0],[["Menipu kawan","منيڤو کاون"],1],[["Bersedekah","برصدقه"],0],[["Berzikir","برذکير"],0],[["Mengejek orang","مڠجيق اورڠ"],1],[["Membuang sampah merata-rata","ممبواڠ سمڤه مرات٢"],1]],
+      e:["Tepat! Raqib mencatat amalan baik, Atid mencatat amalan buruk.","تڤت! رقيب منچاتت عملن باٴيق، عتيد منچاتت عملن بوروق."] },
+    { type:"tunas", q:["Tanam benih yang betul!","تانم بنيه يڠ بتول!"],
+      text:["Malaikat ___ meniup sangkakala.","ملائکة ___ منيوڤ سڠکاکالا."],
+      a:[["Israfil","اسرافيل"],["Izrail","عزرائيل"],["Mikail","ميکائيل"]],
+      e:["Ya! Israfil meniup sangkakala, tanda kiamat.","ي! اسرافيل منيوڤ سڠکاکالا، تندا قيامة."] },
+    { type:"bajak", q:["Bajak batas: susun syair ikut buku.","باجق باتس: سوسون شعير ايکوت بوکو."],
+      steps:[["Pembawa wahyu Jibril namanya,","ڤمباوا وحي جبريل نامڽ،"],["Mikail pula penurun rezeki,","ميکائيل ڤولا ڤنورون رزقي،"],["Bersama kita ucap Alhamdulillah,","برسام کيت اوچڤ الحمد لله،"],["Tanda bersyukur nikmat dan anugerah.","تندا برشکور نعمة دان انوڬره."]],
+      e:["Merdu! Bersyukurlah atas rezeki daripada Allah.","مردو! برشکورله اتس رزقي درڤد الله."] }
+  ]
+},
+{ id:8, icon:"📖", c:"#2E8B57", sticker:"🍉", crop:"🍉🍉🍉",
+  t:["Beriman kepada kitab","برايمان کڤد کتاب"], u:["Kitab dan suhuf • ms. 33–39","کتاب دان صحف • م.س. ٣٣–٣٩"],
+  read:[
+    { pic:"📗", h:["Pengertian beriman kepada kitab","ڤڠرتين برايمان کڤد کتاب"], list:[
+      ["Allah telah menurunkan kitab,","الله تله منورونکن کتاب،"],
+      ["diturunkan kepada nabi dan rasul,","دتورونکن کڤد نبي دان رسول،"],
+      ["menjadi panduan hidup.","منجادي ڤندوان هيدوڤ."]],
+      text:["Wajib beriman kepada semua kitab yang diturunkan. Wajib mengamalkan isi kandungan al-Quran dengan ikhlas.","واجب برايمان کڤد سموا کتاب يڠ دتورونکن. واجب مڠعملکن ايسي کندوڠن القرءان دڠن اخلاص."], p:"34" },
+    { pic:"📖", h:["Dalil naqli","دليل نقلي"],
+      ar:AR.nisa136, mk:["Maksudnya: Wahai orang-orang yang beriman, tetapkanlah iman kamu kepada Allah dan Rasul-Nya, dan kepada Kitab al-Quran yang telah diturunkan kepada Rasul-Nya (Muhammad), dan juga kepada kitab-kitab suci yang telah diturunkan dahulu…","مقصودڽ: واهاي اورڠ٢ يڠ برايمان، تتڤکنله ايمان کامو کڤد الله دان رسولڽ، دان کڤد کتاب القرءان يڠ تله دتورونکن کڤد رسولڽ (محمد)، دان جوڬ کڤد کتاب٢ سوچي يڠ تله دتورونکن دهولو…"],
+      src:["(Surah an-Nisa': 136)","(سورة النساء: ١٣٦)"], p:"35" },
+    { pic:"📚", h:["Empat kitab dan penerimanya","امڤت کتاب دان ڤنريماڽ"], num:1, list:[
+      ["Al-Quran: Nabi Muhammad ﷺ","القرءان: نبي محمد ﷺ"],
+      ["Injil: Nabi Isa a.s.","الإنجيل: نبي عيسى عليه السلام"],
+      ["Zabur: Nabi Daud a.s.","الزبور: نبي داود عليه السلام"],
+      ["Taurat: Nabi Musa a.s.","التوراة: نبي موسى عليه السلام"]],
+      am:["Melaksanakan segala perintah Allah dan menjauhi segala yang dilarang.","ملقساناکن سڬالا ڤرينته الله دان منجاٴوهي سڬالا يڠ دلارڠ."], p:"36–37" },
+    { pic:"🗣️", h:["Bahasa kitab","بهاس کتاب"], list:[
+      ["Al-Quran diturunkan dalam bahasa Arab.","القرءان دتورونکن دالم بهاس عرب."],
+      ["Injil diturunkan dalam bahasa Suryani.","الإنجيل دتورونکن دالم بهاس سرياني."],
+      ["Zabur diturunkan dalam bahasa Qibti.","الزبور دتورونکن دالم بهاس قبطي."],
+      ["Taurat diturunkan dalam bahasa Ibrani.","التوراة دتورونکن دالم بهاس عبراني."]],
+      tip:["Kitab yang diturunkan oleh Allah adalah sebagai panduan hidup.","کتاب يڠ دتورونکن اوليه الله اداله سباڬاي ڤندوان هيدوڤ."], p:"38–39" },
+    { pic:"📜", h:["Suhuf","صحف"], list:[
+      ["Nabi Adam: 10 suhuf","نبي ادم: ١٠ صحف"],
+      ["Nabi Idris: 30 suhuf","نبي إدريس: ٣٠ صحف"],
+      ["Nabi Syith: 50 suhuf","نبي شيث: ٥٠ صحف"],
+      ["Nabi Ibrahim: 10 suhuf","نبي إبراهيم: ١٠ صحف"],
+      ["Nabi Musa: 10 suhuf","نبي موسى: ١٠ صحف"]],
+      text:["Suhuf dari segi bahasa ialah lembaran. Dari segi istilah ialah wahyu yang diturunkan kepada nabi dan rasul untuk panduan umat.","صحف دري سڬي بهاس اياله لمبرن. دري سڬي ايستيله اياله وحي يڠ دتورونکن کڤد نبي دان رسول اونتوق ڤندوان أمة."],
+      am:["Membaca al-Quran setiap hari.","ممباچ القرءان ستياڤ هاري."], p:"39" }
+  ],
+  games:[
+    { type:"ternak", q:["Beri makan haiwan: padankan kitab dengan nabi.","بري ماکن حيوان: ڤادنکن کتاب دڠن نبي."],
+      pairs:[[["Al-Quran","القرءان"],["Nabi Muhammad","نبي محمد"]],[["Injil","الإنجيل"],["Nabi Isa","نبي عيسى"]],[["Zabur","الزبور"],["Nabi Daud","نبي داود"]],[["Taurat","التوراة"],["Nabi Musa","نبي موسى"]]],
+      e:["Hebat! Empat kitab untuk empat rasul.","هيبت! امڤت کتاب اونتوق امڤت رسول."] },
+    { type:"ternak", q:["Beri makan haiwan: padankan kitab dengan bahasanya.","بري ماکن حيوان: ڤادنکن کتاب دڠن بهاساڽ."],
+      pairs:[[["Al-Quran","القرءان"],["Bahasa Arab","بهاس عرب"]],[["Injil","الإنجيل"],["Bahasa Suryani","بهاس سرياني"]],[["Zabur","الزبور"],["Bahasa Qibti","بهاس قبطي"]],[["Taurat","التوراة"],["Bahasa Ibrani","بهاس عبراني"]]],
+      e:["Syabas! Al-Quran diturunkan dalam bahasa Arab.","شاباس! القرءان دتورونکن دالم بهاس عرب."] },
+    { type:"petik", q:["Petik buah: berapakah suhuf yang diterima Nabi Syith?","ڤتيق بواه: براڤاکه صحف يڠ دتريما نبي شيث؟"],
+      a:[["50 suhuf","٥٠ صحف"],["30 suhuf","٣٠ صحف"],["10 suhuf","١٠ صحف"]],
+      e:["Betul! Nabi Syith menerima 50 suhuf.","بتول! نبي شيث منريما ٥٠ صحف."] },
+    { type:"guni", q:["Isi guni: nabi ini menerima kitab atau suhuf?","ايسي ڬوني: نبي اين منريما کتاب اتاو صحف؟"],
+      cats:[[["Kitab","کتاب"],"📗"],[["Suhuf","صحف"],"📜"]],
+      items:[[["Nabi Muhammad","نبي محمد"],0],[["Nabi Adam","نبي ادم"],1],[["Nabi Isa","نبي عيسى"],0],[["Nabi Idris","نبي إدريس"],1],[["Nabi Daud","نبي داود"],0],[["Nabi Ibrahim","نبي إبراهيم"],1]],
+      e:["Tepat! Nabi Musa pula menerima kedua-duanya: Taurat dan 10 suhuf.","تڤت! نبي موسى ڤولا منريما کدوا-دواڽ: التوراة دان ١٠ صحف."] },
+    { type:"tunas", q:["Tanam benih yang betul!","تانم بنيه يڠ بتول!"],
+      text:["Kitab yang diturunkan oleh Allah adalah sebagai ___ hidup.","کتاب يڠ دتورونکن اوليه الله اداله سباڬاي ___ هيدوڤ."],
+      a:[["panduan","ڤندوان"],["hiasan","هياسن"],["mainan","ماٴينن"]],
+      e:["Ya! Al-Quran ialah panduan hidup kita. Bacalah setiap hari.","ي! القرءان اياله ڤندوان هيدوڤ کيت. باچاله ستياڤ هاري."] },
+    { type:"siram", q:["Siram jika betul, cabut jika salah!","سيرم جک بتول، چابوت جک ساله!"],
+      items:[[["Al-Quran diturunkan kepada Nabi Muhammad.","القرءان دتورونکن کڤد نبي محمد."],1],[["Zabur diturunkan kepada Nabi Musa.","الزبور دتورونکن کڤد نبي موسى."],0],[["Kita wajib beriman kepada semua kitab.","کيت واجب برايمان کڤد سموا کتاب."],1],[["Suhuf dari segi bahasa ialah lembaran.","صحف دري سڬي بهاس اياله لمبرن."],1],[["Injil diturunkan dalam bahasa Arab.","الإنجيل دتورونکن دالم بهاس عرب."],0]],
+      e:["Bagus! Zabur kepada Nabi Daud, Injil dalam bahasa Suryani.","باڬوس! الزبور کڤد نبي داود، الإنجيل دالم بهاس سرياني."] }
+  ]
+}
+];
+/* Cabaran Jelapang: [stesen, indeks permainan] */
+const FINAL_PICK = [[1,0],[2,3],[3,2],[4,3],[5,1],[6,1],[7,0],[4,5],[8,0],[8,5]];
+
+/* ===================== ENJIN "Ladang Tuai Iman" (Tauhid Tahun 2) ===================== */
+const KEY = "tw2-best", YEAR = 2;
+function load(k,f){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):f; }catch(e){ return f; } }
+function save(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+let LANG = load("kafa-lang","jawi");
+const isJ = () => LANG==="jawi";
+const T = v => v==null ? "" : typeof v==="string" ? v : (isJ() ? v[1] : v[0]);
+const RU = v => v==null ? "" : typeof v==="string" ? "" : v[0];
+const L = (r,j) => isJ() ? j : r;
+function applyLang(){ document.documentElement.dir = isJ() ? "rtl" : "ltr"; document.documentElement.lang = isJ() ? "ms-Arab" : "ms"; }
+const BACK = () => isJ() ? "→" : "←";
+let best = load(KEY, {});
+let voiceOn = load("t2-voice", true);
+const app = document.getElementById("app");
+const $ = s => app.querySelector(s);
+const shuffle = a => { const b=a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; };
+const mix = a => { if(a.length<2) return a.slice(); let b; do{ b=shuffle(a); }while(b.every((x,i)=>x===a[i])); return b; };
+const starsFor = m => m<=1 ? 3 : m<=3 ? 2 : 1;
+const totalStars = () => Object.values(best).reduce((s,v)=>s+(+v||0),0);
+
+/* ---------- Maskot: Lulu, anak biri-biri bertopi jerami ---------- */
+function lulu(cls=""){
+  return `<svg class="lulu ${cls}" viewBox="0 0 120 120" aria-hidden="true">
+    <ellipse cx="60" cy="114" rx="34" ry="5" fill="rgba(0,0,0,.18)"/>
+    <path d="M42 98 v14 M54 100 v12 M68 100 v12 M80 98 v14" stroke="#3B2414" stroke-width="6" stroke-linecap="round"/>
+    <g fill="#FFFDF5" stroke="#3B2414" stroke-width="3.5">
+      <circle cx="36" cy="80" r="15"/><circle cx="84" cy="80" r="15"/><circle cx="48" cy="94" r="14"/><circle cx="72" cy="94" r="14"/>
+      <circle cx="60" cy="74" r="20"/><circle cx="44" cy="66" r="13"/><circle cx="76" cy="66" r="13"/>
+    </g>
+    <ellipse cx="60" cy="84" rx="28" ry="16" fill="#FFFDF5"/>
+    <path d="M30 50 q-16 2 -18 12 q12 4 22 -4 Z M90 50 q16 2 18 12 q-12 4 -22 -4 Z" fill="#5A3A28" stroke="#3B2414" stroke-width="3" stroke-linejoin="round"/>
+    <ellipse cx="60" cy="52" rx="24" ry="22" fill="#6B4632" stroke="#3B2414" stroke-width="3.5"/>
+    <g fill="#FFFDF5" stroke="#3B2414" stroke-width="3"><circle cx="48" cy="32" r="8"/><circle cx="60" cy="28" r="9"/><circle cx="72" cy="32" r="8"/></g>
+    <path d="M30 26 q30 -12 60 0 l-6 4 q-24 -8 -48 0 Z" fill="#F5C542" stroke="#3B2414" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M42 26 q18 -22 36 0 Z" fill="#F5C542" stroke="#3B2414" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M43 24 q17 -6 34 0" stroke="#C8442F" stroke-width="4" fill="none"/>
+    <circle cx="50" cy="50" r="7" fill="#fff" stroke="#3B2414" stroke-width="2.5"/><circle cx="70" cy="50" r="7" fill="#fff" stroke="#3B2414" stroke-width="2.5"/>
+    <circle cx="51" cy="51" r="3.6" fill="#1E120A"/><circle cx="69" cy="51" r="3.6" fill="#1E120A"/>
+    <circle cx="52.4" cy="49.6" r="1.3" fill="#fff"/><circle cx="70.4" cy="49.6" r="1.3" fill="#fff"/>
+    <ellipse cx="60" cy="62" rx="9" ry="6" fill="#8A6048"/><path d="M56 60 l4 3 l4 -3" stroke="#1E120A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M55 67 q5 4 10 0" stroke="#1E120A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <circle cx="41" cy="60" r="4" fill="#FF9EAE" opacity=".75"/><circle cx="79" cy="60" r="4" fill="#FF9EAE" opacity=".75"/>
+    <path d="M96 22 q4 -8 10 -6 q-2 8 -10 6 Z" fill="#7CC251" stroke="#3B2414" stroke-width="2"/><path d="M92 30 q2 -8 4 -8" stroke="#3B2414" stroke-width="2" fill="none"/>
+  </svg>`;
+}
+
+/* ---------- Bunyi ---------- */
+let actx = null;
+function tone(seq){
+  try{
+    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    let t = actx.currentTime;
+    for(const [f,d,type] of seq){
+      const o = actx.createOscillator(), g = actx.createGain();
+      o.type = type||"sine"; o.frequency.value = f; g.gain.setValueAtTime(.18,t); g.gain.exponentialRampToValueAtTime(.001,t+d);
+      o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t+d); t += d*.8;
+    }
+  }catch(e){}
+}
+const sfx = {
+  ok:    () => tone([[523,.12],[784,.2]]),
+  tick:  () => tone([[740,.08,"triangle"]]),
+  no:    () => tone([[220,.18,"square"],[175,.2,"square"]]),
+  plop:  () => tone([[420,.06,"sine"],[260,.12,"sine"]]),
+  water: () => tone([[900,.05,"sine"],[1200,.05,"sine"],[1500,.08,"sine"]]),
+  baa:   () => tone([[330,.1,"sawtooth"],[311,.12,"sawtooth"],[294,.16,"sawtooth"]]),
+  win:   () => tone([[523,.14],[659,.14],[784,.14],[1046,.32]])
+};
+
+/* ---------- Suara (baca teks Rumi sahaja; buang tulisan Arab & petikan doa) ---------- */
+const ttsOK = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+let voice = null;
+function pickVoice(){ try{ const vs = speechSynthesis.getVoices(); voice = vs.find(v=>/^ms/i.test(v.lang)) || vs.find(v=>/^id/i.test(v.lang)) || null; }catch(e){} }
+if(ttsOK){ pickVoice(); try{ speechSynthesis.onvoiceschanged = pickVoice; }catch(e){} }
+const cleanSpeech = s => s.replace(/"[^"]*"/g," ").replace(/[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]+/g," ").replace(/___/g," ... ").replace(/…/g," ... ").replace(/\ba\.s\./g,"alaihissalam").replace(/\s+/g," ").trim();
+function speak(text, force){
+  if(!ttsOK || !text || (!voiceOn && !force)) return;
+  try{
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(cleanSpeech(text));
+    u.lang = voice ? voice.lang : "ms-MY"; if(voice) u.voice = voice; u.rate = .92; u.pitch = 1.15;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function hush(){ if(ttsOK){ try{ speechSynthesis.cancel(); }catch(e){} } }
+
+/* ---------- Bantuan paparan ---------- */
+function toast(msg){ document.querySelectorAll(".toast").forEach(t=>t.remove()); const t=document.createElement("div"); t.className="toast"; t.setAttribute("role","status"); t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2600); }
+function confetti(n=36){
+  const box = document.createElement("div"); box.className="confetti"; box.setAttribute("aria-hidden","true");
+  const em = ["🌾","🍎","🌽","⭐","🥕","🌻"];
+  for(let i=0;i<n;i++){ const s=document.createElement("span"); s.textContent=em[i%em.length]; s.style.left=Math.random()*100+"vw"; s.style.animationDuration=(2+Math.random()*2)+"s"; s.style.animationDelay=Math.random()*.8+"s"; box.appendChild(s); }
+  document.body.appendChild(box); setTimeout(()=>box.remove(),5000);
+}
+const langBtn = () => `<button class="ib" data-act="lang" aria-label="${L("Tukar ke tulisan Jawi","توکر ک توليسن رومي")}">${isJ()?"Rumi":'<span style="font-family:Noto Naskh Arabic">جاوي</span>'}</button>`;
+const voiceBtn = () => `<button class="ib" data-act="voice" aria-label="${L("Suara","سوارا")}" aria-pressed="${voiceOn}">${voiceOn?"🔊":"🔇"}</button>`;
+const sayBtn = txt => ttsOK && txt ? `<button class="say" data-say="${encodeURIComponent(txt)}" aria-label="${L("Dengar","دڠر")}">🔊</button>` : "";
+const starRow = n => [1,2,3].map(i=>`<span class="${i<=n?"":"off"}">⭐</span>`).join("");
+const unlocked = id => id===1 || (best[id-1]||0)>0;
+const allDone = () => STATIONS.every(s => (best[s.id]||0)>0);
+
+/* ===================== PETA LADANG ===================== */
+let S = null;
+const barnSvg = lock => `<svg class="bsvg" viewBox="0 0 150 120" aria-hidden="true">
+  <path d="M8 56 L75 8 L142 56 Z" fill="${lock?"#8E7A70":"#9C2F1F"}" stroke="#3B2414" stroke-width="4" stroke-linejoin="round"/>
+  <rect x="20" y="52" width="110" height="64" fill="${lock?"#A8948A":"#C8442F"}" stroke="#3B2414" stroke-width="4"/>
+  <path d="M30 60 v52 M120 60 v52" stroke="#FFF3C4" stroke-width="4"/>
+  <circle cx="75" cy="38" r="10" fill="#FFF3C4" stroke="#3B2414" stroke-width="3"/>
+  <rect x="52" y="70" width="46" height="46" fill="#FFF3C4" stroke="#3B2414" stroke-width="4"/>
+  <path d="M52 70 L98 116 M98 70 L52 116" stroke="${lock?"#A8948A":"#C8442F"}" stroke-width="5"/>
+  <path d="M10 116 q8 -16 16 0 Z M126 116 q8 -16 16 0 Z" fill="#F5C542" stroke="#3B2414" stroke-width="3"/>
+</svg>`;
+function plot(s, cur, side){
+  const lock = !unlocked(s.id), st = best[s.id]||0;
+  const crop = st ? s.crop : lock ? "🟫" : "🌱🌱🌱";
+  return `<div class="prow ${side}"><button class="plot ${lock?"lock":""} ${cur===s.id?"now":""} ${st?"done":""}" data-act="${lock?"locked":"open"}" data-id="${s.id}" style="--c:${s.c}">
+    <span class="bed"><span class="crop" aria-hidden="true">${crop}</span><span class="badge">${s.id}</span><span class="sign" aria-hidden="true">${lock?"🔒":s.icon}</span>
+      ${cur===s.id?`<span class="tractor" aria-hidden="true">🚜</span>`:""}</span>
+    <span class="nm">${T(s.t)}</span><span class="st">${st?starRow(st):""}</span></button></div>`;
+}
+function renderMap(){
+  hush(); S = null;
+  document.title = L("Ladang Tuai Iman • Tauhid Tahun 2","لادڠ توواي ايمان • توحيد تاهون 2");
+  const cur = (STATIONS.find(s => !(best[s.id]>0)) || {id:"final"}).id;
+  const list = STATIONS.slice().reverse();
+  const rows = list.map((s,i) => plot(s, cur, (s.id%2) ? "" : "r")).join("");
+  const fOpen = allDone(), fSt = best.final||0;
+  app.innerHTML = `
+    <div class="top"><a class="ib" href="../index.html" aria-label="${L("Kembali ke Tahun 2","کمبالي ک تاهون 2")}">${BACK()}</a><span class="sp"></span>
+      <span class="pill" aria-label="${totalStars()} ${L("bintang","بينتڠ")}">⭐ ${totalStars()}</span>${voiceBtn()}${langBtn()}</div>
+    <header class="hero">${lulu("bob")}<div><h1>${L("Ladang Tuai Iman","لادڠ توواي ايمان")}</h1>
+      <p>${L("Jom bertani bersama Lulu! Belajar tauhid dan tuai hasilnya.","جوم برتاني برسام لولو! بلاجر توحيد دان توواي حاصيلڽ.")}</p></div></header>
+    <p class="sttl">🧺 ${L("Hasil tuaian saya","حاصيل توواين ساي")}</p>
+    <div class="stickers">${STATIONS.map(s=>`<span class="${best[s.id]>0?"got":""}" title="${T(s.t)}">${s.sticker}</span>`).join("")}</div>
+    <section class="farm" aria-label="${L("Peta ladang","ڤتا لادڠ")}">
+      <div class="barnrow"><button class="barn ${fOpen?"":"lock"} ${cur==="final"?"now":""}" data-act="${fOpen?"final":"flocked"}">
+        ${barnSvg(!fOpen)}${cur==="final"?lulu("bob"):""}
+        <span class="nm">${fOpen?"🏆":"🔒"} ${L("Cabaran Jelapang","چابرن جلاڤڠ")}</span><span class="st">${fSt?starRow(fSt):""}</span></button></div>
+      ${rows}
+      <div class="gate"><span>🚪 ${L("Mula di sini","مولا د سيني")}</span></div>
+      <div class="fence" aria-hidden="true"></div>
+    </section>`;
+  const now = app.querySelector(".plot.now, .barn.now");
+  if(now) setTimeout(()=>{ try{ now.scrollIntoView({block:"center", behavior:"smooth"}); }catch(e){} }, 250);
+}
+
+/* ===================== STESEN: BACA ===================== */
+function openStation(id){
+  const st = STATIONS.find(s=>s.id===id);
+  S = { st, phase:"read", ri:0, gi:0, miss:0, games: st.games.slice() };
+  renderRead();
+}
+function openFinal(){
+  const games = FINAL_PICK.map(([s,i]) => STATIONS.find(x=>x.id===s).games[i]);
+  S = { st:{ id:"final", icon:"🏆", c:"#C8442F", t:["Cabaran Jelapang","چابرن جلاڤڠ"], u:["Soalan daripada semua petak ladang","سوالن درڤد سموا ڤتق لادڠ"], sticker:"🏆" }, phase:"play", gi:0, miss:0, games };
+  renderPlay();
+}
+const head = () => `<div class="top"><button class="ib" data-act="map" aria-label="${L("Kembali ke ladang","کمبالي ک لادڠ")}">${BACK()}</button><span class="sp"></span>${voiceBtn()}${langBtn()}</div>
+  <div class="shead"><span class="bub" style="--c:${S.st.c}">${S.st.icon}</span><div><h2>${T(S.st.t)}</h2><small>${T(S.st.u)}</small></div></div>`;
+function readSpeech(c){
+  return [RU(c.h), ...(c.vs||[]).map(v=>RU(v[0])+": "+RU(v[1])), ...(c.list||[]).map(RU), RU(c.text), RU(c.mk), c.tip?("Tahukah anda? "+RU(c.tip)):"", c.am?("Amalkan: "+RU(c.am)):""].filter(Boolean).join(". ");
+}
+function renderRead(){
+  hush();
+  const c = S.st.read[S.ri], n = S.st.read.length, last = S.ri===n-1;
+  app.innerHTML = head() + `
+    <article class="card board" style="--sc:${S.st.c}">
+      <div class="rpic" aria-hidden="true">${c.pic}</div>
+      <h3 class="rh">${T(c.h)} ${sayBtn(readSpeech(c))}</h3>
+      ${c.vs?`<div class="vs">${c.vs.map((v,i)=>`<div class="${i?"m":"w"}"><b>${T(v[0])}</b>${T(v[1])}</div>`).join("")}</div>`:""}
+      ${c.list?`<ol class="rlist ${c.num?"num":""}">${c.list.map((x,i)=>`<li style="--i:${i}">${T(x)}</li>`).join("")}</ol>`:""}
+      ${c.text?`<p class="rtext">${T(c.text)}</p>`:""}
+      ${c.ar?`<div class="abox"><span class="ar" lang="ar">${c.ar}</span>${c.mk?`<span class="mk">${T(c.mk)}</span>`:""}${c.src?`<small>${T(c.src)}</small>`:""}</div>`:""}
+      ${c.tip?`<div class="tip"><b>💡</b><span><b>${L("Tahukah anda?","تاهوکه اندا؟")}</b> ${T(c.tip)}</span></div>`:""}
+      ${c.am?`<div class="tip am"><b>🌱</b><span><b>${L("Amalkan:","عملکن:")}</b> ${T(c.am)}</span></div>`:""}
+      <div class="ref">📖 ${L("Buku teks ms.","بوکو تيکس م.س.")} ${c.p}</div>
+      <div class="navr">
+        <button class="btn alt" data-act="rprev" ${S.ri?"":"disabled"} aria-label="${L("Sebelum","سبلوم")}" style="flex:0 0 64px">${BACK()}</button>
+        <button class="btn ${last?"go":""}" data-act="rnext">${last ? "🚜 "+L("Jom bertani!","جوم برتاني!") : L("Seterusnya","ستروسڽ")+" ▶"}</button>
+      </div>
+      <div class="dots">${S.st.read.map((_,i)=>`<i class="${i===S.ri?"on":""}"></i>`).join("")}</div>
+    </article>`;
+  speak(readSpeech(c));
+  window.scrollTo(0,0);
+}
+
+/* ===================== STESEN: MAIN ===================== */
+function progressBar(){
+  const n = S.games.length, k = S.gi, side = isJ() ? "right" : "left";
+  const flags = S.games.map((_,i)=>`<span class="pf" style="${side}:${(i+.5)/n*100}%">${i<k?"🌾":"🌱"}</span>`).join("");
+  const pos = Math.max(5, Math.min(95, (k+.5)/n*100));
+  return `<div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${k}"><span class="row"></span>${flags}
+    <span class="fly" style="${side}:${pos}%">🚜</span></div>`;
+}
+function renderPlay(){
+  hush();
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  const g = S.games[S.gi];
+  app.innerHTML = head() + progressBar() + `<section class="card" id="game" style="--sc:${S.st.c}"></section>`;
+  const box = $("#game");
+  box.innerHTML = `<div class="q"><p>${T(g.q)}</p>${sayBtn(RU(g.q))}</div><div id="play" data-type="${g.type}"></div><div id="hint"></div>`;
+  GAMES[g.type]($("#play"), g);
+  speak(RU(g.q));
+  window.scrollTo(0,0);
+}
+function oops(el, hint){
+  S.miss++; sfx.no();
+  if(el){ el.classList.remove("shake"); void el.offsetWidth; el.classList.add("shake"); }
+  const h = $("#hint"); if(h){ h.innerHTML = `<div class="hint">🐑 ${hint || L("Mbeek! Cuba lagi!","مبيق! چوبا لاڬي!")}</div>`; }
+}
+const clearHint = () => { const h=$("#hint"); if(h) h.innerHTML=""; };
+const PRAISE = [["Hebat!","هيبت!"],["Bagus!","باڬوس!"],["Pandai!","ڤنداي!"],["Syabas!","شاباس!"],["MasyaAllah!","ماشاءالله!"]];
+function win(){
+  if(document.querySelector(".fb")) return;
+  sfx.ok();
+  const g = S.games[S.gi], p = PRAISE[Math.floor(Math.random()*PRAISE.length)];
+  const fb = document.createElement("div"); fb.className = "fb"; fb.setAttribute("role","dialog"); fb.setAttribute("aria-live","polite");
+  fb.innerHTML = `<div class="in"><div class="row1">${lulu("yay")}<div><strong>${T(p)}</strong><p>${T(g.e)}</p></div></div>
+    <button class="btn go" data-act="next">${L("Seterusnya","ستروسڽ")} ▶</button></div>`;
+  document.body.appendChild(fb);
+  speak(RU(p)+" "+RU(g.e));
+  setTimeout(()=>{ const b = fb.querySelector("button"); if(b) b.focus(); }, 50);
+}
+function nextGame(){
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  S.gi++;
+  if(S.gi < S.games.length) renderPlay(); else renderResult();
+}
+function renderResult(){
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  const id = S.st.id, stars = starsFor(S.miss), prev = best[id]||0, wasAll = allDone();
+  if(stars > prev){ best[id] = stars; save(KEY, best); }
+  S.phase = "result";
+  S.res = { stars, first: !prev, openedFinal: id!=="final" && !wasAll && allDone() };
+  drawResult(true);
+}
+function drawResult(fresh){
+  hush();
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  const { stars, first, openedFinal } = S.res;
+  const msg = stars===3 ? ["Cemerlang! Tuaianmu melimpah ruah!","چمرلڠ! توواينمو مليمڤه روه!"] : stars===2 ? ["Bagus! Cuba lagi untuk 3 bintang.","باڬوس! چوبا لاڬي اونتوق 3 بينتڠ."] : ["Syabas kerana mencuba! Jom main lagi.","شاباس کران منچوبا! جوم ماٴين لاڬي."];
+  const title = PRAISE[stars===3?4:stars===2?0:3];
+  app.innerHTML = head() + `<section class="card res">
+      ${lulu("yay")}
+      <div class="stars" aria-label="${stars} ${L("bintang","بينتڠ")}">${[1,2,3].map(i=>`<span class="${i<=stars?"":"off"}" style="animation-delay:${i*.25}s">⭐</span>`).join("")}</div>
+      <h2>${T(title)}</h2><p>${T(msg)}</p>
+      ${first ? `<div class="gotst"><span>${S.st.sticker}</span>${L("Hasil tuaian baharu untuk kamu!","حاصيل توواين بهارو اونتوق کامو!")}</div>` : ""}
+      ${openedFinal ? `<p><b>🏆 ${L("Cabaran Jelapang kini dibuka!","چابرن جلاڤڠ کيني دبوک!")}</b></p>` : ""}
+      <button class="btn go" data-act="map">🌾 ${L("Kembali ke ladang","کمبالي ک لادڠ")}</button>
+      <button class="btn alt" style="margin-top:10px" data-act="again">🔁 ${L("Main lagi","ماٴين لاڬي")}</button>
+    </section>`;
+  if(fresh){ sfx.win(); confetti(); speak(RU(title)+" "+RU(msg)); }
+  window.scrollTo(0,0);
+}
+
+/* ===================== JENIS PERMAINAN ===================== */
+const FRUIT = ["🍎","🍊","🥭","🍐","🍋"];
+const GAMES = {
+  /* Petik: petik buah yang betul dari pokok ke dalam bakul */
+  petik(el, g){
+    const opts = mix(g.a.map((x,i)=>({x, ok:i===0}))); let done = false;
+    el.innerHTML = `<div class="tree"><div class="fruits">${opts.map((o,i)=>`<button class="fruit" data-i="${i}" data-ok="${o.ok?1:0}"><span class="em" aria-hidden="true">${FRUIT[i%FRUIT.length]}</span><span>${T(o.x)}</span></button>`).join("")}</div></div>
+      <div class="trunk" aria-hidden="true"></div><div class="basket"><span aria-hidden="true">🧺</span><span class="got" id="got">❔</span></div>`;
+    el.querySelectorAll(".fruit").forEach(b => b.addEventListener("click", () => {
+      if(done) return; const o = opts[+b.dataset.i];
+      if(o.ok){ done = true; sfx.plop(); b.classList.add("drop"); const gt = el.querySelector("#got"); gt.textContent = FRUIT[+b.dataset.i%FRUIT.length]+" "+T(o.x); clearHint(); setTimeout(win, 550); }
+      else { b.classList.add("wrong"); oops(b, L("Buah itu belum masak! Pilih yang lain.","بواه ايت بلوم ماسق! ڤيليه يڠ لاٴين.")); }
+    }));
+  },
+
+  /* Guni: masukkan setiap hasil ke dalam guni yang betul */
+  guni(el, g){
+    const items = mix(g.items); let k = 0; const cnt = g.cats.map(()=>0);
+    const draw = () => {
+      el.innerHTML = `<div class="cart" id="gitem"><span class="em" aria-hidden="true">🛒</span><span id="gtxt">${k<items.length?T(items[k][0]):"🎉"}</span></div>
+        <div class="sacks" style="--n:${g.cats.length}">${g.cats.map((c,i)=>`<button class="sack" data-c="${i}"><span class="em" aria-hidden="true">${c[1]}</span>${T(c[0])}<span class="n">${"🌾".repeat(cnt[i])||"·"}</span></button>`).join("")}</div>
+        <div class="cnt">🧺 ${Math.min(k+1,items.length)} / ${items.length}</div>`;
+      if(k<items.length) speak(RU(items[k][0]));
+      el.querySelectorAll(".sack").forEach(b => b.addEventListener("click", () => {
+        if(k>=items.length) return;
+        if(+b.dataset.c===items[k][1]){
+          sfx.tick(); clearHint(); cnt[items[k][1]]++; k++; draw();
+          if(k===items.length) setTimeout(win, 400);
+        } else oops(el.querySelector("#gitem"), L("Bukan guni itu. Cuba guni yang satu lagi!","بوکن ڬوني ايت. چوبا ڬوني يڠ ساتو لاڬي!"));
+      }));
+    };
+    draw();
+  },
+
+  /* Bajak: tanam benih pada batas mengikut urutan */
+  bajak(el, g){
+    const pool = mix(g.steps.map((t,i)=>({t, i}))); let k = 0;
+    const draw = () => {
+      el.innerHTML = `<div class="field">${g.steps.map((s,i)=>`<div class="furrow ${i<k?"on":i===k?"next":""}"><b>${i+1}</b><span>${i<k?"🌱 "+T(s):""}</span></div>`).join("")}</div>
+        <div class="seeds">${pool.map((p,n)=>`<button class="tile sd ${p.used?"used":""}" data-n="${n}" data-i="${p.i}" ${p.used?"disabled":""}>🌰 ${T(p.t)}</button>`).join("")}</div>
+        <div class="cnt">🚜 ${L(`Batas ke-${Math.min(k+1,g.steps.length)}`,`باتس ک-${Math.min(k+1,g.steps.length)}`)}</div>`;
+      el.querySelectorAll(".sd").forEach(b => b.addEventListener("click", () => {
+        if(k>=g.steps.length) return; const p = pool[+b.dataset.n]; if(p.used) return;
+        if(p.i===k){ p.used = true; k++; sfx.plop(); clearHint(); draw(); if(k===g.steps.length) setTimeout(win, 450); }
+        else oops(b, L(`Bukan itu. Apakah baris ke-${k+1}?`,`بوکن ايت. اڤاکه باريس ک-${k+1}؟`));
+      }));
+    };
+    draw();
+  },
+
+  /* Tunas: tanam benih (perkataan) dalam tempat kosong */
+  tunas(el, g){
+    const opts = mix(g.a.map((x,i)=>({x, ok:i===0}))); let done = false;
+    const parts = T(g.text).split("___");
+    el.innerHTML = `<div class="bedbox"><div class="plant" id="plant" aria-hidden="true">🟫</div>
+      <p class="sent">${parts[0]}<span class="blank" id="blank">____</span>${parts[1]||""}</p></div>
+      <div class="packets">${opts.map((o,i)=>`<button class="tile packet" data-i="${i}" data-ok="${o.ok?1:0}"><span class="em" aria-hidden="true">🌰</span><span>${T(o.x)}</span></button>`).join("")}</div>`;
+    el.querySelectorAll(".packet").forEach(b => b.addEventListener("click", () => {
+      if(done) return; const o = opts[+b.dataset.i];
+      if(o.ok){ done = true; sfx.water(); b.classList.add("right"); const bl = el.querySelector("#blank"); bl.textContent = T(o.x); bl.classList.add("fill");
+        const pl = el.querySelector("#plant"); pl.textContent = "🌱"; setTimeout(()=>{ pl.textContent = "🌻"; pl.classList.add("grow"); }, 250); clearHint(); setTimeout(win, 600); }
+      else { b.classList.add("wrong"); oops(b, L("Benih itu tidak tumbuh di sini. Cuba lagi!","بنيه ايت تيدق تومبوه د سيني. چوبا لاڬي!")); }
+    }));
+  },
+
+  /* Ternak: pilih makanan, kemudian beri kepada haiwan yang betul (padanan) */
+  ternak(el, g){
+    const AN = ["🐄","🐐","🐔","🦆","🐑"], FD = ["🌿","🥬","🌽","🥕","🍎"];
+    const pens = g.pairs.map((p,i)=>({t:p[0], i})), foods = mix(g.pairs.map((p,i)=>({t:p[1], i})));
+    let sel = null, fed = 0;
+    el.innerHTML = `<div class="barnyard"><div class="col"><h4>${L("Haiwan","حيوان")}</h4>${pens.map(p=>`<button class="tile pen" data-i="${p.i}"><span class="em" aria-hidden="true">${AN[p.i%AN.length]}</span><span>${T(p.t)}</span></button>`).join("")}</div>
+      <div class="col"><h4>${L("Makanan","ماکنن")}</h4>${foods.map(f=>`<button class="tile food" data-i="${f.i}">${FD[f.i%FD.length]} ${T(f.t)}</button>`).join("")}</div></div>
+      <div class="cnt" id="tcnt">👆 ${L("Pilih makanan, kemudian pilih haiwan.","ڤيليه ماکنن، کمودين ڤيليه حيوان.")}</div>`;
+    el.querySelectorAll(".food").forEach(b => b.addEventListener("click", () => {
+      el.querySelectorAll(".food").forEach(x=>x.classList.remove("sel")); sel = +b.dataset.i; b.classList.add("sel"); sfx.tick();
+      speak(RU(g.pairs[sel][1]));
+    }));
+    el.querySelectorAll(".pen").forEach(b => b.addEventListener("click", () => {
+      if(b.classList.contains("fed")) return;
+      if(sel===null){ toast(L("Pilih makanan dahulu 🌿","ڤيليه ماکنن دهولو 🌿")); return; }
+      const fb = el.querySelector(`.food[data-i="${sel}"]`);
+      if(+b.dataset.i===sel){
+        sfx.baa(); clearHint(); b.classList.add("fed"); fb.classList.add("fed"); fb.classList.remove("sel");
+        b.querySelector(".em").textContent += "😋"; sel = null; fed++;
+        el.querySelector("#tcnt").textContent = `🍽️ ${fed} / ${g.pairs.length}`;
+        if(fed===g.pairs.length) setTimeout(win, 450);
+      } else { oops(b, L("Haiwan itu tidak mahu makanan ini. Cuba haiwan lain!","حيوان ايت تيدق ماهو ماکنن اين. چوبا حيوان لاٴين!")); }
+    }));
+  },
+
+  /* Siram: siram pokok jika ayat betul, cabut jika salah */
+  siram(el, g){
+    const items = mix(g.items); let k = 0;
+    const STAGE = ["🌰","🌱","🌿","🪴","🌳","🌻"];
+    const draw = () => {
+      el.innerHTML = `<div class="sprout"><div class="plant" aria-hidden="true">${STAGE[Math.min(k,STAGE.length-1)]}</div>
+        <div class="stxt" id="stxt">${k<items.length?T(items[k][0]):"🎉"}</div></div>
+        <div class="cans"><button class="tile can" data-v="1"><span class="em" aria-hidden="true">💧</span>${L("Betul: siram","بتول: سيرم")}</button>
+          <button class="tile can" data-v="0"><span class="em" aria-hidden="true">✂️</span>${L("Salah: cabut","ساله: چابوت")}</button></div>
+        <div class="cnt">🌱 ${Math.min(k+1,items.length)} / ${items.length}</div>`;
+      if(k<items.length) speak(RU(items[k][0]));
+      el.querySelectorAll(".can").forEach(b => b.addEventListener("click", () => {
+        if(k>=items.length) return;
+        if(+b.dataset.v===items[k][1]){
+          b.dataset.v==="1" ? sfx.water() : sfx.plop(); clearHint(); k++; draw();
+          if(k===items.length) setTimeout(win, 400);
+        } else oops(el.querySelector("#stxt"), items[k][1] ? L("Ayat ini betul. Siramlah!","ايات اين بتول. سيرمله!") : L("Ayat ini salah. Cabutlah!","ايات اين ساله. چابوتله!"));
+      }));
+    };
+    draw();
+  },
+
+  /* Rumpai: cabut semua rumpai (ayat yang salah), tinggalkan tanaman */
+  rumpai(el, g){
+    const items = mix(g.items); const need = items.filter(x=>!x[1]).length; let k = 0;
+    el.innerHTML = `<div class="plotgrid">${items.map((it,i)=>`<button class="tile patch" data-i="${i}" data-ok="${it[1]}"><span class="em" aria-hidden="true">🌿</span><span>${T(it[0])}</span></button>`).join("")}</div>
+      <div class="cnt" id="rcnt">🪴 ${L(`Cabut ${need} rumpai!`,`چابوت ${need} رومڤاي!`)}</div>`;
+    el.querySelectorAll(".patch").forEach(b => b.addEventListener("click", () => {
+      if(k>=need || b.classList.contains("pulled")) return;
+      const it = items[+b.dataset.i];
+      if(!it[1]){
+        k++; sfx.plop(); clearHint(); b.classList.add("pulled"); b.querySelector(".em").textContent = "🥀";
+        el.querySelector("#rcnt").textContent = `🪴 ${k} / ${need}`;
+        if(k===need){ el.querySelectorAll(".patch:not(.pulled) .em").forEach(e=>e.textContent="🌾"); setTimeout(win, 500); }
+      } else { b.classList.add("wrong"); setTimeout(()=>b.classList.remove("wrong"), 700); oops(b, L("Itu tanaman yang baik, jangan dicabut!","ايت تانمن يڠ باٴيق، جاڠن دچابوت!")); }
+    }));
+  }
+};
+
+/* ===================== KAWALAN ===================== */
+document.addEventListener("click", e => {
+  const s = e.target.closest("[data-say]");
+  if(s){ speak(decodeURIComponent(s.dataset.say), true); return; }
+  const b = e.target.closest("[data-act]"); if(!b) return;
+  const a = b.dataset.act;
+  if(a==="lang"){ LANG = isJ() ? "rumi" : "jawi"; save("kafa-lang", LANG); applyLang(); redraw(); }
+  else if(a==="voice"){ voiceOn = !voiceOn; save("t2-voice", voiceOn); if(!voiceOn) hush(); redraw(); }
+  else if(a==="open"){ openStation(+b.dataset.id); }
+  else if(a==="locked"){ sfx.no(); toast(L("Tuai petak sebelumnya dahulu 🔒","توواي ڤتق سبلومڽ دهولو 🔒")); }
+  else if(a==="final"){ openFinal(); }
+  else if(a==="flocked"){ sfx.no(); toast(L(`Selesaikan semua ${STATIONS.length} petak untuk membuka Cabaran Jelapang 🏆`,`سلسايکن سموا ${STATIONS.length} ڤتق اونتوق ممبوک چابرن جلاڤڠ 🏆`)); }
+  else if(a==="map"){ document.querySelectorAll(".fb").forEach(x=>x.remove()); renderMap(); window.scrollTo(0,0); }
+  else if(a==="rprev"){ if(S.ri>0){ S.ri--; renderRead(); } }
+  else if(a==="rnext"){ if(S.ri < S.st.read.length-1){ S.ri++; renderRead(); } else { S.phase="play"; S.gi=0; S.miss=0; renderPlay(); } }
+  else if(a==="next"){ nextGame(); }
+  else if(a==="again"){ S.res = null; S.st.id==="final" ? openFinal() : (S.gi=0, S.miss=0, S.phase="play", renderPlay()); }
+});
+function redraw(){
+  if(!S) return renderMap();
+  if(S.phase==="read") return renderRead();
+  if(S.res && document.querySelector(".res")) return drawResult(false);
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  renderPlay();
+}
+applyLang();
+renderMap();
+</script>
+</body>
+</html>

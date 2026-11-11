@@ -90,6 +90,27 @@ const READY = {
     progress:{ key:"j2-best", max:27 },
     theme:{ c1:"#D7263D", c2:"#2E6FBA", a:"#F2B134", m:"🕊️", deco:"airmail" }
   },
+  "2/tauhid": {
+    path:"tauhid/index.html",
+    r:"Ladang Tuai Iman", j:"لادڠ توواي ايمان",
+    dr:"8 petak ladang, 7 jenis permainan", dj:"8 ڤتق لادڠ، 7 جنيس ڤرماٴينن",
+    progress:{ key:"tw2-best", max:27 },
+    theme:{ c1:"#C8442F", c2:"#7A4A24", a:"#F5C542", m:"🐑", deco:"ladang" }
+  },
+  "2/arab": {
+    path:"arab/index.html",
+    r:"Bas Sekolah Kalimah", j:"باس سکوله کليمة",
+    dr:"9 hentian bas, 9 jenis permainan", dj:"٩ هنتين باس، ٩ جنيس ڤرماٴينن",
+    progress:{ key:"r2-best", max:30 },
+    theme:{ c1:"#1E7FD8", c2:"#0E3A6B", a:"#FFC21A", m:"🚌", deco:"basjalan" }
+  },
+  "2/hafazan": {
+    path:"hafazan/index.html",
+    r:"Sampan Hafiz", j:"سمڤن حافظ",
+    dr:"8 surah, 7 jenis permainan", dj:"8 سورة، 7 جنيس ڤرماٴينن",
+    progress:{ key:"h2-best", max:30 },
+    theme:{ c1:"#0B3C49", c2:"#1B7F8C", a:"#E8FF6B", m:"🛶", deco:"sampan" }
+  },
   "3/sirah": {
     path:"sirah/index.html",
     r:"Pengembaraan Sirah", j:"ڤڠمباراٴن سيره",
