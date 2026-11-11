@@ -124,6 +124,46 @@ const READY = {
     progress:{ key:"h2-best", max:30 },
     theme:{ c1:"#0B3C49", c2:"#1B7F8C", a:"#E8FF6B", m:"🛶", deco:"sampan" }
   },
+  "4/feqah": {
+    path:"feqah/index.html",
+    buku:"https://online.anyflip.com/nyrmv/emlt/mobile/index.html",
+    r:"Kem Pengakap Feqah", j:"کيم ڤڠاکڤ فقه",
+    dr:"8 khemah, 9 jenis permainan", dj:"8 خيمه، 9 جنيس ڤرماٴينن",
+    progress:{ key:"f4-best", max:27 },
+    theme:{ c1:"#2E8150", c2:"#1F5C3A", a:"#F2611D", m:"🦌", deco:"kem" }
+  },
+  "4/jawi": {
+    path:"jawi/index.html",
+    buku:"https://online.anyflip.com/lzrtd/hpdu/mobile/index.html",
+    r:"Detektif Aksara", j:"دتيکتيف اکسارا",
+    dr:"9 kes, 9 jenis permainan", dj:"9 کيس، 9 جنيس ڤرماٴينن",
+    progress:{ key:"j4-best", max:30 },
+    theme:{ c1:"#1E2A47", c2:"#1F7A8C", a:"#F4B63F", m:"🕵️", deco:"detektif" }
+  },
+  "4/tauhid": {
+    path:"tauhid/index.html",
+    buku:"https://online.anyflip.com/nyrmv/zecw/mobile/index.html",
+    r:"Daki Gunung Iman", j:"داکي ڬونوڠ ايمان",
+    dr:"9 kem, 9 jenis permainan", dj:"9 کيم، 9 جنيس ڤرماٴينن",
+    progress:{ key:"tw4-best", max:30 },
+    theme:{ c1:"#24496E", c2:"#D9622B", a:"#F2B134", m:"🧗", deco:"gunung" }
+  },
+  "4/arab": {
+    path:"arab/index.html",
+    buku:"https://online.anyflip.com/ypnd/teul/mobile/index.html",
+    r:"Lapangan Terbang Lughah", j:"لاڤڠن تربڠ لغة",
+    dr:"9 pintu, 9 jenis permainan", dj:"9 ڤينتو، 9 جنيس ڤرماٴينن",
+    progress:{ key:"r4-best", max:30 },
+    theme:{ c1:"#0B2545", c2:"#1E6FD9", a:"#FFC20E", m:"🐧", deco:"lapangan" }
+  },
+  "4/hafazan": {
+    path:"hafazan/index.html",
+    buku:"https://online.anyflip.com/lzrtd/nrln/mobile/index.html",
+    r:"Ekspedisi Hutan Hafiz", j:"ايکسڤيديسي هوتن حافظ",
+    dr:"5 surah, 8 jenis permainan", dj:"5 سورة، 8 جنيس ڤرماٴينن",
+    progress:{ key:"h4-best", max:27 },
+    theme:{ c1:"#1F5E3B", c2:"#123A2B", a:"#B6D94C", m:"🦧", deco:"hutan" }
+  },
   "3/sirah": {
     buku:"https://online.anyflip.com/vydoi/hpxt/mobile/index.html",
     path:"sirah/index.html",

@@ -1,0 +1,1082 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1F5C3A">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" type="image/png" href="/icons/favicon.png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="JOM KAFA">
+<script src="/assets/pwa.js"></script>
+<script src="/assets/config.js"></script>
+<script src="/assets/access.js"></script>
+<title>Kem Pengakap Feqah • Feqah Tahun 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@600;700;800;900&family=Noto+Naskh+Arabic:wght@500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ===== Feqah Tahun 4: "Kem Pengakap Feqah" — denai hutan, khemah, unggun api, Rara si rusa pengakap ===== */
+:root{
+  --dusk1:#FFB35C; --dusk2:#FCE3B0; --bg:#F7EFD9; --card:#FFFDF5; --ink:#2A2216; --muted:#6B5D45; --line:#2A2216;
+  --pine:#1F5C3A; --pine2:#2E8150; --moss:#7DB46C; --khaki:#D8BE86; --khaki2:#B89757; --fire:#F2611D; --fire2:#FFB703;
+  --canvas:#F4E4BC; --ok:#2E8150; --okbg:#DDF3DF; --bad:#D9442B; --badbg:#FDE1DA; --note:#FFF4D1; --tipbg:#E6F2E2; --tipink:#1B3D26;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --dusk1:#0E1A33; --dusk2:#1A2B3E; --bg:#121A16; --card:#1D2922; --ink:#F3EEDD; --muted:#C2BBA2; --line:#060A08;
+    --canvas:#3B3423; --okbg:#183A24; --badbg:#46201A; --note:#3A321A; --tipbg:#1E3526; --tipink:#D8F0DC; --khaki:#7A6A42; --khaki2:#5D5032;
+    color-scheme:dark;
+  }
+}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:"Nunito","Trebuchet MS",system-ui,sans-serif;font-size:18px;line-height:1.45;font-weight:700;
+  background:linear-gradient(180deg,var(--dusk1) 0,var(--dusk2) 360px,var(--bg) 820px) fixed}
+html[dir="rtl"] body{font-family:"Noto Naskh Arabic","Amiri","Nunito",serif;font-size:19px;line-height:1.85;font-weight:600}
+h1,h2,h3,.bung{font-family:"Bungee","Nunito",sans-serif;font-weight:400;letter-spacing:.3px}
+html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3,html[dir="rtl"] .bung{font-family:"Noto Naskh Arabic","Amiri",serif;font-weight:700;letter-spacing:0}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:4px solid var(--fire2);outline-offset:3px}
+.wrap{max-width:680px;margin:0 auto;padding:10px 14px 60px;position:relative}
+.ar{font-family:"Amiri","Noto Naskh Arabic",serif;direction:rtl;font-weight:400}
+
+/* pokok pain di latar */
+.pines{position:fixed;inset:auto 0 0 0;height:120px;pointer-events:none;z-index:-1;opacity:.22;
+  background:conic-gradient(from 150deg at 8% 0,transparent 0 60deg,var(--pine) 0) 0 100%/90px 120px repeat-x}
+.stars-bg{position:fixed;inset:0 0 auto 0;height:220px;pointer-events:none;z-index:-1;opacity:0}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .stars-bg{opacity:.8;
+  background:radial-gradient(2px 2px at 12% 20%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 38% 60%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 70% 25%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 88% 70%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 55% 10%,#fff 50%,transparent 51%)}}
+
+/* bar atas */
+.top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.top .sp{flex:1}
+.ib{min-width:48px;height:48px;border-radius:12px;border:3px solid var(--line);background:var(--card);display:inline-grid;place-items:center;font-size:21px;font-weight:800;text-decoration:none;color:var(--ink);box-shadow:0 4px 0 var(--line);padding:0 10px}
+.ib:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.pill{display:inline-flex;align-items:center;gap:4px;height:48px;padding:0 12px;border-radius:12px;border:3px solid var(--line);background:var(--fire2);color:#3A2600;font-weight:900;box-shadow:0 4px 0 var(--line)}
+
+/* tajuk */
+.hero{display:flex;align-items:center;gap:10px;background:var(--canvas);border:3px solid var(--line);border-radius:18px;padding:10px 12px;box-shadow:0 6px 0 var(--line);margin:4px 0 14px;
+  background-image:repeating-linear-gradient(90deg,transparent 0 22px,rgba(0,0,0,.04) 22px 24px)}
+.hero h1{margin:0;font-size:clamp(21px,6vw,29px);line-height:1.1;color:var(--pine)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .hero h1{color:var(--fire2)}}
+html[dir="rtl"] .hero h1{line-height:1.5}
+.hero p{margin:3px 0 0;color:var(--muted);font-size:15.5px}
+.rara{width:86px;height:auto;flex:none}
+.rara.bob{animation:bob 2.6s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-5px) rotate(2deg)}}
+.rara.yay{animation:yay .5s ease 2}
+@keyframes yay{50%{transform:translateY(-14px) scale(1.06)}}
+
+/* lencana (pelekat) */
+.sttl{font-weight:900;font-size:15px;margin:0 0 4px;color:var(--muted)}
+.stickers{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:5px;background:var(--pine);border:3px solid var(--line);border-radius:16px;padding:8px;margin-bottom:14px;
+  background-image:repeating-linear-gradient(45deg,transparent 0 10px,rgba(255,255,255,.05) 10px 20px)}
+.stickers span{aspect-ratio:1;border-radius:50%;display:grid;place-items:center;font-size:clamp(15px,4.6vw,24px);background:rgba(255,255,255,.12);border:2px dashed rgba(255,255,255,.35)}
+.stickers span.got{background:var(--fire2);border:3px solid var(--line);box-shadow:0 0 0 3px #fff inset;animation:pop .5s cubic-bezier(.2,1.6,.4,1) both}
+.stickers span:not(.got){filter:grayscale(1);opacity:.45}
+@keyframes pop{from{transform:scale(.3);opacity:0}}
+
+/* peta denai kem */
+.trail{position:relative;padding:8px 0 0}
+.trail::before{content:"";position:absolute;left:50%;top:70px;bottom:80px;width:0;border-left:8px dashed var(--khaki2);transform:translateX(-50%)}
+.camp{position:relative;z-index:1;margin:0 auto 8px;display:grid;place-items:center}
+.row{position:relative;display:flex;align-items:center;min-height:132px;z-index:1}
+.row.r{justify-content:flex-end}
+.row::before{content:"";position:absolute;top:58%;height:0;width:26%;border-top:6px dotted var(--khaki2);z-index:-1}
+.row.l::before{left:30%}.row.r::before{right:30%}
+.node{width:50%;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:0;padding:0;color:inherit}
+.tent{position:relative;width:104px;height:92px;display:grid;place-items:end center;transition:transform .15s}
+.tent::before{content:"";position:absolute;inset:0;background:var(--c);clip-path:polygon(50% 0,100% 100%,0 100%);filter:drop-shadow(0 0 0 var(--line))}
+.tent::after{content:"";position:absolute;left:50%;bottom:0;width:34px;height:46px;transform:translateX(-50%);background:rgba(0,0,0,.35);clip-path:polygon(50% 0,100% 100%,0 100%)}
+.tent .tic{position:relative;z-index:1;font-size:34px;margin-bottom:6px;filter:drop-shadow(0 2px 0 rgba(0,0,0,.35))}
+.tent .flag{position:absolute;top:-22px;left:50%;width:3px;height:26px;background:var(--line)}
+.tent .flag::after{content:"";position:absolute;left:3px;top:0;width:20px;height:13px;background:var(--fire2);clip-path:polygon(0 0,100% 50%,0 100%)}
+.node:active .tent{transform:translateY(4px)}
+.node .num{position:absolute;bottom:-6px;left:-4px;z-index:2;width:32px;height:32px;border-radius:50%;background:var(--fire2);border:3px solid var(--line);display:grid;place-items:center;font-size:15px;font-weight:900;color:#3A2600;font-family:Nunito,sans-serif}
+.node .nm{background:var(--card);border:3px solid var(--line);border-radius:10px;padding:2px 9px;font-weight:900;font-size:15px;text-align:center;line-height:1.25;max-width:100%;overflow-wrap:anywhere;box-shadow:0 3px 0 var(--line)}
+html[dir="rtl"] .node .nm{line-height:1.6;font-size:15px}
+.node .st{font-size:16px;letter-spacing:1px;min-height:22px}
+.node .st .off{filter:grayscale(1);opacity:.3}
+.node.lock .tent{filter:grayscale(.9) opacity(.7)}
+.node.lock .tent .tic::after{content:"🔒";position:absolute;font-size:24px;right:-26px;bottom:-2px}
+.node.now .tent{animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.07)}}
+.guide{position:absolute;width:60px;top:-18px;right:-34px;pointer-events:none;z-index:3}
+.fire{width:126px;height:110px;position:relative;display:grid;place-items:end center}
+.fire .fl{font-size:60px;line-height:1;animation:flick 1s ease-in-out infinite alternate;position:relative;z-index:1}
+.fire .logs{position:absolute;bottom:2px;width:110px;height:20px;background:linear-gradient(10deg,transparent 40%,#7A4A22 41% 59%,transparent 60%),linear-gradient(-10deg,transparent 40%,#5E3618 41% 59%,transparent 60%)}
+@keyframes flick{to{transform:scale(1.08,1.12) translateY(-2px)}}
+.final.lock .fl{filter:grayscale(1);opacity:.5}
+.gate{position:relative;z-index:1;margin:6px -14px 0;height:86px;background:linear-gradient(180deg,var(--moss),var(--pine2));border-top:4px solid var(--line);border-radius:40% 40% 0 0/30px 30px 0 0;display:grid;place-items:center;color:#fff;font-weight:900;text-shadow:0 2px 0 var(--line);font-size:19px}
+</style>
+<style>
+/* kad umum */
+.card{background:var(--card);border:3px solid var(--line);border-radius:18px;padding:14px;box-shadow:0 6px 0 var(--line);animation:pagein .35s ease both}
+@keyframes pagein{from{opacity:0;transform:translateY(14px) scale(.98)}}
+.shead{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.shead .badge{flex:none;width:60px;height:60px;border-radius:50%;display:grid;place-items:center;font-size:30px;background:var(--c);border:3px solid var(--line);box-shadow:0 0 0 4px var(--card) inset,0 4px 0 var(--line)}
+.shead h2{margin:0;font-size:clamp(17px,4.8vw,23px);line-height:1.2}
+html[dir="rtl"] .shead h2{line-height:1.6}
+.shead small{display:block;color:var(--muted);font-size:14.5px}
+.shead>div{min-width:0}
+
+/* kemajuan: but mendaki denai */
+.prog{position:relative;height:34px;margin:2px 0 12px;background:var(--card);border:3px solid var(--line);border-radius:999px;overflow:hidden}
+.prog .walk{position:absolute;inset:0 auto 0 0;background:repeating-linear-gradient(90deg,var(--moss) 0 12px,var(--pine2) 12px 24px);transition:width .5s}
+html[dir="rtl"] .prog .walk{inset:0 0 0 auto}
+.prog .boot{position:absolute;top:50%;transform:translate(-50%,-50%);font-size:24px;transition:left .5s,right .5s}
+.prog .fl{position:absolute;top:50%;transform:translate(-50%,-50%);font-size:15px}
+
+/* kad bacaan */
+.rpic{font-size:58px;text-align:center;line-height:1.1;margin:0 0 4px;animation:pop .5s cubic-bezier(.2,1.6,.4,1) both}
+.rh{margin:0 0 8px;text-align:center;font-size:clamp(18px,5vw,23px);color:var(--pine);line-height:1.25}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .rh{color:var(--fire2)}}
+html[dir="rtl"] .rh{line-height:1.7}
+.rtext{font-size:18px;margin:0 0 10px}
+.rlist{list-style:none;margin:0 0 10px;padding:0;display:grid;gap:6px;counter-reset:n}
+.rlist li{display:flex;gap:10px;align-items:center;background:var(--bg);border:2px solid color-mix(in srgb,var(--line) 25%,transparent);border-radius:12px;padding:6px 10px;line-height:1.3;animation:pagein .35s both;animation-delay:calc(var(--i)*60ms);min-width:0;overflow-wrap:anywhere}
+html[dir="rtl"] .rlist li{line-height:1.75}
+.rlist li::before{counter-increment:n;content:counter(n);flex:none;width:30px;height:30px;border-radius:50%;background:var(--sc);color:#fff;border:2px solid var(--line);display:grid;place-items:center;font-size:15px;font-weight:900;font-family:Nunito,sans-serif}
+.abox{background:var(--note);border:3px solid var(--line);border-radius:14px;padding:10px 12px;margin:0 0 10px;text-align:center}
+.abox .ar{display:block;font-size:clamp(21px,5.6vw,28px);line-height:2}
+.abox .mk{display:block;font-size:16px;color:var(--muted);margin-top:4px}
+.abox small{display:block;font-size:13.5px;color:var(--muted)}
+.tip{display:flex;gap:8px;align-items:flex-start;background:var(--tipbg);border:2px solid var(--line);border-radius:12px;padding:8px 12px;margin:0 0 8px;font-size:16.5px;color:var(--tipink)}
+.tip.am{background:#FFEBD9;color:#5A2A08}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tip.am{background:#40281A;color:#FFE3CC}}
+.tip b{flex:none}
+.ref{font-size:14px;color:var(--muted);text-align:center;margin:4px 0 10px}
+.say{border:2px solid var(--line);background:var(--fire2);border-radius:50%;width:40px;height:40px;font-size:18px;vertical-align:middle;flex:none;color:#3A2600}
+.navr{display:flex;gap:10px}
+.btn{flex:1;min-height:56px;border-radius:14px;border:3px solid var(--line);background:var(--pine2);color:#fff;font-size:19px;font-weight:900;box-shadow:0 5px 0 var(--line);padding:6px 14px;width:100%}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--line)}
+.btn.go{background:var(--fire)}
+.btn.alt{background:var(--card);color:var(--ink)}
+.btn[disabled]{opacity:.4}
+.dots{display:flex;gap:6px;justify-content:center;margin-top:10px}
+.dots i{width:10px;height:10px;border-radius:50%;background:color-mix(in srgb,var(--ink) 25%,transparent)}
+.dots i.on{background:var(--fire);width:24px;border-radius:6px}
+
+/* soalan */
+.q{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.q p{margin:0;flex:1;font-size:19px;font-weight:900;line-height:1.35;min-width:0}
+html[dir="rtl"] .q p{line-height:1.8}
+.qar{font-size:clamp(21px,5.6vw,27px);text-align:center;background:var(--note);border:2px solid var(--line);border-radius:12px;padding:6px 10px;margin-bottom:10px;line-height:2}
+.cnt{text-align:center;color:var(--muted);font-size:15px;margin-top:10px}
+.hint{margin-top:10px;background:var(--badbg);border:2px solid var(--bad);border-radius:12px;padding:8px 12px;font-size:16px}
+.shake{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.g1{display:grid;gap:9px}
+.opt{min-width:0;overflow-wrap:anywhere;min-height:56px;border-radius:14px;border:3px solid var(--line);background:var(--card);box-shadow:0 4px 0 var(--line);padding:8px 10px;font-weight:800;font-size:16.5px;line-height:1.3;text-align:center}
+html[dir="rtl"] .opt{line-height:1.7}
+.opt .ar{font-size:21px;line-height:1.8}
+.opt:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.opt.right,.opt.done{background:var(--okbg);border-color:var(--ok)}
+.opt.wrong{background:var(--badbg)}
+.opt.sel{outline:4px solid var(--fire2);outline-offset:1px}
+.opt.used{opacity:.35;pointer-events:none}
+
+/* maklum balas */
+.fb{position:fixed;inset:auto 0 0 0;z-index:50;padding:12px 14px calc(14px + env(safe-area-inset-bottom,0px));background:var(--okbg);border-top:4px solid var(--line);animation:up .3s ease both}
+@keyframes up{from{transform:translateY(100%)}}
+.fb .in{max-width:680px;margin:0 auto}
+.fb .row1{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.fb .rara{width:64px}
+.fb strong{font-family:Bungee,Nunito,sans-serif;font-weight:400;font-size:21px;color:var(--pine)}
+html[dir="rtl"] .fb strong{font-family:"Noto Naskh Arabic",serif;font-weight:700}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .fb strong{color:var(--fire2)}}
+.fb p{margin:2px 0 0;font-size:16px}
+.fb .fast{display:inline-block;background:var(--fire2);color:#3A2600;border:2px solid var(--line);border-radius:8px;padding:0 8px;font-size:14px;margin-top:4px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:60;background:var(--ink);color:var(--card);padding:10px 16px;border-radius:12px;font-size:16px;max-width:90vw;text-align:center}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}
+.confetti span{position:absolute;top:-40px;font-size:26px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+
+/* keputusan */
+.res{text-align:center}
+.res .rara{width:120px}
+.res h2{margin:6px 0;color:var(--pine)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .res h2{color:var(--fire2)}}
+.stars{font-size:46px;letter-spacing:4px}
+.stars span{display:inline-block;animation:pop .5s cubic-bezier(.2,1.6,.4,1) both}
+.stars .off{filter:grayscale(1);opacity:.3}
+.gotst{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--note);border:3px dashed var(--line);border-radius:14px;padding:8px;margin:10px 0}
+.gotst span{font-size:40px;width:62px;height:62px;border-radius:50%;background:var(--fire2);display:grid;place-items:center;border:3px solid var(--line)}
+</style>
+<style>
+/* ===== permainan kem ===== */
+/* kompas */
+.rose{width:132px;height:132px;margin:0 auto 10px;border-radius:50%;border:4px solid var(--line);background:radial-gradient(circle,var(--card) 0 52%,var(--canvas) 53% 100%);position:relative;box-shadow:0 5px 0 var(--line)}
+.rose b{position:absolute;font-family:Bungee,Nunito,sans-serif;font-weight:400;font-size:15px}
+.rose .n{top:3px;left:50%;transform:translateX(-50%)}.rose .s{bottom:3px;left:50%;transform:translateX(-50%)}
+.rose .e{right:6px;top:50%;transform:translateY(-50%)}.rose .w{left:6px;top:50%;transform:translateY(-50%)}
+.needle{position:absolute;left:50%;top:50%;width:14px;height:96px;margin:-48px 0 0 -7px;transition:transform .6s cubic-bezier(.3,1.6,.5,1);transform:rotate(var(--r,20deg))}
+.needle::before{content:"";position:absolute;inset:0 0 50% 0;background:var(--bad);clip-path:polygon(50% 0,100% 100%,0 100%)}
+.needle::after{content:"";position:absolute;inset:50% 0 0 0;background:#8A9AA8;clip-path:polygon(0 0,100% 0,50% 100%)}
+.opt .dir{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--pine);color:#fff;font-family:Bungee,Nunito,sans-serif;font-size:13px;margin-inline-end:6px;vertical-align:middle}
+
+/* khemah: susun ke khemah */
+.kitem{background:var(--canvas);border:3px solid var(--line);border-radius:14px;padding:12px;text-align:center;font-size:18px;font-weight:900;min-height:70px;display:grid;place-items:center;margin-bottom:12px;overflow-wrap:anywhere}
+.tents{display:grid;gap:8px}
+.kt{min-width:0;overflow-wrap:anywhere;border:3px solid var(--line);border-radius:12px 12px 6px 6px;background:var(--card);box-shadow:0 4px 0 var(--line);padding:6px 4px 8px;font-weight:900;font-size:15px;line-height:1.25;display:flex;flex-direction:column;align-items:center;gap:2px}
+html[dir="rtl"] .kt{line-height:1.6}
+.kt .tp{width:58px;height:44px;background:var(--tc);clip-path:polygon(50% 0,100% 100%,0 100%);display:grid;place-items:end center;font-size:18px;padding-bottom:2px}
+.kt .kn{font-size:13px;color:var(--muted)}
+
+/* unggun: kumpul kayu api */
+.pit{height:96px;display:grid;place-items:end center;margin-bottom:8px;position:relative}
+.pit .fl{font-size:calc(22px + var(--lv,0)*12px);line-height:1;transition:font-size .4s;animation:flick 1s ease-in-out infinite alternate}
+.pit .logs{width:150px;height:18px;background:linear-gradient(8deg,transparent 40%,#7A4A22 41% 59%,transparent 60%),linear-gradient(-8deg,transparent 40%,#5E3618 41% 59%,transparent 60%)}
+.log{background:linear-gradient(180deg,#E9C48F,#C9955A);color:#2A1A06;border-radius:30px}
+.log.done{background:linear-gradient(180deg,#FFD27A,#F2611D);color:#fff}
+.log.wet{background:#9FB3C2;color:#1C2A35}
+
+/* simpul */
+.ropes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 16px;position:relative}
+.ropes::before{content:"";position:absolute;left:50%;top:0;bottom:0;border-left:4px dotted var(--khaki2)}
+.rp{position:relative}
+.rp.done::after{content:"🪢";position:absolute;top:50%;transform:translateY(-50%);font-size:20px;inset-inline-end:-18px}
+
+/* peta: denai urutan */
+.map{background:var(--canvas);border:3px solid var(--line);border-radius:14px;padding:10px;margin-bottom:10px;display:grid;gap:6px;
+  background-image:radial-gradient(circle at 20% 30%,rgba(46,129,80,.18) 0 18px,transparent 19px),radial-gradient(circle at 80% 70%,rgba(46,129,80,.18) 0 22px,transparent 23px)}
+.cp{display:flex;align-items:center;gap:8px;min-height:44px;border:2px dashed var(--khaki2);border-radius:10px;padding:4px 8px;font-size:15.5px;line-height:1.3;overflow-wrap:anywhere;min-width:0}
+html[dir="rtl"] .cp{line-height:1.7}
+.cp i{flex:none;font-style:normal;width:28px;height:28px;border-radius:50%;background:var(--khaki2);color:#fff;display:grid;place-items:center;font-size:14px;font-weight:900;font-family:Nunito,sans-serif}
+.cp.on{border-style:solid;border-color:var(--ok);background:var(--okbg)}
+.cp.on i{background:var(--ok)}
+.cp.on i::after{content:"";}
+
+/* semboyan */
+.sbt{background:var(--card);border:3px solid var(--line);border-radius:14px;padding:14px;text-align:center;font-size:18.5px;font-weight:900;min-height:90px;display:grid;place-items:center;overflow-wrap:anywhere}
+.fuse{height:10px;border-radius:6px;background:color-mix(in srgb,var(--ink) 15%,transparent);margin:8px 0 12px;overflow:hidden}
+.fuse i{display:block;height:100%;background:linear-gradient(90deg,var(--fire2),var(--fire));animation:burn var(--t,8s) linear forwards;transform-origin:left}
+html[dir="rtl"] .fuse i{transform-origin:right}
+@keyframes burn{to{transform:scaleX(0)}}
+.flags{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.flg{min-width:0;min-height:92px;border:3px solid var(--line);border-radius:14px;box-shadow:0 5px 0 var(--line);font-weight:900;font-size:17px;display:flex;flex-direction:column;align-items:center;gap:2px;color:#fff}
+.flg .fi{font-size:34px;line-height:1}
+.flg[data-v="1"]{background:var(--pine2)}.flg[data-v="1"] .fi{filter:hue-rotate(110deg) saturate(1.4)}.flg[data-v="0"]{background:var(--bad)}
+.flg:active{transform:translateY(4px);box-shadow:0 1px 0 var(--line)}
+
+/* ransel: mangga kunci nombor */
+.padl{display:flex;justify-content:center;gap:10px;direction:ltr;background:var(--khaki);border:3px solid var(--line);border-radius:18px;padding:12px;margin:0 auto 10px;width:max-content;max-width:100%;box-shadow:0 5px 0 var(--line)}
+.wh{display:flex;flex-direction:column;align-items:center;gap:4px}
+.wh button{width:56px;height:42px;border-radius:10px;border:3px solid var(--line);background:var(--card);font-size:18px;font-weight:900}
+.wh .dg{width:56px;height:60px;border-radius:10px;border:3px solid var(--line);background:#2A2216;color:var(--fire2);display:grid;place-items:center;font-size:34px;font-family:Bungee,Nunito,sans-serif}
+.unit{text-align:center;font-weight:900;font-size:17px;margin-bottom:8px}
+.padl.open{background:var(--moss)}
+
+/* lencana: isi tempat kosong */
+.sent{background:var(--canvas);border:3px solid var(--line);border-radius:14px;padding:12px;font-size:18px;line-height:2.1;margin-bottom:12px;overflow-wrap:anywhere}
+html[dir="rtl"] .sent{line-height:2.3}
+.blank{display:inline-block;min-width:74px;border-bottom:3px dashed var(--fire);padding:0 6px;text-align:center;color:var(--fire)}
+.blank.cur{background:color-mix(in srgb,var(--fire2) 30%,transparent);border-radius:6px 6px 0 0}
+.blank.on{color:var(--ok);border-bottom-style:solid;border-color:var(--ok)}
+.bdgs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.bdg{min-width:0;min-height:52px;border-radius:999px;border:3px solid var(--line);background:var(--fire2);color:#3A2600;box-shadow:0 4px 0 var(--line);padding:4px 16px;font-weight:900;font-size:16.5px;max-width:100%;overflow-wrap:anywhere}
+.bdg.used{opacity:.3;pointer-events:none}
+
+/* obor: suluh dalam gelap */
+.dark{background:#0F1A14;border:3px solid var(--line);border-radius:14px;padding:10px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.bush{min-width:0;overflow-wrap:anywhere;min-height:74px;border-radius:14px;border:3px solid #000;background:#1E3A26;color:transparent;font-weight:800;font-size:15.5px;line-height:1.3;padding:6px 8px;position:relative;text-shadow:none}
+html[dir="rtl"] .bush{line-height:1.7}
+.bush::before{content:"🌿";position:absolute;inset:0;display:grid;place-items:center;font-size:30px;color:initial}
+.bush.lit{background:radial-gradient(circle,#FFF6C8 0 60%,#FFE08A 100%);color:#2A2216}
+.bush.lit::before{content:none}
+.bush.pick{background:var(--okbg);outline:4px solid var(--ok)}
+.bush.wrong{background:var(--badbg)}
+</style>
+</head>
+<body>
+<div class="stars-bg" aria-hidden="true"></div><div class="pines" aria-hidden="true"></div>
+<main class="wrap" id="app" aria-live="polite"></main>
+<script>
+/* dijana oleh mkq.js daripada api.quran.com (al-Jumu'ah 62:9, perkataan 1-15) */
+const Q62_9 = "يَـٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوٓا۟ إِذَا نُودِىَ لِلصَّلَوٰةِ مِن يَوْمِ ٱلْجُمُعَةِ فَٱسْعَوْا۟ إِلَىٰ ذِكْرِ ٱللَّهِ وَذَرُوا۟ ٱلْبَيْعَ ۚ …";
+/* ===================== KANDUNGAN (Feqah Tahun 4, JAIS) ===================== */
+/* Nombor ms. = halaman bercetak buku teks (fail pN.jpg = ms. N-8). */
+const STATIONS = [];
+STATIONS.push({ id:1, icon:"🕌", c:"#2E8150", sticker:"🕌",
+  t:["Solat Jumaat","صلاة جمعة"], u:["Pelajaran 1 • ms. 1–6","ڤلاجرن 1 • م.س. 1–6"],
+  read:[
+    { pic:"🕌", p:"2", h:["Apa itu solat Jumaat?","اڤ ايت صلاة جمعة؟"],
+      text:["Solat Jumaat ialah solat dua rakaat yang dilakukan pada waktu zohor hari Jumaat secara berjemaah dan didahului dengan dua khutbah.","صلاة جمعة اياله صلاة دوا رکعة يڠ دلاکوکن ڤد وقتو ظهر هاري جمعة سچارا برجماعه دان ددهولوءي دڠن دوا خطبة."],
+      ar:Q62_9, mk:["Maksudnya: Wahai orang-orang yang beriman, apabila diseru azan untuk solat pada hari Jumaat, maka segeralah mengingati Allah (solat Jumaat) dan tinggalkanlah jual beli…","مقصودڽ: واهاي اورڠ٢ يڠ برايمان، اڤابيلا دسرو اذان اونتوق صلاة ڤد هاري جمعة، مک سڬراله مڠيڠتي الله (صلاة جمعة) دان تيڠڬلکنله جوال بلي…"],
+      src:["Surah al-Jumu'ah, ayat 9","سورة الجمعة، ايات 9"] },
+    { pic:"📜", p:"3", h:["Hukum solat Jumaat","حکوم صلاة جمعة"],
+      text:["Solat Jumaat wajib ditunaikan oleh setiap lelaki muslim secara berjemaah.","صلاة جمعة واجب دتونايکن اوليه ستياڤ للاکي مسلم سچارا برجماعه."],
+      ar:"الْجُمُعَةُ حَقٌّ وَاجِبٌ عَلَى كُلِّ مُسْلِمٍ فِي جَمَاعَةٍ",
+      mk:["Maksudnya: Solat Jumaat adalah hak yang wajib ditunaikan oleh setiap muslim lelaki dengan berjemaah.","مقصودڽ: صلاة جمعة اداله حق يڠ واجب دتونايکن اوليه ستياڤ مسلم للاکي دڠن برجماعه."],
+      src:["Hadis riwayat Abu Daud dan al-Hakim","حديث رواية ابو داود دان الحاکم"] },
+    { pic:"✅", p:"3", h:["Syarat wajib solat Jumaat","شرط واجب صلاة جمعة"],
+      list:[["Islam","إسلام"],["Baligh","بالغ"],["Berakal","برعقل"],["Merdeka","مرديکا"],["Bermastautin","برمستوطن"],["Sihat","صيحت"]] },
+    { pic:"🧭", p:"4", h:["Syarat sah solat Jumaat","شرط سه صلاة جمعة"],
+      list:[["Didirikan pada waktu zohor","دديريکن ڤد وقتو ظهر"],["Didahului dengan dua khutbah","ددهولوءي دڠن دوا خطبة"],["Didirikan di tempat yang ditetapkan","دديريکن د تمڤت يڠ دتتڤکن"],["Didirikan secara berjemaah sekurang-kurangnya 40 orang lelaki yang cukup syarat wajib solat Jumaat","دديريکن سچارا برجماعه سکورڠ-کورڠڽ 40 اورڠ للاکي يڠ چوکوڤ شرط واجب صلاة جمعة"]] },
+    { pic:"🧎", p:"4", h:["13 rukun solat Jumaat","13 روکون صلاة جمعة"],
+      list:[["Niat","نية"],["Berdiri betul bagi yang mampu","برديري بتول باڬي يڠ ممڤو"],["Takbiratul ihram","تکبيرة الإحرام"],["Membaca al-Fatihah","ممباچ الفاتحة"],["Rukuk dan tomakninah","رکوع دان طمأنينة"],["Iktidal dan tomakninah","اعتدال دان طمأنينة"],["Sujud dan tomakninah","سجود دان طمأنينة"],["Duduk antara dua sujud dan tomakninah","دودوق انتارا دوا سجود دان طمأنينة"],["Duduk tahiyat akhir","دودوق تحية اخير"],["Membaca tahiyat akhir","ممباچ تحية اخير"],["Membaca selawat","ممباچ صلوات"],["Salam","سلام"],["Tertib","ترتيب"]] },
+    { pic:"🚿", p:"5", h:["Perkara sunat hari Jumaat","ڤرکارا سنة هاري جمعة"],
+      list:[["Mandi sebelum pergi ke masjid","ماندي سبلوم ڤرڬي ک مسجد"],["Memberus gigi dan memotong kuku tangan dan kaki","ممبروس ڬيڬي دان مموتوڠ کوکو تاڠن دان کاکي"],["Memakai wangi-wangian","مماکاي واڠي-واڠين"],["Datang awal ke masjid","داتڠ اول ک مسجد"],["Masuk masjid dengan kaki kanan sambil membaca doa","ماسوق مسجد دڠن کاکي کانن سمبيل ممباچ دعاء"],["Solat tahiyatul masjid sebelum duduk","صلاة تحية المسجد سبلوم دودوق"],["Niat iktikaf","نية اعتکاف"],["Berzikir dan membaca al-Quran","برذکير دان ممباچ القرءان"]] },
+    { pic:"🌟", p:"6", h:["Hikmah solat Jumaat","حکمة صلاة جمعة"],
+      list:[["Mentaati perintah Allah","منطاعتي ڤرينته الله"],["Menghimpunkan orang Islam supaya mereka dapat berkenalan","مڠهيمڤونکن اورڠ إسلام سوڤايا مريک داڤت برکنلن"],["Melatih taat kepada pemimpin dan berdisiplin","ملاتيه طاعة کڤد ڤميمڤين دان برديسيڤلين"],["Mendapat pengajaran daripada khutbah Jumaat","منداڤت ڤڠاجرن درڤد خطبة جمعة"],["Menghayati syariat Islam sebagai panduan hidup","مڠحياتي شريعة إسلام سباڬاي ڤندوان هيدوڤ"]],
+      tip:["Orang yang meninggalkan solat Jumaat tiga kali berturut-turut dengan sengaja, Allah akan menutup pintu hatinya.","اورڠ يڠ منيڠڬلکن صلاة جمعة تيڬ کالي برتوروت-توروت دڠن سڠاج، الله اکن منوتوڤ ڤينتو هاتيڽ."],
+      am:["Dirikan solat fardu dan solat Jumaat dengan sempurna.","ديريکن صلاة فرض دان صلاة جمعة دڠن سمڤورنا."] }
+  ],
+  games:[
+    { type:"khemah", p:"3–4", q:["Masukkan setiap kad ke khemah yang betul: syarat WAJIB atau syarat SAH solat Jumaat?","ماسوقکن ستياڤ کد ک خيمه يڠ بتول: شرط واجب اتاو شرط سه صلاة جمعة؟"],
+      tents:[["🟢",["Syarat wajib","شرط واجب"]],["🔵",["Syarat sah","شرط سه"]]],
+      items:[[["Islam","إسلام"],0],[["Baligh","بالغ"],0],[["Bermastautin","برمستوطن"],0],[["Sihat","صيحت"],0],[["Didirikan pada waktu zohor","دديريکن ڤد وقتو ظهر"],1],[["Didahului dengan dua khutbah","ددهولوءي دڠن دوا خطبة"],1],[["Berjemaah sekurang-kurangnya 40 orang lelaki","برجماعه سکورڠ-کورڠڽ 40 اورڠ للاکي"],1]],
+      e:["Syarat wajib ialah tentang orangnya. Syarat sah ialah tentang cara solat itu didirikan.","شرط واجب اياله تنتڠ اورڠڽ. شرط سه اياله تنتڠ چارا صلاة ايت دديريکن."] },
+    { type:"ransel", p:"4", q:["Buka mangga ransel! Solat Jumaat didirikan berjemaah sekurang-kurangnya berapa orang lelaki?","بوک مڠڬ رنسل! صلاة جمعة دديريکن برجماعه سکورڠ-کورڠڽ براڤ اورڠ للاکي؟"],
+      n:40, unit:["orang lelaki","اورڠ للاکي"], e:["Betul! Sekurang-kurangnya 40 orang lelaki yang cukup syarat wajib solat Jumaat.","بتول! سکورڠ-کورڠڽ 40 اورڠ للاکي يڠ چوکوڤ شرط واجب صلاة جمعة."] },
+    { type:"unggun", p:"5", q:["Hidupkan unggun api! Pilih semua kayu yang menjadi perkara SUNAT pada hari Jumaat.","هيدوڤکن اوڠڬون اڤي! ڤيليه سموا کايو يڠ منجادي ڤرکارا سنة ڤد هاري جمعة."],
+      items:[[["Mandi sebelum ke masjid","ماندي سبلوم ک مسجد"],1],[["Memotong kuku","مموتوڠ کوکو"],1],[["Memakai wangi-wangian","مماکاي واڠي-واڠين"],1],[["Datang awal ke masjid","داتڠ اول ک مسجد"],1],[["Datang selepas khutbah tamat","داتڠ سلڤس خطبة تامت"],0],[["Berbual ketika khutbah","بربوال کتيک خطبة"],0]],
+      e:["Mandi, memotong kuku, berwangi-wangian dan datang awal ialah sunat hari Jumaat.","ماندي، مموتوڠ کوکو، برواڠي-واڠين دان داتڠ اول اياله سنة هاري جمعة."] },
+    { type:"semboyan", p:"2–6", q:["Kibar bendera semboyan: hijau jika BETUL, merah jika SALAH.","کيبر بنديرا سمبوين: هيجاو جک بتول، ميره جک سالح."],
+      items:[[["Solat Jumaat dilakukan pada waktu zohor hari Jumaat.","صلاة جمعة دلاکوکن ڤد وقتو ظهر هاري جمعة."],1],[["Solat Jumaat ada empat rakaat.","صلاة جمعة اد امڤت رکعة."],0],[["Rukun solat Jumaat ada 13.","روکون صلاة جمعة اد 13."],1],[["Solat Jumaat tidak perlu didahului khutbah.","صلاة جمعة تيدق ڤرلو ددهولوءي خطبة."],0],[["Allah menutup pintu hati orang yang sengaja meninggalkan solat Jumaat tiga kali berturut-turut.","الله منوتوڤ ڤينتو هاتي اورڠ يڠ سڠاج منيڠڬلکن صلاة جمعة تيڬ کالي برتوروت-توروت."],1]],
+      e:["Solat Jumaat dua rakaat, pada waktu zohor, didahului dua khutbah dan ada 13 rukun.","صلاة جمعة دوا رکعة، ڤد وقتو ظهر، ددهولوءي دوا خطبة دان اد 13 روکون."] },
+    { type:"peta", p:"4", q:["Lukis denai peta: susun enam rukun pertama solat Jumaat mengikut tertib.","لوکيس دناي ڤتا: سوسون انم روکون ڤرتام صلاة جمعة مڠيکوت ترتيب."],
+      steps:[["Niat","نية"],["Berdiri betul bagi yang mampu","برديري بتول باڬي يڠ ممڤو"],["Takbiratul ihram","تکبيرة الإحرام"],["Membaca al-Fatihah","ممباچ الفاتحة"],["Rukuk dan tomakninah","رکوع دان طمأنينة"],["Iktidal dan tomakninah","اعتدال دان طمأنينة"]],
+      e:["Tertib ialah rukun yang ke-13: semua rukun mesti dibuat mengikut susunan.","ترتيب اياله روکون يڠ ک-13: سموا روکون مستي دبوات مڠيکوت سوسونن."] },
+    { type:"obor", p:"6", q:["Suluh semak dengan obor. Cari satu yang BUKAN hikmah solat Jumaat.","سولوه سمق دڠن اوبور. چاري ساتو يڠ بوکن حکمة صلاة جمعة."],
+      items:[[["Mentaati perintah Allah","منطاعتي ڤرينته الله"],0],[["Orang Islam dapat berkenalan","اورڠ إسلام داڤت برکنلن"],0],[["Mendapat pengajaran daripada khutbah","منداڤت ڤڠاجرن درڤد خطبة"],0],[["Melatih taat kepada pemimpin","ملاتيه طاعة کڤد ڤميمڤين"],0],[["Dapat tidur lebih lama pada hari Jumaat","داڤت تيدور لبيه لام ڤد هاري جمعة"],1],[["Menghayati syariat Islam","مڠحياتي شريعة إسلام"],0]],
+      e:["Tidur lebih lama bukan hikmah solat Jumaat. Hikmahnya ialah taat, berkenalan dan belajar.","تيدور لبيه لام بوکن حکمة صلاة جمعة. حکمةڽ اياله طاعة، برکنلن دان بلاجر."] }
+  ]
+});
+STATIONS.push({ id:2, icon:"🎤", c:"#C2702A", sticker:"🎙️",
+  t:["Khutbah Jumaat","خطبة جمعة"], u:["Pelajaran 2 • ms. 7–11","ڤلاجرن 2 • م.س. 7–11"],
+  read:[
+    { pic:"🎤", p:"8", h:["Apa itu khutbah Jumaat?","اڤ ايت خطبة جمعة؟"],
+      text:["Khutbah Jumaat ialah syarahan yang mengandungi nasihat dan pengajaran, dibaca sebelum solat Jumaat. Hukum membacanya ialah wajib. Khutbah juga ada syarat dan rukunnya.","خطبة جمعة اياله شرحن يڠ مڠاندوڠي نصيحت دان ڤڠاجرن، دباچ سبلوم صلاة جمعة. حکوم ممباچاڽ اياله واجب. خطبة جوڬ اد شرط دان روکونڽ."] },
+    { pic:"📋", p:"9", h:["Syarat sah khutbah","شرط سه خطبة"],
+      list:[["Khatib hendaklah seorang lelaki","خطيب هندقله سأورڠ للاکي"],["Khatib membaca dengan berdiri","خطيب ممباچ دڠن برديري"],["Khatib duduk sebentar antara dua khutbah","خطيب دودوق سبنتر انتارا دوا خطبة"],["Khatib menutup aurat","خطيب منوتوڤ عورة"],["Khatib suci daripada najis pada pakaian, badan dan tempat","خطيب سوچي درڤد نجيس ڤد ڤاکاين، بادن دان تمڤت"],["Khatib suci daripada hadas kecil dan besar","خطيب سوچي درڤد حدث کچيل دان بسر"],["Berkhutbah dengan suara nyaring","برخطبة دڠن سوارا ڽاريڠ"],["Rukun khutbah dibaca dalam bahasa Arab","روکون خطبة دباچ دالم بهاس عرب"],["Disampaikan pada waktu zohor","دسمڤايکن ڤد وقتو ظهر"],["Disampaikan sebelum solat Jumaat","دسمڤايکن سبلوم صلاة جمعة"],["Berturut-turut antara khutbah dan solat Jumaat","برتوروت-توروت انتارا خطبة دان صلاة جمعة"],["Didengar sekurang-kurangnya 40 orang lelaki yang wajib solat Jumaat","ددڠر سکورڠ-کورڠڽ 40 اورڠ للاکي يڠ واجب صلاة جمعة"]] },
+    { pic:"🖐️", p:"10", h:["5 rukun khutbah","5 روکون خطبة"],
+      list:[["Memuji Allah dalam khutbah pertama dan kedua dengan lafaz alhamdulillah","مموجي الله دالم خطبة ڤرتام دان کدوا دڠن لفظ الحمد لله"],["Membaca selawat ke atas Nabi Muhammad SAW dalam khutbah pertama dan kedua","ممباچ صلوات کأتس نبي محمد ﷺ دالم خطبة ڤرتام دان کدوا"],["Memberi peringatan supaya bertakwa kepada Allah dalam khutbah pertama dan kedua","ممبري ڤريڠتن سوڤايا برتقوى کڤد الله دالم خطبة ڤرتام دان کدوا"],["Membaca satu ayat al-Quran dengan sempurna dalam khutbah pertama atau kedua","ممباچ ساتو ايات القرءان دڠن سمڤورنا دالم خطبة ڤرتام اتاو کدوا"],["Berdoa dalam khutbah kedua","بردعاء دالم خطبة کدوا"]],
+      ar:"الْحَمْدُ لِلَّهِ • اَللّٰهُمَّ صَلِّ عَلَى مُحَمَّدٍ",
+      mk:["Lafaz pujian dan selawat yang paling kurang dalam khutbah.","لفظ ڤوجين دان صلوات يڠ ڤاليڠ کورڠ دالم خطبة."] },
+    { pic:"🪵", p:"10", h:["Sunat ketika berkhutbah","سنة کتيک برخطبة"],
+      list:[["Berkhutbah di atas mimbar atau tempat tinggi","برخطبة د اتس منبر اتاو تمڤت تيڠڬي"],["Membaca khutbah dengan terang dan fasih","ممباچ خطبة دڠن ترڠ دان فصيح"],["Memandang kepada para jemaah","مماندڠ کڤد ڤارا جماعه"],["Memberi salam sebelum berkhutbah","ممبري سلام سبلوم برخطبة"],["Duduk sebentar selepas memberi salam","دودوق سبنتر سلڤس ممبري سلام"],["Menyampaikan khutbah secara tertib","مڽمڤايکن خطبة سچارا ترتيب"],["Memegang tongkat ketika berkhutbah","ممڬڠ توڠکت کتيک برخطبة"]] },
+    { pic:"💡", p:"11", h:["Hikmah khutbah Jumaat","حکمة خطبة جمعة"],
+      list:[["Meningkatkan keyakinan terhadap syariat Islam","منيڠکتکن کيقينن ترهادڤ شريعة إسلام"],["Menambahkan ketakwaan kepada Allah","منمبهکن کتقواءن کڤد الله"],["Mendapat nasihat dan pengajaran daripada isi khutbah","منداڤت نصيحت دان ڤڠاجرن درڤد ايسي خطبة"],["Mengetahui hal ehwal semasa","مڠتاهوءي حال احوال سماس"]],
+      tip:["Waktu doa mustajab ialah ketika khatib duduk antara dua khutbah.","وقتو دعاء مستجاب اياله کتيک خطيب دودوق انتارا دوا خطبة."],
+      am:["Sentiasa diam, mendengar dan menghayati khutbah Jumaat yang disampaikan oleh khatib.","سنتياس ديام، مندڠر دان مڠحياتي خطبة جمعة يڠ دسمڤايکن اوليه خطيب."] }
+  ],
+  games:[
+    { type:"kompas", p:"8", q:["Putar kompas: apakah hukum membaca khutbah Jumaat?","ڤوتر کومڤس: اڤاکه حکوم ممباچ خطبة جمعة؟"],
+      a:[["Wajib","واجب"],["Sunat","سنة"],["Harus","هاروس"],["Makruh","مکروه"]],
+      e:["Hukum membaca khutbah Jumaat ialah wajib.","حکوم ممباچ خطبة جمعة اياله واجب."] },
+    { type:"simpul", p:"10", q:["Ikat simpul: padankan rukun khutbah dengan bahagiannya.","ايکت سيمڤول: ڤادنکن روکون خطبة دڠن بهاڬينڽ."],
+      pairs:[[["Memuji Allah","مموجي الله"],"الْحَمْدُ لِلَّهِ"],[["Selawat ke atas Nabi","صلوات کأتس نبي"],"اَللّٰهُمَّ صَلِّ عَلَى مُحَمَّدٍ"],[["Berdoa","بردعاء"],["Dalam khutbah kedua","دالم خطبة کدوا"]],[["Satu ayat al-Quran","ساتو ايات القرءان"],["Khutbah pertama atau kedua","خطبة ڤرتام اتاو کدوا"]]],
+      e:["Pujian dan selawat ada dalam kedua-dua khutbah, doa dalam khutbah kedua, dan satu ayat al-Quran dalam salah satu khutbah.","ڤوجين دان صلوات اد دالم کدوا٢ خطبة، دعاء دالم خطبة کدوا، دان ساتو ايات القرءان دالم ساله ساتو خطبة."] },
+    { type:"lencana", p:"9", q:["Lekatkan lencana pada tempat kosong mengikut urutan.","لکتکن لنچان ڤد تمڤت کوسوڠ مڠيکوت اوروتن."],
+      s:["Khatib hendaklah seorang ___ dan membaca khutbah dengan ___. Rukun khutbah dibaca dalam bahasa ___.","خطيب هندقله سأورڠ ___ دان ممباچ خطبة دڠن ___. روکون خطبة دباچ دالم بهاس ___."],
+      ans:[["lelaki","للاکي"],["berdiri","برديري"],["Arab","عرب"]], extra:[["duduk","دودوق"],["perempuan","ڤرمڤوان"],["Inggeris","اڠڬريس"]],
+      e:["Khatib mesti lelaki, berkhutbah sambil berdiri, dan rukun khutbah dalam bahasa Arab.","خطيب مستي للاکي، برخطبة سمبيل برديري، دان روکون خطبة دالم بهاس عرب."] },
+    { type:"khemah", p:"9–10", q:["Masukkan kad ke khemah: SYARAT SAH khutbah atau SUNAT ketika berkhutbah?","ماسوقکن کد ک خيمه: شرط سه خطبة اتاو سنة کتيک برخطبة؟"],
+      tents:[["📋",["Syarat sah","شرط سه"]],["⭐",["Sunat","سنة"]]],
+      items:[[["Khatib menutup aurat","خطيب منوتوڤ عورة"],0],[["Suci daripada hadas kecil dan besar","سوچي درڤد حدث کچيل دان بسر"],0],[["Disampaikan sebelum solat Jumaat","دسمڤايکن سبلوم صلاة جمعة"],0],[["Berkhutbah di atas mimbar","برخطبة د اتس منبر"],1],[["Memegang tongkat","ممڬڠ توڠکت"],1],[["Memberi salam sebelum berkhutbah","ممبري سلام سبلوم برخطبة"],1]],
+      e:["Tanpa syarat sah, khutbah tidak sah. Perkara sunat pula menambah kesempurnaan khutbah.","تنڤا شرط سه، خطبة تيدق سه. ڤرکارا سنة ڤولا منمبه کسمڤورناءن خطبة."] },
+    { type:"ransel", p:"9", q:["Buka mangga ransel! Khutbah mesti didengar sekurang-kurangnya oleh berapa orang lelaki?","بوک مڠڬ رنسل! خطبة مستي ددڠر سکورڠ-کورڠڽ اوليه براڤ اورڠ للاکي؟"],
+      n:40, unit:["orang lelaki","اورڠ للاکي"], e:["Sekurang-kurangnya 40 orang lelaki yang wajib solat Jumaat.","سکورڠ-کورڠڽ 40 اورڠ للاکي يڠ واجب صلاة جمعة."] },
+    { type:"semboyan", p:"9–11", q:["Kibar bendera semboyan: hijau jika BETUL, merah jika SALAH.","کيبر بنديرا سمبوين: هيجاو جک بتول، ميره جک سالح."],
+      items:[[["Khutbah dibaca selepas solat Jumaat.","خطبة دباچ سلڤس صلاة جمعة."],0],[["Khatib duduk sebentar antara dua khutbah.","خطيب دودوق سبنتر انتارا دوا خطبة."],1],[["Doa mustajab ketika khatib duduk antara dua khutbah.","دعاء مستجاب کتيک خطيب دودوق انتارا دوا خطبة."],1],[["Khatib boleh berkhutbah walaupun berhadas.","خطيب بوليه برخطبة والاوڤون برحدث."],0],[["Jemaah hendaklah diam dan mendengar khutbah.","جماعه هندقله ديام دان مندڠر خطبة."],1]],
+      e:["Khutbah dibaca sebelum solat, khatib mesti suci, dan jemaah diam mendengar.","خطبة دباچ سبلوم صلاة، خطيب مستي سوچي، دان جماعه ديام مندڠر."] }
+  ]
+});
+STATIONS.push({ id:3, icon:"🕰️", c:"#3C6E9E", sticker:"🧭",
+  t:["Solat Sunat Rawatib","صلاة سنة رواتب"], u:["Pelajaran 3 • Unit 1 • ms. 12–18","ڤلاجرن 3 • يونيت 1 • م.س. 12–18"],
+  read:[
+    { pic:"🕰️", p:"14", h:["Apa itu solat sunat rawatib?","اڤ ايت صلاة سنة رواتب؟"],
+      text:["Solat sunat rawatib ialah solat sunat yang dilakukan mengiringi solat fardu, sama ada sebelum atau selepas. Hukum solat rawatib ialah sunat.","صلاة سنة رواتب اياله صلاة سنة يڠ دلاکوکن مڠيريڠي صلاة فرض، سام اد سبلوم اتاو سلڤس. حکوم صلاة رواتب اياله سنة."],
+      ar:"أُصَلِّي سُنَّةَ الصُّبْحِ رَكْعَتَيْنِ لِلَّهِ تَعَالَى",
+      mk:["Sahaja aku solat sunat subuh dua rakaat kerana Allah Taala.","سهاج اکو صلاة سنة صبح دوا رکعة کران الله تعالى."], src:["Contoh lafaz niat, ms. 14","چونتوه لفظ نية، م.س. 14"] },
+    { pic:"🧎", p:"16", h:["Cara solat sunat rawatib","چارا صلاة سنة رواتب"],
+      list:[["Rakaat 1: niat beserta takbiratul ihram","رکعة 1: نية بسرتا تکبيرة الإحرام"],["Baca al-Fatihah dan surah al-Kafirun atau mana-mana surah","باچ الفاتحة دان سورة الکافرون اتاو مان٢ سورة"],["Rukuk, iktidal, sujud, duduk antara dua sujud, sujud","رکوع، اعتدال، سجود، دودوق انتارا دوا سجود، سجود"],["Rakaat 2: baca al-Fatihah dan surah al-Ikhlas atau mana-mana surah","رکعة 2: باچ الفاتحة دان سورة الإخلاص اتاو مان٢ سورة"],["Rukuk, iktidal, sujud, duduk antara dua sujud, sujud","رکوع، اعتدال، سجود، دودوق انتارا دوا سجود، سجود"],["Duduk dan membaca tahiyat akhir, kemudian salam","دودوق دان ممباچ تحية اخير، کمودين سلام"]] },
+    { pic:"⭐", p:"17", h:["Sunat muakkad (sangat dituntut)","سنة مؤکدة"],
+      list:[["2 rakaat sebelum subuh","2 رکعة سبلوم صبح"],["2 rakaat sebelum zohor atau Jumaat","2 رکعة سبلوم ظهر اتاو جمعة"],["2 rakaat selepas zohor","2 رکعة سلڤس ظهر"],["2 rakaat selepas maghrib","2 رکعة سلڤس مغرب"],["2 rakaat selepas isyak","2 رکعة سلڤس عشاء"]] },
+    { pic:"✨", p:"17", h:["Sunat ghairu muakkad","سنة غير مؤکدة"],
+      list:[["2 rakaat sebelum zohor","2 رکعة سبلوم ظهر"],["2 rakaat selepas zohor","2 رکعة سلڤس ظهر"],["2 rakaat sebelum asar","2 رکعة سبلوم عصر"],["2 rakaat sebelum maghrib","2 رکعة سبلوم مغرب"],["2 rakaat sebelum isyak","2 رکعة سبلوم عشاء"]],
+      tip:["Sebelum dan selepas zohor ada 2 rakaat muakkad dan 2 rakaat lagi ghairu muakkad.","سبلوم دان سلڤس ظهر اد 2 رکعة مؤکدة دان 2 رکعة لاڬي غير مؤکدة."] },
+    { pic:"🌟", p:"17–18", h:["Hikmah solat rawatib","حکمة صلاة رواتب"],
+      list:[["Dikasihi Allah dan Rasul","دکاسيهي الله دان رسول"],["Mendapat pahala","منداڤت ڤهالا"],["Menambah kesempurnaan solat fardu","منمبه کسمڤورناءن صلاة فرض"]],
+      am:["Dirikan solat sunat rawatib dengan sempurna.","ديريکن صلاة سنة رواتب دڠن سمڤورنا."] }
+  ],
+  games:[
+    { type:"kompas", p:"14", q:["Putar kompas: apakah maksud solat sunat rawatib?","ڤوتر کومڤس: اڤاکه مقصود صلاة سنة رواتب؟"],
+      a:[["Solat sunat yang mengiringi solat fardu, sebelum atau selepas","صلاة سنة يڠ مڠيريڠي صلاة فرض، سبلوم اتاو سلڤس"],["Solat sunat pada waktu dhuha sahaja","صلاة سنة ڤد وقتو ضحى سهاج"],["Solat sunat pada malam Ramadan","صلاة سنة ڤد مالم رمضان"],["Solat sunat ketika gerhana","صلاة سنة کتيک ڬرهان"]],
+      e:["Rawatib mengiringi solat fardu: ada yang sebelum (qabliyyah) dan ada yang selepas (ba'diyyah).","رواتب مڠيريڠي صلاة فرض: اد يڠ سبلوم (قبلية) دان اد يڠ سلڤس (بعدية)."] },
+    { type:"khemah", p:"17", q:["Masukkan kad ke khemah: sunat MUAKKAD atau GHAIRU MUAKKAD?","ماسوقکن کد ک خيمه: سنة مؤکدة اتاو غير مؤکدة؟"],
+      tents:[["⭐",["Muakkad","مؤکدة"]],["✨",["Ghairu muakkad","غير مؤکدة"]]],
+      items:[[["2 rakaat sebelum subuh","2 رکعة سبلوم صبح"],0],[["2 rakaat selepas maghrib","2 رکعة سلڤس مغرب"],0],[["2 rakaat selepas isyak","2 رکعة سلڤس عشاء"],0],[["2 rakaat sebelum asar","2 رکعة سبلوم عصر"],1],[["2 rakaat sebelum maghrib","2 رکعة سبلوم مغرب"],1],[["2 rakaat sebelum isyak","2 رکعة سبلوم عشاء"],1]],
+      e:["Sebelum subuh, selepas maghrib dan selepas isyak ialah muakkad. Sebelum asar, maghrib dan isyak ialah ghairu muakkad.","سبلوم صبح، سلڤس مغرب دان سلڤس عشاء اياله مؤکدة. سبلوم عصر، مغرب دان عشاء اياله غير مؤکدة."] },
+    { type:"peta", p:"16", q:["Lukis denai peta: susun cara rakaat pertama solat rawatib.","لوکيس دناي ڤتا: سوسون چارا رکعة ڤرتام صلاة رواتب."],
+      steps:[["Niat beserta takbiratul ihram","نية بسرتا تکبيرة الإحرام"],["Membaca al-Fatihah","ممباچ الفاتحة"],["Membaca surah al-Kafirun","ممباچ سورة الکافرون"],["Rukuk","رکوع"],["Iktidal","اعتدال"],["Sujud","سجود"]],
+      e:["Rakaat pertama bermula dengan niat dan takbiratul ihram, kemudian al-Fatihah dan surah.","رکعة ڤرتام برمولا دڠن نية دان تکبيرة الإحرام، کمودين الفاتحة دان سورة."] },
+    { type:"simpul", p:"16", q:["Ikat simpul: padankan bahagian solat rawatib dengan bacaannya.","ايکت سيمڤول: ڤادنکن بهاڬين صلاة رواتب دڠن باچاءنڽ."],
+      pairs:[[["Awal rakaat 1","اول رکعة 1"],["Niat dan takbiratul ihram","نية دان تکبيرة الإحرام"]],[["Surah rakaat 1","سورة رکعة 1"],["Al-Kafirun","الکافرون"]],[["Surah rakaat 2","سورة رکعة 2"],["Al-Ikhlas","الإخلاص"]],[["Akhir rakaat 2","اخير رکعة 2"],["Tahiyat akhir dan salam","تحية اخير دان سلام"]]],
+      e:["Al-Kafirun untuk rakaat pertama dan al-Ikhlas untuk rakaat kedua, atau mana-mana surah.","الکافرون اونتوق رکعة ڤرتام دان الإخلاص اونتوق رکعة کدوا، اتاو مان٢ سورة."] },
+    { type:"obor", p:"17", q:["Suluh semak dengan obor. Cari satu yang BUKAN hikmah solat rawatib.","سولوه سمق دڠن اوبور. چاري ساتو يڠ بوکن حکمة صلاة رواتب."],
+      items:[[["Dikasihi Allah dan Rasul","دکاسيهي الله دان رسول"],0],[["Mendapat pahala","منداڤت ڤهالا"],0],[["Menambah kesempurnaan solat fardu","منمبه کسمڤورناءن صلاة فرض"],0],[["Tidak perlu lagi solat fardu","تيدق ڤرلو لاڬي صلاة فرض"],1]],
+      e:["Solat sunat tidak menggantikan solat fardu. Ia menambah kesempurnaannya.","صلاة سنة تيدق مڠڬنتيکن صلاة فرض. اي منمبه کسمڤورناءنڽ."] },
+    { type:"lencana", p:"14", q:["Lekatkan lencana pada tempat kosong mengikut urutan.","لکتکن لنچان ڤد تمڤت کوسوڠ مڠيکوت اوروتن."],
+      s:["Solat sunat rawatib dilakukan ___ solat fardu, sama ada ___ atau selepas. Hukumnya ialah ___.","صلاة سنة رواتب دلاکوکن ___ صلاة فرض، سام اد ___ اتاو سلڤس. حکومڽ اياله ___."],
+      ans:[["mengiringi","مڠيريڠي"],["sebelum","سبلوم"],["sunat","سنة"]], extra:[["menggantikan","مڠڬنتيکن"],["wajib","واجب"],["semasa","سماس"]],
+      e:["Rawatib mengiringi solat fardu, sebelum atau selepas, dan hukumnya sunat.","رواتب مڠيريڠي صلاة فرض، سبلوم اتاو سلڤس، دان حکومڽ سنة."] }
+  ]
+});
+STATIONS.push({ id:4, icon:"🌤️", c:"#D49A1E", sticker:"🌞",
+  t:["Solat Dhuha dan Hajat","صلاة ضحى دان حاجة"], u:["Pelajaran 3 • Unit 2–3 • ms. 19–24","ڤلاجرن 3 • يونيت 2–3 • م.س. 19–24"],
+  read:[
+    { pic:"🌤️", p:"19", h:["Solat sunat dhuha","صلاة سنة ضحى"],
+      list:[["Dilakukan pada waktu dhuha","دلاکوکن ڤد وقتو ضحى"],["Waktu dhuha bermula 28 minit selepas matahari terbit hingga sebelum masuk waktu zohor","وقتو ضحى برمولا 28 مينيت سلڤس تربيت ماتاهاري هيڠڬ سبلوم ماسوق وقتو ظهر"],["Sekurang-kurangnya dua rakaat dan sebanyak-banyaknya lapan rakaat","سکورڠ-کورڠڽ دوا رکعة دان سباڽق-باڽقڽ لاڤن رکعة"],["Setiap dua rakaat satu salam","ستياڤ دوا رکعة ساتو سلام"]],
+      ar:"أُصَلِّي سُنَّةَ الضُّحَى رَكْعَتَيْنِ لِلَّهِ تَعَالَى",
+      mk:["Sahaja aku solat sunat dhuha dua rakaat kerana Allah Taala.","سهاج اکو صلاة سنة ضحى دوا رکعة کران الله تعالى."], src:["Lafaz niat, ms. 19","لفظ نية، م.س. 19"] },
+    { pic:"📖", p:"19–21", h:["Bacaan dan hikmah dhuha","باچاءن دان حکمة ضحى"],
+      text:["Rakaat pertama: surah asy-Syams. Rakaat kedua: surah ad-Dhuha, atau mana-mana surah.","رکعة ڤرتام: سورة الشمس. رکعة کدوا: سورة الضحى، اتاو مان٢ سورة."],
+      list:[["Dikasihi Allah dan Rasul","دکاسيهي الله دان رسول"],["Mendapat pahala","منداڤت ڤهالا"],["Dipermudahkan urusan mendapat rezeki","دڤرمودهکن اوروسن منداڤت رزقي"]],
+      tip:["Doa selepas solat boleh dilafazkan dalam bahasa Melayu.","دعاء سلڤس صلاة بوليه دلفظکن دالم بهاس ملايو."],
+      am:["Melakukan solat sunat dhuha pada setiap hari.","ملاکوکن صلاة سنة ضحى ڤد ستياڤ هاري."] },
+    { pic:"🤲", p:"22–23", h:["Solat sunat hajat","صلاة سنة حاجة"],
+      text:["Solat sunat hajat ialah solat yang dilakukan kerana memohon agar dimudahkan sesuatu hajat.","صلاة سنة حاجة اياله صلاة يڠ دلاکوکن کران مموهون اڬر دمودهکن سسواتو حاجت."],
+      list:[["Dilakukan dua rakaat dengan satu salam","دلاکوکن دوا رکعة دڠن ساتو سلام"],["Rakaat 1: ayat al-Kursi atau surah al-Kafirun atau surah lain","رکعة 1: ايات الکرسي اتاو سورة الکافرون اتاو سورة لاءين"],["Rakaat 2: surah al-Ikhlas atau surah lain","رکعة 2: سورة الإخلاص اتاو سورة لاءين"],["Boleh dilakukan pada bila-bila masa; afdal pada sepertiga akhir malam (lebih kurang jam 2 pagi)","بوليه دلاکوکن ڤد بيلا٢ ماس؛ افضل ڤد سڤرتيڬ اخير مالم (لبيه کورڠ جم 2 ڤاڬي)"]],
+      ar:"أُصَلِّي سُنَّةَ الْحَاجَةِ رَكْعَتَيْنِ لِلَّهِ تَعَالَى",
+      mk:["Sahaja aku solat sunat hajat dua rakaat kerana Allah Taala.","سهاج اکو صلاة سنة حاجة دوا رکعة کران الله تعالى."] },
+    { pic:"🎯", p:"22–24", h:["Hikmah solat hajat","حکمة صلاة حاجة"],
+      list:[["Dikasihi Allah dan Rasul","دکاسيهي الله دان رسول"],["Mendapat pahala","منداڤت ڤهالا"],["Hajat dimakbulkan Allah","حاجت دمقبولکن الله"]],
+      am:["Mendirikan solat sunat hajat untuk memohon kejayaan dunia dan akhirat.","منديريکن صلاة سنة حاجة اونتوق مموهون کجاياءن دنيا دان اخيرة."] }
+  ],
+  games:[
+    { type:"ransel", p:"19", q:["Buka mangga ransel! Waktu dhuha bermula berapa minit selepas matahari terbit?","بوک مڠڬ رنسل! وقتو ضحى برمولا براڤ مينيت سلڤس تربيت ماتاهاري؟"],
+      n:28, unit:["minit","مينيت"], e:["Waktu dhuha bermula 28 minit selepas matahari terbit hingga sebelum masuk waktu zohor.","وقتو ضحى برمولا 28 مينيت سلڤس تربيت ماتاهاري هيڠڬ سبلوم ماسوق وقتو ظهر."] },
+    { type:"khemah", p:"19–23", q:["Masukkan kad ke khemah: tentang solat DHUHA atau solat HAJAT?","ماسوقکن کد ک خيمه: تنتڠ صلاة ضحى اتاو صلاة حاجة؟"],
+      tents:[["🌤️",["Dhuha","ضحى"]],["🤲",["Hajat","حاجة"]]],
+      items:[[["Rakaat pertama surah asy-Syams","رکعة ڤرتام سورة الشمس"],0],[["Sebanyak-banyaknya lapan rakaat","سباڽق-باڽقڽ لاڤن رکعة"],0],[["Dipermudahkan urusan rezeki","دڤرمودهکن اوروسن رزقي"],0],[["Memohon agar dimudahkan sesuatu hajat","مموهون اڬر دمودهکن سسواتو حاجت"],1],[["Rakaat pertama boleh baca ayat al-Kursi","رکعة ڤرتام بوليه باچ ايات الکرسي"],1],[["Hajat dimakbulkan Allah","حاجت دمقبولکن الله"],1]],
+      e:["Dhuha: waktu pagi, sehingga lapan rakaat, rezeki dipermudah. Hajat: memohon hajat dan dimakbulkan Allah.","ضحى: وقتو ڤاڬي، سهيڠڬ لاڤن رکعة، رزقي دڤرموده. حاجة: مموهون حاجت دان دمقبولکن الله."] },
+    { type:"kompas", p:"19", q:["Putar kompas: manakah lafaz niat solat sunat DHUHA?","ڤوتر کومڤس: مناکه لفظ نية صلاة سنة ضحى؟"],
+      a:["أُصَلِّي سُنَّةَ الضُّحَى رَكْعَتَيْنِ لِلَّهِ تَعَالَى","أُصَلِّي سُنَّةَ الْحَاجَةِ رَكْعَتَيْنِ لِلَّهِ تَعَالَى","أُصَلِّي سُنَّةَ التَّهَجُّدِ رَكْعَتَيْنِ لِلَّهِ تَعَالَى","أُصَلِّي سُنَّةَ الْوِتْرِ رَكْعَتَيْنِ لِلَّهِ تَعَالَى"],
+      e:["Niat dhuha menyebut “sunnatad dhuha”.","نية ضحى مڽبوت \"سُنَّةَ الضُّحَى\"."] },
+    { type:"unggun", p:"19–21", q:["Hidupkan unggun api! Pilih semua kayu yang BETUL tentang solat dhuha.","هيدوڤکن اوڠڬون اڤي! ڤيليه سموا کايو يڠ بتول تنتڠ صلاة ضحى."],
+      items:[[["Sekurang-kurangnya dua rakaat","سکورڠ-کورڠڽ دوا رکعة"],1],[["Setiap dua rakaat satu salam","ستياڤ دوا رکعة ساتو سلام"],1],[["Doa selepasnya boleh dalam bahasa Melayu","دعاء سلڤسڽ بوليه دالم بهاس ملايو"],1],[["Dilakukan sebelum masuk waktu zohor","دلاکوکن سبلوم ماسوق وقتو ظهر"],1],[["Dilakukan selepas solat isyak","دلاکوکن سلڤس صلاة عشاء"],0],[["Lapan rakaat dengan satu salam","لاڤن رکعة دڠن ساتو سلام"],0]],
+      e:["Dhuha dibuat pada waktu pagi hingga sebelum zohor, setiap dua rakaat satu salam.","ضحى دبوات ڤد وقتو ڤاڬي هيڠڬ سبلوم ظهر، ستياڤ دوا رکعة ساتو سلام."] },
+    { type:"semboyan", p:"22", q:["Kibar bendera semboyan: hijau jika BETUL, merah jika SALAH.","کيبر بنديرا سمبوين: هيجاو جک بتول، ميره جک سالح."],
+      items:[[["Solat hajat dilakukan dua rakaat dengan satu salam.","صلاة حاجة دلاکوکن دوا رکعة دڠن ساتو سلام."],1],[["Solat hajat hanya boleh dilakukan pada bulan Ramadan.","صلاة حاجة هاڽ بوليه دلاکوکن ڤد بولن رمضان."],0],[["Solat hajat afdal dilakukan pada sepertiga akhir malam.","صلاة حاجة افضل دلاکوکن ڤد سڤرتيڬ اخير مالم."],1],[["Solat dhuha dilakukan selepas solat zohor.","صلاة ضحى دلاکوکن سلڤس صلاة ظهر."],0],[["Rakaat kedua solat hajat boleh membaca surah al-Ikhlas.","رکعة کدوا صلاة حاجة بوليه ممباچ سورة الإخلاص."],1]],
+      e:["Hajat boleh dibuat bila-bila masa, afdal sepertiga akhir malam. Dhuha pula sebelum zohor.","حاجة بوليه دبوات بيلا٢ ماس، افضل سڤرتيڬ اخير مالم. ضحى ڤولا سبلوم ظهر."] },
+    { type:"lencana", p:"19", q:["Lekatkan lencana pada tempat kosong mengikut urutan.","لکتکن لنچان ڤد تمڤت کوسوڠ مڠيکوت اوروتن."],
+      s:["Dalam solat dhuha, rakaat pertama dibaca surah ___ dan rakaat kedua surah ___.","دالم صلاة ضحى، رکعة ڤرتام دباچ سورة ___ دان رکعة کدوا سورة ___."],
+      ans:[["asy-Syams","الشمس"],["ad-Dhuha","الضحى"]], extra:[["al-A'la","الأعلى"],["an-Nas","الناس"]],
+      e:["Asy-Syams (matahari) dan ad-Dhuha (waktu dhuha), atau mana-mana surah.","الشمس دان الضحى، اتاو مان٢ سورة."] }
+  ]
+});
+STATIONS.push({ id:5, icon:"🌙", c:"#6A4C93", sticker:"🏮",
+  t:["Solat Tarawih dan Witir","صلاة تراويح دان وتر"], u:["Pelajaran 3 • Unit 4 & 7 • ms. 25–28, 37–39","ڤلاجرن 3 • يونيت 4 & 7 • م.س. 25–28، 37–39"],
+  read:[
+    { pic:"🌙", p:"25", h:["Solat sunat tarawih","صلاة سنة تراويح"],
+      text:["Solat tarawih ialah solat yang dilakukan selepas solat isyak pada bulan Ramadan, sama ada secara berjemaah atau berseorangan, sebanyak 20 rakaat dan setiap dua rakaat satu salam. Hukumnya sunat muakkad.","صلاة تراويح اياله صلاة يڠ دلاکوکن سلڤس صلاة عشاء ڤد بولن رمضان، سام اد سچارا برجماعه اتاو برسأورڠن، سباڽق 20 رکعة دان ستياڤ دوا رکعة ساتو سلام. حکومڽ سنة مؤکدة."],
+      ar:"أُصَلِّي سُنَّةَ التَّرَاوِيْحِ رَكْعَتَيْنِ لِلَّهِ تَعَالَى",
+      mk:["Sahaja aku solat sunat tarawih dua rakaat kerana Allah Taala.","سهاج اکو صلاة سنة تراويح دوا رکعة کران الله تعالى."], src:["Lafaz niat, ms. 26","لفظ نية، م.س. 26"] },
+    { pic:"🏮", p:"26–28", h:["Cara dan hikmah tarawih","چارا دان حکمة تراويح"],
+      list:[["Dilakukan hanya pada bulan Ramadan","دلاکوکن هاڽ ڤد بولن رمضان"],["Waktunya bermula selepas solat isyak","وقتوڽ برمولا سلڤس صلاة عشاء"],["Setiap dua rakaat satu salam","ستياڤ دوا رکعة ساتو سلام"],["Hikmah: mendapat pahala yang besar","حکمة: منداڤت ڤهالا يڠ بسر"],["Hikmah: badan sihat dan cergas","حکمة: بادن صيحت دان چرڬس"],["Hikmah: melatih diri bersatu padu dan bekerjasama","حکمة: ملاتيه ديري برساتو ڤادو دان بکرجاسام"]],
+      tip:["Di Masjidil Haram dan Masjid Nabawi, tarawih dilakukan 20 rakaat dan witir 3 rakaat.","د مسجد الحرام دان مسجد نبوي، تراويح دلاکوکن 20 رکعة دان وتر 3 رکعة."],
+      am:["Dirikan solat tarawih pada malam Ramadan secara berjemaah di masjid.","ديريکن صلاة تراويح ڤد مالم رمضان سچارا برجماعه د مسجد."] },
+    { pic:"🔒", p:"37–38", h:["Solat sunat witir","صلاة سنة وتر"],
+      text:["Solat sunat witir ialah solat penutup yang dilakukan setelah solat-solat yang lain. Hukumnya sunat.","صلاة سنة وتر اياله صلاة ڤنوتوڤ يڠ دلاکوکن ستله صلاة٢ يڠ لاءين. حکومڽ سنة."],
+      ar:"أُصَلِّي سُنَّةَ الْوِتْرِ رَكْعَتَيْنِ لِلَّهِ تَعَالَى",
+      mk:["Sahaja aku solat sunat witir dua rakaat kerana Allah Taala.","سهاج اکو صلاة سنة وتر دوا رکعة کران الله تعالى."], src:["Lafaz niat, ms. 38","لفظ نية، م.س. 38"] },
+    { pic:"📿", p:"38–39", h:["Bacaan surah dalam witir","باچاءن سورة دالم وتر"],
+      list:[["Dua rakaat: rakaat 1 al-Fatihah dan surah al-A'la atau mana-mana surah","دوا رکعة: رکعة 1 الفاتحة دان سورة الأعلى اتاو مان٢ سورة"],["Dua rakaat: rakaat 2 al-Fatihah dan surah al-Kafirun","دوا رکعة: رکعة 2 الفاتحة دان سورة الکافرون"],["Satu rakaat: al-Fatihah, al-Ikhlas, al-Falaq dan an-Nas","ساتو رکعة: الفاتحة، الإخلاص، الفلق دان الناس"]],
+      tip:["Solat witir boleh dilakukan sebanyak tiga, lima, tujuh atau sekurang-kurangnya satu rakaat.","صلاة وتر بوليه دلاکوکن سباڽق تيڬ، ليم، توجوه اتاو سکورڠ-کورڠڽ ساتو رکعة."],
+      am:["Dirikan solat sunat witir setiap malam.","ديريکن صلاة سنة وتر ستياڤ مالم."] }
+  ],
+  games:[
+    { type:"ransel", p:"25", q:["Buka mangga ransel! Solat tarawih dilakukan sebanyak berapa rakaat?","بوک مڠڬ رنسل! صلاة تراويح دلاکوکن سباڽق براڤ رکعة؟"],
+      n:20, unit:["rakaat","رکعة"], e:["Tarawih 20 rakaat, setiap dua rakaat satu salam.","تراويح 20 رکعة، ستياڤ دوا رکعة ساتو سلام."] },
+    { type:"kompas", p:"37", q:["Putar kompas: apakah solat witir?","ڤوتر کومڤس: اڤاکه صلاة وتر؟"],
+      a:[["Solat penutup yang dilakukan setelah solat-solat yang lain","صلاة ڤنوتوڤ يڠ دلاکوکن ستله صلاة٢ يڠ لاءين"],["Solat pembuka sebelum solat isyak","صلاة ڤمبوک سبلوم صلاة عشاء"],["Solat ketika masuk masjid","صلاة کتيک ماسوق مسجد"],["Solat yang dibuat ketika gerhana","صلاة يڠ دبوات کتيک ڬرهان"]],
+      e:["Witir ialah solat penutup, dibuat selepas solat-solat yang lain.","وتر اياله صلاة ڤنوتوڤ، دبوات سلڤس صلاة٢ يڠ لاءين."] },
+    { type:"khemah", p:"25–39", q:["Masukkan kad ke khemah: tentang solat TARAWIH atau solat WITIR?","ماسوقکن کد ک خيمه: تنتڠ صلاة تراويح اتاو صلاة وتر؟"],
+      tents:[["🏮",["Tarawih","تراويح"]],["🔒",["Witir","وتر"]]],
+      items:[[["Hanya pada bulan Ramadan","هاڽ ڤد بولن رمضان"],0],[["20 rakaat","20 رکعة"],0],[["Melatih diri bersatu padu","ملاتيه ديري برساتو ڤادو"],0],[["Solat penutup","صلاة ڤنوتوڤ"],1],[["Rakaat pertama surah al-A'la","رکعة ڤرتام سورة الأعلى"],1],[["Boleh satu rakaat sahaja","بوليه ساتو رکعة سهاج"],1]],
+      e:["Tarawih hanya pada Ramadan, 20 rakaat. Witir ialah penutup dan boleh satu rakaat.","تراويح هاڽ ڤد رمضان، 20 رکعة. وتر اياله ڤنوتوڤ دان بوليه ساتو رکعة."] },
+    { type:"simpul", p:"38–39", q:["Ikat simpul: padankan rakaat witir dengan surahnya.","ايکت سيمڤول: ڤادنکن رکعة وتر دڠن سورةڽ."],
+      pairs:[[["Witir 2 rakaat: rakaat 1","وتر 2 رکعة: رکعة 1"],["Al-A'la","الأعلى"]],[["Witir 2 rakaat: rakaat 2","وتر 2 رکعة: رکعة 2"],["Al-Kafirun","الکافرون"]],[["Witir 1 rakaat","وتر 1 رکعة"],["Al-Ikhlas, al-Falaq, an-Nas","الإخلاص، الفلق، الناس"]]],
+      e:["Al-A'la dan al-Kafirun untuk dua rakaat; tiga Qul untuk satu rakaat.","الأعلى دان الکافرون اونتوق دوا رکعة؛ تيڬ قل اونتوق ساتو رکعة."] },
+    { type:"obor", p:"26", q:["Suluh semak dengan obor. Cari satu yang BUKAN hikmah solat tarawih.","سولوه سمق دڠن اوبور. چاري ساتو يڠ بوکن حکمة صلاة تراويح."],
+      items:[[["Mendapat pahala yang besar","منداڤت ڤهالا يڠ بسر"],0],[["Badan sihat dan cergas","بادن صيحت دان چرڬس"],0],[["Bersatu padu dan bekerjasama","برساتو ڤادو دان بکرجاسام"],0],[["Boleh tidak berpuasa esoknya","بوليه تيدق برڤواسا ايسوقڽ"],1]],
+      e:["Tarawih tidak menggantikan puasa. Hikmahnya pahala, sihat dan bersatu padu.","تراويح تيدق مڠڬنتيکن ڤواسا. حکمةڽ ڤهالا، صيحت دان برساتو ڤادو."] },
+    { type:"semboyan", p:"25–39", q:["Kibar bendera semboyan: hijau jika BETUL, merah jika SALAH.","کيبر بنديرا سمبوين: هيجاو جک بتول، ميره جک سالح."],
+      items:[[["Tarawih dilakukan selepas solat isyak.","تراويح دلاکوکن سلڤس صلاة عشاء."],1],[["Tarawih boleh dilakukan berseorangan.","تراويح بوليه دلاکوکن برسأورڠن."],1],[["Tarawih dilakukan pada bulan Syaaban.","تراويح دلاکوکن ڤد بولن شعبان."],0],[["Witir boleh dilakukan sebanyak tiga, lima atau tujuh rakaat.","وتر بوليه دلاکوکن سباڽق تيڬ، ليم اتاو توجوه رکعة."],1],[["Hukum solat witir ialah wajib.","حکوم صلاة وتر اياله واجب."],0]],
+      e:["Tarawih selepas isyak pada Ramadan. Witir hukumnya sunat dan bilangannya ganjil.","تراويح سلڤس عشاء ڤد رمضان. وتر حکومڽ سنة دان بيلڠنڽ ڬنجيل."] }
+  ]
+});
+STATIONS.push({ id:6, icon:"✨", c:"#1F7A8C", sticker:"🌌",
+  t:["Solat Tahajud dan Tasbih","صلاة تهجد دان تسبيح"], u:["Pelajaran 3 • Unit 5–6 • ms. 29–36","ڤلاجرن 3 • يونيت 5–6 • م.س. 29–36"],
+  read:[
+    { pic:"🌌", p:"29–30", h:["Solat sunat tahajud","صلاة سنة تهجد"],
+      text:["Solat sunat tahajud ialah solat dua rakaat yang dilakukan selepas bangun daripada tidur walaupun tidur sebentar.","صلاة سنة تهجد اياله صلاة دوا رکعة يڠ دلاکوکن سلڤس باڠون درڤد تيدور والاوڤون تيدور سبنتر."],
+      list:[["Waktu: selepas solat isyak hingga terbit fajar","وقتو: سلڤس صلاة عشاء هيڠڬ تربيت فجر"],["Afdal pada satu pertiga akhir malam (lebih kurang jam dua pagi)","افضل ڤد ساتو ڤرتيڬ اخير مالم (لبيه کورڠ جم دوا ڤاڬي)"],["Bilangan rakaat tidak terbatas, sekurang-kurangnya dua rakaat dengan satu salam","بيلڠن رکعة تيدق ترباتس، سکورڠ-کورڠڽ دوا رکعة دڠن ساتو سلام"]],
+      ar:"أُصَلِّي سُنَّةَ التَّهَجُّدِ رَكْعَتَيْنِ لِلَّهِ تَعَالَى",
+      mk:["Sahaja aku solat sunat tahajud dua rakaat kerana Allah Taala.","سهاج اکو صلاة سنة تهجد دوا رکعة کران الله تعالى."] },
+    { pic:"💤", p:"32", h:["Hikmah tahajud","حکمة تهجد"],
+      list:[["Mendapat keampunan dan keredaan Allah","منداڤت کأمڤونن دان کريضاءن الله"],["Mudah mendapat rezeki","موده منداڤت رزقي"],["Dijauhkan daripada penyakit","دجاءوهکن درڤد ڤڽاکيت"],["Doa dimakbulkan oleh Allah","دعاء دمقبولکن اوليه الله"]],
+      tip:["Rasulullah SAW sangat mengambil berat tentang solat tahajud sehingga sanggup mengejutkan isteri dan anak-anak baginda yang sedang tidur untuk sama-sama menunaikannya.","رسول الله ﷺ ساڠت مڠمبيل برت تنتڠ صلاة تهجد سهيڠڬ سڠڬوڤ مڠجوتکن ايستري دان انق٢ بڬيندا يڠ سدڠ تيدور اونتوق سام٢ منونايکنڽ."] },
+    { pic:"📿", p:"33–34", h:["Solat sunat tasbih","صلاة سنة تسبيح"],
+      list:[["Solat yang diucapkan tasbih di dalamnya sebanyak 300 kali","صلاة يڠ دأوچڤکن تسبيح ددالمڽ سباڽق 300 کالي"],["Siang: empat rakaat dengan satu salam","سياڠ: امڤت رکعة دڠن ساتو سلام"],["Malam: empat rakaat dengan dua salam","مالم: امڤت رکعة دڠن دوا سلام"],["Sunat setiap malam; jika tidak mampu, seminggu, sebulan, setahun atau sekurang-kurangnya sekali seumur hidup","سنة ستياڤ مالم؛ جک تيدق ممڤو، سميڠڬو، سبولن، ستاهون اتاو سکورڠ-کورڠڽ سکالي سعمور هيدوڤ"]],
+      ar:"سُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ وَلَا إِلَهَ إِلَّا اللَّهُ وَاللَّهُ أَكْبَرُ وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ الْعَلِيِّ الْعَظِيْمِ",
+      mk:["Bacaan tasbih dalam solat sunat tasbih.","باچاءن تسبيح دالم صلاة سنة تسبيح."], src:["ms. 34","م.س. 34"] },
+    { pic:"🔢", p:"35", h:["Kiraan tasbih dalam satu rakaat","کيراءن تسبيح دالم ساتو رکعة"],
+      list:[["Selepas al-Fatihah dan surah: 15 kali","سلڤس الفاتحة دان سورة: 15 کالي"],["Rukuk: 10 kali","رکوع: 10 کالي"],["Iktidal: 10 kali","اعتدال: 10 کالي"],["Sujud: 10 kali","سجود: 10 کالي"],["Duduk antara dua sujud: 10 kali","دودوق انتارا دوا سجود: 10 کالي"],["Sujud kedua: 10 kali","سجود کدوا: 10 کالي"],["Duduk sebelum bangun (atau tahiyat akhir): 10 kali","دودوق سبلوم باڠون (اتاو تحية اخير): 10 کالي"]],
+      tip:["Satu rakaat = 75 kali. Empat rakaat × 75 = 300 kali.","ساتو رکعة = 75 کالي. امڤت رکعة × 75 = 300 کالي."],
+      am:["Dirikan solat sunat tasbih sekurang-kurangnya sekali seumur hidup.","ديريکن صلاة سنة تسبيح سکورڠ-کورڠڽ سکالي سعمور هيدوڤ."] }
+  ],
+  games:[
+    { type:"ransel", p:"33", q:["Buka mangga ransel! Berapa kali tasbih diucapkan dalam solat sunat tasbih?","بوک مڠڬ رنسل! براڤ کالي تسبيح دأوچڤکن دالم صلاة سنة تسبيح؟"],
+      n:300, unit:["kali","کالي"], e:["300 kali: 75 kali setiap rakaat × 4 rakaat.","300 کالي: 75 کالي ستياڤ رکعة × 4 رکعة."] },
+    { type:"peta", p:"35", q:["Lukis denai peta: susun tempat membaca tasbih dalam satu rakaat.","لوکيس دناي ڤتا: سوسون تمڤت ممباچ تسبيح دالم ساتو رکعة."],
+      steps:[["Selepas al-Fatihah dan surah (15)","سلڤس الفاتحة دان سورة (15)"],["Rukuk (10)","رکوع (10)"],["Iktidal (10)","اعتدال (10)"],["Sujud (10)","سجود (10)"],["Duduk antara dua sujud (10)","دودوق انتارا دوا سجود (10)"],["Sujud kedua (10)","سجود کدوا (10)"],["Duduk sebelum bangun (10)","دودوق سبلوم باڠون (10)"]],
+      e:["15 + 10 × 6 = 75 tasbih dalam setiap rakaat.","15 + 10 × 6 = 75 تسبيح دالم ستياڤ رکعة."] },
+    { type:"kompas", p:"29", q:["Putar kompas: bilakah solat tahajud dilakukan?","ڤوتر کومڤس: بيلاکه صلاة تهجد دلاکوکن؟"],
+      a:[["Selepas bangun daripada tidur pada waktu malam","سلڤس باڠون درڤد تيدور ڤد وقتو مالم"],["Sebelum tidur, sebelum isyak","سبلوم تيدور، سبلوم عشاء"],["Pada waktu dhuha","ڤد وقتو ضحى"],["Selepas solat asar","سلڤس صلاة عصر"]],
+      e:["Tahajud dibuat selepas bangun tidur, walaupun tidur sebentar, antara isyak hingga fajar.","تهجد دبوات سلڤس باڠون تيدور، والاوڤون تيدور سبنتر، انتارا عشاء هيڠڬ فجر."] },
+    { type:"lencana", p:"33", q:["Lekatkan lencana pada tempat kosong mengikut urutan.","لکتکن لنچان ڤد تمڤت کوسوڠ مڠيکوت اوروتن."],
+      s:["Solat tasbih pada waktu siang ialah empat rakaat dengan ___ salam. Pada waktu malam empat rakaat dengan ___ salam.","صلاة تسبيح ڤد وقتو سياڠ اياله امڤت رکعة دڠن ___ سلام. ڤد وقتو مالم امڤت رکعة دڠن ___ سلام."],
+      ans:[["satu","ساتو"],["dua","دوا"]], extra:[["tiga","تيڬ"],["empat","امڤت"]],
+      e:["Siang: 4 rakaat 1 salam. Malam: 4 rakaat 2 salam.","سياڠ: 4 رکعة 1 سلام. مالم: 4 رکعة 2 سلام."] },
+    { type:"unggun", p:"32", q:["Hidupkan unggun api! Pilih semua kayu yang menjadi hikmah solat TAHAJUD.","هيدوڤکن اوڠڬون اڤي! ڤيليه سموا کايو يڠ منجادي حکمة صلاة تهجد."],
+      items:[[["Mendapat keampunan Allah","منداڤت کأمڤونن الله"],1],[["Mudah mendapat rezeki","موده منداڤت رزقي"],1],[["Dijauhkan daripada penyakit","دجاءوهکن درڤد ڤڽاکيت"],1],[["Doa dimakbulkan","دعاء دمقبولکن"],1],[["Boleh tidak solat subuh","بوليه تيدق صلاة صبح"],0],[["Boleh tidur sepanjang hari","بوليه تيدور سڤنجڠ هاري"],0]],
+      e:["Tahajud membawa keampunan, rezeki, kesihatan dan doa yang dimakbulkan.","تهجد ممباوا کأمڤونن، رزقي، کصيحتن دان دعاء يڠ دمقبولکن."] },
+    { type:"simpul", p:"29–36", q:["Ikat simpul: padankan setiap fakta dengan jawapannya.","ايکت سيمڤول: ڤادنکن ستياڤ فکتا دڠن جاوڤنڽ."],
+      pairs:[[["Tahajud afdal pada","تهجد افضل ڤد"],["Satu pertiga akhir malam","ساتو ڤرتيڬ اخير مالم"]],[["Tasbih dalam satu rakaat","تسبيح دالم ساتو رکعة"],["75 kali","75 کالي"]],[["Tasbih jika tidak mampu selalu","تسبيح جک تيدق ممڤو سلالو"],["Sekali seumur hidup","سکالي سعمور هيدوڤ"]],[["Rakaat tahajud","رکعة تهجد"],["Tidak terbatas, sekurang-kurangnya dua","تيدق ترباتس، سکورڠ-کورڠڽ دوا"]]],
+      e:["Tahajud afdal sepertiga akhir malam; tasbih 75 kali setiap rakaat.","تهجد افضل سڤرتيڬ اخير مالم؛ تسبيح 75 کالي ستياڤ رکعة."] }
+  ]
+});
+STATIONS.push({ id:7, icon:"🌘", c:"#8C3B3B", sticker:"🌗",
+  t:["Tahiyatul Masjid dan Gerhana","تحية المسجد دان ڬرهان"], u:["Pelajaran 3 • Unit 8–9 • ms. 40–49","ڤلاجرن 3 • يونيت 8–9 • م.س. 40–49"],
+  read:[
+    { pic:"🚪", p:"40", h:["Solat sunat tahiyatul masjid","صلاة سنة تحية المسجد"],
+      text:["Solat sunat tahiyatul masjid ialah solat sunat dua rakaat yang dilakukan apabila seseorang memasuki masjid sebelum duduk. Ia dilakukan untuk menghormati masjid sebagai tempat ibadah umat Islam.","صلاة سنة تحية المسجد اياله صلاة سنة دوا رکعة يڠ دلاکوکن اڤابيلا سسأورڠ مماسوقي مسجد سبلوم دودوق. اي دلاکوکن اونتوق مڠحرمتي مسجد سباڬاي تمڤت عبادة اومت إسلام."],
+      ar:"إِذَا دَخَلَ أَحَدُكُمُ الْمَسْجِدَ فَلَا يَجْلِسْ حَتَّى يُصَلِّيَ رَكْعَتَيْنِ",
+      mk:["Maksudnya: Apabila salah seorang daripada kamu masuk ke dalam masjid, maka janganlah kamu duduk hingga kamu lakukan solat dua rakaat.","مقصودڽ: اڤابيلا ساله سأورڠ درڤد کامو ماسوق ک دالم مسجد، مک جاڠنله کامو دودوق هيڠڬ کامو لاکوکن صلاة دوا رکعة."],
+      src:["Hadis riwayat al-Bukhari dan Muslim, daripada Abu Qatadah","حديث رواية البخاري دان مسلم، درڤد ابو قتادة"] },
+    { pic:"🧘", p:"41–42", h:["Niat iktikaf dan hikmah","نية اعتکاف دان حکمة"],
+      text:["Rakaat 1 surah al-Kafirun, rakaat 2 surah al-Ikhlas. Selepas selesai, digalakkan terus duduk dan berniat iktikaf.","رکعة 1 سورة الکافرون، رکعة 2 سورة الإخلاص. سلڤس سلساي، دڬالقکن تروس دودوق دان برنية اعتکاف."],
+      ar:"نَوَيْتُ الْإِعْتِكَافَ فِي هَذَا الْمَسْجِدِ سُنَّةً لِلَّهِ تَعَالَى",
+      mk:["Sahaja aku niat iktikaf di dalam masjid ini kerana Allah Taala.","سهاج اکو نية اعتکاف د دالم مسجد اين کران الله تعالى."],
+      list:[["Dikasihi Allah dan Rasul","دکاسيهي الله دان رسول"],["Mendapat pahala","منداڤت ڤهالا"],["Mendidik diri menghormati rumah Allah","منديديق ديري مڠحرمتي رومه الله"]],
+      tip:["Apabila memasuki Masjidil Haram di Mekah, hendaklah melakukan tawaf sunat.","اڤابيلا مماسوقي مسجد الحرام د مکه، هندقله ملاکوکن طواف سنة."],
+      am:["Dirikan solat sunat tahiyatul masjid setiap kali masuk ke masjid.","ديريکن صلاة سنة تحية المسجد ستياڤ کالي ماسوق ک مسجد."] },
+    { pic:"🌘", p:"44", h:["Solat sunat gerhana","صلاة سنة ڬرهان"],
+      list:[["Solat dua rakaat yang dilakukan ketika gerhana bulan atau matahari","صلاة دوا رکعة يڠ دلاکوکن کتيک ڬرهان بولن اتاو ماتاهاري"],["Hukumnya sunat muakkad","حکومڽ سنة مؤکدة"],["Boleh berseorangan, tetapi lebih utama berjemaah","بوليه برسأورڠن، تتاڤي لبيه اوتام برجماعه"],["Dilakukan bermula terjadi gerhana hingga selesai","دلاکوکن برمولا ترجادي ڬرهان هيڠڬ سلساي"]],
+      ar:"أُصَلِّي سُنَّةَ خُسُوْفِ الْقَمَرِ رَكْعَتَيْنِ لِلَّهِ تَعَالَى",
+      mk:["Sahaja aku solat sunat gerhana bulan dua rakaat kerana Allah Taala.","سهاج اکو صلاة سنة ڬرهان بولن دوا رکعة کران الله تعالى."] },
+    { pic:"🌞", p:"44–45", h:["Cara solat gerhana","چارا صلاة ڬرهان"],
+      ar:"أُصَلِّي سُنَّةَ كُسُوْفِ الشَّمْسِ رَكْعَتَيْنِ لِلَّهِ تَعَالَى",
+      mk:["Sahaja aku solat sunat gerhana matahari dua rakaat kerana Allah Taala.","سهاج اکو صلاة سنة ڬرهان ماتاهاري دوا رکعة کران الله تعالى."],
+      list:[["Setiap rakaat ada dua kali berdiri membaca al-Fatihah dan dua kali rukuk","ستياڤ رکعة اد دوا کالي برديري ممباچ الفاتحة دان دوا کالي رکوع"],["Rakaat 1: niat, takbiratul ihram, al-Fatihah, surah, rukuk, iktidal","رکعة 1: نية، تکبيرة الإحرام، الفاتحة، سورة، رکوع، اعتدال"],["Kemudian berdiri lagi: al-Fatihah, surah, rukuk, iktidal, sujud, duduk antara dua sujud, sujud","کمودين برديري لاڬي: الفاتحة، سورة، رکوع، اعتدال، سجود، دودوق انتارا دوا سجود، سجود"],["Rakaat 2 sama, kemudian tahiyat akhir dan salam","رکعة 2 سام، کمودين تحية اخير دان سلام"]],
+      am:["Lakukan solat sunat gerhana ketika berlaku gerhana matahari atau gerhana bulan.","لاکوکن صلاة سنة ڬرهان کتيک برلاکو ڬرهان ماتاهاري اتاو ڬرهان بولن."] }
+  ],
+  games:[
+    { type:"kompas", p:"40", q:["Putar kompas: bilakah solat tahiyatul masjid dilakukan?","ڤوتر کومڤس: بيلاکه صلاة تحية المسجد دلاکوکن؟"],
+      a:[["Apabila masuk masjid, sebelum duduk","اڤابيلا ماسوق مسجد، سبلوم دودوق"],["Selepas duduk lama di masjid","سلڤس دودوق لام د مسجد"],["Ketika keluar dari masjid","کتيک کلوار دري مسجد"],["Hanya pada hari Jumaat","هاڽ ڤد هاري جمعة"]],
+      e:["Tahiyatul masjid dibuat apabila masuk masjid sebelum duduk, untuk menghormati masjid.","تحية المسجد دبوات اڤابيلا ماسوق مسجد سبلوم دودوق، اونتوق مڠحرمتي مسجد."] },
+    { type:"lencana", p:"40", q:["Lengkapkan maksud hadis dengan lencana yang betul.","لڠکڤکن مقصود حديث دڠن لنچان يڠ بتول."],
+      s:["Apabila salah seorang daripada kamu masuk ke dalam masjid, maka janganlah kamu ___ hingga kamu lakukan solat ___ rakaat.","اڤابيلا ساله سأورڠ درڤد کامو ماسوق ک دالم مسجد، مک جاڠنله کامو ___ هيڠڬ کامو لاکوکن صلاة ___ رکعة."],
+      ans:[["duduk","دودوق"],["dua","دوا"]], extra:[["berdiri","برديري"],["empat","امڤت"]],
+      e:["Jangan duduk sebelum solat dua rakaat tahiyatul masjid.","جاڠن دودوق سبلوم صلاة دوا رکعة تحية المسجد."] },
+    { type:"peta", p:"5, 40–42", q:["Lukis denai peta: susun perbuatan apabila tiba di masjid.","لوکيس دناي ڤتا: سوسون ڤربواتن اڤابيلا تيبا د مسجد."],
+      steps:[["Masuk dengan kaki kanan sambil membaca doa","ماسوق دڠن کاکي کانن سمبيل ممباچ دعاء"],["Solat tahiyatul masjid dua rakaat","صلاة تحية المسجد دوا رکعة"],["Duduk dan berniat iktikaf","دودوق دان برنية اعتکاف"],["Berzikir dan membaca al-Quran","برذکير دان ممباچ القرءان"]],
+      e:["Masuk dengan kaki kanan, solat dahulu, kemudian duduk berniat iktikaf dan berzikir.","ماسوق دڠن کاکي کانن، صلاة دهولو، کمودين دودوق برنية اعتکاف دان برذکير."] },
+    { type:"khemah", p:"40–44", q:["Masukkan kad ke khemah: solat TAHIYATUL MASJID atau solat GERHANA?","ماسوقکن کد ک خيمه: صلاة تحية المسجد اتاو صلاة ڬرهان؟"],
+      tents:[["🚪",["Tahiyatul masjid","تحية المسجد"]],["🌘",["Gerhana","ڬرهان"]]],
+      items:[[["Menghormati masjid","مڠحرمتي مسجد"],0],[["Dibuat sebelum duduk di masjid","دبوات سبلوم دودوق د مسجد"],0],[["Diikuti niat iktikaf","دايکوتي نية اعتکاف"],0],[["Dua kali rukuk dalam setiap rakaat","دوا کالي رکوع دالم ستياڤ رکعة"],1],[["Ketika bulan atau matahari gelap","کتيک بولن اتاو ماتاهاري ڬلڤ"],1],[["Hukumnya sunat muakkad","حکومڽ سنة مؤکدة"],1]],
+      e:["Tahiyatul masjid untuk menghormati masjid. Solat gerhana ada dua rukuk setiap rakaat.","تحية المسجد اونتوق مڠحرمتي مسجد. صلاة ڬرهان اد دوا رکوع ستياڤ رکعة."] },
+    { type:"ransel", p:"45", q:["Buka mangga ransel! Solat gerhana dua rakaat. Berapa kali RUKUK semuanya?","بوک مڠڬ رنسل! صلاة ڬرهان دوا رکعة. براڤ کالي رکوع سمواڽ؟"],
+      n:4, unit:["kali rukuk","کالي رکوع"], e:["Dua rukuk setiap rakaat × 2 rakaat = 4 kali rukuk.","دوا رکوع ستياڤ رکعة × 2 رکعة = 4 کالي رکوع."] },
+    { type:"obor", p:"44", q:["Suluh dengan obor. Cari lafaz niat solat sunat gerhana MATAHARI.","سولوه دڠن اوبور. چاري لفظ نية صلاة سنة ڬرهان ماتاهاري."], pick:1,
+      items:[["أُصَلِّي سُنَّةَ كُسُوْفِ الشَّمْسِ رَكْعَتَيْنِ لِلَّهِ تَعَالَى",1],["أُصَلِّي سُنَّةَ خُسُوْفِ الْقَمَرِ رَكْعَتَيْنِ لِلَّهِ تَعَالَى",0],["أُصَلِّي تَحِيَّةَ الْمَسْجِدِ رَكْعَتَيْنِ لِلَّهِ تَعَالَى",0],["أُصَلِّي سُنَّةَ الضُّحَى رَكْعَتَيْنِ لِلَّهِ تَعَالَى",0]],
+      e:["Gerhana matahari: kusufis syams (كُسُوْفِ الشَّمْسِ). Gerhana bulan: khusufil qamar.","ڬرهان ماتاهاري: كُسُوْفِ الشَّمْسِ. ڬرهان بولن: خُسُوْفِ الْقَمَرِ."] }
+  ]
+});
+STATIONS.push({ id:8, icon:"🚗", c:"#B5452B", sticker:"🎒",
+  t:["Solat Jamak dan Qasar","صلاة جمع دان قصر"], u:["Pelajaran 4 • ms. 50–62","ڤلاجرن 4 • م.س. 50–62"],
+  read:[
+    { pic:"🚗", p:"51–52", h:["Apa itu jamak dan qasar?","اڤ ايت جمع دان قصر؟"],
+      text:["Solat jamak ialah menghimpunkan dua solat fardu dan dilakukan dalam satu waktu solat. Solat qasar ialah memendekkan solat fardu empat rakaat kepada dua rakaat, iaitu solat zohor, asar dan isyak. Hukumnya harus.","صلاة جمع اياله مڠهيمڤونکن دوا صلاة فرض دان دلاکوکن دالم ساتو وقتو صلاة. صلاة قصر اياله مميندقکن صلاة فرض امڤت رکعة کڤد دوا رکعة، ياءيت صلاة ظهر، عصر دان عشاء. حکومڽ هاروس."],
+      list:[["Solat zohor dengan solat asar","صلاة ظهر دڠن صلاة عصر"],["Solat maghrib dengan solat isyak","صلاة مغرب دڠن صلاة عشاء"]] },
+    { pic:"🛣️", p:"53", h:["Syarat sah jamak dan qasar","شرط سه جمع دان قصر"],
+      list:[["Berniat jamak dalam solat pertama","برنية جمع دالم صلاة ڤرتام"],["Berniat qasar dalam takbiratul ihram","برنية قصر دالم تکبيرة الإحرام"],["Perjalanan yang diharuskan oleh syarak","ڤرجالنن يڠ دهاروسکن اوليه شرع"],["Perjalanan tidak kurang dua marhalah, lebih kurang 89 kilometer","ڤرجالنن تيدق کورڠ دوا مرحلة، لبيه کورڠ 89 کيلوميتر"],["Mengetahui cara melakukan solat jamak dan qasar","مڠتاهوءي کيفية ملاکوکن صلاة جمع دان قصر"],["Berkekalan dalam perjalanan hingga selesai takbiratul ihram solat kedua","برکککلن دالم ڤرجالنن سهيڠڬ سلساي تکبيرة الإحرام صلاة کدوا"],["Dilakukan berturut-turut (muwalat), kecuali jamak takhir","دلاکوکن برتوروت-توروت (موالاة)، کچوالي جمع تأخير"],["Dua solat dilakukan secara tertib, kecuali jamak takhir","دوا صلاة دلاکوکن سچارا ترتيب، کچوالي جمع تأخير"]] },
+    { pic:"⏩", p:"54", h:["Jamak taqdim dan jamak takhir","جمع تقديم دان جمع تأخير"],
+      list:[["Jamak taqdim: dua solat dilakukan pada waktu solat yang PERTAMA","جمع تقديم: دوا صلاة دلاکوکن ڤد وقتو صلاة يڠ ڤرتام"],["Contoh: zohor dan asar pada waktu zohor; maghrib dan isyak pada waktu maghrib","چونتوه: ظهر دان عصر ڤد وقتو ظهر؛ مغرب دان عشاء ڤد وقتو مغرب"],["Jamak takhir: dua solat dilakukan pada waktu solat yang KEDUA","جمع تأخير: دوا صلاة دلاکوکن ڤد وقتو صلاة يڠ کدوا"],["Contoh: zohor dan asar pada waktu asar; maghrib dan isyak pada waktu isyak","چونتوه: ظهر دان عصر ڤد وقتو عصر؛ مغرب دان عشاء ڤد وقتو عشاء"]],
+      ar:"أُصَلِّي فَرْضَ الظُّهْرِ رَكْعَتَيْنِ قَصْرًا لِلَّهِ تَعَالَى",
+      mk:["Sahaja aku solat fardu zohor dua rakaat secara qasar kerana Allah Taala.","سهاج اکو صلاة فرض ظهر دوا رکعة سچارا قصر کران الله تعالى."], src:["Contoh niat qasar, ms. 58","چونتوه نية قصر، م.س. 58"] },
+    { pic:"🙏", p:"61–62", h:["Hikmah jamak dan qasar","حکمة جمع دان قصر"],
+      list:[["Memberi kemudahan kepada orang Islam menunaikan solat","ممبري کمودهن کڤد اورڠ إسلام منونايکن صلاة"],["Menunjukkan agama Islam itu mudah","منونجوقکن اڬام إسلام ايت موده"],["Mengingatkan orang Islam supaya sentiasa bersyukur","مڠيڠتکن اورڠ إسلام سوڤايا سنتياس برشکور"]],
+      tip:["Solat jamak juga boleh dilakukan oleh doktor yang melakukan pembedahan yang panjang dan pengawal keselamatan yang sedang bertugas, mengikut syarat-syarat tertentu.","صلاة جمع جوڬ بوليه دلاکوکن اوليه دوکتور يڠ ملاکوکن ڤمبدهن يڠ ڤنجڠ دان ڤڠاول کسلامتن يڠ سدڠ برتوڬس، مڠيکوت شرط٢ ترتنتو."],
+      am:["Dirikan solat fardu secara jamak dan qasar ketika bermusafir.","ديريکن صلاة فرض سچارا جمع دان قصر کتيک برمسافر."] }
+  ],
+  games:[
+    { type:"kompas", p:"52", q:["Putar kompas: apakah maksud solat qasar?","ڤوتر کومڤس: اڤاکه مقصود صلاة قصر؟"],
+      a:[["Memendekkan solat fardu empat rakaat kepada dua rakaat","مميندقکن صلاة فرض امڤت رکعة کڤد دوا رکعة"],["Menghimpunkan dua solat dalam satu waktu","مڠهيمڤونکن دوا صلاة دالم ساتو وقتو"],["Meninggalkan solat ketika musafir","منيڠڬلکن صلاة کتيک مسافر"],["Menambah rakaat solat subuh","منمبه رکعة صلاة صبح"]],
+      e:["Qasar = memendekkan 4 rakaat menjadi 2. Jamak = menghimpunkan dua solat.","قصر = مميندقکن 4 رکعة منجادي 2. جمع = مڠهيمڤونکن دوا صلاة."] },
+    { type:"simpul", p:"54", q:["Ikat simpul: padankan jenis jamak dengan waktunya.","ايکت سيمڤول: ڤادنکن جنيس جمع دڠن وقتوڽ."],
+      pairs:[[["Taqdim: zohor + asar","تقديم: ظهر + عصر"],["Pada waktu zohor","ڤد وقتو ظهر"]],[["Takhir: zohor + asar","تأخير: ظهر + عصر"],["Pada waktu asar","ڤد وقتو عصر"]],[["Taqdim: maghrib + isyak","تقديم: مغرب + عشاء"],["Pada waktu maghrib","ڤد وقتو مغرب"]],[["Takhir: maghrib + isyak","تأخير: مغرب + عشاء"],["Pada waktu isyak","ڤد وقتو عشاء"]]],
+      e:["Taqdim = dalam waktu pertama. Takhir = dalam waktu kedua.","تقديم = دالم وقتو ڤرتام. تأخير = دالم وقتو کدوا."] },
+    { type:"ransel", p:"53", q:["Buka mangga ransel! Jarak perjalanan untuk jamak dan qasar tidak kurang dua marhalah, lebih kurang berapa kilometer?","بوک مڠڬ رنسل! جارق ڤرجالنن اونتوق جمع دان قصر تيدق کورڠ دوا مرحلة، لبيه کورڠ براڤ کيلوميتر؟"],
+      n:89, unit:["kilometer","کيلوميتر"], e:["Dua marhalah ialah lebih kurang 89 kilometer.","دوا مرحلة اياله لبيه کورڠ 89 کيلوميتر."] },
+    { type:"unggun", p:"52", q:["Hidupkan unggun api! Pilih semua solat yang BOLEH diqasar.","هيدوڤکن اوڠڬون اڤي! ڤيليه سموا صلاة يڠ بوليه دقصر."],
+      items:[[["Zohor","ظهر"],1],[["Asar","عصر"],1],[["Isyak","عشاء"],1],[["Subuh","صبح"],0],[["Maghrib","مغرب"],0]],
+      e:["Hanya solat empat rakaat boleh diqasar: zohor, asar dan isyak.","هاڽ صلاة امڤت رکعة بوليه دقصر: ظهر، عصر دان عشاء."] },
+    { type:"semboyan", p:"52–62", q:["Kibar bendera semboyan: hijau jika BETUL, merah jika SALAH.","کيبر بنديرا سمبوين: هيجاو جک بتول، ميره جک سالح."],
+      items:[[["Hukum jamak dan qasar ialah harus.","حکوم جمع دان قصر اياله هاروس."],1],[["Solat maghrib boleh diqasar menjadi dua rakaat.","صلاة مغرب بوليه دقصر منجادي دوا رکعة."],0],[["Niat qasar dibuat dalam takbiratul ihram.","نية قصر دبوات دالم تکبيرة الإحرام."],1],[["Solat subuh boleh dijamak dengan zohor.","صلاة صبح بوليه دجمع دڠن ظهر."],0],[["Perjalanan mestilah perjalanan yang diharuskan oleh syarak.","ڤرجالنن مستيله ڤرجالنن يڠ دهاروسکن اوليه شرع."],1]],
+      e:["Hanya zohor+asar dan maghrib+isyak boleh dijamak; maghrib dan subuh tidak boleh diqasar.","هاڽ ظهر+عصر دان مغرب+عشاء بوليه دجمع؛ مغرب دان صبح تيدق بوليه دقصر."] },
+    { type:"obor", p:"61", q:["Suluh semak dengan obor. Cari satu yang BUKAN hikmah jamak dan qasar.","سولوه سمق دڠن اوبور. چاري ساتو يڠ بوکن حکمة جمع دان قصر."],
+      items:[[["Memberi kemudahan menunaikan solat","ممبري کمودهن منونايکن صلاة"],0],[["Menunjukkan Islam itu mudah","منونجوقکن إسلام ايت موده"],0],[["Mengingatkan supaya bersyukur","مڠيڠتکن سوڤايا برشکور"],0],[["Boleh meninggalkan solat ketika musafir","بوليه منيڠڬلکن صلاة کتيک مسافر"],1]],
+      e:["Solat tidak boleh ditinggalkan. Islam memudahkan dengan jamak dan qasar.","صلاة تيدق بوليه دتيڠڬلکن. إسلام ممودهکن دڠن جمع دان قصر."] }
+  ]
+});
+/* Cabaran Unggun Api: satu permainan daripada setiap khemah [stesen, indeks permainan] */
+const FINAL_PICK = [[1,0],[2,2],[3,3],[4,3],[5,1],[6,1],[7,5],[8,4],[8,2]];
+
+/* ===================== ENJIN "Kem Pengakap Feqah" (Feqah Tahun 4) ===================== */
+const KEY = "f4-best", YEAR = 4, VKEY = "t4-voice";
+function load(k,f){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):f; }catch(e){ return f; } }
+function save(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+let LANG = load("kafa-lang","jawi");
+const isJ = () => LANG==="jawi";
+const T = v => v==null ? "" : typeof v==="string" ? v : (isJ() ? v[1] : v[0]);   // teks ikut tulisan
+const RU = v => v==null ? "" : typeof v==="string" ? "" : v[0];                   // Rumi untuk suara
+const L = (r,j) => isJ() ? j : r;
+const isAr = v => typeof v==="string";
+const TX = v => isAr(v) ? `<span class="ar" lang="ar">${v}</span>` : T(v);          // pilihan Arab atau pasangan teks
+function applyLang(){ document.documentElement.dir = isJ() ? "rtl" : "ltr"; document.documentElement.lang = isJ() ? "ms-Arab" : "ms"; }
+const BACK = () => isJ() ? "→" : "←";
+let best = load(KEY, {});
+let voiceOn = load(VKEY, true);
+const app = document.getElementById("app");
+const $ = s => app.querySelector(s);
+const shuffle = a => { const b=a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; };
+// rombak susunan dan pastikan tidak sama dengan jawapan (untuk permainan urutan)
+const mix = a => { if(a.length<2) return a.slice(); let b; do{ b=shuffle(a); }while(b.every((x,i)=>x===a[i])); return b; };
+const starsFor = m => m<=1 ? 3 : m<=3 ? 2 : 1;
+const totalStars = () => Object.values(best).reduce((s,v)=>s+(+v||0),0);
+
+/* ---------- Maskot: Rara si rusa pengakap ---------- */
+function rara(cls=""){
+  return `<svg class="rara ${cls}" viewBox="0 0 120 130" aria-hidden="true">
+    <ellipse cx="60" cy="124" rx="32" ry="5" fill="rgba(0,0,0,.18)"/>
+    <path d="M34 128 q0-30 26-30 q26 0 26 30 Z" fill="#C9A86A" stroke="#2A2216" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M60 100 v26" stroke="#2A2216" stroke-width="3"/><circle cx="66" cy="112" r="2.5" fill="#2A2216"/><circle cx="66" cy="121" r="2.5" fill="#2A2216"/>
+    <ellipse cx="22" cy="58" rx="16" ry="8" transform="rotate(-25 22 58)" fill="#B9773C" stroke="#2A2216" stroke-width="4"/>
+    <ellipse cx="98" cy="58" rx="16" ry="8" transform="rotate(25 98 58)" fill="#B9773C" stroke="#2A2216" stroke-width="4"/>
+    <ellipse cx="22" cy="58" rx="8" ry="3.5" transform="rotate(-25 22 58)" fill="#F6B8A8"/><ellipse cx="98" cy="58" rx="8" ry="3.5" transform="rotate(25 98 58)" fill="#F6B8A8"/>
+    <path d="M60 32 C86 32 92 52 90 70 C88 90 74 102 60 102 C46 102 32 90 30 70 C28 52 34 32 60 32 Z" fill="#C98545" stroke="#2A2216" stroke-width="4"/>
+    <circle cx="48" cy="46" r="3" fill="#F4DDB8"/><circle cx="72" cy="44" r="2.5" fill="#F4DDB8"/><circle cx="62" cy="40" r="2" fill="#F4DDB8"/>
+    <ellipse cx="60" cy="84" rx="18" ry="14" fill="#F4DDB8"/>
+    <ellipse cx="60" cy="78" rx="7" ry="5" fill="#2A2216"/><path d="M60 83 v5 M54 91 q6 5 12 0" stroke="#2A2216" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <ellipse cx="46" cy="64" rx="6.5" ry="8" fill="#2A2216"/><ellipse cx="74" cy="64" rx="6.5" ry="8" fill="#2A2216"/>
+    <circle cx="48" cy="61" r="2.5" fill="#fff"/><circle cx="76" cy="61" r="2.5" fill="#fff"/>
+    <ellipse cx="38" cy="78" rx="5" ry="3" fill="#F39A8B" opacity=".8"/><ellipse cx="82" cy="78" rx="5" ry="3" fill="#F39A8B" opacity=".8"/>
+    <ellipse cx="60" cy="36" rx="46" ry="9" fill="#A8874A" stroke="#2A2216" stroke-width="4"/>
+    <path d="M40 34 Q42 12 52 8 L60 16 L68 8 Q78 12 80 34 Z" fill="#C9A86A" stroke="#2A2216" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M41 30 H79" stroke="#2E8150" stroke-width="5"/>
+    <path d="M38 98 L60 120 L82 98 Q60 106 38 98 Z" fill="#2E8150" stroke="#2A2216" stroke-width="4" stroke-linejoin="round"/>
+    <circle cx="60" cy="106" r="5" fill="#F2611D" stroke="#2A2216" stroke-width="3"/>
+  </svg>`;
+}
+
+/* ---------- Bunyi ---------- */
+let actx = null;
+function tone(seq){
+  try{
+    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    let t = actx.currentTime;
+    for(const [f,d,type] of seq){
+      const o = actx.createOscillator(), g = actx.createGain();
+      o.type = type||"sine"; o.frequency.value = f; g.gain.setValueAtTime(.18,t); g.gain.exponentialRampToValueAtTime(.001,t+d);
+      o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t+d); t += d*.8;
+    }
+  }catch(e){}
+}
+const sfx = {
+  ok:   () => tone([[660,.12],[880,.18]]),
+  tick: () => tone([[740,.08,"triangle"]]),
+  no:   () => tone([[220,.18,"square"],[180,.2,"square"]]),
+  pop:  () => tone([[900,.05,"triangle"],[1300,.06,"triangle"]]),
+  fire: () => tone([[300,.06,"sawtooth"],[500,.08,"triangle"]]),
+  click:() => tone([[1500,.03,"square"]]),
+  win:  () => tone([[523,.14],[659,.14],[784,.14],[1046,.3]])
+};
+
+/* ---------- Suara (baca teks Rumi sahaja; buang tulisan Arab) ---------- */
+const ttsOK = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+let voice = null;
+function pickVoice(){ try{ const vs = speechSynthesis.getVoices(); voice = vs.find(v=>/^ms/i.test(v.lang)) || vs.find(v=>/^id/i.test(v.lang)) || null; }catch(e){} }
+if(ttsOK){ pickVoice(); try{ speechSynthesis.onvoiceschanged = pickVoice; }catch(e){} }
+const AR_RE = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]+/g;
+function clean(text){
+  return text.replace(AR_RE," ").replace(/[“”"]\s*[“”"]/g," ").replace(/\(\s*\)/g," ").replace(/___/g," kosong ").replace(/…/g," ... ")
+    .replace(/\bSAW\b/g,"sallallahu alaihi wasallam").replace(/\bSWT\b/g,"subhanahu wa taala").replace(/\s+/g," ").trim();
+}
+function speak(text, force){
+  if(!ttsOK || !text || (!voiceOn && !force)) return;
+  const s = clean(text); if(!s) return;
+  try{
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(s);
+    u.lang = voice ? voice.lang : "ms-MY"; if(voice) u.voice = voice; u.rate = .95; u.pitch = 1.05;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function hush(){ if(ttsOK){ try{ speechSynthesis.cancel(); }catch(e){} } }
+
+/* ---------- Bantuan paparan ---------- */
+function toast(msg){ document.querySelectorAll(".toast").forEach(t=>t.remove()); const t=document.createElement("div"); t.className="toast"; t.setAttribute("role","status"); t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2600); }
+function confetti(n=36){
+  const box = document.createElement("div"); box.className="confetti"; box.setAttribute("aria-hidden","true");
+  const em = ["⭐","🔥","⛺","🧭","🌲","🏅"];
+  for(let i=0;i<n;i++){ const s=document.createElement("span"); s.textContent=em[i%em.length]; s.style.left=Math.random()*100+"vw"; s.style.animationDuration=(2+Math.random()*2)+"s"; s.style.animationDelay=Math.random()*.8+"s"; box.appendChild(s); }
+  document.body.appendChild(box); setTimeout(()=>box.remove(),5000);
+}
+const langBtn = () => `<button class="ib" data-act="lang" aria-label="${L("Tukar ke tulisan Jawi","توکر ک توليسن رومي")}">${isJ()?"Rumi":'<span style="font-family:Noto Naskh Arabic">جاوي</span>'}</button>`;
+const voiceBtn = () => `<button class="ib" data-act="voice" aria-label="${L("Suara","سوارا")}" aria-pressed="${voiceOn}">${voiceOn?"🔊":"🔇"}</button>`;
+const sayBtn = txt => ttsOK && clean(txt||"") ? `<button class="say" data-say="${encodeURIComponent(txt)}" aria-label="${L("Dengar","دڠر")}">🔊</button>` : "";
+const starRow = n => [1,2,3].map(i=>`<span class="${i<=n?"":"off"}">⭐</span>`).join("");
+const unlocked = id => id===1 || (best[id-1]||0)>0;
+const allDone = () => STATIONS.every(s => (best[s.id]||0)>0);
+const FINAL_ST = { id:"final", icon:"🔥", c:"#F2611D", t:["Cabaran Unggun Api","چابرن اوڠڬون اڤي"], u:["Soalan daripada semua khemah","سوالن درڤد سموا خيمه"], sticker:"🏅" };
+
+/* ===================== PETA DENAI KEM ===================== */
+let S = null; // sesi stesen semasa
+function renderMap(){
+  hush(); S = null;
+  document.title = L("Kem Pengakap Feqah • Feqah Tahun 4","کيم ڤڠاکڤ فقه • فقه تاهون 4");
+  const cur = (STATIONS.find(s => !(best[s.id]>0)) || {id:"final"}).id;
+  const node = (s, side) => {
+    const lock = !unlocked(s.id), st = best[s.id]||0;
+    return `<div class="row ${side}"><button class="node ${lock?"lock":""} ${cur===s.id?"now":""}" data-act="${lock?"locked":"open"}" data-id="${s.id}" style="--c:${s.c}">
+      <span class="tent"><span class="flag"></span><span class="num">${s.id}</span><span class="tic">${s.icon}</span>${cur===s.id?`<span class="guide">${rara("bob")}</span>`:""}</span>
+      <span class="nm">${T(s.t)}</span><span class="st">${st?starRow(st):""}</span></button></div>`;
+  };
+  const rows = STATIONS.slice().reverse().map(s => node(s, s.id%2 ? "l" : "r")).join("");
+  const fOpen = allDone(), fSt = best.final||0;
+  app.innerHTML = `
+    <div class="top"><a class="ib" href="../index.html" aria-label="${L("Kembali ke Tahun 4","کمبالي ک تاهون 4")}">${BACK()}</a><span class="sp"></span>
+      <span class="pill" aria-label="${totalStars()} ${L("bintang","بينتڠ")}">⭐ ${totalStars()}</span>${voiceBtn()}${langBtn()}</div>
+    <header class="hero">${rara("bob")}<div><h1>${L("Kem Pengakap Feqah","کيم ڤڠاکڤ فقه")}</h1>
+      <p>${L("Ikut Rara meneroka denai kem, belajar solat dan kumpul lencana pengakap!","ايکوت رارا منروک دناي کيم، بلاجر صلاة دان کومڤول لنچان ڤڠاکڤ!")}</p></div></header>
+    <p class="sttl">🏅 ${L("Selempang lencana saya","سلمڤڠ لنچان ساي")}</p>
+    <div class="stickers">${STATIONS.map(s=>`<span class="${best[s.id]>0?"got":""}" title="${T(s.t)}">${s.sticker}</span>`).join("")}</div>
+    <section class="trail" aria-label="${L("Peta denai kem","ڤتا دناي کيم")}">
+      <div class="camp"><button class="node final ${fOpen?"":"lock"} ${cur==="final"?"now":""}" data-act="${fOpen?"final":"flocked"}" style="--c:#F2611D">
+        <span class="fire"><span class="logs"></span><span class="fl">🔥</span>${cur==="final"?`<span class="guide">${rara("bob")}</span>`:""}</span>
+        <span class="nm">${T(FINAL_ST.t)}</span><span class="st">${fSt?starRow(fSt):""}</span></button></div>
+      ${rows}
+      <div class="gate">🌲 ${L("Pintu masuk kem","ڤينتو ماسوق کيم")} 🌲</div>
+    </section>`;
+  const now = app.querySelector(".node.now");
+  if(now) setTimeout(()=>{ try{ now.scrollIntoView({block:"center", behavior:"smooth"}); }catch(e){} }, 250);
+}
+
+/* ===================== STESEN: BACA ===================== */
+function openStation(id){
+  const st = STATIONS.find(s=>s.id===id);
+  S = { st, phase:"read", ri:0, gi:0, miss:0, games: st.games.slice() };
+  renderRead();
+}
+function openFinal(){
+  const games = FINAL_PICK.map(([s,i]) => STATIONS.find(x=>x.id===s).games[i]);
+  S = { st:FINAL_ST, phase:"play", gi:0, miss:0, games };
+  renderPlay();
+}
+const head = () => `<div class="top"><button class="ib" data-act="map" aria-label="${L("Kembali ke peta kem","کمبالي ک ڤتا کيم")}">${BACK()}</button><span class="sp"></span>${voiceBtn()}${langBtn()}</div>
+  <div class="shead"><span class="badge" style="--c:${S.st.c}">${S.st.icon}</span><div><h2>${T(S.st.t)}</h2><small>${T(S.st.u)}</small></div></div>`;
+function readSpeech(c){
+  return [RU(c.h), RU(c.text), ...(c.list||[]).map(RU), RU(c.mk), c.tip?("Tahukah anda? "+RU(c.tip)):"", c.am?("Amalkan: "+RU(c.am)):""].filter(Boolean).join(". ");
+}
+function renderRead(){
+  hush();
+  const c = S.st.read[S.ri], n = S.st.read.length, last = S.ri===n-1;
+  app.innerHTML = head() + `
+    <article class="card" style="--sc:${S.st.c}">
+      <div class="rpic" aria-hidden="true">${c.pic}</div>
+      <h3 class="rh">${T(c.h)} ${sayBtn(readSpeech(c))}</h3>
+      ${c.text?`<p class="rtext">${T(c.text)}</p>`:""}
+      ${c.list?`<ul class="rlist">${c.list.map((x,i)=>`<li style="--i:${i}">${T(x)}</li>`).join("")}</ul>`:""}
+      ${c.ar?`<div class="abox"><span class="ar" lang="ar">${c.ar}</span>${c.mk?`<span class="mk">${T(c.mk)}</span>`:""}${c.src?`<small>${T(c.src)}</small>`:""}</div>`:""}
+      ${c.tip?`<div class="tip"><b>💡</b><span><b>${L("Tahukah anda?","تاهوکه اندا؟")}</b> ${T(c.tip)}</span></div>`:""}
+      ${c.am?`<div class="tip am"><b>🔥</b><span><b>${L("Amalkan:","عملکن:")}</b> ${T(c.am)}</span></div>`:""}
+      <div class="ref">📖 ${L("Buku teks ms.","بوکو تيکس م.س.")} ${c.p}</div>
+      <div class="navr">
+        <button class="btn alt" data-act="rprev" ${S.ri?"":"disabled"} aria-label="${L("Sebelum","سبلوم")}" style="flex:0 0 64px">${BACK()}</button>
+        <button class="btn ${last?"go":""}" data-act="rnext">${last ? "🎮 "+L("Jom main!","جوم ماٴين!") : L("Seterusnya","ستروسڽ")+" ▶"}</button>
+      </div>
+      <div class="dots">${S.st.read.map((_,i)=>`<i class="${i===S.ri?"on":""}"></i>`).join("")}</div>
+    </article>`;
+  speak(readSpeech(c));
+  window.scrollTo(0,0);
+}
+
+/* ===================== STESEN: MAIN ===================== */
+function progressBar(){
+  const n = S.games.length, k = S.gi, pct = k/n*100, side = isJ() ? "right" : "left";
+  const flags = S.games.map((_,i)=> i>=k ? `<span class="fl" style="${side}:${(i+.5)/n*100}%;${isJ()?"transform:translate(50%,-50%)":""}">🚩</span>` : "").join("");
+  return `<div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${k}"><span class="walk" style="width:${pct}%"></span>${flags}
+    <span class="boot" style="${side}:${Math.max(5,pct)}%;${isJ()?"transform:translate(50%,-50%) scaleX(-1)":""}">🥾</span></div>`;
+}
+function renderPlay(){
+  hush();
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  const g = S.games[S.gi];
+  S.t0 = Date.now();
+  app.innerHTML = head() + progressBar() + `<section class="card" id="game" style="--sc:${S.st.c}"></section>`;
+  const box = $("#game");
+  box.innerHTML = `<div class="q"><p>${T(g.q)}</p>${sayBtn(RU(g.q))}</div>${g.ar?`<div class="qar ar" lang="ar">${g.ar}</div>`:""}<div id="play"></div><div id="hint"></div>`;
+  GAMES[g.type]($("#play"), g);
+  speak(RU(g.q));
+  window.scrollTo(0,0);
+}
+// salah: kira kesilapan, goncang, tunjuk petunjuk ringkas
+function oops(el, hint){
+  S.miss++; sfx.no();
+  if(el){ el.classList.remove("shake"); void el.offsetWidth; el.classList.add("shake"); }
+  const h = $("#hint"); if(h){ h.innerHTML = `<div class="hint">🦌 ${hint || L("Hmm, cuba lagi!","همم، چوبا لاڬي!")}</div>`; }
+}
+const clearHint = () => { const h=$("#hint"); if(h) h.innerHTML=""; };
+const PRAISE = [["Hebat!","هيبت!"],["Bagus!","باڬوس!"],["Pandai!","ڤنداي!"],["Syabas!","شاباس!"],["MasyaAllah!","ماشاءالله!"]];
+function win(fast){
+  sfx.ok();
+  const g = S.games[S.gi], p = PRAISE[Math.floor(Math.random()*PRAISE.length)];
+  const fb = document.createElement("div"); fb.className = "fb"; fb.setAttribute("role","dialog"); fb.setAttribute("aria-live","polite");
+  fb.innerHTML = `<div class="in"><div class="row1">${rara("yay")}<div><strong>${T(p)}</strong><p>${T(g.e)}</p>${fast?`<span class="fast">⚡ ${L("Pantas macam pengakap!","ڤنتس مچم ڤڠاکڤ!")}</span>`:""}</div></div>
+    <button class="btn go" data-act="next">${L("Seterusnya","ستروسڽ")} ▶</button></div>`;
+  document.body.appendChild(fb);
+  speak(RU(p)+" "+RU(g.e));
+  setTimeout(()=>{ const b = fb.querySelector("button"); if(b) b.focus(); }, 50);
+}
+function nextGame(){
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  S.gi++;
+  if(S.gi < S.games.length) renderPlay(); else renderResult();
+}
+function renderResult(){
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  const id = S.st.id, stars = starsFor(S.miss), prev = best[id]||0, wasAll = allDone();
+  if(stars > prev){ best[id] = stars; save(KEY, best); }
+  S.phase = "result";
+  S.res = { stars, first: !prev, openedFinal: id!=="final" && !wasAll && allDone() };
+  drawResult(true);
+}
+function drawResult(fresh){
+  hush();
+  const { stars, first, openedFinal } = S.res;
+  const msg = stars===3 ? ["Cemerlang! Kamu pengakap feqah yang hebat.","چمرلڠ! کامو ڤڠاکڤ فقه يڠ هيبت."] : stars===2 ? ["Bagus! Cuba lagi untuk 3 bintang.","باڬوس! چوبا لاڬي اونتوق 3 بينتڠ."] : ["Syabas kerana mencuba! Jom main lagi.","شاباس کران منچوبا! جوم ماٴين لاڬي."];
+  const title = PRAISE[stars===3?4:stars===2?0:3];
+  app.innerHTML = head() + `<section class="card res">
+      ${rara("yay")}
+      <div class="stars" aria-label="${stars} ${L("bintang","بينتڠ")}">${[1,2,3].map(i=>`<span class="${i<=stars?"":"off"}" style="animation-delay:${i*.25}s">⭐</span>`).join("")}</div>
+      <h2>${T(title)}</h2><p>${T(msg)}</p>
+      ${first ? `<div class="gotst"><span>${S.st.sticker}</span>${L("Lencana baharu untuk selempang kamu!","لنچان بهارو اونتوق سلمڤڠ کامو!")}</div>` : ""}
+      ${openedFinal ? `<p><b>🔥 ${L("Cabaran Unggun Api kini dibuka!","چابرن اوڠڬون اڤي کيني دبوک!")}</b></p>` : ""}
+      <button class="btn go" data-act="map">⛺ ${L("Kembali ke peta kem","کمبالي ک ڤتا کيم")}</button>
+      <button class="btn alt" style="margin-top:10px" data-act="again">🔁 ${L("Main lagi","ماٴين لاڬي")}</button>
+    </section>`;
+  if(fresh){ sfx.win(); confetti(); speak(RU(title)+" "+RU(msg)); }
+  window.scrollTo(0,0);
+}
+
+/* ===================== JENIS PERMAINAN (kem) ===================== */
+const DIRS = [["U","ا",0],["T","ت",90],["S","س",180],["B","ب",270]];
+const GAMES = {
+  /* Kompas: pilih jawapan, jarum kompas berpusing ke arahnya */
+  kompas(el, g){
+    const opts = shuffle(g.a.map((x,i)=>({x, ok:i===0}))); let done = false;
+    el.innerHTML = `<div class="rose" aria-hidden="true"><b class="n">${L("U","ا")}</b><b class="e">${L("T","ت")}</b><b class="s">${L("S","س")}</b><b class="w">${L("B","ب")}</b><span class="needle" id="ndl"></span></div>
+      <div class="g1">${opts.map((o,i)=>`<button class="opt cmpo" data-i="${i}" data-ok="${o.ok?1:0}"><span class="dir">${L(DIRS[i][0],DIRS[i][1])}</span>${TX(o.x)}</button>`).join("")}</div>
+      <div class="cnt">🧭 ${L("Tekan arah jawapan yang betul.","تکن اره جاوڤن يڠ بتول.")}</div>`;
+    el.querySelectorAll(".cmpo").forEach(b => b.addEventListener("click", () => {
+      if(done || b.classList.contains("wrong")) return; const i = +b.dataset.i;
+      $("#ndl").style.setProperty("--r", (DIRS[i][2] + 360*(S.miss+1)) + "deg"); sfx.click();
+      if(opts[i].ok){ done = true; b.classList.add("right"); setTimeout(win, 550); }
+      else { b.classList.add("wrong"); oops(b, L("Jarum tersasar! Baca soalan sekali lagi.","جاروم ترساسر! باچ سوالن سکالي لاڬي.")); }
+    }));
+  },
+
+  /* Khemah: hantar setiap kad ke khemah kumpulannya */
+  khemah(el, g){
+    const order = shuffle(g.items.map((_,i)=>i)); let k = 0; const got = g.tents.map(()=>0);
+    const COL = ["#2E8150","#3C6E9E","#C2702A"];
+    const draw = () => {
+      const it = g.items[order[k]];
+      el.innerHTML = `<div class="kitem" id="kit" data-k="${order[k]}">${TX(it[0])}</div>
+        <div class="tents" style="grid-template-columns:repeat(${g.tents.length},minmax(0,1fr))">${g.tents.map((t,i)=>`<button class="kt" data-c="${i}" style="--tc:${COL[i%3]}"><span class="tp">${t[0]}</span>${T(t[1])}<span class="kn">🃏 ${got[i]}</span></button>`).join("")}</div>
+        <div class="cnt">⛺ ${k+1} / ${order.length}</div>`;
+      speak(RU(it[0]));
+      el.querySelectorAll(".kt").forEach(b => b.addEventListener("click", () => {
+        if(k >= order.length) return;
+        if(+b.dataset.c === g.items[order[k]][1]){
+          sfx.tick(); got[+b.dataset.c]++; k++; clearHint();
+          if(k < order.length) draw(); else { el.querySelector(".cnt").textContent = "✅"; win(); }
+        } else oops($("#kit"), L("Bukan khemah itu. Lihat semula kad bacaan.","بوکن خيمه ايت. ليهت سمولا کد باچاءن."));
+      }));
+    };
+    draw();
+  },
+
+  /* Unggun: pilih semua kayu api yang betul; kayu basah = salah */
+  unggun(el, g){
+    const opts = shuffle(g.items.map((x,i)=>({x:x[0], ok:x[1], i}))); const need = opts.filter(o=>o.ok).length; let k = 0;
+    el.innerHTML = `<div class="pit" aria-hidden="true"><span class="fl" id="flm" style="--lv:0">🔥</span><span class="logs"></span></div>
+      <div class="g2">${opts.map((o,i)=>`<button class="opt log" data-i="${i}" data-ok="${o.ok?1:0}">🪵 ${TX(o.x)}</button>`).join("")}</div>
+      <div class="cnt" id="cnt">🔥 ${L(`Kayu api: 0 / ${need}`,`کايو اڤي: 0 / ${need}`)}</div>`;
+    el.querySelectorAll(".log").forEach(b => b.addEventListener("click", () => {
+      if(b.classList.contains("done") || b.classList.contains("wet") || k>=need) return;
+      if(opts[+b.dataset.i].ok){
+        k++; sfx.fire(); b.classList.add("done"); $("#flm").style.setProperty("--lv", k/need*4);
+        $("#cnt").textContent = `🔥 ${L(`Kayu api: ${k} / ${need}`,`کايو اڤي: ${k} / ${need}`)}`;
+        if(k===need) setTimeout(win, 450);
+      } else { b.classList.add("wet"); oops(b, L("Kayu basah! Itu bukan jawapannya.","کايو باسه! ايت بوکن جاوڤنڽ.")); }
+    }));
+  },
+
+  /* Simpul: pilih tali di lajur pertama, kemudian ikat dengan pasangannya */
+  simpul(el, g){
+    const n = g.pairs.length, left = mix(g.pairs.map((_,i)=>i)); let right; do{ right = shuffle(left); }while(n>1 && right.some((x,i)=>x===left[i]));
+    let sel = null, k = 0;
+    const cells = left.map((li,r)=>`<button class="opt rp sl" data-i="${li}">${TX(g.pairs[li][0])}</button><button class="opt rp sr" data-i="${right[r]}">${TX(g.pairs[right[r]][1])}</button>`).join("");
+    el.innerHTML = `<div class="ropes">${cells}</div><div class="cnt">🪢 ${L("Tekan satu tali di lajur pertama, kemudian pasangannya.","تکن ساتو تالي د لاجور ڤرتام، کمودين ڤاسڠنڽ.")}</div>`;
+    el.querySelectorAll(".sl").forEach(b => b.addEventListener("click", () => {
+      if(b.classList.contains("done")) return;
+      el.querySelectorAll(".sl.sel").forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); sel = +b.dataset.i; sfx.click();
+    }));
+    el.querySelectorAll(".sr").forEach(b => b.addEventListener("click", () => {
+      if(b.classList.contains("done")) return;
+      if(sel===null){ toast(L("Pilih tali di lajur pertama dahulu 🪢","ڤيليه تالي د لاجور ڤرتام دهولو 🪢")); return; }
+      if(+b.dataset.i===sel){
+        const a = el.querySelector(`.sl[data-i="${sel}"]`); a.classList.remove("sel"); a.classList.add("done"); b.classList.add("done");
+        sel = null; k++; sfx.tick(); clearHint(); if(k===n) setTimeout(win, 400);
+      } else oops(b, L("Simpul terlerai! Itu bukan pasangannya.","سيمڤول ترلراي! ايت بوکن ڤاسڠنڽ."));
+    }));
+  },
+
+  /* Peta: isi pos denai mengikut urutan */
+  peta(el, g){
+    const order = mix(g.steps.map((_,i)=>i)); let k = 0;
+    el.innerHTML = `<div class="map" id="map">${g.steps.map((_,i)=>`<div class="cp" data-s="${i}"><i>${i+1}</i><span>${i===0?"🏁":"…"}</span></div>`).join("")}</div>
+      <div class="g2">${order.map(i=>`<button class="opt pc" data-i="${i}">${TX(g.steps[i])}</button>`).join("")}</div>
+      <div class="cnt">🗺️ ${L("Tekan kad untuk pos yang seterusnya.","تکن کد اونتوق ڤوس يڠ ستروسڽ.")}</div>`;
+    el.querySelectorAll(".pc").forEach(b => b.addEventListener("click", () => {
+      if(b.classList.contains("used") || k>=g.steps.length) return;
+      if(+b.dataset.i===k){
+        const cp = el.querySelector(`.cp[data-s="${k}"]`); cp.classList.add("on"); cp.querySelector("span").innerHTML = TX(g.steps[k]);
+        b.classList.add("used"); k++; sfx.tick(); clearHint();
+        if(k===g.steps.length) setTimeout(win, 400);
+      } else oops(b, L(`Bukan itu. Apakah langkah ke-${k+1}?`,`بوکن ايت. اڤاکه لڠکه ک-${k+1}؟`));
+    }));
+  },
+
+  /* Semboyan: kibar bendera hijau (betul) atau merah (salah); bonus pantas */
+  semboyan(el, g){
+    const order = shuffle(g.items.map((_,i)=>i)); let k = 0, slip = 0; const t0 = Date.now();
+    const draw = () => {
+      const it = g.items[order[k]];
+      el.innerHTML = `<div class="sbt" id="sbt" data-k="${order[k]}">${TX(it[0])}</div><div class="fuse" aria-hidden="true"><i style="--t:9s"></i></div>
+        <div class="flags"><button class="flg" data-v="1"><span class="fi">🚩</span>✅ ${L("Betul","بتول")}</button><button class="flg" data-v="0"><span class="fi">🚩</span>❌ ${L("Salah","سالح")}</button></div>
+        <div class="cnt">🚩 ${k+1} / ${order.length} • ⚡ ${L("Jawab pantas untuk bonus!","جواب ڤنتس اونتوق بونوس!")}</div>`;
+      speak(RU(it[0]));
+      el.querySelectorAll(".flg").forEach(b => b.addEventListener("click", () => {
+        if(k >= order.length) return;
+        if(+b.dataset.v === g.items[order[k]][1]){
+          sfx.tick(); k++; clearHint();
+          if(k < order.length) draw(); else win(!slip && Date.now()-t0 < order.length*9000);
+        } else { slip++; oops($("#sbt"), g.items[order[k]][1] ? L("Kenyataan ini BETUL. Baca semula kad.","کڽاتاءن اين بتول. باچ سمولا کد.") : L("Kenyataan ini SALAH. Baca semula kad.","کڽاتاءن اين سالح. باچ سمولا کد.")); }
+      }));
+    };
+    draw();
+  },
+
+  /* Ransel: putar roda nombor mangga, kemudian buka */
+  ransel(el, g){
+    const ans = String(g.n), w = ans.length; let d;
+    do{ d = ans.split("").map(()=>Math.floor(Math.random()*10)); }while(d.join("")===ans);
+    el.innerHTML = `<div class="padl" id="padl">${d.map((_,i)=>`<div class="wh"><button class="up" data-w="${i}" aria-label="${L("Naik","نايق")}">▲</button><span class="dg" data-w="${i}">${d[i]}</span><button class="dn" data-w="${i}" aria-label="${L("Turun","تورون")}">▼</button></div>`).join("")}</div>
+      <div class="unit">🎒 … ${T(g.unit)}</div>
+      <button class="btn go chk" data-x="chk">🔓 ${L("Buka mangga","بوک مڠڬ")}</button>`;
+    const set = (i, v) => { d[i] = (v+10)%10; el.querySelector(`.dg[data-w="${i}"]`).textContent = d[i]; sfx.click(); };
+    el.querySelectorAll(".up").forEach(b => b.addEventListener("click", () => set(+b.dataset.w, d[+b.dataset.w]+1)));
+    el.querySelectorAll(".dn").forEach(b => b.addEventListener("click", () => set(+b.dataset.w, d[+b.dataset.w]-1)));
+    let done = false;
+    el.querySelector(".chk").addEventListener("click", () => {
+      if(done) return; const v = +d.join("");
+      if(v===g.n){ done = true; $("#padl").classList.add("open"); el.querySelector(".chk").textContent = "🔓 ✅"; setTimeout(win, 400); }
+      else oops($("#padl"), v<g.n ? L("Belum terbuka. Nombornya lebih BESAR.","بلوم تربوک. نومبورڽ لبيه بسر.") : L("Belum terbuka. Nombornya lebih KECIL.","بلوم تربوک. نومبورڽ لبيه کچيل."));
+    });
+  },
+
+  /* Lencana: lekat lencana perkataan pada tempat kosong mengikut urutan */
+  lencana(el, g){
+    const parts = T(g.s).split("___"), words = g.ans.concat(g.extra||[]), pool = mix(words.map((_,i)=>i)); let k = 0;
+    el.innerHTML = `<div class="sent" id="sent">${parts.map((p,i)=> p + (i<parts.length-1 ? `<span class="blank ${i===0?"cur":""}" data-b="${i}">?</span>` : "")).join("")}</div>
+      <div class="bdgs">${pool.map(i=>`<button class="bdg" data-i="${i}">🏅 ${T(words[i])}</button>`).join("")}</div>
+      <div class="cnt">🏅 ${L("Tekan lencana untuk tempat kosong yang bercahaya.","تکن لنچان اونتوق تمڤت کوسوڠ يڠ برچهاي.")}</div>`;
+    el.querySelectorAll(".bdg").forEach(b => b.addEventListener("click", () => {
+      if(b.classList.contains("used") || k>=g.ans.length) return;
+      if(T(words[+b.dataset.i]) === T(g.ans[k])){
+        const bl = el.querySelector(`.blank[data-b="${k}"]`); bl.textContent = T(g.ans[k]); bl.classList.remove("cur"); bl.classList.add("on");
+        b.classList.add("used"); k++; sfx.tick(); clearHint();
+        const nx = el.querySelector(`.blank[data-b="${k}"]`); if(nx) nx.classList.add("cur");
+        if(k===g.ans.length) setTimeout(win, 450);
+      } else oops(b, L("Lencana itu tidak sesuai di situ.","لنچان ايت تيدق سسواي د سيتو."));
+    }));
+  },
+
+  /* Obor: suluh semak (tekan sekali), pilih jawapan (tekan lagi) */
+  obor(el, g){
+    const opts = shuffle(g.items.map(x=>({x:x[0], ok:x[1]}))); let done = false;
+    el.innerHTML = `<div class="dark">${opts.map((o,i)=>`<button class="bush" data-i="${i}" data-ok="${o.ok?1:0}" aria-label="${L("Semak","سمق")} ${i+1}"><span>${TX(o.x)}</span></button>`).join("")}</div>
+      <div class="cnt">🔦 ${L("Tekan sekali untuk menyuluh. Tekan lagi untuk memilih.","تکن سکالي اونتوق مڽولوه. تکن لاڬي اونتوق ممليه.")}</div>`;
+    el.querySelectorAll(".bush").forEach(b => b.addEventListener("click", () => {
+      if(done || b.classList.contains("wrong")) return;
+      const o = opts[+b.dataset.i];
+      if(!b.classList.contains("lit")){ b.classList.add("lit"); b.setAttribute("aria-label", isAr(o.x) ? "" : T(o.x)); sfx.pop(); speak(RU(o.x)); return; }
+      if(o.ok){ done = true; b.classList.add("pick"); setTimeout(win, 400); }
+      else { b.classList.add("wrong"); oops(b, L("Bukan yang itu. Suluh semak yang lain.","بوکن يڠ ايت. سولوه سمق يڠ لاءين.")); }
+    }));
+  }
+};
+
+/* ===================== KAWALAN ===================== */
+document.addEventListener("click", e => {
+  const s = e.target.closest("[data-say]");
+  if(s){ speak(decodeURIComponent(s.dataset.say), true); return; }
+  const b = e.target.closest("[data-act]"); if(!b) return;
+  const a = b.dataset.act;
+  if(a==="lang"){ LANG = isJ() ? "rumi" : "jawi"; save("kafa-lang", LANG); applyLang(); redraw(); }
+  else if(a==="voice"){ voiceOn = !voiceOn; save(VKEY, voiceOn); if(!voiceOn) hush(); redraw(); }
+  else if(a==="open"){ openStation(+b.dataset.id); }
+  else if(a==="locked"){ sfx.no(); toast(L("Selesaikan khemah sebelumnya dahulu 🔒","سلسايکن خيمه سبلومڽ دهولو 🔒")); }
+  else if(a==="final"){ openFinal(); }
+  else if(a==="flocked"){ sfx.no(); toast(L(`Selesaikan semua ${STATIONS.length} khemah untuk membuka Cabaran Unggun Api 🔥`,`سلسايکن سموا ${STATIONS.length} خيمه اونتوق ممبوک چابرن اوڠڬون اڤي 🔥`)); }
+  else if(a==="map"){ document.querySelectorAll(".fb").forEach(x=>x.remove()); renderMap(); window.scrollTo(0,0); }
+  else if(a==="rprev"){ if(S.ri>0){ S.ri--; renderRead(); } }
+  else if(a==="rnext"){ if(S.ri < S.st.read.length-1){ S.ri++; renderRead(); } else { S.phase="play"; S.gi=0; S.miss=0; renderPlay(); } }
+  else if(a==="next"){ nextGame(); }
+  else if(a==="again"){ S.res = null; S.st.id==="final" ? openFinal() : (S.gi=0, S.miss=0, S.phase="play", renderPlay()); }
+});
+// lukis semula skrin semasa (selepas tukar tulisan/suara) tanpa mengulang bunyi/konfeti
+function redraw(){
+  if(!S) return renderMap();
+  if(S.phase==="read") return renderRead();
+  if(S.res && document.querySelector(".res")) return drawResult(false);
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  renderPlay();
+}
+applyLang();
+renderMap();
+</script>
+</body>
+</html>

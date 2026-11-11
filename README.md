@@ -65,7 +65,13 @@ kafa/
 │   ├── tauhid/index.html ← Game Ladang Tuai Iman (Tauhid Tahun 2)
 │   ├── arab/index.html   ← Game Bas Sekolah Kalimah (Bahasa Arab Tahun 2)
 │   └── hafazan/index.html← Game Sampan Hafiz (Hafazan Tahun 2)
-├── tahun4/index.html
+├── tahun4/
+│   ├── index.html        ← Senarai subjek Tahun 4
+│   ├── hafazan/index.html ← Game Ekspedisi Hutan Hafiz (Hafazan Tahun 4)
+│   ├── arab/index.html ← Game Lapangan Terbang Lughah (Bahasa Arab Tahun 4)
+│   ├── tauhid/index.html ← Game Daki Gunung Iman (Tauhid Tahun 4)
+│   ├── jawi/index.html ← Game Detektif Aksara (Jawi Tahun 4)
+│   ├── feqah/index.html ← Game Kem Pengakap Feqah (Feqah Tahun 4)
 ├── tahun5/index.html
 └── tahun6/index.html
 ```
