@@ -138,6 +138,7 @@ Setiap tahun dibeli sekali dan dibuka seumur hidup untuk akaun Google pembeli.
   Tahun yang tiada dalam `trial` dibuka seperti biasa (belum dijual).
 - **Harga & WhatsApp** (`shop` dalam `assets/config.js`): nombor WhatsApp untuk butang "Beli" dan harga yang dipaparkan.
 - **Admin** (`/admin/`): tambah pemboleh ubah Vercel `ADMIN_EMAILS` = e-mel Google admin (pisahkan dengan koma), kemudian redeploy.
-  Di situ: jana kod (contoh 40 kod untuk satu kelas), salin/CSV, beri akses terus kepada e-mel, padam kod yang belum digunakan.
+  Di situ: senarai **Pengguna** (e-mel, log masuk terakhir, aktif terakhir, tahun dibeli, main Zon Arked, tarikh daftar; carian e-mel, 50 sehalaman, CSV) dengan statistik (jumlah, log masuk 24 jam / 7 / 30 hari, baharu 7 hari, pembeli), jana kod (contoh 40 kod untuk satu kelas), salin/CSV, beri akses terus kepada e-mel, padam kod yang belum digunakan.
+  Data log masuk datang daripada Clerk (`CLERK_SECRET_KEY`), jadi pengguna yang log masuk sebelum ciri ini dibina juga tersenarai.
 - **Pembeli**: Laman Tahun → "Masukkan kod" → log masuk Google → taip kod `T3-XXXX-XXXX`.
 - Kunci dibuat di peranti (tahun yang dibeli disemak dengan pelayan dan disimpan di peranti); pengguna yang mahir teknikal masih boleh memintasnya.

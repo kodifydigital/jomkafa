@@ -40,6 +40,17 @@ code{font-weight:800;letter-spacing:1px}
 .msg{text-align:center;padding:26px 16px}
 .msg .big{font-size:48px;line-height:1}
 .err{color:#C8452F;font-weight:700}
+.ustats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:4px 0 10px}
+@media (min-width:700px){.ustats{grid-template-columns:repeat(6,minmax(0,1fr))}}
+.ustats div{background:var(--bg);border:2px solid var(--line);border-radius:14px;padding:6px 10px}
+.ustats b{display:block;font-size:22px;line-height:1.2}
+.ustats span{font-size:12.5px;color:var(--muted);font-weight:700}
+.who{display:flex;align-items:center;gap:8px;white-space:normal;min-width:200px}
+.who img,.who i{width:30px;height:30px;border-radius:50%;flex:none;background:var(--line);display:grid;place-items:center;font-style:normal}
+.who small{display:block;color:var(--muted)}
+.yr{display:inline-block;background:#DDF3E5;color:#14532D;border-radius:999px;padding:0 8px;font-weight:800;font-size:13px;margin:1px}
+.ago{font-weight:700}.ago.fresh{color:#1F8A50}
+.pager{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:8px;flex-wrap:wrap}
 .toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:16px;font-weight:700;z-index:60}
 </style>
 </head>
@@ -53,11 +64,55 @@ const esc = s => String(s ?? "").replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;"
 const YEARS = [1,2,3,4,5,6];
 const when = t => t ? new Date(t).toLocaleString("ms-MY", {day:"numeric", month:"short", year:"numeric", hour:"2-digit", minute:"2-digit"}) : "";
 function toast(m){ document.querySelectorAll(".toast").forEach(t=>t.remove()); const t = document.createElement("div"); t.className = "toast"; t.textContent = m; document.body.appendChild(t); setTimeout(()=>t.remove(), 2800); }
-let D = null, made = null;
+let D = null, made = null, U = null, uq = "", uoff = 0, uerr = null;
+// "5 minit lalu", "semalam", "3 hari lalu"
+function ago(t){
+  if(!t) return "—";
+  const d = (Date.now() - new Date(t).getTime()) / 1000;
+  if(d < 60) return "baru tadi"; if(d < 3600) return Math.floor(d/60) + " minit lalu";
+  if(d < 86400) return Math.floor(d/3600) + " jam lalu"; if(d < 172800) return "semalam";
+  if(d < 30*86400) return Math.floor(d/86400) + " hari lalu";
+  return new Date(t).toLocaleDateString("ms-MY", {day:"numeric", month:"short", year:"numeric"});
+}
+async function loadUsers(){
+  uerr = null;
+  try{ U = await KafaAuth.api("admin", {action:"users", offset:uoff, q:uq}); }
+  catch(e){ uerr = e.message || "Ralat"; }
+  const box = $("users"); if(box) box.innerHTML = usersHTML();
+}
+function usersHTML(){
+  if(uerr) return `<p class="err">⚠️ Tidak dapat memuatkan pengguna: ${esc(uerr)}</p><button class="btn alt sm" data-act="ureload">🔄 Cuba lagi</button>`;
+  if(!U) return `<p class="no">⏳ Memuatkan pengguna…</p>`;
+  const st = U.stats, from = U.total ? U.offset + 1 : 0, to = U.offset + U.users.length;
+  return `${st ? `<div class="ustats">
+      <div><b>${st.total}</b><span>Jumlah pengguna</span></div>
+      <div><b>${st.today}</b><span>Log masuk 24 jam</span></div>
+      <div><b>${st.d7}</b><span>Log masuk 7 hari</span></div>
+      <div><b>${st.d30}</b><span>Log masuk 30 hari</span></div>
+      <div><b>${st.new7}</b><span>Baharu 7 hari</span></div>
+      <div><b>${st.buyers}</b><span>Pembeli</span></div></div>` : ""}
+    <div class="row" style="margin-bottom:8px">
+      <label style="flex:1 1 220px">Cari e-mel atau nama<input id="uq" type="search" value="${esc(uq)}" placeholder="cth. ali@gmail.com"></label>
+      <button class="btn" data-act="usearch">🔍 Cari</button>${uq ? `<button class="btn alt" data-act="uclear">✕ Semua</button>` : ""}
+      <button class="btn alt" data-act="ucsv" title="Muat turun halaman ini sebagai CSV">⬇️ CSV</button>
+    </div>
+    <div class="tbl"><table><thead><tr><th>Pengguna</th><th>Log masuk terakhir</th><th>Aktif terakhir</th><th>Tahun dibeli</th><th>Main Zon Arked</th><th>Daftar</th></tr></thead><tbody>
+    ${U.users.map(u=>`<tr>
+      <td><div class="who">${u.img ? `<img src="${esc(u.img)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : `<i>👤</i>`}<div><b>${esc(u.email || "(tiada e-mel)")}</b><small>${esc([u.name, u.nick ? "“" + u.nick + "”" : ""].filter(Boolean).join(" • ") || "")}</small></div></div></td>
+      <td><span class="ago ${u.lastSignIn && Date.now()-u.lastSignIn < 864e5 ? "fresh" : ""}">${ago(u.lastSignIn)}</span><br><small class="no">${when(u.lastSignIn)}</small></td>
+      <td><small>${ago(u.lastActive)}</small></td>
+      <td>${u.years.length ? u.years.map(y=>`<span class="yr">T${y}</span>`).join("") : `<span class="no">—</span>`}</td>
+      <td>${u.plays ? `${u.plays} kali<br><small class="no">${ago(u.lastPlay)}</small>` : `<span class="no">—</span>`}</td>
+      <td><small>${when(u.created)}</small></td></tr>`).join("") || `<tr><td colspan="6" class="no">${uq ? "Tiada pengguna sepadan." : "Belum ada pengguna."}</td></tr>`}
+    </tbody></table></div>
+    <div class="pager"><small class="no">${from}–${to} daripada ${U.total}</small>
+      <span><button class="btn alt sm" data-act="uprev" ${U.offset ? "" : "disabled"}>← Sebelum</button>
+      <button class="btn alt sm" data-act="unext" ${to < U.total ? "" : "disabled"}>Seterusnya →</button></span></div>`;
+}
 
 const shell = inner => { app.innerHTML = `<div class="topbar"><a class="iconbtn" href="/" aria-label="Laman utama">←</a>
   <div class="grp">${KafaAuth.uid ? `<button class="iconbtn" style="width:auto;padding:0 14px" data-act="logout">🚪 Log keluar</button>` : ""}</div></div>
-  <header class="head"><h1>🛠️ Admin JOM KAFA</h1><p>Jana kod pengaktifan, beri akses dan pantau pembelian.</p></header>${inner}`; };
+  <header class="head"><h1>🛠️ Admin JOM KAFA</h1><p>Pantau pengguna, jana kod pengaktifan, beri akses dan pantau pembelian.</p></header>${inner}`; };
 const msg = (e, t, extra="") => shell(`<div class="card msg"><div class="big">${e}</div><p>${t}</p>${extra}</div>`);
 
 async function draw(){
@@ -70,11 +125,12 @@ async function draw(){
   catch(e){ KafaAuth.loading(false);
     return e.status===403 ? msg("⛔", "Akaun ini bukan admin. Tambah e-mel anda dalam <b>ADMIN_EMAILS</b> di Vercel, kemudian redeploy.")
       : msg("⚠️", "Tidak dapat disambung ke pelayan.", `<button class="btn alt" data-act="reload">🔄 Cuba lagi</button>`); }
-  KafaAuth.loading(false); render();
+  KafaAuth.loading(false); render(); loadUsers();
 }
 function render(){
   shell(`
     <div class="stats">${D.summary.map(s=>`<div class="stat"><b>Tahun ${s.year}</b><span>🎟️ ${s.codes} kod • ${s.used} digunakan</span><span>👤 ${s.owners} pemilik</span></div>`).join("")}</div>
+    <div class="card"><h2>👥 Pengguna</h2><div id="users">${usersHTML()}</div></div>
     <div class="card"><h2>🎟️ Jana kod pengaktifan</h2>
       <div class="row">
         <label>Tahun<select id="gy">${YEARS.map(y=>`<option value="${y}">Tahun ${y}</option>`).join("")}</select></label>
@@ -116,16 +172,25 @@ async function act(b){
     const url = URL.createObjectURL(new Blob([csv], {type:"text/csv"})), l = document.createElement("a"); l.href = url; l.download = `kod-tahun${made.year}.csv`; l.click(); setTimeout(()=>URL.revokeObjectURL(url), 1000); return; }
   if(a==="wa"){ const t = `Terima kasih kerana membeli JOM KAFA Tahun ${made.year}!\n\nKod pengaktifan: ${made.codes[0]}\n\nCara guna:\n1. Buka ${location.origin}/tahun${made.year}/index.html\n2. Tekan "Masukkan kod" dan log masuk dengan akaun Google\n3. Taip kod di atas. Tahun ${made.year} akan dibuka seumur hidup.`;
     try{ await navigator.clipboard.writeText(t); toast("💬 Mesej (dengan kod pertama) disalin"); }catch(e){ toast(t); } return; }
+  if(a==="ureload") return loadUsers();
+  if(a==="usearch"){ uq = $("uq").value.trim(); uoff = 0; U = null; $("users").innerHTML = usersHTML(); return loadUsers(); }
+  if(a==="uclear"){ uq = ""; uoff = 0; U = null; $("users").innerHTML = usersHTML(); return loadUsers(); }
+  if(a==="uprev" || a==="unext"){ uoff = Math.max(0, uoff + (a==="unext" ? U.page : -U.page)); KafaAuth.busy(b, true); return loadUsers(); }
+  if(a==="ucsv"){ const q = v => `"${String(v ?? "").replace(/"/g,'""')}"`, d = t => t ? new Date(t).toISOString() : "";
+    const csv = "email,nama,nama_samaran,log_masuk_terakhir,aktif_terakhir,tahun_dibeli,main_zon_arked,daftar\n" + U.users.map(u => [u.email, u.name, u.nick, d(u.lastSignIn), d(u.lastActive), u.years.join(" "), u.plays, d(u.created)].map(q).join(",")).join("\n");
+    const url = URL.createObjectURL(new Blob([csv], {type:"text/csv"})), l = document.createElement("a"); l.href = url; l.download = "pengguna-jomkafa.csv"; l.click(); setTimeout(()=>URL.revokeObjectURL(url), 1000); return; }
   KafaAuth.busy(b, true);
   try{
     if(a==="gen"){ made = await KafaAuth.api("admin", {action:"generate", year:+$("gy").value, count:+$("gn").value, note:$("gnote").value}); toast(`✨ ${made.codes.length} kod dijana`); }
     if(a==="grant"){ const r = await KafaAuth.api("admin", {action:"grant", email:$("ge").value, year:+$("gey").value}); toast(`🔓 Tahun ${r.year} dibuka untuk ${r.email}`); }
     if(a==="del"){ if(!confirm(`Padam kod ${b.dataset.c}?`)) return KafaAuth.busy(b, false); await KafaAuth.api("admin", {action:"delete", code:b.dataset.c}); toast("🗑️ Kod dipadam"); }
     D = await KafaAuth.api("admin"); render();
+    if(a==="grant") loadUsers();
   }catch(e){ KafaAuth.busy(b, false); toast("⚠️ " + (e.message || "Ralat")); }
 }
+app.addEventListener("keydown", e=>{ if(e.key==="Enter" && e.target.id==="uq"){ const b = app.querySelector('[data-act="usearch"]'); if(b) act(b); } });
 app.addEventListener("click", e=>{ const b = e.target.closest("[data-act]"); if(b && !b.disabled) act(b); });
-KafaAuth.onChange(()=>{ D = null; made = null; draw(); });
+KafaAuth.onChange(()=>{ D = null; made = null; U = null; uq = ""; uoff = 0; draw(); });
 draw();
 </script>
 </body>

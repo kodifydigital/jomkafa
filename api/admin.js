@@ -3,6 +3,7 @@
 //   POST {action:"generate", year, count, note} -> jana kod pengaktifan (maks 500 sekali)
 //   POST {action:"grant", email, year}    -> buka tahun terus untuk e-mel (contoh: bayaran manual)
 //   POST {action:"delete", code}          -> padam kod yang belum digunakan
+//   POST {action:"users", offset, q}      -> senarai pengguna (log masuk terkini dahulu) + statistik
 import { db, userId, body, handler, HttpError, isAdmin, clerk, SELL_YEARS } from "./_lib.js";
 import { normCode } from "./redeem.js";
 import crypto from "node:crypto";
@@ -42,6 +43,7 @@ export default handler(["GET", "POST"], async (req) => {
     await sql`insert into entitlements (player, year, source, email) values (${user.id}, ${year}, 'admin', ${email}) on conflict (player, year) do nothing`;
     return { ok: true, email, year };
   }
+  if (b.action === "users") return users(sql, b);
   if (b.action === "delete") {
     const del = await sql`delete from codes where code = ${normCode(b.code)} and used_by is null returning code`;
     if (!del.length) throw new HttpError(400, "Kod tidak dijumpai atau sudah digunakan");
@@ -49,3 +51,59 @@ export default handler(["GET", "POST"], async (req) => {
   }
   throw new HttpError(400, "Tindakan tidak dikenali");
 });
+
+// ---------- Pengguna: data akaun dari Clerk + aktiviti & pembelian dari pangkalan data ----------
+const PAGE = 50, DAY = 864e5;
+const list = r => (r && r.data) || r || [];
+const emailOf = u => { const p = (u.emailAddresses || []).find(e => e.id === u.primaryEmailAddressId) || (u.emailAddresses || [])[0]; return p ? p.emailAddress : ""; };
+
+async function users(sql, b) {
+  const c = clerk();
+  const offset = Math.max(0, Math.floor(Number(b.offset) || 0));
+  const q = String(b.q || "").trim().slice(0, 80);
+  const page = await c.users.getUserList({ limit: PAGE, offset, orderBy: "-last_sign_in_at", ...(q ? { query: q } : {}) });
+  const rows = list(page);
+  const total = (page && typeof page.totalCount === "number") ? page.totalCount : rows.length;
+
+  // statistik (tanpa carian): imbas pengguna ikut log masuk terkini sehingga lebih 30 hari (had 1000)
+  let stats = null;
+  if (!q) {
+    const now = Date.now(); stats = { total, today: 0, d7: 0, d30: 0, new7: 0, buyers: 0 };
+    for (let off = 0; off < 1000; off += 100) {
+      const batch = off === 0 && offset === 0 && PAGE >= 100 ? rows : list(await c.users.getUserList({ limit: 100, offset: off, orderBy: "-last_sign_in_at" }));
+      for (const u of batch) {
+        const t = u.lastSignInAt || 0;
+        if (now - t < DAY) stats.today++;
+        if (now - t < 7 * DAY) stats.d7++;
+        if (now - t < 30 * DAY) stats.d30++;
+        if (now - (u.createdAt || 0) < 7 * DAY) stats.new7++;
+      }
+      if (batch.length < 100 || now - (batch[batch.length - 1].lastSignInAt || 0) >= 30 * DAY) break;
+    }
+    const [{ n }] = await sql`select count(distinct player)::int as n from entitlements`;
+    stats.buyers = n;
+  }
+
+  const ids = rows.map(u => u.id);
+  const [names, owns, acts] = ids.length ? await Promise.all([
+    sql`select id, name from players where id = any(${ids})`,
+    sql`select player, array_agg(year order by year) as years from entitlements where player = any(${ids}) group by player`,
+    sql`select player, count(*)::int as plays, max(at) as last_play from plays where player = any(${ids}) group by player`,
+  ]) : [[], [], []];
+  const by = (arr, k) => Object.fromEntries(arr.map(r => [r[k], r]));
+  const N = by(names, "id"), O = by(owns, "player"), A = by(acts, "player");
+  const out = rows.map(u => ({
+    id: u.id,
+    email: emailOf(u),
+    name: [u.firstName, u.lastName].filter(Boolean).join(" "),
+    nick: N[u.id] ? N[u.id].name : null,
+    img: u.imageUrl || null,
+    created: u.createdAt || null,
+    lastSignIn: u.lastSignInAt || null,
+    lastActive: u.lastActiveAt || null,
+    years: O[u.id] ? O[u.id].years : [],
+    plays: A[u.id] ? A[u.id].plays : 0,
+    lastPlay: A[u.id] ? A[u.id].last_play : null,
+  }));
+  return { users: out, total, offset, page: PAGE, q, stats };
+}
