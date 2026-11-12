@@ -363,7 +363,12 @@ const READY = {
 
 // Zon Arked: permainan aksi yang menggunakan soalan daripada subjek yang sudah siap.
 // subjects = id subjek yang ada bank soalan dalam arked/index.html. hiKey = rekod skor tertinggi.
+// n = label tab, desc = teks hero, feats = senarai ciri (semua [Rumi, Jawi]). Tiada = teks Tahun 3.
 const ARCADE = {
+  1: { path:"arked/index.html", hiKey:"ark1-hi", subjects:["akhlak","jawi","feqah","tauhid","arab","hafazan"],
+       n:["3 kenderaan","3 کندرأن"],
+       desc:["Litar KAFA 3D: pandu kereta lumba, bot laju dan kapal terbang melalui pintu jawapan yang betul! Setiap dunia ikut subjek Tahun 1: pokok Akhlak, zoo Jawi, pulau Feqah, taman Tauhid, karnival Arab dan langit Hafazan.","ليتر کافا 3D: ڤندو کريتا لومبا، بوت لاجو دان کاڤل تربڠ ملالوٴي ڤينتو جواڤن يڠ بتول! ستياڤ دنيا ايکوت سوبجيک تاهون 1: ڤوکوق اخلاق، زو جاوي، ڤولاو فقه، تامن توحيد، کارنيۏل عرب دان لاڠيت حفظن."],
+       feats:[["🏎️ Kereta lumba","🏎️ کريتا لومبا"],["🚤 Bot laju","🚤 بوت لاجو"],["✈️ Kapal terbang","✈️ کاڤل تربڠ"],["🏆 Papan pendahulu","🏆 ڤاڤن ڤندهولو"]] },
   3: { path:"arked/index.html", hiKey:"ark3-hi", subjects:["sirah","feqah","tauhid","akhlak","arab","tajwid","hafazan"] }
 };
 
@@ -506,7 +511,7 @@ function renderYear(app, y){
     ${buyCard(y)}
     ${ARCADE[y] ? `<div class="ytabs" role="tablist">
       <button role="tab" data-act="ytab" data-t="learn" aria-selected="${yTab!=="arcade"}">📚 ${tx("Belajar","بلاجر")}<small>${tx(`${nReady} subjek`,`${nReady} سوبجيک`)}</small></button>
-      <button role="tab" data-act="ytab" data-t="arcade" aria-selected="${yTab==="arcade"}">🕹️ ${tx("Zon Arked 3D","زون ارکيد 3D")}<small>${tx("6 permainan","6 ڤرماٴينن")}</small></button></div>` : ""}
+      <button role="tab" data-act="ytab" data-t="arcade" aria-selected="${yTab==="arcade"}">🕹️ ${tx("Zon Arked 3D","زون ارکيد 3D")}<small>${ARCADE[y].n ? tx(...ARCADE[y].n) : tx("6 permainan","6 ڤرماٴينن")}</small></button></div>` : ""}
     ${ARCADE[y] && yTab==="arcade" ? arcadeHTML(y) : `<section class="${nReady?"wgrid":"subjects"}" aria-label="${tx("Subjek","سوبجيک")}">${tiles}</section>`}`;
 }
 // Kad "Buka penuh Tahun N" (versi percubaan) atau tanda "milik kamu" selepas membeli
@@ -623,17 +628,18 @@ function arcadeHTML(y){
   const A = ARCADE[y]; if(!A) return "";
   const hi = kLoad(A.hiKey, {});
   const best = id => Math.max(0, ...Object.values(hi[id]||{}));
+  const TH = id => (READY[`${y}/${id}`]||{}).theme || THEMES[id] || THEMES.mix;
   const cards = [...A.subjects.map(id=>SUBJECTS.find(s=>s.id===id)), {id:"mix", icon:"🎲", r:"Campur semua", j:"چمڤور سموا"}].map((s,i)=>
-    `<a class="arc tilt${window.KafaAccess && !KafaAccess.has(y) && (KafaAccess.trial(y).arcade||{}).subj!==s.id ? " lk" : ""}" href="${A.path}?s=${s.id}" data-deco="${(THEMES[s.id]||THEMES.mix).deco}" style="${themeVars(s.id)};--i:${i}"><span class="scene" aria-hidden="true"></span><span class="shine" aria-hidden="true"></span>
-      <span class="ic" aria-hidden="true">${(THEMES[s.id]||THEMES.mix).m}</span><b>${tx(s.r,s.j)}</b><small>🏆 ${best(s.id)}</small></a>`).join("");
-  const orbit = A.subjects.map((id,i)=>`<span style="--k:${i};--n:${A.subjects.length}"><i>${(THEMES[id]||THEMES.mix).m}</i></span>`).join("");
+    `<a class="arc tilt${window.KafaAccess && !KafaAccess.has(y) && (KafaAccess.trial(y).arcade||{}).subj!==s.id ? " lk" : ""}" href="${A.path}?s=${s.id}" data-deco="${TH(s.id).deco}" style="${themeVars(s.id, TH(s.id))};--i:${i}"><span class="scene" aria-hidden="true"></span><span class="shine" aria-hidden="true"></span>
+      <span class="ic" aria-hidden="true">${TH(s.id).m}</span><b>${tx(s.r,s.j)}</b><small>🏆 ${best(s.id)}</small></a>`).join("");
+  const orbit = A.subjects.map((id,i)=>`<span style="--k:${i};--n:${A.subjects.length}"><i>${TH(id).m}</i></span>`).join("");
   return `<section class="arcade" aria-label="${tx("Zon Arked","زون ارکيد")}">
       <span class="aurora" aria-hidden="true"></span>
       <div class="ahero">
         <div class="atext"><span class="pill">✨ ${tx("Belajar sambil bermain","بلاجر سمبيل برماٴين")}</span>
           <h2>${tx("Zon Arked 3D","زون ارکيد 3D")}</h2>
-        <p>${tx("Permainan aksi 3D mengikut dunia setiap subjek: padang pasir Sirah, masjid Feqah, lautan Tauhid, kampung Akhlak, kolam Arab, angkasa Tajwid dan kereta api Hafazan. Main sendiri atau lawan pasukan dalam kelas!","ڤرماٴينن اکسي 3D مڠيکوت دنيا ستياڤ سوبجيک: ڤادڠ ڤاسير سيره، مسجد فقه، لاءوتن توحيد، کامڤوڠ اخلاق، کولم عرب، اڠکاس تجويد دان کريتا اڤي حفظن. ماٴين سنديري اتاو لاون ڤاسوقن دالم کلس!")}</p>
-          <ul class="feats"><li>🎮 ${tx("6 permainan 3D setiap dunia","6 ڤرماٴينن 3D ستياڤ دنيا")}</li><li>🏆 ${tx("Papan pendahulu","ڤاڤن ڤندهولو")}</li><li>🏫 ${tx("Mod kelas & duel","مود کلس & دوايل")}</li></ul>
+        <p>${A.desc ? tx(...A.desc) : tx("Permainan aksi 3D mengikut dunia setiap subjek: padang pasir Sirah, masjid Feqah, lautan Tauhid, kampung Akhlak, kolam Arab, angkasa Tajwid dan kereta api Hafazan. Main sendiri atau lawan pasukan dalam kelas!","ڤرماٴينن اکسي 3D مڠيکوت دنيا ستياڤ سوبجيک: ڤادڠ ڤاسير سيره، مسجد فقه، لاءوتن توحيد، کامڤوڠ اخلاق، کولم عرب، اڠکاس تجويد دان کريتا اڤي حفظن. ماٴين سنديري اتاو لاون ڤاسوقن دالم کلس!")}</p>
+          <ul class="feats">${A.feats ? A.feats.map(f=>`<li>${tx(...f)}</li>`).join("") : `<li>🎮 ${tx("6 permainan 3D setiap dunia","6 ڤرماٴينن 3D ستياڤ دنيا")}</li><li>🏆 ${tx("Papan pendahulu","ڤاڤن ڤندهولو")}</li><li>🏫 ${tx("Mod kelas & duel","مود کلس & دوايل")}</li>`}</ul>
           </div>
         <div class="orbit" aria-hidden="true"><b>🕹️</b>${orbit}</div>
       </div>

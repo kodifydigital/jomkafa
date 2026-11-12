@@ -1,0 +1,1522 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1B5FD1">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" type="image/png" href="/icons/favicon.png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="JOM KAFA">
+<script src="/assets/pwa.js"></script>
+<title>Litar KAFA 3D • Zon Arked Tahun 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Noto+Naskh+Arabic:wght@500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<script src="../../assets/config.js"></script>
+<script src="../../assets/auth.js"></script>
+<script src="../../assets/access.js"></script>
+<style>
+:root{
+  --bg:#EAF4FF; --surface:#FFFFFF; --ink:#132049; --muted:#56628C; --line:#CFE0F7;
+  --gold:#FFC22E; --ok:#18A957; --bad:#E5484D;
+  --w1:#1B5FD1; --w2:#0B2A66; --wa:#FFC22E;
+  --pattern:rgba(27,95,209,.08);
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --bg:#0A1430; --surface:#14214A; --ink:#EAF1FF; --muted:#A9B8E6; --line:#26386E; --pattern:rgba(150,190,255,.07); color-scheme:dark; }
+}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;min-height:100vh;background-color:var(--bg);color:var(--ink);font-family:"Baloo 2","Trebuchet MS","Segoe UI",system-ui,sans-serif;font-size:18px;line-height:1.4;
+  background-image:radial-gradient(var(--pattern) 2px,transparent 2.5px);background-size:26px 26px;overscroll-behavior:none}
+html[dir="rtl"] body{font-family:"Noto Naskh Arabic","Amiri","Baloo 2",serif;font-size:20px;line-height:1.75}
+.wrap{max-width:720px;margin:0 auto;padding:10px 14px 40px}
+button{font:inherit;cursor:pointer;color:inherit}
+button:disabled{cursor:default}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.ar{font-family:"Amiri","Noto Naskh Arabic",serif;font-weight:700;line-height:1.5}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:48px}
+.grp{display:flex;gap:6px;align-items:center}
+.iconbtn,.langbtn{display:inline-grid;place-items:center;min-width:48px;height:48px;border-radius:16px;border:3px solid var(--line);background:var(--surface);font-size:22px;font-weight:800;text-decoration:none;color:var(--ink);padding:0 10px}
+.langbtn{font-size:17px}
+.card{background:var(--surface);border-radius:22px;padding:14px;box-shadow:0 4px 0 var(--line)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:56px;padding:6px 22px;border:0;border-radius:20px;font-weight:800;font-size:21px;
+  background:linear-gradient(180deg,#FFD84D,#FFB000);color:#3A2400;box-shadow:0 5px 0 #C27C00;text-decoration:none}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 #C27C00}
+.btn.alt{background:var(--surface);color:var(--ink);box-shadow:0 5px 0 var(--line);border:3px solid var(--line)}
+.btn.go{background:linear-gradient(180deg,#3FE08A,#14A05A);color:#fff;box-shadow:0 5px 0 #0B6B3B;font-size:26px;min-height:68px;padding:6px 34px}
+.btn.sm{min-height:44px;font-size:16px;padding:4px 14px}
+/* papan tajuk */
+.hero{position:relative;overflow:hidden;margin:10px 0 14px;border-radius:26px;padding:18px 18px 20px;color:#fff;
+  background:linear-gradient(160deg,#2C7BFF 0%,#7B4DFF 55%,#FF4FA3 100%);box-shadow:0 6px 0 rgba(0,0,0,.18)}
+.hero h1{margin:0;font-size:34px;line-height:1.1;text-shadow:0 3px 0 rgba(0,0,0,.25)}
+.hero p{margin:6px 0 0;font-size:17px;opacity:.95;max-width:78%}
+.hero .flag{position:absolute;inset-inline-end:10px;top:6px;font-size:64px;transform:rotate(-8deg)}
+.hero .road{position:absolute;left:0;right:0;bottom:0;height:10px;background:repeating-linear-gradient(90deg,#fff 0 22px,#222 22px 44px);opacity:.85}
+.hero .stars{display:inline-block;margin-top:8px;background:rgba(0,0,0,.25);border-radius:999px;padding:2px 12px;font-weight:800}
+.sec{font-weight:800;font-size:20px;margin:16px 4px 8px}
+/* kad dunia */
+.worlds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.wcard{position:relative;min-width:0;min-height:150px;border:0;border-radius:24px;padding:12px;text-align:start;color:#fff;overflow:hidden;
+  background:linear-gradient(165deg,var(--c1),var(--c2));box-shadow:0 6px 0 rgba(0,0,0,.22);display:flex;flex-direction:column;justify-content:flex-end}
+.wcard:active{transform:translateY(3px);box-shadow:0 3px 0 rgba(0,0,0,.22)}
+.wcard .m{position:absolute;top:6px;inset-inline-end:8px;font-size:54px;line-height:1;filter:drop-shadow(0 3px 0 rgba(0,0,0,.2))}
+.wcard .deco{position:absolute;top:10px;inset-inline-start:10px;font-size:22px;opacity:.85;letter-spacing:2px}
+.wcard b{font-size:19px;line-height:1.15;text-shadow:0 2px 0 rgba(0,0,0,.3)}
+html[dir="rtl"] .wcard b{font-size:18px;line-height:1.5}
+.wcard small{font-weight:700;opacity:.95;font-size:14px}
+.wcard.mix{grid-column:1/-1;min-height:110px}
+/* kad kenderaan */
+.vgrid{display:grid;gap:12px}
+.vcard{display:grid;grid-template-columns:86px 1fr auto;align-items:center;gap:12px;border:0;border-radius:24px;padding:12px 14px;text-align:start;
+  background:var(--surface);box-shadow:0 6px 0 var(--line);min-height:104px;border:3px solid transparent}
+.vcard:active{transform:translateY(3px)}
+.vcard .ve{font-size:58px;line-height:1;display:grid;place-items:center;height:80px;border-radius:20px;background:linear-gradient(160deg,var(--c1),var(--c2))}
+.vcard b{display:block;font-size:22px;line-height:1.15}
+.vcard small{color:var(--muted);font-weight:600;font-size:15px;display:block}
+.vcard .best{font-weight:800;color:var(--w1);font-size:16px;white-space:nowrap}
+.vcard .play{font-size:30px}
+.whead{display:flex;align-items:center;gap:12px;border-radius:24px;padding:14px;color:#fff;background:linear-gradient(160deg,var(--w1),var(--w2));margin:10px 0 6px}
+.whead .m{font-size:60px;line-height:1}
+.whead h1{margin:0;font-size:26px;line-height:1.15}
+.whead p{margin:2px 0 0;font-size:15px;opacity:.95}
+/* skrin pengenalan */
+.intro{text-align:center;padding:18px}
+.intro .big{font-size:84px;line-height:1.1}
+.intro h2{margin:6px 0;font-size:28px}
+.how{list-style:none;padding:0;margin:12px 0 18px;display:grid;gap:8px;text-align:start}
+.how li{display:flex;gap:10px;align-items:center;background:var(--bg);border-radius:16px;padding:8px 12px;font-weight:700;font-size:17px}
+.how li span{font-size:30px;flex:none}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:18px;font-weight:700;z-index:80;max-width:92vw;text-align:center}
+.rain{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:60}
+.rain span{position:absolute;top:-50px;font-size:30px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(115vh) rotate(300deg)}}
+/* ---------- skrin perlumbaan ---------- */
+.game{position:fixed;inset:0;display:flex;flex-direction:column;background:#000;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}
+.field{position:relative;flex:1;min-height:0;overflow:hidden;background:linear-gradient(180deg,var(--w1),var(--w2))}
+.field canvas{display:block;width:100%;height:100%}
+.hud{position:absolute;top:calc(6px + env(safe-area-inset-top,0px));left:6px;right:6px;display:flex;gap:6px;align-items:center;z-index:5;pointer-events:none}
+.hud>*{pointer-events:auto}
+.chip{display:inline-flex;align-items:center;gap:4px;background:rgba(10,18,50,.62);color:#fff;border-radius:16px;padding:2px 10px;font-weight:800;font-size:19px;min-height:44px;white-space:nowrap}
+.chip.pos{font-size:24px;background:linear-gradient(180deg,#FFD84D,#FFB000);color:#3A2400}
+.chip.combo{background:linear-gradient(180deg,#FF7A3D,#E5322D)}
+.chip.combo[hidden]{display:none}
+.hud .sp{flex:1}
+.hud .iconbtn{border:0;background:rgba(10,18,50,.62);color:#fff;height:44px;min-width:44px}
+.prompt{position:absolute;left:8px;right:8px;top:calc(58px + env(safe-area-inset-top,0px));z-index:5;display:flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.94);color:#132049;border-radius:20px;padding:6px 8px 6px 14px;box-shadow:0 4px 0 rgba(0,0,0,.25);border:3px solid var(--wa)}
+.prompt .q{flex:1;font-weight:800;font-size:21px;line-height:1.2;min-width:0}
+html[dir="rtl"] .prompt .q{font-size:22px;line-height:1.6}
+.prompt .say{flex:none;width:48px;height:48px;border-radius:14px;border:0;background:var(--w1);color:#fff;font-size:24px}
+.prompt.pop{animation:ppop .45s ease-out}
+.prompt[hidden]{display:none}
+@keyframes ppop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.05)}100%{transform:none}}
+.track{position:absolute;left:12px;right:12px;bottom:calc(98px + env(safe-area-inset-bottom,0px));height:30px;z-index:4;pointer-events:none}
+.track .ln{position:absolute;left:0;right:0;top:13px;height:6px;border-radius:6px;background:rgba(255,255,255,.55)}
+.track .fin{position:absolute;right:-6px;top:0;font-size:22px}
+.track .rc{position:absolute;top:0;font-size:22px;transform:translateX(-50%);transition:left .2s linear}
+.track .rc.me{font-size:28px;top:-4px;z-index:2;filter:drop-shadow(0 0 4px #fff)}
+.ctl{position:absolute;left:0;right:0;bottom:calc(8px + env(safe-area-inset-bottom,0px));display:flex;justify-content:space-between;padding:0 10px;z-index:5;pointer-events:none}
+.ctl button{pointer-events:auto;width:84px;height:84px;border-radius:28px;border:4px solid rgba(255,255,255,.9);background:rgba(10,18,50,.5);color:#fff;font-size:40px;font-weight:800;touch-action:none}
+.ctl button:active,.ctl button.on{background:var(--wa);color:#3A2400}
+.ctl.pad{justify-content:space-between;align-items:flex-end}
+.ctl.pad .ud{display:flex;flex-direction:column;gap:8px}
+.ctl.pad .ud button{height:70px}
+.cd{position:absolute;inset:0;display:grid;place-items:center;z-index:8;pointer-events:none;font-size:140px;font-weight:800;color:#fff;text-shadow:0 6px 0 rgba(0,0,0,.35)}
+.cd span{animation:cdz .8s ease-out}
+@keyframes cdz{from{transform:scale(2.2);opacity:0}}
+.fxtxt{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);z-index:7;font-size:44px;font-weight:800;color:#fff;white-space:nowrap;pointer-events:none;
+  text-shadow:0 4px 0 rgba(0,0,0,.35);animation:fxt 1s ease-out forwards}
+.fxtxt.bad{color:#FFE3E3}
+@keyframes fxt{0%{transform:translate(-50%,-50%) scale(.4);opacity:0}25%{transform:translate(-50%,-50%) scale(1.15);opacity:1}75%{opacity:1}100%{transform:translate(-50%,-110%);opacity:0}}
+.speed{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;transition:opacity .25s;
+  background:repeating-conic-gradient(from 0deg at 50% 45%,rgba(255,255,255,.0) 0deg 7deg,rgba(255,255,255,.35) 7deg 8deg);
+  -webkit-mask:radial-gradient(circle at 50% 45%,transparent 32%,#000 70%);mask:radial-gradient(circle at 50% 45%,transparent 32%,#000 70%)}
+.speed.on{opacity:1;animation:spd .25s linear infinite}
+@keyframes spd{50%{transform:scale(1.04)}}
+.shake{animation:shk .45s}
+@keyframes shk{20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.ovl{position:absolute;inset:0;z-index:9;display:grid;place-items:center;background:rgba(5,10,35,.55);padding:16px}
+.ovl .card{text-align:center;width:min(380px,100%)}
+.ovl .card .btn{width:100%;margin-top:10px}
+/* mod rata (tiada WebGL): jalan 2D ringkas */
+.flat{position:absolute;inset:0;background:linear-gradient(180deg,var(--sky1,#8FD3FF) 0 26%,var(--gnd,#7CC66B) 26%)}
+.flat .rd{position:absolute;left:8%;right:8%;top:26%;bottom:0;background:var(--road,#555);clip-path:polygon(38% 0,62% 0,100% 100%,0 100%)}
+.flat .lanes{position:absolute;left:8%;right:8%;top:26%;bottom:0;display:grid}
+.flat .gate{position:absolute;left:8%;right:8%;display:grid;gap:6px;transform-origin:50% 100%}
+.flat .opt{background:#fff;color:#132049;border-radius:14px;border:4px solid var(--wa);text-align:center;font-weight:800;font-size:20px;padding:4px;min-width:0;overflow:hidden}
+.flat .opt .e{display:block;font-size:30px;line-height:1.1}
+.flat .me{position:absolute;bottom:18%;font-size:64px;transform:translateX(-50%);transition:left .18s,bottom .18s}
+.flat .star{position:absolute;font-size:30px;transform:translateX(-50%)}
+/* keputusan */
+.res{text-align:center}
+.res .place{font-size:76px;line-height:1}
+.res h2{margin:4px 0;font-size:30px}
+.res .stars{font-size:52px;letter-spacing:6px;margin:4px 0}
+.res .stars .off{filter:grayscale(1);opacity:.3}
+.res .nums{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0}
+.res .nums div{background:var(--bg);border-radius:16px;padding:6px 4px;font-weight:700;font-size:14px}
+.res .nums b{display:block;font-size:26px;color:var(--w1)}
+.res .acts{display:grid;gap:10px;margin-top:12px}
+.newbest{display:inline-block;background:var(--gold);color:#3A2400;border-radius:999px;padding:2px 14px;font-weight:800;animation:ppop .6s}
+.podium{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;align-items:end;margin:12px 0 6px}
+.podium:empty{display:none}
+.pd{display:flex;flex-direction:column;align-items:center;text-align:center;min-width:0}
+.pd .md{font-size:34px;line-height:1}
+.pd .nm{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:16px;margin-top:2px}
+.pd .sc{font-weight:800;color:var(--w1);font-size:18px}
+.pd .step{display:grid;place-items:center;width:100%;margin-top:4px;border-radius:14px 14px 4px 4px;color:#fff;font-size:26px;font-weight:800;background:linear-gradient(180deg,var(--w1),var(--w2))}
+.pd.p1 .step{height:96px;background:linear-gradient(180deg,#F5C542,#C9952B)}
+.pd.p2 .step{height:70px;background:linear-gradient(180deg,#C9D3DE,#8E9AAB)}
+.pd.p3 .step{height:52px;background:linear-gradient(180deg,#E3A06B,#A9663A)}
+.pd.p1 .md{font-size:44px}
+.pd.me .nm{color:var(--w1);text-decoration:underline}
+.pd .who{font-size:44px;line-height:1}
+/* ---------- papan pendahulu & akaun (dari Zon Arked T3) ---------- */
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:14px 0 0;padding:5px;background:var(--surface);border:2px solid var(--line);border-radius:18px}
+.tabs button{border:0;border-radius:13px;padding:8px 10px;font-weight:800;font-size:18px;background:none;color:var(--muted);min-height:48px}
+.tabs button[aria-selected="true"]{background:var(--w1);color:#fff;box-shadow:0 3px 0 var(--w2)}
+.acct{border:2px solid var(--wa);background:var(--surface);border-radius:999px;padding:4px 12px;font-weight:800;font-size:15px;min-height:44px;max-width:44vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb{padding:12px}
+.lbtabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.lbtabs button{flex:none;border:2px solid var(--line);background:var(--bg);border-radius:999px;padding:2px 12px;font-weight:800;font-size:15px;min-height:40px}
+.lbtabs button[aria-pressed="true"]{background:var(--w1);border-color:var(--w1);color:#fff}
+.lbtabs.games button[aria-pressed="true"]{background:var(--wa);border-color:var(--wa);color:var(--w2)}
+.lbrows{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:4px}
+.lbrows li{display:grid;grid-template-columns:48px 1fr auto;align-items:center;gap:8px;background:var(--bg);border-radius:12px;padding:4px 12px;font-weight:700}
+.lbrows li.top{background:color-mix(in srgb,var(--gold) 18%,var(--bg))}
+.lbrows li.me{outline:3px solid var(--wa);outline-offset:-1px}
+.lbrows .rk{font-size:20px;text-align:center}
+.lbrows .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left}
+html[dir="rtl"] .lbrows .nm{text-align:right}
+.lbrows b{font-size:20px;color:var(--w1)}
+.lbrows .kskel{height:1.05em}
+.lbrows li.lbmsg{display:block;text-align:center;font-weight:600;color:var(--muted)}
+.lbmsg{text-align:center;color:var(--muted);margin:8px 0}
+.lbfoot{text-align:center;margin-top:8px}
+.lbfoot p{margin:4px 0}
+.lbfoot small{display:block;color:var(--muted);font-size:13px;margin-top:6px}
+.lbres{margin-top:12px;border:2px solid var(--wa);border-radius:16px;padding:8px 12px;background:color-mix(in srgb,var(--wa) 10%,var(--surface))}
+.lbres p{margin:4px 0}
+.lbres .rank{font-size:20px;font-weight:800}
+.lbres .rank b{font-size:28px;color:var(--w1)}
+.sheet{position:fixed;inset:0;z-index:70;display:grid;place-items:center;padding:16px;background:rgba(10,3,32,.6)}
+.sheet .card{position:relative;width:min(460px,100%);max-height:90vh;overflow:auto}
+.sheet h2{margin:0 40px 8px 0;font-size:24px}
+html[dir="rtl"] .sheet h2{margin:0 0 8px 40px}
+.sheet h3{margin:14px 0 4px;font-size:18px}
+.sheet .x{position:absolute;top:10px;inset-inline-end:10px;width:38px;height:38px}
+.sheet label{display:block;font-weight:700;font-size:15px;margin-top:10px}
+.sheet .row{display:flex;gap:8px;margin-top:4px}
+.sheet input{flex:1;min-width:0;font:inherit;font-size:18px;border:2px solid var(--line);border-radius:12px;padding:6px 10px;background:var(--bg);color:var(--ink)}
+.sheet input:focus{outline:3px solid var(--wa);outline-offset:1px}
+.sheet .cls{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.sheet .cls li{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;background:var(--bg);border-radius:12px;padding:6px 10px}
+.sheet .cls li>span{flex:1 1 160px}
+.sheet input:disabled{opacity:.7}
+.sheet code{font-size:17px;font-weight:800;letter-spacing:2px;color:var(--w1)}
+.sheet details{margin-top:12px}
+.sheet summary{font-weight:700;cursor:pointer}
+.sheet .muted{color:var(--muted)}
+.sheet .err{color:var(--bad);font-weight:700;min-height:1.2em;margin:8px 0 0}
+.hero .sub{display:inline-block;font-weight:800;font-size:15px;background:rgba(0,0,0,.22);border-radius:999px;padding:0 12px;margin-bottom:6px}
+.prompt{flex-wrap:wrap}
+.prompt .opts{flex-basis:100%;display:grid;gap:6px;grid-template-columns:repeat(3,minmax(0,1fr));margin:2px 0 2px}
+.prompt .opts.g4{grid-template-columns:repeat(2,minmax(0,1fr))}
+.opts button{min-width:0;min-height:46px;border-radius:14px;border:3px solid #CFE0F7;background:#F4F8FF;color:#132049;font-weight:800;font-size:15px;line-height:1.15;padding:2px 4px;overflow:hidden;text-overflow:ellipsis}
+.opts button .e{display:block;font-size:22px;line-height:1.1}
+.opts button.on{border-color:var(--w1);background:#FFF3C2;box-shadow:0 0 0 3px var(--wa)}
+.opts .ar{font-size:24px;line-height:1.3}
+.ar.big{font-size:34px;line-height:1.2}
+.flat .ar.big{font-size:40px}
+@media (max-height:620px){ .prompt .q{font-size:18px} .ctl button{width:70px;height:70px} .track{bottom:calc(84px + env(safe-area-inset-bottom,0px))} }
+@media (prefers-reduced-motion: reduce){ *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition:none!important} }
+@media (min-width:640px){ .worlds{grid-template-columns:repeat(3,minmax(0,1fr))} .wcard.mix{grid-column:auto;min-height:150px} }
+</style>
+</head>
+<body>
+<div id="app" class="wrap"></div>
+<script>
+const BANK = {};
+/* Tahun 1 Zon Arked — question bank root. Subject files add BANK.<subj> = [...] */
+
+
+/* Akhlak T1 — from tahun1/akhlak STATIONS (adab, fadhilat). Distractors are ours. */
+BANK.akhlak = [
+{p:["Adab berdoa yang baik?","اداب بردعاء يڠ باءيق؟"],
+ ok:[["Khusyuk","خشوع","🤲"],["Tutup aurat","توتوڤ عورة","🧕"],["Rendah diri","رنده ديري","🙇"],["Badan bersih","بادن برسيه","🧼"]],
+ no:[["Bergurau","برڬورو","😜"],["Badan kotor","بادن کوتور","🤢"],["Main telefon","ماٴين تيليفون","📱"],["Menonton TV","منونتون تيۏي","📺"]]},
+{p:["Fadhilat berdoa?","فضيلة بردعاء؟"],
+ ok:[["Hati tenang","هاتي تنڠ","😌"],["Menolak bala","منولق بالا","🛡️"],["Ibadah","عبادة","🤲"]],
+ no:[["Cepat mengantuk","چڤت مڠنتوق","😴"],["Perut kenyang","ڤروت کڽڠ","🍔"],["Rambut panjang","رمبوت ڤنجڠ","💇"],["Kuku cantik","کوکو چنتيق","💅"]]},
+{p:["Adab masuk tandas?","اداب ماسوق تندس؟"],
+ ok:[["Kaki kiri","کاکي کيري","🦶"],["Tutup kepala","توتوڤ کڤالا","🧢"],["Pakai selipar","ڤاکاي سليڤر","🩴"],["Baca doa","باچ دعاء","🤲"]],
+ no:[["Kaki kanan","کاکي کانن","🦶"],["Bercakap-cakap","برچاکڤ٢","🗣️"],["Makan","ماکن","🍔"],["Main telefon","ماٴين تيليفون","📱"]]},
+{p:["Fadhilat qada hajat?","فضيلة قضاء حاجت؟"],
+ ok:[["Hidup sihat","هيدوڤ سيهت","💪"],["Badan bersih","بادن برسيه","🧼"],["Mendapat pahala","منداڤت ڤهالا","⭐"],["Terhindar penyakit","ترهيندر ڤڽاکيت","🛡️"]],
+ no:[["Dibenci rakan","دبنچي رکن","😠"],["Cepat mengantuk","چڤت مڠنتوق","😴"],["Perut kenyang","ڤروت کڽڠ","🍔"],["Rambut kusut","رمبوت کوسوت","🦁"]]},
+{p:["Adab mandi yang betul?","اداب مندي يڠ بتول؟"],
+ ok:[["Kain basahan","کاٴين باسهن","🩳"],["Baca Bismillah","باچ بسم الله","🗣️"],["Jirus kepala","جيروس کڤالا","🚿"],["Pakai sabun","ڤاکاي سابون","🧼"]],
+ no:[["Membazir air","ممبذير اٴير","🚰"],["Membuka aurat","ممبوک عورة","🙈"],["Main telefon","ماٴين تيليفون","📱"],["Makan","ماکن","🍔"]]},
+{p:["Fadhilat mandi?","فضيلة مندي؟"],
+ ok:[["Badan segar","بادن سڬر","🌟"],["Hilang kekotoran","هيلڠ ککوتورن","🧽"],["Mendapat pahala","منداڤت ڤهالا","⭐"],["Badan sihat","بادن سيهت","💪"]],
+ no:[["Badan kotor","بادن کوتور","🤢"],["Cepat mengantuk","چڤت مڠنتوق","😴"],["Nafas berbau","نفس برباو","😷"],["Perut kenyang","ڤروت کڽڠ","🍔"]]},
+{p:["Alat untuk bersugi?","الت اونتوق برسوڬي؟"],
+ ok:[["Berus gigi","بروس ڬيڬي","🪥"],["Kayu sugi","کايو سوڬي","🪵"],["Ubat gigi","اوبت ڬيڬي","🧴"]],
+ no:[["Penyapu","ڤڽاڤو","🧹"],["Garpu","ڬرڤو","🍴"],["Sikat","سيکت","🪮"],["Selipar","سليڤر","🩴"]]},
+{p:["Fadhilat bersugi?","فضيلة برسوڬي؟"],
+ ok:[["Gigi bersih","ڬيڬي برسيه","🦷"],["Nafas wangi","نفس واڠي","🌸"],["Gigi kuat","ڬيڬي کوات","💪"],["Disukai rakan","دسوکاٴي رکن","🤝"]],
+ no:[["Nafas berbau","نفس برباو","😷"],["Rambut kusut","رمبوت کوسوت","🦁"],["Cepat mengantuk","چڤت مڠنتوق","😴"],["Perut kenyang","ڤروت کڽڠ","🍔"]]},
+{p:["Kebersihan diri yang baik?","کبرسيهن ديري يڠ باءيق؟"],
+ ok:[["Potong kuku","ڤوتوڠ کوکو","✂️"],["Gosok gigi","ڬوسوق ڬيڬي","🪥"],["Mandi pagi","مندي ڤاڬي","🚿"],["Sikat rambut","سيکت رمبوت","🪮"]],
+ no:[["Gigit kuku","ڬيڬيت کوکو","😬"],["Kuku panjang","کوکو ڤنجڠ","💅"],["Rambut kusut","رمبوت کوسوت","🦁"],["Badan kotor","بادن کوتور","🤢"]]},
+{p:["Fadhilat bercelak?","فضيلة برچلق؟"],
+ ok:[["Menjernihkan mata","منجرنيهکن مات","👁️"],["Mata sihat","مات سيهت","👀"],["Menajamkan penglihatan","منجامکن ڤڠليهتن","🔭"]],
+ no:[["Rambut panjang","رمبوت ڤنجڠ","💇"],["Gigi kuat","ڬيڬي کوات","🦷"],["Perut kenyang","ڤروت کڽڠ","🍔"],["Kuku cantik","کوکو چنتيق","💅"]]},
+{p:["Fadhilat tutup aurat?","فضيلة توتوڤ عورة؟"],
+ ok:[["Disukai Allah","دسوکاٴي الله","💖"],["Mendapat pahala","منداڤت ڤهالا","⭐"],["Menjaga maruah","منجاڬ معروه","🛡️"],["Dipandang mulia","دڤندڠ موليا","🌸"]],
+ no:[["Dimurkai Allah","دمورکاٴي الله","⚠️"],["Merendahkan maruah","مرندهکن معروه","👎"],["Sukar solat","سوکر صلاة","😣"],["Cepat mengantuk","چڤت مڠنتوق","😴"]]},
+{p:["Adab dengan ibu bapa?","اداب دڠن ايبو باڤ؟"],
+ ok:[["Beri salam","بري سلام","👋"],["Cium tangan","چيوم تاڠن","🤝"],["Bercakap lembut","برچاکڤ لمبوت","🗣️"],["Bantu ibu","بنتو ايبو","🧺"]],
+ no:[["Tinggikan suara","تيڠڬيکن سوارا","😡"],["Main telefon","ماٴين تيليفون","📱"],["Pura-pura tidur","ڤورا٢ تيدور","😴"],["Lari","لاري","🏃"]]},
+{p:["Fadhilat hormati ibu bapa?","فضيلة حرمتي ايبو باڤ؟"],
+ ok:[["Dikasihi Allah","دکاسيهي الله","💗"],["Mendapat rahmat","منداڤت رحمة","🌈"],["Doa dimakbulkan","دعاء دمقبولکن","🤲"],["Bahagia","بهاڬيا","😊"]],
+ no:[["Anak derhaka","انق درهاک","😠"],["Dimurkai Allah","دمورکاٴي الله","⚠️"],["Tidak berkat","تيدق برکت","👎"],["Dibenci rakan","دبنچي رکن","😤"]]},
+{p:["Adab dengan guru?","اداب دڠن ڬورو؟"],
+ ok:[["Beri salam","بري سلام","👋"],["Dengar ajaran","دڠر اجرن","👂"],["Duduk tertib","دودوق ترتيب","🪑"],["Tolong guru","تولوڠ ڬورو","📚"],["Doakan guru","دعاءکن ڬورو","🤲"]],
+ no:[["Bercakap-cakap","برچاکڤ٢","🗣️"],["Lari ke kantin","لاري ک کنتين","🏃"],["Buat tidak nampak","بوات تيدق نمڤق","🙈"],["Main telefon","ماٴين تيليفون","📱"]]},
+{p:["Fadhilat hormati guru?","فضيلة حرمتي ڬورو؟"],
+ ok:[["Disayangi guru","دسايڠي ڬورو","🥰"],["Ilmu diberkati","علمو دبرکتي","📚"],["Mudah faham","موده فهم","💡"]],
+ no:[["Ilmu tidak berkat","علمو تيدق برکت","👎"],["Susah faham","سوسه فهم","😵"],["Kesal","کسل","😢"],["Dibenci rakan","دبنچي رکن","😠"]]},
+{p:["Adab dengan rakan?","اداب دڠن رکن؟"],
+ ok:[["Beri salam","بري سلام","👋"],["Tanya khabar","تاڽ خبر","💬"],["Ziarah rakan sakit","زيارة رکن ساکيت","🤒"],["Ucap tahniah","اوچڤ تهنئة","🎉"],["Tolong rakan","تولوڠ رکن","🩹"]],
+ no:[["Mengejek rakan","مڠيجيق رکن","😝"],["Ketawakan dia","کتاواکن دي","😂"],["Terus berjalan","تروس برجالن","🚶"],["Tinggikan suara","تيڠڬيکن سوارا","😡"]]},
+{p:["Panggil orang dewasa?","ڤڠڬيل اورڠ دواس؟"],
+ ok:[["Pak cik","ڤق چيق","👴"],["Mak cik","مق چيق","👵"],["Abang","ابڠ","👦"],["Kakak","کاکق","👧"]],
+ no:[["Hoi!","هوي!","🙋"],["Nama sahaja","نام سهاج","🤫"],["Kawan","کاون","🧒"],["Kucing","کوچيڠ","🐱"]]}
+];
+
+/* Bahasa Arab T1 (words, numbers, days, clock) — GENERATED by gen_bank.js; Arabic copied verbatim from tahun1/arab/index.html. Do not hand-edit. */
+BANK.arab = [
+{"p":["Haiwan jinak?","حيوان جيناق؟"],"ok":[{"ar":"دَجَاجَةٌ","r":"ayam","e":"🐔"},{"ar":"بَطٌّ","r":"itik","e":"🦆"},{"ar":"أَرْنَبٌ","r":"arnab","e":"🐇"},{"ar":"حِصَانٌ","r":"kuda","e":"🐎"},{"ar":"سُلَحْفَاةٌ","r":"kura-kura","e":"🐢"},{"ar":"غَنَمٌ","r":"kambing","e":"🐐"},{"ar":"جَامُوْسٌ","r":"kerbau","e":"🐃"},{"ar":"بَقَرٌ","r":"lembu","e":"🐄"},{"ar":"قِطٌّ","r":"kucing","e":"🐱"}],"no":[{"ar":"فِيْلٌ","r":"gajah","e":"🐘"},{"ar":"ذِئْبٌ","r":"serigala","e":"🐺"},{"ar":"نَمِرٌ","r":"harimau","e":"🐯"},{"ar":"دُبٌّ","r":"beruang","e":"🐻"},{"ar":"أَسَدٌ","r":"singa","e":"🦁"},{"ar":"تِمْسَاحٌ","r":"buaya","e":"🐊"},{"ar":"قِرْدٌ","r":"monyet","e":"🐒"}]},
+{"p":["Haiwan buas?","حيوان بواس؟"],"ok":[{"ar":"فِيْلٌ","r":"gajah","e":"🐘"},{"ar":"ذِئْبٌ","r":"serigala","e":"🐺"},{"ar":"نَمِرٌ","r":"harimau","e":"🐯"},{"ar":"دُبٌّ","r":"beruang","e":"🐻"},{"ar":"أَسَدٌ","r":"singa","e":"🦁"},{"ar":"تِمْسَاحٌ","r":"buaya","e":"🐊"},{"ar":"قِرْدٌ","r":"monyet","e":"🐒"}],"no":[{"ar":"دَجَاجَةٌ","r":"ayam","e":"🐔"},{"ar":"بَطٌّ","r":"itik","e":"🦆"},{"ar":"أَرْنَبٌ","r":"arnab","e":"🐇"},{"ar":"حِصَانٌ","r":"kuda","e":"🐎"},{"ar":"سُلَحْفَاةٌ","r":"kura-kura","e":"🐢"},{"ar":"غَنَمٌ","r":"kambing","e":"🐐"},{"ar":"جَامُوْسٌ","r":"kerbau","e":"🐃"},{"ar":"بَقَرٌ","r":"lembu","e":"🐄"},{"ar":"قِطٌّ","r":"kucing","e":"🐱"}]},
+{"p":["Alat tulis?","الت توليس؟"],"ok":[{"ar":"قَلَمٌ","r":"pen","e":"🖊️"},{"ar":"مِسْطَرَةٌ","r":"pembaris","e":"📏"},{"ar":"مِرْسَمٌ","r":"pensel","e":"✏️"},{"ar":"كِتَابٌ","r":"buku","e":"📕"},{"ar":"مِمْسَحَةٌ","r":"pemadam","e":"🧽"},{"ar":"دَفْتَرٌ","r":"buku latihan","e":"📒"},{"ar":"حَقِيْبَةٌ","r":"beg","e":"🎒"},{"ar":"سَبُّوْرَةٌ","r":"papan tulis","e":"🟩"}],"no":[{"ar":"قِطٌّ","r":"kucing","e":"🐱"},{"ar":"دَجَاجَةٌ","r":"ayam","e":"🐔"},{"ar":"شَمْسٌ","r":"matahari","e":"☀️"},{"ar":"زَهْرَةٌ","r":"bunga","e":"🌸"},{"ar":"دَارٌ","r":"rumah","e":"🏠"},{"ar":"فِيْلٌ","r":"gajah","e":"🐘"}]},
+{"p":["Anggota badan?","اڠڬوتا بادن؟"],"ok":[{"ar":"شَعْرٌ","r":"rambut","e":"💇"},{"ar":"عَيْنٌ","r":"mata","e":"👁️"},{"ar":"أَنْفٌ","r":"hidung","e":"👃"},{"ar":"أُذُنٌ","r":"telinga","e":"👂"},{"ar":"فَمٌ","r":"mulut","e":"👄"},{"ar":"بَطْنٌ","r":"perut","e":"🫃"},{"ar":"يَدٌ","r":"tangan","e":"✋"},{"ar":"أُصْبُعٌ","r":"jari","e":"☝️"},{"ar":"رُكْبَةٌ","r":"lutut","e":"🦵"},{"ar":"رِجْلٌ","r":"kaki","e":"🦶"}],"no":[{"ar":"كِتَابٌ","r":"buku","e":"📕"},{"ar":"قَلَمٌ","r":"pen","e":"🖊️"},{"ar":"قِطٌّ","r":"kucing","e":"🐱"},{"ar":"دَارٌ","r":"rumah","e":"🏠"},{"ar":"زَهْرَةٌ","r":"bunga","e":"🌸"},{"ar":"شَمْسٌ","r":"matahari","e":"☀️"}]},
+{"p":["Anggota di muka?","اڠڬوتا د موک؟"],"ok":[{"ar":"عَيْنٌ","r":"mata","e":"👁️"},{"ar":"أَنْفٌ","r":"hidung","e":"👃"},{"ar":"فَمٌ","r":"mulut","e":"👄"}],"no":[{"ar":"رِجْلٌ","r":"kaki","e":"🦶"},{"ar":"رُكْبَةٌ","r":"lutut","e":"🦵"},{"ar":"يَدٌ","r":"tangan","e":"✋"},{"ar":"بَطْنٌ","r":"perut","e":"🫃"},{"ar":"أُصْبُعٌ","r":"jari","e":"☝️"}]},
+{"p":["Ahli keluarga?","اهلي کلوارڬ؟"],"ok":[{"ar":"جَدٌّ","r":"datuk","e":"👴"},{"ar":"جَدَّةٌ","r":"nenek","e":"👵"},{"ar":"أَبٌ","r":"ayah","e":"👨"},{"ar":"أُمٌّ","r":"ibu","e":"👩"},{"ar":"عَمٌّ","r":"pak cik","e":"🧔"},{"ar":"خَالَةٌ","r":"mak cik","e":"👩‍🦱"}],"no":[{"ar":"قِطٌّ","r":"kucing","e":"🐱"},{"ar":"كِتَابٌ","r":"buku","e":"📕"},{"ar":"قَلَمٌ","r":"pen","e":"🖊️"},{"ar":"شَمْسٌ","r":"matahari","e":"☀️"},{"ar":"زَهْرَةٌ","r":"bunga","e":"🌸"},{"ar":"مَسْجِدٌ","r":"masjid","e":"🕌"}]},
+{"p":["Perkataan lelaki?","ڤرکاتاٴن للاکي؟"],"ok":[{"ar":"جَدٌّ","r":"datuk","e":"👴"},{"ar":"أَبٌ","r":"ayah","e":"👨"},{"ar":"عَمٌّ","r":"pak cik","e":"🧔"},{"ar":"أَخٌ","r":"abang/adik lelaki","e":"👦"},{"ar":"تِلْمِيْذٌ","r":"murid lelaki","e":"👦"},{"ar":"مُعَلِّمٌ","r":"cikgu lelaki","e":"👨‍🏫"}],"no":[{"ar":"جَدَّةٌ","r":"nenek","e":"👵"},{"ar":"أُمٌّ","r":"ibu","e":"👩"},{"ar":"عَمَّةٌ","r":"mak cik","e":"👱‍♀️"},{"ar":"أُخْتٌ","r":"kakak/adik perempuan","e":"👧"},{"ar":"تِلْمِيْذَةٌ","r":"murid perempuan","e":"👧"},{"ar":"مُعَلِّمَةٌ","r":"cikgu perempuan","e":"👩‍🏫"}]},
+{"p":["Perkataan perempuan?","ڤرکاتاٴن ڤرمڤوان؟"],"ok":[{"ar":"جَدَّةٌ","r":"nenek","e":"👵"},{"ar":"أُمٌّ","r":"ibu","e":"👩"},{"ar":"عَمَّةٌ","r":"mak cik","e":"👱‍♀️"},{"ar":"أُخْتٌ","r":"kakak/adik perempuan","e":"👧"},{"ar":"تِلْمِيْذَةٌ","r":"murid perempuan","e":"👧"},{"ar":"مُعَلِّمَةٌ","r":"cikgu perempuan","e":"👩‍🏫"}],"no":[{"ar":"جَدٌّ","r":"datuk","e":"👴"},{"ar":"أَبٌ","r":"ayah","e":"👨"},{"ar":"عَمٌّ","r":"pak cik","e":"🧔"},{"ar":"أَخٌ","r":"abang/adik lelaki","e":"👦"},{"ar":"تِلْمِيْذٌ","r":"murid lelaki","e":"👦"},{"ar":"مُعَلِّمٌ","r":"cikgu lelaki","e":"👨‍🏫"}]},
+{"p":["Nombor 1 hingga 5?","نومبور 1 هيڠڬ 5؟"],"ok":[{"ar":"وَاحِدٌ","r":"satu","e":"1️⃣"},{"ar":"اِثْنَانِ","r":"dua","e":"2️⃣"},{"ar":"ثَلَاثَةٌ","r":"tiga","e":"3️⃣"},{"ar":"أَرْبَعَةٌ","r":"empat","e":"4️⃣"},{"ar":"خَمْسَةٌ","r":"lima","e":"5️⃣"}],"no":[{"ar":"قِطٌّ","r":"kucing","e":"🐱"},{"ar":"قَلَمٌ","r":"pen","e":"🖊️"},{"ar":"كِتَابٌ","r":"buku","e":"📕"},{"ar":"دَجَاجَةٌ","r":"ayam","e":"🐔"},{"ar":"عَيْنٌ","r":"mata","e":"👁️"}]},
+{"p":["Nombor 6 hingga 10?","نومبور 6 هيڠڬ 10؟"],"ok":[{"ar":"سِتَّةٌ","r":"enam","e":"6️⃣"},{"ar":"سَبْعَةٌ","r":"tujuh","e":"7️⃣"},{"ar":"ثَمَانِيَةٌ","r":"lapan","e":"8️⃣"},{"ar":"تِسْعَةٌ","r":"sembilan","e":"9️⃣"},{"ar":"عَشَرَةٌ","r":"sepuluh","e":"🔟"}],"no":[{"ar":"وَاحِدٌ","r":"satu","e":"1️⃣"},{"ar":"اِثْنَانِ","r":"dua","e":"2️⃣"},{"ar":"ثَلَاثَةٌ","r":"tiga","e":"3️⃣"},{"ar":"أَرْبَعَةٌ","r":"empat","e":"4️⃣"},{"ar":"خَمْسَةٌ","r":"lima","e":"5️⃣"}]},
+{"p":["Nombor puluh?","نومبور ڤولوه؟"],"ok":[{"ar":"عِشْرُوْنَ","r":"dua puluh"},{"ar":"ثَلَاثُوْنَ","r":"tiga puluh"},{"ar":"أَرْبَعُوْنَ","r":"empat puluh"},{"ar":"خَمْسُوْنَ","r":"lima puluh"},{"ar":"سِتُّوْنَ","r":"enam puluh"},{"ar":"سَبْعُوْنَ","r":"tujuh puluh"},{"ar":"ثَمَانُوْنَ","r":"lapan puluh"},{"ar":"تِسْعُوْنَ","r":"sembilan puluh"}],"no":[{"ar":"وَاحِدٌ","r":"satu","e":"1️⃣"},{"ar":"اِثْنَانِ","r":"dua","e":"2️⃣"},{"ar":"ثَلَاثَةٌ","r":"tiga","e":"3️⃣"},{"ar":"أَرْبَعَةٌ","r":"empat","e":"4️⃣"},{"ar":"خَمْسَةٌ","r":"lima","e":"5️⃣"}]},
+{"p":["Nama hari?","نام هاري؟"],"ok":[{"ar":"يَوْمُ الْأَحَدِ","r":"Ahad","e":"📅"},{"ar":"يَوْمُ الْإِثْنَيْنِ","r":"Isnin","e":"📅"},{"ar":"يَوْمُ الثُّلَاثَاءِ","r":"Selasa","e":"📅"},{"ar":"يَوْمُ الْأَرْبِعَاءِ","r":"Rabu","e":"📅"},{"ar":"يَوْمُ الْخَمِيْسِ","r":"Khamis","e":"📅"},{"ar":"يَوْمُ الْجُمُعَةِ","r":"Jumaat","e":"📅"},{"ar":"يَوْمُ السَّبْتِ","r":"Sabtu","e":"📅"}],"no":[{"ar":"قَلَمٌ","r":"pen","e":"🖊️"},{"ar":"كِتَابٌ","r":"buku","e":"📕"},{"ar":"قِطٌّ","r":"kucing","e":"🐱"},{"ar":"شَمْسٌ","r":"matahari","e":"☀️"},{"ar":"دَارٌ","r":"rumah","e":"🏠"}]},
+{"p":["Pukul berapa?","ڤوکول براڤ؟"],"ok":[{"ar":"الْوَاحِدَةُ","r":"pukul 1","e":"🕐"},{"ar":"الثَّانِيَةُ","r":"pukul 2","e":"🕑"},{"ar":"الثَّالِثَةُ","r":"pukul 3","e":"🕒"},{"ar":"الرَّابِعَةُ","r":"pukul 4","e":"🕓"},{"ar":"الْخَامِسَةُ","r":"pukul 5","e":"🕔"},{"ar":"السَّادِسَةُ","r":"pukul 6","e":"🕕"},{"ar":"السَّابِعَةُ","r":"pukul 7","e":"🕖"},{"ar":"الثَّامِنَةُ","r":"pukul 8","e":"🕗"},{"ar":"التَّاسِعَةُ","r":"pukul 9","e":"🕘"},{"ar":"الْعَاشِرَةُ","r":"pukul 10","e":"🕙"}],"no":[{"ar":"يَوْمُ الْأَحَدِ","r":"Ahad","e":"📅"},{"ar":"يَوْمُ الْإِثْنَيْنِ","r":"Isnin","e":"📅"},{"ar":"يَوْمُ الثُّلَاثَاءِ","r":"Selasa","e":"📅"},{"ar":"يَوْمُ الْأَرْبِعَاءِ","r":"Rabu","e":"📅"},{"ar":"يَوْمُ الْخَمِيْسِ","r":"Khamis","e":"📅"},{"ar":"يَوْمُ الْجُمُعَةِ","r":"Jumaat","e":"📅"},{"ar":"يَوْمُ السَّبْتِ","r":"Sabtu","e":"📅"}]},
+{"p":["Orang di sekolah?","اورڠ د سکوله؟"],"ok":[{"ar":"مُدِيْرٌ","r":"guru besar","e":"🧑‍💼"},{"ar":"مُعَلِّمٌ","r":"cikgu lelaki","e":"👨‍🏫"},{"ar":"مُعَلِّمَةٌ","r":"cikgu perempuan","e":"👩‍🏫"},{"ar":"تِلْمِيْذٌ","r":"murid lelaki","e":"👦"},{"ar":"تِلْمِيْذَةٌ","r":"murid perempuan","e":"👧"}],"no":[{"ar":"قِطٌّ","r":"kucing","e":"🐱"},{"ar":"أَسَدٌ","r":"singa","e":"🦁"},{"ar":"فِيْلٌ","r":"gajah","e":"🐘"},{"ar":"دَجَاجَةٌ","r":"ayam","e":"🐔"},{"ar":"بَطٌّ","r":"itik","e":"🦆"}]},
+{"p":["Pekerjaan?","ڤکرجاٴن؟"],"ok":[{"ar":"مُدِيْرٌ","r":"guru besar","e":"🧑‍💼"},{"ar":"مُعَلِّمٌ","r":"cikgu","e":"👨‍🏫"},{"ar":"طَبِيْبٌ","r":"doktor","e":"🧑‍⚕️"}],"no":[{"ar":"قِطٌّ","r":"kucing","e":"🐱"},{"ar":"أَسَدٌ","r":"singa","e":"🦁"},{"ar":"فِيْلٌ","r":"gajah","e":"🐘"},{"ar":"بَطٌّ","r":"itik","e":"🦆"},{"ar":"أَرْنَبٌ","r":"arnab","e":"🐇"}]},
+{"p":["Tempat?","تمڤت؟"],"ok":[{"ar":"مَسْجِدٌ","r":"masjid","e":"🕌"},{"ar":"دَارٌ","r":"rumah","e":"🏠"},{"ar":"مَدْرَسَةٌ","r":"sekolah","e":"🏫"}],"no":[{"ar":"قَلَمٌ","r":"pen","e":"🖊️"},{"ar":"قِطٌّ","r":"kucing","e":"🐱"},{"ar":"شَمْسٌ","r":"matahari","e":"☀️"},{"ar":"زَهْرَةٌ","r":"bunga","e":"🌸"},{"ar":"وِسَادَةٌ","r":"bantal","e":"🛏️"}]}
+];
+
+/* Feqah T1 — from tahun1/feqah STATIONS (ibadah, taharah, air, wuduk, istinjak). Distractors mostly from the book's own games. */
+BANK.feqah = [
+{p:["Contoh ibadah?","چونتوه عبادة؟"],
+ ok:[["Solat berjemaah","صلاة برجماعه","🧎"],["Membaca al-Quran","ممباچ القرءان","📖"],["Bersedekah","برصدقه","💝"],["Membantu orang tua","ممبنتو اورڠ توا","👵"]],
+ no:[["Bergaduh","برڬادوه","😡"],["Berbohong","بربوهوڠ","🤥"],["Mengejek kawan","مڠيجيق کاون","😝"],["Membuang masa","ممبواڠ مس","⌛"]]},
+{p:["Ibadah khusus?","عبادة خصوص؟"],
+ ok:[["Solat","صلاة","🧎"],["Puasa","ڤواسا","🌙"],["Membayar zakat","ممباير زکاة","💰"],["Menunaikan haji","منونايکن حج","🕋"]],
+ no:[["Berniaga","برنياڬ","🍍"],["Belajar","بلاجر","📚"],["Menyapu sampah","مڽاڤو سمڤه","🧹"],["Mencuci kereta","منچوچي کريتا","🚗"]]},
+{p:["Ibadah umum?","عبادة عموم؟"],
+ ok:[["Berniaga","برنياڬ","🍍"],["Belajar","بلاجر","📚"],["Menyapu sampah","مڽاڤو سمڤه","🧹"],["Mencuci kereta","منچوچي کريتا","🚗"],["Gotong-royong","ڬوتوڠ-رويوڠ","🤝"]],
+ no:[["Solat","صلاة","🧎"],["Puasa","ڤواسا","🌙"],["Membayar zakat","ممباير زکاة","💰"],["Menunaikan haji","منونايکن حج","🕋"]]},
+{p:["Faedah melakukan ibadah?","فائده ملاکوکن عبادة؟"],
+ ok:[["Mendapat pahala","منداڤت ڤهالا","⭐"],["Disukai Allah","دسوکاٴي الله","💖"],["Disukai ibu bapa","دسوکاٴي ايبو باڤ","👨‍👩‍👧"]],
+ no:[["Dimarahi kawan","دمرهي کاون","😠"],["Membuang masa","ممبواڠ مس","⌛"],["Bertambah malas","برتمبه مالس","😩"],["Cepat marah","چڤت ماره","😡"]]},
+{p:["Tujuan taharah?","توجوان طهارة؟"],
+ ok:[["Solat","صلاة","🧎"],["Membawa al-Quran","ممباوا القرءان","📖"],["Tawaf","طواف","🕋"]],
+ no:[["Makan nasi","ماکن ناسي","🍚"],["Bermain bola","برماٴين بولا","⚽"],["Makan gula-gula","ماکن ڬولا٢","🍬"],["Berlari","برلاري","🏃"]]},
+{p:["Faedah taharah?","فائده طهارة؟"],
+ ok:[["Membersihkan diri","ممبرسيهکن ديري","🧼"],["Terhindar najis","ترهيندر نجيس","🚫"],["Terhindar penyakit","ترهيندر ڤڽاکيت","💪"]],
+ no:[["Badan berbau busuk","بادن برباٴو بوسوق","🦨"],["Mudah dapat penyakit","موده داڤت ڤڽاکيت","🤒"],["Pakaian kotor","ڤاکاين کوتور","👕"],["Cepat marah","چڤت ماره","😡"]]},
+{p:["Pilih air mutlak","ڤيليه اٴير مطلق"],
+ ok:[["Air hujan","اٴير هوجن","🌧️"],["Air laut","اٴير لاٴوت","🌊"],["Air sungai","اٴير سوڠاي","🏞️"],["Air paip","اٴير ڤايڤ","🚰"],["Air salji","اٴير ثلجي","❄️"],["Air perigi","اٴير ڤريڬي","🪣"]],
+ no:[["Air kopi","اٴير کوڤي","☕"],["Air kelapa","اٴير کلاڤ","🥥"],["Air teh","اٴير تيه","🍵"],["Air jus","اٴير جوس","🧃"]]},
+{p:["Pilih air muqayyad","ڤيليه اٴير مقيد"],
+ ok:[["Air kopi","اٴير کوڤي","☕"],["Air kelapa","اٴير کلاڤ","🥥"],["Air teh","اٴير تيه","🍵"],["Air jus","اٴير جوس","🧃"],["Dakwat cair","دعوت چاٴير","🖋️"]],
+ no:[["Air hujan","اٴير هوجن","🌧️"],["Air laut","اٴير لاٴوت","🌊"],["Air paip","اٴير ڤايڤ","🚰"],["Air sungai","اٴير سوڠاي","🏞️"]]},
+{p:["Contoh najis?","چونتوه نجيس؟"],
+ ok:[["Darah","داره","🩸"],["Babi","بابي","🐖"],["Bangkai","بڠکاي","🦴"],["Arak","ارق","🍷"]],
+ no:[["Air hujan","اٴير هوجن","🌧️"],["Daun","داٴون","🍃"],["Bunga","بوڠا","🌸"],["Buku","بوکو","📚"]]},
+{p:["Sifat air yang berubah?","صيفت اٴير يڠ براوبه؟"],
+ ok:[["Warna","ورنا","🎨"],["Bau","باٴو","👃"],["Rasa","راس","👅"]],
+ no:[["Panjang","ڤنجڠ","📏"],["Bunyi","بوڽي","🔔"],["Bentuk","بنتوق","🔷"],["Besar","بسر","🐘"]]},
+{p:["Anggota wuduk?","اڠڬوتا وضوء؟"],
+ ok:[["Muka","موک","😊"],["Tangan","تاڠن","✋"],["Kepala","کڤالا","🧑"],["Kaki","کاکي","🦶"],["Telinga","تليڠا","👂"]],
+ no:[["Perut","ڤروت","🫃"],["Bahu","باهو","🤷"],["Leher","ليهر","🧣"],["Lutut","لوتوت","🦵"]]},
+{p:["Rukun wuduk?","روکون وضوء؟"],
+ ok:[["Niat","نية","💭"],["Membasuh muka","ممباسوه موک","😊"],["Menyapu kepala","مڽاڤو کڤالا","🧑"],["Tertib","ترتيب","🔢"]],
+ no:[["Berkumur-kumur","برکومور-کومور","💧"],["Bersugi","برسوڬي","🪥"],["Menghadap kiblat","مڠهادڤ قبلة","🕋"],["Menyapu telinga","مڽاڤو تليڠا","👂"]]},
+{p:["Sunat wuduk?","سنة وضوء؟"],
+ ok:[["Berkumur-kumur","برکومور-کومور","💧"],["Bersugi","برسوڬي","🪥"],["Menghadap kiblat","مڠهادڤ قبلة","🕋"],["Menyapu telinga","مڽاڤو تليڠا","👂"]],
+ no:[["Membazir air","ممبذير اٴير","🚰"],["Makan gula-gula","ماکن ڬولا٢","🍬"],["Berlari","برلاري","🏃"],["Membelakangi kiblat","ممبلاکڠي قبلة","🔙"]]},
+{p:["Membatalkan wuduk?","ممبطلکن وضوء؟"],
+ ok:[["Tidur","تيدور","😴"],["Pengsan","ڤيڠسن","😵"],["Mabuk","مابوق","🥴"],["Gila","ڬيلا","🌀"]],
+ no:[["Senyum","سڽوم","😊"],["Berjalan","برجالن","🚶"],["Melihat","مليهت","👀"],["Bercakap","برچاکڤ","🗣️"]]},
+{p:["Wuduk diperlukan untuk?","وضوء دڤرلوکن اونتوق؟"],
+ ok:[["Solat","صلاة","🧎"],["Tawaf","طواف","🕋"],["Membawa al-Quran","ممباوا القرءان","📖"]],
+ no:[["Makan nasi","ماکن ناسي","🍚"],["Bermain bola","برماٴين بولا","⚽"],["Makan gula-gula","ماکن ڬولا٢","🍬"],["Berjalan","برجالن","🚶"]]},
+{p:["Alat istinjak?","الت استنجاء؟"],
+ ok:[["Air","اٴير","🚰"],["Batu","باتو","🪨"],["Tisu","تيسو","🧻"],["Daun kering","داٴون کريڠ","🍂"],["Kulit kayu","کوليت کايو","🪵"]],
+ no:[["Roti","روتي","🍞"],["Buku","بوکو","📒"],["Duit","دويت","💵"],["Bunga","بوڠا","🌸"]]}
+];
+
+/* Hafazan T1 (10 surah) — GENERATED by gen_bank.js; Arabic copied verbatim from tahun1/hafazan/index.html. Do not hand-edit. */
+BANK.hafazan = [
+{"p":["Ayat surah al-Fatihah?","ايت سورة الفاتحة؟"],"ok":[{"ar":"بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ","r":"ayat 1"},{"ar":"ٱلْحَمْدُ لِلَّهِ رَبِّ","r":"ayat 2"},{"ar":"ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ","r":"ayat 3"},{"ar":"مَـٰلِكِ يَوْمِ ٱلدِّينِ","r":"ayat 4"},{"ar":"إِيَّاكَ نَعْبُدُ وَإِيَّاكَ","r":"ayat 5"}],"no":[{"ar":"لِإِيلَـٰفِ قُرَيْشٍ","r":"ayat 1"},{"ar":"أَرَءَيْتَ ٱلَّذِى يُكَذِّبُ","r":"ayat 1"},{"ar":"إِنَّآ أَعْطَيْنَـٰكَ ٱلْكَوْثَرَ","r":"ayat 1"},{"ar":"قُلْ يَـٰٓأَيُّهَا ٱلْكَـٰفِرُونَ","r":"ayat 1"},{"ar":"إِذَا جَآءَ نَصْرُ","r":"ayat 1"},{"ar":"تَبَّتْ يَدَآ أَبِى","r":"ayat 1"}]},
+{"p":["Ayat surah Quraisy?","ايت سورة قريش؟"],"ok":[{"ar":"لِإِيلَـٰفِ قُرَيْشٍ","r":"ayat 1"},{"ar":"إِۦلَـٰفِهِمْ رِحْلَةَ ٱلشِّتَآءِ","r":"ayat 2"},{"ar":"فَلْيَعْبُدُوا۟ رَبَّ هَـٰذَا","r":"ayat 3"},{"ar":"ٱلَّذِىٓ أَطْعَمَهُم مِّن","r":"ayat 4"}],"no":[{"ar":"بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ","r":"ayat 1"},{"ar":"أَرَءَيْتَ ٱلَّذِى يُكَذِّبُ","r":"ayat 1"},{"ar":"إِنَّآ أَعْطَيْنَـٰكَ ٱلْكَوْثَرَ","r":"ayat 1"},{"ar":"قُلْ يَـٰٓأَيُّهَا ٱلْكَـٰفِرُونَ","r":"ayat 1"},{"ar":"إِذَا جَآءَ نَصْرُ","r":"ayat 1"},{"ar":"تَبَّتْ يَدَآ أَبِى","r":"ayat 1"}]},
+{"p":["Ayat surah al-Ma'un?","ايت سورة الماعون؟"],"ok":[{"ar":"أَرَءَيْتَ ٱلَّذِى يُكَذِّبُ","r":"ayat 1"},{"ar":"فَذَٰلِكَ ٱلَّذِى يَدُعُّ","r":"ayat 2"},{"ar":"وَلَا يَحُضُّ عَلَىٰ","r":"ayat 3"},{"ar":"فَوَيْلٌ لِّلْمُصَلِّينَ","r":"ayat 4"},{"ar":"ٱلَّذِينَ هُمْ عَن","r":"ayat 5"}],"no":[{"ar":"بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ","r":"ayat 1"},{"ar":"لِإِيلَـٰفِ قُرَيْشٍ","r":"ayat 1"},{"ar":"إِنَّآ أَعْطَيْنَـٰكَ ٱلْكَوْثَرَ","r":"ayat 1"},{"ar":"قُلْ يَـٰٓأَيُّهَا ٱلْكَـٰفِرُونَ","r":"ayat 1"},{"ar":"إِذَا جَآءَ نَصْرُ","r":"ayat 1"},{"ar":"تَبَّتْ يَدَآ أَبِى","r":"ayat 1"}]},
+{"p":["Ayat surah al-Kauthar?","ايت سورة الکوثر؟"],"ok":[{"ar":"إِنَّآ أَعْطَيْنَـٰكَ ٱلْكَوْثَرَ","r":"ayat 1"},{"ar":"فَصَلِّ لِرَبِّكَ وَٱنْحَرْ","r":"ayat 2"},{"ar":"إِنَّ شَانِئَكَ هُوَ","r":"ayat 3"}],"no":[{"ar":"بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ","r":"ayat 1"},{"ar":"لِإِيلَـٰفِ قُرَيْشٍ","r":"ayat 1"},{"ar":"أَرَءَيْتَ ٱلَّذِى يُكَذِّبُ","r":"ayat 1"},{"ar":"قُلْ يَـٰٓأَيُّهَا ٱلْكَـٰفِرُونَ","r":"ayat 1"},{"ar":"إِذَا جَآءَ نَصْرُ","r":"ayat 1"},{"ar":"تَبَّتْ يَدَآ أَبِى","r":"ayat 1"}]},
+{"p":["Ayat surah al-Kafirun?","ايت سورة الکافرون؟"],"ok":[{"ar":"قُلْ يَـٰٓأَيُّهَا ٱلْكَـٰفِرُونَ","r":"ayat 1"},{"ar":"لَآ أَعْبُدُ مَا","r":"ayat 2"},{"ar":"وَلَآ أَنتُمْ عَـٰبِدُونَ","r":"ayat 3"},{"ar":"وَلَآ أَنَا۠ عَابِدٌ","r":"ayat 4"},{"ar":"لَكُمْ دِينُكُمْ وَلِىَ","r":"ayat 6"}],"no":[{"ar":"بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ","r":"ayat 1"},{"ar":"لِإِيلَـٰفِ قُرَيْشٍ","r":"ayat 1"},{"ar":"أَرَءَيْتَ ٱلَّذِى يُكَذِّبُ","r":"ayat 1"},{"ar":"إِنَّآ أَعْطَيْنَـٰكَ ٱلْكَوْثَرَ","r":"ayat 1"},{"ar":"إِذَا جَآءَ نَصْرُ","r":"ayat 1"},{"ar":"تَبَّتْ يَدَآ أَبِى","r":"ayat 1"}]},
+{"p":["Ayat surah an-Nasr?","ايت سورة النصر؟"],"ok":[{"ar":"إِذَا جَآءَ نَصْرُ","r":"ayat 1"},{"ar":"وَرَأَيْتَ ٱلنَّاسَ يَدْخُلُونَ","r":"ayat 2"},{"ar":"فَسَبِّحْ بِحَمْدِ رَبِّكَ","r":"ayat 3"}],"no":[{"ar":"بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ","r":"ayat 1"},{"ar":"لِإِيلَـٰفِ قُرَيْشٍ","r":"ayat 1"},{"ar":"أَرَءَيْتَ ٱلَّذِى يُكَذِّبُ","r":"ayat 1"},{"ar":"إِنَّآ أَعْطَيْنَـٰكَ ٱلْكَوْثَرَ","r":"ayat 1"},{"ar":"قُلْ يَـٰٓأَيُّهَا ٱلْكَـٰفِرُونَ","r":"ayat 1"},{"ar":"تَبَّتْ يَدَآ أَبِى","r":"ayat 1"}]},
+{"p":["Ayat surah al-Masad?","ايت سورة المسد؟"],"ok":[{"ar":"تَبَّتْ يَدَآ أَبِى","r":"ayat 1"},{"ar":"مَآ أَغْنَىٰ عَنْهُ","r":"ayat 2"},{"ar":"سَيَصْلَىٰ نَارًا ذَاتَ","r":"ayat 3"},{"ar":"وَٱمْرَأَتُهُۥ حَمَّالَةَ ٱلْحَطَبِ","r":"ayat 4"},{"ar":"فِى جِيدِهَا حَبْلٌ","r":"ayat 5"}],"no":[{"ar":"بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ","r":"ayat 1"},{"ar":"لِإِيلَـٰفِ قُرَيْشٍ","r":"ayat 1"},{"ar":"أَرَءَيْتَ ٱلَّذِى يُكَذِّبُ","r":"ayat 1"},{"ar":"إِنَّآ أَعْطَيْنَـٰكَ ٱلْكَوْثَرَ","r":"ayat 1"},{"ar":"قُلْ يَـٰٓأَيُّهَا ٱلْكَـٰفِرُونَ","r":"ayat 1"},{"ar":"إِذَا جَآءَ نَصْرُ","r":"ayat 1"}]},
+{"p":["Ayat surah al-Ikhlas?","ايت سورة الإخلاص؟"],"ok":[{"ar":"قُلْ هُوَ ٱللَّهُ","r":"ayat 1"},{"ar":"ٱللَّهُ ٱلصَّمَدُ","r":"ayat 2"},{"ar":"لَمْ يَلِدْ وَلَمْ","r":"ayat 3"},{"ar":"وَلَمْ يَكُن لَّهُۥ","r":"ayat 4"}],"no":[{"ar":"بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ","r":"ayat 1"},{"ar":"لِإِيلَـٰفِ قُرَيْشٍ","r":"ayat 1"},{"ar":"أَرَءَيْتَ ٱلَّذِى يُكَذِّبُ","r":"ayat 1"},{"ar":"إِنَّآ أَعْطَيْنَـٰكَ ٱلْكَوْثَرَ","r":"ayat 1"},{"ar":"قُلْ يَـٰٓأَيُّهَا ٱلْكَـٰفِرُونَ","r":"ayat 1"},{"ar":"إِذَا جَآءَ نَصْرُ","r":"ayat 1"}]},
+{"p":["Ayat surah al-Falaq?","ايت سورة الفلق؟"],"ok":[{"ar":"مِن شَرِّ مَا","r":"ayat 2"},{"ar":"وَمِن شَرِّ غَاسِقٍ","r":"ayat 3"},{"ar":"وَمِن شَرِّ ٱلنَّفَّـٰثَـٰتِ","r":"ayat 4"},{"ar":"وَمِن شَرِّ حَاسِدٍ","r":"ayat 5"}],"no":[{"ar":"بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ","r":"ayat 1"},{"ar":"لِإِيلَـٰفِ قُرَيْشٍ","r":"ayat 1"},{"ar":"أَرَءَيْتَ ٱلَّذِى يُكَذِّبُ","r":"ayat 1"},{"ar":"إِنَّآ أَعْطَيْنَـٰكَ ٱلْكَوْثَرَ","r":"ayat 1"},{"ar":"قُلْ يَـٰٓأَيُّهَا ٱلْكَـٰفِرُونَ","r":"ayat 1"},{"ar":"إِذَا جَآءَ نَصْرُ","r":"ayat 1"}]},
+{"p":["Ayat surah an-Nas?","ايت سورة الناس؟"],"ok":[{"ar":"مَلِكِ ٱلنَّاسِ","r":"ayat 2"},{"ar":"إِلَـٰهِ ٱلنَّاسِ","r":"ayat 3"},{"ar":"مِن شَرِّ ٱلْوَسْوَاسِ","r":"ayat 4"},{"ar":"ٱلَّذِى يُوَسْوِسُ فِى","r":"ayat 5"},{"ar":"مِنَ ٱلْجِنَّةِ وَٱلنَّاسِ","r":"ayat 6"}],"no":[{"ar":"بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ","r":"ayat 1"},{"ar":"لِإِيلَـٰفِ قُرَيْشٍ","r":"ayat 1"},{"ar":"أَرَءَيْتَ ٱلَّذِى يُكَذِّبُ","r":"ayat 1"},{"ar":"إِنَّآ أَعْطَيْنَـٰكَ ٱلْكَوْثَرَ","r":"ayat 1"},{"ar":"قُلْ يَـٰٓأَيُّهَا ٱلْكَـٰفِرُونَ","r":"ayat 1"},{"ar":"إِذَا جَآءَ نَصْرُ","r":"ayat 1"}]},
+{"p":["Perkataan surah al-Fatihah?","ڤرکاتاٴن سورة الفاتحة؟"],"ok":[{"ar":"بِسْمِ","r":"ayat 1"},{"ar":"ٱلرَّحْمَـٰنِ","r":"ayat 1"},{"ar":"ٱلرَّحِيمِ","r":"ayat 1"},{"ar":"ٱلْحَمْدُ","r":"ayat 2"},{"ar":"لِلَّهِ","r":"ayat 2"}],"no":[{"ar":"لِإِيلَـٰفِ","r":"ayat 1"},{"ar":"أَرَءَيْتَ","r":"ayat 1"},{"ar":"إِنَّآ","r":"ayat 1"},{"ar":"يَـٰٓأَيُّهَا","r":"ayat 1"},{"ar":"جَآءَ","r":"ayat 1"}]},
+{"p":["Perkataan surah Quraisy?","ڤرکاتاٴن سورة قريش؟"],"ok":[{"ar":"لِإِيلَـٰفِ","r":"ayat 1"},{"ar":"قُرَيْشٍ","r":"ayat 1"},{"ar":"إِۦلَـٰفِهِمْ","r":"ayat 2"},{"ar":"رِحْلَةَ","r":"ayat 2"},{"ar":"ٱلشِّتَآءِ","r":"ayat 2"}],"no":[{"ar":"بِسْمِ","r":"ayat 1"},{"ar":"أَرَءَيْتَ","r":"ayat 1"},{"ar":"إِنَّآ","r":"ayat 1"},{"ar":"يَـٰٓأَيُّهَا","r":"ayat 1"},{"ar":"جَآءَ","r":"ayat 1"}]},
+{"p":["Perkataan surah al-Ma'un?","ڤرکاتاٴن سورة الماعون؟"],"ok":[{"ar":"أَرَءَيْتَ","r":"ayat 1"},{"ar":"يُكَذِّبُ","r":"ayat 1"},{"ar":"بِٱلدِّينِ","r":"ayat 1"},{"ar":"فَذَٰلِكَ","r":"ayat 2"},{"ar":"يَدُعُّ","r":"ayat 2"}],"no":[{"ar":"بِسْمِ","r":"ayat 1"},{"ar":"لِإِيلَـٰفِ","r":"ayat 1"},{"ar":"إِنَّآ","r":"ayat 1"},{"ar":"يَـٰٓأَيُّهَا","r":"ayat 1"},{"ar":"جَآءَ","r":"ayat 1"}]},
+{"p":["Perkataan surah al-Kauthar?","ڤرکاتاٴن سورة الکوثر؟"],"ok":[{"ar":"إِنَّآ","r":"ayat 1"},{"ar":"أَعْطَيْنَـٰكَ","r":"ayat 1"},{"ar":"ٱلْكَوْثَرَ","r":"ayat 1"},{"ar":"فَصَلِّ","r":"ayat 2"},{"ar":"لِرَبِّكَ","r":"ayat 2"}],"no":[{"ar":"بِسْمِ","r":"ayat 1"},{"ar":"لِإِيلَـٰفِ","r":"ayat 1"},{"ar":"أَرَءَيْتَ","r":"ayat 1"},{"ar":"يَـٰٓأَيُّهَا","r":"ayat 1"},{"ar":"جَآءَ","r":"ayat 1"}]},
+{"p":["Perkataan surah al-Kafirun?","ڤرکاتاٴن سورة الکافرون؟"],"ok":[{"ar":"يَـٰٓأَيُّهَا","r":"ayat 1"},{"ar":"ٱلْكَـٰفِرُونَ","r":"ayat 1"},{"ar":"أَعْبُدُ","r":"ayat 2"},{"ar":"تَعْبُدُونَ","r":"ayat 2"},{"ar":"وَلَآ","r":"ayat 3"}],"no":[{"ar":"بِسْمِ","r":"ayat 1"},{"ar":"لِإِيلَـٰفِ","r":"ayat 1"},{"ar":"أَرَءَيْتَ","r":"ayat 1"},{"ar":"إِنَّآ","r":"ayat 1"},{"ar":"جَآءَ","r":"ayat 1"}]},
+{"p":["Perkataan surah an-Nasr?","ڤرکاتاٴن سورة النصر؟"],"ok":[{"ar":"جَآءَ","r":"ayat 1"},{"ar":"نَصْرُ","r":"ayat 1"},{"ar":"وَٱلْفَتْحُ","r":"ayat 1"},{"ar":"وَرَأَيْتَ","r":"ayat 2"},{"ar":"ٱلنَّاسَ","r":"ayat 2"}],"no":[{"ar":"بِسْمِ","r":"ayat 1"},{"ar":"لِإِيلَـٰفِ","r":"ayat 1"},{"ar":"أَرَءَيْتَ","r":"ayat 1"},{"ar":"إِنَّآ","r":"ayat 1"},{"ar":"يَـٰٓأَيُّهَا","r":"ayat 1"}]}
+];
+
+/* Jawi T1 — from tahun1/jawi STATIONS (huruf, titik, sambung, vokal, digraf, perkataan).
+   {huruf} items avoid ک (its clip is u0643.mp3, not u06a9). Distractors are ours. */
+(function(){
+const H = s => [...s.split(" ")].map(h => ({huruf:h}));
+BANK.jawi = [
+{p:["Pilih huruf vokal","ڤيليه حروف ۏوکل"], ok:H("ا و ي"), no:H("ب ت م ن ل س")},
+{p:["Huruf ciptaan Melayu?","حروف چيڤتاٴن ملايو؟"], ok:H("چ ڠ ڤ ڬ ۏ ڽ"), no:H("ب ت ع ح ج س")},
+{p:["Huruf ada tiga titik?","حروف اد تيڬ تيتيق؟"], ok:H("ث ش ڠ ڤ ڽ چ"), no:H("ب ت ا م خ ن")},
+{p:["Huruf ada satu titik?","حروف اد ساتو تيتيق؟"], ok:H("ب خ ف ض ن ج ز ذ"), no:H("ت ث ا م ق ش")},
+{p:["Huruf ada dua titik?","حروف اد دوا تيتيق؟"], ok:H("ت ة ق ي"), no:H("ب ث ا م ن")},
+{p:["Huruf tanpa titik?","حروف تنڤا تيتيق؟"], ok:H("ا ح د ر س ع م ل"), no:H("ب ت ث ن ي ڤ")},
+{p:["Huruf tidak boleh disambung?","حروف تيدق بوليه دسمبوڠ؟"], ok:H("ا د ذ ر ز و ۏ"), no:H("ب س م ل ع ج")},
+{p:["Pilih huruf digraf","ڤيليه حروف ديڬراف"], ok:H("ش خ ڠ غ ڽ"), no:H("ب ت م ل د")},
+{p:["Huruf untuk bunyi s?","حروف اونتوق بوڽي s؟"], ok:H("ث س ص"), no:H("ب ر م ن د")},
+{p:["Huruf untuk bunyi z?","حروف اونتوق بوڽي z؟"], ok:H("ذ ز ظ"), no:H("ب ر م ن ل")},
+{p:["Mula dengan huruf vokal?","مولا دڠن حروف ۏوکل؟"],
+ ok:[["abu","ابو","👴"],["ibu","ايبو","👩"],["ekor","ايکور","🐈"],["emas","امس","💍"],["oren","اورين","🍊"],["ubi","اوبي","🍠"],["ular","اولر","🐍"],["ikan","ايکن","🐟"]],
+ no:[["batu","باتو","🪨"],["soto","سوتو","🍜"],["jeli","جيلي","🍮"],["biru","بيرو","🔵"],["bola","بولا","⚽"],["roti","روتي","🍞"]]},
+{p:["Pilih nama haiwan","ڤيليه نام حيوان"],
+ ok:[["ular","اولر","🐍"],["ikan","ايکن","🐟"],["kera","کرا","🐒"],["singa","سيڠا","🦁"],["nyamuk","ڽاموق","🦟"]],
+ no:[["bola","بولا","⚽"],["roti","روتي","🍞"],["kasut","کاسوت","👟"],["kerusi","کروسي","🪑"],["buku","بوکو","📚"]]},
+{p:["Pilih makanan","ڤيليه ماکنن"],
+ ok:[["roti","روتي","🍞"],["madu","مادو","🍯"],["soto","سوتو","🍜"],["susu","سوسو","🥛"],["cili","چيلي","🌶️"],["kentang","کنتڠ","🥔"],["ubi","اوبي","🍠"]],
+ no:[["bola","بولا","⚽"],["kasut","کاسوت","👟"],["kerusi","کروسي","🪑"],["buku","بوکو","📚"],["baju","باجو","👕"]]},
+{p:["Barang dalam bilik?","بارڠ دالم بيليق؟"],
+ ok:[["kerusi","کروسي","🪑"],["katil","کاتيل","🛏️"],["pintu","ڤينتو","🚪"]],
+ no:[["ular","اولر","🐍"],["ikan","ايکن","🐟"],["singa","سيڠا","🦁"],["nyamuk","ڽاموق","🦟"]]},
+{p:["Ada bunyi ng?","اد بوڽي ng؟"],
+ ok:[["bunga","بوڠا","🌸"],["singa","سيڠا","🦁"],["nganga","ڠاڠا","😮"],["orang","اورڠ","🧑"],["kentang","کنتڠ","🥔"]],
+ no:[["bola","بولا","⚽"],["madu","مادو","🍯"],["roti","روتي","🍞"],["ikan","ايکن","🐟"],["padi","ڤادي","🌾"]]},
+{p:["Pilih orang","ڤيليه اورڠ"],
+ ok:[["ibu","ايبو","👩"],["datuk","داتوق","👴"],["guru","ڬورو","👨‍🏫"],["orang","اورڠ","🧑"]],
+ no:[["bola","بولا","⚽"],["kasut","کاسوت","👟"],["roti","روتي","🍞"],["batu","باتو","🪨"]]},
+{p:["Kita pakai apa?","کيت ڤاکاي اڤ؟"],
+ ok:[["kasut","کاسوت","👟"],["baju","باجو","👕"],["cincin","چينچين","💍"]],
+ no:[["roti","روتي","🍞"],["ular","اولر","🐍"],["kera","کرا","🐒"],["madu","مادو","🍯"]]}
+];
+})();
+
+/* Tauhid T1 — from tahun1/tauhid STATIONS (iman, Islam, rukun, ciptaan Allah, wujud, syahadah). Distractors mostly from the book's own games. */
+BANK.tauhid = [
+{p:["Rukun iman?","روکون ايمان؟"],
+ ok:[["Allah","الله","☝️"],["Malaikat","ملائکة","✨"],["Kitab","کتاب","📖"],["Rasul","رسول","🌟"],["Hari kiamat","هاري قيامة","🌅"],["Qada dan qadar","قضاء دان قدر","📝"]],
+ no:[["Solat","صلاة","🕌"],["Puasa","ڤواسا","🌙"],["Zakat","زکاة","💰"],["Haji","حج","🕋"]]},
+{p:["Rukun Islam?","روکون إسلام؟"],
+ ok:[["Syahadah","شهادة","🗣️"],["Solat","صلاة","🕌"],["Zakat","زکاة","💰"],["Puasa","ڤواسا","🌙"],["Haji","حج","🕋"]],
+ no:[["Malaikat","ملائکة","✨"],["Kitab","کتاب","📖"],["Rasul","رسول","🌟"],["Hari kiamat","هاري قيامة","🌅"]]},
+{p:["Ciptaan Allah?","چيڤتاٴن الله؟"],
+ ok:[["Kucing","کوچيڠ","🐱"],["Hujan","هوجن","🌧️"],["Pokok","ڤوکوق","🌳"],["Matahari","ماتاهاري","☀️"],["Bulan","بولن","🌙"],["Bintang","بينتڠ","⭐"]],
+ no:[["Kapal","کاڤل","🚢"],["Kerusi kayu","کروسي کايو","🪑"],["Kereta","کريتا","🚗"],["Buku","بوکو","📚"]]},
+{p:["Dibuat oleh manusia?","دبوات اوليه ماٴنسي؟"],
+ ok:[["Kapal","کاڤل","🚢"],["Kerusi kayu","کروسي کايو","🪑"],["Kereta","کريتا","🚗"]],
+ no:[["Kucing","کوچيڠ","🐱"],["Hujan","هوجن","🌧️"],["Pokok","ڤوکوق","🌳"],["Matahari","ماتاهاري","☀️"]]},
+{p:["Allah mencipta alam","الله منچيڤتا عالم"],
+ ok:[["Gunung-ganang","ڬونوڠ-ڬاناڠ","🏔️"],["Laut","لاٴوت","🌊"],["Langit","لاڠيت","🌌"],["Bumi","بومي","🌍"],["Udara","اودارا","💨"]],
+ no:[["Kapal","کاڤل","🚢"],["Kereta","کريتا","🚗"],["Kerusi kayu","کروسي کايو","🪑"],["Buku","بوکو","📚"]]},
+{p:["Iman ada pada?","ايمان اد ڤد؟"],
+ ok:[["Lisan","ليسن","👄"],["Hati","هاتي","❤️"],["Anggota badan","اڠڬوتا بادن","🙌"]],
+ no:[["Baju","باجو","👕"],["Kasut","کاسوت","👟"],["Duit","دويت","💵"],["Rumah","رومه","🏠"]]},
+{p:["Perintah Allah?","ڤرينته الله؟"],
+ ok:[["Mendirikan solat","منديريکن صلاة","🕌"],["Berpuasa","برڤواسا","🌙"],["Menunaikan zakat","منونايکن زکاة","💰"],["Bersabar","برصبر","🤲"]],
+ no:[["Melakukan maksiat","ملاکوکن معصية","🚫"],["Suka bergaduh","سوک برڬادوه","😡"],["Suka berbohong","سوک بربوهوڠ","🤥"],["Malas beribadah","مالس براءيبادة","😩"]]},
+{p:["Larangan Allah?","لارڠن الله؟"],
+ ok:[["Melakukan maksiat","ملاکوکن معصية","🚫"],["Suka bergaduh","سوک برڬادوه","😡"],["Suka berbohong","سوک بربوهوڠ","🤥"]],
+ no:[["Mendirikan solat","منديريکن صلاة","🕌"],["Berpuasa","برڤواسا","🌙"],["Menunaikan zakat","منونايکن زکاة","💰"],["Bersabar","برصبر","🤲"]]},
+{p:["Sikap orang beriman?","سيکڤ اورڠ برايمان؟"],
+ ok:[["Bersabar","برصبر","🤲"],["Berakhlak mulia","براخلاق موليا","😇"],["Taat perintah Allah","طاعة ڤرينته الله","🙏"]],
+ no:[["Melakukan maksiat","ملاکوکن معصية","🚫"],["Malas beribadah","مالس براءيبادة","😩"],["Suka bergaduh","سوک برڬادوه","😡"],["Suka berbohong","سوک بربوهوڠ","🤥"]]},
+{p:["Faedah kenal sifat wujud?","فاٴيده کنل صيفت وجود؟"],
+ ok:[["Iman semakin kukuh","ايمان سماکين کوکوه","💪"],["Berakhlak mulia","براخلاق موليا","😇"],["Diawasi Allah","داٴوسي الله","👀"],["Patuh dan taat","ڤاتوه دان طاعة","🙏"]],
+ no:[["Malas beribadah","مالس براءيبادة","😩"],["Suka bergaduh","سوک برڬادوه","😡"],["Suka berbohong","سوک بربوهوڠ","🤥"],["Melakukan maksiat","ملاکوکن معصية","🚫"]]},
+{p:["Sifat Allah?","صيفت الله؟"],
+ ok:[["Esa","اسا","☝️"],["Wujud (ada)","وجود (اد)","✨"],["Qudrat","قدرة","💪"]],
+ no:[["Dua","دوا","2️⃣"],["Tiga","تيڬ","3️⃣"],["Tiada","تياد","🚫"],["Tidur","تيدور","😴"]]},
+{p:["Hari kiamat?","هاري قيامة؟"],
+ ok:[["Alam hancur","عالم هنچور","💥"],["Amalan dihisab","عملن دحساب","⚖️"],["Padang Mahsyar","ڤادڠ محشر","🏜️"]],
+ no:[["Ketentuan Allah","کتنتوان الله","📜"],["Pelaksanaan","ڤلقساناٴن","✅"],["Alam kekal","عالم ککل","♾️"],["Alam tidak hancur","عالم تيدق هنچور","🛑"]]},
+{p:["Qada dan qadar?","قضاء دان قدر؟"],
+ ok:[["Ketentuan Allah","کتنتوان الله","📜"],["Pelaksanaan","ڤلقساناٴن","✅"],["Rezeki","رزقي","🐟"]],
+ no:[["Alam hancur","عالم هنچور","💥"],["Amalan dihisab","عملن دحساب","⚖️"],["Padang Mahsyar","ڤادڠ محشر","🏜️"],["Alam kekal","عالم ککل","♾️"]]},
+{p:["Seorang Muslim hendaklah?","سأورڠ مسلم هندقله؟"],
+ ok:[["Mengikut syariat","مڠيکوت شريعة","📜"],["Taat perintah Allah","طاعة ڤرينته الله","🙏"],["Islam cara hidup","إسلام چارا هيدوڤ","🧭"]],
+ no:[["Melakukan maksiat","ملاکوکن معصية","🚫"],["Tidak peduli","تيدق ڤدولي","🙉"],["Suka berbohong","سوک بربوهوڠ","🤥"],["Malas beribadah","مالس براءيبادة","😩"]]},
+{p:["Kita dengar syahadah ketika?","کيت دڠر شهادة کتيک؟"],
+ ok:[["Solat","صلاة","🧎"],["Azan","اذان","📢"],["Nasyid","نشيد","🎵"]],
+ no:[["Tidur","تيدور","😴"],["Makan","ماکن","🍚"],["Bermain bola","برماٴين بولا","⚽"],["Menonton TV","منونتون تيۏي","📺"]]}
+];
+
+/* ============ ASAS: utiliti, bahasa, data dunia ============ */
+const app = document.getElementById("app");
+const $ = id => document.getElementById(id);
+const shuffle = arr => { const a = arr.slice(); for(let i=a.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]] = [a[j],a[i]]; } return a; };
+const pick = arr => arr[Math.floor(Math.random()*arr.length)];
+const rnd = (a,b) => a + Math.random()*(b-a);
+const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+function load(k,f){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : f; }catch(e){ return f; } }
+function save(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+let lang = load("kafa-lang","jawi");
+let muted = load("ark1-muted", false);
+let voiceOn = load("t1-voice", true);
+let hi = load("ark1-hi", {});
+const REDUCED = (()=>{ try{ return matchMedia("(prefers-reduced-motion: reduce)").matches; }catch(e){ return false; } })();
+const isJ = () => lang==="jawi";
+const tx = (r,j) => isJ() ? j : r;
+const L = s => Array.isArray(s) ? (isJ() ? s[1] : s[0]) : s;
+const BACK = () => isJ() ? "→" : "←";
+const esc = s => String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function applyLang(){ document.documentElement.dir = isJ() ? "rtl" : "ltr"; document.documentElement.lang = isJ() ? "ms-Arab" : "ms"; }
+var G = null;           // keadaan permainan semasa (window.G untuk alat tangkap skrin)
+let subj = (()=>{ try{ return new URLSearchParams(location.search).get("s"); }catch(e){ return null; } })() || load("ark1-subj", null);
+
+/* ---------- Dunia subjek (tema Tahun 1) ---------- */
+const WORLD = {
+  akhlak: {r:"Pokok Adab Hoho", j:"ڤوکوق اداب هوهو", m:"🦉", deco:"🌳🍄🌳", c1:"#FF9F1C", c2:"#2E7D32", a:"#FFE066",
+    sky:["#7EC8FF","#BFE6FF","#E9F8E0"], fog:"#D7F0D0", ground:"#5FB548", road:"#6B5B4B", props:["pine","oak","mush","pine","bush"], rivals:["🐿️","🦊","🐰"]},
+  jawi:   {r:"Zoo Huruf Jaja", j:"زو حروف جاجا", m:"🐘", deco:"🦒🌴🦁", c1:"#9CCB52", c2:"#4E8F2A", a:"#FFC83D",
+    sky:["#6FC3FF","#BDE5FF","#FFF1C9"], fog:"#F6E7B8", ground:"#D9B95B", road:"#B0784A", props:["acacia","rock","bush","acacia","fence"], rivals:["🦒","🦁","🦓"]},
+  feqah:  {r:"Pulau Titisan Suci", j:"ڤولاو تيتيسن سوچي", m:"💧", deco:"🌈💧🏝️", c1:"#12B5D6", c2:"#0B4A6E", a:"#FFD166",
+    sky:["#4FB6F0","#A6E1FF","#E6FBFF"], fog:"#CFF2FF", ground:"#4CC38A", road:"#5D7A9A", props:["palm","drop","rainbow","palm","rock"], rivals:["🐸","🦆","🐢"]},
+  tauhid: {r:"Taman Bunga Iman", j:"تامن بوڠا ايمان", m:"🐝", deco:"🌻🌷🌼", c1:"#FFC94A", c2:"#F08A00", a:"#FF6FA8",
+    sky:["#7CCBFF","#CBEBFF","#FFF4D6"], fog:"#FFF0D0", ground:"#7FD06A", road:"#C48A4A", props:["flower","sunflower","flower","hive","bush"], rivals:["🦋","🐞","🐛"]},
+  arab:   {r:"Karnival Kalimah", j:"کارنيۏل کليمة", m:"🐱", deco:"🎪🎡🎈", c1:"#5B2A9E", c2:"#FF4F9A", a:"#FFD23F", night:true,
+    sky:["#120A3A","#3B1E7A","#8A3FA8"], fog:"#3A1F6E", ground:"#2E2160", road:"#3A3550", props:["tent","lamp","tent","balloon","lamp"], rivals:["🐶","🐭","🐼"]},
+  hafazan:{r:"Belon Udara Hafiz", j:"بلون اودارا حافظ", m:"🪁", deco:"🎈🌅🪁", c1:"#FF9A8B", c2:"#8E7CC3", a:"#FFC94D",
+    sky:["#7E6CC7","#FF9A8B","#FFD9A0"], fog:"#FFC9A8", ground:"#8BC77A", road:"#8B6E9E", props:["hab","kite","oak","hab","bush"], rivals:["🕊️","🦜","🐥"]},
+  mix:    {r:"Campur Pelangi", j:"چمڤور ڤلاڠي", m:"🌈", deco:"🌈⭐🎲", c1:"#FF5E7E", c2:"#5B3FD6", a:"#7CF2FF",
+    sky:["#6E8BFF","#B9C8FF","#FFE3F1"], fog:"#F2E6FF", ground:"#6CCB8B", road:"#6A5C8E", props:["flower","pine","tent","palm","acacia"], rivals:["🐻","🐯","🐨"]}
+};
+const SUBJ = ["akhlak","jawi","feqah","tauhid","arab","hafazan","mix"];
+const REAL = SUBJ.filter(s=>s!=="mix");
+if(!WORLD[subj]) subj = null;
+const SUBNAME = {akhlak:["Akhlak","اخلاق"], jawi:["Jawi","جاوي"], feqah:["Feqah","فقه"], tauhid:["Tauhid","توحيد"], arab:["Bahasa Arab","بهاس عرب"], hafazan:["Hafazan","حفظن"], mix:["Semua subjek","سموا سوبجيک"]};
+
+/* ---------- Tiga kenderaan ---------- */
+const GAMES = [
+  {id:"kereta", e:"🏎️", r:"Lumba Kereta", j:"لومبا کريتا", d:["Pandu melalui gerbang jawapan betul!","ڤندو ملالوءي ڬربڠ جواڤن بتول!"], lanes:3},
+  {id:"bot", e:"🚤", r:"Bot Laju", j:"بوت لاجو", d:["Langgar pelampung jawapan betul!","لاڠڬر ڤلامڤوڠ جواڤن بتول!"], lanes:3},
+  {id:"pesawat", e:"✈️", r:"Kapal Terbang", j:"کاڤل تربڠ", d:["Terbang melalui gelung jawapan betul!","تربڠ ملالوءي ڬلوڠ جواڤن بتول!"], lanes:4}
+];
+const GM = id => GAMES.find(g=>g.id===id);
+const hiOf = (s,g) => (hi[s]||{})[g]||0;
+const RIVC = [0xE5484D, 0x2F9E44, 0x8B45F0];
+
+/* ---------- Bank soalan ---------- */
+// item: ["Rumi","Jawi","emoji"] | {ar,r} | {huruf}
+const itKind = it => Array.isArray(it) ? "w" : it && it.huruf ? "h" : it && it.ar ? "ar" : "?";
+const itKey = it => JSON.stringify(it);
+const itText = it => { const k = itKind(it); return k==="w" ? L(it) : k==="h" ? it.huruf : k==="ar" ? it.ar : ""; };
+const itEmoji = it => Array.isArray(it) && it[2] ? it[2] : "";
+const isArab = it => itKind(it)!=="w";
+function itHTML(it){
+  const k = itKind(it);
+  if(k==="h") return `<span class="ar big" lang="ar" dir="rtl">${esc(it.huruf)}</span>`;
+  if(k==="ar") return `<span class="ar" lang="ar" dir="rtl">${esc(it.ar)}</span>`;
+  return `${it[2] ? `<span class="e">${it[2]}</span>` : ""}<span>${esc(L(it))}</span>`;
+}
+// bentuk yang diterima oleh /api/score (rentetan atau [Rumi, Jawi])
+const itLog = it => { const k = itKind(it); return k==="w" ? [String(it[0]), String(it[1])] : k==="h" ? it.huruf : it.ar; };
+function okEntry(q){ return q && Array.isArray(q.p) && q.p.length===2 && Array.isArray(q.ok) && q.ok.length && Array.isArray(q.no) && q.no.length>=2; }
+function deck(s){
+  const B = (typeof BANK!=="undefined" && BANK) || {};
+  const from = s==="mix" ? REAL : [s];
+  return from.flatMap(id=>(B[id]||[]).filter(okEntry).map(q=>({...q, sub:id})));
+}
+// bina satu gerbang: 1 jawapan betul + n-1 pengganggu, kedudukan rawak
+function makeQ(q, n){
+  const ok = pick(q.ok), okK = new Set(q.ok.map(itKey));
+  let no = shuffle(q.no).filter(x=>!okK.has(itKey(x)));
+  if(no.length < n-1){ // tambah pengganggu daripada soalan lain subjek yang sama (bukan jawapan betul soalan ini)
+    const extra = shuffle(deck(q.sub).flatMap(o=>o.no)).filter(x=>!okK.has(itKey(x)) && !no.some(y=>itKey(y)===itKey(x)) && itKind(x)===itKind(ok));
+    no = no.concat(extra);
+  }
+  no = no.slice(0, n-1);
+  const opts = shuffle([ok, ...no]);
+  return {p:q.p, sub:q.sub, opts, ok:opts.indexOf(ok)};
+}
+
+/* ---------- Bunyi ---------- */
+let actx;
+function tone(freqs, dur=0.1, type="sine", vol=0.16){
+  if(muted) return;
+  try{
+    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    const t = actx.currentTime;
+    freqs.forEach((f,i)=>{ const o = actx.createOscillator(), g = actx.createGain(); o.type = type; o.frequency.value = f;
+      const s = t+i*dur; g.gain.setValueAtTime(0.0001,s); g.gain.exponentialRampToValueAtTime(vol,s+0.015); g.gain.exponentialRampToValueAtTime(0.0001,s+dur);
+      o.connect(g).connect(actx.destination); o.start(s); o.stop(s+dur+0.02); });
+  }catch(e){}
+}
+const sfx = { ok:()=>tone([784,1047,1319],0.08,"square",0.08), bad:()=>tone([300,200,140],0.12,"sawtooth",0.08), star:()=>tone([1320,1760],0.05,"triangle",0.1),
+  tick:()=>tone([523],0.12,"square",0.07), go:()=>tone([1047],0.35,"square",0.08), turbo:()=>tone([220,330,440,660],0.06,"sawtooth",0.06),
+  win:()=>tone([523,659,784,1047,1319],0.12,"square",0.08), splash:()=>tone([900,500,300],0.05,"triangle",0.08), bump:()=>tone([160,120],0.07,"square",0.1) };
+
+/* ---------- Suara: teks Rumi sahaja (huruf Jawi/Arab & emoji dibuang) ---------- */
+const ttsOK = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+let voice = null;
+function pickVoice(){ try{ const vs = speechSynthesis.getVoices(); voice = vs.find(v=>/^ms/i.test(v.lang)) || vs.find(v=>/^id/i.test(v.lang)) || null; }catch(e){} }
+if(ttsOK){ pickVoice(); try{ speechSynthesis.onvoiceschanged = pickVoice; }catch(e){} }
+const cleanSay = t => String(t||"").replace(/[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]+/g," ")
+  .replace(/\p{Extended_Pictographic}|\uFE0F|\u200D/gu,"").replace(/[()"«»]/g," ").replace(/\s+/g," ").trim();
+function speak(text, force){
+  if(!ttsOK || (!voiceOn && !force)) return;
+  try{ const clean = cleanSay(text); if(!clean) return;
+    speechSynthesis.cancel(); stopHuruf();
+    const u = new SpeechSynthesisUtterance(clean); u.lang = voice ? voice.lang : "ms-MY"; if(voice) u.voice = voice; u.rate = .85; u.pitch = 1.1;
+    speechSynthesis.speak(u); }catch(e){}
+}
+const hurufFile = ch => "/assets/huruf/" + [...ch].map(x => "u" + (x==="ک" ? "0643" : x.codePointAt(0).toString(16).padStart(4,"0"))).join("_") + ".mp3";
+let hurufAudio = null;
+function stopHuruf(){ try{ if(hurufAudio){ hurufAudio.pause(); hurufAudio = null; } }catch(e){} }
+function sayHuruf(ch){
+  if(!voiceOn || muted) return;
+  try{ if(ttsOK) speechSynthesis.cancel(); stopHuruf(); hurufAudio = new Audio(hurufFile(ch)); const pr = hurufAudio.play(); if(pr && pr.catch) pr.catch(()=>{}); }catch(e){}
+}
+function hush(){ if(ttsOK){ try{ speechSynthesis.cancel(); }catch(e){} } stopHuruf(); }
+function toast(msg){
+  document.querySelectorAll(".toast").forEach(t=>t.remove());
+  const t = document.createElement("div"); t.className = "toast"; t.setAttribute("role","status"); t.textContent = msg;
+  document.body.appendChild(t); setTimeout(()=>t.remove(), 3200);
+}
+function confetti(){
+  if(REDUCED) return;
+  const box = document.createElement("div"); box.className = "rain";
+  for(let i=0;i<28;i++){ const s = document.createElement("span"); s.textContent = pick(["⭐","🎉","✨","🌟","🏁", WORLD[G&&G.subj||"mix"].m]);
+    s.style.left = Math.random()*100+"vw"; s.style.animationDuration = (2+Math.random()*2)+"s"; s.style.animationDelay = (Math.random()*0.8)+"s"; box.appendChild(s); }
+  document.body.appendChild(box); setTimeout(()=>box.remove(), 4500);
+}
+
+/* ============ ENJIN LUMBA (logik tanpa grafik; 3D/rata hanya melukis) ============ */
+const RACE = {gap:74, first:80, tail:60, base:12, turbo:22, slow:5, boost:1.0, slowT:0.8, readyCd:3};
+const NGATES = {kereta:9, bot:9, pesawat:8};
+// kelajuan pesaing: pemain yang betul semua = no.1; separuh betul = no.3; banyak salah = no.4 (tiada kalah teruk)
+const RIVAL_T = [50.5, 54.5, 58.5];
+const laneXY = (n, i) => n===4 ? {x:(i%2 ? 2.6 : -2.6), y:(i>1 ? 2.3 : 5.7)} : {x:(i-1)*3.2, y:0};
+
+function newRace(gid){
+  const g = GM(gid), n = g.lanes, ng = NGATES[gid];
+  let qs = shuffle(deck(subj));
+  if(subj==="mix"){ // satu subjek rawak bagi setiap gerbang
+    const by = {}; qs.forEach(q=>(by[q.sub] = by[q.sub]||[]).push(q));
+    const ks = Object.keys(by); qs = [];
+    for(let i=0;i<ng*2 && ks.length;i++){ const k = pick(ks); qs.push(pick(by[k])); }
+  }
+  if(!qs.length) qs = [{p:["Pilih yang betul","ڤيليه يڠ بتول"], ok:[["Betul","بتول","✅"]], no:[["Salah","سالة","❌"],["Tidak","تيدق","🚫"],["Bukan","بوکن","⛔"]], sub:subj}];
+  const gates = [], stars = [];
+  let last = null;
+  for(let i=0;i<ng;i++){
+    let q = qs[i % qs.length];
+    if(last && q.p[0]===last.p[0] && qs.length>1) q = qs[(i+1) % qs.length];
+    last = q;
+    gates.push({i, z:RACE.first + i*RACE.gap, q:makeQ(q, n), res:null, pick:-1});
+  }
+  for(let i=0;i<=ng;i++){ const z = (i===0 ? RACE.first*0.45 : RACE.first + (i-0.5)*RACE.gap); stars.push({z, lane:Math.floor(Math.random()*n), got:false}); }
+  const len = RACE.first + (ng-1)*RACE.gap + RACE.tail;
+  const em = WORLD[subj].rivals;
+  const rivals = RIVAL_T.map((t,k)=>({e:em[k], c:RIVC[k], v:len/t, dist:0, lane:(k+ (n===4?1:0)) % n, ph:Math.random()*6, lt:rnd(2,5)}));
+  return {subj, gid, g, n, ng, len, gates, stars, rivals, phase:"ready", t:0, cd:RACE.readyCd, cdShown:0, dist:0, speed:0, lane:n===4?2:1,
+    boostT:0, slowT:0, spinT:0, score:0, combo:0, maxCombo:0, good:0, bad:0, got:0, log:[], gi:0, place:1, over:false, paused:false,
+    manual:false, tok:Math.random(), view:null, tick:dt=>raceTick(dt), steer:(dx,dy)=>steer(dx,dy), setLane:i=>setLane(i)};
+}
+const curGate = () => G && G.gates[G.gi];
+function steer(dx, dy=0){
+  if(!G || G.over || G.paused || (G.phase!=="play" && G.phase!=="count")) return;
+  if(G.n===4){ let c = G.lane%2, r = G.lane>1 ? 1 : 0; c = clamp(c+dx,0,1); r = clamp(r+dy,0,1); G.lane = r*2+c; }
+  else G.lane = clamp(G.lane+dx, 0, G.n-1);
+  if(G.view && G.view.steer) G.view.steer();
+}
+function setLane(i){ if(!G || G.over || G.paused) return; G.lane = clamp(i|0, 0, G.n-1); if(G.view && G.view.steer) G.view.steer(); }
+function rank(){ return 1 + G.rivals.filter(r=>r.dist > G.dist).length; }
+
+function raceTick(dt){
+  if(!G || G.over || G.paused) return;
+  dt = Math.min(dt, 0.25);
+  if(G.phase==="count"){
+    G.cd -= dt;
+    const c = Math.ceil(G.cd);
+    if(c!==G.cdShown){ G.cdShown = c; if(c>0){ sfx.tick(); UI.count(c); } }
+    if(G.cd<=0){ G.phase = "play"; G.speed = RACE.base*0.6; sfx.go(); UI.count(0); UI.prompt(true); }
+    if(G.view) G.view.frame(dt);
+    return;
+  }
+  if(G.phase!=="play"){ if(G.view) G.view.frame(dt); return; }
+  if(G.auto) autoDrive();
+  // kelajuan: turbo → laju; salah → perlahan; kemudian kembali ke kelajuan biasa
+  if(G.boostT>0){ G.boostT -= dt; G.speed = RACE.turbo; }
+  else if(G.slowT>0){ G.slowT -= dt; G.speed = RACE.slow; }
+  else { const b = RACE.base, a = G.speed>b ? 10 : 7; G.speed += clamp(b-G.speed, -a*dt, a*dt); }
+  if(G.spinT>0) G.spinT -= dt;
+  G.t += dt; G.dist += G.speed*dt;
+  while(G.gi < G.gates.length && G.dist >= G.gates[G.gi].z) passGate(G.gates[G.gi]);
+  for(const s of G.stars) if(!s.got && !s.miss && G.dist >= s.z){
+    if(s.lane===G.lane){ s.got = true; G.got++; G.score += 10; sfx.star(); if(G.view && G.view.star) G.view.star(s); }
+    else s.miss = true;
+  }
+  for(const r of G.rivals){
+    if(r.dist < G.len+40) r.dist += r.v*(1+0.07*Math.sin(G.t*0.8+r.ph))*dt;
+    r.lt -= dt; if(r.lt<=0){ r.lt = rnd(2.5,5); r.lane = clamp(r.lane + pick([-1,1]), 0, G.n-1); }
+  }
+  G.place = rank();
+  if(G.view) G.view.frame(dt);
+  UI.hud();
+  if(G.dist >= G.len) finishRace();
+}
+// autopilot untuk ?shot= (alat tangkap skrin): kebanyakan betul, sesekali salah supaya pusingan kelihatan
+function autoDrive(){
+  const g = curGate(); if(!g || g.autoL!=null || g.z - G.dist > 26) return;
+  g.autoL = (G.auto==="mix" && g.i%4===2) ? (g.q.ok+1) % G.n : g.q.ok;
+  setLane(g.autoL);
+}
+function passGate(gate){
+  const ok = G.lane===gate.q.ok, it = gate.q.opts[G.lane] || gate.q.opts[0], right = gate.q.opts[gate.q.ok];
+  gate.res = ok ? "ok" : "bad"; gate.pick = G.lane; G.gi++;
+  if(ok){ G.good++; G.combo++; G.maxCombo = Math.max(G.maxCombo, G.combo); G.score += 30 + (G.combo>=3 ? 10 : 0);
+    G.boostT = RACE.boost; sfx.ok(); setTimeout(sfx.turbo, 120);
+    UI.fx(G.combo>=3 ? `🔥 TURBO x${G.combo}` : pick(["🚀 TURBO!","⭐ "+tx("Hebat!","هيبت!"),"👍 "+tx("Betul!","بتول!")]));
+  } else { G.bad++; G.combo = 0; G.slowT = RACE.slowT; G.spinT = 0.8; sfx.bad();
+    if(G.log.length<20) G.log.push({p:gate.q.p, it:itLog(it), right:itLog(right), s:gate.q.sub});
+    UI.fx("🌀 "+tx("Alamak!","الامق!"), true);
+  }
+  if(itKind(right)==="h") sayHuruf(right.huruf);
+  if(G.view && G.view.gate) G.view.gate(gate, ok);
+  UI.prompt(true);
+}
+function finishRace(){
+  G.over = true; G.phase = "done"; G.speed = RACE.base;
+  G.place = rank();
+  G.score += [50,30,20,10][G.place-1];
+  const ratio = G.good / G.ng;
+  G.stars3 = ratio>=0.8 || (G.place===1 && ratio>=0.6) ? 3 : ratio>=0.5 ? 2 : 1;
+  const s = hi[G.subj] = hi[G.subj] || {};
+  G.prevBest = s[G.gid] || 0; G.newBest = G.score > G.prevBest;
+  if(G.newBest){ s[G.gid] = G.score; save("ark1-hi", hi); }
+  sfx.win(); if(G.place<=3) confetti();
+  const tok = G.tok;
+  setTimeout(()=>{ if(G && G.tok===tok) UI.result(true); }, G.manual ? 300 : 1600);
+}
+function togglePause(force){
+  if(!G || G.over || G.phase==="ready") return;
+  G.paused = force!=null ? force : !G.paused;
+  if(G.paused) hush();
+  UI.pause(G.paused);
+}
+document.addEventListener("visibilitychange", ()=>{ if(document.hidden && G && !G.over && G.phase!=="ready" && !G.paused) togglePause(true); });
+
+// gelung bingkai: dihentikan apabila permainan ditukar (tok)
+function runLoop(){
+  const tok = G.tok; let last = 0;
+  const raf = window.requestAnimationFrame ? window.requestAnimationFrame.bind(window) : f=>setTimeout(()=>f(Date.now()), 16);
+  const step = ts=>{
+    if(!G || G.tok!==tok) return;
+    const dt = last ? Math.min(0.05, (ts-last)/1000) : 0.016; last = ts;
+    if(!G.manual) G.tick(dt);
+    else if(G.view && G.view.idle) G.view.idle();
+    raf(step);
+  };
+  raf(step);
+}
+
+/* ============ 3D: pemuat three.js, bahan, label, kesan ============ */
+const THREE_SRC = ["../../assets/vendor/three.min.js", "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"];
+let threeP = null;
+const loadJS = src => new Promise(res=>{ const s = document.createElement("script"); s.src = src;
+  const to = setTimeout(()=>res(!!window.THREE), 12000);
+  s.onload = () => { clearTimeout(to); res(!!window.THREE); }; s.onerror = () => { clearTimeout(to); s.remove(); res(false); }; document.head.appendChild(s); });
+function need3D(){
+  if(!threeP) threeP = window.THREE ? Promise.resolve(true) : (async()=>{ for(const u of THREE_SRC) if(await loadJS(u)) return true; threeP = null; return false; })();
+  const fonts = document.fonts
+    ? Promise.race([Promise.all(['700 40px "Baloo 2"','700 40px "Noto Naskh Arabic"','700 40px Amiri'].map(f=>document.fonts.load(f))), new Promise(r=>setTimeout(r,2500))]).catch(()=>{})
+    : Promise.resolve();
+  return Promise.all([threeP, fonts]).then(([ok])=>ok);
+}
+// WebGL wujud? (jsdom / peranti lama → mod rata 2D)
+let glOK = null;
+function hasGL(){
+  if(glOK!==null) return glOK;
+  try{ const c = document.createElement("canvas"); glOK = !!(window.WebGLRenderingContext && (c.getContext("webgl") || c.getContext("experimental-webgl"))); }catch(e){ glOK = false; }
+  return glOK;
+}
+let lowQ = load("ark1-lowq", false);
+
+const MATS = new Map();
+function M(c, o){ const k = c+"|"+(o?JSON.stringify(o):""); let m = MATS.get(k);
+  if(!m){ m = new THREE.MeshStandardMaterial(Object.assign({color:c, roughness:.62, flatShading:true}, o||{})); MATS.set(k, m); } return m; }
+const MU = (c, o) => new THREE.MeshStandardMaterial(Object.assign({color:c, roughness:.62}, o||{}));
+const GLOW = (c, k=.8) => M(c, {emissive:c, emissiveIntensity:k});
+const GEOS = new Map();
+const geo = (k, f) => { let g = GEOS.get(k); if(!g){ g = f(); GEOS.set(k, g); } return g; };
+const SPH = (r, w=10, h=8) => geo(`s${r}|${w}|${h}`, ()=>new THREE.SphereGeometry(r, w, h));
+const CYL = (a, b, h, n=8) => geo(`c${a}|${b}|${h}|${n}`, ()=>new THREE.CylinderGeometry(a, b, h, n));
+const BOX = (x, y, z) => geo(`b${x}|${y}|${z}`, ()=>new THREE.BoxGeometry(x, y, z));
+const CONE = (r, h, n=8) => geo(`k${r}|${h}|${n}`, ()=>new THREE.ConeGeometry(r, h, n));
+const TOR = (r, t, arc=Math.PI*2, n=24) => geo(`t${r}|${t}|${arc}|${n}`, ()=>new THREE.TorusGeometry(r, t, 8, n, arc));
+function mk(g, mat, x=0, y=0, z=0, p){ const m = new THREE.Mesh(g, mat); m.position.set(x,y,z); if(p) p.add(m); return m; }
+function gradTex(stops){
+  const c = document.createElement("canvas"); c.width = 2; c.height = 256; const x = c.getContext("2d"), g = x.createLinearGradient(0, 0, 0, 256);
+  stops.forEach((s,i)=>g.addColorStop(i/(stops.length-1), s)); x.fillStyle = g; x.fillRect(0, 0, 2, 256); return new THREE.CanvasTexture(c);
+}
+const pot = v => Math.min(2048, Math.pow(2, Math.ceil(Math.log2(Math.max(2,v)))));
+function toPOT(c){ const pc = document.createElement("canvas"); pc.width = pot(c.width); pc.height = pot(c.height);
+  const px = pc.getContext("2d"); px.imageSmoothingQuality = "high"; px.drawImage(c, 0, 0, pc.width, pc.height);
+  const t = new THREE.CanvasTexture(pc); t.generateMipmaps = true; t.minFilter = THREE.LinearMipmapLinearFilter; t.anisotropy = 4; return t; }
+
+// Label jawapan pada gerbang: emoji besar + teks (Rumi/Jawi), atau huruf/kalimah Arab
+const texCache = new Map();
+function itemTex(it, accent){
+  const k = itKind(it), txt = itText(it), em = itEmoji(it), key = `${lang}|${itKey(it)}|${accent}`;
+  if(texCache.has(key)) return texCache.get(key);
+  const ar = k!=="w" || /[\u0600-\u06FF]/.test(txt);
+  const fs = k==="h" ? 150 : k==="ar" ? 92 : ar ? 64 : 58;
+  const font = `700 ${fs}px ${k!=="w" ? 'Amiri,"Noto Naskh Arabic",serif' : ar ? '"Noto Naskh Arabic",Amiri,serif' : '"Baloo 2","Trebuchet MS",sans-serif'}`;
+  const c = document.createElement("canvas"), x = c.getContext("2d"); x.font = font;
+  const maxW = 420, lines = []; let cur = "";
+  for(const w of String(txt).split(" ")){ const t = cur ? cur+" "+w : w; if(x.measureText(t).width > maxW && cur){ lines.push(cur); cur = w; } else cur = t; }
+  lines.push(cur);
+  const lh = fs*(ar ? 1.45 : 1.15), emH = em ? 120 : 0, tw = Math.max(260, ...lines.map(l=>x.measureText(l).width));
+  c.width = Math.ceil(tw + 60); c.height = Math.ceil(emH + lh*lines.length + 36);
+  const W_ = c.width, H_ = c.height, r = 40;
+  x.beginPath(); x.moveTo(r,0); x.arcTo(W_,0,W_,H_,r); x.arcTo(W_,H_,0,H_,r); x.arcTo(0,H_,0,0,r); x.arcTo(0,0,W_,0,r); x.closePath();
+  x.fillStyle = "#FFFFFF"; x.fill(); x.lineWidth = 14; x.strokeStyle = accent || "#FFC22E"; x.stroke();
+  x.textAlign = "center"; x.textBaseline = "middle";
+  if(em){ x.font = '100px "Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji",sans-serif'; x.fillText(em, W_/2, 18+emH/2); }
+  x.font = font; x.direction = ar ? "rtl" : "ltr"; x.fillStyle = "#132049";
+  lines.forEach((l,i)=>x.fillText(l, W_/2, 18 + emH + lh*(i+0.5) + fs*0.05));
+  const res = {t:toPOT(c), a:W_/H_}; texCache.set(key, res); return res;
+}
+// emoji sebagai sprite (pemandu, pesaing, burung…)
+const emoCache = new Map();
+function emojiTex(e){
+  if(emoCache.has(e)) return emoCache.get(e);
+  const c = document.createElement("canvas"); c.width = c.height = 128; const x = c.getContext("2d");
+  x.font = '100px "Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji",sans-serif'; x.textAlign = "center"; x.textBaseline = "middle"; x.fillText(e, 64, 70);
+  const t = new THREE.CanvasTexture(c); emoCache.set(e, t); return t;
+}
+function emojiSprite(e, s=1){ const sp = new THREE.Sprite(new THREE.SpriteMaterial({map:emojiTex(e), transparent:true})); sp.scale.set(s, s, 1); return sp; }
+function itemSprite(){ const s = new THREE.Sprite(new THREE.SpriteMaterial({transparent:true, depthWrite:false})); s.center.set(0.5, 0); s.renderOrder = 5; return s; }
+function setItem(s, it, accent, w=2.7){ const T = itemTex(it, accent); s.material.map = T.t; s.material.needsUpdate = true;
+  const maxH = w*0.85; let ww = w, hh = w/T.a; if(hh > maxH){ hh = maxH; ww = hh*T.a; } s.scale.set(ww, hh, 1); }
+
+/* ---------- Kesan ---------- */
+function addFx(t, step, end){ G.fxs.push({t:0, max:t, step, end}); }
+function stepFx(dt){ G.fxs = G.fxs.filter(f=>{ f.t += dt; const k = Math.min(1, f.t/f.max); f.step(k, dt); if(k>=1){ if(f.end) f.end(); return false; } return true; }); }
+function burst(pos, color, n=12, sp=4){
+  const g = SPH(0.14, 6, 4), m = GLOW(color, .6);
+  for(let i=0;i<n;i++){
+    const s = new THREE.Mesh(g, m); s.position.copy(pos); G.scene.add(s);
+    const v = new THREE.Vector3(rnd(-sp,sp), rnd(1,sp+1), rnd(-sp,sp)*0.6);
+    addFx(0.7, (k, dt)=>{ v.y -= 9*dt; s.position.addScaledVector(v, dt); s.scale.setScalar(Math.max(0.01, 1-k)); }, ()=>G.scene.remove(s));
+  }
+}
+function ring(pos, color){
+  const r = new THREE.Mesh(TOR(0.9, 0.1), MU(color, {emissive:color, emissiveIntensity:.9, transparent:true}));
+  r.position.copy(pos); G.scene.add(r);
+  addFx(0.45, k=>{ r.scale.setScalar(1+k*2.4); r.material.opacity = 1-k; }, ()=>{ G.scene.remove(r); r.material.dispose(); });
+}
+function puff(pos, c=0xFFFFFF, drift=new THREE.Vector3(0, 1.4, 1.5), t=0.9){
+  const s = new THREE.Mesh(SPH(0.35, 7, 5), MU(c, {transparent:true, opacity:.85, roughness:1})); s.position.copy(pos); G.scene.add(s);
+  addFx(t, (k, dt)=>{ s.position.addScaledVector(drift, dt); s.scale.setScalar(1+k*1.8); s.material.opacity = 0.85*(1-k); }, ()=>{ G.scene.remove(s); s.material.dispose(); });
+}
+function noGL(){
+  toast("⚠️ "+tx("Grafik 3D tidak dapat dibuka. Kita main versi ringkas!","ڬرافيک 3D تيدق داڤت دبوک. کيت ماٴين ۏرسي ريڠکس!"));
+}
+
+/* ============ 3D: model kenderaan, prop dunia & gerbang ============ */
+// Semua kenderaan menghadap -z (ke hadapan).
+function flames(g, z, xs, y=0.35, col=0xFF8A1F){
+  const f = new THREE.Group(); f.visible = false; g.add(f); g.userData.flames = f;
+  xs.forEach(x=>{ mk(CONE(0.22, 0.9, 6), GLOW(col, 1.2), x, y, z, f).rotation.x = Math.PI/2; mk(CONE(0.12, 0.6, 6), GLOW(0xFFF27A, 1.4), x, y, z-0.05, f).rotation.x = Math.PI/2; });
+  return f;
+}
+function driver(g, e, y, z, s=1.05){ const d = emojiSprite(e, s); d.position.set(0, y, z); g.add(d); g.userData.driver = d; return d; }
+function kart(color, e){
+  const g = new THREE.Group(), body = M(color), dark = M(0x23263A), wh = CYL(0.36, 0.36, 0.32, 10);
+  mk(BOX(1.5, 0.4, 2.4), body, 0, 0.45, 0, g);
+  mk(BOX(1.1, 0.3, 0.9), body, 0, 0.5, -1.45, g);
+  mk(BOX(1.7, 0.08, 0.4), M(0xFFFFFF), 0, 0.95, 1.3, g);
+  mk(BOX(0.9, 0.55, 0.15), dark, 0, 0.85, 0.55, g);
+  [[-0.85,-0.85],[0.85,-0.85],[-0.85,0.85],[0.85,0.85]].forEach(([x,z])=>{ mk(wh, dark, x, 0.36, z, g).rotation.z = Math.PI/2; });
+  driver(g, e, 1.25, 0.1); flames(g, 1.7, [-0.4, 0.4], 0.45);
+  return g;
+}
+function boat(color, e){
+  const g = new THREE.Group(), body = M(color);
+  mk(BOX(1.6, 0.55, 2.6), body, 0, 0.3, 0.2, g);
+  const nose = mk(CONE(0.8, 1.4, 4), body, 0, 0.3, -1.8, g); nose.rotation.x = -Math.PI/2; nose.rotation.y = Math.PI/4; nose.scale.set(1.4, 1, 0.5);
+  mk(BOX(1.64, 0.12, 2.64), M(0xFFFFFF), 0, 0.5, 0.2, g);
+  mk(BOX(1.2, 0.45, 0.08), M(0xBFE9FF, {transparent:true, opacity:.7}), 0, 0.8, -0.5, g).rotation.x = -0.4;
+  mk(BOX(0.5, 0.6, 0.4), M(0x30344A), 0, 0.6, 1.55, g);
+  driver(g, e, 1.15, 0.3); flames(g, 1.9, [0], 0.25, 0xFFFFFF);
+  return g;
+}
+function plane(color, e){
+  const g = new THREE.Group(), body = M(color), wing = M(0xFFFFFF);
+  const f = mk(CYL(0.45, 0.32, 2.8, 8), body, 0, 0, 0, g); f.rotation.x = Math.PI/2;
+  mk(CONE(0.45, 0.6, 8), M(0xFFD84D), 0, 0, -1.7, g).rotation.x = -Math.PI/2;
+  mk(BOX(3.6, 0.1, 0.8), wing, 0, -0.05, -0.2, g);
+  mk(BOX(1.4, 0.08, 0.45), wing, 0, 0.05, 1.25, g);
+  mk(BOX(0.08, 0.6, 0.45), body, 0, 0.35, 1.25, g);
+  const prop = mk(BOX(1.5, 0.12, 0.05), M(0x30344A), 0, 0, -2.02, g); g.userData.prop = prop;
+  driver(g, e, 0.65, 0.05, 0.95); flames(g, 1.6, [0], 0, 0x9FE8FF);
+  return g;
+}
+const VEH = {kereta:kart, bot:boat, pesawat:plane};
+
+/* ---------- prop tepi jalan (setiap satu 2–4 jejaring) ---------- */
+const PROP = {
+  pine(g){ mk(CYL(0.2,0.25,1,6), M(0x7A4A2A), 0,0.5,0,g); mk(CONE(1.3,2,7), M(0x2F9E44), 0,1.9,0,g); mk(CONE(0.95,1.6,7), M(0x46B95A), 0,2.9,0,g); },
+  oak(g){ mk(CYL(0.22,0.3,1.4,6), M(0x7A4A2A), 0,0.7,0,g); mk(SPH(1.4,7,5), M(0x3FAE4F), 0,2.3,0,g); mk(SPH(0.9,6,5), M(0x5CC46A), 0.6,2.9,0.2,g); },
+  mush(g){ mk(CYL(0.28,0.36,0.8,7), M(0xFFF3DD), 0,0.4,0,g); const c = mk(SPH(0.8,8,5), M(0xE5484D), 0,0.85,0,g); c.scale.y = 0.6; mk(SPH(0.16,5,4), M(0xFFFFFF), 0.35,1.25,0.3,g); },
+  bush(g){ mk(SPH(0.8,6,5), M(0x4DB45C), 0,0.5,0,g); mk(SPH(0.6,6,5), M(0x69C873), 0.7,0.4,0.2,g); },
+  acacia(g){ mk(CYL(0.15,0.25,2.4,6), M(0x8A5A2B), 0,1.2,0,g); const t = mk(SPH(1.8,8,5), M(0x7DAA3A), 0,2.6,0,g); t.scale.y = 0.3; },
+  rock(g){ const r = mk(SPH(0.9,5,4), M(0x9A9AA6), 0,0.35,0,g); r.scale.set(1.2,0.7,1); },
+  fence(g){ mk(CYL(0.1,0.1,1.2,5), M(0xA0703C), -0.8,0.6,0,g); mk(CYL(0.1,0.1,1.2,5), M(0xA0703C), 0.8,0.6,0,g); mk(BOX(2,0.16,0.1), M(0xC9944F), 0,0.9,0,g); },
+  palm(g){ const t = mk(CYL(0.14,0.22,3,6), M(0xA0703C), 0,1.5,0,g); t.rotation.z = 0.15;
+    [0,2.1,4.2].forEach(a=>{ const l = mk(BOX(1.8,0.08,0.5), M(0x2FB36B), Math.cos(a)*0.7+0.2,3,Math.sin(a)*0.7,g); l.rotation.y = -a; l.rotation.z = -0.3; }); },
+  drop(g){ mk(SPH(0.8,10,8), M(0x5EC8F5, {roughness:.2}), 0,0.9,0,g); mk(CONE(0.68,1.1,10), M(0x5EC8F5, {roughness:.2}), 0,1.9,0,g); },
+  rainbow(g){ [0xE5484D,0xFFC22E,0x2F9E44,0x2F7BFF].forEach((c,i)=>{ mk(TOR(2.4-i*0.3,0.15,Math.PI,16), M(c), 0,0,0,g); }); },
+  flower(g){ mk(CYL(0.06,0.06,1,5), M(0x2F9E44), 0,0.5,0,g); const p = mk(TOR(0.35,0.22,Math.PI*2,8), M(pick([0xFF6FA8,0xB36BFF,0xFF8A3D,0xFFFFFF])), 0,1.1,0,g); mk(SPH(0.22,6,5), M(0xFFC22E), 0,1.1,0.05,g); },
+  sunflower(g){ mk(CYL(0.08,0.1,2.4,5), M(0x2F9E44), 0,1.2,0,g); mk(TOR(0.55,0.3,Math.PI*2,10), M(0xFFC22E), 0,2.5,0,g); mk(CYL(0.42,0.42,0.12,10), M(0x6B3A12), 0,2.5,0.05,g).rotation.x = Math.PI/2; },
+  hive(g){ [0.7,0.55,0.38].forEach((r,i)=>{ const s = mk(SPH(r,8,5), M(0xF5B400), 0,0.4+i*0.55,0,g); s.scale.y = 0.7; }); mk(SPH(0.15,5,4), M(0x3A2600), 0,0.5,0.62,g); },
+  tent(g){ mk(CYL(1.2,1.2,1.4,8), M(pick([0xE5484D,0x2F7BFF,0x8B45F0])), 0,0.7,0,g); mk(CONE(1.5,1.4,8), M(0xFFFFFF), 0,2.1,0,g); mk(SPH(0.15,5,4), GLOW(0xFFD23F), 0,2.9,0,g); },
+  lamp(g){ mk(CYL(0.08,0.1,3,5), M(0x3A3550), 0,1.5,0,g); mk(SPH(0.35,8,6), GLOW(pick([0xFFD23F,0xFF4F9A,0x7CF2FF]), 1.3), 0,3.1,0,g); },
+  balloon(g){ mk(CYL(0.02,0.02,2,4), M(0xFFFFFF), 0,1,0,g); const b = mk(SPH(0.5,8,6), GLOW(pick([0xFF4F9A,0xFFD23F,0x7CF2FF]), .5), 0,2.4,0,g); b.scale.y = 1.2; },
+  hab(g){ g.position.y = rnd(7,12); const b = mk(SPH(1.6,10,8), M(pick([0xFF6F61,0xFFC94D,0x8E7CC3])), 0,1.6,0,g); b.scale.y = 1.15; mk(BOX(0.7,0.5,0.7), M(0x8A5A2B), 0,-0.4,0,g); },
+  kite(g){ g.position.y = rnd(6,10); const k = mk(BOX(1.4,1.4,0.06), M(pick([0xFF4F9A,0xFFC22E,0x2FB3FF])), 0,0,0,g); k.rotation.z = Math.PI/4; mk(BOX(0.06,1.6,0.04), M(0xFFFFFF), 0,-1.6,0,g); }
+};
+function makeProp(kind){ const g = new THREE.Group(); PROP[kind](g); g.userData.kind = kind; g.userData.baseY = g.position.y; return g; }
+
+/* ---------- gerbang jawapan (dikitar semula) ---------- */
+function makeGate(gid, n, accent){
+  const g = new THREE.Group(), lanes = [], acc = M(accent);
+  for(let i=0;i<n;i++){
+    const p = laneXY(n, i), L_ = new THREE.Group(); L_.position.set(p.x, p.y, 0); g.add(L_);
+    const s = itemSprite(); L_.add(s);
+    if(gid==="kereta"){ const mat = M(0xFFFFFF);
+      mk(CYL(0.13,0.13,3.2,6), acc, -1.45,1.6,0,L_); mk(CYL(0.13,0.13,3.2,6), acc, 1.45,1.6,0,L_);
+      const top = mk(BOX(3.1,0.35,0.3), mat, 0,3.25,0,L_); L_.userData.hl = top; s.position.set(0,3.45,0); }
+    else if(gid==="bot"){ const b = mk(SPH(0.75,10,7), M(0xFFFFFF), 0,0.25,0,L_); mk(CONE(0.35,0.9,8), acc, 0,1.1,0,L_);
+      L_.userData.hl = b; s.position.set(0,1.6,0); }
+    else { const r = mk(TOR(1.55,0.16,Math.PI*2,20), M(0xFFFFFF), 0,0,0,L_); L_.userData.hl = r; s.position.set(0,0,0.05); s.center.set(0.5,0.5); }
+    L_.userData.spr = s; lanes.push(L_);
+  }
+  g.userData.lanes = lanes; return g;
+}
+function fillGate(gm, gate, accent){
+  const n = gm.userData.lanes.length;
+  gm.userData.lanes.forEach((L_,i)=>{ L_.visible = true; L_.scale.setScalar(1);
+    L_.userData.hl.material = L_.userData.hl.userData.base || (L_.userData.hl.userData.base = L_.userData.hl.material);
+    setItem(L_.userData.spr, gate.q.opts[i], accent, n===4 ? 2.3 : 2.75); });
+  gm.position.z = -gate.z; gm.userData.gate = gate; gm.visible = true;
+}
+function checkerTex(){ const c = document.createElement("canvas"); c.width = 128; c.height = 32; const x = c.getContext("2d");
+  for(let i=0;i<16;i++) for(let j=0;j<4;j++){ x.fillStyle = (i+j)%2 ? "#111" : "#fff"; x.fillRect(i*8, j*8, 8, 8); } return new THREE.CanvasTexture(c); }
+function roadTex(gid, w){
+  const c = document.createElement("canvas"); c.width = 128; c.height = 128; const x = c.getContext("2d");
+  if(gid==="bot"){ x.fillStyle = w.night ? "#1F3A7A" : "#2E9BE0"; x.fillRect(0,0,128,128); x.strokeStyle = "rgba(255,255,255,.35)"; x.lineWidth = 3;
+    for(let i=0;i<6;i++){ x.beginPath(); const y = i*22+8; x.moveTo(0,y); x.bezierCurveTo(32,y-8,64,y+8,128,y); x.stroke(); } }
+  else if(gid==="pesawat"){ const cs = [w.ground, "#ffffff22", "#00000018"]; x.fillStyle = w.ground; x.fillRect(0,0,128,128);
+    for(let i=0;i<4;i++) for(let j=0;j<4;j++){ x.fillStyle = cs[(i*3+j)%3]; x.fillRect(i*32+2, j*32+2, 28, 28); } }
+  else { x.fillStyle = w.road; x.fillRect(0,0,128,128); x.fillStyle = "#FFFFFF"; x.fillRect(0,0,6,128); x.fillRect(122,0,6,128);
+    x.fillStyle = "rgba(255,255,255,.85)"; [128/3, 256/3].forEach(px=>x.fillRect(px-2, 10, 4, 54)); }
+  const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; return t;
+}
+
+/* ============ PAPARAN 3D (three.js) ============ */
+const V3 = {
+  build(){
+    const w = WORLD[G.subj], gid = G.gid, F = G.field, air = gid==="pesawat";
+    const R = new THREE.WebGLRenderer({antialias:!lowQ, powerPreference:"high-performance"});
+    R.setPixelRatio(lowQ ? 1 : Math.min(1.5, window.devicePixelRatio||1));
+    G.W = F.clientWidth || 360; G.H = F.clientHeight || 640; R.setSize(G.W, G.H);
+    F.querySelectorAll("canvas").forEach(c=>c.remove()); F.prepend(R.domElement);
+    const scene = new THREE.Scene(); scene.background = gradTex(w.sky);
+    scene.fog = new THREE.Fog(new THREE.Color(w.fog), air ? 40 : 34, air ? 150 : 125);
+    const cam = new THREE.PerspectiveCamera(62, G.W/G.H, 0.1, 260);
+    scene.add(new THREE.HemisphereLight(0xFFFFFF, w.night ? 0x302050 : 0x8AA070, w.night ? 0.75 : 1.0));
+    const sun = new THREE.DirectionalLight(w.night ? 0xB8A8FF : 0xFFF2D8, w.night ? 0.55 : 0.85); sun.position.set(6, 12, 4); scene.add(sun);
+    Object.assign(G, {R, scene, cam, fxs:[], anim:[], props:[], clouds:[], fov:62});
+    const len = G.len + 300;
+    // tanah / jalan / air
+    const gy = air ? -9 : 0;
+    const gm = new THREE.Mesh(new THREE.PlaneGeometry(420, len), air ? new THREE.MeshLambertMaterial({map:(()=>{ const t = roadTex("pesawat", w); t.repeat.set(14, len/30); return t; })()}) : M(w.ground, {flatShading:false}));
+    gm.rotation.x = -Math.PI/2; gm.position.set(0, gy, -len/2+60); scene.add(gm);
+    if(!air){
+      const t = roadTex(gid, w); t.repeat.set(1, len/(gid==="bot" ? 14 : 9));
+      const road = new THREE.Mesh(new THREE.PlaneGeometry(gid==="bot" ? 12 : 10.6, len), new THREE.MeshLambertMaterial({map:t}));
+      road.rotation.x = -Math.PI/2; road.position.set(0, 0.03, -len/2+60); scene.add(road); G.roadT = t;
+    }
+    // garisan mula & tamat
+    const chk = checkerTex();
+    [[0, 0.6], [G.len, 1]].forEach(([z, k])=>{
+      const b = new THREE.Group(); b.position.z = -z; scene.add(b);
+      const by = air ? 8.4 : 4.6, half = air ? 5 : 5.6;
+      mk(CYL(0.2,0.2,by,6), M(0xFFFFFF), -half, (air?-1:0)+by/2, 0, b); mk(CYL(0.2,0.2,by,6), M(0xFFFFFF), half, (air?-1:0)+by/2, 0, b);
+      const ban = mk(new THREE.PlaneGeometry(half*2, 0.9*k+0.3), new THREE.MeshBasicMaterial({map:chk, side:THREE.DoubleSide, fog:false}), 0, (air?-1:0)+by, 0, b);
+      if(z) { const fl = emojiSprite("🏁", 2.2); fl.position.set(0, (air?-1:0)+by+1.4, 0); b.add(fl); }
+    });
+    // prop tepi (dikitar semula)
+    const span = 210;
+    for(let i=0;i<22;i++){
+      const kind = w.props[i % w.props.length], p = makeProp(kind), side = i%2 ? 1 : -1, s = rnd(0.9, 1.5);
+      const sky = kind==="hab" || kind==="kite";
+      p.position.set(side*(air ? rnd(4,24) : sky ? rnd(9,18) : rnd(gid==="bot"?8:7.2, 17)), air && !sky ? gy : p.position.y + (air ? 2 : 0), -i*span/22 - rnd(0,6));
+      p.scale.setScalar(air && !sky ? s*1.6 : s); p.rotation.y = rnd(-0.6,0.6);
+      if(kind==="rainbow"){ p.rotation.y = side*Math.PI/2; p.position.y = 0; }
+      scene.add(p); G.props.push(p);
+    }
+    G.span = span;
+    // kaki langit: bukit + mercu tanda dunia, ikut kamera
+    const hz = new THREE.Group(); scene.add(hz); G.hz = hz;
+    for(let i=0;i<6;i++){ const h = mk(SPH(14,8,5), M(w.night ? 0x241A55 : 0x6DBE5A), -75+i*30+rnd(-6,6), gy-4, -150, hz); h.scale.set(1.5, rnd(0.5,0.9), 1); }
+    const sunm = mk(SPH(7,14,10), new THREE.MeshBasicMaterial({color:w.night ? 0xFFF4C8 : 0xFFE27A, fog:false}), 34, w.night ? 44 : 30, -170, hz);
+    if(G.subj==="arab"){ const fw = new THREE.Group(); fw.position.set(-34, 16, -140); hz.add(fw); mk(TOR(12,0.5,Math.PI*2,28), GLOW(0xFF4F9A,.8), 0,0,0,fw);
+      for(let k=0;k<8;k++){ const sp = mk(BOX(0.3,24,0.3), M(0xFFD23F), 0,0,0,fw); sp.rotation.z = k*Math.PI/8; }
+      G.anim.push(dt=>{ fw.rotation.z += dt*0.25; }); }
+    if(G.subj==="feqah" || G.subj==="mix"){ [0xE5484D,0xFF8A3D,0xFFC22E,0x2F9E44,0x2F7BFF,0x8B45F0].forEach((c,k)=>mk(TOR(40-k*2,1,Math.PI,32), new THREE.MeshBasicMaterial({color:c, fog:false, transparent:true, opacity:.75}), 0, gy-6, -190, hz)); }
+    // awan
+    const nc = air ? 12 : 5;
+    for(let i=0;i<nc;i++){ const c = new THREE.Group(); [[0,0,0,1.6],[1.6,-0.2,0,1.2],[-1.5,-0.3,0,1.1]].forEach(([x,y,z,r])=>mk(SPH(r,7,5), M(0xFFFFFF, {flatShading:false}), x,y,z,c));
+      c.position.set(air ? rnd(-22,22) : rnd(-40,40), air ? rnd(-4,14) : rnd(18,30), -rnd(10,200)); if(air && Math.abs(c.position.x)<8) c.position.x += 14*Math.sign(c.position.x||1);
+      c.scale.setScalar(air ? rnd(1,1.8) : rnd(2,3)); scene.add(c); G.clouds.push(c); }
+    // burung / ikan
+    if(air) for(let i=0;i<3;i++){ const b = emojiSprite("🐦", 1.1); b.position.set(rnd(-14,14), rnd(0,10), -rnd(30,120)); scene.add(b); G.anim.push(dt=>{ b.position.x += dt*2.2; if(b.position.x>18) b.position.x = -18; if(b.position.z > G.cam.position.z+5) b.position.z -= 160; }); }
+    if(gid==="bot"){ const f = new THREE.Group(); mk(SPH(0.45,7,5), M(0xFF8A3D), 0,0,0,f).scale.set(0.6,0.8,1.4); mk(CONE(0.4,0.6,4), M(0xFF6A1F), 0,0,0.8,f).rotation.x = Math.PI/2; scene.add(f); f.visible = false;
+      let ft = 2; G.anim.push(dt=>{ ft -= dt; if(ft<=0 && !f.visible){ f.visible = true; f.userData.t = 0; f.userData.x = pick([-5.2,5.2]); f.userData.z = G.cam.position.z - rnd(20,40); }
+        if(f.visible){ const t = (f.userData.t += dt)/1.1; f.position.set(f.userData.x, Math.sin(Math.min(1,t)*Math.PI)*2.4, f.userData.z); f.rotation.x = -1.2 + t*2.4;
+          if(t>=1){ f.visible = false; ft = rnd(2,4); burst(f.position.clone(), 0xBFE9FF, 6, 2); sfx.splash(); } } }); }
+    // kenderaan
+    const mk3 = VEH[gid];
+    G.me = mk3(Number("0x"+w.c1.slice(1)), w.m); scene.add(G.me);
+    G.rivM = G.rivals.map(r=>{ const v = mk3(r.c, r.e); scene.add(v); return v; });
+    if(!air){ const sh = new THREE.Mesh(new THREE.CircleGeometry(1.4, 12), new THREE.MeshBasicMaterial({color:0x000000, transparent:true, opacity:.22})); sh.rotation.x = -Math.PI/2; sh.position.y = 0.05; G.me.add(sh); }
+    // gerbang & bintang (dikitar)
+    G.gpool = [0,1,2].map(()=>{ const g = makeGate(gid, G.n, w.a); g.visible = false; scene.add(g); return g; });
+    G.spool = [0,1,2].map(()=>{ const s = emojiSprite("⭐", 1.3); s.visible = false; scene.add(s); return s; });
+    const tok = G.tok;
+    R.domElement.addEventListener("webglcontextlost", e=>{ e.preventDefault(); if(G && G.tok===tok) toast("⚠️ "+tx("Grafik terhenti. Cuba lagi.","ڬرافيک ترهنتي. چوبا لاڬي.")); });
+    V3.frame(0);
+  },
+  steer(){},
+  gate(gate, ok){
+    const gm = G.gpool[gate.i % 3], Ls = gm.userData.lanes, okL = Ls[gate.q.ok], me = Ls[gate.pick];
+    okL.userData.hl.material = GLOW(0x18A957, 1); 
+    const p = new THREE.Vector3(); (ok ? okL : me).getWorldPosition(p); p.y += G.gid==="kereta" ? 2 : 0.6;
+    if(ok){ burst(p, 0xFFC22E, 14); ring(p, 0x18A957); okL.scale.setScalar(1.15); }
+    else { me.userData.hl.material = GLOW(0xE5484D, 1); burst(p, 0xE5484D, 8, 2.5); puff(G.me.position.clone().add(new THREE.Vector3(0,1,0)), 0xDDDDDD); }
+    if(G.gid==="bot") burst(G.me.position.clone(), 0xBFE9FF, 10, 3);
+  },
+  star(s){ const p = G.me.position.clone(); p.y += 1.5; burst(p, 0xFFD84D, 8, 2.5); },
+  frame(dt){
+    if(!G.R) return;
+    const t = G.t, gid = G.gid, air = gid==="pesawat", me = G.me, tg = laneXY(G.n, G.lane), k = 1 - Math.exp(-10*dt);
+    me.position.x += (tg.x - me.position.x)*k; me.position.z = -G.dist;
+    me.position.y = air ? me.position.y + (tg.y - me.position.y)*k + Math.sin(t*3)*0.01 : gid==="bot" ? 0.12 + Math.sin(t*6)*0.06 : 0;
+    const roll = (tg.x - me.position.x)*0.18;
+    const spin = G.spinT>0 ? (1 - G.spinT/0.8)*Math.PI*2 : 0;
+    if(air){ me.rotation.set(-(tg.y-me.position.y)*0.12, 0, -roll*1.6 + spin); if(me.userData.prop) me.userData.prop.rotation.z += dt*30; }
+    else { me.rotation.set(0, spin - roll*0.6, gid==="bot" ? -roll*0.8 : 0); }
+    const fl = me.userData.flames, on = G.boostT>0; fl.visible = on; if(on){ fl.scale.set(1, 1, 0.8 + Math.random()*0.6); if(Math.random()<0.25 && !REDUCED) puff(me.position.clone().add(new THREE.Vector3(rnd(-0.5,0.5), air?0:0.4, 1.8)), gid==="kereta" ? 0xFFB070 : 0xFFFFFF, new THREE.Vector3(0,0.6,3), 0.6); }
+    if(gid==="bot" && G.phase==="play" && Math.random()<0.3) puff(me.position.clone().add(new THREE.Vector3(rnd(-0.6,0.6),0.1,1.6)), 0xEAF8FF, new THREE.Vector3(rnd(-1,1),0.8,2), 0.7);
+    G.rivals.forEach((r,i)=>{ const v = G.rivM[i], p = laneXY(G.n, r.lane);
+      if(r.lane===G.lane && Math.abs(r.dist - G.dist) < 5) r.lane = (r.lane + 1 + (i%2)) % G.n;
+      v.position.x += (p.x - v.position.x)*k*0.5; v.position.z = -r.dist; v.position.y = air ? p.y + Math.sin(t*2+i)*0.2 : gid==="bot" ? 0.12 + Math.sin(t*5+i)*0.06 : 0;
+      v.userData.flames.visible = false; if(v.userData.prop) v.userData.prop.rotation.z += dt*30; });
+    // kamera
+    const cam = G.cam, cz = me.position.z;
+    const want = air ? new THREE.Vector3(me.position.x*0.55, me.position.y+1.9, cz+8.2) : new THREE.Vector3(me.position.x*0.55, 4.1, cz+8.4);
+    if(dt===0) cam.position.copy(want); else cam.position.lerp(want, 1 - Math.exp(-6*dt));
+    cam.lookAt(me.position.x*0.75, air ? me.position.y+0.4 : 1.1, cz-12);
+    const f = on && !REDUCED ? 72 : 62; G.fov += (f - G.fov)*Math.min(1, dt*4); if(Math.abs(cam.fov - G.fov) > 0.05){ cam.fov = G.fov; cam.updateProjectionMatrix(); }
+    if(G.roadT && gid==="bot") G.roadT.offset.x = Math.sin(t*0.7)*0.02;
+    G.hz.position.z = cz; G.hz.position.x = me.position.x*0.3;
+    // kitar semula prop & awan
+    for(const p of G.props) if(p.position.z > cam.position.z + 6) p.position.z -= G.span;
+    for(const c of G.clouds) if(c.position.z > cam.position.z + 6) c.position.z -= 200;
+    G.props.forEach((p,i)=>{ if(p.userData.kind==="hab" || p.userData.kind==="kite") p.position.y = p.userData.baseY + Math.sin(t+i)*0.4; });
+    // gerbang
+    G.gpool.forEach(g=>g.visible = false);
+    for(let j=G.gi-1; j<=G.gi+1; j++){ const gate = G.gates[j]; if(!gate) continue; const gm = G.gpool[j%3];
+      if(gm.userData.gate!==gate) fillGate(gm, gate, WORLD[G.subj].a); gm.visible = gate.z - G.dist > -8; }
+    G.spool.forEach(s=>s.visible = false);
+    G.stars.forEach((s,i)=>{ const sp = G.spool[i%3]; if(s.got || s.z - G.dist < -6 || s.z - G.dist > 110) return; const p = laneXY(G.n, s.lane);
+      sp.visible = true; sp.position.set(p.x, (air ? p.y : 1.1) + Math.sin(t*4+i)*0.15, -s.z); });
+    G.anim.forEach(a=>a(dt)); stepFx(dt);
+    G.R.render(G.scene, cam);
+  },
+  idle(){ if(G.R) G.R.render(G.scene, G.cam); },
+  dispose(){ if(G && G.R){ try{ G.R.dispose(); G.R.forceContextLoss(); }catch(e){} G.R.domElement.remove(); G.R = null; } }
+};
+window.addEventListener("resize", ()=>{
+  if(!G || !G.R || !G.field) return;
+  G.W = G.field.clientWidth; G.H = G.field.clientHeight; G.R.setSize(G.W, G.H); G.cam.aspect = G.W/G.H; G.cam.updateProjectionMatrix();
+});
+
+/* ============ PAPARAN RATA (tiada WebGL): jalan 2D ringkas, logik sama ============ */
+const VF = {
+  build(){
+    const w = WORLD[G.subj], F = G.field, n = G.n;
+    F.style.setProperty("--sky1", w.sky[1]); F.style.setProperty("--gnd", G.gid==="bot" ? "#2E9BE0" : G.gid==="pesawat" ? w.sky[2] : w.ground); F.style.setProperty("--road", G.gid==="bot" ? "#1F7FC4" : G.gid==="pesawat" ? "transparent" : w.road);
+    F.insertAdjacentHTML("afterbegin", `<div class="flat" id="flat"><div class="rd"></div>
+      <div class="gate" id="fgate" style="grid-template-columns:repeat(${n===4?2:3},minmax(0,1fr))"></div>
+      <span class="star" id="fstar">⭐</span><span class="me" id="fme">${G.g.e}</span></div>`);
+    G.fgi = -1;
+  },
+  laneLeft(i){ return G.n===4 ? (i%2 ? 70 : 30) : 8 + (i+0.5)/3*84; },
+  frame(){
+    const fg = $("fgate"), me = $("fme"), st = $("fstar"); if(!fg || !me) return;
+    me.style.left = VF.laneLeft(G.lane)+"%"; me.style.bottom = G.n===4 ? (G.lane>1 ? 12 : 30)+"%" : "14%";
+    me.style.transform = `translateX(-50%) rotate(${G.spinT>0 ? (1-G.spinT/0.8)*360 : 0}deg) scale(${G.boostT>0 ? 1.15 : 1})`;
+    const gate = G.gates[G.gi];
+    if(gate){
+      if(G.fgi!==G.gi){ G.fgi = G.gi; fg.innerHTML = gate.q.opts.map((it,i)=>`<div class="opt" data-l="${i}">${itHTML(it)}</div>`).join(""); }
+      const d = gate.z - G.dist, k = clamp(1 - d/90, 0, 1);
+      fg.style.display = d < 90 ? "grid" : "none"; fg.style.top = (24 + k*44)+"%"; fg.style.transform = `scale(${0.5 + k*0.5})`;
+    } else fg.style.display = "none";
+    const s = G.stars.find(s=>!s.got && !s.miss && s.z > G.dist);
+    if(s && s.z - G.dist < 90){ const k = 1 - (s.z-G.dist)/90; st.style.display = ""; st.style.left = VF.laneLeft(s.lane)+"%"; st.style.top = (28 + k*50)+"%"; }
+    else st.style.display = "none";
+  },
+  steer(){ if(G && !G.R) VF.frame(); },
+  gate(){}, star(){}, idle(){}, dispose(){}
+};
+
+/* ============ SKRIN: peta dunia, pilih kenderaan, pengenalan ============ */
+const AY = 1, ACC = () => window.KafaAccess;   // Tahun 1 tidak dijual: semakan akses sentiasa lulus
+let gameId = null;
+function theme(s){ const w = WORLD[s||subj||"mix"], st = document.documentElement.style; st.setProperty("--w1", w.c1); st.setProperty("--w2", w.c2); st.setProperty("--wa", w.a); }
+const muteBtn = () => `<button class="iconbtn" data-act="mute" aria-label="${tx("Bunyi","بوڽي")}">${muted?"🔇":"🔊"}</button>`;
+const voiceBtn = () => `<button class="iconbtn" data-act="voice" aria-label="${tx("Suara","سوارا")}" aria-pressed="${voiceOn}">${voiceOn?"🗣️":"🤐"}</button>`;
+const langBtn = () => `<button class="langbtn" data-act="lang">${isJ() ? "Rumi" : '<span class="ar">جاوي</span>'}</button>`;
+function topbar(back, label){
+  return `<div class="topbar">${back==="portal" ? `<a class="iconbtn" href="../index.html#arked" aria-label="${tx("Kembali ke Tahun 1","کمبالي ک تاهون 1")}">${BACK()}</a>`
+    : `<button class="iconbtn" data-act="${back}" aria-label="${label||tx("Kembali","کمبالي")}">${BACK()}</button>`}
+    <div class="grp">${typeof acctBtn==="function" ? acctBtn() : ""}${langBtn()}${voiceBtn()}${muteBtn()}</div></div>`;
+}
+const starsOf = s => GAMES.reduce((a,g)=>a + (hiOf(s, g.id) ? 1 : 0), 0);
+let screen = "map";
+function renderMap(){
+  stopGame(); screen = "map"; theme("mix"); app.className = "wrap";
+  const total = SUBJ.reduce((a,s)=>a+starsOf(s), 0);
+  app.innerHTML = `${topbar("portal")}
+    <header class="hero"><span class="flag" aria-hidden="true">🏁</span>
+      <span class="sub">🕹️ ${tx("Zon Arked • Tahun 1","زون ارکيد • تاهون 1")}</span>
+      <h1>${tx("Litar KAFA 3D","ليتر کافا 3D")}</h1>
+      <p>${tx("Pilih dunia, pilih kenderaan, dan lumba melalui jawapan yang betul!","ڤيليه دنيا، ڤيليه کندرأن، دان لومبا ملالوءي جواڤن يڠ بتول!")}</p>
+      <span class="stars">🏆 ${total} / ${SUBJ.length*3}</span><span class="road"></span></header>
+    <div class="sec">🗺️ ${tx("Pilih dunia","ڤيليه دنيا")}</div>
+    <div class="worlds">${SUBJ.map(s=>{ const w = WORLD[s], n = starsOf(s);
+      return `<button class="wcard ${s==="mix"?"mix":""}" data-act="world" data-s="${s}" style="--c1:${w.c1};--c2:${w.c2}">
+        <span class="deco" aria-hidden="true">${w.deco}</span><span class="m" aria-hidden="true">${w.m}</span>
+        <b>${tx(w.r, w.j)}</b><small>${tx(SUBNAME[s][0], SUBNAME[s][1])} • ${"🏁".repeat(n)}${"▫️".repeat(3-n)}</small></button>`; }).join("")}</div>`;
+  window.scrollTo && window.scrollTo(0,0);
+}
+function openWorld(s){
+  stopGame(); if(WORLD[s]) subj = s; if(!subj) subj = "mix"; save("ark1-subj", subj); screen = "world"; theme(); app.className = "wrap";
+  const w = WORLD[subj];
+  app.innerHTML = `${topbar("home", tx("Peta dunia","ڤتا دنيا"))}
+    <header class="whead"><span class="m" aria-hidden="true">${w.m}</span><div><h1>${tx(w.r, w.j)}</h1><p>${tx(SUBNAME[subj][0], SUBNAME[subj][1])} • ${tx("Pilih kenderaan kamu!","ڤيليه کندرأن کامو!")}</p></div></header>
+    <div class="vgrid">${GAMES.map(g=>{ const b = hiOf(subj, g.id);
+      return `<button class="vcard" data-act="game" data-g="${g.id}" style="--c1:${w.c1};--c2:${w.c2}"><span class="ve" aria-hidden="true">${g.e}</span>
+        <span><b>${tx(g.r, g.j)}</b><small>${tx(g.d[0], g.d[1])}</small>${b ? `<span class="best">🏆 ${b}</span>` : ""}</span><span class="play" aria-hidden="true">▶️</span></button>`; }).join("")}</div>
+    ${typeof lbSection==="function" ? lbSection() : ""}`;
+  if(typeof lbPaint==="function") lbPaint();
+  window.scrollTo && window.scrollTo(0,0);
+}
+function openGame(gid){
+  stopGame(); if(!subj) subj = "mix"; if(!GM(gid)) gid = "kereta"; gameId = gid; screen = "intro"; theme(); app.className = "wrap";
+  const g = GM(gid), w = WORLD[subj], four = g.lanes===4;
+  const how = [
+    ["👂", tx("Dengar dan baca soalan.","دڠر دان باچ سوءالن.")],
+    [four ? "🕹️" : "↔️", four ? tx("Tekan ◀ ▶ ▲ ▼ untuk terbang ke gelung.","تکن ◀ ▶ ▲ ▼ اونتوق تربڠ ک ڬلوڠ.") : tx("Tekan ◀ ▶ atau leret untuk tukar lorong.","تکن ◀ ▶ اتاو ليريت اونتوق توکر لوروڠ.")],
+    ["🚀", tx("Jawapan betul = TURBO! Kutip ⭐ juga.","جواڤن بتول = توربو! کوتيڤ ⭐ جوڬ.")],
+    ["🏆", tx("Sampai garisan 🏁 dahulu!","سمڤاي ڬاريسن 🏁 دهولو!")]];
+  app.innerHTML = `${topbar("world", tx("Pilih kenderaan","ڤيليه کندرأن"))}
+    <div class="card intro"><div class="big" aria-hidden="true">${g.e}${w.m}</div><h2>${tx(g.r, g.j)}</h2>
+      <p>${tx(w.r, w.j)}</p>
+      <ul class="how">${how.map(([e,t])=>`<li><span aria-hidden="true">${e}</span>${t}</li>`).join("")}</ul>
+      <button class="btn go" data-act="start">▶ ${tx("Mula!","مولا!")}</button>
+      ${hiOf(subj, gid) ? `<p>🏆 ${tx("Skor terbaik","سکور تربايق")}: <b>${hiOf(subj, gid)}</b></p>` : ""}</div>`;
+  speak(g.d[0]);
+}
+// mula perlumbaan (boleh dipanggil terus oleh alat tangkap skrin)
+async function start(opts){
+  opts = opts || {};
+  if(!gameId) openGame("kereta");
+  stopGame(); screen = "race"; theme(); app.className = "";
+  G = newRace(gameId);
+  gameScreen();
+  G.field = $("field");
+  let use3D = !opts.flat && hasGL();
+  if(use3D){
+    const tok = G.tok; $("cd").innerHTML = `<span>⏳</span>`;
+    const ok = await need3D();
+    if(!G || G.tok!==tok) return;
+    if(ok){ try{ V3.build(); G.view = V3; }catch(e){ console.error(e); V3.dispose(); use3D = false; } } else use3D = false;
+  }
+  if(!use3D){ if(hasGL()) noGL(); VF.build(); G.view = VF; G.flat = true; }
+  G.phase = "count"; G.cd = opts.fast ? 0.01 : RACE.readyCd; G.cdShown = 0;
+  UI.hud(true); UI.prompt(false);
+  speak(tx("Sedia… mula!","Sedia… mula!"));
+  runLoop();
+  return G;
+}
+function stopGame(){
+  document.querySelectorAll(".ovl,.rain").forEach(x=>x.remove());
+  if(G){ G.tok = null; try{ if(G.view && G.view.dispose) G.view.dispose(); }catch(e){} hush(); }
+  G = null;
+}
+
+/* ============ SKRIN PERLUMBAAN: HUD, soalan, kawalan, keputusan ============ */
+function gameScreen(){
+  const four = G.n===4, w = WORLD[G.subj];
+  app.innerHTML = `<div class="game" id="game"><div class="field" id="field" dir="ltr">
+    <div class="hud"><button class="iconbtn" data-act="pause" aria-label="${tx("Rehat","رحت")}">⏸</button>
+      <span class="chip pos" id="hpos">1/4</span><span class="chip" id="hgate">🚩 0/${G.ng}</span><span class="sp"></span>
+      <span class="chip combo" id="hcombo" hidden></span><span class="chip" id="hscore">⭐ 0</span></div>
+    <div class="prompt" id="prompt" hidden dir="${isJ()?"rtl":"ltr"}"><div class="q" id="pq"></div><button class="say" data-act="say" aria-label="${tx("Dengar","دڠر")}">🔊</button>
+      <div class="opts ${four?"g4":""}" id="popts" dir="ltr"></div></div>
+    <div class="speed" id="speed"></div>
+    <div class="track" id="track" aria-hidden="true"><span class="ln"></span><span class="fin">🏁</span>
+      ${G.rivals.map((r,i)=>`<span class="rc" id="rc${i}">${r.e}</span>`).join("")}<span class="rc me" id="rcme">${w.m}</span></div>
+    <div class="cd" id="cd"></div>
+    <div class="ctl ${four?"pad":""}">${four
+      ? `<div class="grp"><button data-act="left" aria-label="${tx("Kiri","کيري")}">◀</button><button data-act="right" aria-label="${tx("Kanan","کانن")}">▶</button></div>
+         <div class="ud"><button data-act="up" aria-label="${tx("Atas","اتس")}">▲</button><button data-act="down" aria-label="${tx("Bawah","باوه")}">▼</button></div>`
+      : `<button data-act="left" aria-label="${tx("Kiri","کيري")}">◀</button><button data-act="right" aria-label="${tx("Kanan","کانن")}">▶</button>`}</div>
+  </div></div>`;
+  const f = $("field"); let p0 = null;
+  f.addEventListener("pointerdown", e=>{ if(e.target.closest("button,.prompt")) return; p0 = {x:e.clientX, y:e.clientY}; });
+  f.addEventListener("pointerup", e=>{
+    if(!p0 || !G) return; const dx = e.clientX - p0.x, dy = e.clientY - p0.y; p0 = null;
+    if(Math.abs(dx) > 30 || Math.abs(dy) > 30){ if(Math.abs(dx) >= Math.abs(dy)) G.steer(Math.sign(dx), 0); else if(G.n===4) G.steer(0, Math.sign(dy)); return; }
+    const r = f.getBoundingClientRect(), fx = (e.clientX - r.left)/(r.width||1), fy = (e.clientY - r.top)/(r.height||1);
+    if(G.n===4) G.setLane((fy > 0.5 ? 2 : 0) + (fx > 0.5 ? 1 : 0)); else G.setLane(fx < 1/3 ? 0 : fx < 2/3 ? 1 : 2);
+  });
+}
+const UI = {
+  _h:"",
+  hud(force){
+    if(!G || !$("hpos")) return;
+    const pos = `${["🥇","🥈","🥉","4️⃣"][G.place-1]} ${G.place}/4`, gate = `🚩 ${G.gi}/${G.ng}`, sc = `⭐ ${G.score}`, cb = G.combo>=2 ? `🔥 x${G.combo}` : "";
+    const sig = pos+gate+sc+cb+G.lane+(G.boostT>0);
+    if(sig!==UI._h || force){ UI._h = sig;
+      $("hpos").textContent = pos; $("hgate").textContent = gate; $("hscore").textContent = sc;
+      const c = $("hcombo"); c.hidden = !cb; c.textContent = cb;
+      $("speed").classList.toggle("on", G.boostT>0 && !REDUCED);
+      document.querySelectorAll("#popts button").forEach(b=>b.classList.toggle("on", +b.dataset.l===G.lane));
+    }
+    const pct = d => Math.min(100, d/G.len*100)+"%";
+    G.rivals.forEach((r,i)=>{ const e = $("rc"+i); if(e) e.style.left = pct(r.dist); });
+    const m = $("rcme"); if(m) m.style.left = pct(G.dist);
+  },
+  // tunjuk soalan bagi gerbang seterusnya (dibaca oleh suara: teks Rumi sahaja)
+  prompt(say){
+    const pr = $("prompt"); if(!pr || !G) return;
+    const gate = G.gates[G.gi];
+    if(!gate || G.phase==="count" || G.phase==="ready"){ pr.hidden = true; return; }
+    pr.hidden = false; $("pq").textContent = L(gate.q.p);
+    $("popts").innerHTML = gate.q.opts.map((it,i)=>`<button data-act="lane" data-l="${i}" class="${i===G.lane?"on":""}">${itHTML(it)}</button>`).join("");
+    if(!REDUCED){ pr.classList.remove("pop"); void pr.offsetWidth; pr.classList.add("pop"); }
+    if(say){ const tok = G.tok, gi = G.gi; setTimeout(()=>{ if(G && G.tok===tok && G.gi===gi && !G.paused) speak(gate.q.p[0]); }, G.gi ? 900 : 200); }
+  },
+  count(n){ const c = $("cd"); if(!c) return; c.innerHTML = `<span>${n || tx("MULA!","مولا!")}</span>`;
+    if(!n) setTimeout(()=>{ if($("cd") && G && G.phase==="play") $("cd").innerHTML = ""; }, 700); },
+  fx(text, bad){
+    const f = $("field"); if(!f) return;
+    f.querySelectorAll(".fxtxt").forEach(x=>x.remove());
+    const d = document.createElement("div"); d.className = "fxtxt"+(bad?" bad":""); d.textContent = text; f.appendChild(d); setTimeout(()=>d.remove(), 1000);
+    if(bad && !REDUCED){ f.classList.remove("shake"); void f.offsetWidth; f.classList.add("shake"); }
+  },
+  pause(on){
+    document.querySelectorAll(".ovl").forEach(x=>x.remove());
+    if(!on || !$("field")) return;
+    $("field").insertAdjacentHTML("beforeend", `<div class="ovl" id="povl" dir="${isJ()?"rtl":"ltr"}"><div class="card"><div style="font-size:64px">⏸</div><h2>${tx("Rehat sekejap","رحت سکجڤ")}</h2>
+      <button class="btn go" data-act="resume">▶ ${tx("Sambung","سمبوڠ")}</button>
+      <button class="btn alt" data-act="again">🔁 ${tx("Mula semula","مولا سمولا")}</button>
+      <button class="btn alt" data-act="world">🚪 ${tx("Keluar","کلوار")}</button></div></div>`);
+  },
+  result(fresh){
+    if(!G) return;
+    if(fresh){ G.tok = Math.random(); try{ G.view.dispose(); }catch(e){} G.view = null; hush(); }
+    screen = "result"; app.className = "wrap";
+    const w = WORLD[G.subj], g = G.g;
+    const order = G.rivals.map(r=>({e:r.e, d:r.dist, me:false})).sort((a,b)=>b.d-a.d);
+    order.splice(G.place-1, 0, {e:w.m, me:true});
+    const pod = [order[1], order[0], order[2]].map((r,i)=>{ const rk = [2,1,3][i];
+      return `<div class="pd p${rk} ${r.me?"me":""}"><span class="who">${r.e}</span><b class="nm">${r.me ? tx("Kamu","کامو") : ""}</b><span class="step">${rk}</span></div>`; }).join("");
+    const msg = [tx("Juara! Hebatnya kamu!","جوارا! هيبتڽ کامو!"), tx("Nombor 2! Bagus!","نومبور 2! باڬوس!"), tx("Nombor 3! Syabas!","نومبور 3! شاباس!"), tx("Cuba lagi, kamu boleh!","چوبا لاڬي، کامو بوليه!")][G.place-1];
+    app.innerHTML = `${topbar("world", tx("Pilih kenderaan","ڤيليه کندرأن"))}
+      <div class="card res"><div class="place" aria-hidden="true">${["🥇","🥈","🥉","🏅"][G.place-1]}</div><h2>${msg}</h2>
+        <div class="stars" aria-label="${G.stars3} / 3">${[1,2,3].map(i=>`<span class="${i<=G.stars3?"":"off"}">⭐</span>`).join("")}</div>
+        <div class="podium" dir="ltr">${pod}</div>
+        <div class="nums"><div><b>${G.score}</b>${tx("Skor","سکور")}</div><div><b>${G.good}/${G.ng}</b>${tx("Betul","بتول")}</div><div><b>${G.got}</b>⭐ ${tx("Bintang","بينتڠ")}</div></div>
+        ${G.newBest ? `<span class="newbest">🎉 ${tx("Skor terbaik baharu!","سکور تربايق بهارو!")}</span>` : `<p>🏆 ${tx("Skor terbaik","سکور تربايق")}: <b>${hiOf(G.subj, G.gid)}</b></p>`}
+        ${typeof LB!=="undefined" && LB.on ? `<div class="lbres" id="lbres"></div>` : ""}
+        <div class="acts"><button class="btn go" data-act="again">🔁 ${tx("Main lagi","ماٴين لاڬي")}</button>
+          <button class="btn alt" data-act="world">${g.e} ${tx("Tukar kenderaan","توکر کندرأن")}</button>
+          <button class="btn alt" data-act="home">🗺️ ${tx("Peta dunia","ڤتا دنيا")}</button></div></div>`;
+    if(fresh){ speak(msg.replace(/[!]/g,"")); if(typeof LB!=="undefined" && LB.on) lbSubmit(G.lbr = {subj:G.subj, game:G.gid, score:Math.min(G.score, G.good*40), good:G.good, bad:G.bad, mistakes:G.log.slice(0,20)}); }
+    window.scrollTo && window.scrollTo(0,0);
+  }
+};
+
+/* ============ PAPAN PENDAHULU (Clerk + /api, disalin daripada Zon Arked T3) ============ */
+const LB = {
+  on: !!(window.KafaAuth && KafaAuth.on),
+  clerk:null, uid:null, me:null, failed:false, pending:null, loadP:null,
+  game: load("ark1-lbgame","all"), scope: load("ark1-lbscope","all"),
+  init(){
+    if(!this.on) return Promise.resolve(null);
+    if(!this.loadP) this.loadP = KafaAuth.init().then(async c=>{
+      this.clerk = c; this.failed = KafaAuth.failed; this.uid = KafaAuth.uid;
+      if(this.uid) await this.fetchMe();
+      if(c) KafaAuth.onChange(()=>{ this.uid = KafaAuth.uid; this.me = null; this.changed(); });
+      return c;
+    });
+    return this.loadP;
+  },
+  api(path, body){ return KafaAuth.api(path, body); },
+  async fetchMe(){ try{ this.me = await this.api("me"); if(ACC() && this.me) ACC().set(this.uid, this.me.years || []); }catch(e){ this.me = null; } return this.me; },
+  async changed(){
+    if(!this.uid && ACC() && ACC().uid()) ACC().clear();
+    if(this.uid){ KafaAuth.loading(true, tx("Menyemak akaun","مڽمق اکاٴون"), WORLD[subj||"mix"].m); try{ await this.fetchMe(); } finally { KafaAuth.loading(false); } }
+    if(this.uid && this.me && !this.me.player) return acctSheet(true);
+    if(this.pending && $("lbres")) return lbSubmit(this.pending);
+    if($("lbbox")) openWorld(subj);
+  },
+  name(){ return this.me && this.me.player ? this.me.player.name : null; }
+};
+// mesej ralat ikut kod daripada pelayan, kemudian ikut status HTTP
+const lbErr = e => ({"rude-name":tx("Nama ini tidak sesuai. Pilih nama yang sopan.","نام اين تيدق سسواي. ڤيليه نام يڠ سوڤن."),
+  "bad-name":tx("Nama samaran mesti 2–16 huruf atau nombor.","نام سامرن مستي 2–16 حروف اتاو نومبور."),
+  "name-locked":tx("Nama kamu telah ditetapkan oleh guru.","نام کامو تله دتتڤکن اوليه ڬورو."),
+  "bad-class":tx("Nama kelas terlalu pendek.","نام کلس ترلالو ڤندق."), "class-limit":tx("Had 10 kelas telah dicapai.","حد 10 کلس تله دچاڤاي.")}[e.code]
+  || {401:tx("Sila log masuk semula.","سيلا لوڬ ماسوق سمولا."), 403:tx("Kamu bukan ahli kelas ini.","کامو بوکن اهلي کلس اين."),
+  404:tx("Kod kelas tidak dijumpai.","کود کلس تيدق دجومڤاٴي."), 409:tx("Pilih nama samaran dahulu.","ڤيليه نام سامرن دهولو."),
+  429:tx("Terlalu pantas, cuba sebentar lagi.","ترلالو ڤنتس، چوبا سبنتر لاڬي.")}[e.status]
+  || (e.status===400 && !isJ() ? e.message : tx("Tidak dapat disambung ke pelayan. Semak internet.","تيدق داڤت دسمبوڠ ک ڤلاين. سمق اينترنيت.")));
+const medal = r => r===1 ? "🥇" : r===2 ? "🥈" : r===3 ? "🥉" : "#"+r;
+
+// butang akaun di bar atas
+function acctBtn(){
+  if(!LB.on) return "";
+  const n = LB.name();
+  return `<button class="acct" id="acct" data-act="${LB.uid?"acct":"login"}">👤 ${LB.uid ? esc(n || tx("Akaun","اکاٴون")) : tx("Log masuk","لوڬ ماسوق")}</button>`;
+}
+function lbSection(){
+  if(!LB.on) return "";
+  return `<div class="sec" id="lbsec">🏆 ${tx("Papan Pendahulu","ڤاڤن ڤندهولو")} — ${tx(WORLD[subj||"mix"].r, WORLD[subj||"mix"].j)}</div><div class="lb card" id="lbbox">${lbSkel()}</div>`;
+}
+async function lbPaint(){
+  if(!LB.on || !$("lbbox")) return;
+  await LB.init();
+  const box = $("lbbox"); if(!box) return;
+  const a = $("acct"); if(a) a.outerHTML = acctBtn();
+  if(LB.failed){ box.innerHTML = `<p class="lbmsg">⚠️ ${tx("Papan pendahulu tidak dapat dimuatkan. Semak sambungan internet.","ڤاڤن ڤندهولو تيدق داڤت دمواتکن. سمق سمبوڠن اينترنيت.")}</p>`; return; }
+  const games = [{id:"all", icon:"👑", r:"Juara Subjek", j:"جوارا سوبجيک"}, ...GAMES.map(g=>({id:g.id, icon:g.e, r:g.r, j:g.j}))];
+  if(!games.some(g=>g.id===LB.game)) LB.game = "all";
+  const classes = (LB.me && LB.me.classes) || [];
+  if(LB.scope!=="all" && !classes.some(c=>c.code===LB.scope)) LB.scope = "all";
+  box.innerHTML = `
+    <div class="lbtabs" role="group">${[{code:"all", name:tx("🌏 Semua murid","🌏 سموا موريد")}, ...classes.map(c=>({code:c.code, name:"🏫 <span dir=\"auto\">"+esc(c.name)+"</span>"}))].map(c=>
+      `<button data-act="lbscope" data-c="${c.code}" aria-pressed="${c.code===LB.scope}">${c.name}</button>`).join("")}</div>
+    <div class="lbtabs games" role="group">${games.map(g=>`<button data-act="lbgame" data-g="${g.id}" aria-pressed="${g.id===LB.game}">${g.icon} ${tx(g.r,g.j)}</button>`).join("")}</div>
+    <div class="podium" id="podium" dir="ltr"></div>
+    <ol class="lbrows" id="lbrows">${lbSkelRows()}</ol>
+    <div class="lbfoot" id="lbfoot"></div>`;
+  const q = `leaderboard?subj=${subj}&game=${LB.game}${LB.game==="all"?"&y=1":""}${LB.scope!=="all"?"&class="+LB.scope:""}`;
+  try{
+    const d = await LB.api(q);
+    const rows = $("lbrows"), foot = $("lbfoot"); if(!rows) return;
+    const pod = $("podium"), top = d.rows.slice(0,3);
+    if(pod) pod.innerHTML = top.length ? [top[1], top[0], top[2]].map((r,i)=>r ? `<div class="pd p${r.rank<=3?r.rank:3} ${r.me?"me":""}"><span class="md">${medal(r.rank)}</span>
+      <b class="nm" dir="auto">${esc(r.name)}</b><span class="sc">${r.best}</span><span class="step">${r.rank}</span></div>` : `<div class="pd empty"></div>`).join("") : "";
+    rows.innerHTML = d.rows.length ? d.rows.slice(top.length).map(r=>`<li class="${r.me?"me":""} ${r.rank<=3?"top":""}"><span class="rk">${medal(r.rank)}</span><span class="nm" dir="auto">${esc(r.name)}${r.me?` <small>(${tx("kamu","کامو")})</small>`:""}</span><b>${r.best}</b></li>`).join("")
+      : `<li class="lbmsg">🌱 ${tx("Belum ada skor. Jadilah yang pertama!","بلوم اد سکور. جاديله يڠ ڤرتام!")}</li>`;
+    if(d.rows.length && d.rows.length<=3) rows.innerHTML = "";
+    foot.innerHTML = !LB.uid
+      ? `<p>${tx("Log masuk dengan Google untuk bersaing dengan murid lain!","لوڬ ماسوق دڠن Google اونتوق برساٴيڠ دڠن موريد لاٴين!")}</p><button class="btn" data-act="login">👤 ${tx("Log masuk","لوڬ ماسوق")}</button>`
+      : d.me ? `<p>⭐ ${tx("Kedudukan kamu","کدودوقن کامو")}: <b>${medal(d.me.rank)}</b> ${tx("daripada","درڤد")} ${d.total} ${tx("murid","موريد")}</p>`
+      : `<p>🎯 ${tx("Habiskan satu perlumbaan untuk masuk senarai ini!","هابيسکن ساتو ڤرلومبأن اونتوق ماسوق سناراي اين!")}</p>`;
+    foot.insertAdjacentHTML("beforeend", `<small>${tx("Senarai menunjukkan skor terbaik setiap murid.","سناراي منونجوقکن سکور تربايق ستياڤ موريد.")}</small>`);
+  }catch(e){ const rows = $("lbrows"); if(rows) rows.innerHTML = `<li class="lbmsg">⚠️ ${lbErr(e)}</li>`; }
+}
+// panel akaun: nama samaran, kelas (sertai / cipta untuk guru), log keluar
+
+function acctSheet(first){
+  document.querySelectorAll(".sheet").forEach(s=>s.remove());
+  const me = LB.me || {}, cl = me.classes || [];
+  const s = document.createElement("div"); s.className = "sheet"; s.setAttribute("role","dialog"); s.setAttribute("aria-modal","true");
+  s.innerHTML = `<div class="card">
+    <button class="iconbtn x" data-act="sheetclose" aria-label="${tx("Tutup","توتوڤ")}">✕</button>
+    <h2>${first ? "👋 "+tx("Selamat datang!","سلامت داتڠ!") : "👤 "+tx("Akaun saya","اکاٴون ساي")}</h2>
+    <label for="lbname">${tx("Nama samaran (bukan nama sebenar)","نام سامرن (بوکن نام سبنر)")}</label>
+    <div class="row"><input id="lbname" maxlength="16" autocomplete="off" ${me.player&&me.player.locked?"disabled":""} value="${esc(LB.name()||"")}" placeholder="${tx("cth. Ali Bintang","چونتوه: علي بينتڠ")}">${me.player&&me.player.locked?"":`<button class="btn sm" data-act="lbname">💾 ${tx("Simpan","سيمڤن")}</button>`}</div>${me.player&&me.player.locked?`<small class="muted">🔒 ${tx("Nama ini ditetapkan oleh guru.","نام اين دتتڤکن اوليه ڬورو.")}</small>`:""}
+    ${me.player ? `
+    <h3>🏫 ${tx("Kelas saya","کلس ساي")}</h3>
+    ${cl.length ? `<ul class="cls">${cl.map(c=>`<li><span><b dir="auto">${esc(c.name)}</b>${c.owner?` <small>• ${tx("Kod","کود")}: <code>${c.code}</code> • ${c.size} ${tx("ahli","اهلي")}</small>`:` <small>• ${c.size} ${tx("ahli","اهلي")}</small>`}</span><button class="btn alt sm" data-act="lbleave" data-c="${c.code}">${c.owner?tx("Padam","ڤادم"):tx("Keluar","کلوار")}</button>${c.owner?`<a class="btn sm dash" href="../../guru/?k=${c.code}">📊 ${tx("Papan pemuka","ڤاڤن ڤموک")}</a>`:""}</li>`).join("")}</ul>`
+      : `<p class="muted">${tx("Belum menyertai kelas. Minta kod kelas daripada guru.","بلوم مڽرتاٴي کلس. مينتا کود کلس درڤد ڬورو.")}</p>`}
+    <label for="lbcode">${tx("Sertai kelas dengan kod","سرتاٴي کلس دڠن کود")}</label>
+    <div class="row"><input id="lbcode" maxlength="6" autocomplete="off" placeholder="ABC234" style="text-transform:uppercase" dir="ltr"><button class="btn sm" data-act="lbjoin">➕ ${tx("Sertai","سرتاٴي")}</button></div>
+    <details><summary>👩‍🏫 ${tx("Untuk guru / ibu bapa: cipta kelas","اونتوق ڬورو / ايبو باڤ: چيڤتا کلس")}</summary>
+      <div class="row"><input id="lbcname" maxlength="30" placeholder="${tx("cth. 3 Bestari","چونتوه: 3 بستاري")}"><button class="btn sm" data-act="lbcreate">🏫 ${tx("Cipta","چيڤتا")}</button></div>
+      <small class="muted">${tx("Kongsi kod dengan murid atau anak supaya mereka boleh menyertai papan kelas. Ibu bapa boleh mencipta kumpulan keluarga.","کوڠسي کود دڠن موريد اتاو انق سوڤايا مريک بوليه مڽرتاٴي ڤاڤن کلس. ايبو باڤ بوليه منچيڤتا کومڤولن کلوارڬ.")}</small></details>` : ""}
+    <p class="err" id="lberr" role="alert"></p>
+    <button class="btn alt" data-act="logout">🚪 ${tx("Log keluar","لوڬ کلوار")}</button></div>`;
+  app.appendChild(s);
+  const i = $("lbname"); if(i && first) i.focus();
+}
+// kerangka berkilau semasa papan pendahulu dimuatkan
+const lbSkelRows = () => [...Array(5)].map((_,i)=>`<li aria-hidden="true"><span class="kskel" style="width:30px"></span><span class="kskel" style="width:${70-i*8}%"></span><span class="kskel" style="width:46px"></span></li>`).join("");
+const lbSkel = () => `<div class="lbtabs" aria-hidden="true"><span class="kskel" style="width:120px;height:36px;border-radius:999px"></span><span class="kskel" style="width:110px;height:36px;border-radius:999px"></span></div>
+  <div class="podium" aria-hidden="true">${[70,96,52].map(h=>`<div class="pd"><span class="kskel" style="width:42px;height:42px;border-radius:50%"></span><span class="kskel" style="width:70%;margin-top:6px"></span><span class="step kskel" style="height:${h}px"></span></div>`).join("")}</div>
+  <ol class="lbrows" role="status" aria-label="${tx("Memuatkan","ممواتکن")}">${lbSkelRows()}</ol>`;
+async function lbAct(act, b){
+  const err = $("lberr"); if(err) err.textContent = "";
+  if(b.disabled) return;
+  KafaAuth.busy(b, true, {lbname:tx("Menyimpan","مڽيمڤن"), lbjoin:tx("Menyertai","مڽرتاٴي"), lbcreate:tx("Mencipta","منچيڤتا"), lbleave:tx("Memproses","ممڤروسيس")}[act]);
+  try{
+    if(act==="lbname") LB.me = await LB.api("me", {name:$("lbname").value});
+    if(act==="lbjoin") LB.me = await LB.api("class", {action:"join", code:$("lbcode").value});
+    if(act==="lbcreate") LB.me = await LB.api("class", {action:"create", name:$("lbcname").value});
+    if(act==="lbleave") LB.me = await LB.api("class", {action:"leave", code:b.dataset.c});
+    if(act==="lbname" && LB.pending && $("lbres")){ document.querySelectorAll(".sheet").forEach(s=>s.remove()); return lbSubmit(LB.pending); }
+    if($("lbbox")) openWorld(subj);
+    acctSheet(false);
+    if(act==="lbcreate") toast("🏫 "+tx("Kelas dicipta! Kongsi kod dengan murid.","کلس دچيڤتا! کوڠسي کود دڠن موريد."));
+  }catch(e){ const er = $("lberr"); if(er) er.textContent = "⚠️ "+lbErr(e); }
+  finally{ if(b.isConnected) KafaAuth.busy(b, false); }
+}
+// hantar skor selepas permainan (Main Sendiri)
+async function lbSubmit(r){
+  const box = $("lbres"); if(!box) return;
+  await LB.init();
+  if(!LB.clerk){ box.remove(); return; }
+  if(!LB.uid){ LB.pending = r; box.innerHTML = `<p>🏆 ${tx("Log masuk untuk menyimpan skor ini dalam papan pendahulu!","لوڬ ماسوق اونتوق مڽيمڤن سکور اين دالم ڤاڤن ڤندهولو!")}</p><button class="btn" data-act="login">👤 ${tx("Log masuk dengan Google","لوڬ ماسوق دڠن Google")}</button>`; return; }
+  if(!LB.name()){ LB.pending = r; box.innerHTML = `<p>🏆 ${tx("Pilih nama samaran untuk masuk papan pendahulu.","ڤيليه نام سامرن اونتوق ماسوق ڤاڤن ڤندهولو.")}</p><button class="btn" data-act="acct">✏️ ${tx("Pilih nama","ڤيليه نام")}</button>`; return; }
+  box.innerHTML = `<p><span class="kspin" aria-hidden="true"></span>${tx("Menyimpan skor…","مڽيمڤن سکور…")}</p>`;
+  try{
+    const o = await LB.api("score", r); LB.pending = null;
+    if(!$("lbres")) return;
+    $("lbres").innerHTML = `<p class="rank">🌏 ${tx("Kedudukan","کدودوقن")} <b>${medal(o.rank)}</b> ${tx("dalam semua murid","دالم سموا موريد")}</p>
+      <p>${o.improved ? "🎉 "+tx("Skor terbaik kamu disimpan!","سکور تربايق کامو دسيمڤن!") : "🏆 "+tx("Skor terbaik kamu","سکور تربايق کامو")+": "+o.best}</p>
+      <button class="btn alt" data-act="lbview" data-g="${r.game}">🏆 ${tx("Lihat papan pendahulu","ليهت ڤاڤن ڤندهولو")}</button>`;
+  }catch(e){ const x = $("lbres"); if(x) x.innerHTML = `<p>⚠️ ${lbErr(e)}</p>`; }
+}
+
+
+/* ============ PERISTIWA ============ */
+function redraw(){
+  if(screen==="map") renderMap();
+  else if(screen==="world") openWorld(subj);
+  else if(screen==="intro") openGame(gameId);
+  else if(screen==="result" && G) UI.result(false);
+  else if(screen==="race" && G){ const pr = $("prompt"); if(pr) pr.dir = isJ() ? "rtl" : "ltr"; UI.prompt(false); UI.hud(true); }
+}
+const live = () => G && !G.over && !G.paused;
+function handle(b){
+  const a = b.dataset.act;
+  switch(a){
+    case "lang": lang = isJ() ? "rumi" : "jawi"; save("kafa-lang", lang); applyLang(); texCache.clear(); redraw(); break;
+    case "mute": muted = !muted; save("ark1-muted", muted); b.textContent = muted ? "🔇" : "🔊"; break;
+    case "voice": voiceOn = !voiceOn; save("t1-voice", voiceOn); if(!voiceOn) hush(); b.textContent = voiceOn ? "🗣️" : "🤐"; b.setAttribute("aria-pressed", voiceOn); break;
+    case "home": renderMap(); break;
+    case "world": openWorld(b.dataset.s || subj); break;
+    case "game": openGame(b.dataset.g); break;
+    case "start": start(); break;
+    case "again": start(); break;
+    case "pause": togglePause(); break;
+    case "resume": togglePause(false); break;
+    case "say": if(G && G.gates[G.gi]) speak(G.gates[G.gi].q.p[0], true); break;
+    case "left": if(live()) G.steer(-1, 0); break;
+    case "right": if(live()) G.steer(1, 0); break;
+    case "up": if(live()) G.steer(0, -1); break;
+    case "down": if(live()) G.steer(0, 1); break;
+    case "lane": if(live()) G.setLane(+b.dataset.l); break;
+    case "login": if(!LB.clerk) KafaAuth.loading(true, tx("Membuka log masuk","ممبوک لوڬ ماسوق"), WORLD[subj||"mix"].m);
+      LB.init().then(()=>{ KafaAuth.loading(false); if(LB.clerk) LB.clerk.openSignIn({}); else toast("⚠️ "+tx("Log masuk tidak dapat dimuatkan.","لوڬ ماسوق تيدق داڤت دمواتکن.")); }); break;
+    case "acct": acctSheet(!LB.name()); break;
+    case "sheetclose": document.querySelectorAll(".sheet").forEach(s=>s.remove()); break;
+    case "logout": document.querySelectorAll(".sheet").forEach(s=>s.remove()); KafaAuth.signOut(tx("Log keluar","لوڬ کلوار"), WORLD[subj||"mix"].m); break;
+    case "lbscope": LB.scope = b.dataset.c; save("ark1-lbscope", LB.scope); lbPaint(); break;
+    case "lbgame": LB.game = b.dataset.g; save("ark1-lbgame", LB.game); lbPaint(); break;
+    case "lbview": LB.game = b.dataset.g; LB.scope = "all"; openWorld(subj); { const s = $("lbsec"); if(s && s.scrollIntoView) s.scrollIntoView({behavior:"smooth"}); } break;
+    case "lbname": case "lbjoin": case "lbcreate": case "lbleave": lbAct(a, b); break;
+  }
+}
+const FAST = ["left","right","up","down","lane","pause"];
+// stereng: pointerdown terus (tiada lengah klik); butang lain: klik biasa
+app.addEventListener("pointerdown", e=>{ const b = e.target.closest("[data-act]"); if(!b || b.disabled) return;
+  if(FAST.includes(b.dataset.act)){ e.preventDefault(); b.dataset.pd = "1"; handle(b); } });
+app.addEventListener("click", e=>{ const b = e.target.closest("[data-act]"); if(!b || b.disabled) return;
+  if(FAST.includes(b.dataset.act) && b.dataset.pd){ delete b.dataset.pd; return; }
+  handle(b); });
+document.addEventListener("keydown", e=>{
+  if(e.target.matches && e.target.matches("input")){ if(e.key==="Enter" && e.target.matches(".sheet input")){ const b = e.target.parentElement.querySelector("button"); if(b) b.click(); } return; }
+  if(!G || screen!=="race") return;
+  const k = e.key;
+  if(k==="p" || k==="P" || k==="Escape"){ togglePause(); e.preventDefault(); return; }
+  if(!live()) return;
+  if(k==="ArrowLeft" || k==="a" || k==="A"){ G.steer(-1, 0); e.preventDefault(); }
+  else if(k==="ArrowRight" || k==="d" || k==="D"){ G.steer(1, 0); e.preventDefault(); }
+  else if(k==="ArrowUp" || k==="w" || k==="W"){ G.steer(0, -1); e.preventDefault(); }
+  else if(k==="ArrowDown" || k==="s" || k==="S"){ G.steer(0, 1); e.preventDefault(); }
+  else if(k>="1" && k<=String(G.n)) G.setLane(+k-1);
+});
+document.addEventListener("kafa-access", ()=>{ if(screen==="world") openWorld(subj); });
+window.addEventListener("popstate", ()=>{ if(screen!=="map") renderMap(); });
+
+applyLang();
+// ?shot=<subj>,<game>,<sec>: buka terus, main sendiri <sec> saat, kemudian beku (untuk tangkap skrin WebGL)
+const SHOT = (()=>{ try{ return new URLSearchParams(location.search).get("shot"); }catch(e){ return null; } })();
+function shot(spec){
+  const [s, g, sec] = String(spec).split(",");
+  openWorld(WORLD[s] ? s : "mix"); openGame(GM(g) ? g : "kereta");
+  return start().then(()=>{
+    if(!G) return G;
+    G.auto = "mix"; const t = parseFloat(sec), tok = G.tok;
+    if(isFinite(t) && t>=0) setTimeout(()=>{ if(G && G.tok===tok && !G.over){ G.manual = true; G.frozen = true; hush(); } }, t*1000);
+    return G;
+  });
+}
+window.shot = shot;
+(()=>{ if(SHOT){ shot(SHOT); return; } const h = location.hash.replace("#",""); if(WORLD[h]) openWorld(h); else if(h==="papan" && subj) openWorld(subj); else renderMap(); })();
+
+</script>
+</body>
+</html>

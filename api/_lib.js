@@ -23,8 +23,10 @@ export async function isAdmin(uid) {
   try { return (await userEmails(uid)).some(e => admins.includes(e)); } catch { return false; }
 }
 
-export const SUBJECTS = ["sirah", "feqah", "tauhid", "akhlak", "arab", "tajwid", "hafazan", "mix"];
-export const GAMES = ["whack", "catch", "pop", "run", "climb"];
+export const SUBJECTS = ["sirah", "feqah", "tauhid", "akhlak", "arab", "tajwid", "hafazan", "jawi", "mix"];
+export const GAMES = ["whack", "catch", "pop", "run", "climb", "kereta", "bot", "pesawat"];
+// permainan Zon Arked ikut tahun (game=all hanya menjumlahkan permainan tahun itu)
+export const YEAR_GAMES = { 1: ["kereta", "bot", "pesawat"], 3: ["whack", "catch", "pop", "run", "climb"] };
 
 let _sql = null;
 export function db() {
