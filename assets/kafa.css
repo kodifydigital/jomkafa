@@ -284,6 +284,10 @@ html[dir="rtl"] .wcard .bar i{margin-inline-start:0}
 [data-deco="akhbar"] .scene{background:repeating-linear-gradient(0deg,rgba(255,255,255,.06) 0 2px,transparent 2px 14px),radial-gradient(circle at 80% 20%,rgba(200,16,46,.55),transparent 45%),linear-gradient(160deg,#5A1220 0%,#2A1A1E 55%,#121114 100%)}
 [data-deco="pelabuhan"] .scene{background:repeating-linear-gradient(90deg,transparent 0 22px,rgba(255,196,61,.18) 22px 26px),linear-gradient(180deg,#F26B1D 0%,#B9480A 28%,#1D7EA0 55%,#0B4F6C 78%,#062A3B 100%)}
 [data-deco="gua"] .scene{background:radial-gradient(circle at 78% 22%,rgba(47,211,224,.55),transparent 34%),radial-gradient(circle at 18% 70%,rgba(224,91,209,.45),transparent 36%),linear-gradient(180deg,#4B2F7A 0%,#2E1F57 55%,#1A1033 100%)}
+[data-deco="tamantema"] .scene{background:linear-gradient(180deg,transparent 30%,#2A1458 95%),repeating-conic-gradient(from 0deg at 50% 120%,rgba(255,61,87,.45) 0 10deg,transparent 10deg 20deg),linear-gradient(180deg,#6C3CE1,#3A1C7A)}
+[data-deco="kurma"] .scene{background:radial-gradient(circle at 82% 22%,#FFE7A3 0 14px,#F2A93B55 15px 24px,transparent 25px),linear-gradient(180deg,#E07A45 0%,#C8553D 35%,#7A3E1D 68%,#4A2511 100%)}
+[data-deco="kapallayar"] .scene{background:radial-gradient(circle at 78% 22%,rgba(255,214,120,.55) 0 12%,transparent 30%),repeating-linear-gradient(170deg,transparent 0 18px,rgba(255,255,255,.07) 18px 21px),linear-gradient(180deg,#D86A3B 0%,#A9472F 22%,#087E8B 48%,#0B3954 75%,#061F2E 100%)}
+[data-deco="keretakabel"] .scene{background:radial-gradient(circle at 82% 18%,#FFE08A 0 14px,transparent 16px),linear-gradient(135deg,transparent 0 72%,#2E6B4F 72% 100%),linear-gradient(180deg,#3A6EA5 0%,#1D3557 60%,#0F1E33 100%)}
 [data-deco="rails"] .scene{background:
   linear-gradient(transparent calc(100% - 22px),rgba(255,255,255,.35) calc(100% - 22px) calc(100% - 19px),transparent calc(100% - 19px) calc(100% - 9px),rgba(255,255,255,.35) calc(100% - 9px) calc(100% - 6px),transparent calc(100% - 6px)),
   repeating-linear-gradient(90deg,rgba(90,50,30,.45) 0 6px,transparent 6px 22px) 0 100%/100% 26px no-repeat,

@@ -1,0 +1,989 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B3954">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" type="image/png" href="/icons/favicon.png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="JOM KAFA">
+<script src="/assets/pwa.js"></script>
+<script src="/assets/config.js"></script>
+<script src="/assets/access.js"></script>
+<title>Kapal Layar Sirah • Sirah Tahun 6</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arvo:wght@700&family=Nunito:wght@500;700;800;900&family=Noto+Naskh+Arabic:wght@500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ===== Sirah Tahun 6: "Kapal Layar Sirah" — pelayaran kapal layar antara pulau; maskot Nakhoda Nuri (burung nuri) ===== */
+:root{
+  --sea:#0B3954; --sea2:#087E8B; --wave:#BFE3E8; --chart:#F6E7C8; --chart2:#EAD3A2; --bg:#F3EAD7; --card:#FFFBF2; --ink:#1B1B2F; --muted:#5B5160;
+  --line:#1B1B2F; --sail:#FFF6E0; --wood:#8B5A2B; --wood2:#5E3A17; --coral:#E4572E; --gold:#F2B134; --jade:#2E8B57;
+  --ok:#1F9D63; --okbg:#DDF5E6; --bad:#C8102E; --badbg:#FFE1E1; --note:#FFF1C9; --panel:#E8F4F2;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --sea:#06202F; --sea2:#0B5560; --wave:#123B47; --chart:#2A2418; --chart2:#3A311F; --bg:#141A22; --card:#1F2630; --ink:#F4EEDF; --muted:#C4B9A8;
+    --line:#0A0D12; --sail:#3A3428; --note:#3B3218; --panel:#1A3236; --okbg:#173A28; --badbg:#47191E; color-scheme:dark;
+  }
+}
+*,*::before,*::after{box-sizing:inherit}
+html,body{margin:0}
+body{font-family:"Nunito",system-ui,sans-serif;color:var(--ink);font-size:17px;line-height:1.45;min-height:100vh;
+  background:radial-gradient(circle at 20% 0,rgba(255,255,255,.35),transparent 40%),linear-gradient(180deg,var(--bg),var(--chart2));}
+html[dir="rtl"] body{font-family:"Noto Naskh Arabic","Nunito",serif;font-size:19px;line-height:1.9}
+#app{max-width:560px;margin:0 auto;padding:10px 14px 90px}
+h1,h2,h3{font-family:"Arvo",Georgia,serif;font-weight:700;margin:0;line-height:1.2}
+html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3{font-family:"Noto Naskh Arabic",serif;line-height:1.6}
+.ar{font-family:"Amiri","Noto Naskh Arabic",serif;direction:rtl;unicode-bidi:isolate;font-size:1.3em;line-height:2}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:4px solid var(--gold);outline-offset:2px}
+.top{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.top .sp{flex:1}
+.ib{display:inline-flex;align-items:center;justify-content:center;min-width:48px;height:48px;padding:0 12px;border-radius:14px;border:3px solid var(--line);
+  background:var(--card);box-shadow:0 4px 0 var(--line);font-weight:900;font-size:20px;text-decoration:none;color:var(--ink)}
+.ib:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.pill{padding:8px 12px;border-radius:999px;border:3px solid var(--line);background:var(--gold);color:#1B1B2F;font-weight:900}
+/* ---- hero ---- */
+.hero{display:flex;gap:12px;align-items:center;padding:14px;border:3px solid var(--line);border-radius:22px;color:#fff;
+  background:linear-gradient(180deg,#F7C873 0,#F08A4B 30%,#087E8B 62%,#0B3954 100%);box-shadow:0 6px 0 var(--line)}
+.hero .nuri{width:96px;flex:0 0 96px}
+.hero h1{font-size:26px;text-shadow:0 2px 0 rgba(0,0,0,.35)}
+.hero p{margin:4px 0 0;font-weight:700;text-shadow:0 1px 0 rgba(0,0,0,.4)}
+.sttl{font-weight:900;margin:16px 4px 6px}
+.stickers{display:flex;flex-wrap:wrap;gap:6px}
+.stickers span{width:42px;height:42px;display:grid;place-items:center;font-size:24px;border-radius:50%;border:2px dashed var(--muted);filter:grayscale(1);opacity:.45;background:var(--card)}
+.stickers span.got{filter:none;opacity:1;border:3px solid var(--line);background:var(--note)}
+/* ---- peta laut (carta) ---- */
+.chart{position:relative;margin-top:14px;padding:16px 8px 22px;border:3px solid var(--line);border-radius:24px;overflow:hidden;
+  background:repeating-linear-gradient(0deg,transparent 0 38px,rgba(8,126,139,.08) 38px 40px),repeating-linear-gradient(90deg,transparent 0 38px,rgba(8,126,139,.08) 38px 40px),
+  radial-gradient(ellipse at 50% 0,#7FD1D8,#2B9BA8 45%,#0B5C7A 100%)}
+.chart::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(circle at 15% 20%,rgba(255,255,255,.25) 0 2px,transparent 3px) 0 0/60px 50px,radial-gradient(circle at 70% 60%,rgba(255,255,255,.2) 0 2px,transparent 3px) 0 0/80px 70px}
+.compass{position:absolute;top:8px;inset-inline-end:10px;font-size:30px;opacity:.85}
+.start{display:inline-block;position:relative;z-index:2;margin:0 0 6px 8px;padding:6px 12px;border-radius:12px;border:2px solid var(--line);background:var(--sail);color:var(--ink);font-weight:900;font-size:15px}
+.mrow{position:relative;display:flex;justify-content:flex-start;padding:6px 0}
+.mrow:nth-of-type(even){justify-content:flex-end}
+.mrow::after{content:"";position:absolute;top:-18px;bottom:50%;left:50%;width:0;border-left:4px dashed rgba(255,246,224,.8);z-index:0}
+.stn{position:relative;z-index:1;display:flex;align-items:center;gap:8px;width:min(330px,88%);padding:6px 10px 6px 6px;border:3px solid var(--line);border-radius:20px;
+  background:var(--card);box-shadow:0 5px 0 var(--line);text-align:start}
+.stn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--line)}
+.stn.lock{background:#D9D2C3;color:#5B5160}
+.stn.now{outline:4px solid var(--gold);outline-offset:3px}
+.isle{position:relative;flex:0 0 84px;width:84px;height:72px}
+.isle svg{width:84px;height:72px;display:block}
+.isle .em{position:absolute;left:50%;top:22px;transform:translateX(-50%);font-size:24px;filter:drop-shadow(0 2px 0 rgba(0,0,0,.25))}
+.isle .badge{position:absolute;top:-4px;inset-inline-start:-4px;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--coral);color:#fff;border:2px solid var(--line);font-weight:900;font-size:14px;font-family:Nunito,sans-serif}
+.isle .perch{position:absolute;top:-40px;inset-inline-start:-6px;width:40px;z-index:3}
+.lab{display:flex;flex-direction:column;min-width:0}
+.lab .dk{font-size:13px;font-weight:900;color:var(--sea2)}
+.stn.lock .lab .dk{color:#5B5160}
+.lab .nm{font-weight:900;font-size:16px;line-height:1.25;overflow-wrap:anywhere}
+html[dir="rtl"] .lab .nm{font-size:17px;line-height:1.7}
+.lab .st{font-size:15px;letter-spacing:1px}
+.lab .st .off,.stars .off{filter:grayscale(1);opacity:.3}
+.mrow.port .stn{background:linear-gradient(135deg,var(--note),var(--card))}
+</style>
+<style>
+/* ---- kepala pulau + kad ---- */
+.shead{display:flex;gap:10px;align-items:center;margin:4px 0 10px}
+.shead .bub{width:52px;height:52px;flex:0 0 52px;border-radius:50%;display:grid;place-items:center;font-size:28px;background:var(--c);border:3px solid var(--line)}
+.shead h2{font-size:20px}
+.shead small{color:var(--muted);font-weight:800}
+.card{background:var(--card);border:3px solid var(--line);border-radius:22px;padding:14px;box-shadow:0 6px 0 var(--line);margin-bottom:14px}
+.read{border-top:10px solid var(--sc)}
+.rpic{font-size:44px;text-align:center}
+.rh{display:flex;align-items:center;gap:8px;justify-content:space-between;font-size:19px;margin:6px 0}
+.say{flex:0 0 auto;width:44px;height:44px;border-radius:50%;border:2px solid var(--line);background:var(--wave);font-size:18px}
+.rtext{margin:6px 0}
+.rlist{margin:6px 0;padding-inline-start:24px}
+.rlist li{margin:4px 0}
+.abox{display:flex;flex-direction:column;gap:6px;margin:10px 0;padding:12px;border-radius:16px;background:var(--panel);border:2px solid var(--sea2);text-align:center}
+.abox .ar{font-size:1.45em}
+.abox .mk{font-style:italic}
+.abox small{color:var(--muted);font-weight:800}
+.tip{display:flex;gap:8px;margin:10px 0;padding:10px;border-radius:14px;background:var(--note);border:2px dashed var(--wood)}
+.tip.am{background:var(--okbg);border-color:var(--jade)}
+.ref{font-size:14px;font-weight:800;color:var(--muted);margin-top:6px}
+.navr{display:flex;gap:10px;margin-top:12px}
+.btn{flex:1;display:block;width:100%;min-height:54px;padding:10px 14px;border-radius:16px;border:3px solid var(--line);background:var(--sea2);color:#fff;font-weight:900;font-size:18px;box-shadow:0 5px 0 var(--line)}
+.btn.go{background:var(--coral)}
+.btn.alt{background:var(--card);color:var(--ink)}
+.btn:disabled{opacity:.45}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--line)}
+.dots{display:flex;justify-content:center;gap:6px;margin-top:10px}
+.dots i{width:10px;height:10px;border-radius:50%;background:var(--muted);opacity:.35}
+.dots i.on{opacity:1;background:var(--coral)}
+/* ---- main ---- */
+.prog{display:flex;gap:4px;margin:0 0 10px}
+.prog i{flex:1;height:30px;border-radius:8px;border:2px solid var(--line);background:var(--wave);display:grid;place-items:center;font-style:normal;font-size:15px}
+.prog i.got{background:var(--gold)}
+.prog i.cur{background:var(--sail)}
+.q{display:flex;gap:8px;align-items:flex-start;justify-content:space-between}
+.q p{margin:0;font-weight:900;font-size:18px}
+.qpic{font-size:40px;text-align:center;margin:6px 0}
+#play{margin-top:10px}
+.g1{display:grid;grid-template-columns:1fr;gap:10px}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.opt{min-width:0;min-height:56px;padding:10px 12px;border-radius:16px;border:3px solid var(--line);background:var(--card);box-shadow:0 4px 0 var(--line);font-weight:800;text-align:center;overflow-wrap:anywhere;line-height:1.35}
+html[dir="rtl"] .opt{line-height:1.8}
+.opt:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.opt.sel{background:var(--note);outline:4px solid var(--gold)}
+.opt.right{background:var(--okbg);border-color:var(--ok)}
+.opt.wrong{background:var(--badbg);border-color:var(--bad)}
+.opt.used{opacity:.35}
+.opt:disabled{cursor:default}
+.shake{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.cnt{text-align:center;font-weight:800;color:var(--muted);margin-top:8px}
+.hint{margin-top:10px;padding:10px;border-radius:14px;background:var(--badbg);border:2px solid var(--bad);font-weight:800}
+/* layar: tiang + layar dinaikkan */
+.mast{position:relative;height:96px;margin:0 auto 10px;width:150px}
+.mast .pole{position:absolute;left:73px;top:0;width:6px;height:92px;background:var(--wood);border-radius:3px}
+.mast .sl{position:absolute;left:12px;width:126px;height:26px;background:var(--sail);border:2px solid var(--line);border-radius:4px 4px 20px 20px;transform:scaleY(.25);transform-origin:top;transition:transform .5s}
+.mast.up .sl{transform:scaleY(1)}
+.opt.sailb{border-radius:6px 6px 26px 26px;background:linear-gradient(180deg,var(--sail),var(--card))}
+/* kemudi */
+.wheel{width:90px;height:90px;margin:0 auto 6px;transition:transform .5s}
+.wheel.l{transform:rotate(-60deg)}.wheel.r{transform:rotate(60deg)}
+.stmt{padding:14px;border-radius:16px;border:3px dashed var(--sea2);background:var(--panel);font-weight:800;text-align:center;min-height:70px}
+/* logbuku */
+.logp{padding:10px;border-radius:14px;border:2px solid var(--wood);background:repeating-linear-gradient(180deg,var(--sail) 0 30px,var(--chart2) 30px 31px);min-height:60px;margin-bottom:10px}
+.logp div{font-weight:800;padding:4px 2px}
+/* haluan: pulau destinasi */
+.cur{padding:14px;border-radius:16px;border:3px solid var(--line);background:var(--sail);text-align:center;font-weight:900;margin-bottom:10px}
+.bays .opt{background:linear-gradient(180deg,var(--card) 60%,#E9D29A)}
+/* bintangutara */
+.pairs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.pairs .col{display:flex;flex-direction:column;gap:8px}
+.pairs .opt{min-height:52px;font-size:15px}
+.opt.done{background:var(--okbg);border-color:var(--ok);opacity:.7}
+/* buritan */
+.sent{padding:12px;border-radius:14px;background:var(--panel);border:2px solid var(--sea2);font-weight:800;margin-bottom:10px}
+.blank{display:inline-block;min-width:80px;border-bottom:3px dashed var(--coral);padding:0 6px;color:var(--coral)}
+/* tiang & lanun */
+.opt.flag::before{content:"🚩 "}
+.fleet .opt{background:linear-gradient(180deg,var(--card) 70%,var(--wave))}
+.opt.sunk{opacity:.35;text-decoration:line-through}
+/* maklum balas */
+.fb{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:12px 12px calc(12px + env(safe-area-inset-bottom,0px));background:rgba(11,57,84,.35)}
+.fb .in{max-width:540px;margin:0 auto;background:var(--okbg);border:3px solid var(--line);border-radius:22px;padding:12px;box-shadow:0 6px 0 var(--line)}
+.fb .row1{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.fb .nuri{width:62px;flex:0 0 62px}
+.fb strong{font-family:"Arvo",Georgia,serif;font-size:20px}
+html[dir="rtl"] .fb strong{font-family:"Noto Naskh Arabic",serif}
+.fb p{margin:2px 0 0;font-size:16px}
+.res{text-align:center}
+.res .nuri{width:120px}
+.stars{font-size:46px;margin:6px 0}
+.stars span{display:inline-block;animation:pop .5s both}
+@keyframes pop{0%{transform:scale(0)}80%{transform:scale(1.2)}100%{transform:scale(1)}}
+.gotst{margin:10px auto;padding:10px;border-radius:16px;background:var(--note);border:2px dashed var(--line);font-weight:800}
+.gotst span{font-size:36px;display:block}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:60;max-width:92vw;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:16px;font-weight:800}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}
+.confetti span{position:absolute;top:-40px;font-size:24px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+.bob{animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-4px) rotate(-3deg)}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+const QURAN = {"hajj41": "ٱلَّذِينَ إِن مَّكَّنَّـٰهُمْ فِى ٱلْأَرْضِ أَقَامُوا۟ ٱلصَّلَوٰةَ وَءَاتَوُا۟ ٱلزَّكَوٰةَ وَأَمَرُوا۟ بِٱلْمَعْرُوفِ وَنَهَوْا۟ عَنِ ٱلْمُنكَرِ ۗ وَلِلَّهِ عَـٰقِبَةُ ٱلْأُمُورِ", "syura": "وَأَمْرُهُمْ شُورَىٰ بَيْنَهُمْ", "adil": "وَإِذَا حَكَمْتُم بَيْنَ ٱلنَّاسِ أَن تَحْكُمُوا۟ بِٱلْعَدْلِ"};
+
+/* ===================== KANDUNGAN (Sirah Tahun 6) =====================
+   Buku teks Sirah Tahun 6: fail pN.jpg = ms. (N-9). Setiap teks = ["Rumi","Jawi"]. Rentetan biasa = teks Arab.
+   Ayat Quran dari QURAN (api.quran.com, dipotong ikut indeks perkataan). Hadis/selawat disalin daripada buku: perlu semakan ustaz.
+   Jenis permainan: layar, kemudi, logbuku, haluan, bintangutara, buritan, tiang, lanun. */
+const B = ["Betul","بتول"], SL = ["Salah","ساله"];
+const STATIONS = [
+{ id:1, icon:"🏛️", c:"#087E8B", sticker:"🏛️", t:["Negara Islam","نڬارا إسلام"], u:["Pulau 1 • ms. 1–5","ڤولاو 1 • م.س. 1–5"],
+  read:[
+    { p:2, pic:"🏛️", h:["Pengertian negara Islam","ڤڠرتين نڬارا إسلام"],
+      text:["Negara Islam ialah negara yang mengamalkan sistem pemerintahan dan pentadbiran berlandaskan segala hukum Islam berdasarkan al-Quran dan al-Hadith serta ijtihad yang benar.","نڬارا إسلام اياله نڬارا يڠ مڠعملکن سيستم ڤمرينتهن دان ڤنتدبيرن برلندسکن سڬالا حکوم إسلام برداسرکن القرءان دان الحديث سرتا اجتهاد يڠ بنر."] },
+    { p:2, pic:"⚖️", h:["Mengapa negara Islam sesuai?","مڠاڤ نڬارا إسلام سسواي؟"],
+      text:["Negara Islam melaksanakan undang-undang Allah SWT, mengamalkan keadilan dan kesaksamaan serta memberi kebajikan kepada rakyatnya, sama ada yang beragama Islam ataupun penganut agama lain.","نڬارا إسلام ملقساناکن اوندڠ٢ الله سبحانه وتعالى، مڠعملکن کعاديلن دان کسقساماٴن سرتا ممبري کباجيقن کڤد رعيتڽ، سام اد يڠ براڬام إسلام اتاوڤون ڤڠانوت اڬام لاٴين."] },
+    { p:3, pic:"🎯", h:["Tujuan negara Islam","توجوان نڬارا إسلام"],
+      list:[["Menegakkan perundangan dan hukum Allah SWT, seperti undang-undang jenayah, muamalah dan jihad.","منڬقکن ڤراوندڠن دان حکوم الله سبحانه وتعالى، سڤرتي اوندڠ٢ جنايه، معاملة دان جهاد."],
+            ["Merealisasikan keadilan: keadilan Islam bersifat sejagat tanpa mengira warna kulit, keturunan, kedudukan dan pangkat.","مريااليساسيکن کعاديلن: کعاديلن إسلام برصيفت سجاڬت تنڤا مڠيرا وارنا کوليت، کتورونن، کدودوقن دان ڤڠکت."],
+            ["Menyempurnakan kebajikan kepada rakyat: menjamin keamanan dan kemakmuran, membela yang dizalimi, memberi makanan dan tempat tinggal kepada golongan lemah.","مڽمڤورناکن کباجيقن کڤد رعيت: منجامين کأمانن دان کمعمورن، ممبيلا يڠ دظاليمي، ممبري ماکنن دان تمڤت تيڠڬل کڤد ڬولوڠن لمه."]] },
+    { p:5, pic:"📜", h:["Dalil al-Quran","دليل القرءان"], ar:QURAN.hajj41,
+      mk:["Maksudnya: (Iaitu) orang-orang yang jika Kami tetapkan kedudukan mereka di muka bumi nescaya mereka mendirikan sembahyang, menunaikan zakat, menyuruh berbuat makruf dan mencegah dari perbuatan yang mungkar dan kepada Allah lah kembali segala urusan.","مقصودڽ: (يأيت) اورڠ٢ يڠ جک کامي تتڤکن کدودوقن مريک دموک بومي نسچاي مريک منديريکن سمبهيڠ، منونايکن زکاة، مڽوروه بربوات معروف دان منچڬه دري ڤربواتن يڠ منکر دان کڤد الله له کمبالي سڬالا اوروسن."],
+      src:["Surah al-Hajj, ayat 41","سورة الحج، ايات 41"] }
+  ],
+  games:[
+    { type:"layar", q:["Negara Islam mengamalkan pemerintahan berlandaskan apa?","نڬارا إسلام مڠعملکن ڤمرينتهن برلندسکن اڤ؟"],
+      a:[["Hukum Islam: al-Quran, al-Hadith dan ijtihad yang benar","حکوم إسلام: القرءان، الحديث دان اجتهاد يڠ بنر"],["Adat resam nenek moyang sahaja","عادت رسم نينيق مويڠ سهاج"],["Kehendak raja semata-mata","کهندق راج سمات٢"],["Undang-undang yang dibuat sesuka hati","اوندڠ٢ يڠ دبوات سوک هاتي"]],
+      e:["Betul! Negara Islam berlandaskan al-Quran, al-Hadith dan ijtihad yang benar.","بتول! نڬارا إسلام برلندسکن القرءان، الحديث دان اجتهاد يڠ بنر."] },
+    { type:"kemudi", q:["Kemudikan kapal: betul atau salah?","کمودیکن کاڤل: بتول اتاو ساله؟"],
+      items:[[["Negara Islam memberi kebajikan kepada rakyat Islam dan penganut agama lain.","نڬارا إسلام ممبري کباجيقن کڤد رعيت إسلام دان ڤڠانوت اڬام لاٴين."],true],
+             [["Keadilan Islam hanya untuk orang yang berpangkat tinggi.","کعاديلن إسلام هاڽ اونتوق اورڠ يڠ برڤڠکت تيڠڬي."],false],
+             [["Pemerintah Islam membela mereka yang dizalimi.","ڤمرينته إسلام ممبيلا مريک يڠ دظاليمي."],true],
+             [["Kezaliman dan penindasan dibiarkan dalam negara Islam.","کظاليمن دان ڤنيندسن دبيارکن دالم نڬارا إسلام."],false]],
+      e:["Hebat! Negara Islam adil dan menjaga kebajikan semua rakyat.","هيبت! نڬارا إسلام عاديل دان منجاڬ کباجيقن سموا رعيت."] },
+    { type:"tiang", q:["Naikkan bendera bagi SEMUA tujuan negara Islam.","ناٴيقکن بندير باڬي سموا توجوان نڬارا إسلام."],
+      items:[[["Menegakkan hukum Allah SWT","منڬقکن حکوم الله سبحانه وتعالى"],1],[["Merealisasikan keadilan","مريااليساسيکن کعاديلن"],1],[["Menyempurnakan kebajikan rakyat","مڽمڤورناکن کباجيقن رعيت"],1],
+             [["Mengumpul harta untuk pemimpin","مڠومڤول هرتا اونتوق ڤميمڤين"],0],[["Menindas golongan lemah","منيندس ڬولوڠن لمه"],0]],
+      e:["Tiga tujuan: hukum Allah, keadilan dan kebajikan rakyat.","تيڬ توجوان: حکوم الله، کعاديلن دان کباجيقن رعيت."] },
+    { type:"buritan", q:["Lengkapkan ayat ini.","لڠکڤکن ايات اين."],
+      s:["Keadilan Islam bersifat ___ tanpa mengira warna kulit, keturunan dan pangkat.","کعاديلن إسلام برصيفت ___ تنڤا مڠيرا وارنا کوليت، کتورونن دان ڤڠکت."],
+      a:[["sejagat","سجاڬت"],["tempatan","تمڤتن"],["sementara","سمنتارا"],["terhad","ترحد"]],
+      e:["Ya, keadilan Islam bersifat sejagat: untuk semua manusia.","ي، کعاديلن إسلام برصيفت سجاڬت: اونتوق سموا مانوسيا."] },
+    { type:"haluan", q:["Bawa setiap muatan ke pulau tujuan yang betul.","باوا ستياڤ موانن ک ڤولاو توجوان يڠ بتول."],
+      bins:[["Hukum Allah","حکوم الله"],["Keadilan","کعاديلن"],["Kebajikan","کباجيقن"]],
+      items:[[["Undang-undang jenayah dan muamalah","اوندڠ٢ جنايه دان معاملة"],0],[["Kezaliman dihapuskan secara saksama","کظاليمن دهاڤوسکن سچارا سقسام"],1],
+             [["Golongan lemah diberi makanan dan tempat tinggal","ڬولوڠن لمه دبري ماکنن دان تمڤت تيڠڬل"],2],[["Tidak mengira keturunan dan pangkat","تيدق مڠيرا کتورونن دان ڤڠکت"],1],[["Menjamin keamanan dan kemakmuran","منجامين کأمانن دان کمعمورن"],2]],
+      e:["Tepat! Setiap muatan sampai ke pulaunya.","تڤت! ستياڤ موانن سمڤاي ک ڤولاوڽ."] },
+    { type:"lanun", q:["Tembak kapal lanun: amalan yang TIDAK disebut dalam Surah al-Hajj ayat 41.","تمبق کاڤل لانون: عملن يڠ تيدق دسبوت دالم سورة الحج ايات 41."],
+      rounds:[[["Mengumpul harta","مڠومڤول هرتا"],["Mendirikan sembahyang","منديريکن سمبهيڠ"],["Menunaikan zakat","منونايکن زکاة"],["Menyuruh berbuat makruf","مڽوروه بربوات معروف"]],
+              [["Berbangga dengan pangkat","بربڠڬ دڠن ڤڠکت"],["Mencegah perbuatan mungkar","منچڬه ڤربواتن منکر"],["Menunaikan zakat","منونايکن زکاة"],["Mendirikan sembahyang","منديريکن سمبهيڠ"]]],
+      e:["Ayat 41: sembahyang, zakat, menyuruh makruf dan mencegah mungkar.","ايات 41: سمبهيڠ، زکاة، مڽوروه معروف دان منچڬه منکر."] }
+  ] },
+{ id:2, icon:"🤝", c:"#E4572E", sticker:"🤝", t:["Ciri dan Prinsip Negara Islam","چيري دان ڤرينسيڤ نڬارا إسلام"], u:["Pulau 2 • ms. 6–13","ڤولاو 2 • م.س. 6–13"],
+  read:[
+    { p:6, pic:"🗂️", h:["Ciri-ciri negara Islam","چيري٢ نڬارا إسلام"],
+      list:[["Berdasarkan kepada al-Quran dan al-Hadith","برداسرکن کڤد القرءان دان الحديث"],["Majlis Syura sebagai asas pemerintahan","مجليس شورى سباڬاي اساس ڤمرينتهن"],["Melaksanakan amar makruf nahi mungkar","ملقساناکن أمر معروف نهي منکر"],
+            ["Mewujudkan keamanan dan kesejahteraan","موجودکن کأمانن دان کسجهترا٘ن"],["Ketua negara yang adil dan beriman","کتوا نڬارا يڠ عاديل دان برايمان"],["Jaminan kebebasan dan hak asasi","جامينن کبيبسن دان حق اساسي"]] },
+    { p:7, pic:"🏛️", h:["Dalil bermesyuarat","دليل برمشوارت"], ar:QURAN.syura,
+      mk:["Maksudnya: ...dan urusan mereka dijalankan secara bermesyuarat sesama mereka...","مقصودڽ: ...دان اوروسن مريک دجالنکن سچارا برمشوارت سسام مريک..."], src:["Surah asy-Syura, ayat 38","سورة الشورى، ايات 38"] },
+    { p:8, pic:"⚖️", h:["Prinsip 1 dan 2: Keadilan dan Persamaan","ڤرينسيڤ 1 دان 2: کعاديلن دان ڤرساماٴن"],
+      list:[["Keadilan (al-'adalah): melaksanakan keadilan dalam semua bidang kehidupan untuk memelihara agama, nyawa, akal fikiran, keturunan dan harta benda.","کعاديلن (العدالة): ملقساناکن کعاديلن دالم سموا بيدڠ کهيدوڤن اونتوق ممليهارا اڬام، ڽاوا، عقل فيکيرن، کتورونن دان هرتا بندا."],
+            ["Persamaan (al-musawah): semua manusia sama di sisi Allah tanpa mengira keturunan, etnik, bangsa dan pangkat, tetapi Allah memuliakan orang yang bertakwa.","ڤرساماٴن (المساواة): سموا مانوسيا سام دسيسي الله تنڤا مڠيرا کتورونن، ايتنيک، بڠسا دان ڤڠکت، تتاڤي الله ممولياکن اورڠ يڠ برتقوى."]] },
+    { p:10, pic:"📜", h:["Dalil menghukum dengan adil","دليل مڠحکوم دڠن عاديل"], ar:QURAN.adil,
+      mk:["Maksudnya: Dan apabila kamu menjalankan hukum di antara manusia, (Allah menyuruh) kamu menghukum dengan adil.","مقصودڽ: دان اڤابيلا کامو منجالنکن حکوم دانتارا مانوسيا، (الله مڽوروه) کامو مڠحکوم دڠن عاديل."], src:["Surah an-Nisa', ayat 58","سورة النساء، ايات 58"] },
+    { p:11, pic:"🗣️", h:["Prinsip 3 dan 4: Kebebasan dan Musyawarah","ڤرينسيڤ 3 دان 4: کبيبسن دان مشوارت"],
+      list:[["Kebebasan (al-hurriyyah): tidak terkeluar daripada batas yang ditentukan Allah, seperti bebas mencari harta, bersuara, beragama dan mendapat jaminan keselamatan hidup.","کبيبسن (الحرية): تيدق ترکلوار درڤد باتس يڠ دتنتوکن الله، سڤرتي بيبس منچاري هرتا، برسوارا، براڬام دان منداڤت جامينن کسلامتن هيدوڤ."],
+            ["Musyawarah (asy-syura): setiap keputusan dibuat setelah mendapat pandangan daripada mereka yang berkelayakan.","مشوارت (الشورى): ستياڤ کڤوتوسن دبوات ستله منداڤت ڤنداڠن درڤد مريک يڠ برکلايقن."]],
+      tip:["Nabi Muhammad SAW telah membina negara Islam yang pertama iaitu Madinah al-Munawwarah.","نبي محمد صلى الله عليه وسلم تله ممبينا نڬارا إسلام يڠ ڤرتام يأيت مدينة المنورة."],
+      am:["Berusaha menyelesaikan masalah yang timbul secara rundingan.","براوسها ميلسايکن مسئله يڠ تيمبول سچارا رونديڠن."] }
+  ],
+  games:[
+    { type:"bintangutara", q:["Padankan prinsip dengan maksudnya.","ڤادنکن ڤرينسيڤ دڠن مقصودڽ."],
+      pairs:[[["Keadilan","کعاديلن"],["Adil dalam semua bidang kehidupan","عاديل دالم سموا بيدڠ کهيدوڤن"]],[["Persamaan","ڤرساماٴن"],["Semua manusia sama di sisi Allah","سموا مانوسيا سام دسيسي الله"]],
+             [["Kebebasan","کبيبسن"],["Bebas dalam batas Allah","بيبس دالم باتس الله"]],[["Musyawarah","مشوارت"],["Keputusan setelah dapat pandangan","کڤوتوسن ستله داڤت ڤنداڠن"]]],
+      e:["Empat prinsip: keadilan, persamaan, kebebasan dan musyawarah.","امڤت ڤرينسيڤ: کعاديلن، ڤرساماٴن، کبيبسن دان مشوارت."] },
+    { type:"layar", q:["Siapakah yang paling mulia di sisi Allah?","سياڤاکه يڠ ڤاليڠ موليا دسيسي الله؟"],
+      a:[["Orang yang bertakwa","اورڠ يڠ برتقوى"],["Orang yang paling kaya","اورڠ يڠ ڤاليڠ کاي"],["Orang yang berpangkat tinggi","اورڠ يڠ برڤڠکت تيڠڬي"],["Orang dari bangsa tertentu","اورڠ دري بڠسا ترتنتو"]],
+      e:["Betul! Semua manusia sama, tetapi Allah memuliakan orang yang bertakwa.","بتول! سموا مانوسيا سام، تتاڤي الله ممولياکن اورڠ يڠ برتقوى."] },
+    { type:"tiang", q:["Naikkan bendera bagi SEMUA ciri negara Islam.","ناٴيقکن بندير باڬي سموا چيري نڬارا إسلام."],
+      items:[[["Majlis Syura sebagai asas pemerintahan","مجليس شورى سباڬاي اساس ڤمرينتهن"],1],[["Amar makruf nahi mungkar","أمر معروف نهي منکر"],1],[["Ketua negara yang adil dan beriman","کتوا نڬارا يڠ عاديل دان برايمان"],1],
+             [["Jaminan kebebasan dan hak asasi","جامينن کبيبسن دان حق اساسي"],1],[["Ketua negara memerintah sesuka hati","کتوا نڬارا ممرينته سوک هاتي"],0],[["Rakyat dilarang bersuara","رعيت دلارڠ برسوارا"],0]],
+      e:["Syabas! Itulah ciri-ciri negara Islam.","شاباس! ايتوله چيري٢ نڬارا إسلام."] },
+    { type:"buritan", q:["Lengkapkan maksud Surah asy-Syura ayat 38.","لڠکڤکن مقصود سورة الشورى ايات 38."], pic:"<span class=\"ar\" lang=\"ar\">"+QURAN.syura+"</span>",
+      s:["...dan urusan mereka dijalankan secara ___ sesama mereka...","...دان اوروسن مريک دجالنکن سچارا ___ سسام مريک..."],
+      a:[["bermesyuarat","برمشوارت"],["bersendirian","برسنديرين"],["berlumba","برلومبا"],["rahsia","رهسيا"]],
+      e:["Syura bermaksud bermesyuarat.","شورى برمقصود برمشوارت."] },
+    { type:"kemudi", q:["Kemudikan kapal: betul atau salah?","کمودیکن کاڤل: بتول اتاو ساله؟"],
+      items:[[["Kebebasan dalam Islam tidak boleh terkeluar daripada batas yang ditentukan Allah.","کبيبسن دالم إسلام تيدق بوليه ترکلوار درڤد باتس يڠ دتنتوکن الله."],true],
+             [["Negara Islam yang pertama ialah Mekah.","نڬارا إسلام يڠ ڤرتام اياله مکة."],false],
+             [["Keadilan memelihara agama, nyawa, akal, keturunan dan harta.","کعاديلن ممليهارا اڬام، ڽاوا، عقل، کتورونن دان هرتا."],true],
+             [["Keputusan dalam negara Islam dibuat tanpa pandangan sesiapa.","کڤوتوسن دالم نڬارا إسلام دبوات تنڤا ڤنداڠن سسياڤا."],false]],
+      e:["Negara Islam pertama ialah Madinah al-Munawwarah.","نڬارا إسلام ڤرتام اياله مدينة المنورة."] },
+    { type:"lanun", q:["Tembak kapal lanun: yang BUKAN prinsip negara Islam.","تمبق کاڤل لانون: يڠ بوکن ڤرينسيڤ نڬارا إسلام."],
+      rounds:[[["Kekayaan","ککاياٴن"],["Keadilan","کعاديلن"],["Persamaan","ڤرساماٴن"],["Musyawarah","مشوارت"]],
+              [["Kezaliman","کظاليمن"],["Kebebasan","کبيبسن"],["Musyawarah","مشوارت"],["Keadilan","کعاديلن"]]],
+      e:["Prinsip: keadilan, persamaan, kebebasan, musyawarah.","ڤرينسيڤ: کعاديلن، ڤرساماٴن، کبيبسن، مشوارت."] }
+  ] },
+{ id:3, icon:"🕌", c:"#2E8B57", sticker:"🌟", t:["Khulafa' ar-Rasyidin dan Abu Bakar","خلفاء الراشدين دان أبو بکر"], u:["Pulau 3 • ms. 14–25","ڤولاو 3 • م.س. 14–25"],
+  read:[
+    { p:15, pic:"👥", h:["Pengertian sahabat","ڤڠرتين صحابت"],
+      text:["Sahabat adalah mereka yang berjumpa (bertemu) Nabi Muhammad SAW, beriman dengan baginda dan mati dalam Islam.","صحابت اداله مريک يڠ برجومڤا (برتمو) نبي محمد صلى الله عليه وسلم، برايمان دڠن بڬيندا دان ماتي دالم إسلام."],
+      tip:["Termasuk sahabat: orang yang bertemu baginda sama ada lama atau sekejap, dan orang yang tidak dapat melihat baginda kerana buta.","ترماسوق صحابت: اورڠ يڠ برتمو بڬيندا سام اد لاما اتاو سکجڤ، دان اورڠ يڠ تيدق داڤت مليهت بڬيندا کران بوتا."] },
+    { p:16, pic:"👑", h:["Khalifah dan Khulafa' ar-Rasyidin","خليفة دان خلفاء الراشدين"],
+      text:["Khalifah ialah orang yang memegang jawatan ketua pentadbiran negara Islam dan hal ehwal agama selepas Rasulullah SAW. Khulafa' ar-Rasyidin ialah gelaran bagi empat orang sahabat yang menjadi ketua negara Islam selepas kewafatan baginda.","خليفة اياله اورڠ يڠ ممڬڠ جاوتن کتوا ڤنتدبيرن نڬارا إسلام دان حال احوال اڬام سلڤس رسول الله صلى الله عليه وسلم. خلفاء الراشدين اياله ڬلرن باڬي امڤت اورڠ صحابت يڠ منجادي کتوا نڬارا إسلام سلڤس کوفاتن بڬيندا."],
+      list:[["Khalifah pertama: Sayidina Abu Bakar as-Siddiq","خليفة ڤرتام: سيدنا أبو بکر الصديق"],["Khalifah kedua: Sayidina Umar bin al-Khattab","خليفة کدوا: سيدنا عمر بن الخطاب"],["Khalifah ketiga: Sayidina Uthman bin Affan","خليفة کتيڬ: سيدنا عثمان بن عفان"],["Khalifah keempat: Sayidina Ali bin Abi Talib","خليفة کأمڤت: سيدنا علي بن أبي طالب"]],
+      tip:["Abu Bakar dan Umar ialah mertua Rasulullah SAW, manakala Uthman dan Ali ialah menantu baginda.","أبو بکر دان عمر اياله مرتوا رسول الله صلى الله عليه وسلم، مانکالا عثمان دان علي اياله منانتو بڬيندا."] },
+    { p:19, pic:"📘", h:["Riwayat hidup Abu Bakar as-Siddiq","روايت هيدوڤ أبو بکر الصديق"],
+      list:[["Nama penuh: Abdullah bin Abi Quhafah at-Taimi","نام ڤنوه: عبد الله بن أبي قحافة التيمي"],["Gelaran as-Siddiq: sentiasa yakin dan membenarkan Rasulullah SAW, terutama ketika Israk dan Mikraj","ڬلرن الصديق: سنتياس يقين دان ممبنرکن رسول الله، تراوتام کتيک اسراء دان معراج"],
+            ["Lahir dua tahun selepas kelahiran Rasulullah SAW di Mekah, daripada Bani Taim (Quraisy)","لاهير دوا تاهون سلڤس کلاهيرن رسول الله دمکة، درڤد بني تيم (قريش)"],["Khalifah pertama pada tahun 11 Hijrah, memerintah 2 tahun 3 bulan","خليفة ڤرتام ڤد تاهون 11 هجرة، ممرينته 2 تاهون 3 بولن"],["Wafat tahun 13 Hijrah ketika berusia 63 tahun","وفاة تاهون 13 هجرة کتيک براوسيا 63 تاهون"]] },
+    { p:21, pic:"💎", h:["Peribadi Abu Bakar","ڤريبادي أبو بکر"],
+      list:[["Ahli perniagaan yang berjaya dan lelaki dewasa pertama yang memeluk Islam.","اهلي ڤرنياڬاٴن يڠ برجاي دان للاکي ديواس ڤرتام يڠ مملوق إسلام."],["Tidak pernah meminum arak walaupun sebelum memeluk Islam.","تيدق ڤرنه مميڽوم عارق والاوڤون سبلوم مملوق إسلام."],
+            ["Sahabat karib Rasulullah SAW yang paling setia dan menemani baginda berhijrah dari Mekah ke Madinah.","صحابت کاريب رسول الله يڠ ڤاليڠ ستيا دان منماني بڬيندا برهجرة دري مکة ک مدينة."],["Membebaskan Bilal bin Rabah yang diseksa dengan membayar tebusan.","ممبيبسکن بلال بن رباح يڠ دسيقسا دڠن ممباير تبوسن."]] },
+    { p:23, pic:"🛡️", h:["Sumbangan semasa menjadi khalifah","سومبڠن سماس منجادي خليفة"],
+      list:[["Memerangi golongan murtad yang enggan membayar zakat dan orang yang mengaku menjadi nabi.","ممرڠي ڬولوڠن مرتد يڠ اڠڬن ممباير زکاة دان اورڠ يڠ مڠاکو منجادي نبي."],["Mengembangkan syiar Islam ke negeri Rom serta seluruh Semenanjung Arab.","مڠمبڠکن شعار إسلام ک نڬري روم سرتا سلوروه سمننجوڠ عرب."],["Mengumpulkan al-Quran atas cadangan Sayidina Umar setelah ramai penghafaz al-Quran mati syahid.","مڠومڤولکن القرءان اتس چادڠن سيدنا عمر ستله راماي ڤڠحفظ القرءان ماتي شهيد."]],
+      tip:["Di Gua Thur, Abu Bakar menutup lubang dengan kain dan kakinya. Kakinya disengat binatang berbisa, tetapi beliau menahan sakit supaya Rasulullah SAW tidak terjaga.","دڬوا ثور، أبو بکر منوتوڤ لوبڠ دڠن کاين دان کاکيڽ. کاکيڽ دسڠت بيناتڠ بربيسا، تتاڤي بلياو منهن ساکيت سوڤاي رسول الله تيدق ترجاڬ."],
+      am:["Mengeratkan silaturahim dan membantu mereka yang memerlukan tanpa mengira pangkat dan keturunan.","مڠرتکن صلة الرحيم دان ممبنتو مريک يڠ ممرلوکن تنڤا مڠيرا ڤڠکت دان کتورونن."] }
+  ],
+  games:[
+    { type:"logbuku", q:["Catat dalam log: susun Khulafa' ar-Rasyidin dari pertama hingga keempat.","چاتت دالم لوڬ: سوسون خلفاء الراشدين دري ڤرتام هيڠڬ کأمڤت."],
+      seq:[["Abu Bakar as-Siddiq","أبو بکر الصديق"],["Umar bin al-Khattab","عمر بن الخطاب"],["Uthman bin Affan","عثمان بن عفان"],["Ali bin Abi Talib","علي بن أبي طالب"]],
+      e:["Tepat! Abu Bakar, Umar, Uthman dan Ali.","تڤت! أبو بکر، عمر، عثمان دان علي."] },
+    { type:"layar", q:["Mengapa Abu Bakar digelar as-Siddiq?","مڠاڤ أبو بکر دڬلر الصديق؟"],
+      a:[["Sentiasa membenarkan Rasulullah SAW, terutama ketika Israk dan Mikraj","سنتياس ممبنرکن رسول الله، تراوتام کتيک اسراء دان معراج"],["Kerana beliau saudagar terkaya","کران بلياو سوداڬر ترکاي"],["Kerana beliau pandai memanah","کران بلياو ڤندأي ممانه"],["Kerana beliau khalifah yang paling lama","کران بلياو خليفة يڠ ڤاليڠ لاما"]],
+      e:["As-Siddiq: yang membenarkan.","الصديق: يڠ ممبنرکن."] },
+    { type:"kemudi", q:["Kemudikan kapal: betul atau salah?","کمودیکن کاڤل: بتول اتاو ساله؟"],
+      items:[[["Orang buta yang bertemu Rasulullah SAW dan beriman juga termasuk sahabat.","اورڠ بوتا يڠ برتمو رسول الله دان برايمان جوڬ ترماسوق صحابت."],true],
+             [["Abu Bakar dan Umar ialah menantu Rasulullah SAW.","أبو بکر دان عمر اياله منانتو رسول الله."],false],
+             [["Abu Bakar ialah lelaki dewasa pertama yang memeluk Islam.","أبو بکر اياله للاکي ديواس ڤرتام يڠ مملوق إسلام."],true],
+             [["Abu Bakar memerintah selama 10 tahun.","أبو بکر ممرينته سلاما 10 تاهون."],false]],
+      e:["Abu Bakar memerintah 2 tahun 3 bulan. Abu Bakar dan Umar ialah mertua baginda.","أبو بکر ممرينته 2 تاهون 3 بولن. أبو بکر دان عمر اياله مرتوا بڬيندا."] },
+    { type:"tiang", q:["Naikkan bendera bagi SEMUA sumbangan Abu Bakar semasa menjadi khalifah.","ناٴيقکن بندير باڬي سموا سومبڠن أبو بکر سماس منجادي خليفة."],
+      items:[[["Memerangi golongan murtad","ممرڠي ڬولوڠن مرتد"],1],[["Mengembangkan syiar Islam ke negeri Rom","مڠمبڠکن شعار إسلام ک نڬري روم"],1],[["Mengumpulkan al-Quran","مڠومڤولکن القرءان"],1],
+             [["Memperkenalkan kalendar Hijrah","ممڤرکنلکن کاليندر هجرة"],0],[["Mengasaskan ilmu nahu","مڠاساسکن علمو نحو"],0]],
+      e:["Kalendar Hijrah ialah sumbangan Umar; ilmu nahu ialah sumbangan Ali.","کاليندر هجرة اياله سومبڠن عمر؛ علمو نحو اياله سومبڠن علي."] },
+    { type:"buritan", q:["Lengkapkan kisah di Gua Thur.","لڠکڤکن کيسه دڬوا ثور."],
+      s:["Kaki Abu Bakar disengat, tetapi beliau menahan sakit supaya Rasulullah SAW tidak ___.","کاکي أبو بکر دسڠت، تتاڤي بلياو منهن ساکيت سوڤاي رسول الله تيدق ___."],
+      a:[["terjaga","ترجاڬ"],["lapar","لاڤر"],["berjalan","برجالن"],["marah","مراه"]],
+      e:["Abu Bakar sangat setia dan sanggup berkorban untuk Rasulullah SAW.","أبو بکر ساڠت ستيا دان سڠڬوڤ برکوربن اونتوق رسول الله."] },
+    { type:"haluan", q:["Bawa setiap fakta ke pulau yang betul.","باوا ستياڤ فکتا ک ڤولاو يڠ بتول."],
+      bins:[["Sahabat","صحابت"],["Khalifah","خليفة"]],
+      items:[[["Bertemu Nabi SAW, beriman dan mati dalam Islam","برتمو نبي، برايمان دان ماتي دالم إسلام"],0],[["Ketua pentadbiran negara Islam selepas Rasulullah","کتوا ڤنتدبيرن نڬارا إسلام سلڤس رسول الله"],1],
+             [["Bertemu baginda walaupun sekejap","برتمو بڬيندا والاوڤون سکجڤ"],0],[["Memegang hal ehwal agama dan negara","ممڬڠ حال احوال اڬام دان نڬارا"],1]],
+      e:["Bagus! Kamu tahu beza sahabat dan khalifah.","باڬوس! کامو تاهو بيذا صحابت دان خليفة."] }
+  ] },
+{ id:4, icon:"🌙", c:"#7B2CBF", sticker:"🌙", t:["Sayidina Umar al-Faruq","سيدنا عمر الفاروق"], u:["Pulau 4 • ms. 26–33","ڤولاو 4 • م.س. 26–33"],
+  read:[
+    { p:26, pic:"📘", h:["Riwayat hidup Umar bin al-Khattab","روايت هيدوڤ عمر بن الخطاب"],
+      list:[["Nama penuh: Umar bin al-Khattab bin Nufail bin Abdul Uzza","نام ڤنوه: عمر بن الخطاب بن نفيل بن عبد العزى"],["Gelaran al-Faruq: pembeza antara yang hak dengan yang batil","ڬلرن الفاروق: ڤمبيذا انتارا يڠ حق دڠن يڠ باطل"],
+            ["Lahir 13 tahun selepas kelahiran Rasulullah SAW di Mekah, daripada Bani Adi (Quraisy)","لاهير 13 تاهون سلڤس کلاهيرن رسول الله دمکة، درڤد بني عدي (قريش)"],["Khalifah kedua, dilantik pada tahun 13 Hijrah dan memerintah 10 tahun 6 bulan","خليفة کدوا، دلانتيق ڤد تاهون 13 هجرة دان ممرينته 10 تاهون 6 بولن"],
+            ["Wafat tahun 23 Hijrah ketika berusia 63 tahun, ditikam Abu Lu'lu'ah ketika mengimami solat Subuh di Masjid Nabawi","وفاة تاهون 23 هجرة کتيک براوسيا 63 تاهون، دتيکم أبو لؤلؤة کتيک مڠيمامي صلاة صبح دمسجد النبوي"]] },
+    { p:28, pic:"💪", h:["Peribadi Umar sebelum menjadi khalifah","ڤريبادي عمر سبلوم منجادي خليفة"],
+      list:[["Memeluk Islam pada tahun keenam kerasulan, ketika berumur 36 tahun, kerana tertarik dengan ayat al-Quran yang dibaca oleh adiknya Fatimah.","مملوق إسلام ڤد تاهون کأنم کرسولن، کتيک برعمور 36 تاهون، کران ترتارق دڠن ايات القرءان يڠ دباچ اوليه اديقڽ فاطمة."],
+            ["Selepas Umar memeluk Islam, umat Islam tidak lagi khuatir semasa beribadah.","سلڤس عمر مملوق إسلام، اومت إسلام تيدق لاڬي خواتير سماس براعبادة."],
+            ["Gelaran al-Faruq diberi oleh Rasulullah SAW ketika beliau membantu umat Islam bersembahyang di hadapan Kaabah secara terbuka.","ڬلرن الفاروق دبري اوليه رسول الله کتيک بلياو ممبنتو اومت إسلام برسمبهيڠ دهادڤن کعبة سچارا تربوک."],
+            ["Beliau berhijrah ke Madinah secara terang-terangan.","بلياو برهجرة ک مدينة سچارا ترڠ-ترڠن."]] },
+    { p:30, pic:"🏗️", h:["Sumbangan Umar semasa menjadi khalifah","سومبڠن عمر سماس منجادي خليفة"],
+      list:[["Pentadbiran: menubuhkan Majlis Syura dan jabatan kerajaan seperti jabatan cukai, polis dan ketenteraan; memperkenalkan takwim Islam iaitu kalendar Hijrah.","ڤنتدبيرن: منوبوهکن مجليس شورى دان جابتن کراجاٴن سڤرتي جابتن چوکاي، ڤوليس دان کتنترا٘ن؛ ممڤرکنلکن تقويم إسلام يأيت کاليندر هجرة."],
+            ["Dakwah: menyebarkan Islam ke Mesir, Rom, Parsi, Iraq dan Azerbaijan.","دعوه: مڽيبرکن إسلام ک مصر، روم، ڤارسي، عراق دان آذربيجان."],
+            ["Pembangunan: menubuhkan Baitulmal, membina terusan dan saliran air, memperkenalkan mata wang sendiri, meluaskan Masjid Nabawi dan memperelok jalan.","ڤمباڠونن: منوبوهکن بيت المال، ممبينا تروسن دان ساليرن اٴير، ممڤرکنلکن مات واڠ سنديري، ملواسکن مسجد النبوي دان ممڤرايلوق جالن."]] },
+    { p:32, pic:"🍲", h:["Kisah rondaan malam","کيسه روندأن مالم"],
+      text:["Pada suatu malam, Umar terdengar anak-anak menangis kelaparan. Ibu mereka memasak periuk yang hanya berisi batu untuk mendiamkan mereka. Umar menangis, lalu sendiri membawa makanan dari Baitulmal ke rumah itu pada malam itu juga.","ڤد سواتو مالم، عمر تردڠر انق٢ مناڠيس کلاڤرن. ايبو مريک مماسق ڤريوق يڠ هاڽ بريسي باتو اونتوق مندياميکن مريک. عمر مناڠيس، لالو سنديري ممباوا ماکنن دري بيت المال ک رومه ايت ڤد مالم ايت جوڬ."],
+      am:["Sentiasa bersikap berani menyelesaikan sesuatu masalah.","سنتياس برسيکڤ براني ميلسايکن سسواتو مسئله."] }
+  ],
+  games:[
+    { type:"layar", q:["Apakah maksud gelaran al-Faruq?","اڤاکه مقصود ڬلرن الفاروق؟"],
+      a:[["Pembeza antara yang hak dengan yang batil","ڤمبيذا انتارا يڠ حق دڠن يڠ باطل"],["Yang membenarkan","يڠ ممبنرکن"],["Pemilik dua cahaya","ڤميليق دوا چهاي"],["Bapa tanah","باڤ تانه"]],
+      e:["Al-Faruq: pembeza antara hak dan batil.","الفاروق: ڤمبيذا انتارا حق دان باطل."] },
+    { type:"haluan", q:["Bawa setiap sumbangan Umar ke pulau bidangnya.","باوا ستياڤ سومبڠن عمر ک ڤولاو بيدڠڽ."],
+      bins:[["Pentadbiran","ڤنتدبيرن"],["Dakwah","دعوه"],["Pembangunan","ڤمباڠونن"]],
+      items:[[["Kalendar Hijrah","کاليندر هجرة"],0],[["Jabatan cukai dan polis","جابتن چوکاي دان ڤوليس"],0],[["Islam ke Mesir dan Parsi","إسلام ک مصر دان ڤارسي"],1],
+             [["Baitulmal","بيت المال"],2],[["Terusan dan saliran air","تروسن دان ساليرن اٴير"],2],[["Ulama dihantar ke wilayah baru","علماء دهنتر ک ولايه بارو"],1]],
+      e:["Hebat! Sumbangan Umar sangat luas.","هيبت! سومبڠن عمر ساڠت لواس."] },
+    { type:"buritan", q:["Lengkapkan ayat ini.","لڠکڤکن ايات اين."],
+      s:["Umar memeluk Islam kerana tertarik dengan ayat al-Quran yang dibaca oleh adiknya, ___.","عمر مملوق إسلام کران ترتارق دڠن ايات القرءان يڠ دباچ اوليه اديقڽ، ___."],
+      a:[["Fatimah","فاطمة"],["Aisyah","عائشة"],["Hafsah","حفصة"],["Asma'","أسماء"]],
+      e:["Adik Umar ialah Fatimah binti al-Khattab.","اديق عمر اياله فاطمة بنت الخطاب."] },
+    { type:"logbuku", q:["Catat dalam log: susun kisah rondaan malam Umar.","چاتت دالم لوڬ: سوسون کيسه روندأن مالم عمر."],
+      seq:[["Umar meronda pada waktu malam","عمر مروندا ڤد وقتو مالم"],["Terdengar anak-anak menangis","تردڠر انق٢ مناڠيس"],["Ibu memasak periuk berisi batu","ايبو مماسق ڤريوق بريسي باتو"],["Umar menangis dan pergi ke Baitulmal","عمر مناڠيس دان ڤرڬي ک بيت المال"],["Umar sendiri membawa makanan ke rumah itu","عمر سنديري ممباوا ماکنن ک رومه ايت"]],
+      e:["Umar pemimpin yang prihatin terhadap rakyat.","عمر ڤميمڤين يڠ ڤريهاتين ترهادڤ رعيت."] },
+    { type:"kemudi", q:["Kemudikan kapal: betul atau salah?","کمودیکن کاڤل: بتول اتاو ساله؟"],
+      items:[[["Umar berhijrah ke Madinah secara terang-terangan.","عمر برهجرة ک مدينة سچارا ترڠ-ترڠن."],true],
+             [["Umar memeluk Islam ketika berumur 10 tahun.","عمر مملوق إسلام کتيک برعمور 10 تاهون."],false],
+             [["Umar menubuhkan Baitulmal sebagai institusi kewangan Islam.","عمر منوبوهکن بيت المال سباڬاي اينستيتوسي کواڠن إسلام."],true],
+             [["Umar wafat kerana sakit akibat cuaca sejuk.","عمر وفاة کران ساکيت اکيبت چواچ سجوق."],false]],
+      e:["Umar memeluk Islam pada umur 36 tahun dan wafat ditikam ketika mengimami solat Subuh.","عمر مملوق إسلام ڤد عمور 36 تاهون دان وفاة دتيکم کتيک مڠيمامي صلاة صبح."] },
+    { type:"lanun", q:["Tembak kapal lanun: yang BUKAN sumbangan Umar.","تمبق کاڤل لانون: يڠ بوکن سومبڠن عمر."],
+      rounds:[[["Menulis al-Quran dengan satu jenis tulisan","منوليس القرءان دڠن ساتو جنيس توليسن"],["Kalendar Hijrah","کاليندر هجرة"],["Mata wang sendiri","مات واڠ سنديري"],["Meluaskan Masjid Nabawi","ملواسکن مسجد النبوي"]],
+              [["Mengasaskan ilmu nahu","مڠاساسکن علمو نحو"],["Majlis Syura","مجليس شورى"],["Baitulmal","بيت المال"],["Memperelok jalan","ممڤرايلوق جالن"]]],
+      e:["Rasm Uthmani ialah sumbangan Uthman; ilmu nahu sumbangan Ali.","رسم عثماني اياله سومبڠن عثمان؛ علمو نحو سومبڠن علي."] }
+  ] },
+{ id:5, icon:"📖", c:"#C8102E", sticker:"📖", t:["Sayidina Uthman dan Sayidina Ali","سيدنا عثمان دان سيدنا علي"], u:["Pulau 5 • ms. 34–42","ڤولاو 5 • م.س. 34–42"],
+  read:[
+    { p:34, pic:"📘", h:["Riwayat hidup Uthman bin Affan","روايت هيدوڤ عثمان بن عفان"],
+      list:[["Gelaran Dzun Nurain kerana berkahwin dengan dua puteri Rasulullah SAW iaitu Ruqayyah dan Ummu Kalthum","ڬلرن ذو النورين کران برکهوين دڠن دوا ڤوتري رسول الله يأيت رقية دان ام کلثوم"],
+            ["Lahir 6 tahun selepas kelahiran Nabi SAW di Mekah, daripada Bani Umayyah (Quraisy)","لاهير 6 تاهون سلڤس کلاهيرن نبي دمکة، درڤد بني أمية (قريش)"],["Khalifah ketiga, dilantik tahun 23 Hijrah dan memerintah 12 tahun","خليفة کتيڬ، دلانتيق تاهون 23 هجرة دان ممرينته 12 تاهون"],
+            ["Wafat tahun 35 Hijrah ketika berumur 82 tahun, dibunuh pemberontak ketika sedang membaca al-Quran","وفاة تاهون 35 هجرة کتيک برعمور 82 تاهون، دبونوه ڤمبرونتق کتيک سدڠ ممباچ القرءان"]] },
+    { p:36, pic:"🐪", h:["Uthman yang pemurah","عثمان يڠ ڤموره"],
+      list:[["Lemah lembut, pemurah dan antara saudagar terkaya di Mekah.","لمه لمبوت، ڤموره دان انتارا سوداڬر ترکاي دمکة."],["Dalam peperangan Tabuk, beliau menderma lebih 900 ekor unta, 60 ekor kuda dan 1000 dinar.","دالم ڤڤرڠن تبوک، بلياو مندرما لبيه 900 ايکور اونتا، 60 ايکور کودا دان 1000 دينار."],
+            ["Membeli telaga Rumah daripada seorang Yahudi dan mewakafkannya untuk umat Islam secara percuma.","ممبلي تلاڬ رومة درڤد سأورڠ يهودي دان مواقفکنڽ اونتوق اومت إسلام سچارا ڤرچوما."],["Penulis wahyu dan utusan Rasulullah SAW kepada Quraisy semasa Perjanjian Hudaibiyah.","ڤنوليس وحي دان اوتوسن رسول الله کڤد قريش سماس ڤرجنجين حديبية."]],
+      am:["Sentiasa bersedekah sekurang-kurangnya sepuluh sen setiap hari ke dalam tabung surau sekolah.","سنتياس برصدقه سکورڠ-کورڠڽ سڤولوه سين ستياڤ هاري ک دالم تابوڠ سوراو سکوله."] },
+    { p:37, pic:"📜", h:["Sumbangan Uthman semasa khalifah","سومبڠن عثمان سماس خليفة"],
+      list:[["Membukukan dan menyelaraskan tulisan al-Quran dengan satu jenis tulisan sahaja iaitu Rasm Uthmani.","ممبوکوکن دان مڽلارسکن توليسن القرءان دڠن سجنيس توليسن سهاج يأيت رسم عثماني."],["Membeli tanah untuk membesarkan Masjid Nabawi yang semakin padat dengan jemaah.","ممبلي تانه اونتوق ممبسرکن مسجد النبوي يڠ سماکين ڤادت دڠن جماعه."],["Memperkuatkan tentera darat dan laut bagi menjaga keselamatan negara.","ممڤرکواتکن تنترا دارت دان لاٴوت باڬي منجاڬ کسلامتن نڬارا."]] },
+    { p:39, pic:"📘", h:["Riwayat hidup Ali bin Abi Talib","روايت هيدوڤ علي بن أبي طالب"],
+      list:[["Gelaran Abu Turab: Rasulullah melihat beliau berbaring di atas tanah dalam masjid","ڬلرن أبو تراب: رسول الله مليهت بلياو برباريڠ داتس تانه دالم مسجد"],["Lahir 10 tahun sebelum kerasulan Nabi SAW di Mekah, daripada Bani Hashim (Quraisy)","لاهير 10 تاهون سبلوم کرسولن نبي دمکة، درڤد بني هاشم (قريش)"],
+            ["Khalifah keempat, dilantik tahun 35 Hijrah dan memerintah 5 tahun","خليفة کأمڤت، دلانتيق تاهون 35 هجرة دان ممرينته 5 تاهون"],["Wafat tahun 40 Hijrah ketika berusia 62 tahun","وفاة تاهون 40 هجرة کتيک براوسيا 62 تاهون"]] },
+    { p:40, pic:"🦁", h:["Peribadi dan sumbangan Ali","ڤريبادي دان سومبڠن علي"],
+      list:[["Kanak-kanak pertama memeluk Islam, ketika berumur 10 tahun; diasuh oleh Rasulullah SAW dan berkahwin dengan Sayidatina Fatimah.","کانق٢ ڤرتام مملوق إسلام، کتيک برعمور 10 تاهون؛ دأسوه اوليه رسول الله دان برکهوين دڠن سيدتنا فاطمة."],
+            ["Tidur di tempat tidur Rasulullah SAW pada malam hijrah, sanggup berkorban nyawa.","تيدور دتمڤت تيدور رسول الله ڤد مالم هجرة، سڠڬوڤ برکوربن ڽاوا."],["Pakar perundangan, kehakiman, syariah dan sastera.","ڤاکر ڤراوندڠن، کحاکيمن، شريعة دان ساسترا."],
+            ["Sumbangan: memikul jawatan khalifah pada saat genting, mengasaskan ilmu nahu bahasa Arab, menubuhkan pasukan polis asy-Syurtah dan membina penjara.","سومبڠن: مميکول جاوتن خليفة ڤد ساعت ڬنتيڠ، مڠاساسکن علمو نحو بهاس عرب، منوبوهکن ڤاسوقن ڤوليس الشرطة دان ممبينا ڤنجارا."]],
+      tip:["Ali berumur 23 tahun ketika diminta tidur di tempat tidur Rasulullah SAW pada malam hijrah.","علي برعمور 23 تاهون کتيک دمينتا تيدور دتمڤت تيدور رسول الله ڤد مالم هجرة."],
+      am:["Amalkan budaya membaca sekurang-kurangnya sebuah buku sebulan.","عملکن بودايا ممباچ سکورڠ-کورڠڽ سبواه بوکو سبولن."] }
+  ],
+  games:[
+    { type:"bintangutara", q:["Padankan khalifah dengan gelarannya.","ڤادنکن خليفة دڠن ڬلرنڽ."],
+      pairs:[[["Abu Bakar","أبو بکر"],["as-Siddiq","الصديق"]],[["Umar","عمر"],["al-Faruq","الفاروق"]],[["Uthman","عثمان"],["Dzun Nurain","ذو النورين"]],[["Ali","علي"],["Abu Turab","أبو تراب"]]],
+      e:["Hebat! Setiap khalifah ada gelaran istimewa.","هيبت! ستياڤ خليفة اد ڬلرن ايستيميوا."] },
+    { type:"haluan", q:["Bawa setiap fakta ke pulau khalifah yang betul.","باوا ستياڤ فکتا ک ڤولاو خليفة يڠ بتول."],
+      bins:[["Uthman","عثمان"],["Ali","علي"]],
+      items:[[["Rasm Uthmani","رسم عثماني"],0],[["Telaga Rumah diwakafkan","تلاڬ رومة دواقفکن"],0],[["Ilmu nahu bahasa Arab","علمو نحو بهاس عرب"],1],
+             [["Polis asy-Syurtah dan penjara","ڤوليس الشرطة دان ڤنجارا"],1],[["900 ekor unta untuk perang Tabuk","900 ايکور اونتا اونتوق ڤرڠ تبوک"],0],[["Tidur di tempat tidur Rasulullah","تيدور دتمڤت تيدور رسول الله"],1]],
+      e:["Tepat! Kamu kenal Uthman dan Ali.","تڤت! کامو کنل عثمان دان علي."] },
+    { type:"layar", q:["Mengapa Uthman digelar Dzun Nurain?","مڠاڤ عثمان دڬلر ذو النورين؟"],
+      a:[["Berkahwin dengan dua puteri Rasulullah SAW","برکهوين دڠن دوا ڤوتري رسول الله"],["Memiliki dua buah telaga","ممليقي دوا بواه تلاڬ"],["Menjadi khalifah dua kali","منجادي خليفة دوا کالي"],["Berhijrah dua kali sahaja","برهجرة دوا کالي سهاج"]],
+      e:["Dzun Nurain: pemilik dua cahaya, iaitu Ruqayyah dan Ummu Kalthum.","ذو النورين: ڤميليق دوا چهاي، يأيت رقية دان ام کلثوم."] },
+    { type:"kemudi", q:["Kemudikan kapal: betul atau salah?","کمودیکن کاڤل: بتول اتاو ساله؟"],
+      items:[[["Ali ialah kanak-kanak pertama yang memeluk Islam.","علي اياله کانق٢ ڤرتام يڠ مملوق إسلام."],true],
+             [["Uthman memerintah selama 5 tahun.","عثمان ممرينته سلاما 5 تاهون."],false],
+             [["Uthman wafat ketika sedang membaca al-Quran.","عثمان وفاة کتيک سدڠ ممباچ القرءان."],true],
+             [["Ali berkahwin dengan Sayidatina Aisyah.","علي برکهوين دڠن سيدتنا عائشة."],false]],
+      e:["Uthman memerintah 12 tahun; Ali berkahwin dengan Sayidatina Fatimah.","عثمان ممرينته 12 تاهون؛ علي برکهوين دڠن سيدتنا فاطمة."] },
+    { type:"buritan", q:["Lengkapkan ayat ini.","لڠکڤکن ايات اين."],
+      s:["Ali menubuhkan pasukan polis yang diberi nama ___.","علي منوبوهکن ڤاسوقن ڤوليس يڠ دبري نام ___."],
+      a:[["asy-Syurtah","الشرطة"],["Baitulmal","بيت المال"],["Majlis Syura","مجليس شورى"],["Rasm Uthmani","رسم عثماني"]],
+      e:["Asy-Syurtah ialah pasukan polis zaman Ali.","الشرطة اياله ڤاسوقن ڤوليس زمان علي."] },
+    { type:"tiang", q:["Naikkan bendera bagi SEMUA sumbangan Uthman.","ناٴيقکن بندير باڬي سموا سومبڠن عثمان."],
+      items:[[["Menyelaraskan tulisan al-Quran","مڽلارسکن توليسن القرءان"],1],[["Membeli tanah untuk Masjid Nabawi","ممبلي تانه اونتوق مسجد النبوي"],1],[["Memperkuat tentera darat dan laut","ممڤرکوات تنترا دارت دان لاٴوت"],1],
+             [["Menubuhkan pasukan asy-Syurtah","منوبوهکن ڤاسوقن الشرطة"],0],[["Memperkenalkan kalendar Hijrah","ممڤرکنلکن کاليندر هجرة"],0]],
+      e:["Syabas! Uthman menjaga al-Quran, masjid dan negara.","شاباس! عثمان منجاڬ القرءان، مسجد دان نڬارا."] }
+  ] },
+{ id:6, icon:"🏡", c:"#F2B134", sticker:"🌷", t:["Ahlul Bait","أهل البيت"], u:["Pulau 6 • ms. 43–48","ڤولاو 6 • م.س. 43–48"],
+  read:[
+    { p:45, pic:"🏡", h:["Pengertian Ahlul Bait","ڤڠرتين أهل البيت"],
+      list:[["Dari segi bahasa: keluarga serta kaum terdekat.","دري سڬي بهاس: کلوارڬ سرتا قوم ترديکت."],["Dari segi istilah: keluarga Nabi iaitu Bani Hashim dan Bani al-Muttalib, termasuk isteri-isteri dan cucu-cucu Nabi Muhammad SAW.","دري سڬي ايستيله: کلوارڬ نبي يأيت بني هاشم دان بني المطلب، ترماسوق ايستري٢ دان چوچو٢ نبي محمد صلى الله عليه وسلم."]] },
+    { p:45, pic:"✨", h:["Keistimewaan Ahlul Bait","کأيستيميواٴن أهل البيت"],
+      list:[["Diharamkan menerima zakat dan sedekah.","دحرامکن منريما زکاة دان صدقه."],["Berhak menerima ucapan selawat bersama selawat ke atas Rasulullah SAW.","برحق منريما اوچڤن صلوات برسام صلوات کاتس رسول الله صلى الله عليه وسلم."],["Berhak menerima satu perlima bahagian daripada harta ghanimah.","برحق منريما ساتو ڤرليما بهاڬين درڤد هرتا غنيمة."]] },
+    { p:46, pic:"🌸", h:["Isteri-isteri Nabi Muhammad SAW","ايستري٢ نبي محمد صلى الله عليه وسلم"],
+      list:[["Khadijah binti Khuwailid","خديجة بنت خويلد"],["Saudah binti Zam'ah","سودة بنت زمعة"],["Aisyah binti Abu Bakar","عائشة بنت أبي بکر"],["Hafsah binti Umar al-Khattab","حفصة بنت عمر الخطاب"],["Zainab binti Khuzaimah","زينب بنت خزيمة"],["Ummu Salamah (Hindun binti Abi Umayyah)","ام سلمة (هند بنت أبي أمية)"],
+            ["Zainab binti Jahsy","زينب بنت جحش"],["Juwairiyah binti al-Harith","جويرية بنت الحارث"],["Ummu Habibah (Ramlah binti Abi Sufyan)","ام حبيبة (رملة بنت أبي سفيان)"],["Maimunah binti al-Harith","ميمونة بنت الحارث"],["Safiyyah binti Huyai","صفية بنت حيي"]] },
+    { p:47, pic:"🌳", h:["Putera-puteri dan cucunda baginda","ڤوترا-ڤوتري دان چوچوندا بڬيندا"],
+      text:["Hasil perkahwinan Rasulullah SAW dengan Sayidatina Khadijah: al-Qasim, Zainab, Ruqayyah, Ummu Kalthum, Fatimah dan Abdullah. Seorang lagi putera, Ibrahim, lahir di Madinah daripada Mariah al-Qibtiyyah.","حاصيل ڤرکهوينن رسول الله دڠن سيدتنا خديجة: القاسم، زينب، رقية، ام کلثوم، فاطمة دان عبد الله. سأورڠ لاڬي ڤوترا، إبراهيم، لاهير دمدينة درڤد مارية القبطية."],
+      list:[["Fatimah berkahwin dengan Ali: Hasan, Husain, Muhsin, Zainab dan Ummu Kalthum.","فاطمة برکهوين دڠن علي: حسن، حسين، محسن، زينب دان ام کلثوم."],["Ruqayyah dan Ummu Kalthum berkahwin dengan Uthman.","رقية دان ام کلثوم برکهوين دڠن عثمان."],["Zainab berkahwin dengan Abu al-As bin ar-Rabi': Ali dan Umamah.","زينب برکهوين دڠن أبو العاص بن الربيع: علي دان أمامة."]] },
+    { p:48, pic:"💚", h:["Kasihilah Ahlul Bait","کاسيهيله أهل البيت"], ar:"اَللّٰهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ",
+      tip:["Antara tanda keimanan seorang Muslim ialah mengasihi ahlul bait dan juga sahabat-sahabat baginda yang lain.","انتارا تندا کأيمانن سأورڠ مسلم اياله مڠاسيهي أهل البيت دان جوڬ صحابت٢ بڬيندا يڠ لاٴين."],
+      am:["Perbanyakkan selawat kepada Nabi Muhammad SAW dan keluarga baginda.","ڤربڽقکن صلوات کڤد نبي محمد صلى الله عليه وسلم دان کلوارڬ بڬيندا."] }
+  ],
+  games:[
+    { type:"tiang", q:["Naikkan bendera bagi SEMUA keistimewaan Ahlul Bait.","ناٴيقکن بندير باڬي سموا کأيستيميواٴن أهل البيت."],
+      items:[[["Diharamkan menerima zakat dan sedekah","دحرامکن منريما زکاة دان صدقه"],1],[["Menerima selawat bersama Rasulullah SAW","منريما صلوات برسام رسول الله"],1],[["Satu perlima harta ghanimah","ساتو ڤرليما هرتا غنيمة"],1],
+             [["Tidak perlu bersolat","تيدق ڤرلو برصلاة"],0],[["Wajib menjadi khalifah","واجب منجادي خليفة"],0]],
+      e:["Itulah tiga keistimewaan Ahlul Bait.","ايتوله تيڬ کأيستيميواٴن أهل البيت."] },
+    { type:"layar", q:["Siapakah isteri pertama Rasulullah SAW?","سياڤاکه ايستري ڤرتام رسول الله؟"],
+      a:[["Khadijah binti Khuwailid","خديجة بنت خويلد"],["Aisyah binti Abu Bakar","عائشة بنت أبي بکر"],["Hafsah binti Umar","حفصة بنت عمر"],["Maimunah binti al-Harith","ميمونة بنت الحارث"]],
+      e:["Khadijah ialah isteri pertama baginda dan ibu kepada Fatimah.","خديجة اياله ايستري ڤرتام بڬيندا دان ايبو کڤد فاطمة."] },
+    { type:"bintangutara", q:["Padankan puteri Rasulullah SAW dengan suaminya.","ڤادنکن ڤوتري رسول الله دڠن سواميڽ."],
+      pairs:[[["Fatimah","فاطمة"],["Ali bin Abi Talib","علي بن أبي طالب"]],[["Ruqayyah","رقية"],["Uthman bin Affan","عثمان بن عفان"]],[["Zainab","زينب"],["Abu al-As bin ar-Rabi'","أبو العاص بن الربيع"]]],
+      e:["Bagus! Ruqayyah, kemudian Ummu Kalthum, berkahwin dengan Uthman.","باڬوس! رقية، کمودين ام کلثوم، برکهوين دڠن عثمان."] },
+    { type:"lanun", q:["Tembak kapal lanun: yang BUKAN anak Fatimah dan Ali.","تمبق کاڤل لانون: يڠ بوکن انق فاطمة دان علي."],
+      rounds:[[["Ibrahim","إبراهيم"],["Hasan","حسن"],["Husain","حسين"],["Muhsin","محسن"]],
+              [["Umamah","أمامة"],["Zainab","زينب"],["Ummu Kalthum","ام کلثوم"],["Hasan","حسن"]]],
+      e:["Ibrahim ialah putera baginda; Umamah ialah anak Zainab.","إبراهيم اياله ڤوترا بڬيندا؛ أمامة اياله انق زينب."] },
+    { type:"buritan", q:["Lengkapkan ayat ini.","لڠکڤکن ايات اين."],
+      s:["Ibrahim, putera Rasulullah SAW, lahir di Madinah daripada ibunya ___.","إبراهيم، ڤوترا رسول الله، لاهير دمدينة درڤد ايبوڽ ___."],
+      a:[["Mariah al-Qibtiyyah","مارية القبطية"],["Khadijah","خديجة"],["Saudah","سودة"],["Safiyyah","صفية"]],
+      e:["Ibrahim ialah anak Rasulullah SAW dengan Mariah al-Qibtiyyah.","إبراهيم اياله انق رسول الله دڠن مارية القبطية."] },
+    { type:"kemudi", q:["Kemudikan kapal: betul atau salah?","کمودیکن کاڤل: بتول اتاو ساله؟"],
+      items:[[["Ahlul Bait dari segi bahasa bermaksud keluarga serta kaum terdekat.","أهل البيت دري سڬي بهاس برمقصود کلوارڬ سرتا قوم ترديکت."],true],
+             [["Ahlul Bait boleh menerima zakat.","أهل البيت بوليه منريما زکاة."],false],
+             [["Mengasihi Ahlul Bait ialah tanda keimanan seorang Muslim.","مڠاسيهي أهل البيت اياله تندا کأيمانن سأورڠ مسلم."],true],
+             [["Rasulullah SAW mempunyai lima orang isteri sahaja.","رسول الله ممڤوڽاٴي ليما اورڠ ايستري سهاج."],false]],
+      e:["Buku menyenaraikan 11 orang isteri baginda.","بوکو مڽنارايکن 11 اورڠ ايستري بڬيندا."] }
+  ] },
+{ id:7, icon:"🌴", c:"#0B6E4F", sticker:"🏹", t:["Sahabat Dijamin Syurga (1)","صحابت دجامين شرڬ (1)"], u:["Pulau 7 • ms. 49–61","ڤولاو 7 • م.س. 49–61"],
+  read:[
+    { p:50, pic:"🌴", h:["10 sahabat dijamin syurga","10 صحابت دجامين شرڬ"],
+      ar:"أَبُو بَكْرٍ فِي الْجَنَّةِ، وَعُمَرُ فِي الْجَنَّةِ، وَعُثْمَانُ فِي الْجَنَّةِ، وَعَلِيٌّ فِي الْجَنَّةِ، وَطَلْحَةُ فِي الْجَنَّةِ، وَالزُّبَيْرُ فِي الْجَنَّةِ، وَعَبْدُ الرَّحْمَنِ بْنُ عَوْفٍ فِي الْجَنَّةِ، وَسَعْدٌ فِي الْجَنَّةِ، وَسَعِيدٌ فِي الْجَنَّةِ، وَأَبُو عُبَيْدَةَ بْنُ الْجَرَّاحِ فِي الْجَنَّةِ",
+      src:["Diriwayatkan daripada Abdul Rahman bin Auf (riwayat at-Tirmizi)","دروايتکن درڤد عبد الرحمن بن عوف (رواية الترمذي)"],
+      text:["Selain empat orang Khulafa' ar-Rasyidin, ada enam orang lagi sahabat yang dijamin syurga oleh Allah SWT.","سلاٴين امڤت اورڠ خلفاء الراشدين، اد انم اورڠ لاڬي صحابت يڠ دجامين شرڬ اوليه الله سبحانه وتعالى."],
+      list:[["Talhah bin Ubaidillah","طلحة بن عبيد الله"],["az-Zubair bin al-Awwam","الزبير بن العوام"],["Abdul Rahman bin Auf","عبد الرحمن بن عوف"],["Sa'ad bin Abi Waqqas","سعد بن أبي وقاص"],["Sa'id bin Zaid","سعيد بن زيد"],["Abu Ubaidah Amir bin al-Jarrah","أبو عبيدة عامر بن الجراح"]] },
+    { p:53, pic:"🛡️", h:["Talhah bin Ubaidillah","طلحة بن عبيد الله"],
+      list:[["Antara orang terawal memeluk Islam melalui Sayidina Abu Bakar.","انتارا اورڠ تراول مملوق إسلام ملالوٴي سيدنا أبو بکر."],["Dalam perang Uhud, beliau melindungi Rasulullah SAW daripada serangan musuh.","دالم ڤرڠ أحد، بلياو ملينودوڠي رسول الله درڤد سرڠن موسوه."]],
+      tip:["Tangan Talhah lumpuh dalam perang Uhud ketika beliau menahan serangan musyrikin Quraisy terhadap Nabi Muhammad SAW.","تاڠن طلحة لومڤوه دالم ڤرڠ أحد کتيک بلياو منهن سرڠن مشرکين قريش ترهادڤ نبي محمد صلى الله عليه وسلم."] },
+    { p:56, pic:"⚔️", h:["az-Zubair bin al-Awwam","الزبير بن العوام"],
+      list:[["Nama penuh: az-Zubair bin al-Awwam bin Khuwailid. Memeluk Islam ketika masih muda.","نام ڤنوه: الزبير بن العوام بن خويلد. مملوق إسلام کتيک ماسيه مودا."],["Rasulullah SAW menyebut az-Zubair sebagai pembantu (hawari) baginda.","رسول الله مڽبوت الزبير سباڬاي ڤمبنتو (حواري) بڬيندا."]],
+      tip:["Isteri az-Zubair ialah Asma', puteri Sayidina Abu Bakar as-Siddiq.","ايستري الزبير اياله أسماء، ڤوتري سيدنا أبو بکر الصديق."] },
+    { p:59, pic:"💰", h:["Abdul Rahman bin Auf","عبد الرحمن بن عوف"],
+      list:[["Nama asalnya Abdu Amru, daripada Bani Zuhrah. Rasulullah SAW menukar namanya kepada Abdul Rahman.","نام اصلڽ عبد عمرو، درڤد بني زهرة. رسول الله منوکر نامڽ کڤد عبد الرحمن."],["Antara orang terawal memeluk Islam melalui Sayidina Abu Bakar.","انتارا اورڠ تراول مملوق إسلام ملالوٴي سيدنا أبو بکر."],["Menyertai semua peperangan bersama Rasulullah SAW; saudagar yang kaya dan pemurah.","منيرتاٴي سموا ڤڤرڠن برسام رسول الله؛ سوداڬر يڠ کاي دان ڤموره."],["Wafat tahun 31 Hijrah ketika berumur 75 tahun.","وفاة تاهون 31 هجرة کتيک برعمور 75 تاهون."]],
+      tip:["Perniagaan Abdul Rahman bin Auf berjaya dan berkat kerana beliau sentiasa berniaga barang yang halal dan menjauhi yang haram.","ڤرنياڬاٴن عبد الرحمن بن عوف برجاي دان برکت کران بلياو سنتياس برنياڬ بارڠ يڠ حلال دان منجاوهي يڠ حرام."] }
+  ],
+  games:[
+    { type:"tiang", q:["Naikkan bendera bagi SEMUA sahabat yang dijamin syurga.","ناٴيقکن بندير باڬي سموا صحابت يڠ دجامين شرڬ."],
+      items:[[["Talhah bin Ubaidillah","طلحة بن عبيد الله"],1],[["az-Zubair bin al-Awwam","الزبير بن العوام"],1],[["Abdul Rahman bin Auf","عبد الرحمن بن عوف"],1],[["Sa'id bin Zaid","سعيد بن زيد"],1],
+             [["Abu Lu'lu'ah","أبو لؤلؤة"],0],[["Abdul Rahman bin Muljam","عبد الرحمن بن ملجم"],0]],
+      e:["Abu Lu'lu'ah dan Ibnu Muljam ialah pembunuh Umar dan Ali.","أبو لؤلؤة دان ابن ملجم اياله ڤمبونوه عمر دان علي."] },
+    { type:"layar", q:["Apakah yang berlaku kepada tangan Talhah dalam perang Uhud?","اڤاکه يڠ برلاکو کڤد تاڠن طلحة دالم ڤرڠ أحد؟"],
+      a:[["Lumpuh kerana melindungi Nabi SAW","لومڤوه کران ملينودوڠي نبي"],["Patah kerana jatuh dari kuda","ڤاته کران جاتوه دري کودا"],["Luka kerana memanah","لوک کران ممانه"],["Tiada apa-apa","تيادا اڤ٢"]],
+      e:["Talhah sanggup berkorban untuk melindungi Rasulullah SAW.","طلحة سڠڬوڤ برکوربن اونتوق ملينودوڠي رسول الله."] },
+    { type:"bintangutara", q:["Padankan sahabat dengan fakta tentangnya.","ڤادنکن صحابت دڠن فکتا تنتڠڽ."],
+      pairs:[[["Talhah","طلحة"],["Melindungi Nabi dalam perang Uhud","ملينودوڠي نبي دالم ڤرڠ أحد"]],[["az-Zubair","الزبير"],["Hawari (pembantu) Rasulullah","حواري (ڤمبنتو) رسول الله"]],[["Abdul Rahman bin Auf","عبد الرحمن بن عوف"],["Saudagar kaya, nama asal Abdu Amru","سوداڬر کاي، نام اصل عبد عمرو"]]],
+      e:["Hebat! Kamu kenal tiga sahabat ini.","هيبت! کامو کنل تيڬ صحابت اين."] },
+    { type:"buritan", q:["Lengkapkan ayat ini.","لڠکڤکن ايات اين."],
+      s:["Isteri az-Zubair bin al-Awwam ialah ___, puteri Sayidina Abu Bakar.","ايستري الزبير بن العوام اياله ___، ڤوتري سيدنا أبو بکر."],
+      a:[["Asma'","أسماء"],["Fatimah","فاطمة"],["Zainab","زينب"],["Hafsah","حفصة"]],
+      e:["Asma' ialah puteri Abu Bakar as-Siddiq.","أسماء اياله ڤوتري أبو بکر الصديق."] },
+    { type:"kemudi", q:["Kemudikan kapal: betul atau salah?","کمودیکن کاڤل: بتول اتاو ساله؟"],
+      items:[[["Hadis sepuluh sahabat dijamin syurga diriwayatkan daripada Abdul Rahman bin Auf.","حديث سڤولوه صحابت دجامين شرڬ دروايتکن درڤد عبد الرحمن بن عوف."],true],
+             [["Abdul Rahman bin Auf berniaga barang haram supaya cepat kaya.","عبد الرحمن بن عوف برنياڬ بارڠ حرام سوڤاي چڤت کاي."],false],
+             [["Khulafa' ar-Rasyidin juga termasuk sahabat yang dijamin syurga.","خلفاء الراشدين جوڬ ترماسوق صحابت يڠ دجامين شرڬ."],true],
+             [["Hanya enam orang sahabat sahaja yang dijamin syurga dalam hadis itu.","هاڽ انم اورڠ صحابت سهاج يڠ دجامين شرڬ دالم حديث ايت."],false]],
+      e:["Hadis menyebut sepuluh orang: empat khalifah dan enam sahabat lagi.","حديث مڽبوت سڤولوه اورڠ: امڤت خليفة دان انم صحابت لاڬي."] },
+    { type:"logbuku", q:["Catat dalam log: susun nama dalam hadis, mengikut urutan disebut.","چاتت دالم لوڬ: سوسون نام دالم حديث، مڠيکوت اوروتن دسبوت."],
+      seq:[["Abu Bakar","أبو بکر"],["Umar","عمر"],["Uthman","عثمان"],["Ali","علي"],["Talhah","طلحة"],["az-Zubair","الزبير"]],
+      e:["Hadis bermula dengan empat khalifah, kemudian Talhah dan az-Zubair.","حديث برمولا دڠن امڤت خليفة، کمودين طلحة دان الزبير."] }
+  ] },
+{ id:8, icon:"🏹", c:"#3A506B", sticker:"⚓", t:["Sahabat Dijamin Syurga (2)","صحابت دجامين شرڬ (2)"], u:["Pulau 8 • ms. 62–71","ڤولاو 8 • م.س. 62–71"],
+  read:[
+    { p:62, pic:"🏹", h:["Sa'ad bin Abi Waqqas","سعد بن أبي وقاص"],
+      list:[["Memeluk Islam melalui Sayidina Abu Bakar ketika berusia 17 tahun.","مملوق إسلام ملالوٴي سيدنا أبو بکر کتيک براوسيا 17 تاهون."],["Seorang pahlawan pemanah yang handal dalam perjuangan Islam.","سأورڠ ڤهلاون ڤمانه يڠ هندل دالم ڤرجواڠن إسلام."],["Wafat ketika berumur 80 tahun.","وفاة کتيک برعمور 80 تاهون."]],
+      tip:["Sa'ad bin Abi Waqqas ialah sahabat terakhir yang wafat dalam kalangan 10 sahabat yang dijamin syurga.","سعد بن أبي وقاص اياله صحابت تراخير يڠ وفاة دالم کالڠن 10 صحابت يڠ دجامين شرڬ."],
+      am:["Sentiasa berbuat baik kepada ibu bapa.","سنتياس بربوات باٴيق کڤد ايبو باڤ."] },
+    { p:65, pic:"🤝", h:["Abu Ubaidah Amir bin al-Jarrah","أبو عبيدة عامر بن الجراح"],
+      list:[["Nama sebenar: Amir bin Abdullah bin al-Jarrah. Memeluk Islam melalui Sayidina Abu Bakar.","نام سبنر: عامر بن عبد الله بن الجراح. مملوق إسلام ملالوٴي سيدنا أبو بکر."],["Rasulullah SAW menyifatkan beliau sebagai orang yang amanah bagi umat ini.","رسول الله مڽيفتکن بلياو سباڬاي اورڠ يڠ امانه باڬي اومت اين."],["Dipercayai memimpin tentera Islam di negeri Syam.","دڤرچاياٴي مميمڤين تنترا إسلام د نڬري شام."]],
+      tip:["Abu Ubaidah dilantik oleh Khalifah Umar sebagai panglima di Syam menggantikan Khalid bin al-Walid.","أبو عبيدة دلانتيق اوليه خليفة عمر سباڬاي ڤاڠليما د شام مڠڬنتيکن خالد بن الوليد."],
+      am:["Jadilah orang yang amanah dan boleh dipercayai.","جاديله اورڠ يڠ امانه دان بوليه دڤرچاياٴي."] },
+    { p:68, pic:"🤲", h:["Sa'id bin Zaid","سعيد بن زيد"],
+      list:[["Ayahnya, Zaid bin Amru, tidak menyembah berhala dan mengikut agama Nabi Ibrahim AS.","ايهڽ، زيد بن عمرو، تيدق مڽمبه برهالا دان مڠيکوت اڬام نبي إبراهيم عليه السلام."],["Isterinya, Fatimah binti al-Khattab, ialah adik Sayidina Umar. Mereka menjadi sebab Umar memeluk Islam.","ايستريڽ، فاطمة بنت الخطاب، اياله اديق سيدنا عمر. مريک منجادي سبب عمر مملوق إسلام."],["Tidak menyertai perang Badar kerana ditugaskan mengintip kafilah Quraisy; turut membuka kota Damsyik.","تيدق منيرتاٴي ڤرڠ بدر کران دتوڬسکن مڠينتيڤ قافلة قريش؛ توروت ممبوک کوتا دمشق."]],
+      tip:["Allah memakbulkan doa Sa'id bin Zaid ketika beliau dituduh merampas tanah seorang wanita; Allah membuktikan Sa'id benar.","الله مماقبولکن دعاء سعيد بن زيد کتيک بلياو دتوده مرمڤس تانه سأورڠ وانيتا؛ الله ممبوقتيکن سعيد بنر."] }
+  ],
+  games:[
+    { type:"bintangutara", q:["Padankan sahabat dengan keistimewaannya.","ڤادنکن صحابت دڠن کأيستيميواٴنڽ."],
+      pairs:[[["Sa'ad bin Abi Waqqas","سعد بن أبي وقاص"],["Pemanah handal, terakhir wafat","ڤمانه هندل، تراخير وفاة"]],[["Abu Ubaidah","أبو عبيدة"],["Orang yang amanah bagi umat","اورڠ يڠ امانه باڬي اومت"]],[["Sa'id bin Zaid","سعيد بن زيد"],["Doanya dimakbulkan Allah","دعاٴڽ دماقبولکن الله"]]],
+      e:["Syabas! Tiga sahabat, tiga keistimewaan.","شاباس! تيڬ صحابت، تيڬ کأيستيميواٴن."] },
+    { type:"layar", q:["Siapakah sahabat terakhir yang wafat antara 10 sahabat yang dijamin syurga?","سياڤاکه صحابت تراخير يڠ وفاة انتارا 10 صحابت يڠ دجامين شرڬ؟"],
+      a:[["Sa'ad bin Abi Waqqas","سعد بن أبي وقاص"],["Abu Bakar as-Siddiq","أبو بکر الصديق"],["Talhah bin Ubaidillah","طلحة بن عبيد الله"],["Abu Ubaidah","أبو عبيدة"]],
+      e:["Sa'ad wafat ketika berumur 80 tahun.","سعد وفاة کتيک برعمور 80 تاهون."] },
+    { type:"haluan", q:["Bawa setiap fakta ke pulau sahabat yang betul.","باوا ستياڤ فکتا ک ڤولاو صحابت يڠ بتول."],
+      bins:[["Sa'ad","سعد"],["Abu Ubaidah","أبو عبيدة"],["Sa'id","سعيد"]],
+      items:[[["Memeluk Islam pada umur 17 tahun","مملوق إسلام ڤد عمور 17 تاهون"],0],[["Panglima di Syam menggantikan Khalid","ڤاڠليما د شام مڠڬنتيکن خالد"],1],[["Isterinya adik Sayidina Umar","ايستريڽ اديق سيدنا عمر"],2],
+             [["Nama sebenar Amir bin Abdullah","نام سبنر عامر بن عبد الله"],1],[["Ayahnya mengikut agama Nabi Ibrahim","ايهڽ مڠيکوت اڬام نبي إبراهيم"],2],[["Wafat ketika berumur 80 tahun","وفاة کتيک برعمور 80 تاهون"],0]],
+      e:["Tepat! Semua fakta tiba di pulau yang betul.","تڤت! سموا فکتا تيبا د ڤولاو يڠ بتول."] },
+    { type:"kemudi", q:["Kemudikan kapal: betul atau salah?","کمودیکن کاڤل: بتول اتاو ساله؟"],
+      items:[[["Sa'id bin Zaid tidak menyertai perang Badar kerana ditugaskan mengintip kafilah Quraisy.","سعيد بن زيد تيدق منيرتاٴي ڤرڠ بدر کران دتوڬسکن مڠينتيڤ قافلة قريش."],true],
+             [["Abu Ubaidah digantikan oleh Khalid bin al-Walid di Syam.","أبو عبيدة دڬنتيکن اوليه خالد بن الوليد د شام."],false],
+             [["Sa'ad memeluk Islam melalui Sayidina Abu Bakar.","سعد مملوق إسلام ملالوٴي سيدنا أبو بکر."],true],
+             [["Ayah Sa'id bin Zaid menyembah berhala.","ايه سعيد بن زيد مڽمبه برهالا."],false]],
+      e:["Abu Ubaidah yang menggantikan Khalid; ayah Sa'id tidak menyembah berhala.","أبو عبيدة يڠ مڠڬنتيکن خالد؛ ايه سعيد تيدق مڽمبه برهالا."] },
+    { type:"buritan", q:["Lengkapkan ayat ini.","لڠکڤکن ايات اين."],
+      s:["Rasulullah SAW menyifatkan Abu Ubaidah sebagai orang yang ___ bagi umat ini.","رسول الله مڽيفتکن أبو عبيدة سباڬاي اورڠ يڠ ___ باڬي اومت اين."],
+      a:[["amanah","امانه"],["terkaya","ترکاي"],["termuda","ترمودا"],["terkuat","ترکوات"]],
+      e:["Abu Ubaidah terkenal kerana sifat amanahnya.","أبو عبيدة ترکنل کران صيفت امانهڽ."] },
+    { type:"lanun", q:["Tembak kapal lanun: yang BUKAN antara 10 sahabat dijamin syurga.","تمبق کاڤل لانون: يڠ بوکن انتارا 10 صحابت دجامين شرڬ."],
+      rounds:[[["Khalid bin al-Walid","خالد بن الوليد"],["Sa'ad bin Abi Waqqas","سعد بن أبي وقاص"],["Sa'id bin Zaid","سعيد بن زيد"],["Abu Ubaidah","أبو عبيدة"]],
+              [["Bilal bin Rabah","بلال بن رباح"],["Talhah","طلحة"],["az-Zubair","الزبير"],["Abdul Rahman bin Auf","عبد الرحمن بن عوف"]]],
+      e:["Khalid dan Bilal sahabat mulia, tetapi tidak disebut dalam hadis sepuluh sahabat itu.","خالد دان بلال صحابت موليا، تتاڤي تيدق دسبوت دالم حديث سڤولوه صحابت ايت."] }
+  ] }
+];
+/* Cabaran akhir "Pelabuhan Bintang": satu permainan dari setiap pulau */
+const FINAL_PICK = [[1,1],[2,0],[3,0],[4,1],[5,2],[6,3],[7,0],[8,4]];
+
+/* ===================== ENJIN "Kapal Layar Sirah" (Sirah Tahun 6) ===================== */
+const KEY = "s6-best", YEAR = 6;
+function load(k,f){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):f; }catch(e){ return f; } }
+function save(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+let LANG = load("kafa-lang","jawi");
+const isJ = () => LANG==="jawi";
+const T = v => v==null ? "" : typeof v==="string" ? v : (isJ() ? v[1] : v[0]);
+const RU = v => v==null ? "" : typeof v==="string" ? "" : v[0];
+const L = (r,j) => isJ() ? j : r;
+const TX = v => typeof v==="string" ? `<span class="ar" lang="ar">${v}</span>` : T(v);
+function applyLang(){ document.documentElement.dir = isJ() ? "rtl" : "ltr"; document.documentElement.lang = isJ() ? "ms-Arab" : "ms"; }
+const BACK = () => isJ() ? "→" : "←";
+let best = load(KEY, {});
+let voiceOn = load("t6-voice", true);
+const app = document.getElementById("app");
+const $ = s => app.querySelector(s);
+const shuffle = a => { const b=a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; };
+// kacau sehingga TIDAK sama dengan susunan asal (jawapan)
+const mix = a => { if(a.length<2) return a.slice(); let b; do{ b=shuffle(a); }while(b.every((x,i)=>x===a[i])); return b; };
+const starsFor = m => m<=1 ? 3 : m<=3 ? 2 : 1;
+const totalStars = () => Object.values(best).reduce((s,v)=>s+(+v||0),0);
+
+/* ---------- Maskot: Nakhoda Nuri, burung nuri bertopi nakhoda ---------- */
+function nuri(cls=""){
+  return `<svg class="nuri ${cls}" viewBox="0 0 120 120" aria-hidden="true">
+    <ellipse cx="60" cy="114" rx="30" ry="4" fill="rgba(0,0,0,.2)"/>
+    <path d="M52 92 L44 114 L52 112 L56 96 Z" fill="#1E6FD9" stroke="#1B1B2F" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M64 92 L70 114 L62 112 L58 96 Z" fill="#F2B134" stroke="#1B1B2F" stroke-width="3" stroke-linejoin="round"/>
+    <ellipse cx="60" cy="72" rx="28" ry="30" fill="#2EB35A" stroke="#1B1B2F" stroke-width="4"/>
+    <ellipse cx="62" cy="80" rx="15" ry="18" fill="#FFD25E"/>
+    <path d="M34 66 Q20 84 36 100 Q44 88 44 74 Z" fill="#1E6FD9" stroke="#1B1B2F" stroke-width="3.5" stroke-linejoin="round"/>
+    <path d="M86 66 Q100 84 84 100 Q76 88 76 74 Z" fill="#E4572E" stroke="#1B1B2F" stroke-width="3.5" stroke-linejoin="round"/>
+    <circle cx="60" cy="44" r="22" fill="#E4572E" stroke="#1B1B2F" stroke-width="4"/>
+    <circle cx="52" cy="42" r="7" fill="#fff" stroke="#1B1B2F" stroke-width="2.5"/><circle cx="53" cy="43" r="3.4" fill="#1B1B2F"/><circle cx="54.3" cy="41.6" r="1.2" fill="#fff"/>
+    <circle cx="69" cy="42" r="7" fill="#fff" stroke="#1B1B2F" stroke-width="2.5"/><circle cx="68" cy="43" r="3.4" fill="#1B1B2F"/><circle cx="69.3" cy="41.6" r="1.2" fill="#fff"/>
+    <path d="M58 50 Q72 50 70 62 Q66 58 58 58 Z" fill="#F7E9C8" stroke="#1B1B2F" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M58 58 Q62 64 68 62" fill="none" stroke="#1B1B2F" stroke-width="2.5"/>
+    <path d="M30 28 Q60 6 90 28 L86 34 Q60 22 34 34 Z" fill="#1B1B2F"/>
+    <path d="M36 30 Q60 10 84 30 L80 26 Q60 2 40 26 Z" fill="#0B3954" stroke="#1B1B2F" stroke-width="2.5"/>
+    <rect x="34" y="28" width="52" height="7" rx="3" fill="#F2B134" stroke="#1B1B2F" stroke-width="2"/>
+    <path d="M60 12 l2.4 5 5.4.6 -4 3.6 1.2 5.4 -5 -2.8 -5 2.8 1.2 -5.4 -4 -3.6 5.4 -.6z" fill="#F2B134" stroke="#1B1B2F" stroke-width="1"/>
+    <circle cx="44" cy="52" r="3.5" fill="#FF9AA2" opacity=".8"/><circle cx="76" cy="52" r="3.5" fill="#FF9AA2" opacity=".8"/>
+  </svg>`;
+}
+/* pulau kecil untuk peta */
+const isleSvg = (c, lock, stars) => `<svg viewBox="0 0 84 72" aria-hidden="true">
+  <ellipse cx="42" cy="58" rx="40" ry="11" fill="rgba(255,255,255,.55)"/>
+  <ellipse cx="42" cy="54" rx="34" ry="12" fill="${lock?"#C9BFA8":"#F3D99B"}" stroke="#1B1B2F" stroke-width="2.5"/>
+  <ellipse cx="42" cy="50" rx="26" ry="8" fill="${lock?"#9AA39A":c}" opacity=".9"/>
+  ${[0,1,2].map(i=>`<text x="${20+i*22}" y="70" font-size="11" text-anchor="middle" opacity="${i<stars?1:.25}">⭐</text>`).join("")}
+</svg>`;
+
+/* ---------- Bunyi ---------- */
+let actx = null;
+function tone(seq){
+  try{
+    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    let t = actx.currentTime;
+    for(const [f,d,type] of seq){
+      const o = actx.createOscillator(), g = actx.createGain();
+      o.type = type||"sine"; o.frequency.value = f; g.gain.setValueAtTime(.18,t); g.gain.exponentialRampToValueAtTime(.001,t+d);
+      o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t+d); t += d*.8;
+    }
+  }catch(e){}
+}
+const sfx = {
+  ok:    () => tone([[587,.12],[880,.2]]),
+  tick:  () => tone([[660,.06,"triangle"]]),
+  no:    () => tone([[220,.18,"square"],[165,.22,"square"]]),
+  creak: () => tone([[180,.08,"sawtooth"],[240,.1,"sawtooth"]]),
+  bell:  () => tone([[1046,.25],[1318,.35]]),
+  cannon:() => tone([[90,.25,"square"],[60,.3,"sawtooth"]]),
+  win:   () => tone([[392,.14],[523,.14],[659,.14],[784,.34]])
+};
+
+/* ---------- Suara: baca teks Rumi sahaja, buang tulisan Arab ---------- */
+const ttsOK = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+let voice = null;
+function pickVoice(){ try{ const vs = speechSynthesis.getVoices(); voice = vs.find(v=>/^ms/i.test(v.lang)) || vs.find(v=>/^id/i.test(v.lang)) || null; }catch(e){} }
+if(ttsOK){ pickVoice(); try{ speechSynthesis.onvoiceschanged = pickVoice; }catch(e){} }
+const AR_RE = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]+/g;
+const forSpeech = s => String(s).replace(/ﷺ/g," sallallahu alaihi wasallam ").replace(/\bSAW\b/g,"sallallahu alaihi wasallam").replace(/\bSWT\b/g,"subhanahu wa taala").replace(AR_RE," ").replace(/<[^>]+>/g," ")
+  .replace(/___/g," ... ").replace(/…/g," ... ").replace(/\bms\. /g,"muka surat ").replace(/\s+/g," ").trim();
+function speak(text, force){
+  if(!ttsOK || !text || (!voiceOn && !force)) return;
+  try{
+    const s = forSpeech(text); if(!s) return;
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(s);
+    u.lang = voice ? voice.lang : "ms-MY"; if(voice) u.voice = voice; u.rate = 1; u.pitch = 1.05;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function hush(){ if(ttsOK){ try{ speechSynthesis.cancel(); }catch(e){} } }
+
+/* ---------- Bantuan paparan ---------- */
+function toast(msg){ document.querySelectorAll(".toast").forEach(t=>t.remove()); const t=document.createElement("div"); t.className="toast"; t.setAttribute("role","status"); t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2600); }
+function confetti(n=36){
+  const box = document.createElement("div"); box.className="confetti"; box.setAttribute("aria-hidden","true");
+  const em = ["⭐","⛵","🦜","🌴","🧭","🐚"];
+  for(let i=0;i<n;i++){ const s=document.createElement("span"); s.textContent=em[i%em.length]; s.style.left=Math.random()*100+"vw"; s.style.animationDuration=(2+Math.random()*2)+"s"; s.style.animationDelay=Math.random()*.8+"s"; box.appendChild(s); }
+  document.body.appendChild(box); setTimeout(()=>box.remove(),5000);
+}
+const langBtn = () => `<button class="ib" data-act="lang" aria-label="${L("Tukar ke tulisan Jawi","توکر ک توليسن رومي")}">${isJ()?"Rumi":'<span style="font-family:Noto Naskh Arabic">جاوي</span>'}</button>`;
+const voiceBtn = () => `<button class="ib" data-act="voice" aria-label="${L("Suara","سوارا")}" aria-pressed="${voiceOn}">${voiceOn?"🔊":"🔇"}</button>`;
+const sayBtn = txt => ttsOK && txt ? `<button class="say" data-say="${encodeURIComponent(txt)}" aria-label="${L("Dengar","دڠر")}">🔊</button>` : "";
+const starRow = n => [1,2,3].map(i=>`<span class="${i<=n?"":"off"}">⭐</span>`).join("");
+const unlocked = id => id===1 || (best[id-1]||0)>0;
+const allDone = () => STATIONS.every(s => (best[s.id]||0)>0);
+
+/* ===================== PETA PELAYARAN ===================== */
+let S = null;
+function node(s, cur){
+  const lock = !unlocked(s.id), st = best[s.id]||0;
+  return `<div class="mrow"><button class="stn ${lock?"lock":""} ${cur===s.id?"now":""}" data-act="${lock?"locked":"open"}" data-id="${s.id}">
+    <span class="isle">${isleSvg(s.c, lock, st)}<span class="em">${lock?"🔒":s.icon}</span><span class="badge">${s.id}</span>
+      ${cur===s.id?`<span class="perch">${nuri("bob")}</span>`:""}</span>
+    <span class="lab"><span class="dk">🏝️ ${L("Pulau","ڤولاو")} ${s.id}</span><span class="nm">${T(s.t)}</span><span class="st">${starRow(st)}</span></span></button></div>`;
+}
+const FINAL_T = ["Pelabuhan Bintang","ڤلابوهن بينتڠ"];
+function renderMap(){
+  hush(); S = null;
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  document.title = L("Kapal Layar Sirah • Sirah Tahun 6","کاڤل لاير سيره • سيره تاهون 6");
+  const cur = (STATIONS.find(s => !(best[s.id]>0)) || {id:"final"}).id;
+  const fOpen = allDone(), fSt = best.final||0;
+  app.innerHTML = `
+    <div class="top"><a class="ib" href="../index.html" aria-label="${L("Kembali ke Tahun 6","کمبالي ک تاهون 6")}">${BACK()}</a><span class="sp"></span>
+      <span class="pill" aria-label="${totalStars()} ${L("bintang","بينتڠ")}">⭐ ${totalStars()}</span>${voiceBtn()}${langBtn()}</div>
+    <header class="hero">${nuri("bob")}<div><h1>${L("Kapal Layar Sirah","کاڤل لاير سيره")}</h1>
+      <p>${L("Nakhoda Nuri mengajak kamu belayar! Singgah di setiap pulau, kumpul ilmu sirah dan tiba di Pelabuhan Bintang.","نخودا نوري مڠاجق کامو بلاير! سيڠڬه د ستياڤ ڤولاو، کومڤول علمو سيره دان تيبا د ڤلابوهن بينتڠ.")}</p></div></header>
+    <p class="sttl">🐚 ${L("Cenderamata pelayaran saya","چندرامات ڤلايرن ساي")}</p>
+    <div class="stickers">${STATIONS.map(s=>`<span class="${best[s.id]>0?"got":""}" title="${T(s.t)}">${s.sticker}</span>`).join("")}<span class="${fSt?"got":""}" title="${T(FINAL_T)}">⛵</span></div>
+    <section class="chart" aria-label="${L("Peta pelayaran","ڤتا ڤلايرن")}">
+      <span class="compass" aria-hidden="true">🧭</span>
+      <span class="start">⛵ ${L("Mula belayar","مولا بلاير")}</span>
+      ${STATIONS.map(s=>node(s,cur)).join("")}
+      <div class="mrow port"><button class="stn ${fOpen?"":"lock"} ${cur==="final"?"now":""}" data-act="${fOpen?"final":"flocked"}">
+        <span class="isle">${isleSvg("#F2B134", !fOpen, fSt)}<span class="em">${fOpen?"⛵":"🔒"}</span>
+        ${cur==="final"?`<span class="perch">${nuri("bob")}</span>`:""}</span>
+        <span class="lab"><span class="dk">🏁 ${L("Cabaran akhir","چابرن اخير")}</span><span class="nm">${T(FINAL_T)}</span><span class="st">${starRow(fSt)}</span></span></button></div>
+    </section>`;
+  const now = app.querySelector(".stn.now");
+  if(now) setTimeout(()=>{ try{ now.scrollIntoView({block:"center", behavior:"smooth"}); }catch(e){} }, 250);
+}
+
+/* ===================== PULAU: BACA ===================== */
+function openStation(id){
+  const st = STATIONS.find(s=>s.id===id);
+  S = { st, phase:"read", ri:0, gi:0, miss:0, games: st.games.slice() };
+  renderRead();
+}
+function openFinal(){
+  const games = FINAL_PICK.map(([s,i]) => STATIONS.find(x=>x.id===s).games[i]);
+  S = { st:{ id:"final", icon:"⛵", c:"#F2B134", t:FINAL_T, u:["Satu cabaran dari setiap pulau","ساتو چابرن دري ستياڤ ڤولاو"], sticker:"⛵" }, phase:"play", gi:0, miss:0, games };
+  renderPlay();
+}
+const head = () => `<div class="top"><button class="ib" data-act="map" aria-label="${L("Kembali ke peta","کمبالي ک ڤتا")}">${BACK()}</button><span class="sp"></span>${voiceBtn()}${langBtn()}</div>
+  <div class="shead"><span class="bub" style="--c:${S.st.c}">${S.st.icon}</span><div><h2>${T(S.st.t)}</h2><small>${T(S.st.u)}</small></div></div>`;
+function readSpeech(c){
+  return [RU(c.h), RU(c.text), ...(c.list||[]).map(RU), RU(c.mk), c.tip?("Tahukah anda? "+RU(c.tip)):"", c.am?("Amalkan: "+RU(c.am)):""].filter(Boolean).join(". ");
+}
+function renderRead(){
+  hush();
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  const c = S.st.read[S.ri], n = S.st.read.length, last = S.ri===n-1;
+  app.innerHTML = head() + `
+    <article class="card read" style="--sc:${S.st.c}">
+      <div class="rpic" aria-hidden="true">${c.pic}</div>
+      <h3 class="rh"><span>${T(c.h)}</span> ${sayBtn(readSpeech(c))}</h3>
+      ${c.text?`<p class="rtext">${T(c.text)}</p>`:""}
+      ${(c.ar||c.mk)?`<div class="abox">${c.ar?`<span class="ar" lang="ar">${c.ar}</span>`:""}${c.mk?`<span class="mk">${T(c.mk)}</span>`:""}${c.src?`<small>${T(c.src)}</small>`:""}</div>`:""}
+      ${c.list?`<ol class="rlist">${c.list.map(x=>`<li>${T(x)}</li>`).join("")}</ol>`:""}
+      ${c.tip?`<div class="tip"><b>💡</b><span><b>${L("Tahukah anda?","تاهوکه اندا؟")}</b> ${T(c.tip)}</span></div>`:""}
+      ${c.am?`<div class="tip am"><b>🌱</b><span><b>${L("Amalkan:","عملکن:")}</b> ${T(c.am)}</span></div>`:""}
+      <div class="ref">📖 ${L("Buku teks ms.","بوکو تيکس م.س.")} ${c.p}</div>
+      <div class="navr">
+        <button class="btn alt" data-act="rprev" ${S.ri?"":"disabled"} aria-label="${L("Sebelum","سبلوم")}" style="flex:0 0 64px">${BACK()}</button>
+        <button class="btn ${last?"go":""}" data-act="rnext">${last ? "⛵ "+L("Angkat sauh!","اڠکت ساوه!") : L("Seterusnya","ستروسڽ")+" ▶"}</button>
+      </div>
+      <div class="dots">${S.st.read.map((_,i)=>`<i class="${i===S.ri?"on":""}"></i>`).join("")}</div>
+    </article>`;
+  speak(readSpeech(c));
+  window.scrollTo(0,0);
+}
+
+/* ===================== PULAU: MAIN ===================== */
+function progressBar(){
+  const n = S.games.length, k = S.gi;
+  return `<div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${k}">${S.games.map((_,i)=>`<i class="${i<k?"got":i===k?"cur":""}">${i<k?"🐚":i===k?"⛵":""}</i>`).join("")}</div>`;
+}
+function renderPlay(){
+  hush();
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  const g = S.games[S.gi];
+  app.innerHTML = head() + progressBar() + `<section class="card" id="game"></section>`;
+  const box = $("#game");
+  const q = g.q || ["Jawab soalan ini.","جواب سوالن اين."];
+  box.innerHTML = `<div class="q"><p>${T(q)}</p>${sayBtn(RU(q))}</div>${g.pic?`<div class="qpic">${g.pic}</div>`:""}<div id="play" data-type="${g.type}"></div><div id="hint"></div>`;
+  GAMES[g.type]($("#play"), g);
+  speak(RU(q));
+  window.scrollTo(0,0);
+}
+function oops(el, hint){
+  S.miss++; sfx.no();
+  if(el){ el.classList.remove("shake"); void el.offsetWidth; el.classList.add("shake"); }
+  const h = $("#hint"); if(h){ h.innerHTML = `<div class="hint">🦜 ${hint || L("Ombak besar! Cuba lagi.","اومبق بسر! چوبا لاڬي.")}</div>`; }
+}
+const clearHint = () => { const h=$("#hint"); if(h) h.innerHTML=""; };
+const PRAISE = [["Hebat!","هيبت!"],["Bagus!","باڬوس!"],["Cekap!","چکڤ!"],["Syabas!","شاباس!"],["MasyaAllah!","ماشاءالله!"]];
+function win(){
+  if(document.querySelector(".fb")) return;
+  sfx.ok();
+  const g = S.games[S.gi], p = PRAISE[Math.floor(Math.random()*PRAISE.length)];
+  const fb = document.createElement("div"); fb.className = "fb"; fb.setAttribute("role","dialog"); fb.setAttribute("aria-live","polite");
+  fb.innerHTML = `<div class="in"><div class="row1">${nuri()}<div><strong>${T(p)}</strong><p>${T(g.e)}</p></div></div>
+    <button class="btn go" data-act="next">${L("Seterusnya","ستروسڽ")} ▶</button></div>`;
+  document.body.appendChild(fb);
+  speak(RU(p)+" "+RU(g.e));
+  setTimeout(()=>{ const b = fb.querySelector("button"); if(b) b.focus(); }, 50);
+}
+function nextGame(){
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  S.gi++;
+  if(S.gi < S.games.length) renderPlay(); else renderResult();
+}
+function renderResult(){
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  const id = S.st.id, stars = starsFor(S.miss), prev = best[id]||0, wasAll = allDone();
+  if(stars > prev){ best[id] = stars; save(KEY, best); }
+  S.phase = "result";
+  S.res = { stars, first: !prev, openedFinal: id!=="final" && !wasAll && allDone() };
+  drawResult(true);
+}
+function drawResult(fresh){
+  hush();
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  const { stars, first, openedFinal } = S.res;
+  const msg = stars===3 ? ["Cemerlang! Pelayaran lancar tanpa ribut. Kamu nakhoda sirah sejati!","چمرلڠ! ڤلايرن لنچر تنڤا ريبوت. کامو نخودا سيره سجاتي!"] : stars===2 ? ["Bagus! Belayar sekali lagi untuk 3 bintang.","باڬوس! بلاير سکالي لاڬي اونتوق 3 بينتڠ."] : ["Syabas kerana mencuba! Jom belayar sekali lagi.","شاباس کران منچوبا! جوم بلاير سکالي لاڬي."];
+  const title = PRAISE[stars===3?4:stars===2?0:3];
+  app.innerHTML = head() + `<section class="card res">
+      ${nuri("bob")}
+      <div class="stars" aria-label="${stars} ${L("bintang","بينتڠ")}">${[1,2,3].map(i=>`<span class="${i<=stars?"":"off"}" style="animation-delay:${i*.25}s">⭐</span>`).join("")}</div>
+      <h2>${T(title)}</h2><p>${T(msg)}</p>
+      ${first ? `<div class="gotst"><span>${S.st.sticker}</span>${L("Cenderamata pulau baharu untuk kamu!","چندرامات ڤولاو بهارو اونتوق کامو!")}</div>` : ""}
+      ${openedFinal ? `<p><b>⛵ ${L("Pelabuhan Bintang kini terbuka!","ڤلابوهن بينتڠ کيني تربوک!")}</b></p>` : ""}
+      <button class="btn go" data-act="map">🗺️ ${L("Kembali ke peta","کمبالي ک ڤتا")}</button>
+      <button class="btn alt" style="margin-top:10px" data-act="again">🔁 ${L("Main lagi","ماٴين لاڬي")}</button>
+    </section>`;
+  if(fresh){ sfx.win(); sfx.bell(); confetti(); speak(RU(title)+" "+RU(msg)); }
+  window.scrollTo(0,0);
+}
+
+/* ===================== PERMAINAN PELAYARAN ===================== */
+const wheelSvg = `<svg class="wheel" viewBox="0 0 100 100" aria-hidden="true"><g stroke="#5E3A17" stroke-width="6" stroke-linecap="round">
+  ${[0,45,90,135].map(a=>`<line x1="50" y1="4" x2="50" y2="96" transform="rotate(${a} 50 50)"/>`).join("")}</g>
+  <circle cx="50" cy="50" r="30" fill="none" stroke="#8B5A2B" stroke-width="9"/><circle cx="50" cy="50" r="9" fill="#F2B134" stroke="#5E3A17" stroke-width="3"/></svg>`;
+const GAMES = {
+  /* Layar: pilih layar yang betul untuk dinaikkan (4 pilihan) */
+  layar(el, g){
+    const opts = mix(g.a.map((x,i)=>({x, ok:i===0}))); let done = false;
+    el.innerHTML = `<div class="mast" id="mast"><span class="pole"></span><span class="sl" style="top:6px"></span><span class="sl" style="top:38px;left:22px;width:106px"></span></div>
+      <div class="g1">${opts.map((o,i)=>`<button class="opt sailb" data-i="${i}" data-ok="${o.ok?1:0}">${TX(o.x)}</button>`).join("")}</div>`;
+    el.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => {
+      if(done || b.disabled) return;
+      if(opts[+b.dataset.i].ok){ done = true; sfx.creak(); b.classList.add("right"); el.querySelector("#mast").classList.add("up"); clearHint(); setTimeout(win, 600); }
+      else { b.classList.add("wrong"); b.disabled = true; oops(b, L("Layar itu koyak! Pilih layar yang lain.","لاير ايت کويق! ڤيليه لاير يڠ لاٴين.")); }
+    }));
+  },
+
+  /* Kemudi: pusing kemudi ke Betul atau Salah bagi setiap kenyataan */
+  kemudi(el, g){
+    const order = shuffle(g.items.map((_,i)=>i)); let k = 0, busy = false;
+    const draw = () => {
+      const it = g.items[order[k]];
+      el.innerHTML = `${wheelSvg}<div class="stmt" data-k="${order[k]}">${TX(it[0])}</div>
+        <div class="g2" style="margin-top:10px"><button class="opt" data-v="1">✅ ${T(B)}</button><button class="opt" data-v="0">❌ ${T(SL)}</button></div>
+        <div class="cnt">🧭 ${L(`Kenyataan ${k+1} daripada ${order.length}`,`کڽاتاٴن ${k+1} درڤد ${order.length}`)}</div>`;
+      busy = false;
+      el.querySelectorAll("[data-v]").forEach(b => b.addEventListener("click", () => {
+        if(busy) return;
+        if((b.dataset.v==="1") === !!it[1]){ busy = true; sfx.creak(); b.classList.add("right"); el.querySelector(".wheel").classList.add(it[1]?"r":"l"); clearHint(); k++;
+          if(k < order.length) setTimeout(draw, 420); else setTimeout(win, 450); }
+        else oops(b, L("Kapal hampir terkandas! Baca kenyataan itu sekali lagi.","کاڤل همڤير ترکنداس! باچ کڽاتاٴن ايت سکالي لاڬي."));
+      }));
+    };
+    draw();
+  },
+
+  /* Log buku: catat peristiwa/nama mengikut urutan yang betul */
+  logbuku(el, g){
+    const order = mix(g.seq.map((_,i)=>i)); let k = 0;
+    el.innerHTML = `<div class="logp" id="log" aria-live="polite"><div style="opacity:.6">📒 ${L("Log pelayaran:","لوڬ ڤلايرن:")}</div></div>
+      <div class="g1">${order.map(i=>`<button class="opt" data-k="${i}">${TX(g.seq[i])}</button>`).join("")}</div>`;
+    el.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => {
+      if(b.disabled) return;
+      if(+b.dataset.k === k){ sfx.tick(); b.disabled = true; b.classList.add("used");
+        const row = document.createElement("div"); row.innerHTML = `${k+1}. ${TX(g.seq[k])}`; el.querySelector("#log").appendChild(row); clearHint(); k++;
+        if(k === g.seq.length) setTimeout(win, 400); }
+      else oops(b, L("Belum lagi! Fikir apa yang datang dahulu.","بلوم لاڬي! فيکير اڤ يڠ داتڠ دهولو."));
+    }));
+  },
+
+  /* Haluan: hantar setiap muatan ke pulau (kumpulan) yang betul */
+  haluan(el, g){
+    const order = mix(g.items.map((_,i)=>i)); let k = 0, busy = false;
+    const draw = () => {
+      const it = g.items[order[k]];
+      el.innerHTML = `<div class="cur" data-k="${order[k]}">📦 ${TX(it[0])}</div>
+        <div class="bays ${g.bins.length>2?"g1":"g2"}">${g.bins.map((b,i)=>`<button class="opt" data-c="${i}">🏝️ ${T(b)}</button>`).join("")}</div>
+        <div class="cnt">🧭 ${L(`Muatan ${k+1} daripada ${order.length}`,`موانن ${k+1} درڤد ${order.length}`)}</div>`;
+      busy = false;
+      el.querySelectorAll(".bays .opt").forEach(b => b.addEventListener("click", () => {
+        if(busy) return;
+        if(+b.dataset.c === it[1]){ busy = true; sfx.bell(); b.classList.add("right"); clearHint(); k++;
+          if(k < order.length) setTimeout(draw, 380); else setTimeout(win, 450); }
+        else oops(b, L("Salah haluan! Baca muatan itu sekali lagi.","ساله حالوان! باچ موانن ايت سکالي لاڬي."));
+      }));
+    };
+    draw();
+  },
+
+  /* Bintang utara: ketik lajur pertama, kemudian pasangannya */
+  bintangutara(el, g){
+    const L1 = mix(g.pairs.map((_,i)=>i)), R1 = mix(g.pairs.map((_,i)=>i)); let pick = null, left = g.pairs.length;
+    el.innerHTML = `<div class="pairs"><div class="col">${L1.map(i=>`<button class="opt" data-side="l" data-p="${i}">⭐ ${TX(g.pairs[i][0])}</button>`).join("")}</div>
+      <div class="col">${R1.map(i=>`<button class="opt" data-side="r" data-p="${i}">${TX(g.pairs[i][1])}</button>`).join("")}</div></div>
+      <div class="cnt" id="bc"></div>`;
+    const count = () => { el.querySelector("#bc").textContent = "⭐ "+L(`Pasangan tinggal: ${left}`,`ڤاسڠن تيڠڬل: ${left}`); };
+    count();
+    el.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => {
+      if(b.disabled) return;
+      if(b.dataset.side==="l"){ el.querySelectorAll('[data-side="l"]').forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); pick = b; sfx.tick(); return; }
+      if(!pick){ toast(L("Ketik bintang di lajur pertama dahulu ⭐","کتيق بينتڠ دلاجور ڤرتام دهولو ⭐")); return; }
+      if(pick.dataset.p === b.dataset.p){ sfx.bell(); [pick,b].forEach(x=>{ x.classList.remove("sel"); x.classList.add("done"); x.disabled = true; }); pick = null; left--; count(); clearHint();
+        if(!left) setTimeout(win, 400); }
+      else oops(b, L("Bintang itu tidak sepadan. Cuba lagi!","بينتڠ ايت تيدق سڤادن. چوبا لاڬي!"));
+    }));
+  },
+
+  /* Buritan: isi tempat kosong dalam ayat */
+  buritan(el, g){
+    const opts = mix(g.a.map((x,i)=>({x, ok:i===0}))); let done = false;
+    const parts = T(g.s).split("___");
+    el.innerHTML = `<div class="sent">${parts[0]}<span class="blank" id="blank">?</span>${parts[1]||""}</div>
+      <div class="g2">${opts.map((o,i)=>`<button class="opt" data-i="${i}" data-ok="${o.ok?1:0}">${TX(o.x)}</button>`).join("")}</div>`;
+    el.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => {
+      if(done || b.disabled) return;
+      if(opts[+b.dataset.i].ok){ done = true; sfx.tick(); b.classList.add("right"); el.querySelector("#blank").innerHTML = TX(opts[+b.dataset.i].x); clearHint(); setTimeout(win, 550); }
+      else { b.classList.add("wrong"); b.disabled = true; oops(b, L("Perkataan itu tidak sesuai. Cuba lagi!","ڤرکاتاٴن ايت تيدق سسواي. چوبا لاڬي!")); }
+    }));
+  },
+
+  /* Tiang: pilih SEMUA bendera yang betul, kemudian naikkan */
+  tiang(el, g){
+    const items = mix(g.items.map((x,i)=>({x, ok:!!x[1], i}))), need = items.filter(o=>o.ok).length; let done = false;
+    el.innerHTML = `<div class="g1" id="flags">${items.map((o,n)=>`<button class="opt flag" data-n="${n}" data-ok="${o.ok?1:0}" aria-pressed="false">${TX(o.x[0])}</button>`).join("")}</div>
+      <div class="cnt" id="tc"></div>
+      <button class="btn go" id="raise" style="margin-top:8px">⛳ ${L("Naikkan bendera!","ناٴيقکن بندير!")}</button>`;
+    const count = () => { const c = el.querySelectorAll(".opt.sel").length; el.querySelector("#tc").textContent = "🚩 "+L(`Dipilih: ${c} • Cari ${need}`,`دڤيليه: ${c} • چاري ${need}`); };
+    count();
+    el.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => {
+      if(done) return; b.classList.toggle("sel"); b.classList.remove("wrong"); b.setAttribute("aria-pressed", b.classList.contains("sel")); sfx.tick(); count();
+    }));
+    el.querySelector("#raise").addEventListener("click", () => {
+      if(done) return;
+      const sel = [...el.querySelectorAll(".opt.sel")], bad = sel.filter(b=>b.dataset.ok==="0"), good = sel.length - bad.length;
+      if(!bad.length && good===need){ done = true; sel.forEach(b=>b.classList.add("right")); sfx.bell(); clearHint(); setTimeout(win, 500); return; }
+      bad.forEach(b=>{ b.classList.remove("sel"); b.classList.add("wrong"); b.setAttribute("aria-pressed","false"); });
+      count();
+      oops(el.querySelector("#flags"), bad.length ? L("Ada bendera yang salah (merah). Turunkan dan cuba lagi!","اد بندير يڠ ساله (ميره). تورونکن دان چوبا لاڬي!")
+        : L(`Belum cukup: masih ada ${need-good} lagi.`,`بلوم چوکوڤ: ماسيه اد ${need-good} لاڬي.`));
+    });
+  },
+
+  /* Lanun: tembak kapal yang tidak sepadan (beberapa pusingan) */
+  lanun(el, g){
+    let r = 0;
+    const draw = () => {
+      const rd = g.rounds[r], opts = mix(rd.map((x,i)=>({x, ok:i===0}))); let busy = false;
+      el.innerHTML = `<div class="fleet g2">${opts.map((o,i)=>`<button class="opt" data-i="${i}" data-ok="${o.ok?1:0}">⛵ ${TX(o.x)}</button>`).join("")}</div>
+        <div class="cnt">🏴‍☠️ ${L(`Pusingan ${r+1} daripada ${g.rounds.length}`,`ڤوسيڠن ${r+1} درڤد ${g.rounds.length}`)}</div>`;
+      el.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => {
+        if(busy || b.disabled) return;
+        if(opts[+b.dataset.i].ok){ busy = true; sfx.cannon(); b.classList.add("right","sunk"); clearHint(); r++;
+          if(r < g.rounds.length) setTimeout(draw, 450); else setTimeout(win, 450); }
+        else { b.classList.add("wrong"); b.disabled = true; oops(b, L("Itu kapal kawan! Cari kapal lanun yang tidak sepadan.","ايت کاڤل کاون! چاري کاڤل لانون يڠ تيدق سڤادن.")); }
+      }));
+    };
+    draw();
+  }
+};
+
+/* ===================== KAWALAN ===================== */
+document.addEventListener("click", e => {
+  const s = e.target.closest("[data-say]");
+  if(s){ speak(decodeURIComponent(s.dataset.say), true); return; }
+  const b = e.target.closest("[data-act]"); if(!b) return;
+  const a = b.dataset.act;
+  if(a==="lang"){ LANG = isJ() ? "rumi" : "jawi"; save("kafa-lang", LANG); applyLang(); redraw(); }
+  else if(a==="voice"){ voiceOn = !voiceOn; save("t6-voice", voiceOn); if(!voiceOn) hush(); redraw(); }
+  else if(a==="open"){ openStation(+b.dataset.id); }
+  else if(a==="locked"){ sfx.no(); toast(L("Singgah di pulau sebelumnya dahulu 🔒","سيڠڬه د ڤولاو سبلومڽ دهولو 🔒")); }
+  else if(a==="final"){ openFinal(); }
+  else if(a==="flocked"){ sfx.no(); toast(L(`Singgahi semua ${STATIONS.length} pulau untuk ke Pelabuhan Bintang ⛵`,`سيڠڬهي سموا ${STATIONS.length} ڤولاو اونتوق ک ڤلابوهن بينتڠ ⛵`)); }
+  else if(a==="map"){ document.querySelectorAll(".fb").forEach(x=>x.remove()); renderMap(); window.scrollTo(0,0); }
+  else if(a==="rprev"){ if(S.ri>0){ S.ri--; renderRead(); } }
+  else if(a==="rnext"){ if(S.ri < S.st.read.length-1){ S.ri++; renderRead(); } else { S.phase="play"; S.gi=0; S.miss=0; renderPlay(); } }
+  else if(a==="next"){ nextGame(); }
+  else if(a==="again"){ S.res = null; S.st.id==="final" ? openFinal() : (S.gi=0, S.miss=0, S.phase="play", renderPlay()); }
+});
+function redraw(){
+  if(!S) return renderMap();
+  if(S.phase==="read") return renderRead();
+  if(S.res && document.querySelector(".res")) return drawResult(false);
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  renderPlay();
+}
+applyLang();
+renderMap();
+</script>
+</body>
+</html>

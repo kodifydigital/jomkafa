@@ -284,6 +284,38 @@ const READY = {
     progress:{ key:"tw6-best", max:27 },
     theme:{ c1:"#2E1F57", c2:"#2FD3E0", a:"#FFB547", m:"🦇", deco:"gua" }
   },
+  "6/arab": {
+    path:"arab/index.html",
+    buku:"https://online.anyflip.com/lzrtd/fyue/mobile/index.html",
+    r:"Taman Tema Lughah", j:"تامن تيما لغة",
+    dr:"10 stesen, 7 jenis permainan", dj:"10 ستيسين، 7 جنيس ڤرماٴينن",
+    progress:{ key:"r6-best", max:33 },
+    theme:{ c1:"#FF3D57", c2:"#6C3CE1", a:"#FFD23F", m:"🎢", deco:"tamantema" }
+  },
+  "6/hafazan": {
+    path:"hafazan/index.html",
+    buku:"https://online.anyflip.com/lzrtd/kipm/mobile/index.html",
+    r:"Kebun Kurma Hafiz", j:"کبون کورما حافظ",
+    dr:"3 surah, 9 jenis permainan", dj:"3 سورة، 9 جنيس ڤرماٴينن",
+    progress:{ key:"h6-best", max:30 },
+    theme:{ c1:"#C8553D", c2:"#4A2511", a:"#F2A93B", m:"🌴", deco:"kurma" }
+  },
+  "6/sirah": {
+    path:"sirah/index.html",
+    buku:"https://online.anyflip.com/lzrtd/jmnb/mobile/index.html",
+    r:"Kapal Layar Sirah", j:"کاڤل لاير سيرة",
+    dr:"8 pulau, 8 jenis permainan", dj:"8 ڤولاو، 8 جنيس ڤرماٴينن",
+    progress:{ key:"s6-best", max:27 },
+    theme:{ c1:"#087E8B", c2:"#0B3954", a:"#F2B134", m:"⛵", deco:"kapallayar" }
+  },
+  "6/tajwid": {
+    path:"tajwid/index.html",
+    buku:"https://online.anyflip.com/lzrtd/abxc/mobile/index.html",
+    r:"Kereta Kabel Tajwid", j:"کريتا کابل تجويد",
+    dr:"9 stesen, 8 jenis permainan", dj:"9 ستيسين، 8 جنيس ڤرماٴينن",
+    progress:{ key:"j6t-best", max:30 },
+    theme:{ c1:"#1D3557", c2:"#E63946", a:"#FFB703", m:"🚡", deco:"keretakabel" }
+  },
   "3/sirah": {
     buku:"https://online.anyflip.com/vydoi/hpxt/mobile/index.html",
     path:"sirah/index.html",

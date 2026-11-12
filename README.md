@@ -90,7 +90,11 @@ kafa/
     ├── akhlak/index.html ← Game Bandar Pintar Adab (Akhlak Tahun 6)
     ├── jawi/index.html   ← Game Kilang Akhbar Jawi (Jawi Tahun 6)
     ├── feqah/index.html  ← Game Pelabuhan Feqah (Feqah Tahun 6)
-    └── tauhid/index.html ← Game Gua Kristal Iman (Tauhid Tahun 6)
+    ├── tauhid/index.html ← Game Gua Kristal Iman (Tauhid Tahun 6)
+    ├── arab/index.html   ← Game Taman Tema Lughah (Bahasa Arab Tahun 6)
+    ├── hafazan/index.html← Game Kebun Kurma Hafiz (Hafazan Tahun 6)
+    ├── sirah/index.html  ← Game Kapal Layar Sirah (Sirah Tahun 6)
+    └── tajwid/index.html ← Game Kereta Kabel Tajwid (Tajwid Tahun 6)
 ```
 
 ## Cara tambah subjek baharu (contoh: Hafazan Tahun 3)

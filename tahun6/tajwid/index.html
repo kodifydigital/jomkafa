@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="ms" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kereta Kabel Tajwid • Tajwid Tahun 6</title>
+<meta name="description" content="Tajwid Tahun 6 JOM KAFA: naik kereta kabel bersama Gogo si kambing gunung. Idgham, hukum ra, tanwin bertemu hamzah wasal, bacaan khas riwayat Hafs dan rukun bacaan al-Quran.">
+<meta name="theme-color" content="#1D3557">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Nunito:wght@600;700;800;900&family=Noto+Naskh+Arabic:wght@500;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<script src="/assets/pwa.js" defer></script>
+<script src="/assets/config.js"></script>
+<script src="/assets/access.js" defer></script>
+<style>
+:root{
+  --sky1:#BFE3FF; --sky2:#EEF8FF; --hill:#7CC48A; --hill2:#3E8E5E; --rock:#8A97A8;
+  --ink:#14213D; --soft:#4A5A75; --card:#FFFFFF; --line:#D6E2F0;
+  --red:#E63946; --red2:#B5202E; --amber:#FFB703; --teal:#1F8A7E; --navy:#1D3557; --cable:#2B2F38;
+  --ok:#2A9D5C; --no:#D62839; --shadow:0 6px 0 rgba(20,33,61,.18);
+  --hf:"Chakra Petch","Nunito",system-ui,sans-serif; --bf:"Nunito",system-ui,sans-serif;
+  --af:"Amiri","Noto Naskh Arabic",serif; --jf:"Noto Naskh Arabic","Amiri",serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --sky1:#0B1730; --sky2:#13284A; --hill:#1F5A44; --hill2:#123826; --rock:#47566E;
+    --ink:#EAF2FF; --soft:#A9BAD6; --card:#15264A; --line:#2A3F66; --cable:#C9D3E3; --shadow:0 6px 0 rgba(0,0,0,.45); }
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; }
+body{ font-family:var(--bf); color:var(--ink); min-height:100vh;
+  background:linear-gradient(180deg,var(--sky1) 0%,var(--sky2) 55%,var(--sky1) 100%) fixed; -webkit-tap-highlight-color:transparent; }
+html[dir="rtl"] body{ font-family:var(--jf); }
+html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3{ font-family:var(--jf); }
+#app{ max-width:560px; margin:0 auto; padding:10px 14px 110px; }
+button{ font:inherit; color:inherit; cursor:pointer; }
+.ar{ font-family:var(--af); direction:rtl; unicode-bidi:isolate; font-size:1.35em; line-height:1.9; font-weight:400; }
+h1,h2,h3{ font-family:var(--hf); font-weight:700; margin:0; }
+/* bar atas */
+.top{ display:flex; align-items:center; gap:8px; position:sticky; top:0; z-index:20; padding:6px 0; }
+.sp{ flex:1; }
+.ib{ min-width:48px; height:48px; border-radius:14px; border:3px solid var(--navy); background:var(--card); display:inline-flex; align-items:center; justify-content:center;
+  font-weight:900; font-size:18px; text-decoration:none; color:var(--ink); box-shadow:var(--shadow); padding:0 10px; }
+.pill{ background:var(--amber); color:#14213D; border:3px solid var(--navy); border-radius:999px; padding:8px 12px; font-weight:900; box-shadow:var(--shadow); }
+/* hero */
+.hero{ display:flex; gap:10px; align-items:center; background:var(--card); border:3px solid var(--navy); border-radius:22px; padding:12px; box-shadow:var(--shadow); margin:8px 0 12px; }
+.hero h1{ font-size:26px; line-height:1.1; color:var(--red); letter-spacing:.3px; }
+.hero p{ margin:6px 0 0; font-size:15px; line-height:1.45; color:var(--soft); }
+html[dir="rtl"] .hero p{ font-size:16px; line-height:1.9; }
+.gogo{ width:92px; height:auto; flex:0 0 auto; }
+.sttl{ font-weight:900; margin:4px 2px 6px; }
+.stickers{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; }
+.stickers span{ width:42px; height:42px; display:grid; place-items:center; font-size:24px; border-radius:12px; background:var(--card); border:2px dashed var(--line); filter:grayscale(1); opacity:.45; }
+.stickers span.got{ filter:none; opacity:1; border:2px solid var(--amber); background:#FFF4D1; }
+/* peta gunung */
+.mount{ position:relative; border-radius:26px; border:3px solid var(--navy); overflow:hidden; padding:14px 8px 0; box-shadow:var(--shadow);
+  background:
+    radial-gradient(circle at 85% 6%, #FFE08A 0 28px, transparent 30px),
+    linear-gradient(160deg, transparent 0 62%, rgba(255,255,255,.35) 62% 64%, transparent 64%),
+    linear-gradient(180deg, var(--sky1) 0%, var(--sky2) 30%, var(--hill) 70%, var(--hill2) 100%); }
+@media (prefers-color-scheme: dark){ .mount{ background:
+    radial-gradient(circle at 85% 6%, #F4F1DE 0 22px, transparent 24px),
+    radial-gradient(circle at 20% 12%, #fff 0 1.5px, transparent 2px), radial-gradient(circle at 60% 20%, #fff 0 1.5px, transparent 2px),
+    linear-gradient(180deg, #0B1730 0%, #13284A 35%, #1F5A44 75%, #123826 100%); } }
+.cables{ position:absolute; left:0; top:0; width:100%; pointer-events:none; z-index:0; }
+.cables line{ stroke:var(--cable); stroke-width:3; vector-effect:non-scaling-stroke; }
+.row{ position:relative; height:132px; display:flex; z-index:1; }
+.row.l{ justify-content:flex-start; } .row.r{ justify-content:flex-end; }
+html[dir="rtl"] .row.l{ justify-content:flex-end; } html[dir="rtl"] .row.r{ justify-content:flex-start; }
+.node{ width:52%; min-height:120px; border:0; background:none; padding:0; display:flex; flex-direction:column; align-items:center; position:relative; }
+.cab{ position:relative; width:96px; height:84px; display:block; }
+.cab svg{ width:100%; height:100%; }
+.node.now .cab{ animation:sway 2.2s ease-in-out infinite; transform-origin:50% 0; }
+@keyframes sway{ 0%,100%{ transform:rotate(-4deg); } 50%{ transform:rotate(4deg); } }
+.num{ position:absolute; left:50%; top:40px; transform:translateX(-50%); font-family:var(--hf); font-weight:700; font-size:20px; color:#fff; text-shadow:0 2px 0 rgba(0,0,0,.4); }
+.tic{ position:absolute; right:-8px; top:-4px; font-size:22px; }
+.nm{ display:block; margin-top:2px; background:var(--card); border:2px solid var(--navy); border-radius:12px; padding:4px 8px; font-weight:900; font-size:13px; line-height:1.25; max-width:100%; text-align:center; position:relative; z-index:2; }
+html[dir="rtl"] .nm{ font-size:14px; line-height:1.6; }
+.st{ font-size:13px; min-height:16px; }
+.node.lock{ filter:grayscale(.9); opacity:.7; }
+.node.lock .tic::after{ content:"🔒"; position:absolute; left:-36px; top:30px; font-size:20px; }
+.guide{ position:absolute; top:6px; width:52px; left:-40px; z-index:3; }
+html[dir="rtl"] .guide{ left:auto; right:-40px; }
+.guide .gogo{ width:52px; }
+.peak{ position:relative; z-index:1; display:flex; justify-content:center; padding-bottom:6px; }
+.node.final{ width:70%; }
+.node.final .core{ font-size:56px; line-height:1; filter:drop-shadow(0 4px 0 rgba(0,0,0,.25)); }
+.base{ position:relative; z-index:1; margin:6px -8px 0; padding:10px; background:#5B4636; color:#FFF4D1; text-align:center; font-weight:900; border-top:3px solid var(--navy); }
+/* kad */
+.shead{ display:flex; gap:10px; align-items:center; margin:4px 0 10px; }
+.badge{ width:52px; height:52px; border-radius:16px; display:grid; place-items:center; font-size:28px; background:var(--c); border:3px solid var(--navy); flex:0 0 auto; }
+.shead h2{ font-size:20px; line-height:1.2; } html[dir="rtl"] .shead h2{ line-height:1.7; }
+.shead small{ color:var(--soft); font-weight:800; }
+.card{ background:var(--card); border:3px solid var(--navy); border-top:10px solid var(--sc,var(--red)); border-radius:22px; padding:16px; box-shadow:var(--shadow); position:relative; }
+.rpic{ font-size:46px; text-align:center; }
+.rh{ font-size:21px; display:flex; align-items:center; gap:8px; justify-content:space-between; margin:4px 0 8px; }
+.rtext{ font-size:17px; line-height:1.55; margin:0 0 10px; } html[dir="rtl"] .rtext{ font-size:19px; line-height:2; }
+.rlist{ margin:0 0 10px; padding-inline-start:22px; font-size:16px; line-height:1.5; } html[dir="rtl"] .rlist{ font-size:18px; line-height:1.95; }
+.rlist li{ margin-bottom:6px; }
+.exs{ display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 12px; }
+.exs .ar{ background:#EAF4FF; color:#14213D; border:2px solid var(--navy); border-radius:14px; padding:2px 12px; font-size:24px; }
+.exs small{ display:block; font-family:var(--bf); font-size:11px; color:#4A5A75; text-align:center; line-height:1; direction:ltr; }
+.tip{ display:flex; gap:8px; background:#FFF4D1; color:#14213D; border:2px solid var(--amber); border-radius:14px; padding:10px; margin:8px 0; font-size:15px; line-height:1.5; }
+.tip.am{ background:#E3F7EF; border-color:var(--teal); }
+html[dir="rtl"] .tip{ font-size:17px; line-height:1.9; }
+.ref{ font-size:13px; color:var(--soft); font-weight:800; margin:8px 0; }
+.navr{ display:flex; gap:10px; }
+.btn{ flex:1; min-height:54px; border-radius:16px; border:3px solid var(--navy); background:var(--card); font-weight:900; font-size:17px; box-shadow:var(--shadow); padding:8px 12px; }
+.btn.go{ background:var(--red); color:#fff; }
+.btn.alt{ background:#EAF4FF; color:#14213D; }
+.btn:disabled{ opacity:.4; }
+.btn:active,.opt:active{ transform:translateY(3px); box-shadow:none; }
+.dots{ display:flex; justify-content:center; gap:6px; margin-top:10px; }
+.dots i{ width:10px; height:10px; border-radius:50%; background:var(--line); } .dots i.on{ background:var(--red); }
+.say{ border:2px solid var(--navy); background:var(--amber); color:#14213D; border-radius:12px; min-width:44px; height:44px; font-size:18px; flex:0 0 auto; }
+</style>
+<style>
+/* main */
+.prog{ position:relative; height:30px; background:var(--card); border:3px solid var(--navy); border-radius:999px; margin:0 0 10px; overflow:hidden; }
+.prog .fill{ position:absolute; inset:0 auto 0 0; background:repeating-linear-gradient(90deg,var(--teal) 0 14px,#26A69A 14px 28px); transition:width .4s; }
+html[dir="rtl"] .prog .fill{ inset:0 0 0 auto; }
+.prog b{ position:relative; display:block; text-align:center; line-height:24px; font-size:14px; font-family:var(--hf); }
+.q{ display:flex; gap:8px; align-items:flex-start; justify-content:space-between; }
+.q p{ margin:0 0 10px; font-size:18px; font-weight:900; line-height:1.4; } html[dir="rtl"] .q p{ font-size:19px; line-height:1.9; }
+.lab{ font-weight:900; color:var(--soft); margin:6px 0; font-size:14px; }
+.hint{ margin-top:12px; background:#FFE5E8; color:#7A1020; border:2px solid var(--no); border-radius:14px; padding:10px; font-weight:800; font-size:15px; line-height:1.45; }
+html[dir="rtl"] .hint{ font-size:17px; line-height:1.9; }
+.shake{ animation:shake .35s; } @keyframes shake{ 25%{ transform:translateX(-6px);} 75%{ transform:translateX(6px);} }
+.rounds{ display:flex; gap:6px; justify-content:center; margin-bottom:8px; }
+.rounds i{ width:26px; height:10px; border-radius:6px; background:var(--line); } .rounds i.on{ background:var(--amber); } .rounds i.ok{ background:var(--ok); }
+.opts{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:8px; }
+.opts.one{ grid-template-columns:1fr; }
+.opt{ min-width:0; overflow-wrap:anywhere; min-height:56px; border-radius:16px; border:3px solid var(--navy); background:#EAF4FF; color:#14213D; font-weight:900; font-size:16px; padding:8px 10px; box-shadow:var(--shadow); line-height:1.35; }
+html[dir="rtl"] .opt{ font-size:17px; line-height:1.8; }
+.opt.right,.tok.right,.pax.right{ background:#C9F2D9; border-color:var(--ok); }
+.opt.wrong,.tok.wrong{ background:#FFD4DA; border-color:var(--no); opacity:.7; }
+.qar{ text-align:center; font-size:30px; background:#EAF4FF; color:#14213D; border:2px dashed var(--navy); border-radius:16px; padding:4px 10px; margin:6px 0; }
+/* gondola: isih */
+.platform{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; padding:10px; border-radius:16px; background:repeating-linear-gradient(45deg,#FFE9A8 0 12px,#FFF4D1 12px 24px); border:2px solid var(--amber); }
+.gi{ min-width:0; max-width:100%; border:3px solid var(--navy); background:var(--red); color:#fff; border-radius:12px 12px 16px 16px; padding:6px 12px; font-weight:900; font-size:15px; position:relative; margin-top:10px; box-shadow:var(--shadow); line-height:1.35; overflow-wrap:anywhere; }
+.gi::before{ content:""; position:absolute; left:50%; top:-12px; width:3px; height:10px; background:var(--cable); }
+.gi .ar{ color:#fff; }
+.gi.sel{ background:var(--amber); color:#14213D; outline:4px solid #fff; } .gi.sel .ar{ color:#14213D; }
+.gi.gone{ display:none; }
+.stns{ display:grid; gap:10px; margin-top:12px; }
+.stn{ min-width:0; text-align:start; border:3px solid var(--navy); border-radius:18px; background:linear-gradient(180deg,#EAF4FF,#D3E9FF); color:#14213D; padding:8px 10px; min-height:62px; box-shadow:var(--shadow); }
+.stn b{ display:block; font-size:15px; } html[dir="rtl"] .stn b{ font-size:16px; line-height:1.8; }
+.stn .in{ display:flex; flex-wrap:wrap; gap:6px; margin-top:4px; }
+.stn .in span{ background:#fff; border:2px solid var(--teal); border-radius:10px; padding:0 8px; font-size:14px; font-weight:800; }
+.stn .in span .ar{ font-size:20px; }
+/* kabel: susun */
+.track{ min-height:70px; border-radius:16px; border:2px dashed var(--navy); padding:8px; display:flex; flex-direction:column; gap:6px; background:var(--sky2); }
+.track span{ display:flex; gap:8px; align-items:flex-start; background:#C9F2D9; color:#14213D; border:2px solid var(--ok); border-radius:12px; padding:6px 10px; font-weight:800; font-size:15px; line-height:1.4; }
+.track span i{ font-style:normal; font-family:var(--hf); background:var(--navy); color:#fff; border-radius:8px; padding:0 7px; flex:0 0 auto; }
+.segs{ display:grid; gap:8px; margin-top:10px; }
+.seg{ min-width:0; text-align:start; border:3px solid var(--navy); border-radius:14px; background:#EAF4FF; color:#14213D; font-weight:800; font-size:15px; padding:10px 12px; box-shadow:var(--shadow); line-height:1.4; }
+html[dir="rtl"] .seg,html[dir="rtl"] .track span{ font-size:17px; line-height:1.85; }
+.seg.gone{ display:none; }
+/* kabin: pilih penumpang */
+.cabin{ border:4px solid var(--navy); border-radius:26px 26px 18px 18px; background:var(--red); padding:12px 10px 10px; position:relative; margin-top:18px; }
+.cabin::before{ content:""; position:absolute; left:50%; top:-20px; width:4px; height:18px; background:var(--cable); }
+.seats{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+.seats.one{ grid-template-columns:1fr; }
+.pax{ min-width:0; overflow-wrap:anywhere; background:#DFF1FF; color:#14213D; border:3px solid var(--navy); border-radius:14px; min-height:54px; padding:6px 8px; font-weight:800; font-size:15px; line-height:1.35; }
+html[dir="rtl"] .pax{ font-size:16px; line-height:1.8; }
+.pax.on{ background:var(--amber); box-shadow:inset 0 0 0 3px #fff; }
+.pax.on::after{ content:" 🧍"; }
+.go-row{ display:flex; gap:10px; margin-top:12px; }
+/* takal: altimeter */
+.alti{ display:flex; gap:10px; align-items:stretch; }
+.alti .bar{ width:30px; flex:0 0 30px; border-radius:15px; border:3px solid var(--navy); background:linear-gradient(0deg,var(--hill2),var(--hill) 40%,#DDEFFF 41%,#fff); position:relative; min-height:200px; }
+.alti .bar i{ position:absolute; left:50%; transform:translate(-50%,50%); font-size:22px; font-style:normal; transition:bottom .5s; }
+.alti .body{ flex:1; min-width:0; }
+.zap{ text-align:center; font-weight:900; color:var(--teal); margin:6px 0 0; }
+.tbar{ height:8px; border-radius:6px; background:var(--line); overflow:hidden; margin-bottom:6px; } .tbar span{ display:block; height:100%; width:100%; background:var(--amber); transition:width linear; }
+/* menarapandang */
+.scope{ border:5px solid var(--navy); border-radius:60px; padding:18px 12px; background:radial-gradient(ellipse at center,#FFFFFF 55%,#D3E9FF 100%); position:relative; }
+.scope::before,.scope::after{ content:"🔭"; position:absolute; top:-18px; font-size:26px; } .scope::before{ left:14px; } .scope::after{ right:14px; }
+.phrase{ display:flex; flex-wrap:wrap; justify-content:center; gap:8px; direction:rtl; }
+.tok{ border:3px solid var(--navy); background:#fff; color:#14213D; border-radius:14px; font-size:26px; padding:2px 12px; box-shadow:var(--shadow); }
+/* palang */
+.gate{ display:flex; justify-content:center; margin:4px 0; } .gate svg{ width:160px; height:70px; }
+.gate .arm{ transform-origin:22px 40px; transition:transform .45s; } .gate.up .arm{ transform:rotate(-60deg); }
+.stmt{ font-size:17px; font-weight:800; line-height:1.5; text-align:center; background:#EAF4FF; color:#14213D; border:2px solid var(--navy); border-radius:16px; padding:10px; }
+html[dir="rtl"] .stmt{ font-size:18px; line-height:1.95; }
+.pls{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:10px; }
+.pl{ min-height:58px; border-radius:16px; border:3px solid var(--navy); font-weight:900; font-size:18px; box-shadow:var(--shadow); }
+.pl[data-v="1"]{ background:#C9F2D9; color:#0E3B22; } .pl[data-v="0"]{ background:#FFD4DA; color:#5A0E19; }
+/* cangkuk */
+.hooks{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.hcol{ display:flex; flex-direction:column; gap:8px; min-width:0; }
+.hk{ min-width:0; overflow-wrap:anywhere; min-height:56px; border:3px solid var(--navy); border-radius:14px; background:#EAF4FF; color:#14213D; font-weight:800; font-size:14px; padding:6px 8px; line-height:1.35; box-shadow:var(--shadow); }
+html[dir="rtl"] .hk{ font-size:15px; line-height:1.8; }
+.hk[data-s="a"]::before{ content:"🪝 "; }
+.hk[data-s="b"]{ background:#FFE9EC; }
+.hk.sel{ background:var(--amber); } .hk.done{ background:#C9F2D9; border-color:var(--ok); opacity:.75; }
+.hk .ar{ font-size:22px; }
+/* jadual */
+.board{ background:#101826; color:#FFD45C; border:4px solid #2B2F38; border-radius:16px; padding:14px 12px; font-family:var(--hf); font-size:17px; line-height:1.6; box-shadow:inset 0 0 0 2px #333C4E; }
+html[dir="rtl"] .board{ font-family:var(--jf); font-size:19px; line-height:2.1; }
+.board .ar{ color:#FFF4D1; }
+.blank{ display:inline-block; min-width:70px; border-bottom:3px dashed #FFD45C; text-align:center; color:#fff; }
+.blank.done{ border-bottom-style:solid; color:#7CF0A8; }
+.blank.done .ar{ color:#7CF0A8; }
+/* maklum balas */
+.fb{ position:fixed; left:0; right:0; bottom:0; z-index:50; padding:12px; animation:up .3s; }
+@keyframes up{ from{ transform:translateY(100%);} }
+.fb .in{ max-width:560px; margin:0 auto; background:var(--card); border:3px solid var(--navy); border-top:8px solid var(--ok); border-radius:22px; padding:12px; box-shadow:0 -6px 30px rgba(0,0,0,.25); }
+.fb .row1{ display:flex; gap:10px; align-items:center; margin-bottom:10px; }
+.fb .gogo{ width:64px; }
+.fb strong{ font-family:var(--hf); font-size:22px; color:var(--ok); }
+.fb p{ margin:4px 0 0; font-size:15px; line-height:1.45; } html[dir="rtl"] .fb p{ font-size:17px; line-height:1.9; }
+.fb .btn{ width:100%; }
+.fast{ display:inline-block; margin-top:4px; background:var(--amber); color:#14213D; border-radius:999px; padding:2px 10px; font-weight:900; font-size:13px; }
+.res{ text-align:center; }
+.res .gogo{ width:120px; }
+.stars{ font-size:44px; margin:6px 0; } .stars span{ display:inline-block; animation:pop .5s both; } .stars .off{ filter:grayscale(1); opacity:.3; }
+@keyframes pop{ from{ transform:scale(0);} }
+.res h2{ font-size:28px; color:var(--red); }
+.res p{ font-size:17px; line-height:1.5; }
+.gotst{ display:inline-flex; gap:10px; align-items:center; background:#FFF4D1; color:#14213D; border:2px solid var(--amber); border-radius:16px; padding:8px 14px; font-weight:900; margin:6px 0 12px; }
+.gotst span{ font-size:32px; }
+.res .btn{ width:100%; }
+.toast{ position:fixed; left:50%; bottom:24px; transform:translateX(-50%); z-index:60; background:var(--navy); color:#fff; padding:10px 16px; border-radius:14px; font-weight:800; max-width:90vw; text-align:center; }
+.confetti{ position:fixed; inset:0; pointer-events:none; z-index:70; overflow:hidden; }
+.confetti span{ position:absolute; top:-40px; font-size:26px; animation:fall linear forwards; }
+@keyframes fall{ to{ transform:translateY(110vh) rotate(360deg); } }
+@media (prefers-color-scheme: dark){
+  .opt,.seg,.stn,.pax,.hk{ box-shadow:0 5px 0 rgba(0,0,0,.5); }
+  .track{ background:#0F1E3A; }
+}
+@media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+</style>
+</head>
+<body>
+<main id="app" aria-live="polite"></main>
+<script>
+/* dijana oleh gen.py: potongan perkataan verbatim daripada api.quran.com (text_uthmani) */
+const Q = {"mt_b": {"t": "ٱذْهَب بِّكِتَـٰبِى", "k": "27:28", "i": 0, "n": 2}, "mt_t": {"t": "رَبِحَت تِّجَـٰرَتُهُمْ", "k": "2:16", "i": 6, "n": 2}, "mt_d": {"t": "وَقَد دَّخَلُوا۟", "k": "5:61", "i": 4, "n": 2}, "mt_dh": {"t": "إِذ ذَّهَبَ", "k": "21:87", "i": 2, "n": 2}, "mt_r": {"t": "وَٱذْكُر رَّبَّكَ", "k": "3:41", "i": 16, "n": 2}, "mt_a": {"t": "تَسْطِع عَّلَيْهِ", "k": "18:82", "i": 34, "n": 2}, "mt_f": {"t": "يُسْرِف فِّى", "k": "17:33", "i": 17, "n": 2}, "mt_k": {"t": "يُدْرِككُّمُ", "k": "4:78", "i": 2, "n": 1}, "mt_l": {"t": "فَقُل لِّى", "k": "10:41", "i": 2, "n": 2}, "mt_w": {"t": "فَنَادَوا۟ وَّلَاتَ", "k": "38:3", "i": 6, "n": 2}, "mt_h": {"t": "يُكْرِههُّنَّ", "k": "24:33", "i": 44, "n": 1}, "mt_nm": {"t": "فِى يَوْمٍ", "k": "70:4", "i": 4, "n": 2}, "mt_sk": {"t": "مَالِيَهْ ۜ", "k": "69:28", "i": 3, "n": 2}, "mq_lr": {"t": "وَقُل رَّبِّ أَدْخِلْنِى", "k": "17:80", "i": 0, "n": 3}, "mq_qk": {"t": "أَلَمْ نَخْلُقكُّم", "k": "77:20", "i": 0, "n": 2}, "mq_bl": {"t": "كَلَّا ۖ بَلْ ۜ رَانَ", "k": "83:14", "i": 0, "n": 5}, "mq_r2": {"t": "وَقُل رَّبِّ ٱرْحَمْهُمَا", "k": "17:24", "i": 6, "n": 3}, "mq_r3": {"t": "قُل رَّبِّىٓ أَعْلَمُ", "k": "28:85", "i": 9, "n": 3}, "mj_dz": {"t": "إِذ ظَّلَمْتُمْ", "k": "43:39", "i": 3, "n": 2}, "mj_tt": {"t": "وَقَالَت طَّآئِفَةٌ", "k": "3:72", "i": 0, "n": 2}, "mj_td": {"t": "أُجِيبَت دَّعْوَتُكُمَا", "k": "10:89", "i": 2, "n": 2}, "mj_dt": {"t": "قَد تَّبَيَّنَ", "k": "2:256", "i": 5, "n": 2}, "mj_tht": {"t": "أَحَطتُ", "k": "27:22", "i": 4, "n": 1}, "mj_thd": {"t": "يَلْهَث ۚ ذَّٰلِكَ", "k": "7:176", "i": 20, "n": 3}, "mj_dhz": {"t": "إِذ ظَّلَمُوٓا۟", "k": "4:64", "i": 11, "n": 2}, "mj_bm": {"t": "ٱرْكَب مَّعَنَا", "k": "11:42", "i": 13, "n": 2}, "mj_bst": {"t": "بَسَطتَ", "k": "5:28", "i": 1, "n": 1}, "mj_frt": {"t": "فَرَّطتُمْ", "k": "12:80", "i": 21, "n": 1}, "rt_rb": {"t": "رَبِّ ٱجْعَل", "k": "3:41", "i": 1, "n": 2}, "rt_db": {"t": "ضَرَبَ", "k": "14:24", "i": 3, "n": 1}, "rt_rh": {"t": "رُوحَنَا", "k": "19:17", "i": 6, "n": 1}, "rt_kf": {"t": "كَفَرُوا۟", "k": "2:6", "i": 2, "n": 1}, "rt_my": {"t": "مَرْيَمَ", "k": "19:16", "i": 3, "n": 1}, "rt_ar": {"t": "وَٱلْأَرْضِ", "k": "2:164", "i": 4, "n": 1}, "rt_nz": {"t": "ٱنظُرْ", "k": "6:24", "i": 0, "n": 1}, "rt_zr": {"t": "زُرْتُمُ", "k": "102:2", "i": 1, "n": 1}, "rt_ms": {"t": "لَبِٱلْمِرْصَادِ", "k": "89:14", "i": 2, "n": 1}, "rt_qt": {"t": "قِرْطَاسٍ", "k": "6:7", "i": 5, "n": 1}, "rt_rj": {"t": "ٱرْجِعِىٓ", "k": "89:28", "i": 0, "n": 1}, "rt_rt": {"t": "مَنِ ٱرْتَضَىٰ", "k": "72:27", "i": 1, "n": 2}, "rt_qd": {"t": "لَيْلَةِ ٱلْقَدْرِ", "k": "97:1", "i": 3, "n": 2}, "rt_ks": {"t": "لَفِى خُسْرٍ", "k": "103:2", "i": 2, "n": 2}, "rt_nh": {"t": "مِنْهُ ٱلْأَنْهَـٰرُ", "k": "2:74", "i": 17, "n": 2}, "rt_nr": {"t": "إِلَى ٱلنُّورِ", "k": "2:257", "i": 7, "n": 2}, "rn_rj": {"t": "رِجَالٌ لَّا تُلْهِيهِمْ", "k": "24:37", "i": 0, "n": 3}, "rn_dy": {"t": "لَا ضَيْرَ", "k": "26:50", "i": 1, "n": 2}, "rn_yr": {"t": "يَرِثُونَ ٱلْفِرْدَوْسَ", "k": "23:11", "i": 1, "n": 2}, "rn_gh": {"t": "غَيْرِ ٱلْمَغْضُوبِ", "k": "1:7", "i": 4, "n": 2}, "rn_nr": {"t": "ٱلنَّارِ ذَاتِ ٱلْوَقُودِ", "k": "85:5", "i": 0, "n": 3}, "rn_fr": {"t": "وَفِرْعَوْنُ", "k": "38:12", "i": 5, "n": 1}, "rn_sb": {"t": "فَٱصْبِرْ", "k": "70:5", "i": 0, "n": 1}, "rn_sh": {"t": "بِهِ ٱلسِّحْرُ", "k": "10:81", "i": 6, "n": 2}, "rn_qd": {"t": "شَىْءٍ قَدِيرٌ", "k": "2:20", "i": 26, "n": 2}, "rn_kh": {"t": "وَٱلصُّلْحُ خَيْرٌ", "k": "4:128", "i": 16, "n": 2}, "rn_sr": {"t": "تُبْلَى ٱلسَّرَآئِرُ", "k": "86:9", "i": 1, "n": 2}, "rd_fq": {"t": "فَكَانَ كُلُّ فِرْقٍ كَٱلطَّوْدِ ٱلْعَظِيمِ", "k": "26:63", "i": 9, "n": 5}, "rd_ms": {"t": "ٱدْخُلُوا۟ مِصْرَ", "k": "12:99", "i": 8, "n": 2}, "rd_qt": {"t": "عَيْنَ ٱلْقِطْرِ", "k": "34:12", "i": 9, "n": 2}, "rd_ys": {"t": "إِذَا يَسْرِ", "k": "89:4", "i": 1, "n": 2}, "rd_as": {"t": "أَنْ أَسْرِ بِعِبَادِى", "k": "20:77", "i": 4, "n": 3}, "th_kh": {"t": "كَشَجَرَةٍ خَبِيثَةٍ ٱجْتُثَّتْ", "k": "14:26", "i": 3, "n": 3}, "th_lh": {"t": "لَهْوًا ٱنفَضُّوٓا۟", "k": "62:11", "i": 4, "n": 2}, "th_bq": {"t": "بَعْضٍ ٱلْقَوْلَ", "k": "34:31", "i": 22, "n": 2}, "th_nh": {"t": "وَنَادَىٰ نُوحٌ ٱبْنَهُۥ", "k": "11:42", "i": 6, "n": 3}, "th_ws": {"t": "خَيْرًا ٱلْوَصِيَّةُ", "k": "2:180", "i": 8, "n": 2}, "th_hq": {"t": "يَوْمَئِذٍ ٱلْحَقُّ", "k": "7:8", "i": 1, "n": 2}, "th_ad": {"t": "عَادٌ ٱلْمُرْسَلِينَ", "k": "26:123", "i": 1, "n": 2}, "hq_sa": {"t": "سَأَلَ", "k": "70:1", "i": 1, "n": 1}, "hq_tu": {"t": "تُؤْتِى", "k": "3:26", "i": 4, "n": 1}, "hq_am": {"t": "ءَامَنَّا", "k": "3:53", "i": 1, "n": 1}, "hw_ti": {"t": "وَٱلتِّينِ", "k": "95:1", "i": 0, "n": 1}, "hw_ns": {"t": "ٱنشُزُوا۟", "k": "58:11", "i": 16, "n": 1}, "sk_iw": {"t": "عِوَجَا ۜ", "k": "18:1", "i": 11, "n": 2}, "sk_qy": {"t": "قَيِّمًا", "k": "18:2", "i": 0, "n": 1}, "sk_mr": {"t": "مَّرْقَدِنَا ۜ ۗ هَـٰذَا", "k": "36:52", "i": 5, "n": 4}, "sk_mn": {"t": "مَنْ ۜ رَاقٍ", "k": "75:27", "i": 1, "n": 3}, "bk_mj": {"t": "مَجْر۪ىٰهَا وَمُرْسَىٰهَآ", "k": "11:41", "i": 6, "n": 2}, "bk_nq": {"t": "بِئْسَ ٱلِٱسْمُ", "k": "49:11", "i": 30, "n": 2}, "bk_ts": {"t": "ءَا۬عْجَمِىٌّ وَعَرَبِىٌّ", "k": "41:44", "i": 9, "n": 2}, "bk_db1": {"t": "ءَآلذَّكَرَيْنِ", "k": "6:143", "i": 11, "n": 1}, "bk_db2": {"t": "ءَآلْـَٔـٰنَ", "k": "10:51", "i": 7, "n": 1}, "bk_db3": {"t": "ءَآللَّهُ أَذِنَ", "k": "10:59", "i": 13, "n": 2}, "bk_ym": {"t": "لَا تَأْمَ۫نَّا", "k": "12:11", "i": 4, "n": 2}, "rk_rh": {"t": "وَٱلْأَرْحَامَ", "k": "4:1", "i": 24, "n": 1}, "rk_sl": {"t": "ٱلصَّلَوٰةَ", "k": "2:3", "i": 4, "n": 1}, "rk_al": {"t": "ٱلْعَـٰلَمِينَ", "k": "1:2", "i": 3, "n": 1}, "rk_ml": {"t": "لِلْمَلَـٰٓئِكَةِ", "k": "2:34", "i": 2, "n": 1}, "rk_zk": {"t": "ٱلزَّكَوٰةَ", "k": "2:43", "i": 3, "n": 1}, "rk_rb": {"t": "ٱلرِّبَوٰا۟", "k": "2:275", "i": 2, "n": 1}, "rk_ad": {"t": "يَـٰٓـَٔادَمُ", "k": "2:33", "i": 1, "n": 1}};
+/* ===================== KANDUNGAN: Kereta Kabel Tajwid (Buku Teks Tajwid Tahun 6; ms. = halaman bercetak, fail pN = ms.(N-10)) ===================== */
+// Teks Arab bukan ayat (huruf, pasangan huruf, kata ingatan, bentuk asal/rasm imla'i daripada buku teks)
+const NQ = ["ب + ب","ت + ت","ذ + ذ","ر + ر","ع + ع","ك + ك","ل + ل","و + و","د + د","ل + ر","ق + ك","ت + د","د + ت","ت + ط","ط + ت","ث + ذ","ذ + ظ","ب + م","خص ضغط قظ","ٱ","أ","إ","ء","أَسْرِي","يَسْرِي","الصلاة","العالمين","للملائكة","يا آدم","ءَأَعْجَمِيٌّ","لَا تَأْمَنُنَا"];
+const IDG = {
+  mt:["Idgham mutamathilain","إدغام متماثلين"], mq:["Idgham mutaqaribain","إدغام متقاربين"], mj:["Idgham mutajanisain","إدغام متجانسين"],
+  kam:["Mutajanisain kamil","متجانسين کامل"], naq:["Mutajanisain naqis","متجانسين ناقص"],
+  tb:["Ra tebal (tafkhim)","راء تبل (تفخيم)"], np:["Ra nipis (tarqiq)","راء نيڤيس (ترقيق)"], dw:["Ra dua wajah","راء دوا وجه"]
+};
+const BT = ["Betul","بتول"], SL = ["Salah","ساله"];
+
+const STATIONS = [
+{ id:1, icon:"🧲", c:"#E63946", sticker:"🚡", t:["Stesen Idgham Mutamathilain","ستيسن إدغام متماثلين"], u:["Idgham dan idgham mutamathilain • ms. 1–5","إدغام دان إدغام متماثلين • م.س. 1–5"],
+  read:[
+    { p:"1", pic:"🚡", h:["Apa itu idgham?","اڤ ايت إدغام؟"],
+      text:["Dari segi bahasa, idgham bermaksud memasukkan sesuatu ke dalam sesuatu. Dari segi istilah, idgham ialah memasukkan huruf pertama yang mati ke dalam huruf kedua yang berbaris sehingga menjadi satu huruf bersyaddah.","دري سڬي بهاس، إدغام برمقصود مماسوقکن سسواتو کدالم سسواتو. دري سڬي استيلاه، إدغام اياله مماسوقکن حروف ڤرتام يڠ ماتي کدالم حروف کدوا يڠ برباريس سهيڠڬ منجادي ساتو حروف يڠ برتشديد."],
+      list:[IDG.mt, IDG.mq, IDG.mj] },
+    { p:"2", pic:"🧲", h:IDG.mt,
+      text:["Idgham mutamathilain ialah pertemuan dua huruf yang sama makhraj dan sifat. Hukumnya wajib idgham: huruf pertama yang mati dimasukkan ke dalam huruf kedua yang berbaris, lalu dibaca satu huruf bersyaddah.","إدغام متماثلين اياله ڤرتموان دوا حروف يڠ سام مخرج دان صيفت. حکومڽ واجب إدغام: حروف ڤرتام يڠ ماتي دماسوقکن کدالم حروف کدوا يڠ برباريس، لالو دباچ ساتو حروف برتشديد."],
+      ex:["mt_dh","mt_k","mt_h","mt_d","mt_b"] },
+    { p:"3", pic:"🔤", h:["Contoh mengikut huruf","چونتوه مڠيکوت حروف"],
+      text:["Pertemuan dua huruf yang sama boleh berlaku pada banyak huruf: ba, ta, dal, zal, ra, ain, fa, kaf, lam, wau dan ha.","ڤرتموان دوا حروف يڠ سام بوليه برلاکو ڤد باڽق حروف: با، تا، دال، ذال، را، عين، فا، کاف، لام، واو دان ها."],
+      ex:["mt_t","mt_r","mt_a","mt_f","mt_l","mt_w"] },
+    { p:"4–5", pic:"💡", h:["Bila tidak berlaku idgham?","بيلا تيدق برلاکو إدغام؟"],
+      list:[["Huruf pertama ialah huruf mad, contohnya فِى يَوْمٍ (al-Ma'arij: 4).","حروف ڤرتام اياله حروف مد، چونتوهڽ فِى يَوْمٍ (المعارج: 4)."],["Ada saktah di antara dua huruf itu, contohnya مَالِيَهْ ۜ (al-Haqqah: 28–29).","اد سکتة د انتارا دوا حروف ايت، چونتوهڽ مَالِيَهْ ۜ (الحاقة: 28–29)."]],
+      ex:["mt_nm","mt_sk"],
+      am:["Berwuduk dan beradab ketika membaca al-Quran.","برووضوء دان براداب کتيک ممباچ القرءان."] }
+  ],
+  games:[
+    { type:"cangkuk", q:["Cangkukkan setiap contoh dengan dua huruf yang bertemu.","چڠکوقکن ستياڤ چونتوه دڠن دوا حروف يڠ برتمو."], e:["Dua huruf yang sama bertemu: yang pertama mati, yang kedua berbaris.","دوا حروف يڠ سام برتمو: يڠ ڤرتام ماتي، يڠ کدوا برباريس."],
+      pairs:[["mt_b","ب + ب"],["mt_t","ت + ت"],["mt_dh","ذ + ذ"],["mt_r","ر + ر"]] },
+    { type:"jadual", q:["Lengkapkan papan jadual stesen.","لڠکڤکن ڤاڤن جدوال ستيسن."], e:["Mutamathilain: dua huruf yang sama makhraj dan sifat.","متماثلين: دوا حروف يڠ سام مخرج دان صيفت."],
+      s:["Idgham mutamathilain ialah pertemuan dua huruf yang sama ___ dan sifat.","إدغام متماثلين اياله ڤرتموان دوا حروف يڠ سام ___ دان صيفت."],
+      a:[["makhraj","مخرج"],["baris","باريس"],["tulisan","توليسن"],["panjang","ڤنجڠ"]] },
+    { type:"menarapandang", q:["Teropong dari menara: ketuk kalimah yang huruf akhirnya mati dan dimasukkan ke huruf seterusnya.","تروڤوڠ دري منارا: کتوق كليمه يڠ حروف اخيرڽ ماتي دان دماسوقکن ک حروف ستروسڽ."], e:["Dal mati pada وَقَد dimasukkan ke dal berbaris pada دَّخَلُوا۟.","دال ماتي ڤد وَقَد دماسوقکن ک دال برباريس ڤد دَّخَلُوا۟."], ar:"mt_d", ans:0 },
+    { type:"takal", q:["Takal naik! Pilih dua huruf yang bertemu dalam contoh.","تاکل ناٴيق! ڤيليه دوا حروف يڠ برتمو دالم چونتوه."], e:["Hebat! Setiap pasangan ialah huruf yang sama.","هيبت! ستياڤ ڤاسڠن اياله حروف يڠ سام."],
+      rounds:[ {p:["Huruf apakah yang bertemu?","حروف اڤاکه يڠ برتمو؟"], ar:"mt_a", a:["ع + ع","ت + ت","ل + ل"]},
+               {p:["Huruf apakah yang bertemu?","حروف اڤاکه يڠ برتمو؟"], ar:"mt_w", a:["و + و","د + د","ل + ر"]},
+               {p:["Huruf apakah yang bertemu?","حروف اڤاکه يڠ برتمو؟"], ar:"mt_k", a:["ك + ك","ق + ك","ر + ر"]},
+               {p:["Huruf apakah yang bertemu?","حروف اڤاکه يڠ برتمو؟"], ar:"mt_l", a:["ل + ل","ل + ر","ذ + ذ"]} ] },
+    { type:"kabin", q:["Naikkan ke kabin SEMUA contoh idgham mutamathilain, kemudian tekan Berlepas.","ناٴيقکن ک کابين سموا چونتوه إدغام متماثلين، کمودين تکن برلڤس."], e:["Contoh lain bukan dua huruf yang sama, atau huruf pertamanya huruf mad.","چونتوه لاٴين بوکن دوا حروف يڠ سام، اتاو حروف ڤرتامڽ حروف مد."],
+      items:[["mt_dh",1],["mt_f",1],["mt_h",1],["mt_t",1],["mt_nm",0],["mq_lr",0],["mj_dt",0]] },
+    { type:"palang", q:["Palang stesen: betul atau salah?","ڤالڠ ستيسن: بتول اتاو ساله؟"], e:["Palang terbuka! Kamu faham hukum idgham mutamathilain.","ڤالڠ تربوک! کامو فهم حکوم إدغام متماثلين."],
+      rounds:[ [["Hukum idgham mutamathilain ialah wajib idgham.","حکوم إدغام متماثلين اياله واجب إدغام."],1],
+               [["Huruf kedua yang menerima idgham dibaca bersyaddah.","حروف کدوا يڠ منريما إدغام دباچ برتشديد."],1],
+               [["Huruf mad yang bertemu huruf yang sama tetap diidghamkan.","حروف مد يڠ برتمو حروف يڠ سام تتڤ دإدغامکن."],0],
+               [["Idgham terbahagi kepada tiga bahagian.","إدغام تربهاڬي کڤد تيڬ بهاڬين."],1] ] }
+  ] },
+
+{ id:2, icon:"🤝", c:"#F4A261", sticker:"🎿", t:["Stesen Idgham Mutaqaribain","ستيسن إدغام متقاربين"], u:["Huruf yang hampir makhrajnya • ms. 6–8","حروف يڠ همڤير مخرجڽ • م.س. 6–8"],
+  read:[
+    { p:"6", pic:"🤝", h:IDG.mq,
+      text:["Idgham mutaqaribain ialah pertemuan dua huruf yang berhampiran pada makhraj dan sifat, iaitu lam dan ra, atau berhampiran pada makhraj tetapi berlainan sifat, iaitu qaf dan kaf.","إدغام متقاربين اياله ڤرتموان دوا حروف يڠ برهمڤيرن ڤد مخرج دان صيفت، يأيت لام دان را، اتاو برهمڤيرن ڤد مخرج تتاڤي برلاٴينن صيفت، يأيت قاف دان کاف."],
+      list:[["Hukumnya wajib diidghamkan.","حکومڽ واجب دإدغامکن."],["Caranya: huruf pertama yang mati dimasukkan ke dalam huruf kedua yang berbaris sehingga menjadi satu huruf bersyaddah (idgham kamil).","چاراڽ: حروف ڤرتام يڠ ماتي دماسوقکن کدالم حروف کدوا يڠ برباريس سهيڠڬ منجادي ساتو حروف برتشديد (إدغام کامل)."]] },
+    { p:"7", pic:"🔎", h:["Contoh idgham mutaqaribain","چونتوه إدغام متقاربين"],
+      text:["Lam mati bertemu ra, dan qaf mati bertemu kaf.","لام ماتي برتمو را، دان قاف ماتي برتمو کاف."],
+      ex:["mq_lr","mq_qk","mq_r2","mq_r3"],
+      tip:["Pada أَلَمْ نَخْلُقكُّم (al-Mursalat: 20) harus juga dibaca idgham naqis, iaitu idgham yang tidak sempurna.","ڤد أَلَمْ نَخْلُقكُّم (المرسلت: 20) هاروس جوڬ دباچ إدغام ناقص، يأيت إدغام يڠ تيدق سمڤورنا."] },
+    { p:"7–8", pic:"⏸️", h:["Saktah menghalang idgham","سکتة مڠهالڠ إدغام"],
+      text:["Idgham tidak berlaku jika ada saktah di antara lam dan ra, seperti dalam Surah al-Mutaffifin ayat 14.","إدغام تيدق برلاکو جک اد سکتة د انتارا لام دان را، سڤرتي دالم سورة المطففين ايات 14."],
+      ex:["mq_bl"],
+      am:["Membaca al-Quran dengan betul, fasih dan lancar.","ممباچ القرءان دڠن بتول، فصيح دان لنچر."] }
+  ],
+  games:[
+    { type:"gondola", q:["Hantar setiap gondola ke stesen hukumnya.","هنتر ستياڤ ڬوندولا ک ستيسن حکومڽ."], e:["Lam bertemu ra dan qaf bertemu kaf ialah mutaqaribain; huruf yang sama ialah mutamathilain.","لام برتمو را دان قاف برتمو کاف اياله متقاربين؛ حروف يڠ سام اياله متماثلين."],
+      stv:[IDG.mq, IDG.mt], items:[["mq_lr",0],["mq_r2",0],["mq_qk",0],["mq_r3",0],["mt_l",1],["mt_dh",1],["mt_b",1]] },
+    { type:"takal", q:["Takal naik! Huruf apakah yang bertemu?","تاکل ناٴيق! حروف اڤاکه يڠ برتمو؟"], e:["Betul! Mutaqaribain: lam dengan ra, qaf dengan kaf.","بتول! متقاربين: لام دڠن را، قاف دڠن کاف."],
+      rounds:[ {p:["Huruf apakah yang bertemu?","حروف اڤاکه يڠ برتمو؟"], ar:"mq_r2", a:["ل + ر","ر + ر","ل + ل"]},
+               {p:["Huruf apakah yang bertemu?","حروف اڤاکه يڠ برتمو؟"], ar:"mq_qk", a:["ق + ك","ك + ك","ت + د"]},
+               {p:["Huruf apakah yang bertemu?","حروف اڤاکه يڠ برتمو؟"], ar:"mq_r3", a:["ل + ر","ذ + ذ","ق + ك"]} ] },
+    { type:"menarapandang", q:["Teropong dari menara: ketuk kalimah yang bertanda saktah. Kerana saktah, idgham tidak berlaku.","تروڤوڠ دري منارا: کتوق كليمه يڠ برتندا سکتة. کران سکتة، إدغام تيدق برلاکو."], e:["Pada بَلْ ۜ pembaca berhenti sejenak, jadi lam dibaca jelas.","ڤد بَلْ ۜ ڤمباچ برهنتي سجنق، جادي لام دباچ جلس."], ar:"mq_bl", ans:1 },
+    { type:"jadual", q:["Lengkapkan papan jadual stesen.","لڠکڤکن ڤاڤن جدوال ستيسن."], e:["Pada أَلَمْ نَخْلُقكُّم harus juga dibaca idgham naqis (tidak sempurna).","ڤد أَلَمْ نَخْلُقكُّم هاروس جوڬ دباچ إدغام ناقص (تيدق سمڤورنا)."],
+      s:["Pada أَلَمْ نَخْلُقكُّم, selain idgham kamil, harus juga dibaca idgham ___.","ڤد أَلَمْ نَخْلُقكُّم، سلاٴين إدغام کامل، هاروس جوڬ دباچ إدغام ___."],
+      a:[["naqis","ناقص"],["syafawi","شفوي"],["bilaghunnah","بلاغنة"],["mutlak","مطلق"]] },
+    { type:"palang", q:["Palang stesen: betul atau salah?","ڤالڠ ستيسن: بتول اتاو ساله؟"], e:["Palang terbuka! Mutaqaribain sudah dikuasai.","ڤالڠ تربوک! متقاربين سوده دکواساٴي."],
+      rounds:[ [["Lam dan ra berhampiran pada makhraj dan sifat.","لام دان را برهمڤيرن ڤد مخرج دان صيفت."],1],
+               [["Qaf dan kaf sama makhraj dan sama sifat.","قاف دان کاف سام مخرج دان سام صيفت."],0],
+               [["Idgham mutaqaribain hukumnya harus sahaja.","إدغام متقاربين حکومڽ هاروس سهاج."],0],
+               [["Jika ada saktah, lam tidak diidghamkan ke dalam ra.","جک اد سکتة، لام تيدق دإدغامکن کدالم را."],1] ] },
+    { type:"cangkuk", q:["Cangkukkan istilah dengan maksudnya.","چڠکوقکن استيلاه دڠن مقصودڽ."], e:["Bagus! Kamu kenal setiap jenis idgham.","باڬوس! کامو کنل ستياڤ جنيس إدغام."],
+      pairs:[[IDG.mt,["Dua huruf sama makhraj dan sifat","دوا حروف سام مخرج دان صيفت"]],[IDG.mq,["Dua huruf berhampiran makhraj","دوا حروف برهمڤيرن مخرج"]],[["Idgham kamil","إدغام کامل"],["Dimasukkan dengan sempurna","دماسوقکن دڠن سمڤورنا"]],[["Idgham naqis","إدغام ناقص"],["Dimasukkan tidak sempurna","دماسوقکن تيدق سمڤورنا"]]] }
+  ] },
+{ id:3, icon:"🔗", c:"#2A9D8F", sticker:"⛰️", t:["Stesen Idgham Mutajanisain","ستيسن إدغام متجانسين"], u:["Sama makhraj, berlainan sifat • ms. 9–12","سام مخرج، برلاٴينن صيفت • م.س. 9–12"],
+  read:[
+    { p:"9", pic:"🔗", h:IDG.mj,
+      text:["Idgham mutajanisain ialah pertemuan dua huruf yang sama makhraj tetapi berlainan sifat. Hukumnya wajib idgham: huruf pertama yang mati dimasukkan ke dalam huruf kedua yang berbaris.","إدغام متجانسين اياله ڤرتموان دوا حروف يڠ سام مخرج تتاڤي برلاٴينن صيفت. حکومڽ واجب إدغام: حروف ڤرتام يڠ ماتي دماسوقکن کدالم حروف کدوا يڠ برباريس."],
+      ex:["mj_dz"] },
+    { p:"9", pic:"⚖️", h:["Kamil dan naqis","کامل دان ناقص"],
+      list:[["Mutajanisain kamil: huruf pertama dimasukkan sepenuhnya, ada tasydid pada huruf kedua.","متجانسين کامل: حروف ڤرتام دماسوقکن سڤنوهڽ، اد تشديد ڤد حروف کدوا."],["Mutajanisain naqis: dimasukkan tidak sempurna, tiada tasydid pada huruf kedua (tha masih kedengaran).","متجانسين ناقص: دماسوقکن تيدق سمڤورنا، تياد تشديد ڤد حروف کدوا (طا ماسيه کدڠرن)."]],
+      ex:["mj_tt","mj_tht","mj_bst","mj_frt"] },
+    { p:"10", pic:"🔤", h:["Pasangan huruf mutajanisain","ڤاسڠن حروف متجانسين"],
+      text:["Ta bertemu dal, dal bertemu ta, ta bertemu tha, tha bertemu ta, tsa bertemu zal, zal bertemu zo, dan ba bertemu mim.","تا برتمو دال، دال برتمو تا، تا برتمو طا، طا برتمو تا، ثا برتمو ذال، ذال برتمو ظا، دان با برتمو ميم."],
+      ex:["mj_td","mj_dt","mj_tt","mj_tht","mj_thd","mj_dhz","mj_bm"] },
+    { p:"11–12", pic:"💡", h:["Ba mati bertemu mim","با ماتي برتمو ميم"],
+      tip:["Huruf ba yang mati bertemu huruf mim yang berbaris dalam Surah Hud ayat 42 wajib didengungkan dengan kadar dua harakat.","حروف با يڠ ماتي برتمو حروف ميم يڠ برباريس دالم سورة هود ايات 42 واجب ددڠوڠکن دڠن قدر دوا حرکة."],
+      ex:["mj_bm"],
+      am:["Mempelajari hukum tajwid ialah fardhu kifayah, manakala membaca al-Quran dengan bertajwid ialah fardhu ain bagi setiap orang Islam.","ممڤلاجري حکوم تجويد اياله فرض کفاية، منکالا ممباچ القرءان دڠن برتجويد اياله فرض عين باڬي ستياڤ اورڠ اسلام."] }
+  ],
+  games:[
+    { type:"gondola", q:["Hantar setiap gondola ke stesen yang betul: kamil atau naqis.","هنتر ستياڤ ڬوندولا ک ستيسن يڠ بتول: کامل اتاو ناقص."], e:["Naqis: tha mati bertemu ta, tiada tasydid pada ta.","ناقص: طا ماتي برتمو تا، تياد تشديد ڤد تا."],
+      stv:[IDG.kam, IDG.naq], items:[["mj_tt",0],["mj_td",0],["mj_dt",0],["mj_dhz",0],["mj_tht",1],["mj_bst",1],["mj_frt",1]] },
+    { type:"cangkuk", q:["Cangkukkan contoh dengan pasangan hurufnya.","چڠکوقکن چونتوه دڠن ڤاسڠن حروفڽ."], e:["Semua pasangan ini sama makhraj tetapi berlainan sifat.","سموا ڤاسڠن اين سام مخرج تتاڤي برلاٴينن صيفت."],
+      pairs:[["mj_td","ت + د"],["mj_dt","د + ت"],["mj_thd","ث + ذ"],["mj_bm","ب + م"]] },
+    { type:"takal", q:["Takal ulang kaji! Apakah jenis idgham ini?","تاکل اولڠ کاجي! اڤاکه جنيس إدغام اين؟"], e:["Hebat! Kamu boleh membezakan tiga jenis idgham.","هيبت! کامو بوليه ممبيذاکن تيڬ جنيس إدغام."],
+      rounds:[ {p:["Jenis idgham?","جنيس إدغام؟"], ar:"mj_dz", a:[IDG.mj, IDG.mt, IDG.mq]},
+               {p:["Jenis idgham?","جنيس إدغام؟"], ar:"mt_r", a:[IDG.mt, IDG.mq, IDG.mj]},
+               {p:["Jenis idgham?","جنيس إدغام؟"], ar:"mq_lr", a:[IDG.mq, IDG.mj, IDG.mt]},
+               {p:["Jenis idgham?","جنيس إدغام؟"], ar:"mj_tt", a:[IDG.mj, IDG.mq, IDG.mt]},
+               {p:["Jenis idgham?","جنيس إدغام؟"], ar:"mt_t", a:[IDG.mt, IDG.mj, IDG.mq]} ] },
+    { type:"menarapandang", q:["Teropong dari menara: ketuk kalimah yang huruf pertamanya menerima idgham (bersyaddah).","تروڤوڠ دري منارا: کتوق كليمه يڠ حروف ڤرتامڽ منريما إدغام (برتشديد)."], e:["Tsa mati pada يَلْهَث dimasukkan ke zal pada ذَّٰلِكَ.","ثا ماتي ڤد يَلْهَث دماسوقکن ک ذال ڤد ذَّٰلِكَ."], ar:"mj_thd", ans:1 },
+    { type:"jadual", q:["Lengkapkan papan jadual stesen.","لڠکڤکن ڤاڤن جدوال ستيسن."], e:["Ba mati bertemu mim dalam Surah Hud ayat 42 didengungkan dua harakat.","با ماتي برتمو ميم دالم سورة هود ايات 42 ددڠوڠکن دوا حرکة."],
+      s:["Pada ٱرْكَب مَّعَنَا, ba mati bertemu mim wajib didengungkan dengan kadar ___.","ڤد ٱرْكَب مَّعَنَا، با ماتي برتمو ميم واجب ددڠوڠکن دڠن قدر ___."],
+      a:[["2 harakat","دوا حرکة"],["4 harakat","امڤت حرکة"],["6 harakat","انم حرکة"],["1 harakat","ساتو حرکة"]] },
+    { type:"palang", q:["Palang stesen: betul atau salah?","ڤالڠ ستيسن: بتول اتاو ساله؟"], e:["Palang terbuka! Mutajanisain sudah jelas.","ڤالڠ تربوک! متجانسين سوده جلس."],
+      rounds:[ [["Mutajanisain ialah dua huruf yang sama makhraj tetapi berlainan sifat.","متجانسين اياله دوا حروف يڠ سام مخرج تتاڤي برلاٴينن صيفت."],1],
+               [["Mutajanisain naqis mempunyai tasydid pada huruf kedua.","متجانسين ناقص ممڤوڽاٴي تشديد ڤد حروف کدوا."],0],
+               [["Mempelajari hukum tajwid ialah fardhu kifayah.","ممڤلاجري حکوم تجويد اياله فرض کفاية."],1],
+               [["Membaca al-Quran dengan bertajwid hanya sunat.","ممباچ القرءان دڠن برتجويد هاڽ سنة."],0] ] }
+  ] },
+
+{ id:4, icon:"💪", c:"#1D3557", sticker:"🧗", t:["Stesen Ra Tebal","ستيسن راء تبل"], u:["Hukum ra: tafkhim • ms. 13–18","حکوم راء: تفخيم • م.س. 13–18"],
+  read:[
+    { p:"13–14", pic:"🏔️", h:["Tiga hukum ra","تيڬ حکوم راء"],
+      text:["Huruf ra dibaca dengan tiga cara: ra tebal (tafkhim), ra nipis (tarqiq) dan ra dua wajah, iaitu boleh tebal atau nipis.","حروف راء دباچ دڠن تيڬ چارا: راء تبل (تفخيم)، راء نيڤيس (ترقيق) دان راء دوا وجه، يأيت بوليه تبل اتاو نيڤيس."],
+      list:[IDG.tb, IDG.np, IDG.dw], ex:["rt_rb","rd_fq"] },
+    { p:"15", pic:"💪", h:["Sebab ra tebal (1–4)","سبب راء تبل (1–4)"],
+      list:[["Ra berbaris atas.","راء برباريس اتس."],["Ra berbaris depan.","راء برباريس دڤن."],["Ra mati dan sebelumnya huruf berbaris atas.","راء ماتي دان سبلومڽ حروف برباريس اتس."],["Ra mati dan sebelumnya huruf berbaris depan.","راء ماتي دان سبلومڽ حروف برباريس دڤن."]],
+      ex:["rt_db","rt_rh","rt_kf","rt_my","rt_ar","rt_nz","rt_zr"] },
+    { p:"16", pic:"🧗", h:["Sebab ra tebal (5–8)","سبب راء تبل (5–8)"],
+      list:[["Ra mati, sebelumnya berbaris bawah dan selepasnya huruf isti'la berbaris atas dalam satu kalimah.","راء ماتي، سبلومڽ برباريس باوه دان سلڤسڽ حروف استعلاء برباريس اتس دالم ساتو كليمه."],["Ra mati dan huruf sebelumnya berbaris bawah mendatang.","راء ماتي دان حروف سبلومڽ برباريس باوه منداتڠ."],["Ra diwaqafkan, sebelumnya huruf mati bukan huruf mad, dan sebelumnya berbaris atas atau depan.","راء دوقفکن، سبلومڽ حروف ماتي بوکن حروف مد، دان سبلومڽ برباريس اتس اتاو دڤن."],["Ra diwaqafkan, sebelumnya huruf mad alif atau wau, dan sebelumnya berbaris atas atau depan.","راء دوقفکن، سبلومڽ حروف مد اليف اتاو واو، دان سبلومڽ برباريس اتس اتاو دڤن."]],
+      ex:["rt_ms","rt_qt","rt_rj","rt_rt","rt_qd","rt_ks","rt_nh","rt_nr"] },
+    { p:"17–18", pic:"💡", h:["Huruf isti'la","حروف استعلاء"],
+      text:["Isti'la ialah suara tinggi ketika menyebut huruf. Huruf isti'la ada tujuh, terkumpul dalam: خص ضغط قظ","استعلاء اياله سوارا تيڠڬي کتيک مڽبوت حروف. حروف استعلاء اد توجوه، ترکومڤول دالم: خص ضغط قظ"],
+      am:["Membaca al-Quran dengan tajwid yang betul kerana bertajwid itu wajib.","ممباچ القرءان دڠن تجويد يڠ بتول کران برتجويد ايت واجب."] }
+  ],
+  games:[
+    { type:"kabin", q:["Naikkan ke kabin SEMUA kalimah yang ra-nya dibaca tebal, kemudian tekan Berlepas.","ناٴيقکن ک کابين سموا كليمه يڠ راڽ دباچ تبل، کمودين تکن برلڤس."], e:["Ra berbaris atas atau depan, atau ra mati selepas baris atas atau depan, dibaca tebal.","راء برباريس اتس اتاو دڤن، اتاو راء ماتي سلڤس باريس اتس اتاو دڤن، دباچ تبل."],
+      items:[["rt_db",1],["rt_rh",1],["rt_kf",1],["rt_my",1],["rt_zr",1],["rn_gh",0],["rn_fr",0],["rn_sb",0]] },
+    { type:"gondola", q:["Hantar setiap gondola ke stesen sebab ra tebalnya.","هنتر ستياڤ ڬوندولا ک ستيسن سبب راء تبلڽ."], e:["Lihat baris pada ra, kemudian baris huruf sebelumnya.","ليهت باريس ڤد راء، کمودين باريس حروف سبلومڽ."],
+      stv:[["Ra berbaris atas","راء برباريس اتس"],["Ra berbaris depan","راء برباريس دڤن"],["Ra mati, sebelumnya baris atas atau depan","راء ماتي، سبلومڽ باريس اتس اتاو دڤن"]],
+      items:[["rt_db",0],["rt_rb",0],["rt_rh",1],["rt_kf",1],["rt_my",2],["rt_ar",2],["rt_zr",2]] },
+    { type:"takal", q:["Takal naik! Mengapakah ra ini dibaca tebal?","تاکل ناٴيق! مڠاڤاکه راء اين دباچ تبل؟"], e:["Hebat! Kamu tahu sebab-sebab ra tebal.","هيبت! کامو تاهو سبب٢ راء تبل."],
+      rounds:[ {p:["Sebab ra tebal?","سبب راء تبل؟"], ar:"rt_qt", a:[["Ra mati, selepasnya huruf isti'la","راء ماتي، سلڤسڽ حروف استعلاء"],["Ra berbaris atas","راء برباريس اتس"],["Ra diwaqafkan selepas wau mad","راء دوقفکن سلڤس واو مد"]]},
+               {p:["Sebab ra tebal?","سبب راء تبل؟"], ar:"rt_rj", a:[["Sebelumnya baris bawah mendatang","سبلومڽ باريس باوه منداتڠ"],["Ra berbaris depan","راء برباريس دڤن"],["Ra mati, selepasnya huruf isti'la","راء ماتي، سلڤسڽ حروف استعلاء"]]},
+               {p:["Sebab ra tebal ketika waqaf?","سبب راء تبل کتيک وقف؟"], ar:"rt_qd", a:[["Sebelumnya huruf mati bukan mad","سبلومڽ حروف ماتي بوکن مد"],["Sebelumnya huruf mad alif","سبلومڽ حروف مد اليف"],["Ra berbaris atas","راء برباريس اتس"]]},
+               {p:["Sebab ra tebal ketika waqaf?","سبب راء تبل کتيک وقف؟"], ar:"rt_nr", a:[["Sebelumnya huruf mad wau","سبلومڽ حروف مد واو"],["Sebelumnya baris bawah mendatang","سبلومڽ باريس باوه منداتڠ"],["Ra berbaris depan","راء برباريس دڤن"]]} ] },
+    { type:"menarapandang", q:["Teropong dari menara: ketuk kalimah yang ra-nya dibaca tebal ketika berhenti.","تروڤوڠ دري منارا: کتوق كليمه يڠ راڽ دباچ تبل کتيک برهنتي."], e:["ٱلْقَدْرِ: ra diwaqafkan, sebelumnya dal mati, sebelumnya lagi qaf berbaris atas.","ٱلْقَدْرِ: راء دوقفکن، سبلومڽ دال ماتي، سبلومڽ لاڬي قاف برباريس اتس."], ar:"rt_qd", ans:1 },
+    { type:"jadual", q:["Lengkapkan papan jadual stesen.","لڠکڤکن ڤاڤن جدوال ستيسن."], e:["Tujuh huruf isti'la: خص ضغط قظ","توجوه حروف استعلاء: خص ضغط قظ"],
+      s:["Huruf isti'la ada ___ huruf, terkumpul dalam خص ضغط قظ.","حروف استعلاء اد ___ حروف، ترکومڤول دالم خص ضغط قظ."],
+      a:[["tujuh","توجوه"],["lima","ليما"],["sembilan","سمبيلن"],["tiga","تيڬ"]] },
+    { type:"palang", q:["Palang stesen: betul atau salah?","ڤالڠ ستيسن: بتول اتاو ساله؟"], e:["Palang terbuka! Ra tebal sudah dikuasai.","ڤالڠ تربوک! راء تبل سوده دکواساٴي."],
+      rounds:[ [["Ra berbaris depan dibaca tebal.","راء برباريس دڤن دباچ تبل."],1],
+               [["Isti'la ialah suara rendah ketika menyebut huruf.","استعلاء اياله سوارا رنده کتيک مڽبوت حروف."],0],
+               [["Ra mati selepas baris bawah mendatang dibaca tebal.","راء ماتي سلڤس باريس باوه منداتڠ دباچ تبل."],1],
+               [["Ra berbaris bawah dibaca tebal.","راء برباريس باوه دباچ تبل."],0] ] }
+  ] },
+{ id:5, icon:"🪶", c:"#8E7DBE", sticker:"🐐", t:["Stesen Ra Nipis","ستيسن راء نيڤيس"], u:["Hukum ra: tarqiq • ms. 19–21","حکوم راء: ترقيق • م.س. 19–21"],
+  read:[
+    { p:"19", pic:"🪶", h:IDG.np,
+      text:["Ra nipis (tarqiq) ialah ra yang dibaca dengan suara nipis, tidak memenuhi mulut.","راء نيڤيس (ترقيق) اياله راء يڠ دباچ دڠن سوارا نيڤيس، تيدق ممنوهي مولوت."],
+      list:[["Ra berbaris bawah.","راء برباريس باوه."],["Ra mati dan sebelumnya huruf berbaris bawah.","راء ماتي دان سبلومڽ حروف برباريس باوه."]],
+      ex:["rn_rj","rn_yr","rn_gh","rn_nr","rn_fr","rn_sb"] },
+    { p:"20", pic:"🛑", h:["Ra nipis ketika waqaf","راء نيڤيس کتيک وقف"],
+      list:[["Ra diwaqafkan, sebelumnya huruf mati dan huruf sebelum huruf mati itu berbaris bawah.","راء دوقفکن، سبلومڽ حروف ماتي دان حروف سبلوم حروف ماتي ايت برباريس باوه."],["Ra diwaqafkan dan sebelumnya huruf ya mati (ya mad atau ya lin).","راء دوقفکن دان سبلومڽ حروف يا ماتي (يا مد اتاو يا لين)."],["Ra diwaqafkan dan sebelumnya huruf berbaris bawah.","راء دوقفکن دان سبلومڽ حروف برباريس باوه."]],
+      ex:["rn_sh","rn_qd","rn_kh","rn_sr"] },
+    { p:"21", pic:"🤲", h:["Amalkan","عملکن"],
+      text:["Ra yang dibaca salah tebal atau nipis boleh mengubah keindahan bacaan. Dengar guru dan ulang dengan teliti.","راء يڠ دباچ ساله تبل اتاو نيڤيس بوليه مڠوبه کايندهن باچاءن. دڠر ڬورو دان اولڠ دڠن تليتي."],
+      am:["Sentiasa berusaha memperbaiki bacaan al-Quran.","سنتياسا بروسها ممڤربايقي باچاءن القرءان."] }
+  ],
+  games:[
+    { type:"gondola", q:["Hantar setiap gondola ke stesen: ra tebal atau ra nipis?","هنتر ستياڤ ڬوندولا ک ستيسن: راء تبل اتاو راء نيڤيس؟"], e:["Ra berbaris bawah, atau ra mati selepas baris bawah, dibaca nipis.","راء برباريس باوه، اتاو راء ماتي سلڤس باريس باوه، دباچ نيڤيس."],
+      stv:[IDG.tb, IDG.np], items:[["rn_gh",1],["rn_fr",1],["rn_sb",1],["rn_rj",1],["rt_db",0],["rt_kf",0],["rt_zr",0],["rt_my",0]] },
+    { type:"takal", q:["Takal naik! Mengapakah ra ini dibaca nipis?","تاکل ناٴيق! مڠاڤاکه راء اين دباچ نيڤيس؟"], e:["Hebat! Kamu tahu sebab-sebab ra nipis.","هيبت! کامو تاهو سبب٢ راء نيڤيس."],
+      rounds:[ {p:["Sebab ra nipis?","سبب راء نيڤيس؟"], ar:"rn_gh", a:[["Ra berbaris bawah","راء برباريس باوه"],["Ra mati selepas baris atas","راء ماتي سلڤس باريس اتس"],["Ra berbaris depan","راء برباريس دڤن"]]},
+               {p:["Sebab ra nipis?","سبب راء نيڤيس؟"], ar:"rn_fr", a:[["Ra mati, sebelumnya baris bawah","راء ماتي، سبلومڽ باريس باوه"],["Ra berbaris atas","راء برباريس اتس"],["Sebelumnya huruf ya mati","سبلومڽ حروف يا ماتي"]]},
+               {p:["Sebab ra nipis ketika waqaf?","سبب راء نيڤيس کتيک وقف؟"], ar:"rn_kh", a:[["Sebelumnya huruf ya mati","سبلومڽ حروف يا ماتي"],["Ra mati selepas baris atas","راء ماتي سلڤس باريس اتس"],["Selepasnya huruf isti'la","سلڤسڽ حروف استعلاء"]]},
+               {p:["Sebab ra nipis ketika waqaf?","سبب راء نيڤيس کتيک وقف؟"], ar:"rn_sr", a:[["Sebelumnya huruf berbaris bawah","سبلومڽ حروف برباريس باوه"],["Sebelumnya huruf mad wau","سبلومڽ حروف مد واو"],["Ra berbaris depan","راء برباريس دڤن"]]} ] },
+    { type:"kabin", q:["Naikkan ke kabin SEMUA kalimah yang ra-nya dibaca nipis, kemudian tekan Berlepas.","ناٴيقکن ک کابين سموا كليمه يڠ راڽ دباچ نيڤيس، کمودين تکن برلڤس."], e:["Ketika waqaf, ra selepas ya mati atau selepas kasrah dibaca nipis.","کتيک وقف، راء سلڤس يا ماتي اتاو سلڤس کسرة دباچ نيڤيس."],
+      items:[["rn_sh",1],["rn_qd",1],["rn_kh",1],["rn_yr",1],["rt_nr",0],["rt_ks",0],["rt_rh",0]] },
+    { type:"menarapandang", q:["Teropong dari menara: ketuk kalimah yang ada ra berbaris bawah.","تروڤوڠ دري منارا: کتوق كليمه يڠ اد راء برباريس باوه."], e:["رِجَالٌ: ra berbaris bawah, maka dibaca nipis.","رِجَالٌ: راء برباريس باوه، مک دباچ نيڤيس."], ar:"rn_rj", ans:0 },
+    { type:"palang", q:["Palang stesen: betul atau salah?","ڤالڠ ستيسن: بتول اتاو ساله؟"], e:["Palang terbuka! Ra nipis sudah dikuasai.","ڤالڠ تربوک! راء نيڤيس سوده دکواساٴي."],
+      rounds:[ [["Ra berbaris bawah dibaca nipis.","راء برباريس باوه دباچ نيڤيس."],1],
+               [["Ra diwaqafkan selepas ya mati dibaca tebal.","راء دوقفکن سلڤس يا ماتي دباچ تبل."],0],
+               [["Ra mati selepas huruf berbaris bawah dibaca nipis.","راء ماتي سلڤس حروف برباريس باوه دباچ نيڤيس."],1],
+               [["Tarqiq bermaksud menebalkan bacaan.","ترقيق برمقصود منبلکن باچاءن."],0] ] },
+    { type:"jadual", q:["Lengkapkan papan jadual stesen.","لڠکڤکن ڤاڤن جدوال ستيسن."], e:["Ra nipis juga dipanggil tarqiq.","راء نيڤيس جوڬ دڤڠڬيل ترقيق."],
+      s:["Nama lain bagi ra nipis ialah ___.","نام لاٴين باڬي راء نيڤيس اياله ___."],
+      a:[["tarqiq","ترقيق"],["tafkhim","تفخيم"],["isti'la","استعلاء"],["saktah","سکتة"]] }
+  ] },
+
+{ id:6, icon:"🔀", c:"#E76F51", sticker:"🏔️", t:["Stesen Ra Dua Wajah","ستيسن راء دوا وجه"], u:["Boleh tebal atau nipis • ms. 22–25","بوليه تبل اتاو نيڤيس • م.س. 22–25"],
+  read:[
+    { p:"22", pic:"🔀", h:IDG.dw,
+      text:["Ra dua wajah boleh dibaca tebal atau nipis. Sebabnya: ra diwaqafkan, sebelumnya huruf isti'la yang mati, dan sebelum huruf isti'la itu huruf berbaris bawah.","راء دوا وجه بوليه دباچ تبل اتاو نيڤيس. سببڽ: راء دوقفکن، سبلومڽ حروف استعلاء يڠ ماتي، دان سبلوم حروف استعلاء ايت حروف برباريس باوه."],
+      list:[["مِصْرَ (Yusuf: 99): bacaan tebal lebih afdal.","مِصْرَ (يوسف: 99): باچاءن تبل لبيه افضل."],["ٱلْقِطْرِ (Saba': 12): bacaan nipis lebih afdal.","ٱلْقِطْرِ (سبا: 12): باچاءن نيڤيس لبيه افضل."]],
+      ex:["rd_ms","rd_qt"] },
+    { p:"23", pic:"✂️", h:["Ya yang dibuang (mahzufah)","يا يڠ دبواڠ (محذوفة)"],
+      text:["Ra yang diwaqafkan dan selepasnya ada huruf ya mahzufah, iaitu ya yang dibuang pada tulisan, juga dua wajah. Bacaan nipis lebih afdal.","راء يڠ دوقفکن دان سلڤسڽ اد حروف يا محذوفة، يأيت يا يڠ دبواڠ ڤد توليسن، جوڬ دوا وجه. باچاءن نيڤيس لبيه افضل."],
+      list:[["أَسْرِ asalnya أَسْرِي (Taha: 77).","أَسْرِ اصلڽ أَسْرِي (طه: 77)."],["يَسْرِ asalnya يَسْرِي (al-Fajr: 4).","يَسْرِ اصلڽ يَسْرِي (الفجر: 4)."]],
+      ex:["rd_as","rd_ys"] },
+    { p:"23–25", pic:"🌊", h:["Ra mati bertemu isti'la berbaris bawah","راء ماتي برتمو استعلاء برباريس باوه"],
+      text:["Ra mati bertemu huruf isti'la yang berbaris bawah, dan huruf sebelum ra berbaris bawah, seperti فِرْقٍ. Bacaan nipis lebih afdal.","راء ماتي برتمو حروف استعلاء يڠ برباريس باوه، دان حروف سبلوم راء برباريس باوه، سڤرتي فِرْقٍ. باچاءن نيڤيس لبيه افضل."],
+      ex:["rd_fq"],
+      am:["Membantu dan membimbing rakan dalam mempelajari al-Quran.","ممبنتو دان ممبيمبيڠ رکن دالم ممڤلاجري القرءان."] }
+  ],
+  games:[
+    { type:"cangkuk", q:["Cangkukkan setiap contoh dengan keterangannya.","چڠکوقکن ستياڤ چونتوه دڠن کتراڠنڽ."], e:["Mesir tebal lebih afdal; al-qitr nipis lebih afdal; ya mahzufah nipis lebih afdal.","مصر تبل لبيه افضل؛ القطر نيڤيس لبيه افضل؛ يا محذوفة نيڤيس لبيه افضل."],
+      pairs:[["rd_ms",["Tebal lebih afdal","تبل لبيه افضل"]],["rd_qt",["Nipis lebih afdal","نيڤيس لبيه افضل"]],["rd_as","أَسْرِي"],["rd_ys","يَسْرِي"]] },
+    { type:"gondola", q:["Hantar setiap gondola ke stesen hukum ra.","هنتر ستياڤ ڬوندولا ک ستيسن حکوم راء."], e:["Hebat! Kamu boleh membezakan ketiga-tiga hukum ra.","هيبت! کامو بوليه ممبيذاکن کتيڬ٢ حکوم راء."],
+      stv:[IDG.tb, IDG.np, IDG.dw], items:[["rt_rh",0],["rt_ks",0],["rn_gh",1],["rn_sh",1],["rd_ms",2],["rd_qt",2],["rd_ys",2]] },
+    { type:"menarapandang", q:["Teropong dari menara: ketuk kalimah yang ra-nya boleh dibaca dua wajah.","تروڤوڠ دري منارا: کتوق كليمه يڠ راڽ بوليه دباچ دوا وجه."], e:["فِرْقٍ: ra mati bertemu qaf (isti'la) berbaris bawah. Nipis lebih afdal.","فِرْقٍ: راء ماتي برتمو قاف (استعلاء) برباريس باوه. نيڤيس لبيه افضل."], ar:"rd_fq", ans:2 },
+    { type:"takal", q:["Takal naik! Bacaan manakah yang lebih afdal?","تاکل ناٴيق! باچاءن مانکه يڠ لبيه افضل؟"], e:["Betul! Hanya مِصْرَ yang tebal lebih afdal.","بتول! هاڽ مِصْرَ يڠ تبل لبيه افضل."],
+      rounds:[ {p:["Bacaan lebih afdal?","باچاءن لبيه افضل؟"], ar:"rd_ms", a:[["Tebal","تبل"],["Nipis","نيڤيس"]]},
+               {p:["Bacaan lebih afdal?","باچاءن لبيه افضل؟"], ar:"rd_qt", a:[["Nipis","نيڤيس"],["Tebal","تبل"]]},
+               {p:["Bacaan lebih afdal?","باچاءن لبيه افضل؟"], ar:"rd_as", a:[["Nipis","نيڤيس"],["Tebal","تبل"]]},
+               {p:["Bacaan lebih afdal?","باچاءن لبيه افضل؟"], ar:"rd_fq", a:[["Nipis","نيڤيس"],["Tebal","تبل"]]} ] },
+    { type:"jadual", q:["Lengkapkan papan jadual stesen.","لڠکڤکن ڤاڤن جدوال ستيسن."], e:["Ya mahzufah ialah ya yang dibuang pada tulisan.","يا محذوفة اياله يا يڠ دبواڠ ڤد توليسن."],
+      s:["Huruf ya yang dibuang pada tulisan dinamakan ya ___.","حروف يا يڠ دبواڠ ڤد توليسن دناماکن يا ___."],
+      a:[["mahzufah","محذوفة"],["lin","لين"],["mad","مد"],["isti'la","استعلاء"]] },
+    { type:"palang", q:["Palang stesen: betul atau salah?","ڤالڠ ستيسن: بتول اتاو ساله؟"], e:["Palang terbuka! Ra dua wajah sudah jelas.","ڤالڠ تربوک! راء دوا وجه سوده جلس."],
+      rounds:[ [["Ra dua wajah boleh dibaca tebal atau nipis.","راء دوا وجه بوليه دباچ تبل اتاو نيڤيس."],1],
+               [["Pada مِصْرَ bacaan nipis lebih afdal.","ڤد مِصْرَ باچاءن نيڤيس لبيه افضل."],0],
+               [["يَسْرِ asalnya يَسْرِي.","يَسْرِ اصلڽ يَسْرِي."],1] ] }
+  ] },
+{ id:7, icon:"🔁", c:"#3A86FF", sticker:"🎒", t:["Stesen Tanwin Bertemu Hamzah Wasal","ستيسن تنوين برتمو همزة وصل"], u:["Tanwin diganti nun berbaris bawah • ms. 26–29","تنوين دڬنتي نون برباريس باوه • م.س. 26–29"],
+  read:[
+    { p:"26", pic:"🔁", h:["Tanwin bertemu hamzah wasal","تنوين برتمو همزة وصل"],
+      text:["Ketika dibaca wasal (bersambung), tanwin yang bertemu hamzah wasal hendaklah digugurkan baris tanwinnya dan digantikan dengan nun berbaris bawah.","کتيک دباچ وصل (برسامبوڠ)، تنوين يڠ برتمو همزة وصل هندقله دڬوڬورکن باريس تنوينڽ دان دڬنتيکن دڠن نون برباريس باوه."],
+      ex:["th_kh"] },
+    { p:"27", pic:"🔊", h:["Contoh bacaan","چونتوه باچاءن"],
+      list:[["لَهْوًا ٱنفَضُّوٓا۟ dibaca lahwanin-faddu.","لَهْوًا ٱنفَضُّوٓا۟ دباچ دڠن نون برباريس باوه."],["بَعْضٍ ٱلْقَوْلَ dibaca ba'dinil-qaul.","بَعْضٍ ٱلْقَوْلَ دباچ دڠن نون برباريس باوه."],["نُوحٌ ٱبْنَهُۥ dibaca nuhunibnahu.","نُوحٌ ٱبْنَهُۥ دباچ دڠن نون برباريس باوه."]],
+      ex:["th_lh","th_bq","th_nh","th_ws","th_hq","th_ad"] },
+    { p:"27", pic:"🅰️", h:["Hamzah qata'","همزة قطع"],
+      text:["Hamzah qata' ialah huruf hamzah yang terletak di permulaan, pertengahan atau akhir kalimah. Ia dibaca mengikut barisnya, sama ada ketika wasal atau waqaf. Ia ditulis seperti أ إ ؤ ئ ء.","همزة قطع اياله حروف همزة يڠ ترلتق د ڤرمولاءن، ڤرتڠهن اتاو اخير كليمه. اي دباچ مڠيکوت باريسڽ، سام اد کتيک وصل اتاو وقف. اي دتوليس سڤرتي أ إ ؤ ئ ء."],
+      ex:["hq_sa","hq_tu","hq_am","th_hq"] },
+    { p:"28–29", pic:"🪄", h:["Hamzah wasal","همزة وصل"],
+      text:["Hamzah wasal ialah hamzah tambahan di permulaan kalimah sahaja. Ia hanya dibaca ketika memulakan bacaan, dan tidak dibaca apabila disambung dengan kalimah sebelumnya. Ia ditulis ٱ","همزة وصل اياله همزة تمبهن د ڤرمولاءن كليمه سهاج. اي هاڽ دباچ کتيک مموليکن باچاءن، دان تيدق دباچ اڤابيلا دسامبوڠ دڠن كليمه سبلومڽ. اي دتوليس ٱ"],
+      ex:["hw_ns","hw_ti","rt_rj"],
+      am:["Mempelajari al-Quran secara berguru dengan orang yang mahir.","ممڤلاجري القرءان سچارا برڬورو دڠن اورڠ يڠ ماهير."] }
+  ],
+  games:[
+    { type:"kabel", q:["Sambung kabel: susun langkah membaca tanwin bertemu hamzah wasal ketika wasal.","سامبوڠ کابل: سوسون لڠکه ممباچ تنوين برتمو همزة وصل کتيک وصل."], e:["Tanwin digugurkan, diganti nun berbaris bawah, lalu disambung.","تنوين دڬوڬورکن، دڬنتي نون برباريس باوه، لالو دسامبوڠ."],
+      items:[["Kenal pasti tanwin di hujung kalimah","کنل ڤستي تنوين د هوجوڠ كليمه"],["Lihat kalimah selepasnya bermula dengan hamzah wasal","ليهت كليمه سلڤسڽ برمولا دڠن همزة وصل"],["Gugurkan baris tanwin","ڬوڬورکن باريس تنوين"],["Gantikan dengan nun berbaris bawah","ڬنتيکن دڠن نون برباريس باوه"],["Sambung bacaan tanpa berhenti","سامبوڠ باچاءن تنڤا برهنتي"]] },
+    { type:"kabin", q:["Naikkan ke kabin SEMUA contoh tanwin bertemu hamzah wasal, kemudian tekan Berlepas.","ناٴيقکن ک کابين سموا چونتوه تنوين برتمو همزة وصل، کمودين تکن برلڤس."], e:["Kalimah bertanwin diikuti kalimah yang bermula dengan ٱ","كليمه برتنوين دايکوتي كليمه يڠ برمولا دڠن ٱ"],
+      items:[["th_ws",1],["th_hq",1],["th_ad",1],["th_lh",1],["rn_qd",0],["rn_rj",0],["mj_tt",0]] },
+    { type:"gondola", q:["Hantar setiap gondola ke stesen: hamzah qata' atau hamzah wasal?","هنتر ستياڤ ڬوندولا ک ستيسن: همزة قطع اتاو همزة وصل؟"], e:["Hamzah wasal ditulis ٱ dan tidak dibaca ketika disambung.","همزة وصل دتوليس ٱ دان تيدق دباچ کتيک دسامبوڠ."],
+      stv:[["Hamzah qata'","همزة قطع"],["Hamzah wasal","همزة وصل"]], items:[["hq_sa",0],["hq_tu",0],["hq_am",0],["hw_ti",1],["hw_ns",1],["rt_rj",1],["rt_nz",1]] },
+    { type:"menarapandang", q:["Teropong dari menara: ketuk kalimah bertanwin yang bertemu hamzah wasal.","تروڤوڠ دري منارا: کتوق كليمه برتنوين يڠ برتمو همزة وصل."], e:["خَبِيثَةٍ bertemu ٱجْتُثَّتْ: tanwin diganti nun berbaris bawah ketika wasal.","خَبِيثَةٍ برتمو ٱجْتُثَّتْ: تنوين دڬنتي نون برباريس باوه کتيک وصل."], ar:"th_kh", ans:1 },
+    { type:"jadual", q:["Lengkapkan papan jadual stesen.","لڠکڤکن ڤاڤن جدوال ستيسن."], e:["Tanwin yang bertemu hamzah wasal diganti nun berbaris bawah.","تنوين يڠ برتمو همزة وصل دڬنتي نون برباريس باوه."],
+      s:["Ketika wasal, baris tanwin digugurkan dan diganti dengan nun berbaris ___.","کتيک وصل، باريس تنوين دڬوڬورکن دان دڬنتي دڠن نون برباريس ___."],
+      a:[["bawah","باوه"],["atas","اتس"],["depan","دڤن"],["mati","ماتي"]] },
+    { type:"palang", q:["Palang stesen: betul atau salah?","ڤالڠ ستيسن: بتول اتاو ساله؟"], e:["Palang terbuka! Hamzah wasal dan qata' sudah jelas.","ڤالڠ تربوک! همزة وصل دان قطع سوده جلس."],
+      rounds:[ [["Hamzah wasal dibaca ketika memulakan bacaan.","همزة وصل دباچ کتيک مموليکن باچاءن."],1],
+               [["Hamzah wasal tetap dibaca walaupun disambung dengan kalimah sebelumnya.","همزة وصل تتڤ دباچ والاوڤون دسامبوڠ دڠن كليمه سبلومڽ."],0],
+               [["Hamzah qata' boleh berada di pertengahan kalimah.","همزة قطع بوليه برادا د ڤرتڠهن كليمه."],1],
+               [["Hamzah wasal terletak di akhir kalimah.","همزة وصل ترلتق د اخير كليمه."],0] ] }
+  ] },
+{ id:8, icon:"📜", c:"#B5838D", sticker:"🔭", t:["Stesen Bacaan Khas Riwayat Hafs","ستيسن باچاءن خاص رواية حفص"], u:["Saktah, imalah, naql, tashil, ibdal, isymam, raum • ms. 30–40","سکتة، إمالة، نقل، تسهيل، إبدال، إشمام، روم • م.س. 30–40"],
+  read:[
+    { p:"30–32", pic:"⏸️", h:["Saktah","سکتة"],
+      text:["Saktah ialah memberhentikan bacaan tanpa bernafas dengan kadar dua harakat, kemudian menyambung semula dengan nafas yang sama. Tandanya huruf sin kecil di atas huruf akhir kalimah. Saktah hanya berlaku ketika dibaca wasal.","سکتة اياله ممبرهنتيکن باچاءن تنڤا برنفس دڠن قدر دوا حرکة، کمودين مڽمبوڠ سمولا دڠن نفس يڠ سام. تنداڽ حروف سين کچيل د اتس حروف اخير كليمه. سکتة هاڽ برلاکو کتيک دباچ وصل."],
+      list:[["Empat tempat wajib saktah: al-Kahf 1, Yasin 52, al-Qiyamah 27 dan al-Mutaffifin 14.","امڤت تمڤت واجب سکتة: الکهف 1، يس 52، القيامة 27 دان المطففين 14."]],
+      ex:["sk_iw","sk_mr","sk_mn","mq_bl"] },
+    { p:"33–34", pic:"↘️", h:["Imalah dan naql","إمالة دان نقل"],
+      list:[["Imalah: menyebut baris atas cenderung kepada baris bawah. Huruf ra pada مَجْر۪ىٰهَا dibaca imalah. Hanya satu tempat sahaja.","إمالة: مڽبوت باريس اتس چندروڠ کڤد باريس باوه. حروف راء ڤد مَجْر۪ىٰهَا دباچ إمالة. هاڽ ساتو تمڤت سهاج."],["Naql: memindahkan baris hamzah kepada huruf mati sebelumnya, dan hamzah itu dibuang, seperti بِئْسَ ٱلِٱسْمُ.","نقل: مميندهکن باريس همزة کڤد حروف ماتي سبلومڽ، دان همزة ايت دبواڠ، سڤرتي بِئْسَ ٱلِٱسْمُ."]],
+      ex:["bk_mj","bk_nq"] },
+    { p:"35–36", pic:"🌫️", h:["Tashil dan ibdal","تسهيل دان إبدال"],
+      list:[["Tashil: membaca hamzah antara hamzah dengan alif. Asal ءَا۬عْجَمِىٌّ ialah ءَأَعْجَمِيٌّ; hamzah kedua dibaca tashil. Hanya satu tempat sahaja.","تسهيل: ممباچ همزة انتارا همزة دڠن اليف. اصل ءَا۬عْجَمِىٌّ اياله ءَأَعْجَمِيٌّ؛ همزة کدوا دباچ تسهيل. هاڽ ساتو تمڤت سهاج."],["Ibdal: menukar hamzah wasal kepada huruf mad (alif) dan dipanjangkan 6 harakat. Harus juga dibaca tashil.","إبدال: منوکر همزة وصل کڤد حروف مد (اليف) دان دڤنجڠکن انم حرکة. هاروس جوڬ دباچ تسهيل."]],
+      ex:["bk_ts","bk_db1","bk_db2","bk_db3"] },
+    { p:"37–38", pic:"😗", h:["Isymam dan raum","إشمام دان روم"],
+      list:[["Isymam: memuncungkan kedua-dua bibir sejurus selepas mematikan huruf, sebagai isyarat baris depan tanpa bunyi.","إشمام: مممونچوڠکن کدوا٢ بيبير سجوروس سلڤس مماتيکن حروف، سباڬاي اشارت باريس دڤن تنڤا بوڽي."],["Raum: membaca sebahagian baris sahaja dengan suara perlahan, kadar satu pertiga.","روم: ممباچ سبهاڬين باريس سهاج دڠن سوارا ڤرلاهن، قدر ساتو ڤرتيڬ."],["Kedua-duanya pada لَا تَأْمَ۫نَّا (Yusuf: 11), asalnya لَا تَأْمَنُنَا.","کدوا٢ڽ ڤد لَا تَأْمَ۫نَّا (يوسف: 11)، اصلڽ لَا تَأْمَنُنَا."]],
+      ex:["bk_ym"] },
+    { p:"39–40", pic:"👳", h:["Imam Hafs","امام حفص"],
+      text:["Nama sebenar Imam Hafs ialah Abu 'Amru Hafs bin Sulaiman bin al-Mughirah al-Kufi. Beliau imam qiraat yang terkenal, lahir pada 90 Hijrah dan meninggal dunia pada 180 Hijrah.","نام سبنر امام حفص اياله ابو عمرو حفص بن سليمان بن المغيرة الکوفي. بلياو امام قراءت يڠ ترکنل، لاهير ڤد 90 هجرة دان منيڠڬل دنيا ڤد 180 هجرة."],
+      am:["Belajar al-Quran perlu berguru kerana ia ilmu yang berkaitan dengan sanad.","بلاجر القرءان ڤرلو برڬورو کران اي علمو يڠ برکاٴيتن دڠن سند."] }
+  ],
+  games:[
+    { type:"cangkuk", q:["Cangkukkan setiap bacaan khas dengan maksudnya.","چڠکوقکن ستياڤ باچاءن خاص دڠن مقصودڽ."], e:["Hebat! Kamu kenal bacaan khas riwayat Hafs.","هيبت! کامو کنل باچاءن خاص رواية حفص."],
+      pairs:[[["Saktah","سکتة"],["Berhenti sejenak tanpa bernafas","برهنتي سجنق تنڤا برنفس"]],[["Imalah","إمالة"],["Baris atas cenderung ke baris bawah","باريس اتس چندروڠ ک باريس باوه"]],[["Naql","نقل"],["Pindah baris hamzah ke huruf mati","ڤينده باريس همزة ک حروف ماتي"]],[["Ibdal","إبدال"],["Tukar hamzah wasal kepada alif mad","توکر همزة وصل کڤد اليف مد"]],[["Isymam","إشمام"],["Muncungkan bibir tanpa bunyi","مونچوڠکن بيبير تنڤا بوڽي"]]] },
+    { type:"takal", q:["Takal naik! Bacaan khas apakah pada contoh ini?","تاکل ناٴيق! باچاءن خاص اڤاکه ڤد چونتوه اين؟"], e:["Betul! Setiap bacaan khas ada contohnya yang tersendiri.","بتول! ستياڤ باچاءن خاص اد چونتوهڽ يڠ ترسنديري."],
+      rounds:[ {p:["Bacaan khas?","باچاءن خاص؟"], ar:"bk_mj", a:[["Imalah","إمالة"],["Naql","نقل"],["Tashil","تسهيل"]]},
+               {p:["Bacaan khas?","باچاءن خاص؟"], ar:"bk_nq", a:[["Naql","نقل"],["Saktah","سکتة"],["Ibdal","إبدال"]]},
+               {p:["Bacaan khas?","باچاءن خاص؟"], ar:"bk_ts", a:[["Tashil","تسهيل"],["Imalah","إمالة"],["Raum","روم"]]},
+               {p:["Bacaan khas?","باچاءن خاص؟"], ar:"bk_db1", a:[["Ibdal","إبدال"],["Naql","نقل"],["Isymam","إشمام"]]},
+               {p:["Bacaan khas?","باچاءن خاص؟"], ar:"sk_mn", a:[["Saktah","سکتة"],["Imalah","إمالة"],["Tashil","تسهيل"]]},
+               {p:["Bacaan khas?","باچاءن خاص؟"], ar:"bk_ym", a:[["Isymam atau raum","إشمام اتاو روم"],["Saktah","سکتة"],["Ibdal","إبدال"]]} ] },
+    { type:"kabin", q:["Naikkan ke kabin SEMUA tempat yang WAJIB saktah, kemudian tekan Berlepas.","ناٴيقکن ک کابين سموا تمڤت يڠ واجب سکتة، کمودين تکن برلڤس."], e:["Empat tempat wajib saktah: al-Kahf 1, Yasin 52, al-Qiyamah 27, al-Mutaffifin 14.","امڤت تمڤت واجب سکتة: الکهف 1، يس 52، القيامة 27، المطففين 14."],
+      items:[[["Al-Kahf: 1","الکهف: 1"],1],[["Yasin: 52","يس: 52"],1],[["Al-Qiyamah: 27","القيامة: 27"],1],[["Al-Mutaffifin: 14","المطففين: 14"],1],[["Al-Haqqah: 28","الحاقة: 28"],0],[["Hud: 41","هود: 41"],0]] },
+    { type:"menarapandang", q:["Teropong dari menara: ketuk kalimah tempat pembaca berhenti sejenak (saktah).","تروڤوڠ دري منارا: کتوق كليمه تمڤت ڤمباچ برهنتي سجنق (سکتة)."], e:["Saktah pada مَّرْقَدِنَا, kemudian disambung dengan هَـٰذَا tanpa bernafas.","سکتة ڤد مَّرْقَدِنَا، کمودين دسامبوڠ دڠن هَـٰذَا تنڤا برنفس."], ar:"sk_mr", ans:0 },
+    { type:"jadual", q:["Lengkapkan papan jadual stesen.","لڠکڤکن ڤاڤن جدوال ستيسن."], e:["Saktah: berhenti tanpa bernafas kadar dua harakat.","سکتة: برهنتي تنڤا برنفس قدر دوا حرکة."],
+      s:["Saktah ialah berhenti tanpa bernafas dengan kadar ___.","سکتة اياله برهنتي تنڤا برنفس دڠن قدر ___."],
+      a:[["dua harakat","دوا حرکة"],["empat harakat","امڤت حرکة"],["enam harakat","انم حرکة"],["satu pertiga harakat","ساتو ڤرتيڬ حرکة"]] },
+    { type:"palang", q:["Palang stesen: betul atau salah?","ڤالڠ ستيسن: بتول اتاو ساله؟"], e:["Palang terbuka! Riwayat Hafs sudah dikenali.","ڤالڠ تربوک! رواية حفص سوده دکنلي."],
+      rounds:[ [["Saktah tetap dibaca walaupun pembaca memilih untuk berhenti (waqaf).","سکتة تتڤ دباچ والاوڤون ڤمباچ مميليه اونتوق برهنتي (وقف)."],0],
+               [["Imalah hanya terdapat di satu tempat dalam al-Quran.","إمالة هاڽ ترداڤت د ساتو تمڤت دالم القرءان."],1],
+               [["Raum dibaca dengan suara perlahan, kadar satu pertiga baris.","روم دباچ دڠن سوارا ڤرلاهن، قدر ساتو ڤرتيڬ باريس."],1],
+               [["Imam Hafs lahir pada 90 Hijrah.","امام حفص لاهير ڤد 90 هجرة."],1] ] }
+  ] },
+
+{ id:9, icon:"🏛️", c:"#606C38", sticker:"🏆", t:["Stesen Rukun Bacaan al-Quran","ستيسن روکون باچاءن القرءان"], u:["Tiga rukun bacaan • ms. 41–46","تيڬ روکون باچاءن • م.س. 41–46"],
+  read:[
+    { p:"41–42", pic:"🏛️", h:["Rukun bacaan al-Quran","روکون باچاءن القرءان"],
+      text:["Rukun bacaan al-Quran ialah peraturan yang wajib dipatuhi ketika membaca al-Quran untuk menghasilkan bacaan yang betul, fasih dan lancar. Bacaan yang tidak memenuhi rukun ialah janggal (syaz) dan tidak boleh diterima.","روکون باچاءن القرءان اياله ڤراتورن يڠ واجب دڤاتوهي کتيک ممباچ القرءان اونتوق مڠحاصيلکن باچاءن يڠ بتول، فصيح دان لنچر. باچاءن يڠ تيدق ممنوهي روکون اياله جڠڬل (شاذ) دان تيدق بوليه دتريما."],
+      list:[["Mematuhi qawa'id al-'arabiyyah.","ممتوهي قواعد العربية."],["Bersambung sanad kepada Rasulullah ﷺ.","برسامبوڠ سند کڤد رسول الله ﷺ."],["Mengikut rasm uthmani.","مڠيکوت رسم عثماني."]] },
+    { p:"43", pic:"📐", h:["Rukun 1: Qawa'id al-'arabiyyah","روکون 1: قواعد العربية"],
+      text:["Pembaca mesti menepati salah satu kaedah nahu bahasa Arab dan tidak boleh mengubah kalimah atau baris kecuali ada riwayat qurra' yang mengharuskannya. Contohnya وَٱلْأَرْحَامَ (an-Nisa': 1): Imam Hamzah membacanya dengan baris bawah, dan kedua-dua bacaan menepati kaedah nahu.","ڤمباچ مستي منڤتي سالهساتو قاعدة نحو بهاس عرب دان تيدق بوليه مڠوبه كليمه اتاو باريس کچوالي اد رواية قراء يڠ مڠهاروسکنڽ. چونتوهڽ وَٱلْأَرْحَامَ (النساء: 1): امام حمزة ممباچڽ دڠن باريس باوه، دان کدوا٢ باچاءن منڤتي قاعدة نحو."],
+      ex:["rk_rh"] },
+    { p:"44", pic:"🔗", h:["Rukun 2: Bersambung sanad","روکون 2: برسامبوڠ سند"],
+      text:["Kita mesti mempelajari al-Quran sehingga khatam daripada guru yang bertaqwa dan mahir, yang sanadnya bersambung hingga Rasulullah ﷺ.","کيت مستي ممڤلاجري القرءان سهيڠڬ ختم درڤد ڬورو يڠ برتقوى دان ماهير، يڠ سندڽ برسامبوڠ هيڠڬ رسول الله ﷺ."],
+      list:[["Sanad Imam Hafs: Rasulullah ﷺ → Uthman, Ali, Zaid bin Thabit, Ubai bin Ka'ab → Abu 'Abd ar-Rahman as-Sulami → 'Asim → Hafs.","سند امام حفص: رسول الله ﷺ ← عثمان، علي، زيد بن ثابت، أبي بن کعب ← ابو عبد الرحمن السلمي ← عاصم ← حفص."]] },
+    { p:"45–46", pic:"📖", h:["Rukun 3: Rasm uthmani","روکون 3: رسم عثماني"],
+      text:["Bacaan al-Quran hendaklah berpandukan mushaf rasm uthmani. Rasm uthmani diakui oleh Rasulullah ﷺ, mengikut tulisan asal para sahabat dan disepakati oleh para sahabat.","باچاءن القرءان هندقله برڤندوکن مصحف رسم عثماني. رسم عثماني دأکوي اوليه رسول الله ﷺ، مڠيکوت توليسن اصل ڤارا صحابة دان دسڤاکتي اوليه ڤارا صحابة."],
+      ex:["rk_sl","rk_al","rk_ml","rk_ad","rk_zk","rk_rb"],
+      am:["Menjaga dan menghormati al-Quran dengan meletakkannya di tempat yang tinggi.","منجاڬ دان مڠحرمتي القرءان دڠن ملتقکنڽ د تمڤت يڠ تيڠڬي."] }
+  ],
+  games:[
+    { type:"kabel", q:["Sambung kabel sanad: susun dari Rasulullah ﷺ hingga Imam Hafs.","سامبوڠ کابل سند: سوسون دري رسول الله ﷺ هيڠڬ امام حفص."], e:["Sanad bersambung: Rasulullah ﷺ → sahabat → as-Sulami → 'Asim → Hafs.","سند برسامبوڠ: رسول الله ﷺ ← صحابة ← السلمي ← عاصم ← حفص."],
+      items:[["Rasulullah ﷺ","رسول الله ﷺ"],["Uthman, Ali, Zaid, Ubai","عثمان، علي، زيد، أبي"],["Abu 'Abd ar-Rahman as-Sulami","ابو عبد الرحمن السلمي"],["'Asim","عاصم"],["Hafs","حفص"]] },
+    { type:"cangkuk", q:["Cangkukkan tulisan rasm imla'i dengan rasm uthmaninya.","چڠکوقکن توليسن رسم إملائي دڠن رسم عثمانيڽ."], e:["Mushaf kita ditulis dengan rasm uthmani.","مصحف کيت دتوليس دڠن رسم عثماني."],
+      pairs:[["الصلاة","rk_sl"],["العالمين","rk_al"],["للملائكة","rk_ml"],["يا آدم","rk_ad"]] },
+    { type:"kabin", q:["Naikkan ke kabin SEMUA rukun bacaan al-Quran, kemudian tekan Berlepas.","ناٴيقکن ک کابين سموا روکون باچاءن القرءان، کمودين تکن برلڤس."], e:["Tiga rukun: qawa'id al-'arabiyyah, sanad bersambung, rasm uthmani.","تيڬ روکون: قواعد العربية، سند برسامبوڠ، رسم عثماني."],
+      items:[[["Mematuhi qawa'id al-'arabiyyah","ممتوهي قواعد العربية"],1],[["Bersambung sanad kepada Rasulullah ﷺ","برسامبوڠ سند کڤد رسول الله ﷺ"],1],[["Mengikut rasm uthmani","مڠيکوت رسم عثماني"],1],[["Membaca dengan suara paling kuat","ممباچ دڠن سوارا ڤاليڠ کوات"],0],[["Membaca secepat mungkin","ممباچ سچڤت موڠکين"],0],[["Mengikut tulisan rasm imla'i","مڠيکوت توليسن رسم إملائي"],0]] },
+    { type:"jadual", q:["Lengkapkan papan jadual stesen.","لڠکڤکن ڤاڤن جدوال ستيسن."], e:["Bacaan yang tidak memenuhi rukun ialah syaz dan tidak diterima.","باچاءن يڠ تيدق ممنوهي روکون اياله شاذ دان تيدق دتريما."],
+      s:["Bacaan yang tidak memenuhi rukun dinamakan ___ dan tidak boleh diterima.","باچاءن يڠ تيدق ممنوهي روکون دناماکن ___ دان تيدق بوليه دتريما."],
+      a:[["syaz","شاذ"],["mutawatir","متواتر"],["sahih","صحيح"],["fasih","فصيح"]] },
+    { type:"takal", q:["Takal naik ke puncak! Jawab soalan rukun bacaan.","تاکل ناٴيق ک ڤونچق! جاوب سوالن روکون باچاءن."], e:["Syabas! Kamu faham tiga rukun bacaan al-Quran.","شاباس! کامو فهم تيڬ روکون باچاءن القرءان."],
+      rounds:[ {p:["Imam Hamzah membaca mim pada kalimah ini dengan baris...","امام حمزة ممباچ ميم ڤد كليمه اين دڠن باريس..."], ar:"rk_rh", a:[["bawah","باوه"],["depan","دڤن"],["mati","ماتي"]]},
+               {p:["Guru Imam Hafs dalam sanad ialah...","ڬورو امام حفص دالم سند اياله..."], a:[["'Asim","عاصم"],["Imam Hamzah","امام حمزة"],["Ubai bin Ka'ab","أبي بن کعب"]]},
+               {p:["Mushaf yang menjadi panduan bacaan ditulis dengan...","مصحف يڠ منجادي ڤندوان باچاءن دتوليس دڠن..."], a:[["Rasm uthmani","رسم عثماني"],["Rasm imla'i","رسم إملائي"],["Tulisan Jawi","توليسن جاوي"]]} ] },
+    { type:"palang", q:["Palang stesen: betul atau salah?","ڤالڠ ستيسن: بتول اتاو ساله؟"], e:["Palang terbuka! Kamu sampai ke puncak ilmu tajwid Tahun 6.","ڤالڠ تربوک! کامو سمڤاي ک ڤونچق علمو تجويد تاهون 6."],
+      rounds:[ [["Rasm uthmani disepakati oleh para sahabat.","رسم عثماني دسڤاکتي اوليه ڤارا صحابة."],1],
+               [["Kita boleh belajar al-Quran sendiri tanpa guru bersanad.","کيت بوليه بلاجر القرءان سنديري تنڤا ڬورو برسند."],0],
+               [["Al-Quran perlu diletakkan di tempat yang tinggi.","القرءان ڤرلو دلتقکن د تمڤت يڠ تيڠڬي."],1] ] }
+  ] }
+];
+
+const FINAL_ST = { id:"final", icon:"🗼", c:"#FFB703", sticker:"🗼", t:["Menara Pandang Puncak","منارا ڤندڠ ڤونچق"], u:["Cabaran akhir semua stesen","چابرن اخير سموا ستيسن"] };
+const FINAL_PICK = [[1,0],[2,0],[3,2],[4,0],[5,1],[6,1],[7,1],[8,1],[9,0]];
+
+/* ===================== ENJIN "Kereta Kabel Tajwid" (Tajwid Tahun 6) ===================== */
+const KEY = "j6t-best", YEAR = 6, VKEY = "t6-voice";
+function load(k,f){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):f; }catch(e){ return f; } }
+function save(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+let LANG = load("kafa-lang","jawi");
+const isJ = () => LANG==="jawi";
+// kalimah Arab berbaris dalam teks dibalut .ar (fon Amiri)
+const AW = s => s.replace(/[\u0600-\u06FF]+/g, m => /[\u064B-\u0652]/.test(m) ? `<span class="ar" lang="ar">${m}</span>` : m);
+const T = v => v==null ? "" : typeof v==="string" ? v : AW(isJ() ? v[1] : v[0]);   // teks ikut tulisan
+const RU = v => v==null ? "" : typeof v==="string" ? "" : v[0];                   // Rumi untuk suara (Arab tidak dibaca)
+const L = (r,j) => isJ() ? j : r;
+// rentetan = Arab: kunci Q -> potongan ayat verbatim; selain itu huruf/kata Arab daripada buku (NQ)
+const AX = v => (typeof v==="string" && Q[v]) ? Q[v].t : v;
+const TX = v => typeof v==="string" ? `<span class="ar" lang="ar">${AX(v)}</span>` : T(v);
+function applyLang(){ document.documentElement.dir = isJ() ? "rtl" : "ltr"; document.documentElement.lang = isJ() ? "ms-Arab" : "ms"; }
+const BACK = () => isJ() ? "→" : "←";
+let best = load(KEY, {});
+let voiceOn = load(VKEY, true);
+const app = document.getElementById("app");
+const $ = s => app.querySelector(s);
+const shuffle = a => { const b=a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; };
+// rombak dan pastikan tidak sama dengan susunan jawapan
+const mix = a => { if(a.length<2) return a.slice(); let b; do{ b=shuffle(a); }while(b.every((x,i)=>x===a[i])); return b; };
+const starsFor = m => m<=1 ? 3 : m<=3 ? 2 : 1;
+const totalStars = () => Object.values(best).reduce((s,v)=>s+(+v||0),0);
+
+/* ---------- Maskot: Gogo, kambing gunung konduktor kereta kabel ---------- */
+function gogo(cls=""){
+  return `<svg class="gogo ${cls}" viewBox="0 0 120 140" aria-hidden="true">
+    <ellipse cx="60" cy="135" rx="34" ry="5" fill="rgba(0,0,0,.22)"/>
+    <path d="M30 132 V100 q0-20 30-20 q30 0 30 20 V132 Z" fill="#1D3557" stroke="#0B1426" stroke-width="3"/>
+    <path d="M60 82 V132" stroke="#FFB703" stroke-width="3" stroke-dasharray="2 8" stroke-linecap="round"/>
+    <rect x="66" y="98" width="18" height="12" rx="2" fill="#FFF4D1" stroke="#0B1426" stroke-width="2"/>
+    <path d="M68 104 h14" stroke="#E63946" stroke-width="2"/>
+    <path d="M30 34 q-22 -6 -24 -30 q10 16 28 18" fill="#C9B79C" stroke="#5B4636" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M90 34 q22 -6 24 -30 q-10 16 -28 18" fill="#C9B79C" stroke="#5B4636" stroke-width="3" stroke-linejoin="round"/>
+    <ellipse cx="22" cy="52" rx="13" ry="6" transform="rotate(-20 22 52)" fill="#F4EEE3" stroke="#3B2F25" stroke-width="3"/>
+    <ellipse cx="98" cy="52" rx="13" ry="6" transform="rotate(20 98 52)" fill="#F4EEE3" stroke="#3B2F25" stroke-width="3"/>
+    <path d="M34 40 q0-18 26-18 q26 0 26 18 v16 q0 20 -26 26 q-26 -6 -26 -26 Z" fill="#F4EEE3" stroke="#3B2F25" stroke-width="3.5"/>
+    <path d="M52 78 q8 20 16 0" fill="#E9E1D2" stroke="#3B2F25" stroke-width="3" stroke-linejoin="round"/>
+    <ellipse cx="48" cy="50" rx="5" ry="6" fill="#fff" stroke="#3B2F25" stroke-width="2"/><ellipse cx="72" cy="50" rx="5" ry="6" fill="#fff" stroke="#3B2F25" stroke-width="2"/>
+    <rect x="45" y="49" width="6" height="3" rx="1.5" fill="#3B2F25"/><rect x="69" y="49" width="6" height="3" rx="1.5" fill="#3B2F25"/>
+    <ellipse cx="60" cy="66" rx="9" ry="6" fill="#F2C6C2" stroke="#3B2F25" stroke-width="2"/>
+    <path d="M56 65 v2 M64 65 v2" stroke="#3B2F25" stroke-width="2" stroke-linecap="round"/>
+    <path d="M30 30 q30 -22 60 0 l-4 6 h-52 Z" fill="#1D3557" stroke="#0B1426" stroke-width="3" stroke-linejoin="round"/>
+    <rect x="34" y="30" width="52" height="7" rx="2" fill="#E63946" stroke="#0B1426" stroke-width="2"/>
+    <path d="M28 37 h64 q-4 7 -32 7 q-28 0 -32 -7 Z" fill="#14213D"/>
+    <circle cx="60" cy="22" r="4" fill="#FFB703" stroke="#0B1426" stroke-width="1.5"/>
+    <circle cx="40" cy="60" r="4" fill="#F7A8C4" opacity=".6"/><circle cx="80" cy="60" r="4" fill="#F7A8C4" opacity=".6"/>
+  </svg>`;
+}
+// kabin kereta kabel untuk nod peta (warna ikut stesen; tingkap kuning apabila selesai)
+function cabinSVG(c, done){
+  return `<svg viewBox="0 0 96 84" aria-hidden="true">
+    <circle cx="48" cy="6" r="5" fill="#2B2F38"/>
+    <path d="M48 10 V22 M36 22 H60" stroke="#2B2F38" stroke-width="4" stroke-linecap="round"/>
+    <rect x="12" y="22" width="72" height="56" rx="14" fill="${c}" stroke="#14213D" stroke-width="4"/>
+    <rect x="20" y="30" width="56" height="22" rx="6" fill="${done?"#FFE08A":"#DFF1FF"}" stroke="#14213D" stroke-width="3"/>
+    <path d="M38 30 V52 M58 30 V52" stroke="#14213D" stroke-width="2"/>
+    <rect x="12" y="62" width="72" height="5" fill="rgba(255,255,255,.35)"/>
+  </svg>`;
+}
+
+/* ---------- Bunyi ---------- */
+let actx = null;
+function tone(seq){
+  try{
+    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    let t = actx.currentTime;
+    for(const [f,d,type] of seq){
+      const o = actx.createOscillator(), g = actx.createGain();
+      o.type = type||"sine"; o.frequency.value = f; g.gain.setValueAtTime(.18,t); g.gain.exponentialRampToValueAtTime(.001,t+d);
+      o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t+d); t += d*.8;
+    }
+  }catch(e){}
+}
+const sfx = {
+  ok:   () => tone([[523,.12],[784,.2]]),
+  tick: () => tone([[880,.07,"triangle"]]),
+  clank:() => tone([[160,.08,"square"],[120,.1,"square"]]),
+  no:   () => tone([[220,.18,"square"],[185,.2,"square"]]),
+  up:   (n=0) => tone([[[330,370,415,466,523,587,659,740][n%8],.14,"triangle"]]),
+  win:  () => tone([[392,.14],[523,.14],[659,.14],[784,.3]])
+};
+
+/* ---------- Suara (Rumi sahaja; tulisan Arab dibuang, Al-Quran tidak dibaca mesin) ---------- */
+const ttsOK = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+let voice = null;
+function pickVoice(){ try{ const vs = speechSynthesis.getVoices(); voice = vs.find(v=>/^ms/i.test(v.lang)) || vs.find(v=>/^id/i.test(v.lang)) || null; }catch(e){} }
+if(ttsOK){ pickVoice(); try{ speechSynthesis.onvoiceschanged = pickVoice; }catch(e){} }
+const AR_RE = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]+/g;
+function clean(text){
+  return text.replace(AR_RE," ").replace(/[ـ→←]/g," ").replace(/_{2,}/g," ").replace(/\(\s*[:,]?\s*[\d–-]*\s*\)/g," ").replace(/\s+:/g,":")
+    .replace(/\s+([.,:;!?])/g,"$1").replace(/(^|\s)[:,.;]+(?=\s|$)/g," ").replace(/\s+/g," ").trim();
+}
+function speak(text, force){
+  if(!ttsOK || !text || (!voiceOn && !force)) return;
+  const s = clean(text); if(!s || !/[a-z]/i.test(s)) return;
+  try{
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(s);
+    u.lang = voice ? voice.lang : "ms-MY"; if(voice) u.voice = voice; u.rate = .95; u.pitch = 1.05;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function hush(){ if(ttsOK){ try{ speechSynthesis.cancel(); }catch(e){} } }
+
+/* ---------- Bantuan paparan ---------- */
+function toast(msg){ document.querySelectorAll(".toast").forEach(t=>t.remove()); const t=document.createElement("div"); t.className="toast"; t.setAttribute("role","status"); t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2600); }
+function confetti(n=36){
+  const box = document.createElement("div"); box.className="confetti"; box.setAttribute("aria-hidden","true");
+  const em = ["🚡","⭐","🏔️","🐐","✨","🎟️"];
+  for(let i=0;i<n;i++){ const s=document.createElement("span"); s.textContent=em[i%em.length]; s.style.left=Math.random()*100+"vw"; s.style.animationDuration=(2+Math.random()*2)+"s"; s.style.animationDelay=Math.random()*.8+"s"; box.appendChild(s); }
+  document.body.appendChild(box); setTimeout(()=>box.remove(),5000);
+}
+const langBtn = () => `<button class="ib" data-act="lang" aria-label="${L("Tukar ke tulisan Jawi","توکر ک توليسن رومي")}">${isJ()?"Rumi":'<span style="font-family:Noto Naskh Arabic">جاوي</span>'}</button>`;
+const voiceBtn = () => `<button class="ib" data-act="voice" aria-label="${L("Suara","سوارا")}" aria-pressed="${voiceOn}">${voiceOn?"🔊":"🔇"}</button>`;
+const sayBtn = txt => ttsOK && /[a-z]/i.test(clean(txt||"")) ? `<button class="say" data-say="${encodeURIComponent(txt)}" aria-label="${L("Dengar","دڠر")}">🔊</button>` : "";
+const starRow = n => [1,2,3].map(i=>`<span class="${i<=n?"":"off"}">⭐</span>`).join("");
+const unlocked = id => id===1 || (best[id-1]||0)>0;
+const allDone = () => STATIONS.every(s => (best[s.id]||0)>0);
+
+/* ===================== PETA: LERENG GUNUNG KERETA KABEL ===================== */
+let S = null; // sesi stesen semasa
+function renderMap(){
+  hush(); S = null;
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  document.title = L("Kereta Kabel Tajwid • Tajwid Tahun 6","کريتا کابل تجويد • تجويد تاهون 6");
+  const cur = (STATIONS.find(s => !(best[s.id]>0)) || {id:"final"}).id;
+  const list = STATIONS.slice().reverse(), RH = 132;
+  const side = s => s.id%2 ? "l" : "r";
+  const xOf = s => (side(s)==="l") !== isJ() ? 26 : 74;
+  const node = s => {
+    const lock = !unlocked(s.id), st = best[s.id]||0;
+    return `<div class="row ${side(s)}"><button class="node ${lock?"lock":""} ${cur===s.id?"now":""}" data-act="${lock?"locked":"open"}" data-id="${s.id}">
+      <span class="cab">${cabinSVG(s.c, st>0)}<span class="num">${s.id}</span><span class="tic">${s.icon}</span></span>${cur===s.id?`<span class="guide">${gogo()}</span>`:""}
+      <span class="nm">${T(s.t)}</span><span class="st">${st?starRow(st):""}</span></button></div>`;
+  };
+  const lines = [`<line x1="50" y1="0" x2="${xOf(list[0])}" y2="10"/>`].concat(list.slice(1).map((s,i)=>`<line x1="${xOf(list[i])}" y1="${i*RH+10}" x2="${xOf(s)}" y2="${(i+1)*RH+10}"/>`)).join("");
+  const fOpen = allDone(), fSt = best.final||0;
+  app.innerHTML = `
+    <div class="top"><a class="ib" href="../index.html" aria-label="${L("Kembali ke Tahun 6","کمبالي ک تاهون 6")}">${BACK()}</a><span class="sp"></span>
+      <span class="pill" aria-label="${totalStars()} ${L("bintang","بينتڠ")}">⭐ ${totalStars()}</span>${voiceBtn()}${langBtn()}</div>
+    <header class="hero">${gogo()}<div><h1>${L("Kereta Kabel Tajwid","کريتا کابل تجويد")}</h1>
+      <p>${L("Gogo si kambing gunung ialah konduktor kereta kabel. Naik dari stesen ke stesen, kuasai hukum tajwid dan sampai ke Menara Pandang Puncak!","ڬوڬو سي کمبيڠ ڬونوڠ اياله کوندوکتور کريتا کابل. ناٴيق دري ستيسن ک ستيسن، کواساٴي حکوم تجويد دان سمڤاي ک منارا ڤندڠ ڤونچق!")}</p></div></header>
+    <p class="sttl">🎟️ ${L("Koleksi tiket perjalanan saya","کوليکسي تيکيت ڤرجالنن ساي")}</p>
+    <div class="stickers">${STATIONS.map(s=>`<span class="${best[s.id]>0?"got":""}" title="${T(s.t)}">${s.sticker}</span>`).join("")}<span class="${fSt?"got":""}" title="${T(FINAL_ST.t)}">${FINAL_ST.sticker}</span></div>
+    <section class="mount" aria-label="${L("Peta laluan kereta kabel","ڤتا لالوان کريتا کابل")}">
+      <div class="peak"><button class="node final ${fOpen?"":"lock"} ${cur==="final"?"now":""}" data-act="${fOpen?"final":"flocked"}">
+        <span class="core">🗼</span>${cur==="final"?`<span class="guide">${gogo()}</span>`:""}
+        <span class="nm">${T(FINAL_ST.t)}</span><span class="st">${fSt?starRow(fSt):""}</span></button></div>
+      <div style="position:relative">
+        <svg class="cables" viewBox="0 0 100 ${list.length*RH}" preserveAspectRatio="none" style="height:${list.length*RH}px">${lines}</svg>
+        ${list.map(node).join("")}
+      </div>
+      <div class="base">🚏 ${L("Stesen Bawah: mula di sini","ستيسن باوه: مولا د سيني")} 🚏</div>
+    </section>`;
+  const now = app.querySelector(".node.now");
+  if(now) setTimeout(()=>{ try{ now.scrollIntoView({block:"center", behavior:"smooth"}); }catch(e){} }, 250);
+}
+
+/* ===================== STESEN: BACA ===================== */
+function openStation(id){
+  const st = STATIONS.find(s=>s.id===id);
+  S = { st, phase:"read", ri:0, gi:0, miss:0, games: st.games.slice() };
+  renderRead();
+}
+function openFinal(){
+  const games = FINAL_PICK.map(([s,i]) => STATIONS.find(x=>x.id===s).games[i]);
+  S = { st:FINAL_ST, phase:"play", gi:0, miss:0, games };
+  renderPlay();
+}
+const head = () => `<div class="top"><button class="ib" data-act="map" aria-label="${L("Kembali ke peta","کمبالي ک ڤتا")}">${BACK()}</button><span class="sp"></span>${voiceBtn()}${langBtn()}</div>
+  <div class="shead"><span class="badge" style="--c:${S.st.c}">${S.st.icon}</span><div><h2>${T(S.st.t)}</h2><small>${T(S.st.u)}</small></div></div>`;
+function readSpeech(c){
+  return [RU(c.h), RU(c.text), ...(c.list||[]).map(RU), c.tip?("Tahukah anda? "+RU(c.tip)):"", c.am?("Amalkan: "+RU(c.am)):""].filter(Boolean).join(". ");
+}
+const exHTML = ks => `<div class="exs">${ks.map(k=>`<span><span class="ar" lang="ar">${Q[k].t}</span><small>${Q[k].k}</small></span>`).join("")}</div>`;
+function renderRead(){
+  hush();
+  const c = S.st.read[S.ri], n = S.st.read.length, last = S.ri===n-1;
+  app.innerHTML = head() + `
+    <article class="card" style="--sc:${S.st.c}">
+      <div class="rpic" aria-hidden="true">${c.pic}</div>
+      <h3 class="rh">${T(c.h)} ${sayBtn(readSpeech(c))}</h3>
+      ${c.text?`<p class="rtext">${T(c.text)}</p>`:""}
+      ${c.list?`<ul class="rlist">${c.list.map(x=>`<li>${T(x)}</li>`).join("")}</ul>`:""}
+      ${c.ex?`<p class="rtext" style="margin-bottom:0">📖 ${L("Contoh daripada al-Quran (surah:ayat):","چونتوه درڤد القرءان (سورة:ايات):")}</p>${exHTML(c.ex)}`:""}
+      ${c.tip?`<div class="tip"><b>💡</b><span><b>${L("Tahukah anda?","تاهوکه اندا؟")}</b> ${T(c.tip)}</span></div>`:""}
+      ${c.am?`<div class="tip am"><b>🤲</b><span><b>${L("Amalkan:","عملکن:")}</b> ${T(c.am)}</span></div>`:""}
+      <div class="ref">📖 ${L("Buku teks ms.","بوکو تيکس م.س.")} ${c.p}</div>
+      <div class="navr">
+        <button class="btn alt" data-act="rprev" ${S.ri?"":"disabled"} aria-label="${L("Sebelum","سبلوم")}" style="flex:0 0 64px">${BACK()}</button>
+        <button class="btn ${last?"go":""}" data-act="rnext">${last ? "🚡 "+L("Naik kabin!","ناٴيق کابين!") : L("Seterusnya","ستروسڽ")+" ▶"}</button>
+      </div>
+      <div class="dots">${S.st.read.map((_,i)=>`<i class="${i===S.ri?"on":""}"></i>`).join("")}</div>
+    </article>`;
+  speak(readSpeech(c));
+  window.scrollTo(0,0);
+}
+
+/* ===================== STESEN: MAIN ===================== */
+function progressBar(){
+  const n = S.games.length, k = S.gi;
+  return `<div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${k}"><span class="fill" style="width:${k/n*100}%"></span><b>🚡 ${k+1} / ${n}</b></div>`;
+}
+function renderPlay(){
+  hush();
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  clearTimeout(S.tm);
+  const g = S.games[S.gi];
+  S.t0 = Date.now();
+  app.innerHTML = head() + progressBar() + `<section class="card" id="game" style="--sc:${S.st.c}"></section>`;
+  const box = $("#game");
+  box.innerHTML = `<div class="q"><p>${T(g.q)}</p>${sayBtn(RU(g.q))}</div><div id="play"></div><div id="hint"></div>`;
+  GAMES[g.type]($("#play"), g);
+  speak(RU(g.q));
+  window.scrollTo(0,0);
+}
+function oops(el, hint){
+  S.miss++; sfx.no();
+  if(el){ el.classList.remove("shake"); void el.offsetWidth; el.classList.add("shake"); }
+  const h = $("#hint"); if(h){ h.innerHTML = `<div class="hint">🐐 ${hint || L("Kabel tersangkut! Cuba lagi.","کابل ترسڠکوت! چوبا لاڬي.")}</div>`; }
+}
+const clearHint = () => { const h=$("#hint"); if(h) h.innerHTML=""; };
+const PRAISE = [["Hebat!","هيبت!"],["Tepat sekali!","تڤت سکالي!"],["Syabas!","شاباس!"],["Mantap!","منتڤ!"],["MasyaAllah!","ماشاءالله!"]];
+function win(){
+  if(!S || document.querySelector(".fb")) return;
+  clearTimeout(S.tm);
+  sfx.ok();
+  const g = S.games[S.gi], p = PRAISE[Math.floor(Math.random()*PRAISE.length)];
+  const fast = Date.now() - (S.t0||0) < 25000;
+  const fb = document.createElement("div"); fb.className = "fb"; fb.setAttribute("role","dialog"); fb.setAttribute("aria-live","polite");
+  fb.innerHTML = `<div class="in"><div class="row1">${gogo()}<div><strong>${T(p)}</strong><p>${T(g.e)}</p>${fast?`<span class="fast">⚡ ${L("Kabin ekspres!","کابين ايکسڤريس!")}</span>`:""}</div></div>
+    <button class="btn go" data-act="next">${L("Seterusnya","ستروسڽ")} ▶</button></div>`;
+  document.body.appendChild(fb);
+  speak(RU(p)+" "+RU(g.e));
+  setTimeout(()=>{ const b = fb.querySelector("button"); if(b) b.focus(); }, 50);
+}
+function nextGame(){
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  S.gi++;
+  if(S.gi < S.games.length) renderPlay(); else renderResult();
+}
+function renderResult(){
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  const id = S.st.id, stars = starsFor(S.miss), prev = best[id]||0, wasAll = allDone();
+  if(stars > prev){ best[id] = stars; save(KEY, best); }
+  S.phase = "result";
+  S.res = { stars, first: !prev, openedFinal: id!=="final" && !wasAll && allDone() };
+  drawResult(true);
+}
+function drawResult(fresh){
+  hush();
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  const { stars, first, openedFinal } = S.res;
+  const msg = stars===3 ? ["Cemerlang! Perjalanan kamu lancar tanpa tersangkut.","چمرلڠ! ڤرجالنن کامو لنچر تنڤا ترسڠکوت."] : stars===2 ? ["Bagus! Ulang lagi untuk 3 bintang.","باڬوس! اولڠ لاڬي اونتوق 3 بينتڠ."] : ["Syabas kerana mencuba! Jom naik sekali lagi.","شاباس کران منچوبا! جوم ناٴيق سکالي لاڬي."];
+  const title = PRAISE[stars===3?4:stars===2?0:2];
+  app.innerHTML = head() + `<section class="card res">
+      ${gogo()}
+      <div class="stars" aria-label="${stars} ${L("bintang","بينتڠ")}">${[1,2,3].map(i=>`<span class="${i<=stars?"":"off"}" style="animation-delay:${i*.25}s">⭐</span>`).join("")}</div>
+      <h2>${T(title)}</h2><p>${T(msg)}</p>
+      ${first ? `<div class="gotst"><span>${S.st.sticker}</span>${L("Tiket baharu!","تيکيت بهارو!")}</div>` : ""}
+      ${openedFinal ? `<p><b>🗼 ${L("Menara Pandang Puncak kini dibuka!","منارا ڤندڠ ڤونچق کيني دبوک!")}</b></p>` : ""}
+      <button class="btn go" data-act="map">🚡 ${L("Kembali ke peta","کمبالي ک ڤتا")}</button>
+      <button class="btn alt" style="margin-top:10px" data-act="again">🔁 ${L("Naik semula","ناٴيق سمولا")}</button>
+    </section>`;
+  if(fresh){ sfx.win(); confetti(); speak(RU(title)+" "+RU(msg)); }
+  window.scrollTo(0,0);
+}
+
+/* ===================== PERMAINAN ===================== */
+const rounds = (n,k) => `<div class="rounds">${Array.from({length:n},(_,i)=>`<i class="${i<k?"ok":i===k?"on":""}"></i>`).join("")}</div>`;
+const optBtns = (opts, cls="opt") => opts.map((o,i)=>`<button class="${cls}" data-i="${i}" data-ok="${o.ok?1:0}">${TX(o.x)}</button>`).join("");
+const wideOpts = opts => opts.some(o => typeof o.x!=="string" && T(o.x).length > 22) ? "one" : "";
+
+const GAMES = {
+  /* Gondola: pilih gondola (contoh), hantar ke stesen hukumnya */
+  gondola(el, g){
+    let sel = null, left = g.items.length;
+    const ord = mix(g.items.map((_,i)=>i));
+    el.innerHTML = `<p class="lab">🚡 ${L("1. Pilih gondola  2. Ketuk stesen","1. ڤيليه ڬوندولا  2. کتوق ستيسن")}</p>
+      <div class="platform">${ord.map(i=>`<button class="gi" data-i="${i}" data-c="${g.items[i][1]}">${TX(g.items[i][0])}</button>`).join("")}</div>
+      <div class="stns">${g.stv.map((s,i)=>`<button class="stn" data-c="${i}"><b>🏔️ ${T(s)}</b><div class="in"></div></button>`).join("")}</div>`;
+    el.querySelectorAll(".gi").forEach(b => b.addEventListener("click", () => {
+      el.querySelectorAll(".gi").forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); sel = b; sfx.up(+b.dataset.i);
+    }));
+    el.querySelectorAll(".stn").forEach(s => s.addEventListener("click", () => {
+      if(!sel){ toast(L("Pilih satu gondola dahulu 🚡","ڤيليه ساتو ڬوندولا دهولو 🚡")); return; }
+      if(sel.dataset.c === s.dataset.c){
+        s.querySelector(".in").insertAdjacentHTML("beforeend", `<span>${TX(g.items[+sel.dataset.i][0])}</span>`);
+        sel.classList.add("gone"); sel.disabled = true; sel = null; left--; sfx.clank(); clearHint();
+        if(!left) setTimeout(win, 350);
+      } else oops(s, L("Gondola tersalah stesen! Semak hukumnya semula.","ڬوندولا ترساله ستيسن! سمق حکومڽ سمولا."));
+    }));
+  },
+
+  /* Kabel: ketuk segmen kabel mengikut urutan yang betul */
+  kabel(el, g){
+    let k = 0;
+    const ord = mix(g.items.map((_,i)=>i));
+    el.innerHTML = `<p class="lab">🔗 ${L("Ketuk ikut urutan untuk menyambung kabel","کتوق ايکوت اوروتن اونتوق مڽمبوڠ کابل")}</p>
+      <div class="track" aria-live="polite"></div>
+      <div class="segs">${ord.map(i=>`<button class="seg" data-i="${i}">${TX(g.items[i])}</button>`).join("")}</div>`;
+    const track = el.querySelector(".track");
+    el.querySelectorAll(".seg").forEach(b => b.addEventListener("click", () => {
+      if(b.disabled) return;
+      if(+b.dataset.i === k){
+        track.insertAdjacentHTML("beforeend", `<span><i>${k+1}</i>${TX(g.items[k])}</span>`);
+        b.classList.add("gone"); b.disabled = true; sfx.up(k); k++; clearHint();
+        if(k===g.items.length) setTimeout(win, 400);
+      } else oops(b, L("Kabel terputus! Itu bukan langkah seterusnya.","کابل ترڤوتوس! ايت بوکن لڠکه ستروسڽ."));
+    }));
+  },
+
+  /* Kabin: pilih SEMUA penumpang yang betul, kemudian Berlepas */
+  kabin(el, g){
+    const ord = shuffle(g.items.map((_,i)=>i)), on = new Set();
+    const one = g.items.some(it => typeof it[0]!=="string" && T(it[0]).length > 24);
+    el.innerHTML = `<p class="lab">🧍 ${L("Ketuk untuk naik / turun kabin","کتوق اونتوق ناٴيق / تورون کابين")}</p>
+      <div class="cabin"><div class="seats ${one?"one":""}">${ord.map(i=>`<button class="pax" data-i="${i}" data-ok="${g.items[i][1]?1:0}" aria-pressed="false">${TX(g.items[i][0])}</button>`).join("")}</div></div>
+      <div class="go-row"><button class="btn go chk">🚡 ${L("Berlepas!","برلڤس!")}</button></div>`;
+    el.querySelectorAll(".pax").forEach(b => b.addEventListener("click", () => {
+      if(b.disabled) return;
+      const i = +b.dataset.i; if(on.has(i)) on.delete(i); else on.add(i);
+      b.classList.toggle("on", on.has(i)); b.setAttribute("aria-pressed", on.has(i)); sfx.tick();
+    }));
+    el.querySelector(".chk").addEventListener("click", e => {
+      if(!on.size){ toast(L("Naikkan penumpang dahulu 🧍","ناٴيقکن ڤنومڤڠ دهولو 🧍")); return; }
+      const need = g.items.map((x,i)=>x[1]?i:-1).filter(i=>i>=0);
+      const wrong = [...on].filter(i => !g.items[i][1]).length, missing = need.filter(i => !on.has(i)).length;
+      if(!wrong && !missing){ el.querySelectorAll(".pax").forEach(x=>{ x.disabled = true; if(x.classList.contains("on")) x.classList.add("right"); }); setTimeout(win, 350); }
+      else oops(e.currentTarget, wrong ? L(`Ada ${wrong} penumpang yang salah kabin. Turunkan dia.`,`اد ${wrong} ڤنومڤڠ يڠ ساله کابين. تورونکن دي.`) : L(`Masih ada ${missing} penumpang tertinggal di platform.`,`ماسيه اد ${missing} ڤنومڤڠ ترتيڠڬل د ڤلتفورم.`));
+    });
+  },
+
+  /* Takal: pusingan pantas; setiap jawapan betul menaikkan kabin di altimeter (bonus ⚡, tiada hukuman masa) */
+  takal(el, g){
+    let k = 0, zap = 0; const LIM = 10000, n = g.rounds.length;
+    const draw = () => {
+      const r = g.rounds[k], opts = shuffle(r.a.map((x,i)=>({x, ok:i===0}))), t0 = Date.now();
+      el.innerHTML = rounds(n, k) + `<div class="alti"><div class="bar" aria-hidden="true"><i style="bottom:${8 + k/n*80}%">🚡</i></div><div class="body">
+        <div class="tbar"><span></span></div>
+        <p class="lab" style="font-size:16px;color:var(--ink)">⛰️ ${T(r.p)}</p>${r.ar?`<div class="qar ar" lang="ar">${AX(r.ar)}</div>`:""}
+        <div class="opts ${wideOpts(opts)}">${optBtns(opts)}</div><p class="zap">⚡ ${zap}</p></div></div>`;
+      const bar = el.querySelector(".tbar span");
+      requestAnimationFrame(()=>{ bar.style.transitionDuration = LIM+"ms"; bar.style.width = "0%"; });
+      el.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => {
+        if(b.disabled || b.classList.contains("wrong")) return;
+        if(b.dataset.ok==="1"){
+          el.querySelectorAll(".opt").forEach(x=>x.disabled=true); b.classList.add("right");
+          if(Date.now()-t0 < LIM) zap++; sfx.up(k); clearHint(); k++;
+          const cab = el.querySelector(".bar i"); if(cab) cab.style.bottom = (8 + k/n*80) + "%";
+          if(k===n) setTimeout(win, 380); else setTimeout(draw, 420);
+        } else { b.classList.add("wrong"); oops(b, L("Takal tergelincir! Fikir sekali lagi.","تاکل ترڬلينچير! فيکير سکالي لاڬي.")); }
+      }));
+    };
+    draw();
+  },
+
+  /* Menara pandang: teropong potongan ayat, ketuk kalimah yang betul (tanda waqaf melekat pada kalimah sebelumnya) */
+  menarapandang(el, g){
+    const toks = [];
+    for(const w of AX(g.ar).split(" ")){ if(!/[\u0621-\u064A\u0671]/.test(w) && toks.length) toks[toks.length-1] += " " + w; else toks.push(w); }
+    el.innerHTML = `<p class="lab">🔭 ${L("Ketuk satu kalimah melalui teropong","کتوق ساتو كليمه ملالوٴي تروڤوڠ")}</p>
+      <div class="scope"><div class="phrase" lang="ar">${toks.map((w,i)=>`<button class="tok ar" data-i="${i}" data-ok="${i===g.ans?1:0}">${w}</button>`).join("")}</div></div>
+      <p class="lab" style="text-align:center">📍 ${Q[g.ar].k}</p>`;
+    el.querySelectorAll(".tok").forEach(b => b.addEventListener("click", () => {
+      if(b.disabled || b.classList.contains("wrong")) return;
+      if(b.dataset.ok==="1"){ el.querySelectorAll(".tok").forEach(x=>x.disabled=true); b.classList.add("right"); setTimeout(win, 400); }
+      else { b.classList.add("wrong"); oops(b, L("Teropong tersasar! Cuba kalimah lain.","تروڤوڠ ترساسر! چوبا كليمه لاٴين.")); }
+    }));
+  },
+
+  /* Palang: kenyataan Betul/Salah; jawapan betul menaikkan palang stesen */
+  palang(el, g){
+    let k = 0;
+    const gate = `<svg viewBox="0 0 160 70" aria-hidden="true"><rect x="12" y="30" width="20" height="38" rx="4" fill="#1D3557"/>
+      <g class="arm"><rect x="22" y="34" width="132" height="12" rx="6" fill="#fff" stroke="#14213D" stroke-width="3"/>
+      <path d="M44 34 h16 l-8 12 h-16 Z M84 34 h16 l-8 12 h-16 Z M124 34 h16 l-8 12 h-16 Z" fill="#E63946"/></g>
+      <circle cx="22" cy="40" r="7" fill="#FFB703" stroke="#14213D" stroke-width="3"/></svg>`;
+    const draw = () => {
+      const [s] = g.rounds[k];
+      el.innerHTML = rounds(g.rounds.length, k) + `<div class="gate">${gate}</div><p class="stmt">${T(s)}</p>
+        <div class="pls"><button class="pl" data-v="1">✅ ${T(BT)}</button><button class="pl" data-v="0">❌ ${T(SL)}</button></div>`;
+      el.querySelectorAll(".pl").forEach(b => b.addEventListener("click", () => {
+        if(b.disabled) return;
+        if(+b.dataset.v === g.rounds[k][1]){
+          el.querySelectorAll(".pl").forEach(x=>x.disabled=true); el.querySelector(".gate").classList.add("up"); sfx.clank(); clearHint(); k++;
+          if(k===g.rounds.length) setTimeout(win, 500); else setTimeout(draw, 650);
+        } else oops(b, L("Palang tidak terbuka. Baca kenyataan itu sekali lagi.","ڤالڠ تيدق تربوک. باچ کڽاتاٴن ايت سکالي لاڬي."));
+      }));
+    };
+    draw();
+  },
+
+  /* Cangkuk: ketuk cangkuk (kiri), kemudian kabin yang sepadan (kanan) */
+  cangkuk(el, g){
+    let sel = null, left = g.pairs.length;
+    const lo = shuffle(g.pairs.map((_,i)=>i)), ro = mix(lo);
+    el.innerHTML = `<p class="lab">🪝 ${L("Ketuk cangkuk, kemudian kabin yang sepadan","کتوق چڠکوق، کمودين کابين يڠ سڤادن")}</p>
+      <div class="hooks"><div class="hcol">${lo.map(i=>`<button class="hk" data-s="a" data-i="${i}">${TX(g.pairs[i][0])}</button>`).join("")}</div>
+      <div class="hcol">${ro.map(i=>`<button class="hk" data-s="b" data-i="${i}">${TX(g.pairs[i][1])}</button>`).join("")}</div></div>`;
+    el.querySelectorAll('.hk[data-s="a"]').forEach(b => b.addEventListener("click", () => {
+      if(b.disabled) return; el.querySelectorAll('.hk[data-s="a"]').forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); sel = b; sfx.tick();
+    }));
+    el.querySelectorAll('.hk[data-s="b"]').forEach(b => b.addEventListener("click", () => {
+      if(b.disabled) return;
+      if(!sel){ toast(L("Ketuk cangkuk di sebelah kiri dahulu 🪝","کتوق چڠکوق د سبله کيري دهولو 🪝")); return; }
+      if(sel.dataset.i === b.dataset.i){
+        [sel,b].forEach(x=>{ x.classList.remove("sel"); x.classList.add("done"); x.disabled = true; });
+        sel = null; left--; sfx.clank(); clearHint(); if(!left) setTimeout(win, 350);
+      } else oops(b, L("Cangkuk tidak muat! Pasangan itu tidak sepadan.","چڠکوق تيدق موات! ڤاسڠن ايت تيدق سڤادن."));
+    }));
+  },
+
+  /* Jadual: papan jadual berlepas, isi tempat kosong */
+  jadual(el, g){
+    const opts = shuffle(g.a.map((x,i)=>({x, ok:i===0}))); let done = false;
+    const s = T(g.s).replace("___", `<span class="blank">🚡</span>`);
+    el.innerHTML = `<div class="board">🕒 ${s}</div><div class="opts ${wideOpts(opts)}">${optBtns(opts)}</div>`;
+    el.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => {
+      if(done || b.classList.contains("wrong")) return;
+      if(b.dataset.ok==="1"){ done = true; b.classList.add("right"); const bl = el.querySelector(".blank"); bl.classList.add("done"); bl.innerHTML = TX(opts[+b.dataset.i].x); setTimeout(win, 450); }
+      else { b.classList.add("wrong"); oops(b, L("Jadual itu tidak tepat. Cuba lagi.","جدوال ايت تيدق تڤت. چوبا لاڬي.")); }
+    }));
+  }
+};
+
+/* ===================== KAWALAN ===================== */
+document.addEventListener("click", e => {
+  const s = e.target.closest("[data-say]");
+  if(s){ speak(decodeURIComponent(s.dataset.say), true); return; }
+  const b = e.target.closest("[data-act]"); if(!b) return;
+  const a = b.dataset.act;
+  if(a==="lang"){ LANG = isJ() ? "rumi" : "jawi"; save("kafa-lang", LANG); applyLang(); redraw(); }
+  else if(a==="voice"){ voiceOn = !voiceOn; save(VKEY, voiceOn); if(!voiceOn) hush(); redraw(); }
+  else if(a==="open"){ openStation(+b.dataset.id); }
+  else if(a==="locked"){ sfx.no(); toast(L("Selesaikan stesen sebelumnya dahulu 🔒","سلسايکن ستيسن سبلومڽ دهولو 🔒")); }
+  else if(a==="final"){ openFinal(); }
+  else if(a==="flocked"){ sfx.no(); toast(L(`Selesaikan semua ${STATIONS.length} stesen untuk naik ke Menara Pandang Puncak 🗼`,`سلسايکن سموا ${STATIONS.length} ستيسن اونتوق ناٴيق ک منارا ڤندڠ ڤونچق 🗼`)); }
+  else if(a==="map"){ renderMap(); window.scrollTo(0,0); }
+  else if(a==="rprev"){ if(S.ri>0){ S.ri--; renderRead(); } }
+  else if(a==="rnext"){ if(S.ri < S.st.read.length-1){ S.ri++; renderRead(); } else { S.phase="play"; S.gi=0; S.miss=0; renderPlay(); } }
+  else if(a==="next"){ nextGame(); }
+  else if(a==="again"){ S.res = null; S.st.id==="final" ? openFinal() : (S.gi=0, S.miss=0, S.phase="play", renderPlay()); }
+});
+// lukis semula skrin semasa (selepas tukar tulisan/suara) tanpa mengulang bunyi/konfeti
+function redraw(){
+  if(!S) return renderMap();
+  if(S.phase==="read") return renderRead();
+  if(S.res && document.querySelector(".res")) return drawResult(false);
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  renderPlay();
+}
+applyLang();
+renderMap();
+</script>
+</body>
+</html>
