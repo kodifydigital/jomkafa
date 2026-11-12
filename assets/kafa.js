@@ -188,6 +188,38 @@ const READY = {
     progress:{ key:"a4-best", max:33 },
     theme:{ c1:"#E8573A", c2:"#1B2A5C", a:"#FFC23D", m:"🐯", deco:"sukan" }
   },
+  "5/akhlak": {
+    path:"akhlak/index.html",
+    buku:"https://online.anyflip.com/vydoi/szst/mobile/index.html",
+    r:"Studio Rakaman Adab", j:"ستوديو رقامن ادب",
+    dr:"10 studio, 9 jenis permainan", dj:"10 ستوديو، 9 جنيس ڤرماٴينن",
+    progress:{ key:"a5-best", max:33 },
+    theme:{ c1:"#7B2FBE", c2:"#1C0D3A", a:"#FF4D8D", m:"🐬", deco:"studio" }
+  },
+  "5/jawi": {
+    path:"jawi/index.html",
+    buku:"https://online.anyflip.com/dnryu/zqgg/mobile/index.html",
+    r:"Kapal Selam Aksara", j:"کاڤل سلم اکسارا",
+    dr:"10 kedalaman, 8 jenis permainan", dj:"10 کدالمن، 8 جنيس ڤرماٴينن",
+    progress:{ key:"j5-best", max:33 },
+    theme:{ c1:"#155E8C", c2:"#06305A", a:"#FFD23F", m:"🦑", deco:"kapalselam" }
+  },
+  "5/feqah": {
+    path:"feqah/index.html",
+    buku:"https://online.anyflip.com/vydoi/mdbt/mobile/index.html",
+    r:"Stesen Cuaca Feqah", j:"ستيسين چواچ فقه",
+    dr:"8 stesen, 8 jenis permainan", dj:"8 ستيسين، 8 جنيس ڤرماٴينن",
+    progress:{ key:"f5-best", max:27 },
+    theme:{ c1:"#1F6FB2", c2:"#12233D", a:"#FFC72C", m:"⛅", deco:"cuaca" }
+  },
+  "5/tauhid": {
+    path:"tauhid/index.html",
+    buku:"https://online.anyflip.com/dnryu/hoes/mobile/index.html",
+    r:"Balai Cerap Iman", j:"بالاي چرڤ ايمان",
+    dr:"10 buruj, 9 jenis permainan", dj:"10 بوروج، 9 جنيس ڤرماٴينن",
+    progress:{ key:"tw5-best", max:33 },
+    theme:{ c1:"#5B4BA8", c2:"#1B1F5E", a:"#FFD86B", m:"🔭", deco:"cerap" }
+  },
   "3/sirah": {
     buku:"https://online.anyflip.com/vydoi/hpxt/mobile/index.html",
     path:"sirah/index.html",

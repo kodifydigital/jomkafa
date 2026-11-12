@@ -75,7 +75,12 @@ kafa/
 │   ├── tauhid/index.html ← Game Daki Gunung Iman (Tauhid Tahun 4)
 │   ├── jawi/index.html ← Game Detektif Aksara (Jawi Tahun 4)
 │   ├── feqah/index.html ← Game Kem Pengakap Feqah (Feqah Tahun 4)
-├── tahun5/index.html
+├── tahun5/
+│   ├── index.html        ← Senarai subjek Tahun 5
+│   ├── tauhid/index.html ← Game Balai Cerap Iman (Tauhid Tahun 5)
+│   ├── feqah/index.html ← Game Stesen Cuaca Feqah (Feqah Tahun 5)
+│   ├── jawi/index.html ← Game Kapal Selam Aksara (Jawi Tahun 5)
+│   ├── akhlak/index.html ← Game Studio Rakaman Adab (Akhlak Tahun 5)
 └── tahun6/index.html
 ```
 
