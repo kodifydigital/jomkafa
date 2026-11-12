@@ -1,0 +1,1010 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#6E1F2E">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" type="image/png" href="/icons/favicon.png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="JOM KAFA">
+<script src="/assets/pwa.js"></script>
+<script src="/assets/config.js"></script>
+<script src="/assets/access.js"></script>
+<title>Muzium Sirah • Sirah Tahun 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Nunito:wght@600;700;800;900&family=Noto+Naskh+Arabic:wght@500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wall:#6E1F2E; --wall2:#8E2F3F; --gold:#D9A441; --gold2:#F3D27A; --marble:#F7F0E1; --marble2:#EADFC8;
+  --teal:#1F6F6B; --ink:#2B1E1A; --mut:#6B5A4E; --card:#FFFDF7; --ok:#2E8B57; --bad:#C0392B; --line:#CDB894;
+  --r:18px; --sh:0 6px 0 rgba(60,30,20,.18), 0 10px 24px rgba(60,30,20,.12);
+}
+@media (prefers-color-scheme: dark){
+  :root{ --marble:#211816; --marble2:#2C201C; --card:#30241F; --ink:#F6EBDD; --mut:#CDB9A6; --line:#5B4636; --sh:0 6px 0 rgba(0,0,0,.35), 0 10px 24px rgba(0,0,0,.3); }
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; }
+body{
+  font-family:"Nunito",system-ui,sans-serif; color:var(--ink); min-height:100vh;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 58px, rgba(140,110,70,.07) 58px 60px),
+    linear-gradient(180deg, var(--marble) 0%, var(--marble2) 100%);
+  -webkit-tap-highlight-color:transparent;
+}
+[dir=rtl] body, [dir=rtl] button{ font-family:"Noto Naskh Arabic","Nunito",sans-serif; }
+[dir=rtl] .card, [dir=rtl] .q p{ line-height:1.9; }
+h1,h2,h3{ font-family:"Bree Serif",Georgia,serif; font-weight:400; margin:0; }
+[dir=rtl] h1,[dir=rtl] h2,[dir=rtl] h3{ font-family:"Noto Naskh Arabic","Bree Serif",serif; font-weight:700; }
+.ar{ font-family:"Amiri","Noto Naskh Arabic",serif; direction:rtl; unicode-bidi:isolate; }
+#app{ max-width:480px; margin:0 auto; padding:10px 14px 110px; }
+button{ font:inherit; color:inherit; cursor:pointer; }
+button:focus-visible,a:focus-visible{ outline:3px solid var(--gold); outline-offset:2px; }
+.top{ display:flex; align-items:center; gap:8px; position:sticky; top:0; z-index:20; padding:8px 0; }
+.sp{ flex:1; }
+.ib{ min-width:48px; height:48px; border-radius:14px; border:2px solid var(--gold); background:var(--wall); color:#FFF3D6;
+  display:inline-flex; align-items:center; justify-content:center; font-weight:800; font-size:18px; text-decoration:none; padding:0 10px; box-shadow:0 3px 0 #3E0F18; }
+.pill{ background:var(--card); border:2px solid var(--gold); border-radius:999px; padding:8px 12px; font-weight:900; }
+.hero{ display:flex; gap:12px; align-items:center; background:linear-gradient(135deg,var(--wall),var(--wall2)); color:#FFF3D6;
+  border-radius:22px; padding:14px; border:3px solid var(--gold); box-shadow:var(--sh); position:relative; overflow:hidden; }
+.hero:before{ content:""; position:absolute; inset:6px; border:1.5px dashed rgba(243,210,122,.55); border-radius:16px; pointer-events:none; }
+.hero h1{ font-size:27px; color:var(--gold2); }
+.hero p{ margin:4px 0 0; font-size:15px; font-weight:700; }
+.ancil{ width:96px; height:96px; flex:0 0 auto; }
+.ancil.sm{ width:58px; height:58px; }
+.ancil.bob{ animation:bob 2.4s ease-in-out infinite; }
+@keyframes bob{ 50%{ transform:translateY(-5px); } }
+.sttl{ font-weight:900; margin:16px 4px 6px; color:var(--mut); }
+.stickers{ display:flex; flex-wrap:wrap; gap:6px; background:var(--card); border:2px solid var(--line); border-radius:16px; padding:8px; }
+.stickers span{ font-size:26px; width:42px; height:42px; display:grid; place-items:center; border-radius:10px; background:var(--marble2); filter:grayscale(1); opacity:.35; }
+.stickers span.got{ filter:none; opacity:1; background:#FFF0C9; border:2px solid var(--gold); }
+/* ---------- Pelan muzium (peta) ---------- */
+.plan{ position:relative; margin-top:18px; padding:12px 0 6px; }
+.plan:before{ content:""; position:absolute; top:0; bottom:0; left:50%; width:64px; transform:translateX(-50%);
+  background:repeating-linear-gradient(0deg, #B98C5A 0 26px, #A77A49 26px 28px); border-radius:10px; opacity:.55; }
+.plan:after{ content:""; position:absolute; top:0; bottom:0; left:50%; width:14px; transform:translateX(-50%); background:var(--wall); opacity:.7; border-radius:8px; }
+.row{ position:relative; display:flex; margin:14px 0; z-index:1; }
+.row.l{ justify-content:flex-start; } .row.r{ justify-content:flex-end; }
+.node{ width:48%; min-height:150px; border:none; background:none; padding:0; display:flex; flex-direction:column; align-items:center; gap:4px; position:relative; }
+.door{ position:relative; width:118px; height:112px; border-radius:60px 60px 8px 8px; background:linear-gradient(180deg,var(--c),#3E0F18);
+  border:5px solid var(--gold); box-shadow:var(--sh); display:grid; place-items:center; }
+.door:before{ content:""; position:absolute; inset:9px 12px 0; border-radius:50px 50px 0 0; border:2px solid rgba(255,240,200,.45); border-bottom:none; }
+.door .tic{ font-size:40px; filter:drop-shadow(0 2px 2px rgba(0,0,0,.4)); }
+.door .num{ position:absolute; top:-14px; left:50%; transform:translateX(-50%); background:var(--gold); color:#3E0F18; font-family:"Bree Serif",serif; font-size:16px;
+  min-width:32px; height:28px; border-radius:8px; display:grid; place-items:center; border:2px solid #fff; z-index:2; }
+.node .nm{ font-weight:900; font-size:15px; text-align:center; background:var(--card); border:2px solid var(--line); border-radius:10px; padding:4px 8px; line-height:1.3; max-width:100%; }
+.node .st{ font-size:14px; min-height:18px; }
+.node.lock .door{ filter:grayscale(.85) brightness(.85); }
+.node.lock .door:after{ content:"🔒"; position:absolute; bottom:-8px; right:-8px; font-size:24px; }
+.node.now .door{ animation:glow 1.6s ease-in-out infinite; }
+@keyframes glow{ 50%{ box-shadow:0 0 0 7px rgba(217,164,65,.45), var(--sh); } }
+.guide{ position:absolute; top:42px; width:58px; height:58px; z-index:3; }
+.row.l .guide{ right:-48px; } .row.r .guide{ left:-48px; }
+[dir=rtl] .row.l .guide{ right:auto; left:-48px; } [dir=rtl] .row.r .guide{ left:auto; right:-48px; }
+.hall{ display:flex; justify-content:center; position:relative; z-index:1; }
+.hall .node{ width:78%; }
+.hall .door{ width:200px; height:126px; border-radius:100px 100px 10px 10px; background:linear-gradient(180deg,#C98A1E,#6E1F2E); }
+.entry{ position:relative; z-index:1; text-align:center; margin:16px auto 0; width:max-content; max-width:100%; background:var(--wall); color:var(--gold2);
+  border:3px solid var(--gold); border-radius:12px; padding:8px 16px; font-family:"Bree Serif",serif; }
+[dir=rtl] .entry{ font-family:"Noto Naskh Arabic",serif; font-weight:700; }
+</style>
+<style>
+.door .guide{ top:30px; }
+.shead{ display:flex; gap:12px; align-items:center; margin:6px 0 12px; }
+.badge{ width:56px; height:56px; border-radius:28px 28px 8px 8px; background:var(--c); border:3px solid var(--gold); display:grid; place-items:center; font-size:28px; flex:0 0 auto; }
+.shead h2{ font-size:22px; color:var(--wall); }
+@media (prefers-color-scheme: dark){ .shead h2{ color:var(--gold2); } }
+.shead small{ color:var(--mut); font-weight:700; }
+.card{ background:var(--card); border-radius:var(--r); padding:16px; box-shadow:var(--sh); border:3px solid var(--sc,var(--gold)); position:relative; }
+.card.frame{ border:10px solid #B07A2E; outline:3px solid var(--gold2); outline-offset:-6px; }
+.rpic{ font-size:54px; text-align:center; background:linear-gradient(180deg,#FFF6DD,#F1E2BC); border-radius:14px; padding:8px; border:2px solid var(--gold); }
+@media (prefers-color-scheme: dark){ .rpic{ background:linear-gradient(180deg,#4A372A,#3A2B22); } }
+.rh{ font-size:21px; margin:12px 0 6px; display:flex; gap:8px; align-items:center; justify-content:space-between; color:var(--wall); }
+@media (prefers-color-scheme: dark){ .rh{ color:var(--gold2); } }
+.rtext{ font-size:17px; line-height:1.55; margin:6px 0; font-weight:700; }
+.rlist{ margin:6px 0; padding-inline-start:22px; font-size:16px; font-weight:700; line-height:1.5; }
+.rlist li{ margin:4px 0; }
+.tip{ display:flex; gap:8px; background:#FFF3D0; border:2px dashed var(--gold); border-radius:12px; padding:10px; margin:10px 0 0; font-size:15px; font-weight:700; }
+.tip.am{ background:#E3F3EF; border-color:var(--teal); }
+@media (prefers-color-scheme: dark){ .tip{ background:#4A3A20; } .tip.am{ background:#1D3D3A; } }
+.ref{ margin-top:10px; font-size:13px; font-weight:800; color:var(--mut); }
+.navr{ display:flex; gap:10px; margin-top:14px; }
+.btn{ flex:1; min-height:54px; border-radius:14px; border:3px solid #3E0F18; background:var(--wall); color:#FFF3D6; font-weight:900; font-size:18px; box-shadow:0 4px 0 #3E0F18; padding:8px 12px; width:100%; }
+.btn.go{ background:var(--teal); border-color:#0E3B39; box-shadow:0 4px 0 #0E3B39; }
+.btn.alt{ background:var(--card); color:var(--ink); border-color:var(--line); box-shadow:0 4px 0 var(--line); }
+.btn:disabled{ opacity:.4; }
+.btn:active,.opt:active{ transform:translateY(2px); }
+.dots{ display:flex; gap:6px; justify-content:center; margin-top:10px; }
+.dots i{ width:10px; height:10px; border-radius:5px; background:var(--line); } .dots i.on{ background:var(--gold); width:24px; }
+.say{ border:2px solid var(--gold); background:#FFF3D0; border-radius:12px; min-width:44px; height:44px; font-size:20px; flex:0 0 auto; }
+/* ---------- Main ---------- */
+.prog{ position:relative; height:26px; background:var(--card); border:2px solid var(--line); border-radius:13px; margin:0 0 12px; }
+.prog .walk{ position:absolute; inset-block:0; inset-inline-start:0; background:linear-gradient(90deg,var(--gold),var(--gold2)); border-radius:11px; }
+.prog .fl{ position:absolute; top:50%; transform:translate(-50%,-50%); font-size:14px; }
+.prog .me{ position:absolute; top:50%; transform:translate(-50%,-50%); font-size:20px; }
+.q{ display:flex; gap:10px; align-items:flex-start; justify-content:space-between; }
+.q p{ margin:0; font-size:18px; font-weight:900; line-height:1.45; }
+#play{ margin-top:12px; }
+.grid2{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.col{ display:flex; flex-direction:column; gap:10px; }
+.opt{ min-width:0; overflow-wrap:anywhere; min-height:56px; border-radius:14px; border:3px solid var(--line); background:var(--card); font-weight:800; font-size:16px; padding:10px; box-shadow:0 4px 0 var(--line); text-align:center; }
+.opt.sel{ border-color:var(--gold); background:#FFF0C9; box-shadow:0 4px 0 var(--gold); }
+.opt.ok{ border-color:var(--ok); background:#DFF3E6; box-shadow:0 4px 0 var(--ok); }
+.opt.done{ opacity:.45; }
+@media (prefers-color-scheme: dark){ .opt.sel{ background:#5A4520; } .opt.ok{ background:#1F4A33; } }
+.shake{ animation:shake .4s; } @keyframes shake{ 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+.hint{ margin-top:12px; background:#FFE9E4; border:2px solid #E7A598; border-radius:12px; padding:10px; font-weight:800; }
+@media (prefers-color-scheme: dark){ .hint{ background:#4A2620; border-color:#8A4A3E; } }
+/* vitrin: almari pameran kaca */
+.vit{ position:relative; min-height:70px; border-radius:10px 10px 4px 4px; border:3px solid #8A6A3A; background:linear-gradient(160deg,rgba(220,240,250,.9),rgba(190,215,230,.75) 55%,rgba(255,255,255,.85));
+  box-shadow:inset 0 -10px 0 #B07A2E, 0 4px 0 #6B4E28; padding:10px 8px 18px; font-weight:800; font-size:16px; min-width:0; overflow-wrap:anywhere; color:#2B1E1A; }
+.vit:before{ content:""; position:absolute; top:6px; inset-inline-start:8px; width:14px; height:40%; background:rgba(255,255,255,.7); border-radius:6px; transform:skewX(-12deg); }
+.vit.ok{ border-color:var(--ok); box-shadow:inset 0 -10px 0 var(--ok), 0 4px 0 #1C5E39; }
+/* tiket muzium */
+.tkt{ display:flex; border-radius:14px; overflow:hidden; box-shadow:var(--sh); border:3px solid var(--wall); background:#FFF6DC; color:#2B1E1A; }
+.tkt .tl{ flex:1; padding:14px; font-weight:800; font-size:17px; line-height:1.45; }
+.tkt .ts{ width:64px; background:var(--wall); color:var(--gold2); display:grid; place-items:center; font-family:"Bree Serif",serif; writing-mode:vertical-rl; border-inline-start:3px dashed var(--gold); }
+.tcount{ text-align:center; font-weight:900; color:var(--mut); margin:8px 0; }
+.stamps{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:12px; }
+.stp{ min-height:62px; border-radius:50%/40%; border:4px double; font-weight:900; font-size:18px; background:var(--card); }
+.stp[data-v="1"]{ color:var(--ok); border-color:var(--ok); } .stp[data-v="0"]{ color:var(--bad); border-color:var(--bad); }
+/* garis masa */
+.tline{ position:relative; display:flex; flex-direction:column; gap:8px; padding-inline-start:28px; margin-bottom:12px; min-height:30px; }
+.tline:before{ content:""; position:absolute; inset-block:0; inset-inline-start:10px; width:5px; background:var(--gold); border-radius:3px; }
+.tslot{ position:relative; min-height:44px; border:2px dashed var(--line); border-radius:12px; padding:8px 10px; font-weight:800; }
+.tslot:before{ content:attr(data-n); position:absolute; inset-inline-start:-28px; top:8px; width:24px; height:24px; border-radius:12px; background:var(--wall); color:var(--gold2); font-size:13px; display:grid; place-items:center; }
+.tslot.fill{ border-style:solid; border-color:var(--ok); background:#E6F5EC; }
+@media (prefers-color-scheme: dark){ .tslot.fill{ background:#1F4A33; } .tkt{ background:#F3E6C4; } }
+</style>
+<style>
+/* label: tag nama pameran */
+.lab{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.lab .opt{ font-size:15px; }
+.lab .ll{ border-style:solid; background:#F6ECD5; }
+.lab .lr{ border-radius:4px 14px 14px 4px; border-inline-start:8px solid var(--gold); }
+[dir=rtl] .lab .lr{ border-radius:14px 4px 4px 14px; }
+@media (prefers-color-scheme: dark){ .lab .ll{ background:#3E2F25; } }
+/* artifak: susun ke almari */
+.art{ text-align:center; font-size:19px; font-weight:900; padding:16px; border-radius:16px; border:3px solid var(--gold); background:repeating-linear-gradient(45deg,#FFF6DC 0 12px,#FCEFCF 12px 24px); color:#2B1E1A; margin-bottom:12px; }
+.art .ai{ font-size:34px; display:block; }
+.cases{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.case{ min-height:110px; border-radius:16px 16px 6px 6px; border:3px solid #6B4E28; background:linear-gradient(180deg,#F2E3C0,#D9BE8A); color:#2B1E1A; font-weight:900; font-size:16px; padding:10px; min-width:0; overflow-wrap:anywhere; box-shadow:0 5px 0 #6B4E28; }
+.case small{ display:block; font-size:13px; margin-top:6px; font-weight:700; }
+/* arkib: dokumen lama */
+.doc{ background:linear-gradient(180deg,#F5E6C4,#EAD3A2); color:#3A2A18; border-radius:6px; padding:16px; font-size:18px; font-weight:800; line-height:1.9; box-shadow:inset 0 0 30px rgba(120,80,30,.35); border:2px solid #B08A54; }
+.doc .bl{ display:inline-block; min-width:70px; border-bottom:3px dashed #8A5A2A; padding:0 6px; color:#7A2836; }
+.doc .bl.f{ border-bottom-style:solid; color:var(--ok); }
+.chips{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:14px; }
+.chips .opt{ min-height:48px; }
+/* pameran: plak tertutup */
+.plaques{ display:flex; flex-direction:column; gap:8px; margin-bottom:12px; }
+.plq{ border-radius:10px; padding:10px 12px; font-weight:800; background:linear-gradient(90deg,#C9A050,#F3D27A,#C9A050); color:#3E2410; border:2px solid #8A6A2A; }
+.plq.hid{ background:repeating-linear-gradient(135deg,#7A2836 0 10px,#6E1F2E 10px 20px); color:#F3D27A; text-align:center; }
+/* kurator: betulkan kapsyen */
+.cap{ background:var(--card); border:3px solid var(--line); border-radius:12px; padding:12px; line-height:2.2; font-size:17px; font-weight:800; }
+.seg{ display:inline; border:none; background:#F3EAD6; border-radius:8px; padding:4px 6px; margin:2px; font-weight:800; line-height:1.9; color:#2B1E1A; }
+.seg.sel{ background:#FFD7CF; outline:2px solid var(--bad); }
+.seg.fix{ background:#DFF3E6; outline:2px solid var(--ok); }
+.kstep{ margin:10px 0 6px; font-weight:900; color:var(--mut); }
+/* maklum balas */
+.fb{ position:fixed; inset-inline:0; bottom:0; z-index:50; display:flex; justify-content:center; padding:10px; animation:up .25s ease-out; }
+@keyframes up{ from{ transform:translateY(100%); } }
+.fb .in{ width:100%; max-width:480px; background:var(--card); border:4px solid var(--gold); border-radius:20px; padding:12px; box-shadow:0 -6px 30px rgba(0,0,0,.25); }
+.fb .row1{ display:flex; gap:10px; align-items:flex-start; margin-bottom:10px; }
+.fb strong{ font-family:"Bree Serif",serif; font-size:22px; color:var(--teal); }
+.fb p{ margin:4px 0; font-weight:700; line-height:1.45; }
+.fast{ display:inline-block; background:#FFF0C9; border-radius:8px; padding:2px 8px; font-weight:900; color:#7A4A00; }
+.res{ text-align:center; }
+.res .ancil{ width:120px; height:120px; }
+.stars{ font-size:44px; margin:6px 0; }
+.stars span{ display:inline-block; animation:pop .5s backwards; } .stars .off{ filter:grayscale(1); opacity:.3; }
+@keyframes pop{ from{ transform:scale(0); } }
+.res h2{ font-size:28px; color:var(--teal); }
+.gotst{ margin:12px 0; background:#FFF0C9; border:2px dashed var(--gold); border-radius:14px; padding:10px; font-weight:900; color:#5A3A00; }
+.gotst span{ font-size:40px; display:block; }
+.toast{ position:fixed; left:50%; bottom:24px; transform:translateX(-50%); background:var(--wall); color:#FFF3D6; padding:12px 16px; border-radius:14px; font-weight:800; z-index:60; max-width:90vw; border:2px solid var(--gold); }
+.confetti{ position:fixed; inset:0; pointer-events:none; z-index:70; overflow:hidden; }
+.confetti span{ position:absolute; top:-40px; font-size:26px; animation:fall linear forwards; }
+@keyframes fall{ to{ transform:translateY(110vh) rotate(360deg); } }
+@media (prefers-reduced-motion: reduce){ *{ animation:none !important; } }
+.hall .guide{ right:-6px; top:30px; } [dir=rtl] .hall .guide{ right:auto; left:-6px; }
+button.plq{ width:100%; font:inherit; font-weight:800; }
+.vit:disabled{ cursor:default; }
+.lab .col{ min-width:0; }
+.fb .ancil{ width:58px; height:58px; }
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+/* ===================== KANDUNGAN "Muzium Sirah" (Sirah Tahun 4, JAIS) =====================
+   ms. = muka surat bercetak (fail pN = ms. N-9). Jawi diselaraskan dengan buku; perlu semakan ustaz. */
+const SJ = "صلى الله عليه وسلم";
+const STATIONS = [
+{ id:1, icon:"🏔️", c:"#7A3E2A", sticker:"📜",
+  t:["Gua Hira'","ڬوا حراء"], u:["Wahyu pertama turun","وحي ڤرتام تورون"],
+  read:[
+    { pic:"🏔️🌙", p:"2", h:["Ber'uzlah di Gua Hira'","برعزلة د ڬوا حراء"],
+      text:["Ketika hampir berusia 40 tahun, Nabi Muhammad SAW suka ber'uzlah, iaitu mengasingkan diri, di Gua Hira' di Jabal Nur. Baginda menjauhkan diri daripada kesesatan kaum jahiliah.",
+            `کتيک همڤير براوسيا 40 تاهون، نبي محمد ${SJ} سوک برعزلة، ايايت مڠاسيڠکن ديري، د ڬوا حراء د جبل النور. باڬيندا منجاٴوهکن ديري درڤد کسستن کاوم جاهلية.`] },
+    { pic:"🌙✨📖", p:"2-3", h:["Malam 17 Ramadan","مالم 17 رمضان"],
+      text:["Pada malam 17 Ramadan (610 Masihi), malaikat Jibril datang dan menyuruh baginda membaca. Baginda menjawab baginda tidak tahu membaca. Jibril memeluk baginda dengan kuat sebanyak tiga kali, lalu membacakan surah al-'Alaq ayat 1 hingga 5.",
+            "ڤد مالم 17 رمضان (610 مسيحي)، ملائکة جبريل داتڠ دان مڽوروه باڬيندا ممباچ. باڬيندا منجواب باڬيندا تيدق تاهو ممباچ. جبريل مملوق باڬيندا دڠن کوات سباڽق تيڬ کالي، لالو ممباچکن سورة العلق ايات 1 هيڠڬ 5."] },
+    { pic:"🏠🧕", p:"3-4", h:["Khadijah dan Waraqah","خديجة دان ورقة"],
+      text:["Baginda pulang dalam keadaan gementar dan meminta Khadijah menyelimutkan baginda. Khadijah membawa baginda berjumpa sepupunya, Waraqah bin Naufal. Waraqah menjelaskan bahawa baginda didatangi Jibril dan dilantik menjadi Rasul.",
+            "باڬيندا ڤولڠ دالم کأداٴن ڬمنتر دان ممينتا خديجة مڽليموتکن باڬيندا. خديجة ممباوا باڬيندا برجومڤا سڤوڤوڽ، ورقة بن نوفل. ورقة منجلسکن بهاوا باڬيندا دداتڠي جبريل دان دلنتيق منجادي رسول."],
+      tip:["Malaikat Jibril ditugaskan menyampaikan wahyu.","ملائکة جبريل دتوڬسکن مڽمڤايکن وحي."],
+      am:["Isi masa lapang dengan membaca buku.","ايسي ماس لاڤڠ دڠن ممباچ بوکو."] }
+  ],
+  games:[
+    { type:"vitrin", q:["Bilakah wahyu pertama diturunkan?","بيلاکه وحي ڤرتام دتورونکن؟"],
+      opts:[["Malam 17 Ramadan","مالم 17 رمضان"],["Malam 27 Rejab","مالم 27 رجب"],["Pagi 1 Syawal","ڤاڬي 1 شوال"],["Malam 10 Muharam","مالم 10 محرم"]],
+      e:["Wahyu pertama turun pada malam 17 Ramadan ketika baginda berusia 40 tahun.","وحي ڤرتام تورون ڤد مالم 17 رمضان کتيک باڬيندا براوسيا 40 تاهون."] },
+    { type:"garismasa", q:["Susun peristiwa di Gua Hira' mengikut urutan.","سوسون ڤريستيوا د ڬوا حراء مڠيکوت اوروتن."],
+      steps:[["Nabi ber'uzlah di Gua Hira'","نبي برعزلة د ڬوا حراء"],["Jibril menyuruh baginda membaca","جبريل مڽوروه باڬيندا ممباچ"],["Jibril membacakan surah al-'Alaq","جبريل ممباچکن سورة العلق"],["Khadijah menyelimutkan baginda","خديجة مڽليموتکن باڬيندا"],["Berjumpa Waraqah bin Naufal","برجومڤا ورقة بن نوفل"]],
+      e:["Tepat! Selepas wahyu pertama, Khadijah membawa baginda berjumpa Waraqah.","تڤت! سلڤس وحي ڤرتام، خديجة ممباوا باڬيندا برجومڤا ورقة."] },
+    { type:"tiketmuzium", q:["Semak tiket: maklumat ini sah atau palsu?","سمق تيکيت: معلومت اين سه اتاو ڤالسو؟"],
+      items:[[["Jibril memeluk baginda dengan kuat sebanyak tiga kali.","جبريل مملوق باڬيندا دڠن کوات سباڽق تيڬ کالي."],1],
+             [["Wahyu pertama ialah surah al-Fatihah.","وحي ڤرتام اياله سورة الفاتحة."],0],
+             [["Gua Hira' terletak di Jabal Nur.","ڬوا حراء ترليتق د جبل النور."],1],
+             [["Waraqah bin Naufal ialah bapa saudara Nabi.","ورقة بن نوفل اياله باڤ سودارا نبي."],0]],
+      e:["Wahyu pertama ialah al-'Alaq 1-5. Waraqah ialah sepupu Khadijah.","وحي ڤرتام اياله العلق 1-5. ورقة اياله سڤوڤو خديجة."] },
+    { type:"tagnama", q:["Padankan setiap pameran dengan labelnya.","ڤادنکن ستياڤ ڤاميرن دڠن لابلڽ."],
+      pairs:[[["Jibril","جبريل"],["Malaikat penyampai wahyu","ملائکة ڤڽمڤاي وحي"]],
+             [["Khadijah","خديجة"],["Isteri Nabi SAW","ايستري نبي ﷺ"]],
+             [["Waraqah bin Naufal","ورقة بن نوفل"],["Sepupu Khadijah","سڤوڤو خديجة"]],
+             [["Gua Hira'","ڬوا حراء"],["Tempat wahyu pertama","تمڤت وحي ڤرتام"]]],
+      e:["Semua label sudah di tempat yang betul!","سموا لابل سوده د تمڤت يڠ بتول!"] },
+    { type:"pameran", q:["Siapakah saya? Buka plak satu demi satu.","سياڤاکه ساي؟ بوک ڤلق ساتو دمي ساتو."],
+      clues:[["Saya beragama Nasrani.","ساي براڬام نصراني."],["Saya sepupu Khadijah.","ساي سڤوڤو خديجة."],["Saya menjelaskan bahawa baginda dilantik menjadi Rasul.","ساي منجلسکن بهاوا باڬيندا دلنتيق منجادي رسول."]],
+      opts:[["Waraqah bin Naufal","ورقة بن نوفل"],["Abu Talib","ابو طالب"],["Zaid bin Harithah","زيد بن حارثة"],["Abu Bakar","ابو بکر"]],
+      e:["Waraqah bin Naufal, sepupu Khadijah.","ورقة بن نوفل، سڤوڤو خديجة."] },
+    { type:"arkib", q:["Lengkapkan dokumen arkib ini.","لڠکڤکن دوکومن ارکيب اين."],
+      s:["Wahyu pertama ialah surah ___ ayat 1 hingga 5. Ia diturunkan di Gua ___ .","وحي ڤرتام اياله سورة ___ ايات 1 هيڠڬ 5. اي دتورونکن د ڬوا ___ ."],
+      ans:[["al-'Alaq","العلق"],["Hira'","حراء"]], extra:[["al-Muddaththir","المدثر"],["Thur","ثور"]],
+      e:["Surah al-'Alaq ayat 1-5 di Gua Hira'.","سورة العلق ايات 1-5 د ڬوا حراء."] }
+  ] },
+{ id:2, icon:"🤫", c:"#2F5D50", sticker:"🗝️",
+  t:["Dakwah Rahsia","دعوه رهسيا"], u:["Orang yang mula-mula beriman","اورڠ يڠ مولا٢ برايمان"],
+  read:[
+    { pic:"🤫🕯️", p:"5-6", h:["Dakwah Secara Rahsia","دعوه سچارا رهسيا"],
+      text:["Selepas turun surah al-Muddaththir ayat 1 hingga 5, baginda mula berdakwah secara rahsia. Tujuannya supaya orang ramai tidak terkejut dengan ajaran baharu yang tidak pernah mereka dengar sebelum ini.",
+            "سلڤس تورون سورة المدثر ايات 1 هيڠڬ 5، باڬيندا مولا بردعوه سچارا رهسيا. توجوانڽ سوڤايا اورڠ راماي تيدق ترکجوت دڠن اجرن بهارو يڠ تيدق ڤرنه مريک دڠر سبلوم اين."] },
+    { pic:"👨‍👩‍👦🤝", p:"7", h:["Orang yang Mula-mula Beriman","اورڠ يڠ مولا٢ برايمان"],
+      list:[["Khadijah binti Khuwailid: isteri Nabi","خديجة بنت خويلد: ايستري نبي"],["Ali bin Abi Talib: sepupu yang masih kanak-kanak","علي بن ابي طالب: سڤوڤو يڠ ماسيه کانق٢"],["Ummu Aiman: pengasuh Nabi","ام ايمن: ڤڠاسوه نبي"],["Zaid bin Harithah: anak angkat Nabi","زيد بن حارثة: انق اڠکت نبي"],["Abu Bakar: teman rapat Nabi","ابو بکر: تمن راڤت نبي"]] },
+    { pic:"🏠🕌", p:"7-9", h:["Rumah al-Arqam","رومه الأرقم"],
+      text:["Abu Bakar mengajak Uthman bin Affan, az-Zubair bin al-Awwam, Abdul Rahman bin Auf, Talhah bin Ubaidillah dan Saad bin Abi Waqqas memeluk Islam. Dakwah rahsia berjalan selama 3 tahun di rumah al-Arqam bin Abi al-Arqam. Kira-kira 40 orang beriman.",
+            "ابو بکر مڠاجق عثمان بن عفان، الزبير بن العوام، عبدالرحمن بن عوف، طلحة بن عبيدالله دان سعد بن ابي وقاص مملوق إسلام. دعوه رهسيا برجالن سلاما 3 تاهون د رومه الأرقم بن ابي الأرقم. کيرا٢ 40 اورڠ برايمان."],
+      tip:["Khadijah ialah orang pertama yang beriman kepada dakwah Nabi.","خديجة اياله اورڠ ڤرتام يڠ برايمان کڤد دعوه نبي."],
+      am:["Sentiasa menjaga rahsia kawan-kawan.","سنتياس منجاڬ رهسيا کاون٢."] }
+  ],
+  games:[
+    { type:"tagnama", q:["Padankan tokoh dengan label pamerannya.","ڤادنکن توکوه دڠن لابل ڤاميرنڽ."],
+      pairs:[[["Ali bin Abi Talib","علي بن ابي طالب"],["Sepupu yang masih kanak-kanak","سڤوڤو يڠ ماسيه کانق٢"]],
+             [["Ummu Aiman","ام ايمن"],["Pengasuh Nabi","ڤڠاسوه نبي"]],
+             [["Zaid bin Harithah","زيد بن حارثة"],["Anak angkat Nabi","انق اڠکت نبي"]],
+             [["Abu Bakar","ابو بکر"],["Teman rapat Nabi","تمن راڤت نبي"]]],
+      e:["Mereka antara orang yang mula-mula beriman.","مريک انتارا اورڠ يڠ مولا٢ برايمان."] },
+    { type:"vitrin", q:["Berapa lamakah dakwah secara rahsia?","براڤ لاماکه دعوه سچارا رهسيا؟"],
+      opts:[["3 tahun","3 تاهون"],["10 tahun","10 تاهون"],["13 tahun","13 تاهون"],["1 tahun","1 تاهون"]],
+      e:["Dakwah secara rahsia berjalan selama 3 tahun.","دعوه سچارا رهسيا برجالن سلاما 3 تاهون."] },
+    { type:"artifak", q:["Masukkan setiap nama ke dalam almari yang betul.","ماسوقکن ستياڤ نام ک دالم المري يڠ بتول."],
+      cases:[["Keluarga dan rumah Nabi","کلوارڬ دان رومه نبي"],["Diajak oleh Abu Bakar","دأجق اوليه ابو بکر"]],
+      items:[[["Khadijah","خديجة"],0],[["Uthman bin Affan","عثمان بن عفان"],1],[["Ali bin Abi Talib","علي بن ابي طالب"],0],[["Abdul Rahman bin Auf","عبدالرحمن بن عوف"],1],[["Zaid bin Harithah","زيد بن حارثة"],0],[["Saad bin Abi Waqqas","سعد بن ابي وقاص"],1]],
+      e:["Abu Bakar mengajak sahabat-sahabatnya memeluk Islam.","ابو بکر مڠاجق صحابت٢ڽ مملوق إسلام."] },
+    { type:"pameran", q:["Rumah siapakah ini? Buka plak satu demi satu.","رومه سياڤاکه اين؟ بوک ڤلق ساتو دمي ساتو."],
+      clues:[["Rumah ini berada di Mekah.","رومه اين برادا د مکه."],["Rumah ini dipilih untuk menjalankan dakwah secara rahsia.","رومه اين دڤيليه اونتوق منجالنکن دعوه سچارا رهسيا."],["Kira-kira 40 orang beriman pada peringkat ini.","کيرا٢ 40 اورڠ برايمان ڤد ڤريڠکت اين."]],
+      opts:[["al-Arqam bin Abi al-Arqam","الأرقم بن ابي الأرقم"],["Abu Lahab","ابو لهب"],["Waraqah bin Naufal","ورقة بن نوفل"],["Mut'im bin Adi","مطعم بن عدي"]],
+      e:["Rumah al-Arqam menjadi pusat dakwah rahsia.","رومه الأرقم منجادي ڤوست دعوه رهسيا."] },
+    { type:"kurator", q:["Kapsyen ini ada satu kesilapan. Ketik perkataan yang salah, kemudian betulkan.","کڤسين اين اد ساتو کسيلڤن. کتيق ڤرکاتاٴن يڠ ساله، کمودين بتولکن."],
+      parts:[["Dakwah dibuat secara rahsia supaya orang ramai ","دعوه دبوات سچارا رهسيا سوڤايا اورڠ راماي "],["marah","ماره"],[" dengan ajaran baharu.","دڠن اجرن بهارو."]],
+      bad:1, fix:[["tidak terkejut","تيدق ترکجوت"],["gembira","ڬمبيرا"],["takut","تاکوت"]],
+      e:["Dakwah rahsia supaya orang ramai tidak terkejut.","دعوه رهسيا سوڤايا اورڠ راماي تيدق ترکجوت."] },
+    { type:"tiketmuzium", q:["Semak tiket: maklumat ini sah atau palsu?","سمق تيکيت: معلومت اين سه اتاو ڤالسو؟"],
+      items:[[["Khadijah ialah orang pertama yang beriman.","خديجة اياله اورڠ ڤرتام يڠ برايمان."],1],
+             [["Ali bin Abi Talib sudah dewasa ketika beriman.","علي بن ابي طالب سوده ديواس کتيک برايمان."],0],
+             [["Dakwah rahsia bermula selepas turun surah al-Muddaththir.","دعوه رهسيا برمولا سلڤس تورون سورة المدثر."],1],
+             [["Serulah kebaikan kepada orang lain dahulu, kemudian diri sendiri.","سرولاه کباٴيقن کڤد اورڠ لاٴين دهولو، کمودين ديري سنديري."],0]],
+      e:["Serulah kebaikan kepada diri sendiri, keluarga, kemudian orang lain.","سرولاه کباٴيقن کڤد ديري سنديري، کلوارڬ، کمودين اورڠ لاٴين."] }
+  ] },
+{ id:3, icon:"⛰️", c:"#8A5A1E", sticker:"📣",
+  t:["Dakwah Terbuka","دعوه تربوک"], u:["Seruan di Bukit Safa","سروان د بوکيت صفا"],
+  read:[
+    { pic:"⛰️📣", p:"10-11", h:["Seruan di Bukit Safa","سروان د بوکيت صفا"],
+      text:["Selepas 3 tahun berdakwah secara rahsia, turun surah al-Hijr ayat 94 supaya baginda berdakwah secara terang-terangan. Baginda naik ke Bukit Safa dan menyeru penduduk Mekah supaya mengesakan Allah dan tidak syirik.",
+            "سلڤس 3 تاهون بردعوه سچارا رهسيا، تورون سورة الحجر ايات 94 سوڤايا باڬيندا بردعوه سچارا تراڠ-تراڠن. باڬيندا نايق ک بوکيت صفا دان مڽرو ڤندودوق مکه سوڤايا مڠاسکن الله دان تيدق شيريک."] },
+    { pic:"😠🗿", p:"11-12", h:["Abu Lahab dan Abu Jahal","ابو لهب دان ابو جهل"],
+      text:["Bapa saudara baginda, Abu Lahab, menentang dakwah ini. Lalu turun surah al-Masad. Abu Jahal dan Abu Lahab sentiasa mengganggu dakwah dan memujuk kaum Quraisy supaya terus menyembah berhala.",
+            "باڤ سودارا باڬيندا، ابو لهب، منتڠ دعوه اين. لالو تورون سورة المسد. ابو جهل دان ابو لهب سنتياس مڠڠڬو دعوه دان مموجوق کاوم قريش سوڤايا تروس مڽمبه برهالا."] },
+    { pic:"☀️🌙", p:"13-15", h:["Janji Abu Talib","جنجي ابو طالب"],
+      text:["Kaum Quraisy meminta Abu Talib menghentikan dakwah baginda. Baginda bersabda: walaupun mereka meletakkan matahari di tangan kanan dan bulan di tangan kiri, baginda tidak akan meninggalkan dakwah ini. Abu Talib berjanji terus melindungi baginda.",
+            "کاوم قريش ممينتا ابو طالب مڠهنتيکن دعوه باڬيندا. باڬيندا برسبدا: والاوڤون مريک ملتقکن ماتاهاري د تاڠن کانن دان بولن د تاڠن کيري، باڬيندا تيدق اکن منيڠڬلکن دعوه اين. ابو طالب برجنجي تروس مليندوڠي باڬيندا."],
+      tip:["Baginda pernah ditawarkan menjadi raja dan diberi harta, tetapi semuanya ditolak.","باڬيندا ڤرنه دتاورکن منجادي راج دان دبري هرتا، تتاڤي سمواڽ دتولق."],
+      am:["Sentiasa berani berterus terang untuk menyatakan kebenaran.","سنتياس براني برتروس تراڠ اونتوق مڽاتاکن کبنرن."] }
+  ],
+  games:[
+    { type:"vitrin", q:["Di manakah baginda mula berdakwah secara terbuka?","د منکه باڬيندا مولا بردعوه سچارا تربوک؟"],
+      opts:[["Bukit Safa","بوکيت صفا"],["Gua Hira'","ڬوا حراء"],["Gua Thur","ڬوا ثور"],["Taif","طائف"]],
+      e:["Baginda naik ke Bukit Safa dan menyeru penduduk Mekah.","باڬيندا نايق ک بوکيت صفا دان مڽرو ڤندودوق مکه."] },
+    { type:"pameran", q:["Siapakah saya? Buka plak satu demi satu.","سياڤاکه ساي؟ بوک ڤلق ساتو دمي ساتو."],
+      clues:[["Saya bapa saudara Nabi.","ساي باڤ سودارا نبي."],["Saya menentang seruan di Bukit Safa.","ساي منتڠ سروان د بوکيت صفا."],["Surah al-Masad turun tentang saya.","سورة المسد تورون تنتڠ ساي."]],
+      opts:[["Abu Lahab","ابو لهب"],["Abu Talib","ابو طالب"],["Abu Bakar","ابو بکر"],["Waraqah bin Naufal","ورقة بن نوفل"]],
+      e:["Abu Lahab menentang dakwah baginda.","ابو لهب منتڠ دعوه باڬيندا."] },
+    { type:"arkib", q:["Lengkapkan dokumen arkib ini.","لڠکڤکن دوکومن ارکيب اين."],
+      s:["Jika mereka meletakkan ___ di tangan kananku dan ___ di tangan kiriku, aku tidak akan meninggalkan urusan ini.","جک مريک ملتقکن ___ د تاڠن کانانکو دان ___ د تاڠن کيريکو، اکو تيدق اکن منيڠڬلکن اوروسن اين."],
+      ans:[["matahari","ماتاهاري"],["bulan","بولن"]], extra:[["emas","امس"],["bintang","بينتڠ"]],
+      e:["Baginda tetap meneruskan dakwah walau apa pun tawaran.","باڬيندا تتڤ منروسکن دعوه والاو اڤ ڤون تاورن."] },
+    { type:"tiketmuzium", q:["Semak tiket: maklumat ini sah atau palsu?","سمق تيکيت: معلومت اين سه اتاو ڤالسو؟"],
+      items:[[["Dakwah terbuka bermula selepas 3 tahun dakwah rahsia.","دعوه تربوک برمولا سلڤس 3 تاهون دعوه رهسيا."],1],
+             [["Baginda menerima tawaran menjadi raja.","باڬيندا منريما تاورن منجادي راج."],0],
+             [["Abu Talib berjanji terus melindungi baginda.","ابو طالب برجنجي تروس مليندوڠي باڬيندا."],1],
+             [["Abu Jahal membantu dakwah baginda.","ابو جهل ممبنتو دعوه باڬيندا."],0]],
+      e:["Baginda menolak tawaran raja dan harta. Abu Jahal mengganggu dakwah.","باڬيندا منولق تاورن راج دان هرتا. ابو جهل مڠڠڬو دعوه."] },
+    { type:"kurator", q:["Kapsyen ini ada satu kesilapan. Ketik perkataan yang salah, kemudian betulkan.","کڤسين اين اد ساتو کسيلڤن. کتيق ڤرکاتاٴن يڠ ساله، کمودين بتولکن."],
+      parts:[["Baginda menyeru kaum Quraisy supaya ","باڬيندا مڽرو کاوم قريش سوڤايا "],["menyembah berhala","مڽمبه برهالا"],[" dan beriman kepada hari akhirat."," دان برايمان کڤد هاري اخيرة."]],
+      bad:1, fix:[["mengesakan Allah","مڠاسکن الله"],["mengumpul harta","مڠومڤول هرتا"],["menjadi raja","منجادي راج"]],
+      e:["Baginda menyeru supaya mengesakan Allah dan meninggalkan berhala.","باڬيندا مڽرو سوڤايا مڠاسکن الله دان منيڠڬلکن برهالا."] },
+    { type:"garismasa", q:["Susun peristiwa dakwah terbuka mengikut urutan.","سوسون ڤريستيوا دعوه تربوک مڠيکوت اوروتن."],
+      steps:[["Dakwah rahsia selama 3 tahun","دعوه رهسيا سلاما 3 تاهون"],["Turun surah al-Hijr ayat 94","تورون سورة الحجر ايات 94"],["Baginda naik ke Bukit Safa","باڬيندا نايق ک بوکيت صفا"],["Abu Lahab menentang baginda","ابو لهب منتڠ باڬيندا"]],
+      e:["Tepat! Dakwah terbuka bermula di Bukit Safa.","تڤت! دعوه تربوک برمولا د بوکيت صفا."] }
+  ] },
+{ id:4, icon:"🛡️", c:"#5B3A6E", sticker:"🪨",
+  t:["Tentangan dan Iktibar","تنتڠن دان اعتبار"], u:["Sabar menghadapi ujian","صبر مڠهادڤي اوجين"],
+  read:[
+    { pic:"😡🪨", p:"16", h:["Tentangan Kaum Quraisy","تنتڠن کاوم قريش"],
+      text:["Abu Jahal paling banyak menyakiti Nabi. Dia mengejek baginda ketika solat dan mahu membaling batu, tetapi Allah menyelamatkan baginda. Abu Lahab meletakkan najis di depan pintu rumah baginda. Isterinya, Ummu Jamil, suka mencaci baginda.",
+            "ابو جهل ڤاليڠ باڽق مڽاکيتي نبي. دي مڠيجيق باڬيندا کتيک صلاة دان ماهو ممبالڠ باتو، تتاڤي الله مڽلامتکن باڬيندا. ابو لهب ملتقکن نجس د دڤن ڤينتو رومه باڬيندا. ايستريڽ، ام جميل، سوک منچاچي باڬيندا."] },
+    { pic:"☀️🏜️", p:"17", h:["Sahabat Diseksa","صحابت دسيقسا"],
+      text:["Uqbah bin Abi Mu'ait mencekik baginda dengan kain ketika solat, lalu Abu Bakar menghalangnya. Bilal bin Rabah dijemur di padang pasir dan dadanya ditindih batu besar. Ammar bin Yasir dijemur dengan baju besi, dan ibu bapanya diseksa hingga meninggal dunia.",
+            "عقبة بن ابي معيط منچکيق باڬيندا دڠن کاين کتيک صلاة، لالو ابو بکر مڠهالڠڽ. بلال بن رباح دجمور د ڤادڠ ڤاسير دان داداڽ دتينديه باتو بسر. عمار بن ياسر دجمور دڠن باجو بسي، دان ايبو باڤڽ دسيقسا هيڠڬ منيڠڬل دنيا."] },
+    { pic:"💡🤲", p:"18-19", h:["Iktibar Dakwah","اعتبار دعوه"],
+      list:[["Sentiasa menyeru kebaikan dan mencegah kemungkaran.","سنتياس مڽرو کباٴيقن دان منچڬه کموڠکرن."],["Berdakwah kepada orang di bawah jagaan kita.","بردعوه کڤد اورڠ د باوه جاڬاٴن کيت."],["Berakhlak mulia seperti Nabi.","براخلاق موليا سڤرتي نبي."],["Bergaul dengan baik dalam masyarakat.","برڬاٴول دڠن باٴيق دالم مشارکت."],["Bersabar dengan ujian Allah.","برصبر دڠن اوجين الله."]],
+      tip:["Abu Jahal digelar \"Firaun umat ini\" oleh Nabi.","ابو جهل دڬلر \"فرعون اومت اين\" اوليه نبي."] }
+  ],
+  games:[
+    { type:"tagnama", q:["Padankan tokoh dengan label pamerannya.","ڤادنکن توکوه دڠن لابل ڤاميرنڽ."],
+      pairs:[[["Bilal bin Rabah","بلال بن رباح"],["Dada ditindih batu besar","دادا دتينديه باتو بسر"]],
+             [["Ammar bin Yasir","عمار بن ياسر"],["Dijemur dengan baju besi","دجمور دڠن باجو بسي"]],
+             [["Ummu Jamil","ام جميل"],["Suka mencaci baginda","سوک منچاچي باڬيندا"]],
+             [["Uqbah bin Abi Mu'ait","عقبة بن ابي معيط"],["Mencekik baginda ketika solat","منچکيق باڬيندا کتيک صلاة"]]],
+      e:["Mereka diuji dengan berat tetapi tetap beriman.","مريک داوجي دڠن برت تتاڤي تتڤ برايمان."] },
+    { type:"vitrin", q:["Siapakah yang menghalang Uqbah daripada mencekik baginda?","سياڤاکه يڠ مڠهالڠ عقبة درڤد منچکيق باڬيندا؟"],
+      opts:[["Abu Bakar","ابو بکر"],["Abu Lahab","ابو لهب"],["Bilal bin Rabah","بلال بن رباح"],["Zaid bin Harithah","زيد بن حارثة"]],
+      e:["Abu Bakar menghalang Uqbah.","ابو بکر مڠهالڠ عقبة."] },
+    { type:"artifak", q:["Masukkan setiap kad ke dalam almari yang betul.","ماسوقکن ستياڤ کد ک دالم المري يڠ بتول."],
+      cases:[["Menentang Nabi","منتڠ نبي"],["Diseksa kerana beriman","دسيقسا کران برايمان"]],
+      items:[[["Abu Jahal","ابو جهل"],0],[["Bilal bin Rabah","بلال بن رباح"],1],[["Abu Lahab","ابو لهب"],0],[["Ammar bin Yasir","عمار بن ياسر"],1],[["Ummu Jamil","ام جميل"],0],[["Ibu bapa Ammar","ايبو باڤ عمار"],1]],
+      e:["Orang beriman tetap sabar walaupun diseksa.","اورڠ برايمان تتڤ صبر والاوڤون دسيقسا."] },
+    { type:"pameran", q:["Siapakah saya? Buka plak satu demi satu.","سياڤاکه ساي؟ بوک ڤلق ساتو دمي ساتو."],
+      clues:[["Saya paling banyak menyakiti Nabi.","ساي ڤاليڠ باڽق مڽاکيتي نبي."],["Nabi menggelar saya \"Firaun umat ini\".","نبي مڠڬلر ساي \"فرعون اومت اين\"."],["Saya terbunuh dalam Perang Badar.","ساي تربونوه دالم ڤراڠ بدر."]],
+      opts:[["Abu Jahal","ابو جهل"],["Abu Lahab","ابو لهب"],["Uqbah bin Abi Mu'ait","عقبة بن ابي معيط"],["Abu Talib","ابو طالب"]],
+      e:["Abu Jahal digelar Firaun umat ini.","ابو جهل دڬلر فرعون اومت اين."] },
+    { type:"tiketmuzium", q:["Semak tiket iktibar: sah atau palsu?","سمق تيکيت اعتبار: سه اتاو ڤالسو؟"],
+      items:[[["Kita perlu bersabar dengan ujian Allah.","کيت ڤرلو برصبر دڠن اوجين الله."],1],
+             [["Ibu bapa berdakwah kepada anak-anak.","ايبو باڤ بردعوه کڤد انق٢."],1],
+             [["Kita boleh membalas kejahatan dengan kejahatan.","کيت بوليه ممبالس کجاهتن دڠن کجاهتن."],0],
+             [["Dakwah hanya tugas para nabi sahaja.","دعوه هاڽ توڬس ڤارا نبي سهاج."],0]],
+      e:["Setiap orang berdakwah kepada orang di bawah jagaannya dan bersabar.","ستياڤ اورڠ بردعوه کڤد اورڠ د باوه جاڬاٴنڽ دان برصبر."] },
+    { type:"kurator", q:["Kapsyen ini ada satu kesilapan. Ketik perkataan yang salah, kemudian betulkan.","کڤسين اين اد ساتو کسيلڤن. کتيق ڤرکاتاٴن يڠ ساله، کمودين بتولکن."],
+      parts:[["Bilal bin Rabah dijemur di padang pasir dan dadanya ditindih ","بلال بن رباح دجمور د ڤادڠ ڤاسير دان داداڽ دتينديه "],["kayu","کايو"],[" besar."," بسر."]],
+      bad:1, fix:[["batu","باتو"],["besi","بسي"],["pasir","ڤاسير"]],
+      e:["Dadanya ditindih batu besar, tetapi dia tetap beriman.","داداڽ دتينديه باتو بسر، تتاڤي دي تتڤ برايمان."] }
+  ] },
+{ id:5, icon:"⛵", c:"#1F6F6B", sticker:"👑",
+  t:["Habsyah dan Taif","حبشة دان طائف"], u:["Hijrah dan layanan penduduk","هجرة دان لايانن ڤندودوق"],
+  read:[
+    { pic:"⛵👑", p:"21", h:["Hijrah ke Habsyah","هجرة ک حبشة"],
+      text:["Nabi melihat ramai sahabat diseksa, lalu menyuruh mereka berhijrah ke Habsyah. Kumpulan pertama ialah 12 lelaki dan 4 perempuan, termasuk Uthman bin Affan dan isterinya Ruqayyah. Kumpulan kedua termasuk Jaafar bin Abi Talib.",
+            "نبي مليهت راماي صحابت دسيقسا، لالو مڽوروه مريک برهجرة ک حبشة. کومڤولن ڤرتام اياله 12 للاکي دان 4 ڤرمڤوان، ترماسوق عثمان بن عفان دان ايستريڽ رقية. کومڤولن کدوا ترماسوق جعفر بن ابي طالب."] },
+    { pic:"🎁🙅", p:"21", h:["Raja an-Najasyi","راج النجاشي"],
+      text:["Quraisy menghantar utusan dengan hadiah supaya Raja an-Najasyi menghantar pulang orang Islam. Jaafar menjelaskan ajaran Islam. Raja yakin dengan kebenaran Islam dan membenarkan mereka terus tinggal di Habsyah. Utusan Quraisy pulang dengan kecewa.",
+            "قريش مڠهنتر اوتوسن دڠن هديه سوڤايا راج النجاشي مڠهنتر ڤولڠ اورڠ إسلام. جعفر منجلسکن اجرن إسلام. راج يقين دڠن کبنرن إسلام دان ممبنرکن مريک تروس تيڠڬل د حبشة. اوتوسن قريش ڤولڠ دڠن کچوا."] },
+    { pic:"🌴🪨", p:"22-24", h:["Hijrah ke Taif","هجرة ک طائف"],
+      text:["Selepas Khadijah dan Abu Talib wafat, baginda pergi ke Taif bersama Zaid bin Harithah untuk menyeru Bani Thaqif. Mereka menolak dan menyuruh budak-budak melontar batu hingga kaki baginda berdarah. Mut'im bin Adi kemudian melindungi baginda masuk ke Mekah.",
+            "سلڤس خديجة دان ابو طالب وفات، باڬيندا ڤرڬي ک طائف برسام زيد بن حارثة اونتوق مڽرو بني ثقيف. مريک منولق دان مڽوروه بودق٢ ملونتر باتو هيڠڬ کاکي باڬيندا برداره. مطعم بن عدي کمودين مليندوڠي باڬيندا ماسوق ک مکه."],
+      tip:["Malaikat penjaga gunung menawarkan untuk membinasakan penduduk Taif, tetapi Nabi enggan. Baginda berharap keturunan mereka akan memeluk Islam.","ملائکة ڤنجاڬ ڬونوڠ منوارکن اونتوق ممبيناساکن ڤندودوق طائف، تتاڤي نبي اڠڬن. باڬيندا برهارڤ کتورونن مريک اکن مملوق إسلام."],
+      am:["Sentiasa memberi layanan yang baik kepada tetamu.","سنتياس ممبري لايانن يڠ باٴيق کڤد تتامو."] }
+  ],
+  games:[
+    { type:"artifak", q:["Habsyah atau Taif? Masukkan kad ke almari yang betul.","حبشة اتاو طائف؟ ماسوقکن کد ک المري يڠ بتول."],
+      cases:[["Habsyah","حبشة"],["Taif","طائف"]],
+      items:[[["Raja an-Najasyi","راج النجاشي"],0],[["Bani Thaqif","بني ثقيف"],1],[["Jaafar bin Abi Talib","جعفر بن ابي طالب"],0],[["Kaki baginda berdarah","کاکي باڬيندا برداره"],1],[["Uthman dan Ruqayyah","عثمان دان رقية"],0],[["Bersama Zaid bin Harithah","برسام زيد بن حارثة"],1]],
+      e:["Habsyah menerima orang Islam, tetapi Taif menolak baginda.","حبشة منريما اورڠ إسلام، تتاڤي طائف منولق باڬيندا."] },
+    { type:"vitrin", q:["Siapakah wakil orang Islam yang menjelaskan Islam kepada raja?","سياڤاکه واکيل اورڠ إسلام يڠ منجلسکن إسلام کڤد راج؟"],
+      opts:[["Jaafar bin Abi Talib","جعفر بن ابي طالب"],["Uthman bin Affan","عثمان بن عفان"],["Zaid bin Harithah","زيد بن حارثة"],["Bilal bin Rabah","بلال بن رباح"]],
+      e:["Raja an-Najasyi memanggil Jaafar sebagai wakil.","راج النجاشي ممڠڬيل جعفر سباڬاي واکيل."] },
+    { type:"pameran", q:["Siapakah saya? Buka plak satu demi satu.","سياڤاکه ساي؟ بوک ڤلق ساتو دمي ساتو."],
+      clues:[["Saya seorang pemimpin Quraisy.","ساي سأورڠ ڤميمڤين قريش."],["Saya bersimpati kepada baginda selepas peristiwa Taif.","ساي برسيمڤاتي کڤد باڬيندا سلڤس ڤريستيوا طائف."],["Saya melindungi baginda masuk ke Mekah.","ساي مليندوڠي باڬيندا ماسوق ک مکه."]],
+      opts:[["Mut'im bin Adi","مطعم بن عدي"],["Abu Jahal","ابو جهل"],["Raja an-Najasyi","راج النجاشي"],["Abu Lahab","ابو لهب"]],
+      e:["Mut'im bin Adi melindungi baginda masuk ke Mekah.","مطعم بن عدي مليندوڠي باڬيندا ماسوق ک مکه."] },
+    { type:"garismasa", q:["Susun peristiwa hijrah ke Taif mengikut urutan.","سوسون ڤريستيوا هجرة ک طائف مڠيکوت اوروتن."],
+      steps:[["Khadijah dan Abu Talib wafat","خديجة دان ابو طالب وفات"],["Baginda pergi ke Taif","باڬيندا ڤرڬي ک طائف"],["Penduduk Taif melontar batu","ڤندودوق طائف ملونتر باتو"],["Baginda berlindung di sebuah kebun","باڬيندا برليندوڠ د سبواه کبون"],["Mut'im bin Adi melindungi baginda","مطعم بن عدي مليندوڠي باڬيندا"]],
+      e:["Tepat! Baginda tetap sabar dan tidak berdendam.","تڤت! باڬيندا تتڤ صبر دان تيدق بردندم."] },
+    { type:"arkib", q:["Lengkapkan dokumen arkib ini.","لڠکڤکن دوکومن ارکيب اين."],
+      s:["Kumpulan pertama ke Habsyah ialah ___ lelaki dan ___ perempuan.","کومڤولن ڤرتام ک حبشة اياله ___ للاکي دان ___ ڤرمڤوان."],
+      ans:[["12","12"],["4","4"]], extra:[["83","83"],["28","28"]],
+      e:["12 lelaki dan 4 perempuan, termasuk Uthman dan Ruqayyah.","12 للاکي دان 4 ڤرمڤوان، ترماسوق عثمان دان رقية."] },
+    { type:"tiketmuzium", q:["Semak tiket: maklumat ini sah atau palsu?","سمق تيکيت: معلومت اين سه اتاو ڤالسو؟"],
+      items:[[["Raja an-Najasyi menghantar pulang orang Islam ke Mekah.","راج النجاشي مڠهنتر ڤولڠ اورڠ إسلام ک مکه."],0],
+             [["Nabi enggan penduduk Taif dibinasakan.","نبي اڠڬن ڤندودوق طائف دبيناساکن."],1],
+             [["Utusan Quraisy pulang dengan kecewa.","اوتوسن قريش ڤولڠ دڠن کچوا."],1],
+             [["Penduduk Taif menerima Islam dengan gembira.","ڤندودوق طائف منريما إسلام دڠن ڬمبيرا."],0]],
+      e:["Raja membenarkan orang Islam tinggal di Habsyah. Taif menolak baginda.","راج ممبنرکن اورڠ إسلام تيڠڬل د حبشة. طائف منولق باڬيندا."] }
+  ] },
+{ id:6, icon:"🌌", c:"#283C78", sticker:"🌙",
+  t:["Israk dan Mikraj","إسراء دان معراج"], u:["Perjalanan malam yang agung","ڤرجالنن مالم يڠ اڬوڠ"],
+  read:[
+    { pic:"🕋➡️🕌", p:"26-27", h:["Apakah Israk dan Mikraj?","اڤاکه إسراء دان معراج؟"],
+      text:["Israk ialah perjalanan Nabi pada waktu malam dari Masjidil Haram di Mekah ke Masjid al-Aqsa di Palestin. Mikraj ialah perjalanan naik ke langit dari Masjid al-Aqsa hingga ke Sidratul Muntaha. Ia berlaku selepas tahun dukacita.",
+            "إسراء اياله ڤرجالنن نبي ڤد وقتو مالم دري مسجد الحرام د مکه ک مسجد الأقصى د ڤلستين. معراج اياله ڤرجالنن نايق ک لاڠيت دري مسجد الأقصى هيڠڬ ک سدرة المنتهى. اي برلاکو سلڤس تاهون دوکاچيتا."] },
+    { pic:"🐎✨", p:"28-30", h:["Buraq dan Tempat Singgah","براق دان تمڤت سيڠڬه"],
+      text:["Pada malam 27 Rejab, baginda menaiki Buraq, binatang putih yang lebih besar daripada keldai. Baginda singgah di Yathrib, Madyan, Tur Sina dan Baitul Lahm, tempat Nabi Isa AS dilahirkan. Baginda juga melihat kaum yang bercucuk tanam lalu terus menuai.",
+            "ڤد مالم 27 رجب، باڬيندا منايقي براق، بيناتڠ ڤوتيه يڠ لبيه بسر درڤد کلداي. باڬيندا سيڠڬه د يثرب، مدين، طور سينا دان بيت لحم، تمڤت نبي عيسى عليه السلام دلاهيرکن. باڬيندا جوڬ مليهت کاوم يڠ برچوچوق تانم لالو تروس منواي."] },
+    { pic:"🌌🕌", p:"31", h:["Solat Lima Waktu","صلاة ليما وقتو"],
+      text:["Di langit, baginda bertemu para nabi: Nabi Adam di langit pertama dan Nabi Ibrahim di langit ketujuh. Di Sidratul Muntaha, baginda menerima perintah solat 50 waktu. Atas nasihat Nabi Musa, baginda memohon keringanan hingga menjadi 5 waktu sehari semalam.",
+            "د لاڠيت، باڬيندا برتمو ڤارا نبي: نبي آدم د لاڠيت ڤرتام دان نبي ابراهيم د لاڠيت کتوجوه. د سدرة المنتهى، باڬيندا منريما ڤرينته صلاة 50 وقتو. اتس نصيحت نبي موسى، باڬيندا مموهون کريڠنن هيڠڬ منجادي 5 وقتو سهاري سمالم."],
+      tip:["Bau harum yang dicium baginda ialah dari kubur Masyitah, yang beriman kepada Allah walaupun dibunuh Firaun.","باو هاروم يڠ دچيوم باڬيندا اياله دري کوبور ماشيطة، يڠ برايمان کڤد الله والاوڤون دبونوه فرعون."] }
+  ],
+  games:[
+    { type:"tagnama", q:["Padankan langit dengan nabi yang ditemui.","ڤادنکن لاڠيت دڠن نبي يڠ دتموٴي."],
+      pairs:[[["Langit pertama","لاڠيت ڤرتام"],["Nabi Adam","نبي آدم"]],[["Langit ketiga","لاڠيت کتيڬ"],["Nabi Yusuf","نبي يوسف"]],[["Langit keenam","لاڠيت کأنم"],["Nabi Musa","نبي موسى"]],[["Langit ketujuh","لاڠيت کتوجوه"],["Nabi Ibrahim","نبي ابراهيم"]]],
+      e:["Baginda bertemu para nabi di setiap langit.","باڬيندا برتمو ڤارا نبي د ستياڤ لاڠيت."] },
+    { type:"vitrin", q:["Berapa waktukah solat fardu sehari semalam selepas Mikraj?","براڤ وقتوکه صلاة فرض سهاري سمالم سلڤس معراج؟"],
+      opts:[["5 waktu","5 وقتو"],["50 waktu","50 وقتو"],["7 waktu","7 وقتو"],["3 waktu","3 وقتو"]],
+      e:["Daripada 50 waktu menjadi 5 waktu sehari semalam.","درڤد 50 وقتو منجادي 5 وقتو سهاري سمالم."] },
+    { type:"garismasa", q:["Susun perjalanan Israk dan Mikraj.","سوسون ڤرجالنن إسراء دان معراج."],
+      steps:[["Masjidil Haram","مسجد الحرام"],["Masjid al-Aqsa","مسجد الأقصى"],["Langit pertama hingga ketujuh","لاڠيت ڤرتام هيڠڬ کتوجوه"],["Sidratul Muntaha","سدرة المنتهى"]],
+      e:["Israk ke Masjid al-Aqsa, kemudian Mikraj ke Sidratul Muntaha.","إسراء ک مسجد الأقصى، کمودين معراج ک سدرة المنتهى."] },
+    { type:"tagnama", q:["Padankan tempat singgah dengan labelnya.","ڤادنکن تمڤت سيڠڬه دڠن لابلڽ."],
+      pairs:[[["Baitul Lahm","بيت لحم"],["Nabi Isa AS dilahirkan","نبي عيسى عليه السلام دلاهيرکن"]],[["Tur Sina","طور سينا"],["Nabi Musa AS bercakap dengan Allah","نبي موسى عليه السلام برچاکڤ دڠن الله"]],[["Madyan","مدين"],["Nabi Musa AS lari dari Firaun","نبي موسى عليه السلام لاري دري فرعون"]],[["Yathrib","يثرب"],["Ladang kurma yang subur","لادڠ کورما يڠ سوبور"]]],
+      e:["Setiap tempat singgah ada kisahnya.","ستياڤ تمڤت سيڠڬه اد کيسهڽ."] },
+    { type:"kurator", q:["Kapsyen ini ada satu kesilapan. Ketik perkataan yang salah, kemudian betulkan.","کڤسين اين اد ساتو کسيلڤن. کتيق ڤرکاتاٴن يڠ ساله، کمودين بتولکن."],
+      parts:[["Israk dan Mikraj berlaku pada malam 27 ","إسراء دان معراج برلاکو ڤد مالم 27 "],["Ramadan","رمضان"],[", selepas tahun dukacita.","، سلڤس تاهون دوکاچيتا."]],
+      bad:1, fix:[["Rejab","رجب"],["Syawal","شوال"],["Muharam","محرم"]],
+      e:["Israk dan Mikraj berlaku pada malam 27 Rejab.","إسراء دان معراج برلاکو ڤد مالم 27 رجب."] },
+    { type:"pameran", q:["Apakah saya? Buka plak satu demi satu.","اڤاکه ساي؟ بوک ڤلق ساتو دمي ساتو."],
+      clues:[["Saya binatang berwarna putih.","ساي بيناتڠ برورنا ڤوتيه."],["Saya lebih besar daripada keldai.","ساي لبيه بسر درڤد کلداي."],["Sekali langkah saya sejauh mata memandang.","سکالي لڠکه ساي سجاوه مات ممندڠ."]],
+      opts:[["Buraq","براق"],["Unta","اونتا"],["Kuda","کودا"],["Baghal","بغل"]],
+      e:["Buraq membawa baginda ke Baitul Maqdis.","براق ممباوا باڬيندا ک بيت المقدس."] }
+  ] },
+{ id:7, icon:"🧭", c:"#A0522D", sticker:"🌕",
+  t:["Hijrah ke Yathrib","هجرة ک يثرب"], u:["Lahirnya negara Islam Madinah","لاهيرڽ نڬارا إسلام مدينة"],
+  read:[
+    { pic:"🤝🌙", p:"36", h:["Orang Yathrib Memeluk Islam","اورڠ يثرب مملوق إسلام"],
+      text:["Pada tahun ke-11 kenabian, 6 orang Yathrib memeluk Islam. Tahun berikutnya, 12 orang berjanji setia dengan Rasulullah. Pada tahun ke-13, 73 orang Islam Yathrib berjanji untuk melindungi baginda. Quraisy pun merancang untuk membunuh baginda.",
+            "ڤد تاهون ک-11 کنبين، 6 اورڠ يثرب مملوق إسلام. تاهون بريکوتڽ، 12 اورڠ برجنجي ستيا دڠن رسول الله. ڤد تاهون ک-13، 73 اورڠ إسلام يثرب برجنجي اونتوق مليندوڠي باڬيندا. قريش ڤون مرنچڠ اونتوق ممبونوه باڬيندا."] },
+    { pic:"⛰️🕸️", p:"37-38", h:["Gua Thur dan Masjid Quba","ڬوا ثور دان مسجد قباء"],
+      text:["Quraisy mengepung rumah baginda tetapi tidak dapat melihat baginda keluar. Baginda dan Abu Bakar bersembunyi di Gua Thur selama 3 hari. Dalam perjalanan, baginda singgah di Quba dan membina Masjid Quba, masjid pertama dalam sejarah Islam.",
+            "قريش مڠڤوڠ رومه باڬيندا تتاڤي تيدق داڤت مليهت باڬيندا کلوار. باڬيندا دان ابو بکر برسمبوڽي د ڬوا ثور سلاما 3 هاري. دالم ڤرجالنن، باڬيندا سيڠڬه د قباء دان ممبينا مسجد قباء، مسجد ڤرتام دالم سجاره إسلام."] },
+    { pic:"🌕🥁", p:"39-41", h:["Sambutan di Madinah","سمبوتن د مدينة"],
+      text:["Penduduk Yathrib keluar beramai-ramai menyambut baginda dengan syair \"Tala'al badru 'alaina\". Yathrib ditukar nama kepada Madinah al-Munawwarah, iaitu kota yang bercahaya. Baginda membentuk negara Islam Madinah dengan 3 asas: pembinaan masjid, persaudaraan dan Sahifah Madinah.",
+            "ڤندودوق يثرب کلوار براماي٢ مڽمبوت باڬيندا دڠن شعير \"طلع البدر علينا\". يثرب دتوکر نام کڤد مدينة المنورة، ايايت کوتا يڠ برچهاي. باڬيندا ممبنتوق نڬارا إسلام مدينة دڠن 3 اساس: ڤمبيناٴن مسجد، ڤرسوداراٴن دان صحيفة مدينة."],
+      tip:["Penduduk Yathrib mudah menerima Islam kerana pernah mendengar bahawa nabi akhir zaman akan muncul.","ڤندودوق يثرب موده منريما إسلام کران ڤرنه مندڠر بهاوا نبي اخير زمان اکن مونچول."],
+      am:["Hijrah bermaksud meninggalkan perbuatan buruk kepada yang baik.","هجرة برمقصود منيڠڬلکن ڤربواتن بوروق کڤد يڠ باٴيق."] }
+  ],
+  games:[
+    { type:"garismasa", q:["Susun perjalanan hijrah baginda mengikut urutan.","سوسون ڤرجالنن هجرة باڬيندا مڠيکوت اوروتن."],
+      steps:[["Quraisy mengepung rumah baginda","قريش مڠڤوڠ رومه باڬيندا"],["Bersembunyi di Gua Thur","برسمبوڽي د ڬوا ثور"],["Membina Masjid Quba","ممبينا مسجد قباء"],["Disambut penduduk Yathrib","دسمبوت ڤندودوق يثرب"],["Yathrib menjadi Madinah","يثرب منجادي مدينة"]],
+      e:["Tepat! Hijrah membawa kepada negara Islam Madinah.","تڤت! هجرة ممباوا کڤد نڬارا إسلام مدينة."] },
+    { type:"arkib", q:["Lengkapkan dokumen arkib ini.","لڠکڤکن دوکومن ارکيب اين."],
+      s:["Baginda dan Abu Bakar bersembunyi di Gua ___ selama ___ hari.","باڬيندا دان ابو بکر برسمبوڽي د ڬوا ___ سلاما ___ هاري."],
+      ans:[["Thur","ثور"],["3","3"]], extra:[["Hira'","حراء"],["40","40"]],
+      e:["Gua Thur, selama 3 hari.","ڬوا ثور، سلاما 3 هاري."] },
+    { type:"vitrin", q:["Apakah masjid pertama dalam sejarah Islam?","اڤاکه مسجد ڤرتام دالم سجاره إسلام؟"],
+      opts:[["Masjid Quba","مسجد قباء"],["Masjid an-Nabawi","مسجد النبوي"],["Masjid al-Aqsa","مسجد الأقصى"],["Masjidil Haram","مسجد الحرام"]],
+      e:["Masjid Quba dibina semasa perjalanan hijrah.","مسجد قباء دبينا سماس ڤرجالنن هجرة."] },
+    { type:"tiketmuzium", q:["Semak tiket: maklumat ini sah atau palsu?","سمق تيکيت: معلومت اين سه اتاو ڤالسو؟"],
+      items:[[["Madinah al-Munawwarah bermaksud kota yang bercahaya.","مدينة المنورة برمقصود کوتا يڠ برچهاي."],1],
+             [["Penduduk Yathrib menghalau baginda.","ڤندودوق يثرب مڠهالاو باڬيندا."],0],
+             [["Baginda berhijrah bersama Abu Bakar.","باڬيندا برهجرة برسام ابو بکر."],1],
+             [["Quraisy dapat menangkap baginda di rumahnya.","قريش داڤت مناڠکڤ باڬيندا د رومهڽ."],0]],
+      e:["Penduduk Yathrib menyambut baginda dengan gembira.","ڤندودوق يثرب مڽمبوت باڬيندا دڠن ڬمبيرا."] },
+    { type:"artifak", q:["Masukkan kad ke dalam almari yang betul.","ماسوقکن کد ک دالم المري يڠ بتول."],
+      cases:[["3 asas negara Madinah","3 اساس نڬارا مدينة"],["Bukan asas negara","بوکن اساس نڬارا"]],
+      items:[[["Pembinaan masjid","ڤمبيناٴن مسجد"],0],[["Membina istana","ممبينا ايستان"],1],[["Persaudaraan","ڤرسوداراٴن"],0],[["Mengumpul harta","مڠومڤول هرتا"],1],[["Sahifah Madinah","صحيفة مدينة"],0],[["Menyembah berhala","مڽمبه برهالا"],1]],
+      e:["Tiga asas: masjid, persaudaraan dan Sahifah Madinah.","تيڬ اساس: مسجد، ڤرسوداراٴن دان صحيفة مدينة."] },
+    { type:"pameran", q:["Apakah nama saya? Buka plak satu demi satu.","اڤاکه نام ساي؟ بوک ڤلق ساتو دمي ساتو."],
+      clues:[["Nama lama saya ialah Yathrib.","نام لام ساي اياله يثرب."],["Saya terletak di utara Makkah al-Mukarramah.","ساي ترليتق د اوتارا مکة المکرمة."],["Nama saya bermaksud kota yang bercahaya.","نام ساي برمقصود کوتا يڠ برچهاي."]],
+      opts:[["Madinah al-Munawwarah","مدينة المنورة"],["Taif","طائف"],["Habsyah","حبشة"],["Palestin","ڤلستين"]],
+      e:["Yathrib ditukar nama kepada Madinah al-Munawwarah.","يثرب دتوکر نام کڤد مدينة المنورة."] }
+  ] },
+{ id:8, icon:"🕌", c:"#2E6B3A", sticker:"🌴",
+  t:["Pembinaan Masjid","ڤمبيناٴن مسجد"], u:["Asas pertama negara Islam","اساس ڤرتام نڬارا إسلام"],
+  read:[
+    { pic:"🌴🕌", p:"45-48", h:["Masjid an-Nabawi","مسجد النبوي"],
+      text:["Sampai di Madinah, baginda membina masjid di atas tanah milik dua anak yatim yang dibeli. Itulah Masjid an-Nabawi, dibina daripada batang dan pelepah tamar. Masjid menjadi tempat ibadah, pentadbiran, pendidikan dan musyawarah.",
+            "سمڤاي د مدينة، باڬيندا ممبينا مسجد د اتس تانه ميليق دوا انق يتيم يڠ دبلي. ايتوله مسجد النبوي، دبينا درڤد باتڠ دان ڤلڤه تمر. مسجد منجادي تمڤت عبادة، ڤنتدبيرن، ڤنديديقن دان مشاورة."],
+      tip:["Dalam Masjid an-Nabawi ada tempat mustajab berdoa bernama ar-Raudhah.","دالم مسجد النبوي اد تمڤت مستجاب بردعا برنام الروضة."],
+      am:["Melazimkan solat fardu berjemaah di masjid atau surau.","ملازيمکن صلاة فرض برجماعة د مسجد اتاو سوراو."] },
+    { pic:"☝️🕌", p:"49-56", h:["Akidah, Ibadah dan Akhlak","عقيدة، عبادة دان اخلاق"],
+      text:["Masjid menjadi pusat menanam akidah tauhid, iaitu menyembah Allah Yang Esa. Di Madinah, azan dilaungkan oleh Bilal bin Rabah. Nabi juga mengajar akhlak mulia: ikhlas, amanah, adil dan tolong-menolong.",
+            "مسجد منجادي ڤوست منانم عقيدة توحيد، ايايت مڽمبه الله يڠ اسا. د مدينة، اذان دلاوڠکن اوليه بلال بن رباح. نبي جوڬ مڠاجر اخلاق موليا: ايخلاص، امانه، عادل دان تولوڠ-منولوڠ."] },
+    { pic:"📚🛒", p:"57-64", h:["Pendidikan dan Ekonomi","ڤنديديقن دان ايکونومي"],
+      text:["Nabi mengutus Mus'ab bin Umair ke Madinah untuk mengajar al-Quran. Tawanan Perang Badar yang tahu menulis dibebaskan jika mengajar 10 kanak-kanak Islam. Nabi juga membina pasar untuk orang Islam dan mengharamkan riba.",
+            "نبي مڠوتوس مصعب بن عمير ک مدينة اونتوق مڠاجر القرآن. تاونن ڤراڠ بدر يڠ تاهو منوليس دبيبسکن جک مڠاجر 10 کانق٢ إسلام. نبي جوڬ ممبينا ڤاسر اونتوق اورڠ إسلام دان مڠهارمکن ربا."] }
+  ],
+  games:[
+    { type:"vitrin", q:["Daripada apakah Masjid an-Nabawi dibina?","درڤد اڤاکه مسجد النبوي دبينا؟"],
+      opts:[["Batang dan pelepah tamar","باتڠ دان ڤلڤه تمر"],["Batu marmar","باتو مرمر"],["Kayu jati","کايو جاتي"],["Bata merah","بات ميره"]],
+      e:["Masjid an-Nabawi dibina daripada batang dan pelepah tamar.","مسجد النبوي دبينا درڤد باتڠ دان ڤلڤه تمر."] },
+    { type:"artifak", q:["Masukkan setiap kad ke dalam almari yang betul.","ماسوقکن ستياڤ کد ک دالم المري يڠ بتول."],
+      cases:[["Pendidikan","ڤنديديقن"],["Ekonomi","ايکونومي"]],
+      items:[[["Mus'ab bin Umair mengajar al-Quran","مصعب بن عمير مڠاجر القرآن"],0],[["Membina pasar","ممبينا ڤاسر"],1],[["Tawanan mengajar menulis","تاونن مڠاجر منوليس"],0],[["Riba diharamkan","ربا دحرامکن"],1],[["Belajar di masjid","بلاجر د مسجد"],0],[["Berniaga dan bertani","برنياڬ دان برتاني"],1]],
+      e:["Madinah maju dalam ilmu dan ekonomi.","مدينة ماجو دالم علمو دان ايکونومي."] },
+    { type:"tagnama", q:["Padankan setiap tokoh dengan labelnya.","ڤادنکن ستياڤ توکوه دڠن لابلڽ."],
+      pairs:[[["Bilal bin Rabah","بلال بن رباح"],["Melaungkan azan","ملاوڠکن اذان"]],[["Mus'ab bin Umair","مصعب بن عمير"],["Diutus mengajar al-Quran","داوتوس مڠاجر القرآن"]],[["Abdul Rahman bin Auf","عبدالرحمن بن عوف"],["Peniaga yang berjaya","ڤنياڬ يڠ برجاي"]],[["Dua anak yatim","دوا انق يتيم"],["Pemilik tanah masjid","ڤميليق تانه مسجد"]]],
+      e:["Semua label sudah tepat!","سموا لابل سوده تڤت!"] },
+    { type:"kurator", q:["Kapsyen ini ada satu kesilapan. Ketik perkataan yang salah, kemudian betulkan.","کڤسين اين اد ساتو کسيلڤن. کتيق ڤرکاتاٴن يڠ ساله، کمودين بتولکن."],
+      parts:[["Tawanan Perang Badar dibebaskan jika mengajar ","تاونن ڤراڠ بدر دبيبسکن جک مڠاجر "],["100","100"],[" kanak-kanak Islam membaca dan menulis."," کانق٢ إسلام ممباچ دان منوليس."]],
+      bad:1, fix:[["10","10"],["2","2"],["40","40"]],
+      e:["Setiap tawanan mengajar 10 kanak-kanak.","ستياڤ تاونن مڠاجر 10 کانق٢."] },
+    { type:"tiketmuzium", q:["Semak tiket: maklumat ini sah atau palsu?","سمق تيکيت: معلومت اين سه اتاو ڤالسو؟"],
+      items:[[["Masjid juga tempat pendidikan dan musyawarah.","مسجد جوڬ تمڤت ڤنديديقن دان مشاورة."],1],
+             [["Nabi membenarkan amalan riba.","نبي ممبنرکن عملن ربا."],0],
+             [["Akidah yang benar ialah kunci diterima amal ibadah.","عقيدة يڠ بنر اياله کونچي دتريما عمل عبادة."],1],
+             [["Tanah Masjid an-Nabawi dirampas daripada anak yatim.","تانه مسجد النبوي درمڤس درڤد انق يتيم."],0]],
+      e:["Riba diharamkan dan tanah masjid dibeli daripada dua anak yatim.","ربا دحرامکن دان تانه مسجد دبلي درڤد دوا انق يتيم."] },
+    { type:"arkib", q:["Lengkapkan dokumen arkib ini.","لڠکڤکن دوکومن ارکيب اين."],
+      s:["Tempat mustajab berdoa dalam Masjid an-Nabawi bernama ___ . Azan dilaungkan oleh ___ .","تمڤت مستجاب بردعا دالم مسجد النبوي برنام ___ . اذان دلاوڠکن اوليه ___ ."],
+      ans:[["ar-Raudhah","الروضة"],["Bilal bin Rabah","بلال بن رباح"]], extra:[["Sidratul Muntaha","سدرة المنتهى"],["Abu Jahal","ابو جهل"]],
+      e:["ar-Raudhah, dan azan oleh Bilal bin Rabah.","الروضة، دان اذان اوليه بلال بن رباح."] }
+  ] },
+{ id:9, icon:"🤝", c:"#7A2836", sticker:"🏛️",
+  t:["Ukhuwah dan Sahifah","اخوة دان صحيفة"], u:["Persaudaraan dan Sahifah Madinah","ڤرسوداراٴن دان صحيفة مدينة"],
+  read:[
+    { pic:"🤝❤️", p:"68-72", h:["Muhajirin dan Ansar","مهاجرين دان انصار"],
+      text:["Orang Islam yang berhijrah dari Mekah ke Madinah dipanggil Muhajirin. Orang Islam Madinah yang menolong mereka dipanggil Ansar. Nabi mempersaudarakan mereka atas dasar iman, bukan keturunan. Ansar memberi tempat tinggal, makanan dan harta.",
+            "اورڠ إسلام يڠ برهجرة دري مکه ک مدينة دڤڠڬيل مهاجرين. اورڠ إسلام مدينة يڠ منولوڠ مريک دڤڠڬيل انصار. نبي ممڤرسوداراکن مريک اتس داسر ايمان، بوکن کتورونن. انصار ممبري تمڤت تيڠڬل، ماکنن دان هرتا."] },
+    { pic:"🛒💰", p:"70-71", h:["Abdul Rahman dan Saad","عبدالرحمن دان سعد"],
+      text:["Abdul Rahman bin Auf (Muhajirin) dipersaudarakan dengan Saad bin ar-Rabi' (Ansar). Saad menawarkan separuh hartanya. Abdul Rahman hanya meminta ditunjukkan jalan ke pasar, lalu berniaga hingga berjaya.",
+            "عبدالرحمن بن عوف (مهاجرين) دڤرسوداراکن دڠن سعد بن الربيع (انصار). سعد منوارکن سڤاروه هرتاڽ. عبدالرحمن هاڽ ممينتا دتونجوقکن جالن ک ڤاسر، لالو برنياڬ هيڠڬ برجاي."],
+      am:["Sentiasa tolong-menolong sesama kawan.","سنتياس تولوڠ-منولوڠ سسام کاون."] },
+    { pic:"📜✍️", p:"75-78", h:["Sahifah Madinah","صحيفة مدينة"],
+      text:["Sahifah Madinah ialah perlembagaan bertulis pertama di dunia, disusun oleh Nabi pada tahun 622 Masihi. Isinya: Nabi diakui sebagai ketua negara, penduduk bebas mengamalkan agama, semua mempertahankan Madinah, dan dilarang bermusuhan. Kesannya, Madinah aman dan bersatu padu.",
+            "صحيفة مدينة اياله ڤرلمباڬاٴن برتوليس ڤرتام د دنيا، دسوسون اوليه نبي ڤد تاهون 622 مسيحي. ايسيڽ: نبي دأکوي سباڬاي کتوا نڬارا، ڤندودوق بيبس مڠعملکن اڬام، سموا ممڤرتاهنکن مدينة، دان دلارڠ برموسوهن. کسنڽ، مدينة امان دان برساتو ڤادو."],
+      am:["Sentiasa mematuhi peraturan sekolah.","سنتياس ممتوهي ڤراتورن سکوله."] }
+  ],
+  games:[
+    { type:"artifak", q:["Muhajirin atau Ansar? Masukkan kad ke almari yang betul.","مهاجرين اتاو انصار؟ ماسوقکن کد ک المري يڠ بتول."],
+      cases:[["Muhajirin","مهاجرين"],["Ansar","انصار"]],
+      items:[[["Berhijrah dari Mekah","برهجرة دري مکه"],0],[["Penduduk Madinah","ڤندودوق مدينة"],1],[["Abdul Rahman bin Auf","عبدالرحمن بن عوف"],0],[["Saad bin ar-Rabi'","سعد بن الربيع"],1],[["Datang tanpa harta","داتڠ تنڤا هرتا"],0],[["Memberi tempat tinggal","ممبري تمڤت تيڠڬل"],1]],
+      e:["Muhajirin dan Ansar bersaudara kerana iman.","مهاجرين دان انصار برسودارا کران ايمان."] },
+    { type:"vitrin", q:["Apakah yang diminta oleh Abdul Rahman bin Auf daripada Saad?","اڤاکه يڠ دمينتا اوليه عبدالرحمن بن عوف درڤد سعد؟"],
+      opts:[["Ditunjukkan jalan ke pasar","دتونجوقکن جالن ک ڤاسر"],["Separuh harta Saad","سڤاروه هرتا سعد"],["Sebuah rumah besar","سبواه رومه بسر"],["Seekor unta","سأيکور اونتا"]],
+      e:["Abdul Rahman berniaga di pasar hingga berjaya.","عبدالرحمن برنياڬ د ڤاسر هيڠڬ برجاي."] },
+    { type:"tiketmuzium", q:["Isi Sahifah Madinah: sah atau palsu?","ايسي صحيفة مدينة: سه اتاو ڤالسو؟"],
+      items:[[["Nabi SAW diakui sebagai ketua negara.","نبي ﷺ دأکوي سباڬاي کتوا نڬارا."],1],
+             [["Penduduk bebas mengamalkan agama masing-masing.","ڤندودوق بيبس مڠعملکن اڬام ماسيڠ٢."],1],
+             [["Penduduk boleh melindungi musuh Quraisy.","ڤندودوق بوليه مليندوڠي موسوه قريش."],0],
+             [["Hanya orang Muhajirin perlu mempertahankan Madinah.","هاڽ اورڠ مهاجرين ڤرلو ممڤرتاهنکن مدينة."],0]],
+      e:["Semua penduduk mempertahankan Madinah dan dilarang melindungi musuh.","سموا ڤندودوق ممڤرتاهنکن مدينة دان دلارڠ مليندوڠي موسوه."] },
+    { type:"arkib", q:["Lengkapkan dokumen arkib ini.","لڠکڤکن دوکومن ارکيب اين."],
+      s:["Sahifah Madinah ialah perlembagaan ___ pertama di dunia. Ia disusun pada tahun ___ Masihi.","صحيفة مدينة اياله ڤرلمباڬاٴن ___ ڤرتام د دنيا. اي دسوسون ڤد تاهون ___ مسيحي."],
+      ans:[["bertulis","برتوليس"],["622","622"]], extra:[["lisan","ليسن"],["610","610"]],
+      e:["Perlembagaan bertulis pertama, tahun 622 Masihi.","ڤرلمباڬاٴن برتوليس ڤرتام، تاهون 622 مسيحي."] },
+    { type:"kurator", q:["Kapsyen ini ada satu kesilapan. Ketik perkataan yang salah, kemudian betulkan.","کڤسين اين اد ساتو کسيلڤن. کتيق ڤرکاتاٴن يڠ ساله، کمودين بتولکن."],
+      parts:[["Nabi mempersaudarakan Muhajirin dan Ansar atas dasar ","نبي ممڤرسوداراکن مهاجرين دان انصار اتس داسر "],["keturunan","کتورونن"],[", bukan harta."," ، بوکن هرتا."]],
+      bad:1, fix:[["iman","ايمان"],["kekayaan","ککاياٴن"],["kabilah","قبيلة"]],
+      e:["Persaudaraan atas dasar iman.","ڤرسوداراٴن اتس داسر ايمان."] },
+    { type:"garismasa", q:["Susun sejarah Madinah mengikut urutan.","سوسون سجاره مدينة مڠيکوت اوروتن."],
+      steps:[["Baginda tiba di Madinah","باڬيندا تيبا د مدينة"],["Membina Masjid an-Nabawi","ممبينا مسجد النبوي"],["Mempersaudarakan Muhajirin dan Ansar","ممڤرسوداراکن مهاجرين دان انصار"],["Madinah aman dan bersatu padu","مدينة امان دان برساتو ڤادو"]],
+      e:["Tepat! Masjid, persaudaraan dan Sahifah menjadikan Madinah aman.","تڤت! مسجد، ڤرسوداراٴن دان صحيفة منجاديکن مدينة امان."] }
+  ] }
+];
+/* Cabaran akhir "Dewan Agung": satu permainan daripada setiap galeri [stesen, indeks] */
+const FINAL_PICK = [[1,0],[2,4],[3,5],[4,3],[5,0],[6,1],[7,0],[8,2],[9,2]];
+
+/* ===================== ENJIN "Muzium Sirah" (Sirah Tahun 4) ===================== */
+const KEY = "s4-best", VKEY = "t4-voice";
+function load(k,f){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):f; }catch(e){ return f; } }
+function save(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+let LANG = load("kafa-lang","jawi");
+const isJ = () => LANG==="jawi";
+const T = v => v==null ? "" : typeof v==="string" ? v : (isJ() ? v[1] : v[0]);
+const RU = v => v==null ? "" : typeof v==="string" ? "" : v[0];
+const L = (r,j) => isJ() ? j : r;
+function applyLang(){ document.documentElement.dir = isJ() ? "rtl" : "ltr"; document.documentElement.lang = isJ() ? "ms-Arab" : "ms"; }
+const BACK = () => isJ() ? "→" : "←";
+let best = load(KEY, {});
+let voiceOn = load(VKEY, true);
+const app = document.getElementById("app");
+const $ = s => app.querySelector(s);
+const shuffle = a => { const b=a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; };
+const mix = a => { if(a.length<2) return a.slice(); let b; do{ b=shuffle(a); }while(b.every((x,i)=>x===a[i])); return b; };
+const starsFor = m => m<=1 ? 3 : m<=3 ? 2 : 1;
+const totalStars = () => Object.values(best).reduce((s,v)=>s+(+v||0),0);
+
+/* ---------- Maskot: Cik Ancil si kancil kurator ---------- */
+function ancil(cls=""){
+  return `<svg class="ancil ${cls}" viewBox="0 0 120 120" aria-hidden="true">
+    <ellipse cx="60" cy="114" rx="30" ry="4.5" fill="rgba(0,0,0,.18)"/>
+    <path d="M44 78 q-4 18 -2 34 M54 82 v30 M70 82 v30 M80 78 q4 18 2 34" stroke="#7A4A22" stroke-width="6" stroke-linecap="round" fill="none"/>
+    <ellipse cx="62" cy="78" rx="28" ry="18" fill="#B9773A" stroke="#3E2410" stroke-width="3.5"/>
+    <ellipse cx="62" cy="84" rx="16" ry="8" fill="#F1D9B5"/>
+    <path d="M34 40 L24 12 L44 32 Z M66 40 L80 14 L60 32 Z" fill="#B9773A" stroke="#3E2410" stroke-width="3.5" stroke-linejoin="round"/>
+    <path d="M30 22 L36 34 M74 22 L66 34" stroke="#F3B9A0" stroke-width="4" stroke-linecap="round"/>
+    <path d="M30 40 Q50 22 70 40 Q76 56 64 64 L56 72 Q50 76 44 72 L36 64 Q24 56 30 40 Z" fill="#C98545" stroke="#3E2410" stroke-width="3.5" stroke-linejoin="round"/>
+    <ellipse cx="50" cy="66" rx="10" ry="7" fill="#F1D9B5"/>
+    <ellipse cx="50" cy="62" rx="4.5" ry="3" fill="#2B1E1A"/>
+    <circle cx="40" cy="46" r="6" fill="#fff" stroke="#3E2410" stroke-width="2.5"/><circle cx="60" cy="46" r="6" fill="#fff" stroke="#3E2410" stroke-width="2.5"/>
+    <circle cx="41" cy="47" r="3" fill="#2B1E1A"/><circle cx="61" cy="47" r="3" fill="#2B1E1A"/>
+    <circle cx="60" cy="46" r="9" fill="none" stroke="#D9A441" stroke-width="2.5"/><path d="M69 47 q8 6 6 18" stroke="#D9A441" stroke-width="1.5" fill="none"/>
+    <path d="M44 70 q6 4 12 0" stroke="#3E2410" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M50 92 l-10 -6 v12 Z M50 92 l10 -6 v12 Z" fill="#6E1F2E" stroke="#3E2410" stroke-width="2" stroke-linejoin="round"/><circle cx="50" cy="92" r="3" fill="#D9A441"/>
+    <path d="M88 70 q10 -6 8 -16" stroke="#7A4A22" stroke-width="5" stroke-linecap="round" fill="none"/>
+  </svg>`;
+}
+
+/* ---------- Bunyi ---------- */
+let actx = null;
+function tone(seq){
+  try{
+    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    let t = actx.currentTime;
+    for(const [f,d,type] of seq){
+      const o = actx.createOscillator(), g = actx.createGain();
+      o.type = type||"sine"; o.frequency.value = f; g.gain.setValueAtTime(.16,t); g.gain.exponentialRampToValueAtTime(.001,t+d);
+      o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t+d); t += d*.8;
+    }
+  }catch(e){}
+}
+const sfx = {
+  ok:   () => tone([[587,.12],[880,.2]]),
+  tick: () => tone([[700,.07,"triangle"]]),
+  no:   () => tone([[230,.18,"square"],[190,.2,"square"]]),
+  stamp:() => tone([[160,.08,"square"],[120,.1,"triangle"]]),
+  open: () => tone([[520,.06,"triangle"],[780,.08,"triangle"]]),
+  win:  () => tone([[392,.14],[523,.14],[659,.14],[784,.32]])
+};
+
+/* ---------- Suara: Rumi sahaja, buang tulisan Arab ---------- */
+const ttsOK = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+let voice = null;
+function pickVoice(){ try{ const vs = speechSynthesis.getVoices(); voice = vs.find(v=>/^ms/i.test(v.lang)) || vs.find(v=>/^id/i.test(v.lang)) || null; }catch(e){} }
+if(ttsOK){ pickVoice(); try{ speechSynthesis.onvoiceschanged = pickVoice; }catch(e){} }
+const noArab = s => s.replace(/[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]+/g," ").replace(/\s+/g," ").trim();
+function speak(text, force){
+  if(!ttsOK || !text || (!voiceOn && !force)) return;
+  try{
+    speechSynthesis.cancel();
+    const clean = noArab(text.replace(/___/g," ... ").replace(/\bSAW\b/g,"sallallahu alaihi wasallam").replace(/\bAS\b/g,"alaihissalam"));
+    if(!clean) return;
+    const u = new SpeechSynthesisUtterance(clean);
+    u.lang = voice ? voice.lang : "ms-MY"; if(voice) u.voice = voice; u.rate = .95; u.pitch = 1.05;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function hush(){ if(ttsOK){ try{ speechSynthesis.cancel(); }catch(e){} } }
+
+/* ---------- Bantuan paparan ---------- */
+function toast(msg){ document.querySelectorAll(".toast").forEach(t=>t.remove()); const t=document.createElement("div"); t.className="toast"; t.setAttribute("role","status"); t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2600); }
+function confetti(n=34){
+  const box = document.createElement("div"); box.className="confetti"; box.setAttribute("aria-hidden","true");
+  const em = ["⭐","🏛️","📜","✨","🗝️","🌟"];
+  for(let i=0;i<n;i++){ const s=document.createElement("span"); s.textContent=em[i%em.length]; s.style.left=Math.random()*100+"vw"; s.style.animationDuration=(2+Math.random()*2)+"s"; s.style.animationDelay=Math.random()*.8+"s"; box.appendChild(s); }
+  document.body.appendChild(box); setTimeout(()=>box.remove(),5000);
+}
+const langBtn = () => `<button class="ib" data-act="lang" aria-label="${L("Tukar ke tulisan Jawi","توکر ک توليسن رومي")}">${isJ()?"Rumi":'<span style="font-family:Noto Naskh Arabic">جاوي</span>'}</button>`;
+const voiceBtn = () => `<button class="ib" data-act="voice" aria-label="${L("Suara","سوارا")}" aria-pressed="${voiceOn}">${voiceOn?"🔊":"🔇"}</button>`;
+const sayBtn = txt => ttsOK && txt ? `<button class="say" data-say="${encodeURIComponent(txt)}" aria-label="${L("Dengar","دڠر")}">🔊</button>` : "";
+const starRow = n => [1,2,3].map(i=>`<span class="${i<=n?"":"off"}">⭐</span>`).join("");
+const unlocked = id => id===1 || (best[id-1]||0)>0;
+const allDone = () => STATIONS.every(s => (best[s.id]||0)>0);
+const FINAL_ST = { id:"final", icon:"🏆", c:"#C98A1E", t:["Dewan Agung","ديوان اڬوڠ"], u:["Cabaran daripada semua galeri","چابرن درڤد سموا ڬاليري"], sticker:"🏆" };
+
+/* ===================== PELAN MUZIUM ===================== */
+let S = null;
+function renderMap(){
+  hush(); S = null;
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  document.title = L("Muzium Sirah • Sirah Tahun 4","موزيوم سيرة • سيرة تاهون 4");
+  const cur = (STATIONS.find(s => !(best[s.id]>0)) || {id:"final"}).id;
+  const node = (s, side) => {
+    const lock = !unlocked(s.id), st = best[s.id]||0;
+    return `<div class="row ${side}"><button class="node ${lock?"lock":""} ${cur===s.id?"now":""}" data-act="${lock?"locked":"open"}" data-id="${s.id}" style="--c:${s.c}">
+      <span class="door"><span class="num">${s.id}</span><span class="tic">${s.icon}</span></span>
+      <span class="nm">${T(s.t)}</span><span class="st">${st?starRow(st):""}</span>${cur===s.id?ancil("sm bob guide"):""}</button></div>`;
+  };
+  const rows = STATIONS.slice().reverse().map(s => node(s, s.id%2 ? "l" : "r")).join("");
+  const fOpen = allDone(), fSt = best.final||0;
+  app.innerHTML = `
+    <div class="top"><a class="ib" href="../index.html" aria-label="${L("Kembali ke Tahun 4","کمبالي ک تاهون 4")}">${BACK()}</a><span class="sp"></span>
+      <span class="pill" aria-label="${totalStars()} ${L("bintang","بينتڠ")}">⭐ ${totalStars()}</span>${voiceBtn()}${langBtn()}</div>
+    <header class="hero">${ancil("bob")}<div><h1>${L("Muzium Sirah","موزيوم سيرة")}</h1>
+      <p>${L("Jelajah galeri sirah Nabi SAW bersama Cik Ancil dan kumpul koleksi artifak!","جلاجه ڬاليري سيرة نبي ﷺ برسام چيق انچيل دان کومڤول کوليکسي ارتيفک!")}</p></div></header>
+    <p class="sttl">🗝️ ${L("Koleksi saya","کوليکسي ساي")}</p>
+    <div class="stickers">${STATIONS.map(s=>`<span class="${best[s.id]>0?"got":""}" title="${T(s.t)}">${s.sticker}</span>`).join("")}<span class="${best.final>0?"got":""}" title="${T(FINAL_ST.t)}">🏆</span></div>
+    <section class="plan" aria-label="${L("Pelan muzium","ڤلن موزيوم")}">
+      <div class="hall"><button class="node final ${fOpen?"":"lock"} ${cur==="final"?"now":""}" data-act="${fOpen?"final":"flocked"}" style="--c:#C98A1E">
+        <span class="door"><span class="tic">🏆</span></span>
+        <span class="nm">${T(FINAL_ST.t)}</span><span class="st">${fSt?starRow(fSt):""}</span>${cur==="final"?ancil("sm bob guide"):""}</button></div>
+      ${rows}
+      <div class="entry">🎟️ ${L("Pintu masuk","ڤينتو ماسوق")}</div>
+    </section>`;
+  const now = app.querySelector(".node.now");
+  if(now) setTimeout(()=>{ try{ now.scrollIntoView({block:"center", behavior:"smooth"}); }catch(e){} }, 250);
+}
+
+/* ===================== GALERI: BACA ===================== */
+function openStation(id){
+  const st = STATIONS.find(s=>s.id===id);
+  S = { st, phase:"read", ri:0, gi:0, miss:0, games: st.games.slice() };
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  renderRead();
+}
+function openFinal(){
+  const games = FINAL_PICK.map(([s,i]) => STATIONS.find(x=>x.id===s).games[i]);
+  S = { st:FINAL_ST, phase:"play", gi:0, miss:0, games };
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  renderPlay();
+}
+const head = () => `<div class="top"><button class="ib" data-act="map" aria-label="${L("Kembali ke pelan muzium","کمبالي ک ڤلن موزيوم")}">${BACK()}</button><span class="sp"></span>${voiceBtn()}${langBtn()}</div>
+  <div class="shead"><span class="badge" style="--c:${S.st.c}">${S.st.icon}</span><div><h2>${T(S.st.t)}</h2><small>${T(S.st.u)}</small></div></div>`;
+function readSpeech(c){
+  return [RU(c.h), RU(c.text), ...(c.list||[]).map(RU), c.tip?("Tahukah anda? "+RU(c.tip)):"", c.am?("Amalkan: "+RU(c.am)):""].filter(Boolean).join(". ");
+}
+function renderRead(){
+  hush();
+  const c = S.st.read[S.ri], n = S.st.read.length, last = S.ri===n-1;
+  app.innerHTML = head() + `
+    <article class="card frame">
+      <div class="rpic" aria-hidden="true">${c.pic}</div>
+      <h3 class="rh"><span>${T(c.h)}</span> ${sayBtn(readSpeech(c))}</h3>
+      ${c.text?`<p class="rtext">${T(c.text)}</p>`:""}
+      ${c.list?`<ul class="rlist">${c.list.map(x=>`<li>${T(x)}</li>`).join("")}</ul>`:""}
+      ${c.tip?`<div class="tip"><b>💡</b><span><b>${L("Tahukah anda?","تاهوکه اندا؟")}</b> ${T(c.tip)}</span></div>`:""}
+      ${c.am?`<div class="tip am"><b>🌱</b><span><b>${L("Amalkan:","عملکن:")}</b> ${T(c.am)}</span></div>`:""}
+      <div class="ref">📖 ${L("Buku teks ms.","بوکو تيکس م.س.")} ${c.p}</div>
+      <div class="navr">
+        <button class="btn alt" data-act="rprev" ${S.ri?"":"disabled"} aria-label="${L("Sebelum","سبلوم")}" style="flex:0 0 64px">${BACK()}</button>
+        <button class="btn ${last?"go":""}" data-act="rnext">${last ? "🎮 "+L("Jom main!","جوم ماٴين!") : L("Seterusnya","ستروسڽ")+" ▶"}</button>
+      </div>
+      <div class="dots">${S.st.read.map((_,i)=>`<i class="${i===S.ri?"on":""}"></i>`).join("")}</div>
+    </article>`;
+  speak(readSpeech(c));
+  window.scrollTo(0,0);
+}
+
+/* ===================== GALERI: MAIN ===================== */
+function progressBar(){
+  const n = S.games.length, k = S.gi, pct = k/n*100, side = isJ() ? "right" : "left";
+  const flags = S.games.map((_,i)=> i>=k ? `<span class="fl" style="${side}:${(i+.5)/n*100}%;${isJ()?"transform:translate(50%,-50%)":""}">🖼️</span>` : "").join("");
+  return `<div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${k}"><span class="walk" style="width:${pct}%"></span>${flags}
+    <span class="me" style="${side}:${Math.max(4,pct)}%;${isJ()?"transform:translate(50%,-50%)":""}">🦌</span></div>`;
+}
+function renderPlay(){
+  hush();
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  const g = S.games[S.gi];
+  S.t0 = Date.now();
+  app.innerHTML = head() + progressBar() + `<section class="card" id="game" style="--sc:${S.st.c}"></section>`;
+  const box = $("#game");
+  box.innerHTML = `<div class="q"><p>${T(g.q)}</p>${sayBtn(RU(g.q))}</div><div id="play"></div><div id="hint"></div>`;
+  GAMES[g.type]($("#play"), g);
+  speak(RU(g.q));
+  window.scrollTo(0,0);
+}
+function oops(el, hint){
+  S.miss++; sfx.no();
+  if(el){ el.classList.remove("shake"); void el.offsetWidth; el.classList.add("shake"); }
+  const h = $("#hint"); if(h){ h.innerHTML = `<div class="hint">🦌 ${hint || L("Hmm, semak sekali lagi!","همم، سمق سکالي لاڬي!")}</div>`; }
+}
+const PRAISE = [["Hebat!","هيبت!"],["Tepat sekali!","تڤت سکالي!"],["Bijak!","بيجق!"],["Syabas!","شاباس!"],["MasyaAllah!","ماشاءالله!"]];
+let winLock = false;
+function win(){
+  if(document.querySelector(".fb")) return;
+  sfx.ok();
+  const g = S.games[S.gi], p = PRAISE[Math.floor(Math.random()*PRAISE.length)];
+  const fast = Date.now() - (S.t0||0) < 25000;
+  const fb = document.createElement("div"); fb.className = "fb"; fb.setAttribute("role","dialog"); fb.setAttribute("aria-live","polite");
+  fb.innerHTML = `<div class="in"><div class="row1">${ancil("sm")}<div><strong>${T(p)}</strong>${fast?` <span class="fast">⚡ ${L("Pantas!","ڤنتس!")}</span>`:""}<p>${T(g.e)}</p></div></div>
+    <button class="btn go" data-act="next">${L("Seterusnya","ستروسڽ")} ▶</button></div>`;
+  document.body.appendChild(fb);
+  speak(RU(p)+" "+RU(g.e));
+  setTimeout(()=>{ const b = fb.querySelector("button"); if(b) b.focus(); }, 50);
+}
+function nextGame(){
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  S.gi++;
+  if(S.gi < S.games.length) renderPlay(); else renderResult();
+}
+function renderResult(){
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  const id = S.st.id, stars = starsFor(S.miss), prev = best[id]||0, wasAll = allDone();
+  if(stars > prev){ best[id] = stars; save(KEY, best); }
+  S.phase = "result";
+  S.res = { stars, first: !prev, openedFinal: id!=="final" && !wasAll && allDone() };
+  drawResult(true);
+}
+function drawResult(fresh){
+  hush();
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  const { stars, first, openedFinal } = S.res;
+  const msg = stars===3 ? ["Cemerlang! Kamu kurator sirah yang hebat.","چمرلڠ! کامو کوراتور سيرة يڠ هيبت."] : stars===2 ? ["Bagus! Cuba lagi untuk 3 bintang.","باڬوس! چوبا لاڬي اونتوق 3 بينتڠ."] : ["Syabas kerana mencuba! Jom lawat galeri ini sekali lagi.","شاباس کران منچوبا! جوم لاوت ڬاليري اين سکالي لاڬي."];
+  const title = PRAISE[stars===3?4:stars===2?0:3];
+  app.innerHTML = head() + `<section class="card res">
+      ${ancil("bob")}
+      <div class="stars" aria-label="${stars} ${L("bintang","بينتڠ")}">${[1,2,3].map(i=>`<span class="${i<=stars?"":"off"}" style="animation-delay:${i*.25}s">⭐</span>`).join("")}</div>
+      <h2>${T(title)}</h2><p>${T(msg)}</p>
+      ${first ? `<div class="gotst"><span>${S.st.sticker}</span>${L("Artifak baharu untuk koleksi kamu!","ارتيفک بهارو اونتوق کوليکسي کامو!")}</div>` : ""}
+      ${openedFinal ? `<p><b>🏆 ${L("Dewan Agung kini dibuka!","ديوان اڬوڠ کيني دبوک!")}</b></p>` : ""}
+      <button class="btn go" data-act="map">🏛️ ${L("Kembali ke pelan muzium","کمبالي ک ڤلن موزيوم")}</button>
+      <button class="btn alt" style="margin-top:10px" data-act="again">🔁 ${L("Main lagi","ماٴين لاڬي")}</button>
+    </section>`;
+  if(fresh){ sfx.win(); confetti(); speak(RU(title)+" "+RU(msg)); }
+  window.scrollTo(0,0);
+}
+
+/* ===================== JENIS PERMAINAN ===================== */
+const GAMES = {
+  /* vitrin: pilih almari kaca yang menyimpan jawapan betul */
+  vitrin(el, g){
+    const opts = shuffle(g.opts.map((x,i)=>({x, ok:i===0})));
+    el.innerHTML = `<div class="grid2" style="margin-top:12px">${opts.map((o,i)=>`<button class="vit" data-i="${i}" data-ok="${o.ok?1:0}">${T(o.x)}</button>`).join("")}</div>`;
+    let done = false;
+    el.querySelectorAll(".vit").forEach(b => b.addEventListener("click", () => {
+      if(done || b.disabled) return;
+      if(opts[+b.dataset.i].ok){ done = true; b.classList.add("ok"); win(); }
+      else { b.disabled = true; b.style.opacity = .45; oops(b, L("Bukan almari itu. Baca semula kad galeri!","بوکن المري ايت. باچ سمولا کد ڬاليري!")); }
+    }));
+  },
+
+  /* garismasa: isi garis masa mengikut urutan peristiwa */
+  garismasa(el, g){
+    const order = mix(g.steps.map((_,i)=>i)); let k = 0;
+    el.innerHTML = `<div class="tline" style="margin-top:12px">${g.steps.map((_,i)=>`<div class="tslot" data-n="${i+1}" id="ts${i}"></div>`).join("")}</div>
+      <div class="col">${order.map(i=>`<button class="opt" data-i="${i}">${T(g.steps[i])}</button>`).join("")}</div>`;
+    el.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => {
+      if(b.disabled || k>=g.steps.length) return;
+      if(+b.dataset.i===k){
+        const s = el.querySelector("#ts"+k); s.textContent = T(g.steps[k]); s.classList.add("fill");
+        b.disabled = true; b.classList.add("done"); k++; sfx.tick();
+        if(k===g.steps.length) setTimeout(win, 300);
+      } else oops(b, L(`Belum lagi. Apakah peristiwa ke-${k+1}?`,`بلوم لاڬي. اڤاکه ڤريستيوا ک-${k+1}؟`));
+    }));
+  },
+
+  /* tiketmuzium: cop SAH atau PALSU pada setiap tiket */
+  tiketmuzium(el, g){
+    const items = shuffle(g.items); let k = 0;
+    const draw = () => {
+      el.innerHTML = `<div class="tcount">🎟️ ${k+1} / ${items.length}</div>
+        <div class="tkt"><div class="tl">${T(items[k][0])}</div><div class="ts">${L("TIKET","تيکيت")}</div></div>
+        <div class="stamps"><button class="stp" data-v="1">✔ ${L("SAH","سه")}</button><button class="stp" data-v="0">✘ ${L("PALSU","ڤالسو")}</button></div>`;
+      el.querySelectorAll(".stp").forEach(b => b.addEventListener("click", () => {
+        if(+b.dataset.v===items[k][1]){
+          sfx.stamp(); k++;
+          if(k===items.length){ b.disabled = true; setTimeout(win, 200); } else { draw(); speak(RU(items[k][0])); }
+        } else oops(b, L("Cop itu salah. Fikir semula!","چوڤ ايت ساله. فيکير سمولا!"));
+      }));
+    };
+    draw();
+  },
+
+  /* tagnama: ketik pameran, kemudian ketik label yang sepadan */
+  tagnama(el, g){
+    const right = mix(g.pairs.map((_,i)=>i)); let sel = null, got = 0;
+    el.innerHTML = `<div class="lab" style="margin-top:12px"><div class="col">${g.pairs.map((p,i)=>`<button class="opt ll" data-l="${i}">${T(p[0])}</button>`).join("")}</div>
+      <div class="col">${right.map(i=>`<button class="opt lr" data-r="${i}">${T(g.pairs[i][1])}</button>`).join("")}</div></div>`;
+    el.querySelectorAll("[data-l]").forEach(b => b.addEventListener("click", () => {
+      if(b.disabled) return;
+      el.querySelectorAll("[data-l]").forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); sel = +b.dataset.l; sfx.tick();
+    }));
+    el.querySelectorAll("[data-r]").forEach(b => b.addEventListener("click", () => {
+      if(b.disabled) return;
+      if(sel===null){ toast(L("Ketik pameran di sebelah dahulu.","کتيق ڤاميرن د سبله دهولو.")); return; }
+      const l = el.querySelector(`[data-l="${sel}"]`);
+      if(+b.dataset.r===sel){
+        [l,b].forEach(x=>{ x.disabled = true; x.classList.remove("sel"); x.classList.add("ok"); }); sel = null; got++; sfx.tick();
+        if(got===g.pairs.length) setTimeout(win, 300);
+      } else oops(b, L("Label itu bukan untuk pameran ini.","لابل ايت بوکن اونتوق ڤاميرن اين."));
+    }));
+  },
+
+  /* artifak: masukkan setiap kad ke almari pameran yang betul */
+  artifak(el, g){
+    const items = shuffle(g.items); let k = 0; const count = [0,0];
+    const draw = () => {
+      el.innerHTML = `<div class="tcount">🏺 ${k+1} / ${items.length}</div>
+        <div class="art"><span class="ai" aria-hidden="true">🏺</span>${T(items[k][0])}</div>
+        <div class="cases">${g.cases.map((c,i)=>`<button class="case" data-b="${i}">🗄️ ${T(c)}<small>${count[i]} ${L("artifak","ارتيفک")}</small></button>`).join("")}</div>`;
+      el.querySelectorAll(".case").forEach(b => b.addEventListener("click", () => {
+        if(k>=items.length) return;
+        if(+b.dataset.b===items[k][1]){
+          count[items[k][1]]++; k++; sfx.tick();
+          if(k===items.length) setTimeout(win, 200); else draw();
+        } else oops(b, L("Bukan almari itu. Baca kad sekali lagi!","بوکن المري ايت. باچ کد سکالي لاڬي!"));
+      }));
+    };
+    draw();
+  },
+
+  /* arkib: isi tempat kosong dalam dokumen lama mengikut urutan */
+  arkib(el, g){
+    const segs = T(g.s).split("___");
+    const chips = shuffle([...g.ans.map((x,i)=>({x,a:i})), ...g.extra.map(x=>({x,a:-1}))]); let k = 0;
+    el.innerHTML = `<div class="doc" style="margin-top:12px">${segs.map((s,i)=> s + (i<segs.length-1 ? `<span class="bl" id="bl${i}">${i===0?"❓":"&nbsp;"}</span>` : "")).join("")}</div>
+      <div class="chips">${chips.map((c,i)=>`<button class="opt" data-c="${i}" data-a="${c.a}">${T(c.x)}</button>`).join("")}</div>`;
+    el.querySelectorAll("[data-c]").forEach(b => b.addEventListener("click", () => {
+      if(b.disabled || k>=g.ans.length) return;
+      if(+b.dataset.a===k){
+        const bl = el.querySelector("#bl"+k); bl.textContent = T(g.ans[k]); bl.classList.add("f");
+        b.disabled = true; b.classList.add("done"); k++; sfx.tick();
+        const nx = el.querySelector("#bl"+k); if(nx) nx.textContent = "❓";
+        if(k===g.ans.length) setTimeout(win, 300);
+      } else oops(b, L(`Perkataan itu tidak sesuai untuk tempat kosong ke-${k+1}.`,`ڤرکاتاٴن ايت تيدق سسواي اونتوق تمڤت کوسوڠ ک-${k+1}.`));
+    }));
+  },
+
+  /* pameran: buka plak petunjuk satu demi satu, kemudian teka */
+  pameran(el, g){
+    const opts = shuffle(g.opts.map((x,i)=>({x, ok:i===0}))); let open = 1, done = false;
+    const plaques = () => g.clues.map((c,i)=> i<open ? `<div class="plq">🔎 ${T(c)}</div>` : `<button class="plq hid" data-act2="reveal">🔒 ${L("Ketik untuk buka plak","کتيق اونتوق بوک ڤلق")} ${i+1}</button>`).join("");
+    el.innerHTML = `<div class="plaques" style="margin-top:12px"></div>
+      <div class="grid2">${opts.map((o,i)=>`<button class="opt" data-i="${i}" data-ok="${o.ok?1:0}">${T(o.x)}</button>`).join("")}</div>`;
+    const pl = el.querySelector(".plaques");
+    const drawP = () => { pl.innerHTML = plaques(); pl.querySelectorAll('[data-act2="reveal"]').forEach(b => b.addEventListener("click", () => { if(open<g.clues.length){ open++; sfx.open(); drawP(); speak(RU(g.clues[open-1])); } })); };
+    drawP();
+    el.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => {
+      if(done || b.disabled) return;
+      if(opts[+b.dataset.i].ok){ done = true; open = g.clues.length; drawP(); b.classList.add("ok"); win(); }
+      else { b.disabled = true; b.classList.add("done"); oops(b, open<g.clues.length ? L("Belum tepat. Buka plak seterusnya untuk petunjuk!","بلوم تڤت. بوک ڤلق ستروسڽ اونتوق ڤتونجوق!") : L("Belum tepat. Baca semua plak semula!","بلوم تڤت. باچ سموا ڤلق سمولا!")); }
+    }));
+  },
+
+  /* kurator: cari perkataan salah dalam kapsyen, kemudian betulkan */
+  kurator(el, g){
+    let step = 1;
+    const segs = [];
+    g.parts.forEach((p,i) => { if(i===g.bad) segs.push({x:T(p), bad:1}); else T(p).split(/\s+/).filter(Boolean).forEach(w => segs.push({x:w, bad:0})); });
+    const fixes = shuffle(g.fix.map((x,i)=>({x, ok:i===0})));
+    el.innerHTML = `<div class="kstep" id="kst">1️⃣ ${L("Ketik perkataan yang salah.","کتيق ڤرکاتاٴن يڠ ساله.")}</div>
+      <div class="cap">${segs.map((s,i)=>`<button class="seg" data-s="${i}" data-bad="${s.bad}">${s.x}</button>`).join(" ")}</div>
+      <div class="chips" id="fixes" hidden>${fixes.map((f,i)=>`<button class="opt" data-f="${i}" data-ok="${f.ok?1:0}">${T(f.x)}</button>`).join("")}</div>`;
+    el.querySelectorAll(".seg").forEach(b => b.addEventListener("click", () => {
+      if(step!==1) return;
+      if(b.dataset.bad==="1"){ step = 2; b.classList.add("sel"); sfx.tick(); el.querySelector("#fixes").hidden = false;
+        el.querySelector("#kst").textContent = "2️⃣ " + L("Pilih perkataan yang betul.","ڤيليه ڤرکاتاٴن يڠ بتول."); }
+      else oops(b, L("Perkataan itu betul. Cari yang salah!","ڤرکاتاٴن ايت بتول. چاري يڠ ساله!"));
+    }));
+    el.querySelectorAll("[data-f]").forEach(b => b.addEventListener("click", () => {
+      if(step!==2 || b.disabled) return;
+      if(fixes[+b.dataset.f].ok){ step = 3; const s = el.querySelector('.seg[data-bad="1"]'); s.textContent = T(g.fix[0]); s.classList.remove("sel"); s.classList.add("fix"); b.classList.add("ok"); win(); }
+      else { b.disabled = true; b.classList.add("done"); oops(b, L("Itu pun tidak tepat. Cuba lagi!","ايت ڤون تيدق تڤت. چوبا لاڬي!")); }
+    }));
+  }
+};
+
+/* ===================== KAWALAN ===================== */
+document.addEventListener("click", e => {
+  const s = e.target.closest("[data-say]");
+  if(s){ speak(decodeURIComponent(s.dataset.say), true); return; }
+  const b = e.target.closest("[data-act]"); if(!b) return;
+  const a = b.dataset.act;
+  if(a==="lang"){ LANG = isJ() ? "rumi" : "jawi"; save("kafa-lang", LANG); applyLang(); redraw(); }
+  else if(a==="voice"){ voiceOn = !voiceOn; save(VKEY, voiceOn); if(!voiceOn) hush(); redraw(); }
+  else if(a==="open"){ openStation(+b.dataset.id); }
+  else if(a==="locked"){ sfx.no(); toast(L("Lawati galeri sebelumnya dahulu 🔒","لاوتي ڬاليري سبلومڽ دهولو 🔒")); }
+  else if(a==="final"){ openFinal(); }
+  else if(a==="flocked"){ sfx.no(); toast(L(`Selesaikan semua ${STATIONS.length} galeri untuk membuka Dewan Agung 🏆`,`سلسايکن سموا ${STATIONS.length} ڬاليري اونتوق ممبوک ديوان اڬوڠ 🏆`)); }
+  else if(a==="map"){ renderMap(); window.scrollTo(0,0); }
+  else if(a==="rprev"){ if(S.ri>0){ S.ri--; renderRead(); } }
+  else if(a==="rnext"){ if(S.ri < S.st.read.length-1){ S.ri++; renderRead(); } else { S.phase="play"; S.gi=0; S.miss=0; renderPlay(); } }
+  else if(a==="next"){ nextGame(); }
+  else if(a==="again"){ S.res = null; S.st.id==="final" ? openFinal() : (S.gi=0, S.miss=0, S.phase="play", renderPlay()); }
+});
+function redraw(){
+  if(!S) return renderMap();
+  if(S.phase==="read") return renderRead();
+  if(S.res && document.querySelector(".res")) return drawResult(false);
+  renderPlay();
+}
+applyLang();
+renderMap();
+</script>
+</body>
+</html>

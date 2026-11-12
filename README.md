@@ -67,6 +67,9 @@ kafa/
 │   └── hafazan/index.html← Game Sampan Hafiz (Hafazan Tahun 2)
 ├── tahun4/
 │   ├── index.html        ← Senarai subjek Tahun 4
+│   ├── akhlak/index.html ← Game Hari Sukan Adab (Akhlak Tahun 4)
+│   ├── tajwid/index.html ← Game Makmal Tajwid (Tajwid Tahun 4)
+│   ├── sirah/index.html ← Game Muzium Sirah (Sirah Tahun 4)
 │   ├── hafazan/index.html ← Game Ekspedisi Hutan Hafiz (Hafazan Tahun 4)
 │   ├── arab/index.html ← Game Lapangan Terbang Lughah (Bahasa Arab Tahun 4)
 │   ├── tauhid/index.html ← Game Daki Gunung Iman (Tauhid Tahun 4)

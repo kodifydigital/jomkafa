@@ -164,6 +164,30 @@ const READY = {
     progress:{ key:"h4-best", max:27 },
     theme:{ c1:"#1F5E3B", c2:"#123A2B", a:"#B6D94C", m:"🦧", deco:"hutan" }
   },
+  "4/sirah": {
+    path:"sirah/index.html",
+    buku:"https://online.anyflip.com/nyrmv/iifc/mobile/index.html",
+    r:"Muzium Sirah", j:"موزيوم سيرة",
+    dr:"9 galeri, 8 jenis permainan", dj:"9 ڬاليري، 8 جنيس ڤرماٴينن",
+    progress:{ key:"s4-best", max:30 },
+    theme:{ c1:"#6E1F2E", c2:"#D9A441", a:"#F3D27A", m:"🏛️", deco:"muzium" }
+  },
+  "4/tajwid": {
+    path:"tajwid/index.html",
+    buku:"https://online.anyflip.com/nyrmv/evzc/mobile/index.html",
+    r:"Makmal Tajwid", j:"مکمل تجويد",
+    dr:"8 meja eksperimen, 8 jenis permainan", dj:"8 ميجا ايکسڤريمين، 8 جنيس ڤرماٴينن",
+    progress:{ key:"j4t-best", max:27 },
+    theme:{ c1:"#2B2A7A", c2:"#6C4BD8", a:"#9BE22F", m:"🤖", deco:"makmal" }
+  },
+  "4/akhlak": {
+    path:"akhlak/index.html",
+    buku:"https://online.anyflip.com/nyrmv/ezks/mobile/index.html",
+    r:"Hari Sukan Adab", j:"هاري سوکن ادب",
+    dr:"10 acara, 8 jenis permainan", dj:"10 اچارا، 8 جنيس ڤرماٴينن",
+    progress:{ key:"a4-best", max:33 },
+    theme:{ c1:"#E8573A", c2:"#1B2A5C", a:"#FFC23D", m:"🐯", deco:"sukan" }
+  },
   "3/sirah": {
     buku:"https://online.anyflip.com/vydoi/hpxt/mobile/index.html",
     path:"sirah/index.html",
