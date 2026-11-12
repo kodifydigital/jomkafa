@@ -1,0 +1,1048 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#5A0F2C">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" type="image/png" href="/icons/favicon.png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="JOM KAFA">
+<script src="/assets/pwa.js"></script>
+<script src="/assets/config.js"></script>
+<script src="/assets/access.js"></script>
+<title>Orkestra Tajwid • Tajwid Tahun 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Nunito:wght@600;700;800;900&family=Noto+Naskh+Arabic:wght@500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ===== Tajwid Tahun 5: "Orkestra Tajwid" — dewan konsert baldu merah, not muzik emas, Maestro Momo si panda konduktor ===== */
+:root{
+  --vel1:#3A0A1E; --vel2:#7A1638; --bg:#FFF6E6; --card:#FFFDF8; --ink:#2A0F1A; --muted:#6E4A57; --line:#2A0F1A;
+  --gold:#F2B630; --gold2:#C98A12; --cream:#FFF1D6; --teal:#138A8A; --plum:#5B2A86; --rose:#E0457B;
+  --ok:#17804F; --okbg:#DDF5E6; --bad:#C62E4A; --badbg:#FFE0E6; --note:#FFF0C2; --tipbg:#F6E7FF; --tipink:#43206B;
+  --staff:#C9A86A;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --vel1:#14030A; --vel2:#3A0A1E; --bg:#1A0C12; --card:#2A1520; --ink:#FFF0E6; --muted:#D9B9C4; --line:#0B0206;
+    --cream:#3A2216; --okbg:#123A26; --badbg:#4A1622; --note:#3E3214; --tipbg:#2E1A48; --tipink:#EBDDFF; --staff:#8A6E3A;
+    color-scheme:dark;
+  }
+}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:"Nunito","Trebuchet MS",system-ui,sans-serif;font-size:18px;line-height:1.45;font-weight:700;
+  background:
+    radial-gradient(ellipse 60% 120px at 50% 0,rgba(242,182,48,.35),transparent 70%),
+    repeating-linear-gradient(90deg,rgba(0,0,0,.18) 0 6px,transparent 6px 34px),
+    linear-gradient(180deg,var(--vel1) 0,var(--vel2) 280px,var(--bg) 720px) fixed}
+html[dir="rtl"] body{font-family:"Noto Naskh Arabic","Nunito",serif;line-height:1.75}
+.ar{font-family:"Amiri","Noto Naskh Arabic",serif;direction:rtl;unicode-bidi:isolate;font-weight:700;line-height:1.9}
+.wrap{max-width:640px;margin:0 auto;padding:10px 14px 120px;position:relative}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:focus-visible,a:focus-visible{outline:4px solid var(--gold);outline-offset:2px}
+h1,h2,h3{font-family:"Shrikhand","Nunito",cursive;font-weight:400;letter-spacing:.3px;margin:0}
+html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3{font-family:"Noto Naskh Arabic",serif;font-weight:700}
+/* bar atas */
+.top{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.top .sp{flex:1}
+.ib{min-width:48px;height:48px;padding:0 12px;border-radius:16px;border:3px solid var(--line);background:var(--gold);color:#2A0F1A;
+  display:inline-flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;text-decoration:none;box-shadow:0 4px 0 var(--line)}
+.ib:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.pill{background:var(--card);border:3px solid var(--line);border-radius:999px;padding:6px 12px;font-weight:900;color:var(--ink)}
+/* hero */
+.hero{display:flex;gap:12px;align-items:center;color:#FFF3DA;margin:4px 0 12px}
+.hero .momo{width:104px;height:122px;flex:0 0 auto}
+.hero h1{font-size:34px;line-height:1.1;color:var(--gold);text-shadow:0 3px 0 #2A0F1A}
+html[dir="rtl"] .hero h1{font-size:30px}
+.hero p{margin:4px 0 0;font-size:16px}
+.sttl{color:#FFF3DA;margin:6px 0 4px;font-weight:900}
+.stickers{display:flex;flex-wrap:wrap;gap:6px;background:rgba(0,0,0,.25);border:2px dashed var(--gold);border-radius:18px;padding:8px;margin-bottom:14px}
+.stickers span{font-size:26px;width:40px;height:40px;display:grid;place-items:center;border-radius:50%;background:rgba(255,255,255,.15);filter:grayscale(1);opacity:.45}
+.stickers span.got{filter:none;opacity:1;background:var(--gold)}
+/* peta: helaian skor muzik dalam dewan */
+.hall{position:relative;background:var(--card);border:4px solid var(--line);border-radius:28px;padding:10px 10px 16px;box-shadow:0 6px 0 var(--line);overflow:hidden}
+.hall::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.55;
+  background:repeating-linear-gradient(180deg,transparent 0 22px,var(--staff) 22px 24px,transparent 24px 30px,var(--staff) 30px 32px,transparent 32px 38px,var(--staff) 38px 40px,transparent 40px 46px,var(--staff) 46px 48px,transparent 48px 54px,var(--staff) 54px 56px,transparent 56px 96px)}
+.stage{position:relative;text-align:center;padding:8px 6px 6px;margin:-10px -10px 10px;border-bottom:4px solid var(--line);
+  background:radial-gradient(ellipse at 50% 0,rgba(242,182,48,.55),transparent 65%),linear-gradient(90deg,#8E1B43 0 14%,#5A0F2C 14% 16%,transparent 16% 84%,#5A0F2C 84% 86%,#8E1B43 86%),linear-gradient(#3A0A1E,#5A0F2C)}
+.row{display:flex;position:relative;margin:6px 0}
+.row.l{justify-content:flex-start;padding-inline-start:4%}
+.row.r{justify-content:flex-end;padding-inline-end:4%}
+.node{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:0;padding:4px;max-width:62%;min-width:140px}
+.nh{position:relative;width:86px;height:70px}
+.nh svg{width:86px;height:70px;display:block}
+.nh .num{position:absolute;left:12px;top:30px;width:34px;text-align:center;font:900 18px "Nunito",sans-serif;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.4)}
+.nh .tic{position:absolute;right:-2px;top:-4px;font-size:26px}
+.node .nm{background:var(--cream);border:3px solid var(--line);border-radius:14px;padding:3px 10px;font-weight:900;font-size:15px;line-height:1.25;text-align:center;position:relative;z-index:2}
+.node .st{font-size:14px;min-height:18px}
+.node .st .off{filter:grayscale(1);opacity:.3}
+.node.lock .nh{filter:grayscale(1);opacity:.55}
+.node.lock .nm{opacity:.7}
+.node.lock .nm::after{content:" 🔒"}
+.node.now .nh{animation:bob 1.3s ease-in-out infinite}
+.guide{position:absolute;top:-4px;inset-inline-start:96px;width:58px;z-index:3;pointer-events:none}
+.row.r .guide{inset-inline-start:auto;inset-inline-end:96px}
+.final .guide{inset-inline-start:auto;inset-inline-end:-62px;top:0}
+.guide .momo{width:58px;height:68px}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.node.final{max-width:100%;margin:0 auto}
+.final .core{font-size:46px;display:block;filter:drop-shadow(0 3px 0 rgba(0,0,0,.4))}
+.final .nm{background:var(--gold);font-size:17px}
+.final.lock .core{filter:grayscale(1);opacity:.5}
+.door{text-align:center;margin-top:10px;font-weight:900;color:var(--muted)}
+/* kad baca */
+.shead{display:flex;gap:10px;align-items:center;color:#FFF3DA;margin:0 0 12px}
+.badge{width:56px;height:56px;border-radius:50%;background:var(--c);border:3px solid var(--line);display:grid;place-items:center;font-size:30px;flex:0 0 auto;box-shadow:0 3px 0 var(--line)}
+.shead h2{font-size:22px;line-height:1.15;color:var(--gold)}
+.shead small{display:block;font-size:14px;opacity:.9}
+.card{background:var(--card);border:4px solid var(--line);border-radius:26px;padding:16px;box-shadow:0 6px 0 var(--line);position:relative;margin-bottom:14px}
+.card::before{content:"";position:absolute;left:18px;right:18px;top:0;height:8px;border-radius:0 0 8px 8px;background:var(--sc,var(--gold))}
+.rpic{font-size:44px;text-align:center}
+.rh{font-size:22px;display:flex;align-items:center;gap:8px;justify-content:space-between;color:var(--vel2)}
+@media (prefers-color-scheme: dark){ .rh{color:var(--gold)} }
+.rtext{margin:10px 0}
+.rlist{margin:6px 0 10px;padding-inline-start:22px}
+.rlist li{margin:4px 0}
+.rlist li::marker{content:"♪ ";color:var(--rose)}
+.exs{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 10px;justify-content:center}
+.exs .ar{background:var(--cream);border:2px solid var(--staff);border-radius:14px;padding:2px 12px;font-size:28px}
+.tip{display:flex;gap:8px;background:var(--tipbg);color:var(--tipink);border-radius:16px;padding:10px 12px;margin:10px 0;font-size:16px}
+.tip.am{background:var(--okbg);color:var(--ink)}
+.ref{font-size:14px;color:var(--muted);margin:8px 0}
+.navr{display:flex;gap:10px}
+.btn{flex:1;min-height:54px;border-radius:18px;border:3px solid var(--line);background:var(--gold);color:#2A0F1A;font-weight:900;font-size:18px;box-shadow:0 4px 0 var(--line);padding:6px 12px}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.btn.go{background:var(--teal);color:#fff;width:100%}
+.btn.alt{background:var(--cream);color:var(--ink)}
+.btn[disabled]{opacity:.4}
+.dots{display:flex;gap:6px;justify-content:center;margin-top:10px}
+.dots i{width:10px;height:10px;border-radius:50%;background:var(--staff)}
+.dots i.on{background:var(--rose);width:24px;border-radius:6px}
+.say{border:2px solid var(--line);background:var(--cream);border-radius:12px;min-width:44px;height:44px;font-size:20px;flex:0 0 auto}
+</style>
+<style>
+/* bar kemajuan: baris not */
+.prog{position:relative;height:30px;border:3px solid var(--line);border-radius:999px;background:var(--cream);margin:0 0 12px;overflow:hidden}
+.prog .fill{position:absolute;inset:0 auto 0 0;background:repeating-linear-gradient(90deg,var(--gold) 0 18px,var(--gold2) 18px 22px);transition:width .4s}
+html[dir="rtl"] .prog .fill{inset:0 0 0 auto}
+.prog b{position:absolute;inset:0;display:grid;place-items:center;font-size:15px;font-family:"Nunito",sans-serif}
+.q{display:flex;gap:8px;align-items:flex-start;justify-content:space-between}
+.q p{margin:0 0 8px;font-size:19px;font-weight:900}
+.qar{text-align:center;font-size:34px;background:var(--cream);border:2px dashed var(--staff);border-radius:16px;padding:4px 10px;margin:4px 0 10px}
+.hint{margin-top:10px;background:var(--badbg);border-radius:14px;padding:8px 12px;font-size:16px}
+.shake{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.2)}100%{transform:scale(1)}}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:8px}
+.opts.one{grid-template-columns:minmax(0,1fr)}
+.opt{min-height:56px;border:3px solid var(--line);border-radius:16px;background:var(--card);font-weight:900;font-size:17px;padding:6px 8px;min-width:0;overflow-wrap:anywhere;box-shadow:0 3px 0 var(--line)}
+.opt .ar{font-size:26px}
+.opt.right,.right{background:var(--okbg)!important;border-color:var(--ok)!important}
+.opt.wrong,.wrong{background:var(--badbg)!important;border-color:var(--bad)!important;opacity:.75}
+.lab{font-size:15px;color:var(--muted);text-align:center;margin:2px 0 6px}
+/* gendang: ketuk gendang N kali */
+.gd{display:flex;flex-direction:column;align-items:center;gap:8px}
+.gd .hk{background:var(--tipbg);color:var(--tipink);border-radius:12px;padding:4px 12px;font-weight:900;text-align:center}
+.drum{width:150px;height:130px;border:0;background:none;padding:0;touch-action:manipulation}
+.drum svg{width:150px;height:130px}
+.drum.hit svg{animation:hit .18s}
+@keyframes hit{50%{transform:scale(.93)}}
+.beats{display:flex;gap:6px;min-height:34px;font-size:26px}
+.beats span{animation:pop .25s}
+.gdb{display:flex;gap:10px;width:100%}
+.rounds{display:flex;gap:6px;justify-content:center;margin-bottom:6px}
+.rounds i{width:28px;height:8px;border-radius:4px;background:var(--staff)}
+.rounds i.ok{background:var(--ok)}
+.rounds i.on{background:var(--rose)}
+/* notasi: susun not ke baris paranada */
+.notes{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:10px}
+.nt{border:3px solid var(--line);border-radius:999px;background:var(--card);padding:2px 14px;min-height:50px;font-size:24px;box-shadow:0 3px 0 var(--line);max-width:100%;overflow-wrap:anywhere}
+.nt.txt{font-size:16px;font-weight:900}
+.nt.sel{background:var(--gold);transform:translateY(-3px)}
+.nt.gone{visibility:hidden;position:absolute}
+.staves{display:grid;gap:8px}
+.stv{border:3px solid var(--line);border-radius:16px;padding:6px 8px;min-height:62px;text-align:start;background:repeating-linear-gradient(180deg,var(--card) 0 9px,var(--staff) 9px 10px);width:100%}
+.stv b{display:inline-block;background:var(--cream);border-radius:8px;padding:0 8px;font-size:16px}
+.stv .in{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.stv .in span{background:var(--okbg);border-radius:10px;padding:0 8px;font-size:20px}
+.stv .in span.txt{font-size:13px}
+/* kompang: pilih semua */
+.kps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.kps.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.kp{aspect-ratio:1/1;border-radius:50%;border:5px solid #7A4A1E;background:radial-gradient(circle,#FFF4D8 0 55%,#E9C98A 56% 64%,#C98A12 65%);color:#2A0F1A;font-weight:900;font-size:15px;padding:6px;min-width:0;overflow-wrap:anywhere;box-shadow:0 4px 0 var(--line);display:grid;place-items:center;line-height:1.15}
+.kp .ar{font-size:24px;line-height:1.4}
+.kp.big .ar{font-size:34px}
+.kp.on{border-color:var(--rose);background:radial-gradient(circle,#FFD6E5 0 55%,#F59BBE 56% 64%,var(--rose) 65%);transform:scale(.96)}
+.kp.ok{border-color:var(--ok)}
+.kp.bad{border-color:var(--bad);animation:shake .4s}
+/* irama: susun melodi */
+.ladder{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.lad{display:flex;align-items:center;gap:8px;border:2px dashed var(--staff);border-radius:14px;min-height:46px;padding:4px 10px}
+.lad i{font-style:normal;width:28px;height:28px;border-radius:50%;background:var(--plum);color:#fff;display:grid;place-items:center;font-size:15px;flex:0 0 auto}
+.lad.fill{border-style:solid;border-color:var(--ok);background:var(--okbg)}
+.pool{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.pn{border:3px solid var(--line);border-radius:14px;background:var(--cream);padding:6px 12px;font-weight:900;font-size:16px;min-height:48px;box-shadow:0 3px 0 var(--line);min-width:0;overflow-wrap:anywhere}
+.pn.gone{display:none}
+/* akord: kekunci piano berpasangan */
+.keys{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.kcol{display:flex;flex-direction:column;gap:8px}
+.key{min-height:58px;border:3px solid var(--line);border-radius:0 0 14px 14px;background:#FFFFFF;color:#2A0F1A;font-weight:900;font-size:15px;padding:6px;min-width:0;overflow-wrap:anywhere;box-shadow:0 4px 0 var(--line)}
+.key .ar{font-size:24px}
+.key.blk{background:#2A0F1A;color:#FFF3DA}
+.key.sel{background:var(--gold);color:#2A0F1A}
+.key.done{background:var(--okbg);color:var(--ink);opacity:.7}
+/* tempo: pusingan pantas */
+.tbar{height:10px;border-radius:6px;background:var(--cream);overflow:hidden;margin:4px 0 8px;border:2px solid var(--line)}
+.tbar span{display:block;height:100%;background:var(--teal);width:100%;transition:width linear}
+.zap{text-align:center;font-weight:900;color:var(--gold2)}
+/* konduktor: ketuk kalimah */
+.phrase{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;direction:rtl;background:var(--cream);border-radius:18px;padding:10px;border:2px solid var(--staff)}
+.tok{border:3px solid var(--line);border-radius:14px;background:var(--card);padding:0 10px;font-size:28px;min-height:56px;box-shadow:0 3px 0 var(--line)}
+/* lirik: isi tempat kosong */
+.lyr{font-size:19px;background:var(--cream);border-radius:16px;padding:10px 12px;border-inline-start:6px solid var(--rose)}
+.blank{display:inline-block;min-width:70px;border-bottom:3px dashed var(--rose);text-align:center;color:var(--rose)}
+.blank.done{border-bottom-style:solid;color:var(--ok)}
+/* maklum balas */
+.fb{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:12px;animation:up .3s}
+@keyframes up{from{transform:translateY(100%)}}
+.fb .in{max-width:640px;margin:0 auto;background:var(--okbg);border:3px solid var(--line);border-radius:22px;padding:12px;box-shadow:0 -4px 0 var(--line)}
+.fb .row1{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.fb .momo{width:58px;height:68px;flex:0 0 auto}
+.fb strong{font:400 22px "Shrikhand",cursive;color:var(--ok)}
+html[dir="rtl"] .fb strong{font:700 22px "Noto Naskh Arabic",serif}
+.fb p{margin:2px 0;font-size:16px}
+.fast{display:inline-block;background:var(--gold);color:#2A0F1A;border-radius:999px;padding:0 10px;font-size:14px}
+.res{text-align:center}
+.res .momo{width:120px;height:140px}
+.stars{font-size:46px;display:flex;justify-content:center;gap:6px}
+.stars span{animation:pop .5s both}
+.stars .off{filter:grayscale(1);opacity:.3}
+.gotst{display:flex;align-items:center;gap:10px;justify-content:center;background:var(--note);border-radius:16px;padding:8px;margin:10px 0}
+.gotst span{font-size:40px}
+.toast{position:fixed;left:50%;top:18px;transform:translateX(-50%);z-index:60;background:var(--ink);color:var(--bg);border-radius:14px;padding:10px 16px;max-width:90vw;font-size:16px}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}
+.confetti span{position:absolute;top:-40px;font-size:26px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="wrap" id="app" aria-live="polite"></main>
+<script>
+/* dijana oleh gen.py: potongan perkataan verbatim daripada api.quran.com (text_uthmani) */
+const Q = {"ha_a": {"t": "وَقَالَ", "k": "2:118", "i": 0, "n": 1}, "ha_w": {"t": "سَيَقُولُ", "k": "2:142", "i": 1, "n": 1}, "ha_y": {"t": "قِيلَ", "k": "2:11", "i": 1, "n": 1}, "mk_1": {"t": "ٱلْحَرَامِ", "k": "17:1", "i": 8, "n": 1}, "mk_2": {"t": "سُبْحَـٰنَ", "k": "17:1", "i": 1, "n": 1}, "mk_3": {"t": "ٱلسَّمِيعُ", "k": "17:1", "i": 21, "n": 1}, "mh_1": {"t": "حمٓ", "k": "40:1", "i": 1, "n": 1}, "mh_2": {"t": "يسٓ", "k": "36:1", "i": 1, "n": 1}, "mh_3": {"t": "طه", "k": "20:1", "i": 1, "n": 1}, "mh_4": {"t": "كٓهيعٓصٓ", "k": "19:1", "i": 1, "n": 1}, "mh_5": {"t": "الٓر", "k": "10:1", "i": 1, "n": 1}, "wm_1": {"t": "نِسَآءَكُمْ", "k": "14:6", "i": 19, "n": 1}, "wm_2": {"t": "ٱلسَّمَآءِ", "k": "2:144", "i": 5, "n": 1}, "wm_3": {"t": "أُو۟لَـٰٓئِكَ", "k": "2:5", "i": 0, "n": 1}, "wm_4": {"t": "بِٱلسُّوٓءِ", "k": "12:53", "i": 8, "n": 1}, "wm_5": {"t": "قُرُوٓءٍ", "k": "2:228", "i": 4, "n": 1}, "wm_6": {"t": "هَنِيٓـًٔا", "k": "4:4", "i": 13, "n": 1}, "jm_1": {"t": "مَآ أَصَابَهُمُ", "k": "3:172", "i": 6, "n": 2}, "jm_2": {"t": "إِنَّآ أَوْحَيْنَآ", "k": "4:163", "i": 1, "n": 2}, "jm_3": {"t": "إِلَّآ أَن يُؤْمِنُوا۟", "k": "85:8", "i": 3, "n": 3}, "jm_4": {"t": "قُوٓا۟ أَنفُسَكُمْ", "k": "66:6", "i": 3, "n": 2}, "jm_5": {"t": "كَفَرُوٓا۟ إِلَىٰ", "k": "3:55", "i": 17, "n": 2}, "jm_6": {"t": "إِنِّىٓ أَعْلَمُ", "k": "2:30", "i": 25, "n": 2}, "jm_7": {"t": "فِىٓ أَمْرِى", "k": "20:32", "i": 1, "n": 2}, "bd_1": {"t": "ءَادَمَ", "k": "2:31", "i": 1, "n": 1}, "bd_2": {"t": "ءَامَنُوا۟", "k": "2:9", "i": 3, "n": 1}, "bd_3": {"t": "أُوتُوا۟", "k": "2:101", "i": 13, "n": 1}, "bd_4": {"t": "إِيمَـٰنًا", "k": "3:173", "i": 11, "n": 1}, "bd_5": {"t": "ءَازَرَ", "k": "6:74", "i": 5, "n": 1}, "st_1": {"t": "بِهِۦٓ إِلَّا", "k": "83:12", "i": 2, "n": 2}, "st_2": {"t": "عِلْمِهِۦٓ إِلَّا", "k": "2:255", "i": 41, "n": 2}, "st_3": {"t": "مَالَهُۥٓ أَخْلَدَهُۥ", "k": "104:3", "i": 2, "n": 2}, "st_4": {"t": "لَهُۥٓ إِخْوَةٌ", "k": "4:11", "i": 50, "n": 2}, "sq_1": {"t": "بِهِۦ رَيْبَ ٱلْمَنُونِ", "k": "52:30", "i": 4, "n": 3}, "sq_2": {"t": "أَهْلِهِۦ مَسْرُورًا", "k": "84:9", "i": 2, "n": 2}, "sq_3": {"t": "إِنَّهُۥ كَانَ تَوَّابًۢا", "k": "110:3", "i": 5, "n": 3}, "sq_4": {"t": "وَرَحْمَتُهُۥ لَكُنتُم", "k": "2:64", "i": 10, "n": 2}, "fq_1": {"t": "ءَآللَّهُ أَذِنَ", "k": "10:59", "i": 13, "n": 2}, "fq_2": {"t": "ءَآللَّهُ خَيْرٌ", "k": "27:59", "i": 9, "n": 2}, "fq_3": {"t": "ءَآلذَّكَرَيْنِ", "k": "6:143", "i": 11, "n": 1}, "tz_1": {"t": "لَآ إِلَـٰهَ إِلَّا هُوَ", "k": "27:26", "i": 1, "n": 4}, "tz_2": {"t": "لَآ إِلَـٰهَ إِلَّا ٱللَّهُ", "k": "47:19", "i": 2, "n": 4}, "tz_3": {"t": "لَآ إِلَـٰهَ إِلَّآ أَنَا۠", "k": "20:14", "i": 3, "n": 4}, "lk_1": {"t": "ٱلطَّآمَّةُ", "k": "79:34", "i": 2, "n": 1}, "lk_2": {"t": "ٱلصَّآخَّةُ", "k": "80:33", "i": 2, "n": 1}, "lk_3": {"t": "ٱلضَّآلِّينَ", "k": "1:7", "i": 8, "n": 1}, "lk_4": {"t": "دَآبَّةٍ", "k": "2:164", "i": 32, "n": 1}, "lm_1": {"t": "ءَآلْـَٔـٰنَ", "k": "10:51", "i": 7, "n": 1}, "lm_2": {"t": "ءَآلْـَٔـٰنَ", "k": "10:91", "i": 0, "n": 1}, "lh_1": {"t": "الٓمٓ", "k": "2:1", "i": 1, "n": 1}, "lh_2": {"t": "طسٓمٓ", "k": "26:1", "i": 1, "n": 1}, "lh_3": {"t": "الٓمٓصٓ", "k": "7:1", "i": 1, "n": 1}, "lh_4": {"t": "الٓمٓر", "k": "13:1", "i": 1, "n": 1}, "lf_1": {"t": "نٓ", "k": "68:1", "i": 1, "n": 1}, "lf_2": {"t": "قٓ", "k": "50:1", "i": 1, "n": 1}, "lf_3": {"t": "صٓ", "k": "38:1", "i": 1, "n": 1}, "lf_4": {"t": "عٓسٓقٓ", "k": "42:2", "i": 0, "n": 1}, "lf_5": {"t": "طسٓ", "k": "27:1", "i": 1, "n": 1}, "ar_1": {"t": "يُوقِنُونَ", "k": "2:4", "i": 11, "n": 1}, "ar_2": {"t": "ٱلْعَـٰلَمِينَ", "k": "1:2", "i": 3, "n": 1}, "ar_3": {"t": "ٱلرَّحِيمِ", "k": "1:3", "i": 1, "n": 1}, "ar_4": {"t": "تَشْكُرُونَ", "k": "2:52", "i": 7, "n": 1}, "ar_5": {"t": "بِحُسْبَانٍ", "k": "55:5", "i": 2, "n": 1}, "ar_6": {"t": "نَسْتَعِينُ", "k": "1:5", "i": 3, "n": 1}, "ln_1": {"t": "خَوْفٍۭ", "k": "106:4", "i": 6, "n": 1}, "ln_2": {"t": "ٱلْبَيْتِ", "k": "106:3", "i": 3, "n": 1}, "iw_1": {"t": "مِهَـٰدًا", "k": "78:6", "i": 3, "n": 1}, "iw_2": {"t": "أَوْتَادًا", "k": "78:7", "i": 1, "n": 1}, "iw_3": {"t": "أَزْوَٰجًا", "k": "78:8", "i": 1, "n": 1}, "iw_4": {"t": "وَنَبَاتًا", "k": "78:15", "i": 3, "n": 1}, "tm_1": {"t": "حُيِّيتُم", "k": "4:86", "i": 1, "n": 1}, "tm_2": {"t": "ٱلنَّبِيِّـۧنَ", "k": "19:58", "i": 6, "n": 1}, "tm_3": {"t": "عِلِّيِّينَ", "k": "83:18", "i": 5, "n": 1}, "tm_4": {"t": "وَٱلْأُمِّيِّـۧنَ", "k": "3:20", "i": 13, "n": 1}, "tm_5": {"t": "رَبَّـٰنِيِّـۧنَ", "k": "3:79", "i": 20, "n": 1}, "tk_1": {"t": "مِمَّا يَشَآءُ", "k": "2:251", "i": 11, "n": 2}, "wq_m": {"t": "قَوْلُهُمْ ۘ إِنَّ", "k": "10:65", "i": 2, "n": 3}, "wq_j": {"t": "شَآءَ ٱللَّهُ ۚ إِنَّهُۥ", "k": "87:7", "i": 2, "n": 4}, "wq_s": {"t": "فِيهَآ أَبَدًا ۖ رَّضِىَ", "k": "98:8", "i": 10, "n": 4}, "wq_q": {"t": "بِرُوحِ ٱلْقُدُسِ ۗ أَفَكُلَّمَا", "k": "2:87", "i": 15, "n": 4}, "wq_a": {"t": "لَا رَيْبَ ۛ فِيهِ ۛ هُدًى", "k": "2:2", "i": 2, "n": 6}, "wq_l": {"t": "ثَمَرَةٍ رِّزْقًا ۙ قَالُوا۟", "k": "2:25", "i": 17, "n": 4}, "ib_j": {"t": "فَإِن لَّمْ تَفْعَلُوا۟ وَلَن تَفْعَلُوا۟ فَٱتَّقُوا۟ ٱلنَّارَ ٱلَّتِى وَقُودُهَا ٱلنَّاسُ وَٱلْحِجَارَةُ", "k": "2:24", "i": 0, "n": 11}, "ib_q": {"t": "عَلَى ٱلَّذِينَ مِن قَبْلِنَا ۚ رَبَّنَا وَلَا تُحَمِّلْنَا", "k": "2:286", "i": 29, "n": 8}, "ib_j2": {"t": "فَٱتَّقُوا۟ ٱلنَّارَ", "k": "2:24", "i": 5, "n": 2}, "ib_q2": {"t": "عَلَى ٱلَّذِينَ مِن قَبْلِنَا", "k": "2:286", "i": 29, "n": 4}, "ib_a2": {"t": "نَحْنُ أَبْنَـٰٓؤُا۟ ٱللَّهِ", "k": "5:18", "i": 3, "n": 3}, "ib_n2": {"t": "وَٱلْبَغْىِ ۚ يَعِظُكُمْ", "k": "16:90", "i": 13, "n": 3}, "ib_a": {"t": "وَقَالَتِ ٱلْيَهُودُ وَٱلنَّصَـٰرَىٰ نَحْنُ أَبْنَـٰٓؤُا۟ ٱللَّهِ وَأَحِبَّـٰٓؤُهُۥ", "k": "5:18", "i": 0, "n": 7}, "ib_n": {"t": "وَيَنْهَىٰ عَنِ ٱلْفَحْشَآءِ وَٱلْمُنكَرِ وَٱلْبَغْىِ ۚ يَعِظُكُمْ لَعَلَّكُمْ تَذَكَّرُونَ", "k": "16:90", "i": 9, "n": 9}};
+/* ===================== KANDUNGAN: Orkestra Tajwid (Buku Teks Tajwid Tahun 5, ms. = halaman bercetak; fail pN = ms.(N-9)) ===================== */
+const A = k => Q[k].t;
+const W = (k,i) => Q[k].t.split(" ")[i];   // satu kalimah daripada contoh ayat   // teks Al-Quran verbatim daripada quran.js
+// teks Arab bukan ayat (huruf tunggal, kata ingatan & bentuk asal kalimah daripada buku teks)
+const NQ = ["حَيٌّ طُهِرَ","نَقَصَ عَسَلُكُمْ","أَأْدَمَ","أُؤْتُوا","إِئْمَانًا","أَأْزَرَ","ا","و","ي","ن","م","ه","ق","ص","ع","س","ل","ك","ح","ط","ر"];
+const HK = {
+  ak:["Mad asli kalimi","مد اصلي كلمي"], ah:["Mad asli harfi","مد اصلي حرفي"],
+  wm:["Mad wajib muttasil","مد واجب متصل"], jm:["Mad jaiz munfasil","مد جائز منفصل"],
+  bd:["Mad badal","مد بدل"], stw:["Mad silah tawilah","مد صلة طويلة"], sqs:["Mad silah qasirah","مد صلة قصيرة"],
+  fq:["Mad farq","مد فرق"], tz:["Mad ta'zim","مد تعظيم"],
+  lkt:["Mad lazim kalimi muthaqqal","مد لازم كلمي مثقل"], lkf:["Mad lazim kalimi mukhaffaf","مد لازم كلمي مخفف"],
+  lht:["Mad lazim harfi muthaqqal","مد لازم حرفي مثقل"], lhf:["Mad lazim harfi mukhaffaf","مد لازم حرفي مخفف"],
+  lz:["Mad lazim","مد لازم"], ar:["Mad 'arid lissukun","مد عارض للسكون"], ln:["Mad lin","مد لين"], iw:["Mad 'iwad","مد عوض"], tm:["Mad tamkin","مد تمكين"]
+};
+const H2 = ["2 harakat","دوا حرکة"], H45 = ["4 atau 5 harakat","امڤت اتاو ليم حرکة"], H6 = ["6 harakat","انم حرکة"], H246 = ["2, 4 atau 6 harakat","دوا، امڤت اتاو انم حرکة"];
+
+const STATIONS = [
+{ id:1, icon:"🥁", c:"#E4572E", sticker:"🥁", t:["Seksyen Gendang: Mad Asli","سيکشن ڬندڠ: مد اصلي"], u:["Mad dan mad asli • ms. 1–10","مد دان مد اصلي • م.س. 1–10"],
+  read:[
+    { p:"1–3", pic:"🎼", h:["Apa itu mad?","اڤ ايت مد؟"],
+      text:["Mad bermaksud panjang. Dalam tajwid, mad ialah memanjangkan suara pada huruf mad. Mad terbahagi dua: mad asli dan mad far'i.","مد برمقصود ڤنجڠ. دالم تجويد، مد اياله ممنجڠکن سوارا ڤد حروف مد. مد تربهاڬي دوا: مد اصلي دان مد فرعي."],
+      list:[["Huruf mad alif: alif mati, sebelumnya berbaris atas.","حروف مد اليف: اليف ماتي، سبلومڽ برباريس اتس."],["Huruf mad wau: wau mati, sebelumnya berbaris depan.","حروف مد واو: واو ماتي، سبلومڽ برباريس دڤن."],["Huruf mad ya: ya mati, sebelumnya berbaris bawah.","حروف مد يا: يا ماتي، سبلومڽ برباريس باوه."]],
+      ex:["ha_a","ha_w","ha_y"] },
+    { p:"4–5", pic:"🥁", h:["Mad asli","مد اصلي"],
+      text:["Mad asli ialah mad yang tidak bergantung kepada sebab hamzah atau sukun selepas huruf mad. Nama lainnya mad tabi'i. Kadar panjangnya 2 harakat.","مد اصلي اياله مد يڠ تيدق برڬنتوڠ کڤد سبب همزة اتاو سکون سلڤس حروف مد. نام لاٴينڽ مد طبيعي. قدر ڤنجڠڽ دوا حرکة."],
+      list:[HK.ak, HK.ah],
+      tip:["Mad asli yang bertemu hamzah wasal tidak dibaca panjang ketika bacaan wasal.","مد اصلي يڠ برتمو همزة وصل تيدق دباچ ڤنجڠ کتيک باچاٴن وصل."] },
+    { p:"6–7", pic:"🎶", h:HK.ak,
+      text:["Huruf mad bersama huruf hijaiyah dalam satu kalimah. Selepas huruf mad tiada hamzah atau huruf mati. Dibaca 2 harakat.","حروف مد برسام حروف هجائية دالم ساتو كليمه. سلڤس حروف مد تياد همزة اتاو حروف ماتي. دباچ دوا حرکة."],
+      ex:["mk_2","mk_1","mk_3"], am:["Contoh di atas daripada Surah Al-Isra' ayat 1. Bacalah secara talaqqi bersama guru.","چونتوه د اتس درڤد سورة الإسراء ايات 1. باچاله سچارا تلقي برسام ڬورو."] },
+    { p:"8–10", pic:"🎺", h:HK.ah,
+      text:["Mad asli harfi berlaku pada huruf pembuka surah yang dieja dengan dua huruf. Hurufnya terhimpun dalam kata حَيٌّ طُهِرَ. Dibaca 2 harakat.","مد اصلي حرفي برلاکو ڤد حروف ڤمبوک سورة يڠ دايجا دڠن دوا حروف. حروفڽ ترهيمڤون دالم کات حَيٌّ طُهِرَ. دباچ دوا حرکة."],
+      ex:["mh_1","mh_2","mh_3","mh_4"],
+      tip:["حمٓ ada pada tujuh surah, antaranya Ghafir dan Fussilat. يسٓ dalam Surah Yasin, طه dalam Surah Taha dan كٓهيعٓصٓ dalam Surah Maryam.","حمٓ اد ڤد توجوه سورة، انتاراڽ غافر دان فصلت. يسٓ دالم سورة يس، طه دالم سورة طه دان كٓهيعٓصٓ دالم سورة مريم."] }
+  ],
+  games:[
+    { type:"kompang", q:["Pukul semua kompang yang ialah huruf mad, kemudian tekan Pukul!","ڤوکول سموا کومڤڠ يڠ اياله حروف مد، کمودين تکن ڤوکول!"],
+      items:[["ا",1],["و",1],["ي",1],["ن",0],["م",0],["ه",0]], e:["Huruf mad ada tiga: alif, wau dan ya.","حروف مد اد تيڬ: اليف، واو دان يا."] },
+    { type:"akord", q:["Padankan kekunci putih dengan kekunci hitam.","ڤادنکن ککونچي ڤوتيه دڠن ککونچي هيتم."],
+      pairs:[[["Alif mati","اليف ماتي"],["sebelumnya baris atas","سبلومڽ باريس اتس"]],[["Wau mati","واو ماتي"],["sebelumnya baris depan","سبلومڽ باريس دڤن"]],[["Ya mati","يا ماتي"],["sebelumnya baris bawah","سبلومڽ باريس باوه"]],[["Mad asli","مد اصلي"],H2]],
+      e:["Huruf mad mesti mati dan sesuai dengan baris huruf sebelumnya.","حروف مد مستي ماتي دان سسواي دڠن باريس حروف سبلومڽ."] },
+    { type:"gendang", q:["Ketuk gendang mengikut kadar harakat, kemudian tekan Semak.","کتوق ڬندڠ مڠيکوت قدر حرکة، کمودين تکن سمق."],
+      rounds:[["mk_1",[2],HK.ak],["mh_3",[2],HK.ah],["ha_w",[2],HK.ak]], e:["Mad asli kalimi dan mad asli harfi dibaca 2 harakat.","مد اصلي كلمي دان مد اصلي حرفي دباچ دوا حرکة."] },
+    { type:"notasi", q:["Pilih satu not, kemudian letakkan pada baris paranada yang betul.","ڤيليه ساتو نوت، کمودين لتقکن ڤد باريس ڤارانادا يڠ بتول."],
+      stv:[HK.ak, HK.ah], items:[["mk_1",0],["mk_2",0],["ha_y",0],["mh_1",1],["mh_3",1],["mh_2",1]],
+      e:["Mad asli harfi hanya pada huruf pembuka surah.","مد اصلي حرفي هاڽ ڤد حروف ڤمبوک سورة."] },
+    { type:"lirik", q:["Lengkapkan lirik lagu tajwid ini.","لڠکڤکن ليريک لاڬو تجويد اين."],
+      s:["Huruf mad asli harfi terhimpun dalam kata ___.","حروف مد اصلي حرفي ترهيمڤون دالم کات ___."], a:["حَيٌّ طُهِرَ","نَقَصَ عَسَلُكُمْ"],
+      e:["حَيٌّ طُهِرَ: ح ي ط ه ر.","حَيٌّ طُهِرَ: ح ي ط ه ر."] },
+    { type:"tempo", q:["Jawab mengikut rentak! Jawapan pantas dapat ⚡.","جواب مڠيکوت رنتق! جواڤن ڤنتس داڤت ⚡."],
+      rounds:[
+        { p:["Apakah nama lain bagi mad asli?","اڤاکه نام لاٴين باڬي مد اصلي؟"], a:[["Mad tabi'i","مد طبيعي"],HK.ln,HK.bd] },
+        { p:["Mad terbahagi kepada berapa bahagian?","مد تربهاڬي کڤد براڤ بهاڬين؟"], a:[["Dua","دوا"],["Tiga","تيڬ"],["Empat","امڤت"]] },
+        { p:["Huruf pembuka ini terdapat dalam surah apa?","حروف ڤمبوک اين ترداڤت دالم سورة اڤ؟"], ar:"mh_4", a:[["Maryam","مريم"],["Yasin","يس"],["Taha","طه"]] },
+        { p:["Kadar mad asli ialah...","قدر مد اصلي اياله..."], a:[H2,H6,H45] }
+      ], e:["Mad asli juga dikenali sebagai mad tabi'i, kadarnya 2 harakat.","مد اصلي جوڬ دکنلي سباڬاي مد طبيعي، قدرڽ دوا حرکة."] }
+  ] },
+
+{ id:2, icon:"🪘", c:"#D99A1E", sticker:"🪘", t:["Seksyen Kompang: Muttasil dan Munfasil","سيکشن کومڤڠ: متصل دان منفصل"], u:["Mad far'i, wajib muttasil, jaiz munfasil • ms. 11–18","مد فرعي، واجب متصل، جائز منفصل • م.س. 11–18"],
+  read:[
+    { p:"11–13", pic:"🎼", h:["Mad far'i","مد فرعي"],
+      text:["Mad far'i ialah mad yang terjadi kerana bertemu hamzah atau huruf mati selepas huruf mad. Kadar panjangnya berbeza mengikut jenis.","مد فرعي اياله مد يڠ ترجادي کران برتمو همزة اتاو حروف ماتي سلڤس حروف مد. قدر ڤنجڠڽ بربيذا مڠيکوت جنيس."],
+      list:[["Sebab hamzah: wajib muttasil, jaiz munfasil, badal, silah tawilah, farq, ta'zim.","سبب همزة: واجب متصل، جائز منفصل، بدل، صلة طويلة، فرق، تعظيم."],["Sebab huruf mati: empat mad lazim, 'arid lissukun dan lin.","سبب حروف ماتي: امڤت مد لازم، عارض للسكون دان لين."]],
+      tip:["Mad 'iwad, mad tamkin dan mad silah qasirah ialah mad lain di luar dua bahagian ini.","مد عوض، مد تمكين دان مد صلة قصيرة اياله مد لاٴين دلوار دوا بهاڬين اين."] },
+    { p:"14–16", pic:"🔗", h:HK.wm,
+      text:["Huruf mad bertemu hamzah dalam satu kalimah. Dibaca 4 atau 5 harakat. Jika hamzah di hujung kalimah dan kita waqaf, boleh dibaca 4, 5 atau 6 harakat.","حروف مد برتمو همزة دالم ساتو كليمه. دباچ امڤت اتاو ليم حرکة. جک همزة د هوجوڠ كليمه دان کيت وقف، بوليه دباچ امڤت، ليم اتاو انم حرکة."],
+      ex:["wm_1","wm_2","wm_3","wm_5","wm_6"],
+      tip:["Dinamakan wajib kerana ulama qurra' sepakat ia wajib dipanjangkan lebih daripada 2 harakat. Muttasil bermaksud bersambung.","دناماکن واجب کران علماء قراء سڤاکت اي واجب دڤنجڠکن لبيه درڤد دوا حرکة. متصل برمقصود برسمبوڠ."] },
+    { p:"17–18", pic:"✂️", h:HK.jm,
+      text:["Huruf mad di akhir kalimah pertama bertemu hamzah di awal kalimah kedua. Mengikut riwayat Hafs, dibaca 4 atau 5 harakat.","حروف مد د اخير كليمه ڤرتام برتمو همزة د اول كليمه کدوا. مڠيکوت رواية حفص، دباچ امڤت اتاو ليم حرکة."],
+      ex:["jm_1","jm_4","jm_6","jm_7"],
+      tip:["Munfasil bermaksud berpisah. Jika kita waqaf pada kalimah pertama, hukumnya menjadi mad asli kalimi (2 harakat).","منفصل برمقصود برڤيسه. جک کيت وقف ڤد كليمه ڤرتام، حکومڽ منجادي مد اصلي كلمي (دوا حرکة)."] }
+  ],
+  games:[
+    { type:"notasi", q:["Susun setiap not ke baris paranada hukumnya.","سوسون ستياڤ نوت ک باريس ڤارانادا حکومڽ."],
+      stv:[HK.wm, HK.jm], items:[["wm_1",0],["wm_3",0],["wm_5",0],["jm_2",1],["jm_4",1],["jm_6",1]],
+      e:["Satu kalimah = muttasil. Dua kalimah = munfasil.","ساتو كليمه = متصل. دوا كليمه = منفصل."] },
+    { type:"gendang", q:["Ketuk gendang mengikut kadar harakat, kemudian tekan Semak.","کتوق ڬندڠ مڠيکوت قدر حرکة، کمودين تکن سمق."],
+      rounds:[["wm_1",[4,5],HK.wm],["jm_6",[4,5],HK.jm],["wm_2",[4,5,6],["Mad wajib muttasil (waqaf di hujung kalimah)","مد واجب متصل (وقف د هوجوڠ كليمه)"]]],
+      e:["Wajib muttasil 4 atau 5 harakat, dan boleh 6 ketika waqaf di hujung kalimah.","واجب متصل امڤت اتاو ليم حرکة، دان بوليه انم کتيک وقف د هوجوڠ كليمه."] },
+    { type:"akord", q:["Padankan istilah dengan maksudnya.","ڤادنکن ايستيله دڠن مقصودڽ."],
+      pairs:[[["Wajib","واجب"],["ulama sepakat mesti panjang","علماء سڤاکت مستي ڤنجڠ"]],[["Muttasil","متصل"],["bersambung","برسمبوڠ"]],[["Jaiz","جائز"],["harus 2 harakat atau lebih","هاروس دوا حرکة اتاو لبيه"]],[["Munfasil","منفصل"],["berpisah","برڤيسه"]]],
+      e:["Nama setiap mad menerangkan sifatnya.","نام ستياڤ مد منرڠکن صيفتڽ."] },
+    { type:"konduktor", q:["Ketuk kalimah yang huruf madnya bertemu hamzah di awal kalimah seterusnya.","کتوق كليمه يڠ حروف مدڽ برتمو همزة د اول كليمه ستروسڽ."],
+      ar:"jm_3", ans:0, e:[""+W("jm_3",0)+" berakhir dengan huruf mad, kemudian "+W("jm_3",1)+" bermula dengan hamzah: mad jaiz munfasil.",""+W("jm_3",0)+" براخير دڠن حروف مد، کمودين "+W("jm_3",1)+" برمولا دڠن همزة: مد جائز منفصل."] },
+    { type:"lirik", q:["Lengkapkan lirik lagu tajwid ini.","لڠکڤکن ليريک لاڬو تجويد اين."],
+      s:["Mad wajib muttasil: huruf mad bertemu hamzah dalam ___ kalimah.","مد واجب متصل: حروف مد برتمو همزة دالم ___ كليمه."], a:[["satu","ساتو"],["dua","دوا"],["tiga","تيڬ"]],
+      e:["Muttasil = bersambung dalam satu kalimah.","متصل = برسمبوڠ دالم ساتو كليمه."] },
+    { type:"tempo", q:["Jawab mengikut rentak! Jawapan pantas dapat ⚡.","جواب مڠيکوت رنتق! جواڤن ڤنتس داڤت ⚡."],
+      rounds:[
+        { p:["Kadar mad jaiz munfasil (riwayat Hafs)?","قدر مد جائز منفصل (رواية حفص)؟"], a:[H45,H6,H2] },
+        { p:["Waqaf pada kalimah pertama mad jaiz munfasil. Hukumnya menjadi...","وقف ڤد كليمه ڤرتام مد جائز منفصل. حکومڽ منجادي..."], a:[HK.ak,HK.lz,HK.bd] },
+        { p:["Hukum bacaan ini?","حکوم باچاٴن اين؟"], ar:"wm_5", a:[HK.wm,HK.jm,HK.bd] },
+        { p:["Hukum bacaan ini?","حکوم باچاٴن اين؟"], ar:"jm_4", a:[HK.jm,HK.wm,HK.ak] }
+      ], e:["Hebat! Kamu kenal muttasil dan munfasil.","هيبت! کامو کنل متصل دان منفصل."] }
+  ] },
+
+{ id:3, icon:"🎻", c:"#2EA88F", sticker:"🎻", t:["Seksyen Rebab: Badal dan Mad Silah","سيکشن رباب: بدل دان مد صلة"], u:["Mad badal, silah tawilah, silah qasirah • ms. 19–24, 54","مد بدل، صلة طويلة، صلة قصيرة • م.س. 19–24، 54"],
+  read:[
+    { p:"19–21", pic:"🔁", h:HK.bd,
+      text:["Hamzah dan huruf mad dalam satu kalimah, dan hamzah mendahului huruf mad. Dibaca 2 harakat.","همزة دان حروف مد دالم ساتو كليمه، دان همزة منداهولوي حروف مد. دباچ دوا حرکة."],
+      ex:["bd_1","bd_3","bd_4","bd_2"],
+      tip:["Asalnya dua hamzah: hamzah pertama berbaris, hamzah kedua mati. Hamzah kedua ditukar menjadi huruf mad mengikut baris hamzah pertama. Contoh: ءَادَمَ asalnya أَأْدَمَ.","اصلڽ دوا همزة: همزة ڤرتام برباريس، همزة کدوا ماتي. همزة کدوا دتوکر منجادي حروف مد مڠيکوت باريس همزة ڤرتام. چونتوه: ءَادَمَ اصلڽ أَأْدَمَ."] },
+    { p:"22–24", pic:"🎻", h:HK.stw,
+      text:["Mad silah berlaku pada ha dhamir berbaris depan atau bawah yang diapit huruf berbaris. Mad silah tawilah: ha dhamir bertemu hamzah qatha'. Dibaca 4 atau 5 harakat.","مد صلة برلاکو ڤد هاء ضمير برباريس دڤن اتاو باوه يڠ دأڤيت حروف برباريس. مد صلة طويلة: هاء ضمير برتمو همزة قطع. دباچ امڤت اتاو ليم حرکة."],
+      ex:["st_1","st_3","st_4"],
+      tip:["Hamzah qatha' ialah hamzah berbaris yang kekal pada tulisan dan sebutan. Mad silah tawilah juga dikenali sebagai mad silah kubra.","همزة قطع اياله همزة برباريس يڠ ککل ڤد توليسن دان سبوتن. مد صلة طويلة جوڬ دکنلي سباڬاي مد صلة كبرى."] },
+    { p:"54", pic:"🎵", h:HK.sqs,
+      text:["Ha dhamir berbaris bawah atau depan bertemu huruf selain hamzah qatha'. Dibaca 2 harakat.","هاء ضمير برباريس باوه اتاو دڤن برتمو حروف سلاٴين همزة قطع. دباچ دوا حرکة."],
+      ex:["sq_1","sq_2","sq_3","sq_4"] }
+  ],
+  games:[
+    { type:"notasi", q:["Susun setiap not ke baris paranada hukumnya.","سوسون ستياڤ نوت ک باريس ڤارانادا حکومڽ."],
+      stv:[HK.bd, HK.stw, HK.sqs], items:[["bd_1",0],["bd_3",0],["st_1",1],["st_3",1],["sq_2",2],["sq_3",2]],
+      e:["Badal: hamzah dahulu. Silah: lihat huruf selepas ha dhamir.","بدل: همزة دهولو. صلة: ليهت حروف سلڤس هاء ضمير."] },
+    { type:"akord", q:["Padankan bentuk asal dengan kalimah mad badal.","ڤادنکن بنتوق اصل دڠن كليمه مد بدل."],
+      pairs:[["أَأْدَمَ","bd_1"],["أُؤْتُوا","bd_3"],["إِئْمَانًا","bd_4"],["أَأْزَرَ","bd_5"]],
+      e:["Hamzah kedua yang mati ditukar menjadi huruf mad.","همزة کدوا يڠ ماتي دتوکر منجادي حروف مد."] },
+    { type:"kompang", q:["Pukul semua kompang yang ada mad silah tawilah, kemudian tekan Pukul!","ڤوکول سموا کومڤڠ يڠ اد مد صلة طويلة، کمودين تکن ڤوکول!"],
+      items:[["st_1",1],["st_2",1],["st_4",1],["sq_1",0],["sq_4",0],["bd_2",0]],
+      e:["Mad silah tawilah: ha dhamir bertemu hamzah qatha'.","مد صلة طويلة: هاء ضمير برتمو همزة قطع."] },
+    { type:"gendang", q:["Ketuk gendang mengikut kadar harakat, kemudian tekan Semak.","کتوق ڬندڠ مڠيکوت قدر حرکة، کمودين تکن سمق."],
+      rounds:[["bd_2",[2],HK.bd],["st_3",[4,5],HK.stw],["sq_2",[2],HK.sqs]],
+      e:["Badal dan silah qasirah 2 harakat; silah tawilah 4 atau 5 harakat.","بدل دان صلة قصيرة دوا حرکة؛ صلة طويلة امڤت اتاو ليم حرکة."] },
+    { type:"tempo", q:["Jawab mengikut rentak! Jawapan pantas dapat ⚡.","جواب مڠيکوت رنتق! جواڤن ڤنتس داڤت ⚡."],
+      rounds:[
+        { p:["Ha dhamir bertemu hamzah qatha'. Hukumnya?","هاء ضمير برتمو همزة قطع. حکومڽ؟"], a:[HK.stw,HK.sqs,HK.bd] },
+        { p:["Nama lain mad silah tawilah?","نام لاٴين مد صلة طويلة؟"], a:[["Mad silah kubra","مد صلة كبرى"],["Mad tabi'i","مد طبيعي"],HK.ln] },
+        { p:["Dalam mad badal, hamzah berada di mana?","دالم مد بدل، همزة براد د مان؟"], a:[["Sebelum huruf mad","سبلوم حروف مد"],["Selepas huruf mad","سلڤس حروف مد"],["Dalam kalimah lain","دالم كليمه لاٴين"]] },
+        { p:["Hukum bacaan ini?","حکوم باچاٴن اين؟"], ar:"sq_4", a:[HK.sqs,HK.stw,HK.wm] }
+      ], e:["Bagus! Rebab kamu berbunyi merdu.","باڬوس! رباب کامو بربوڽي مردو."] },
+    { type:"lirik", q:["Lengkapkan lirik lagu tajwid ini.","لڠکڤکن ليريک لاڬو تجويد اين."],
+      s:["Hamzah qatha' ialah hamzah berbaris yang ___ pada tulisan dan sebutan.","همزة قطع اياله همزة برباريس يڠ ___ ڤد توليسن دان سبوتن."], a:[["kekal","ککل"],["hilang","هيلڠ"],["ditukar","دتوکر"]],
+      e:["Hamzah qatha' kekal dibunyikan.","همزة قطع ککل دبوڽيکن."] }
+  ] },
+
+{ id:4, icon:"🎷", c:"#3B7DD8", sticker:"🎷", t:["Seksyen Seruling: Farq dan Ta'zim","سيکشن سرولڠ: فرق دان تعظيم"], u:["Mad farq dan mad ta'zim • ms. 25–29","مد فرق دان مد تعظيم • م.س. 25–29"],
+  read:[
+    { p:"25–27", pic:"❓", h:HK.fq,
+      text:["Selepas hamzah qatha' di permulaan kalimah terdapat hamzah wasal. Dibaca 6 harakat.","سلڤس همزة قطع د ڤرمولاٴن كليمه ترداڤت همزة وصل. دباچ انم حرکة."],
+      ex:["fq_1","fq_2","fq_3"],
+      tip:["Dinamakan farq kerana ia membezakan hamzah istifham dengan hamzah khabar. Ia boleh juga dibaca dengan tashil, tetapi bacaan mad lebih utama.","دناماکن فرق کران اي ممبيذاکن همزة إستفهام دڠن همزة خبر. اي بوليه جوڬ دباچ دڠن تسهيل، تتاڤي باچاٴن مد لبيه اوتام."] },
+    { p:"26", pic:"6️⃣", h:["Enam kalimah sahaja","انم كليمه سهاج"],
+      text:["Mad farq termasuk dalam bahagian mad lazim kalimi. Ia hanya terdapat pada enam kalimah dalam al-Quran.","مد فرق ترماسوق دالم بهاڬين مد لازم كلمي. اي هاڽ ترداڤت ڤد انم كليمه دالم القرءان."],
+      list:[["Surah Yunus ayat 51, 59 dan 91","سورة يونس ايات 51، 59 دان 91"],["Surah An-Naml ayat 59","سورة النمل ايات 59"],["Surah Al-An'am ayat 143 dan 144 (dua kali)","سورة الأنعام ايات 143 دان 144 (دوا کالي)"]] },
+    { p:"28–29", pic:"👑", h:HK.tz,
+      text:["Kalimah "+W("tz_1",0)+" yang menafikan bertemu kalimah إِلَـٰهَ. Dibaca 4 atau 5 harakat. Dinamakan ta'zim kerana membesarkan dan memuliakan Allah.","كليمه "+W("tz_1",0)+" يڠ منافيکن برتمو كليمه إِلَـٰهَ. دباچ امڤت اتاو ليم حرکة. دناماکن تعظيم کران ممبسرکن دان ممولياکن الله."],
+      ex:["tz_1","tz_2"], am:["Luangkan masa untuk membaca al-Quran setiap hari.","لواڠکن ماس اونتوق ممباچ القرءان ستياڤ هاري."] }
+  ],
+  games:[
+    { type:"gendang", q:["Ketuk gendang mengikut kadar harakat, kemudian tekan Semak.","کتوق ڬندڠ مڠيکوت قدر حرکة، کمودين تکن سمق."],
+      rounds:[["fq_1",[6],HK.fq],["tz_2",[4,5],HK.tz],["fq_3",[6],HK.fq]],
+      e:["Mad farq 6 harakat; mad ta'zim 4 atau 5 harakat.","مد فرق انم حرکة؛ مد تعظيم امڤت اتاو ليم حرکة."] },
+    { type:"kompang", q:["Pukul semua kompang yang ada mad farq, kemudian tekan Pukul!","ڤوکول سموا کومڤڠ يڠ اد مد فرق، کمودين تکن ڤوکول!"],
+      items:[["fq_1",1],["fq_2",1],["fq_3",1],["tz_1",0],["bd_1",0],["wm_2",0]],
+      e:["Mad farq: hamzah istifham bertemu hamzah wasal.","مد فرق: همزة إستفهام برتمو همزة وصل."] },
+    { type:"akord", q:["Padankan istilah dengan maksudnya.","ڤادنکن ايستيله دڠن مقصودڽ."],
+      pairs:[[HK.fq,["membezakan hamzah istifham dan khabar","ممبيذاکن همزة إستفهام دان خبر"]],[HK.tz,["membesarkan dan memuliakan Allah","ممبسرکن دان ممولياکن الله"]],[["Tashil","تسهيل"],["memudahkan hamzah kedua","ممودهکن همزة کدوا"]]],
+      e:["Setiap nama ada sebabnya.","ستياڤ نام اد سببڽ."] },
+    { type:"lirik", q:["Lengkapkan lirik lagu tajwid ini.","لڠکڤکن ليريک لاڬو تجويد اين."],
+      s:["Mad farq hanya terdapat pada ___ kalimah dalam al-Quran.","مد فرق هاڽ ترداڤت ڤد ___ كليمه دالم القرءان."], a:[["enam","انم"],["lima","ليم"],["dua","دوا"]],
+      e:["Enam kalimah: dalam Surah Yunus, An-Naml dan Al-An'am.","انم كليمه: دالم سورة يونس، النمل دان الأنعام."] },
+    { type:"tempo", q:["Jawab mengikut rentak! Jawapan pantas dapat ⚡.","جواب مڠيکوت رنتق! جواڤن ڤنتس داڤت ⚡."],
+      rounds:[
+        { p:["Hukum bacaan ini?","حکوم باچاٴن اين؟"], ar:"tz_1", a:[HK.tz,HK.fq,HK.jm] },
+        { p:["Mad farq termasuk dalam bahagian...","مد فرق ترماسوق دالم بهاڬين..."], a:[["Mad lazim kalimi","مد لازم كلمي"],HK.ak,HK.ln] },
+        { p:["Selain mad, mad farq boleh juga dibaca dengan...","سلاٴين مد، مد فرق بوليه جوڬ دباچ دڠن..."], a:[["Tashil","تسهيل"],["Idgham","إدغام"],["Ikhfa'","إخفاء"]] },
+        { p:["Hukum bacaan ini?","حکوم باچاٴن اين؟"], ar:"fq_2", a:[HK.fq,HK.bd,HK.tz] }
+      ], e:["Seruling kamu sangat merdu!","سرولڠ کامو سڠت مردو!"] }
+  ] },
+
+{ id:5, icon:"🔔", c:"#8E44AD", sticker:"🔔", t:["Seksyen Gong: Mad Lazim","سيکشن ڬوڠ: مد لازم"], u:["Empat jenis mad lazim • ms. 30–44","امڤت جنيس مد لازم • م.س. 30–44"],
+  read:[
+    { p:"30–31", pic:"🔔", h:HK.lz,
+      text:["Mad lazim ialah huruf mad bertemu huruf mati asli. Dibaca 6 harakat.","مد لازم اياله حروف مد برتمو حروف ماتي اصلي. دباچ انم حرکة."],
+      list:[HK.lkt, HK.lkf, HK.lht, HK.lhf],
+      tip:["Lazim = mesti 6 harakat. Kalimi = satu kalimah. Harfi = satu huruf. Muthaqqal = diidghamkan. Mukhaffaf = tidak diidghamkan.","لازم = مستي انم حرکة. كلمي = ساتو كليمه. حرفي = ساتو حروف. مثقل = دإدغامکن. مخفف = تيدق دإدغامکن."] },
+    { p:"32–35", pic:"🦁", h:["Mad lazim kalimi","مد لازم كلمي"],
+      text:["Muthaqqal: huruf mad bertemu huruf bertasydid dalam satu kalimah, dibaca dengan idgham. Mukhaffaf: huruf mad bertemu huruf mati tanpa idgham, hanya dalam Surah Yunus ayat 51 dan 91.","مثقل: حروف مد برتمو حروف برتشديد دالم ساتو كليمه، دباچ دڠن إدغام. مخفف: حروف مد برتمو حروف ماتي تنڤا إدغام، هاڽ دالم سورة يونس ايات 51 دان 91."],
+      ex:["lk_1","lk_2","lk_3","lm_1"],
+      tip:["Huruf bertasydid asalnya dua huruf yang diidghamkan.","حروف برتشديد اصلڽ دوا حروف يڠ دإدغامکن."] },
+    { p:"36–39", pic:"🎹", h:HK.lht,
+      text:["Huruf mad bertemu huruf mati dalam ejaan huruf pembuka surah, lalu diidghamkan ke dalam huruf berikutnya. Dibaca dengan idgham berserta dengung.","حروف مد برتمو حروف ماتي دالم ايجاٴن حروف ڤمبوک سورة، لالو دإدغامکن ک دالم حروف برايکوتڽ. دباچ دڠن إدغام برسرتا دڠوڠ."],
+      ex:["lh_1","lh_2","lh_3"],
+      tip:["Huruf mad lazim harfi ada lapan, terhimpun dalam kata نَقَصَ عَسَلُكُمْ.","حروف مد لازم حرفي اد لاڤن، ترهيمڤون دالم کات نَقَصَ عَسَلُكُمْ."] },
+    { p:"40–44", pic:"🎶", h:HK.lhf,
+      text:["Huruf mad bertemu huruf mati dalam huruf pembuka surah dan tidak diidghamkan. Dibaca tanpa idgham dan tanpa dengung.","حروف مد برتمو حروف ماتي دالم حروف ڤمبوک سورة دان تيدق دإدغامکن. دباچ تنڤا إدغام دان تنڤا دڠوڠ."],
+      ex:["lf_1","lf_2","lf_3","lf_4"],
+      tip:["Huruf di permulaan surah ada 14. Huruf ع dalam كٓهيعٓصٓ dan عٓسٓقٓ boleh dibaca 4 atau 6 harakat, tetapi 6 harakat lebih afdal.","حروف د ڤرمولاٴن سورة اد 14. حروف ع دالم كٓهيعٓصٓ دان عٓسٓقٓ بوليه دباچ امڤت اتاو انم حرکة، تتاڤي انم حرکة لبيه افضل."] }
+  ],
+  games:[
+    { type:"notasi", q:["Susun setiap not ke baris paranada hukumnya.","سوسون ستياڤ نوت ک باريس ڤارانادا حکومڽ."],
+      stv:[HK.lkt, HK.lkf, HK.lhf], items:[["lk_1",0],["lk_3",0],["lk_4",0],["lm_1",1],["lf_1",2],["lf_2",2],["lf_3",2]],
+      e:["Kalimi dalam kalimah; harfi pada huruf pembuka surah.","كلمي دالم كليمه؛ حرفي ڤد حروف ڤمبوک سورة."] },
+    { type:"kompang", q:["Pukul semua huruf mad lazim harfi (نَقَصَ عَسَلُكُمْ), kemudian tekan Pukul!","ڤوکول سموا حروف مد لازم حرفي (نَقَصَ عَسَلُكُمْ)، کمودين تکن ڤوکول!"],
+      items:[["ن",1],["ق",1],["ص",1],["ع",1],["س",1],["ل",1],["ك",1],["م",1],["ح",0],["ط",0],["ه",0],["ر",0]],
+      e:["Lapan huruf: ن ق ص ع س ل ك م.","لاڤن حروف: ن ق ص ع س ل ك م."] },
+    { type:"akord", q:["Padankan istilah dengan maksudnya.","ڤادنکن ايستيله دڠن مقصودڽ."],
+      pairs:[[["Lazim","لازم"],["mesti 6 harakat","مستي انم حرکة"]],[["Kalimi","كلمي"],["satu kalimah","ساتو كليمه"]],[["Harfi","حرفي"],["satu huruf","ساتو حروف"]],[["Muthaqqal","مثقل"],["diidghamkan","دإدغامکن"]],[["Mukhaffaf","مخفف"],["tidak diidghamkan","تيدق دإدغامکن"]]],
+      e:["Nama mad lazim menerangkan cara bacaannya.","نام مد لازم منرڠکن چارا باچاٴنڽ."] },
+    { type:"gendang", q:["Ketuk gendang mengikut kadar harakat, kemudian tekan Semak.","کتوق ڬندڠ مڠيکوت قدر حرکة، کمودين تکن سمق."],
+      rounds:[["lk_2",[6],HK.lkt],["lf_2",[6],HK.lhf],["lf_4",[4,6],["Huruf ع dalam عٓسٓقٓ","حروف ع دالم عٓسٓقٓ"]]],
+      e:["Mad lazim 6 harakat. Huruf ع boleh 4 atau 6, tetapi 6 lebih afdal.","مد لازم انم حرکة. حروف ع بوليه امڤت اتاو انم، تتاڤي انم لبيه افضل."] },
+    { type:"lirik", q:["Lengkapkan lirik lagu tajwid ini.","لڠکڤکن ليريک لاڬو تجويد اين."],
+      s:["Mad lazim kalimi mukhaffaf hanya ada dalam Surah ___ ayat 51 dan 91.","مد لازم كلمي مخفف هاڽ اد دالم سورة ___ ايات 51 دان 91."], a:[["Yunus","يونس"],["Yasin","يس"],["Maryam","مريم"]],
+      e:["Kalimahnya "+A("lm_1")+" dalam Surah Yunus.","كليمهڽ "+A("lm_1")+" دالم سورة يونس."] },
+    { type:"tempo", q:["Jawab mengikut rentak! Jawapan pantas dapat ⚡.","جواب مڠيکوت رنتق! جواڤن ڤنتس داڤت ⚡."],
+      rounds:[
+        { p:["Huruf mad bertemu huruf bertasydid dalam satu kalimah:","حروف مد برتمو حروف برتشديد دالم ساتو كليمه:"], a:[HK.lkt,HK.lkf,HK.lhf] },
+        { p:["Cara bacaan mad lazim harfi muthaqqal?","چارا باچاٴن مد لازم حرفي مثقل؟"], a:[["Idgham berserta dengung","إدغام برسرتا دڠوڠ"],["Tanpa idgham dan dengung","تنڤا إدغام دان دڠوڠ"],["Tashil","تسهيل"]] },
+        { p:["Hukum huruf ini (Surah Al-Qalam)?","حکوم حروف اين (سورة القلم)؟"], ar:"lf_1", a:[HK.lhf,HK.lht,HK.lkf] },
+        { p:["Berapakah huruf di permulaan surah?","براڤاکه حروف د ڤرمولاٴن سورة؟"], a:[["14","14"],["8","8"],["5","5"]] }
+      ], e:["Gong kamu bergema enam harakat!","ڬوڠ کامو برڬما انم حرکة!"] }
+  ] },
+
+{ id:6, icon:"🎋", c:"#D6457E", sticker:"🎋", t:["Seksyen Angklung: Mad Ketika Waqaf","سيکشن اڠکلوڠ: مد کتيک وقف"], u:["'Arid lissukun, lin, 'iwad, tamkin • ms. 45–53","عارض للسكون، لين، عوض، تمكين • م.س. 45–53"],
+  read:[
+    { p:"45–46", pic:"✋", h:HK.ar,
+      text:["Huruf mad bertemu huruf mati kerana waqaf (berhenti bacaan). Dibaca 2, 4 atau 6 harakat.","حروف مد برتمو حروف ماتي کران وقف (برهنتي باچاٴن). دباچ دوا، امڤت اتاو انم حرکة."],
+      ex:["ar_1","ar_2","ar_3","ar_5"],
+      tip:["Dinamakan 'arid lissukun kerana huruf mati di akhir ayat itu hanya mendatang disebabkan waqaf.","دناماکن عارض للسكون کران حروف ماتي د اخير ايات ايت هاڽ مندتڠ دسببکن وقف."] },
+    { p:"47–48", pic:"🌙", h:HK.ln,
+      text:["Huruf lin bertemu huruf mati kerana waqaf. Dibaca 2, 4 atau 6 harakat. Hukum ini hanya berlaku ketika waqaf, bukan ketika wasal.","حروف لين برتمو حروف ماتي کران وقف. دباچ دوا، امڤت اتاو انم حرکة. حکوم اين هاڽ برلاکو کتيک وقف، بوکن کتيک وصل."],
+      list:[["Wau mati, sebelumnya berbaris atas","واو ماتي، سبلومڽ برباريس اتس"],["Ya mati, sebelumnya berbaris atas","يا ماتي، سبلومڽ برباريس اتس"]],
+      ex:["ln_1","ln_2"] },
+    { p:"49–51", pic:"🔄", h:HK.iw,
+      text:["Mad 'iwad, mad tamkin dan mad silah qasirah dikategorikan sebagai mad asli. Mad 'iwad: waqaf pada akhir kalimah bertanwin baris dua di atas, kecuali ta marbutah. Tanwin ditukar kepada alif dan dibaca 2 harakat.","مد عوض، مد تمكين دان مد صلة قصيرة دکاتيڬوريکن سباڬاي مد اصلي. مد عوض: وقف ڤد اخير كليمه برتنوين باريس دوا د اتس، کچوالي تاء مربوطة. تنوين دتوکر کڤد اليف دان دباچ دوا حرکة."],
+      ex:["iw_1","iw_2","iw_3"],
+      tip:["Mad 'iwad hanya berlaku ketika waqaf.","مد عوض هاڽ برلاکو کتيک وقف."] },
+    { p:"52–53", pic:"✌️", h:HK.tm,
+      text:["Dua huruf ya bertemu dalam satu kalimah: ya pertama berbaris bawah dan bertasydid, ya kedua mati. Dibaca 2 harakat. Hanya ada lima kalimah dalam al-Quran.","دوا حروف يا برتمو دالم ساتو كليمه: يا ڤرتام برباريس باوه دان برتشديد، يا کدوا ماتي. دباچ دوا حرکة. هاڽ اد ليم كليمه دالم القرءان."],
+      ex:["tm_1","tm_2","tm_3","tm_4","tm_5"] }
+  ],
+  games:[
+    { type:"notasi", q:["Susun setiap not ke baris paranada hukumnya (bacaan waqaf).","سوسون ستياڤ نوت ک باريس ڤارانادا حکومڽ (باچاٴن وقف)."],
+      stv:[HK.ar, HK.ln, HK.iw, HK.tm], items:[["ar_1",0],["ar_2",0],["ln_1",1],["ln_2",1],["iw_1",2],["iw_2",2],["tm_1",3],["tm_3",3]],
+      e:["Lihat huruf sebelum huruf terakhir: huruf mad, huruf lin, tanwin atau dua ya.","ليهت حروف سبلوم حروف ترأخير: حروف مد، حروف لين، تنوين اتاو دوا يا."] },
+    { type:"gendang", q:["Ketuk gendang mengikut kadar harakat, kemudian tekan Semak.","کتوق ڬندڠ مڠيکوت قدر حرکة، کمودين تکن سمق."],
+      rounds:[["ar_6",[2,4,6],["Mad 'arid lissukun (waqaf)","مد عارض للسكون (وقف)"]],["iw_3",[2],HK.iw],["tm_3",[2],HK.tm],["ln_2",[2,4,6],["Mad lin (waqaf)","مد لين (وقف)"]]],
+      e:["'Arid dan lin: 2, 4 atau 6. 'Iwad dan tamkin: 2 harakat.","عارض دان لين: دوا، امڤت اتاو انم. عوض دان تمكين: دوا حرکة."] },
+    { type:"kompang", q:["Pukul semua kalimah mad tamkin, kemudian tekan Pukul!","ڤوکول سموا كليمه مد تمكين، کمودين تکن ڤوکول!"],
+      items:[["tm_1",1],["tm_2",1],["tm_3",1],["tm_4",1],["tm_5",1],["lk_3",0],["ar_2",0],["iw_1",0],["ln_2",0]],
+      e:["Lima kalimah mad tamkin: semuanya ada dua ya.","ليم كليمه مد تمكين: سمواڽ اد دوا يا."] },
+    { type:"lirik", q:["Lengkapkan lirik lagu tajwid ini.","لڠکڤکن ليريک لاڬو تجويد اين."],
+      s:["Mad 'iwad: ketika waqaf, tanwin baris dua di atas ditukar kepada huruf ___.","مد عوض: کتيک وقف، تنوين باريس دوا د اتس دتوکر کڤد حروف ___."], a:[["alif","اليف"],["wau","واو"],["ya","يا"]],
+      e:["مِهَـٰدًا dibaca mihada ketika waqaf.","مِهَـٰدًا دباچ ميهادا کتيک وقف."] },
+    { type:"tempo", q:["Jawab mengikut rentak! Jawapan pantas dapat ⚡.","جواب مڠيکوت رنتق! جواڤن ڤنتس داڤت ⚡."],
+      rounds:[
+        { p:["Huruf lin ialah wau dan ya mati, sebelumnya berbaris...","حروف لين اياله واو دان يا ماتي، سبلومڽ برباريس..."], a:[["atas","اتس"],["bawah","باوه"],["depan","دڤن"]] },
+        { p:["Mad 'iwad tidak berlaku pada...","مد عوض تيدق برلاکو ڤد..."], a:[["ta marbutah","تاء مربوطة"],["huruf alif","حروف اليف"],["huruf nun","حروف نون"]] },
+        { p:["Mad lin berlaku ketika...","مد لين برلاکو کتيک..."], a:[["waqaf sahaja","وقف سهاج"],["wasal sahaja","وصل سهاج"],["wasal dan waqaf","وصل دان وقف"]] },
+        { p:["Hukum ketika waqaf pada kalimah ini?","حکوم کتيک وقف ڤد كليمه اين؟"], ar:"ln_1", a:[HK.ln,HK.iw,HK.tm] }
+      ], e:["Angklung kamu berbunyi serentak!","اڠکلوڠ کامو بربوڽي سرنتق!"] }
+  ] },
+
+{ id:7, icon:"🪕", c:"#C9741F", sticker:"🪕", t:["Seksyen Gambus: Tingkatan Mad","سيکشن ڬمبوس: تيڠکتن مد"], u:["Martabat mad far'i • ms. 55–56","مرتبت مد فرعي • م.س. 55–56"],
+  read:[
+    { p:"55", pic:"📶", h:["Tingkatan mad far'i","تيڠکتن مد فرعي"],
+      text:["Mad far'i ada tingkatan, daripada yang paling kuat kepada yang paling lemah:","مد فرعي اد تيڠکتن، درڤد يڠ ڤاليڠ کوات کڤد يڠ ڤاليڠ لمه:"],
+      list:[["1. Mad lazim: 6 harakat","1. مد لازم: انم حرکة"],["2. Mad wajib muttasil: 4 atau 5 harakat","2. مد واجب متصل: امڤت اتاو ليم حرکة"],["3. Mad 'arid lissukun: harus 2, 4 atau 6 harakat","3. مد عارض للسكون: هاروس دوا، امڤت اتاو انم حرکة"],["4. Mad jaiz munfasil: harus 4 atau 5 harakat","4. مد جائز منفصل: هاروس امڤت اتاو ليم حرکة"],["5. Mad badal: 2 harakat","5. مد بدل: دوا حرکة"]] },
+    { p:"55–56", pic:"⚖️", h:["Mengapa perlu belajar tingkatan mad?","مڠاڤ ڤرلو بلاجر تيڠکتن مد؟"],
+      text:["Jika dua hukum mad bertemu dalam satu kalimah, ikut hukum yang tingkatannya paling tinggi. Contohnya kalimah "+A("tk_1")+" ketika waqaf ada mad 'arid lissukun dan mad wajib muttasil. Hukum sebenarnya mad wajib muttasil kerana tingkatannya lebih tinggi.","جک دوا حکوم مد برتمو دالم ساتو كليمه، ايکوت حکوم يڠ تيڠکتنڽ ڤاليڠ تيڠڬي. چونتوهڽ كليمه "+A("tk_1")+" کتيک وقف اد مد عارض للسكون دان مد واجب متصل. حکوم سبنرڽ مد واجب متصل کران تيڠکتنڽ لبيه تيڠڬي."],
+      ex:["tk_1"], am:["Belajar tajwid dengan bersungguh-sungguh supaya bacaan kita betul.","بلاجر تجويد دڠن برسوڠڬوه-سوڠڬوه سوڤايا باچاٴن کيت بتول."] }
+  ],
+  games:[
+    { type:"irama", q:["Susun not melodi dari tingkatan paling tinggi ke paling rendah.","سوسون نوت ملودي دري تيڠکتن ڤاليڠ تيڠڬي ک ڤاليڠ رنده."],
+      items:[HK.lz, HK.wm, HK.ar, HK.jm, HK.bd], e:["Lazim, wajib, 'arid, jaiz, badal.","لازم، واجب، عارض، جائز، بدل."] },
+    { type:"akord", q:["Padankan hukum mad dengan kadarnya.","ڤادنکن حکوم مد دڠن قدرڽ."],
+      pairs:[[HK.lz,H6],[HK.wm,H45],[HK.ar,H246],[HK.bd,H2]], e:["Semakin tinggi tingkatan, semakin kuat mad itu.","سماکين تيڠڬي تيڠکتن، سماکين کوات مد ايت."] },
+    { type:"tempo", q:["Mana satu lebih tinggi tingkatannya? Jawab pantas!","مان ساتو لبيه تيڠڬي تيڠکتنڽ؟ جواب ڤنتس!"],
+      rounds:[ { p:["Lebih tinggi?","لبيه تيڠڬي؟"], a:[HK.lz,HK.wm] }, { p:["Lebih tinggi?","لبيه تيڠڬي؟"], a:[HK.ar,HK.jm] },
+        { p:["Lebih tinggi?","لبيه تيڠڬي؟"], a:[HK.jm,HK.bd] }, { p:["Lebih tinggi?","لبيه تيڠڬي؟"], a:[HK.wm,HK.ar] } ],
+      e:["Kamu hafal tingkatan mad!","کامو حافل تيڠکتن مد!"] },
+    { type:"gendang", q:["Ketuk gendang mengikut kadar harakat, kemudian tekan Semak.","کتوق ڬندڠ مڠيکوت قدر حرکة، کمودين تکن سمق."],
+      rounds:[["tk_1",[4,5,6],["Hukum sebenar ketika waqaf: mad wajib muttasil","حکوم سبنر کتيک وقف: مد واجب متصل"]],["lk_1",[6],HK.lz],["bd_1",[2],HK.bd]],
+      e:[""+A("tk_1")+" ketika waqaf ikut mad wajib muttasil: 4, 5 atau 6 harakat.",""+A("tk_1")+" کتيک وقف ايکوت مد واجب متصل: امڤت، ليم اتاو انم حرکة."] },
+    { type:"lirik", q:["Lengkapkan lirik lagu tajwid ini.","لڠکڤکن ليريک لاڬو تجويد اين."],
+      s:["Jika ada dua hukum mad dalam satu kalimah, ikut tingkatan yang paling ___.","جک اد دوا حکوم مد دالم ساتو كليمه، ايکوت تيڠکتن يڠ ڤاليڠ ___."], a:[["tinggi","تيڠڬي"],["rendah","رنده"],["pendek","ڤندق"]],
+      e:["Tingkatan tertinggi menentukan hukum.","تيڠکتن ترتيڠڬي منننتوکن حکوم."] }
+  ] },
+
+{ id:8, icon:"🎹", c:"#1F9E6E", sticker:"🎹", t:["Seksyen Caklempong: Waqaf","سيکشن چاقلمڤوڠ: وقف"], u:["Bahagian, jenis dan tanda waqaf • ms. 57–60","بهاڬين، جنيس دان تندا وقف • م.س. 57–60"],
+  read:[
+    { p:"57", pic:"⏸️", h:["Apa itu waqaf?","اڤ ايت وقف؟"],
+      text:["Waqaf ialah memberhentikan bacaan dengan mengambil nafas yang baru, dengan niat untuk menyambung semula bacaan.","وقف اياله ممبرهنتيکن باچاٴن دڠن مڠمبيل نفس يڠ بارو، دڠن نية اونتوق مڽمبوڠ سمولا باچاٴن."],
+      list:[["Ikhtibari: untuk menerangkan hukum, mengajar orang ramai dan menyoal dalam peperiksaan al-Quran.","إختباري: اونتوق منرڠکن حکوم، مڠاجر اورڠ راماي دان مڽوال دالم ڤڤريقساٴن القرءان."],["Idhtirari: terpaksa berhenti kerana sebab seperti terbatuk, bersin dan pendek nafas.","إضطراري: ترڤقسا برهنتي کران سبب سڤرتي ترباتوق، برسين دان ڤندق نفس."],["Ikhtiyari: mengikut pilihan pembaca.","إختياري: مڠيکوت ڤيليهن ڤمباچ."],["Intizari: menunggu untuk menyempurnakan bentuk-bentuk bacaan al-Quran.","إنتظاري: منوڠڬو اونتوق مڽمڤورناکن بنتوق-بنتوق باچاٴن القرءان."]] },
+    { p:"58", pic:"🎚️", h:["Jenis waqaf ikhtiyari","جنيس وقف إختياري"],
+      list:[["Tam (sempurna): sempurna pada lafaz dan makna.","تام (سمڤورنا): سمڤورنا ڤد لفظ دان معنا."],["Kafi (memadai): sempurna lafaz, tetapi masih ada hubungan makna.","كافي (ممادائي): سمڤورنا لفظ، تتاڤي ماسيه اد هوبوڠن معنا."],["Hasan (elok): masih tergantung lafaz dan makna, tetapi boleh difahami.","حسن (ايلوق): ماسيه ترڬنتوڠ لفظ دان معنا، تتاڤي بوليه دفهمي."],["Qabih (buruk): tidak difahami atau membawa kesalahan makna.","قبيح (بوروق): تيدق دفهمي اتاو ممباوا کسالهن معنا."]] },
+    { p:"59–60", pic:"🚦", h:["Tanda-tanda waqaf","تندا-تندا وقف"],
+      list:[["م : waqaf lazim, mesti berhenti","م : وقف لازم، مستي برهنتي"],["ج : waqaf jaiz, harus berhenti atau sambung","ج : وقف جائز، هاروس برهنتي اتاو سمبوڠ"],["صلى : harus waqaf, tetapi wasal lebih utama","صلى : هاروس وقف، تتاڤي وصل لبيه اوتام"],["قلى : waqaf lebih utama daripada wasal","قلى : وقف لبيه اوتام درڤد وصل"],["∴ : waqaf mu'anaqah, berhenti pada salah satu tanda sahaja","∴ : وقف معانقة، برهنتي ڤد ساله ساتو تندا سهاج"],["لا : dilarang waqaf","لا : دلارڠ وقف"]],
+      ex:["wq_m","wq_a","wq_l"], am:["Jadilah pembaca yang dapat membezakan bacaan waqaf dan wasal.","جاديله ڤمباچ يڠ داڤت ممبيذاکن باچاٴن وقف دان وصل."] }
+  ],
+  games:[
+    { type:"akord", q:["Padankan bahagian waqaf dengan maksudnya.","ڤادنکن بهاڬين وقف دڠن مقصودڽ."],
+      pairs:[[["Ikhtibari","إختباري"],["menerangkan hukum dan menyoal","منرڠکن حکوم دان مڽوال"]],[["Idhtirari","إضطراري"],["terpaksa: batuk, bersin","ترڤقسا: باتوق، برسين"]],[["Ikhtiyari","إختياري"],["pilihan pembaca","ڤيليهن ڤمباچ"]],[["Intizari","إنتظاري"],["menunggu","منوڠڬو"]]],
+      e:["Empat bahagian waqaf: ikhtibari, idhtirari, ikhtiyari, intizari.","امڤت بهاڬين وقف: إختباري، إضطراري، إختياري، إنتظاري."] },
+    { type:"tempo", q:["Lihat tanda waqaf dalam ayat. Apakah maksudnya?","ليهت تندا وقف دالم ايات. اڤاکه مقصودڽ؟"],
+      rounds:[
+        { p:["Maksud tanda ini?","مقصود تندا اين؟"], ar:"wq_m", a:[["Mesti berhenti","مستي برهنتي"],["Dilarang waqaf","دلارڠ وقف"],["Wasal lebih utama","وصل لبيه اوتام"]] },
+        { p:["Maksud tanda ini?","مقصود تندا اين؟"], ar:"wq_l", a:[["Dilarang waqaf","دلارڠ وقف"],["Mesti berhenti","مستي برهنتي"],["Waqaf lebih utama","وقف لبيه اوتام"]] },
+        { p:["Maksud tanda ini?","مقصود تندا اين؟"], ar:"wq_q", a:[["Waqaf lebih utama","وقف لبيه اوتام"],["Dilarang waqaf","دلارڠ وقف"],["Mesti berhenti","مستي برهنتي"]] },
+        { p:["Maksud tanda ini?","مقصود تندا اين؟"], ar:"wq_s", a:[["Wasal lebih utama","وصل لبيه اوتام"],["Mesti berhenti","مستي برهنتي"],["Dilarang waqaf","دلارڠ وقف"]] },
+        { p:["Maksud tanda ini?","مقصود تندا اين؟"], ar:"wq_a", a:[["Berhenti pada salah satu sahaja","برهنتي ڤد ساله ساتو سهاج"],["Berhenti pada kedua-duanya","برهنتي ڤد کدوا-دواڽ"],["Dilarang waqaf","دلارڠ وقف"]] }
+      ], e:["Kamu pandai membaca tanda waqaf!","کامو ڤندأي ممباچ تندا وقف!"] },
+    { type:"konduktor", q:["Ada tanda لا (dilarang waqaf). Ketuk kalimah yang kita TIDAK boleh berhenti padanya.","اد تندا لا (دلارڠ وقف). کتوق كليمه يڠ کيت تيدق بوليه برهنتي ڤداڽ."],
+      ar:"wq_l", ans:1, e:["Tanda لا di atas "+W("wq_l",1)+": teruskan bacaan.","تندا لا د اتس "+W("wq_l",1)+": تروسکن باچاٴن."] },
+    { type:"konduktor", q:["Ada tanda قلى. Ketuk kalimah yang paling utama untuk kita berhenti.","اد تندا قلى. کتوق كليمه يڠ ڤاليڠ اوتام اونتوق کيت برهنتي."],
+      ar:"wq_q", ans:1, e:["قلى: waqaf lebih utama daripada wasal.","قلى: وقف لبيه اوتام درڤد وصل."] },
+    { type:"irama", q:["Susun jenis waqaf ikhtiyari daripada yang paling baik kepada yang buruk.","سوسون جنيس وقف إختياري درڤد يڠ ڤاليڠ باءيق کڤد يڠ بوروق."],
+      items:[["Tam (sempurna)","تام (سمڤورنا)"],["Kafi (memadai)","كافي (ممادائي)"],["Hasan (elok)","حسن (ايلوق)"],["Qabih (buruk)","قبيح (بوروق)"]],
+      e:["Tam, kafi, hasan, qabih.","تام، كافي، حسن، قبيح."] },
+    { type:"kompang", q:["Pukul semua sebab waqaf idhtirari (terpaksa), kemudian tekan Pukul!","ڤوکول سموا سبب وقف إضطراري (ترڤقسا)، کمودين تکن ڤوکول!"],
+      items:[[["Terbatuk","ترباتوق"],1],[["Bersin","برسين"],1],[["Pendek nafas","ڤندق نفس"],1],[["Mengajar","مڠاجر"],0],[["Pilihan pembaca","ڤيليهن ڤمباچ"],0],[["Menunggu","منوڠڬو"],0]],
+      e:["Idhtirari: kita terpaksa berhenti.","إضطراري: کيت ترڤقسا برهنتي."] }
+  ] },
+
+{ id:9, icon:"🎺", c:"#B8322A", sticker:"🎺", t:["Seksyen Serunai: Ibtida'","سيکشن سروناي: إبتداء"], u:["Memulakan bacaan • ms. 61–63","ممولاکن باچاٴن • م.س. 61–63"],
+  read:[
+    { p:"61", pic:"▶️", h:["Apa itu ibtida'?","اڤ ايت إبتداء؟"],
+      text:["Ibtida' ialah memulakan bacaan atau menyambung bacaan selepas waqaf. Jenisnya: ibtida' jaiz, ibtida' qabih dan ibtida' aqbah.","إبتداء اياله ممولاکن باچاٴن اتاو مڽمبوڠ باچاٴن سلڤس وقف. جنيسڽ: إبتداء جائز، إبتداء قبيح دان إبتداء أقبح."] },
+    { p:"61", pic:"✅", h:["Ibtida' jaiz","إبتداء جائز"],
+      text:["Memulakan atau menyambung bacaan pada ayat yang berasingan dan difahami maknanya. Contoh dalam Surah Al-Baqarah ayat 24:","ممولاکن اتاو مڽمبوڠ باچاٴن ڤد ايات يڠ براسيڠن دان دفهمي معناڽ. چونتوه دالم سورة البقرة ايات 24:"],
+      ex:["ib_j"] },
+    { p:"62", pic:"⛔", h:["Ibtida' qabih dan aqbah","إبتداء قبيح دان أقبح"],
+      text:["Qabih: mula di tempat yang boleh menghilangkan atau merosakkan makna. Aqbah: mula di tempat yang mengubah maksud yang dikehendaki Allah atau menyalahi akidah. Contohnya jangan mula dengan نَحْنُ; mulakan dengan وَقَالَتِ (Surah Al-Ma'idah ayat 18).","قبيح: مولا د تمڤت يڠ بوليه مڠهيلڠکن اتاو مروسقکن معنا. أقبح: مولا د تمڤت يڠ مڠوبه مقصود يڠ دکهندقي الله اتاو مڽالهي عقيده. چونتوهڽ جاڠن مولا دڠن نَحْنُ؛ مولاکن دڠن وَقَالَتِ (سورة المائدة ايات 18)."],
+      ex:["ib_a"] },
+    { p:"63", pic:"📜", h:["Cara ibtida'","چارا إبتداء"],
+      list:[["Mula di awal surah: baca isti'azah dan basmalah, kecuali Surah At-Taubah.","مولا د اول سورة: باچ استعاذة دان بسملة، کچوالي سورة التوبة."],["Mula di pertengahan surah atau ayat: baca isti'azah.","مولا د ڤرتڠهن سورة اتاو ايات: باچ استعاذة."],["Menyambung ayat dalam satu bacaan: tidak perlu isti'azah dan basmalah.","مڽمبوڠ ايات دالم ساتو باچاٴن: تيدق ڤرلو استعاذة دان بسملة."],["Menyambung bacaan ke awal surah seterusnya: baca basmalah sahaja.","مڽمبوڠ باچاٴن ک اول سورة ستروسڽ: باچ بسملة سهاج."]],
+      am:["Luangkan masa untuk membaca al-Quran, bukan menunggu masa lapang.","لواڠکن ماس اونتوق ممباچ القرءان، بوکن منوڠڬو ماس لاڤڠ."] }
+  ],
+  games:[
+    { type:"konduktor", q:["Kita waqaf selepas وَلَن تَفْعَلُوا۟. Ketuk kalimah untuk mula semula (ibtida' jaiz).","کيت وقف سلڤس وَلَن تَفْعَلُوا۟. کتوق كليمه اونتوق مولا سمولا (إبتداء جائز)."],
+      ar:"ib_j", ans:5, e:["Mula dengan "+W("ib_j",5)+": maknanya jelas dan difahami.","مولا دڠن "+W("ib_j",5)+": معناڽ جلس دان دفهمي."] },
+    { type:"konduktor", q:["Dari kalimah mana kita patut mula supaya maknanya betul?","دري كليمه مان کيت ڤاتوت مولا سوڤايا معناڽ بتول؟"],
+      ar:"ib_a", ans:0, e:["Mula dengan وَقَالَتِ. Mula dengan نَحْنُ ialah ibtida' aqbah.","مولا دڠن وَقَالَتِ. مولا دڠن نَحْنُ اياله إبتداء أقبح."] },
+    { type:"notasi", q:["Jika kita mula membaca di sini, apakah jenis ibtida'nya?","جک کيت مولا ممباچ د سيني، اڤاکه جنيس إبتداءڽ؟"],
+      stv:[["Ibtida' jaiz","إبتداء جائز"],["Ibtida' qabih","إبتداء قبيح"],["Ibtida' aqbah","إبتداء أقبح"]], items:[["ib_j2",0],["ib_q2",1],["ib_a2",2],["ib_n2",2]],
+      e:["Ikut contoh dalam buku teks ms. 61–62.","ايکوت چونتوه دالم بوکو تيکس م.س. 61–62."] },
+    { type:"tempo", q:["Cara ibtida': jawab mengikut rentak!","چارا إبتداء: جواب مڠيکوت رنتق!"],
+      rounds:[
+        { p:["Mula membaca di awal surah (selain At-Taubah), baca...","مولا ممباچ د اول سورة (سلاٴين التوبة)، باچ..."], a:[["Isti'azah dan basmalah","استعاذة دان بسملة"],["Basmalah sahaja","بسملة سهاج"],["Tidak baca apa-apa","تيدق باچ اڤ-اڤ"]] },
+        { p:["Mula di pertengahan surah atau ayat, baca...","مولا د ڤرتڠهن سورة اتاو ايات، باچ..."], a:[["Isti'azah","استعاذة"],["Basmalah sahaja","بسملة سهاج"],["Tasbih","تسبيح"]] },
+        { p:["Menyambung ke awal surah seterusnya, baca...","مڽمبوڠ ک اول سورة ستروسڽ، باچ..."], a:[["Basmalah sahaja","بسملة سهاج"],["Isti'azah sahaja","استعاذة سهاج"],["Isti'azah dan basmalah","استعاذة دان بسملة"]] },
+        { p:["Surah yang tidak dimulakan dengan basmalah?","سورة يڠ تيدق دمولاکن دڠن بسملة؟"], a:[["At-Taubah","التوبة"],["Al-Fatihah","الفاتحة"],["Yasin","يس"]] }
+      ], e:["Serunai kamu memulakan lagu dengan betul!","سروناي کامو ممولاکن لاڬو دڠن بتول!"] },
+    { type:"lirik", q:["Lengkapkan lirik lagu tajwid ini.","لڠکڤکن ليريک لاڬو تجويد اين."],
+      s:["Ibtida' ialah memulakan atau menyambung bacaan selepas ___.","إبتداء اياله ممولاکن اتاو مڽمبوڠ باچاٴن سلڤس ___."], a:[["waqaf","وقف"],["wasal","وصل"],["idgham","إدغام"]],
+      e:["Waqaf dahulu, kemudian ibtida'.","وقف دهولو، کمودين إبتداء."] },
+    { type:"akord", q:["Padankan jenis ibtida' dengan maksudnya.","ڤادنکن جنيس إبتداء دڠن مقصودڽ."],
+      pairs:[[["Ibtida' jaiz","إبتداء جائز"],["makna jelas dan difahami","معنا جلس دان دفهمي"]],[["Ibtida' qabih","إبتداء قبيح"],["merosakkan makna","مروسقکن معنا"]],[["Ibtida' aqbah","إبتداء أقبح"],["menyalahi akidah","مڽالهي عقيده"]]],
+      e:["Pilih tempat mula dengan berhati-hati.","ڤيليه تمڤت مولا دڠن برهاتي-هاتي."] }
+  ] }
+];
+
+const FINAL_ST = { id:"final", icon:"🎼", c:"#F2B630", t:["Konsert Agung","کونسيرت اڬوڠ"], u:["Persembahan akhir semua seksyen orkestra","ڤرسمبهن اخير سموا سيکشن اورکيسترا"], sticker:"🏆" };
+// [stesen, indeks permainan] untuk Konsert Agung
+const FINAL_PICK = [[1,2],[2,0],[3,1],[4,4],[5,1],[6,4],[7,0],[8,2],[9,2]];
+
+/* ===================== ENJIN "Orkestra Tajwid" (Tajwid Tahun 5) ===================== */
+const KEY = "j5t-best", YEAR = 5, VKEY = "t5-voice";
+function load(k,f){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):f; }catch(e){ return f; } }
+function save(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+let LANG = load("kafa-lang","jawi");
+const isJ = () => LANG==="jawi";
+const T = v => v==null ? "" : typeof v==="string" ? v : (isJ() ? v[1] : v[0]);   // teks ikut tulisan
+const RU = v => v==null ? "" : typeof v==="string" ? "" : v[0];                   // Rumi untuk suara (Arab tidak dibaca)
+const L = (r,j) => isJ() ? j : r;
+// rentetan = Arab: kunci Q (cth "wm_1") -> ayat verbatim; selain itu huruf/kata Arab daripada buku
+const AX = v => (typeof v==="string" && Q[v]) ? Q[v].t : v;
+const TX = v => typeof v==="string" ? `<span class="ar" lang="ar">${AX(v)}</span>` : T(v);
+function applyLang(){ document.documentElement.dir = isJ() ? "rtl" : "ltr"; document.documentElement.lang = isJ() ? "ms-Arab" : "ms"; }
+const BACK = () => isJ() ? "→" : "←";
+let best = load(KEY, {});
+let voiceOn = load(VKEY, true);
+const app = document.getElementById("app");
+const $ = s => app.querySelector(s);
+const shuffle = a => { const b=a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; };
+// rombak dan pastikan tidak sama dengan susunan jawapan
+const mix = a => { if(a.length<2) return a.slice(); let b; do{ b=shuffle(a); }while(b.every((x,i)=>x===a[i])); return b; };
+const starsFor = m => m<=1 ? 3 : m<=3 ? 2 : 1;
+const totalStars = () => Object.values(best).reduce((s,v)=>s+(+v||0),0);
+
+/* ---------- Maskot: Maestro Momo, panda konduktor ---------- */
+function momo(cls=""){
+  return `<svg class="momo ${cls}" viewBox="0 0 120 140" aria-hidden="true">
+    <ellipse cx="60" cy="135" rx="34" ry="5" fill="rgba(0,0,0,.22)"/>
+    <path d="M28 132 V96 q0-18 32-18 q32 0 32 18 V132 Z" fill="#1E1A22" stroke="#0B0206" stroke-width="3"/>
+    <path d="M60 80 L48 132 H72 Z" fill="#FFFFFF"/>
+    <path d="M60 80 L40 104 L28 132" fill="none" stroke="#3A3440" stroke-width="2"/>
+    <path d="M60 80 L80 104 L92 132" fill="none" stroke="#3A3440" stroke-width="2"/>
+    <path d="M50 84 L60 90 L50 96 Z M70 84 L60 90 L70 96 Z" fill="#E0457B" stroke="#0B0206" stroke-width="2" stroke-linejoin="round"/>
+    <circle cx="60" cy="90" r="3" fill="#E0457B" stroke="#0B0206" stroke-width="1.5"/>
+    <circle cx="60" cy="108" r="2" fill="#F2B630"/><circle cx="60" cy="118" r="2" fill="#F2B630"/>
+    <path class="arm" d="M88 100 q16 -6 18 -22" fill="none" stroke="#1E1A22" stroke-width="10" stroke-linecap="round"/>
+    <line class="baton" x1="106" y1="78" x2="116" y2="56" stroke="#F2B630" stroke-width="3.5" stroke-linecap="round"/>
+    <circle cx="106" cy="78" r="5" fill="#FFFFFF" stroke="#0B0206" stroke-width="2"/>
+    <circle cx="28" cy="18" r="12" fill="#1E1A22"/><circle cx="92" cy="18" r="12" fill="#1E1A22"/>
+    <ellipse cx="60" cy="46" rx="38" ry="34" fill="#FFFFFF" stroke="#0B0206" stroke-width="3.5"/>
+    <ellipse cx="45" cy="44" rx="10" ry="13" fill="#1E1A22" transform="rotate(25 45 44)"/>
+    <ellipse cx="75" cy="44" rx="10" ry="13" fill="#1E1A22" transform="rotate(-25 75 44)"/>
+    <circle cx="46" cy="43" r="4.5" fill="#fff"/><circle cx="74" cy="43" r="4.5" fill="#fff"/>
+    <circle cx="47" cy="44" r="2.2" fill="#0B0206"/><circle cx="73" cy="44" r="2.2" fill="#0B0206"/>
+    <ellipse cx="60" cy="58" rx="6" ry="4.5" fill="#1E1A22"/>
+    <path d="M52 66 q8 7 16 0" fill="none" stroke="#0B0206" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="36" cy="60" r="5" fill="#F7A8C4" opacity=".7"/><circle cx="84" cy="60" r="5" fill="#F7A8C4" opacity=".7"/>
+    <text x="14" y="86" font-size="16" fill="#F2B630">♪</text>
+  </svg>`;
+}
+// kepala not muzik untuk nod peta (warna ikut stesen; berisi apabila selesai)
+function noteHead(c, done){
+  return `<svg viewBox="0 0 86 70" aria-hidden="true">
+    <line x1="58" y1="44" x2="58" y2="4" stroke="#2A0F1A" stroke-width="5" stroke-linecap="round"/>
+    <path d="M58 4 q18 6 14 24 q-2 -10 -14 -12" fill="#2A0F1A"/>
+    <ellipse cx="34" cy="48" rx="26" ry="18" transform="rotate(-20 34 48)" fill="${done?c:"#FFFDF8"}" stroke="#2A0F1A" stroke-width="5"/>
+    ${done?"":`<ellipse cx="34" cy="48" rx="16" ry="9" transform="rotate(-20 34 48)" fill="${c}" opacity=".85"/>`}
+  </svg>`;
+}
+
+/* ---------- Bunyi ---------- */
+let actx = null;
+function tone(seq){
+  try{
+    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    let t = actx.currentTime;
+    for(const [f,d,type] of seq){
+      const o = actx.createOscillator(), g = actx.createGain();
+      o.type = type||"sine"; o.frequency.value = f; g.gain.setValueAtTime(.18,t); g.gain.exponentialRampToValueAtTime(.001,t+d);
+      o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t+d); t += d*.8;
+    }
+  }catch(e){}
+}
+const sfx = {
+  ok:   () => tone([[523,.12],[784,.2]]),
+  tick: () => tone([[880,.07,"triangle"]]),
+  drum: () => tone([[110,.12,"sine"],[90,.1,"sine"]]),
+  no:   () => tone([[220,.18,"square"],[185,.2,"square"]]),
+  key:  (n=0) => tone([[[262,294,330,349,392,440,494,523][n%8],.16,"triangle"]]),
+  win:  () => tone([[392,.14],[523,.14],[659,.14],[784,.3]])
+};
+
+/* ---------- Suara (Rumi sahaja; tulisan Arab dibuang, Al-Quran tidak dibaca mesin) ---------- */
+const ttsOK = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+let voice = null;
+function pickVoice(){ try{ const vs = speechSynthesis.getVoices(); voice = vs.find(v=>/^ms/i.test(v.lang)) || vs.find(v=>/^id/i.test(v.lang)) || null; }catch(e){} }
+if(ttsOK){ pickVoice(); try{ speechSynthesis.onvoiceschanged = pickVoice; }catch(e){} }
+const AR_RE = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]+/g;
+function clean(text){
+  return text.replace(AR_RE," ").replace(/[ـ∴⚡]/g," ").replace(/_{2,}/g," ").replace(/\(\s*\)/g," ").replace(/\s+:/g,":")
+    .replace(/\s+([.,:;!?])/g,"$1").replace(/(^|\s)[:,.]+(?=\s|$)/g," ").replace(/\s+/g," ").trim();
+}
+function speak(text, force){
+  if(!ttsOK || !text || (!voiceOn && !force)) return;
+  const s = clean(text); if(!s || !/[a-z]/i.test(s)) return;
+  try{
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(s);
+    u.lang = voice ? voice.lang : "ms-MY"; if(voice) u.voice = voice; u.rate = .95; u.pitch = 1.05;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function hush(){ if(ttsOK){ try{ speechSynthesis.cancel(); }catch(e){} } }
+
+/* ---------- Bantuan paparan ---------- */
+function toast(msg){ document.querySelectorAll(".toast").forEach(t=>t.remove()); const t=document.createElement("div"); t.className="toast"; t.setAttribute("role","status"); t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2600); }
+function confetti(n=36){
+  const box = document.createElement("div"); box.className="confetti"; box.setAttribute("aria-hidden","true");
+  const em = ["🎵","🎶","⭐","🎼","🥁","✨"];
+  for(let i=0;i<n;i++){ const s=document.createElement("span"); s.textContent=em[i%em.length]; s.style.left=Math.random()*100+"vw"; s.style.animationDuration=(2+Math.random()*2)+"s"; s.style.animationDelay=Math.random()*.8+"s"; box.appendChild(s); }
+  document.body.appendChild(box); setTimeout(()=>box.remove(),5000);
+}
+const langBtn = () => `<button class="ib" data-act="lang" aria-label="${L("Tukar ke tulisan Jawi","توکر ک توليسن رومي")}">${isJ()?"Rumi":'<span style="font-family:Noto Naskh Arabic">جاوي</span>'}</button>`;
+const voiceBtn = () => `<button class="ib" data-act="voice" aria-label="${L("Suara","سوارا")}" aria-pressed="${voiceOn}">${voiceOn?"🔊":"🔇"}</button>`;
+const sayBtn = txt => ttsOK && /[a-z]/i.test(clean(txt||"")) ? `<button class="say" data-say="${encodeURIComponent(txt)}" aria-label="${L("Dengar","دڠر")}">🔊</button>` : "";
+const starRow = n => [1,2,3].map(i=>`<span class="${i<=n?"":"off"}">⭐</span>`).join("");
+const unlocked = id => id===1 || (best[id-1]||0)>0;
+const allDone = () => STATIONS.every(s => (best[s.id]||0)>0);
+/* ===================== PETA: HELAIAN SKOR DEWAN KONSERT ===================== */
+let S = null; // sesi stesen semasa
+function renderMap(){
+  hush(); S = null;
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  document.title = L("Orkestra Tajwid • Tajwid Tahun 5","اورکيسترا تجويد • تجويد تاهون 5");
+  const cur = (STATIONS.find(s => !(best[s.id]>0)) || {id:"final"}).id;
+  const node = (s, side) => {
+    const lock = !unlocked(s.id), st = best[s.id]||0;
+    return `<div class="row ${side}"><button class="node ${lock?"lock":""} ${cur===s.id?"now":""}" data-act="${lock?"locked":"open"}" data-id="${s.id}">
+      <span class="nh">${noteHead(s.c, st>0)}<span class="num">${s.id}</span><span class="tic">${s.icon}</span>${cur===s.id?`<span class="guide">${momo()}</span>`:""}</span>
+      <span class="nm">${T(s.t)}</span><span class="st">${st?starRow(st):""}</span></button></div>`;
+  };
+  const rows = STATIONS.slice().reverse().map(s => node(s, s.id%2 ? "l" : "r")).join("");
+  const fOpen = allDone(), fSt = best.final||0;
+  app.innerHTML = `
+    <div class="top"><a class="ib" href="../index.html" aria-label="${L("Kembali ke Tahun 5","کمبالي ک تاهون 5")}">${BACK()}</a><span class="sp"></span>
+      <span class="pill" aria-label="${totalStars()} ${L("bintang","بينتڠ")}">⭐ ${totalStars()}</span>${voiceBtn()}${langBtn()}</div>
+    <header class="hero">${momo()}<div><h1>${L("Orkestra Tajwid","اورکيسترا تجويد")}</h1>
+      <p>${L("Maestro Momo memerlukan pemuzik tajwid! Mainkan setiap seksyen orkestra, kumpul alat muzik dan naik ke pentas Konsert Agung.","مايسترو مومو ممرلوکن ڤموزيک تجويد! ماٴينکن ستياڤ سيکشن اورکيسترا، کومڤول الت موزيک دان ناٴيق ک ڤنتس کونسيرت اڬوڠ.")}</p></div></header>
+    <p class="sttl">🎖️ ${L("Koleksi alat muzik saya","کوليکسي الت موزيک ساي")}</p>
+    <div class="stickers">${STATIONS.map(s=>`<span class="${best[s.id]>0?"got":""}" title="${T(s.t)}">${s.sticker}</span>`).join("")}<span class="${fSt?"got":""}" title="${T(FINAL_ST.t)}">${FINAL_ST.sticker}</span></div>
+    <section class="hall" aria-label="${L("Helaian skor orkestra","هلاين سکور اورکيسترا")}">
+      <div class="stage"><button class="node final ${fOpen?"":"lock"} ${cur==="final"?"now":""}" data-act="${fOpen?"final":"flocked"}">
+        <span class="core">🎼</span>${cur==="final"?`<span class="guide">${momo()}</span>`:""}
+        <span class="nm">${T(FINAL_ST.t)}</span><span class="st">${fSt?starRow(fSt):""}</span></button></div>
+      ${rows}
+      <div class="door">🎟️ ${L("Pintu masuk dewan konsert","ڤينتو ماسوق ديوان کونسيرت")} 🎟️</div>
+    </section>`;
+  const now = app.querySelector(".node.now");
+  if(now) setTimeout(()=>{ try{ now.scrollIntoView({block:"center", behavior:"smooth"}); }catch(e){} }, 250);
+}
+
+/* ===================== STESEN: BACA ===================== */
+function openStation(id){
+  const st = STATIONS.find(s=>s.id===id);
+  S = { st, phase:"read", ri:0, gi:0, miss:0, games: st.games.slice() };
+  renderRead();
+}
+function openFinal(){
+  const games = FINAL_PICK.map(([s,i]) => STATIONS.find(x=>x.id===s).games[i]);
+  S = { st:FINAL_ST, phase:"play", gi:0, miss:0, games };
+  renderPlay();
+}
+const head = () => `<div class="top"><button class="ib" data-act="map" aria-label="${L("Kembali ke helaian skor","کمبالي ک هلاين سکور")}">${BACK()}</button><span class="sp"></span>${voiceBtn()}${langBtn()}</div>
+  <div class="shead"><span class="badge" style="--c:${S.st.c}">${S.st.icon}</span><div><h2>${T(S.st.t)}</h2><small>${T(S.st.u)}</small></div></div>`;
+function readSpeech(c){
+  return [RU(c.h), RU(c.text), ...(c.list||[]).map(RU), c.tip?("Tahukah anda? "+RU(c.tip)):"", c.am?("Amalkan: "+RU(c.am)):""].filter(Boolean).join(". ");
+}
+const exHTML = ks => `<div class="exs">${ks.map(k=>`<span class="ar" lang="ar" title="${Q[k].k}">${Q[k].t}</span>`).join("")}</div>`;
+function renderRead(){
+  hush();
+  const c = S.st.read[S.ri], n = S.st.read.length, last = S.ri===n-1;
+  app.innerHTML = head() + `
+    <article class="card" style="--sc:${S.st.c}">
+      <div class="rpic" aria-hidden="true">${c.pic}</div>
+      <h3 class="rh">${T(c.h)} ${sayBtn(readSpeech(c))}</h3>
+      ${c.text?`<p class="rtext">${T(c.text)}</p>`:""}
+      ${c.list?`<ul class="rlist">${c.list.map(x=>`<li>${T(x)}</li>`).join("")}</ul>`:""}
+      ${c.ex?`<p class="rtext" style="margin-bottom:0">🎵 ${L("Contoh daripada al-Quran:","چونتوه درڤد القرءان:")}</p>${exHTML(c.ex)}`:""}
+      ${c.tip?`<div class="tip"><b>💡</b><span><b>${L("Tahukah anda?","تاهوکه اندا؟")}</b> ${T(c.tip)}</span></div>`:""}
+      ${c.am?`<div class="tip am"><b>🤲</b><span><b>${L("Amalkan:","عملکن:")}</b> ${T(c.am)}</span></div>`:""}
+      <div class="ref">📖 ${L("Buku teks ms.","بوکو تيکس م.س.")} ${c.p}</div>
+      <div class="navr">
+        <button class="btn alt" data-act="rprev" ${S.ri?"":"disabled"} aria-label="${L("Sebelum","سبلوم")}" style="flex:0 0 64px">${BACK()}</button>
+        <button class="btn ${last?"go":""}" data-act="rnext">${last ? "🎻 "+L("Mula berlatih!","مولا برلاتيه!") : L("Seterusnya","ستروسڽ")+" ▶"}</button>
+      </div>
+      <div class="dots">${S.st.read.map((_,i)=>`<i class="${i===S.ri?"on":""}"></i>`).join("")}</div>
+    </article>`;
+  speak(readSpeech(c));
+  window.scrollTo(0,0);
+}
+
+/* ===================== STESEN: MAIN ===================== */
+function progressBar(){
+  const n = S.games.length, k = S.gi;
+  return `<div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${k}"><span class="fill" style="width:${k/n*100}%"></span><b>🎵 ${k+1} / ${n}</b></div>`;
+}
+function renderPlay(){
+  hush();
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  clearTimeout(S.tm);
+  const g = S.games[S.gi];
+  S.t0 = Date.now();
+  app.innerHTML = head() + progressBar() + `<section class="card" id="game" style="--sc:${S.st.c}"></section>`;
+  const box = $("#game");
+  box.innerHTML = `<div class="q"><p>${T(g.q)}</p>${sayBtn(RU(g.q))}</div><div id="play"></div><div id="hint"></div>`;
+  GAMES[g.type]($("#play"), g);
+  speak(RU(g.q));
+  window.scrollTo(0,0);
+}
+function oops(el, hint){
+  S.miss++; sfx.no();
+  if(el){ el.classList.remove("shake"); void el.offsetWidth; el.classList.add("shake"); }
+  const h = $("#hint"); if(h){ h.innerHTML = `<div class="hint">🐼 ${hint || L("Nada sumbang! Cuba lagi.","نادا سومبڠ! چوبا لاڬي.")}</div>`; }
+}
+const clearHint = () => { const h=$("#hint"); if(h) h.innerHTML=""; };
+const PRAISE = [["Hebat!","هيبت!"],["Merdu!","مردو!"],["Tepat sekali!","تڤت سکالي!"],["Syabas!","شاباس!"],["MasyaAllah!","ماشاءالله!"]];
+function win(){
+  if(!S || document.querySelector(".fb")) return;
+  clearTimeout(S.tm);
+  sfx.ok();
+  const g = S.games[S.gi], p = PRAISE[Math.floor(Math.random()*PRAISE.length)];
+  const fast = Date.now() - (S.t0||0) < 20000;
+  const fb = document.createElement("div"); fb.className = "fb"; fb.setAttribute("role","dialog"); fb.setAttribute("aria-live","polite");
+  fb.innerHTML = `<div class="in"><div class="row1">${momo()}<div><strong>${T(p)}</strong><p>${T(g.e)}</p>${fast?`<span class="fast">⚡ ${L("Rentak pantas!","رنتق ڤنتس!")}</span>`:""}</div></div>
+    <button class="btn go" data-act="next">${L("Seterusnya","ستروسڽ")} ▶</button></div>`;
+  document.body.appendChild(fb);
+  speak(RU(p)+" "+RU(g.e));
+  setTimeout(()=>{ const b = fb.querySelector("button"); if(b) b.focus(); }, 50);
+}
+function nextGame(){
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  S.gi++;
+  if(S.gi < S.games.length) renderPlay(); else renderResult();
+}
+function renderResult(){
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  const id = S.st.id, stars = starsFor(S.miss), prev = best[id]||0, wasAll = allDone();
+  if(stars > prev){ best[id] = stars; save(KEY, best); }
+  S.phase = "result";
+  S.res = { stars, first: !prev, openedFinal: id!=="final" && !wasAll && allDone() };
+  drawResult(true);
+}
+function drawResult(fresh){
+  hush();
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  const { stars, first, openedFinal } = S.res;
+  const msg = stars===3 ? ["Cemerlang! Persembahan kamu sempurna.","چمرلڠ! ڤرسمبهن کامو سمڤورنا."] : stars===2 ? ["Bagus! Berlatih lagi untuk 3 bintang.","باڬوس! برلاتيه لاڬي اونتوق 3 بينتڠ."] : ["Syabas kerana mencuba! Jom berlatih lagi.","شاباس کران منچوبا! جوم برلاتيه لاڬي."];
+  const title = PRAISE[stars===3?4:stars===2?0:3];
+  app.innerHTML = head() + `<section class="card res">
+      ${momo()}
+      <div class="stars" aria-label="${stars} ${L("bintang","بينتڠ")}">${[1,2,3].map(i=>`<span class="${i<=stars?"":"off"}" style="animation-delay:${i*.25}s">⭐</span>`).join("")}</div>
+      <h2>${T(title)}</h2><p>${T(msg)}</p>
+      ${first ? `<div class="gotst"><span>${S.st.sticker}</span>${L("Alat muzik baharu!","الت موزيک بهارو!")}</div>` : ""}
+      ${openedFinal ? `<p><b>🎼 ${L("Pentas Konsert Agung kini dibuka!","ڤنتس کونسيرت اڬوڠ کيني دبوک!")}</b></p>` : ""}
+      <button class="btn go" data-act="map">🎼 ${L("Kembali ke helaian skor","کمبالي ک هلاين سکور")}</button>
+      <button class="btn alt" style="margin-top:10px" data-act="again">🔁 ${L("Berlatih semula","برلاتيه سمولا")}</button>
+    </section>`;
+  if(fresh){ sfx.win(); confetti(); speak(RU(title)+" "+RU(msg)); }
+  window.scrollTo(0,0);
+}
+
+/* ===================== PERMAINAN ===================== */
+const drumSVG = `<svg viewBox="0 0 150 130" aria-hidden="true">
+  <ellipse cx="75" cy="104" rx="62" ry="18" fill="#7A1638" stroke="#2A0F1A" stroke-width="4"/>
+  <path d="M13 40 V104 A62 18 0 0 0 137 104 V40" fill="#B8322A" stroke="#2A0F1A" stroke-width="4"/>
+  <path d="M13 50 L40 100 L68 50 L96 100 L124 50 L137 70" fill="none" stroke="#F2B630" stroke-width="4" stroke-linejoin="round"/>
+  <ellipse cx="75" cy="40" rx="62" ry="18" fill="#FFF1D6" stroke="#2A0F1A" stroke-width="4"/>
+  <ellipse cx="75" cy="40" rx="30" ry="8" fill="none" stroke="#E9C98A" stroke-width="3"/></svg>`;
+const rounds = (n,k) => `<div class="rounds">${Array.from({length:n},(_,i)=>`<i class="${i<k?"ok":i===k?"on":""}"></i>`).join("")}</div>`;
+const optBtns = (opts, cls="opt") => opts.map((o,i)=>`<button class="${cls}" data-i="${i}" data-ok="${o.ok?1:0}">${TX(o.x)}</button>`).join("");
+
+const GAMES = {
+  /* Gendang: ketuk gendang mengikut kadar harakat, kemudian Semak */
+  gendang(el, g){
+    let k = 0, n = 0;
+    const draw = () => {
+      const [ar, ok, hk] = g.rounds[k]; n = 0;
+      el.innerHTML = rounds(g.rounds.length, k) + `<div class="gd">
+        <div class="qar ar" lang="ar">${AX(ar)}</div><div class="hk">${T(hk)}</div>
+        <button class="drum" aria-label="${L("Ketuk gendang","کتوق ڬندڠ")}">${drumSVG}</button>
+        <div class="beats" aria-live="polite"></div>
+        <div class="gdb"><button class="btn alt rst">🔄 ${L("Ulang","اولڠ")}</button><button class="btn go chk">✔ ${L("Semak","سمق")}</button></div></div>`;
+      const beats = el.querySelector(".beats"), drum = el.querySelector(".drum");
+      const show = () => { beats.innerHTML = Array.from({length:n},()=>"<span>🥁</span>").join("") + (n?` <b>${n}</b>`:""); };
+      drum.addEventListener("click", () => { if(n<6){ n++; sfx.drum(); drum.classList.remove("hit"); void drum.offsetWidth; drum.classList.add("hit"); show(); } });
+      el.querySelector(".rst").addEventListener("click", () => { n = 0; show(); });
+      el.querySelector(".chk").addEventListener("click", e => {
+        if(!n){ toast(L("Ketuk gendang dahulu 🥁","کتوق ڬندڠ دهولو 🥁")); return; }
+        if(ok.includes(n)){ sfx.tick(); clearHint(); k++; if(k===g.rounds.length) setTimeout(win, 300); else setTimeout(draw, 350); }
+        else { oops(e.currentTarget, L(`Rentak tidak tepat. Hukum ini dibaca ${ok.join(" / ")} harakat.`,`رنتق تيدق تڤت. حکوم اين دباچ ${ok.join(" / ")} حرکة.`)); n = 0; show(); }
+      });
+    };
+    draw();
+  },
+
+  /* Notasi: pilih not, letak pada baris paranada hukumnya */
+  notasi(el, g){
+    let sel = null, left = g.items.length;
+    const ord = mix(g.items.map((_,i)=>i));
+    const isTxt = x => typeof x!=="string";
+    el.innerHTML = `<div class="notes">${ord.map(i=>`<button class="nt ${isTxt(g.items[i][0])?"txt":""}" data-i="${i}" data-c="${g.items[i][1]}">${TX(g.items[i][0])}</button>`).join("")}</div>
+      <div class="staves">${g.stv.map((s,i)=>`<button class="stv" data-c="${i}"><b>𝄞 ${T(s)}</b><div class="in"></div></button>`).join("")}</div>`;
+    el.querySelectorAll(".nt").forEach(b => b.addEventListener("click", () => {
+      el.querySelectorAll(".nt").forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); sel = b; sfx.key(+b.dataset.i);
+    }));
+    el.querySelectorAll(".stv").forEach(s => s.addEventListener("click", () => {
+      if(!sel){ toast(L("Pilih satu not dahulu 🎵","ڤيليه ساتو نوت دهولو 🎵")); return; }
+      if(sel.dataset.c === s.dataset.c){
+        const it = g.items[+sel.dataset.i][0];
+        s.querySelector(".in").insertAdjacentHTML("beforeend", `<span class="${isTxt(it)?"txt":""}">${TX(it)}</span>`);
+        sel.classList.add("gone"); sel.disabled = true; sel = null; left--; sfx.tick(); clearHint();
+        if(!left) setTimeout(win, 350);
+      } else oops(s, L("Not itu bukan pada baris ini. Semak hukumnya semula.","نوت ايت بوکن ڤد باريس اين. سمق حکومڽ سمولا."));
+    }));
+  },
+
+  /* Kompang: pukul (pilih) semua jawapan betul, kemudian tekan Pukul! */
+  kompang(el, g){
+    const ord = shuffle(g.items.map((_,i)=>i)), on = new Set();
+    const big = g.items.every(it => typeof it[0]==="string" && !Q[it[0]]);
+    el.innerHTML = `<div class="kps ${g.items.length===4?"two":""}">${ord.map(i=>`<button class="kp ${big?"big":""}" data-i="${i}" data-ok="${g.items[i][1]}" aria-pressed="false">${TX(g.items[i][0])}</button>`).join("")}</div>
+      <div style="margin-top:12px"><button class="btn go chk">🪘 ${L("Pukul!","ڤوکول!")}</button></div>`;
+    el.querySelectorAll(".kp").forEach(b => b.addEventListener("click", () => {
+      const i = +b.dataset.i; if(on.has(i)) on.delete(i); else { on.add(i); sfx.drum(); }
+      b.classList.toggle("on", on.has(i)); b.setAttribute("aria-pressed", on.has(i)); b.classList.remove("bad");
+    }));
+    el.querySelector(".chk").addEventListener("click", e => {
+      if(!on.size){ toast(L("Pilih kompang dahulu 🪘","ڤيليه کومڤڠ دهولو 🪘")); return; }
+      const need = g.items.map((it,i)=>it[1]?i:-1).filter(i=>i>=0);
+      const good = need.every(i=>on.has(i)) && [...on].every(i=>g.items[i][1]);
+      if(good){ el.querySelectorAll(".kp.on").forEach(b=>b.classList.add("ok")); setTimeout(win, 350); return; }
+      const wrongPick = [...on].filter(i=>!g.items[i][1]);
+      el.querySelectorAll(".kp").forEach(b=>{ if(wrongPick.includes(+b.dataset.i)) b.classList.add("bad"); });
+      oops(e.currentTarget, wrongPick.length ? L("Ada kompang yang salah dipukul. Pilih semula.","اد کومڤڠ يڠ ساله دڤوکول. ڤيليه سمولا.") : L("Belum cukup! Masih ada kompang yang betul.","بلوم چوکوڤ! ماسيه اد کومڤڠ يڠ بتول."));
+      on.clear(); el.querySelectorAll(".kp").forEach(b=>{ b.classList.remove("on"); b.setAttribute("aria-pressed","false"); });
+    });
+  },
+
+  /* Irama: susun not melodi mengikut urutan */
+  irama(el, g){
+    const n = g.items.length, ord = mix(g.items.map((_,i)=>i)); let k = 0;
+    el.innerHTML = `<div class="ladder">${g.items.map((_,i)=>`<div class="lad" data-s="${i}"><i>${i+1}</i><span>🎵</span></div>`).join("")}</div>
+      <div class="pool">${ord.map(i=>`<button class="pn" data-i="${i}">${TX(g.items[i])}</button>`).join("")}</div>`;
+    el.querySelectorAll(".pn").forEach(b => b.addEventListener("click", () => {
+      if(b.disabled) return;
+      if(+b.dataset.i === k){
+        const s = el.querySelector(`.lad[data-s="${k}"]`); s.classList.add("fill"); s.querySelector("span").innerHTML = TX(g.items[k]);
+        b.classList.add("gone"); b.disabled = true; sfx.key(k); k++; clearHint();
+        if(k===n) setTimeout(win, 400);
+      } else oops(b, L(`Melodi sumbang! Cari not nombor ${k+1}.`,`ملودي سومبڠ! چاري نوت نومبور ${k+1}.`));
+    }));
+  },
+
+  /* Akord: tekan kekunci putih, kemudian kekunci hitam yang sepadan */
+  akord(el, g){
+    let sel = null, left = g.pairs.length;
+    const lo = shuffle(g.pairs.map((_,i)=>i)), ro = mix(lo);
+    el.innerHTML = `<div class="keys"><div class="kcol">${lo.map(i=>`<button class="key" data-s="a" data-i="${i}">${TX(g.pairs[i][0])}</button>`).join("")}</div>
+      <div class="kcol">${ro.map(i=>`<button class="key blk" data-s="b" data-i="${i}">${TX(g.pairs[i][1])}</button>`).join("")}</div></div>`;
+    el.querySelectorAll('.key[data-s="a"]').forEach(b => b.addEventListener("click", () => {
+      if(b.disabled) return; el.querySelectorAll('.key[data-s="a"]').forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); sel = b; sfx.key(+b.dataset.i);
+    }));
+    el.querySelectorAll('.key[data-s="b"]').forEach(b => b.addEventListener("click", () => {
+      if(b.disabled) return;
+      if(!sel){ toast(L("Tekan kekunci putih dahulu 🎹","تکن ککونچي ڤوتيه دهولو 🎹")); return; }
+      if(sel.dataset.i === b.dataset.i){
+        [sel,b].forEach(x=>{ x.classList.remove("sel"); x.classList.add("done"); x.disabled = true; });
+        sel = null; left--; sfx.key(left+3); clearHint(); if(!left) setTimeout(win, 350);
+      } else oops(b, L("Akord sumbang! Pasangan itu tidak sepadan.","اکورد سومبڠ! ڤاسڠن ايت تيدق سڤادن."));
+    }));
+  },
+
+  /* Tempo: pusingan pantas mengikut rentak metronom (bonus ⚡, tiada hukuman masa) */
+  tempo(el, g){
+    let k = 0, zap = 0; const LIM = 9000;
+    const draw = () => {
+      const r = g.rounds[k], opts = shuffle(r.a.map((x,i)=>({x, ok:i===0}))), t0 = Date.now();
+      el.innerHTML = rounds(g.rounds.length, k) + `<div class="tbar"><span></span></div>
+        <p class="lab" style="font-size:17px;color:var(--ink)">⏱️ ${T(r.p)}</p>${r.ar?`<div class="qar ar" lang="ar">${AX(r.ar)}</div>`:""}
+        <div class="opts ${opts.length===2?"":"one"}">${optBtns(opts)}</div><p class="zap">⚡ ${zap}</p>`;
+      const bar = el.querySelector(".tbar span");
+      requestAnimationFrame(()=>{ bar.style.transitionDuration = LIM+"ms"; bar.style.width = "0%"; });
+      el.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => {
+        if(b.disabled || b.classList.contains("wrong")) return;
+        if(b.dataset.ok==="1"){
+          el.querySelectorAll(".opt").forEach(x=>x.disabled=true); b.classList.add("right");
+          if(Date.now()-t0 < LIM) zap++; sfx.tick(); clearHint(); k++;
+          if(k===g.rounds.length) setTimeout(win, 350); else setTimeout(draw, 380);
+        } else { b.classList.add("wrong"); oops(b, L("Luar rentak! Fikir sekali lagi.","لوار رنتق! فيکير سکالي لاڬي.")); }
+      }));
+    };
+    draw();
+  },
+
+  /* Konduktor: ketuk kalimah yang betul dalam potongan ayat (tanda waqaf melekat pada kalimah sebelumnya) */
+  konduktor(el, g){
+    const toks = [];
+    for(const w of AX(g.ar).split(" ")){ if(!/[\u0621-\u064A\u0671]/.test(w) && toks.length) toks[toks.length-1] += " " + w; else toks.push(w); }
+    el.innerHTML = `<p class="lab">🪄 ${L("Hayun baton: ketuk satu kalimah","هايون باتون: کتوق ساتو كليمه")}</p>
+      <div class="phrase" lang="ar">${toks.map((w,i)=>`<button class="tok ar" data-i="${i}" data-ok="${i===g.ans?1:0}">${w}</button>`).join("")}</div>`;
+    el.querySelectorAll(".tok").forEach(b => b.addEventListener("click", () => {
+      if(b.disabled || b.classList.contains("wrong")) return;
+      if(b.dataset.ok==="1"){ el.querySelectorAll(".tok").forEach(x=>x.disabled=true); b.classList.add("right"); setTimeout(win, 400); }
+      else { b.classList.add("wrong"); oops(b, L("Orkestra tersalah masuk! Cuba kalimah lain.","اورکيسترا ترساله ماسوق! چوبا كليمه لاٴين.")); }
+    }));
+  },
+
+  /* Lirik: isi tempat kosong dalam lirik lagu */
+  lirik(el, g){
+    const opts = shuffle(g.a.map((x,i)=>({x, ok:i===0}))); let done = false;
+    const s = T(g.s).replace("___", `<span class="blank">🎵</span>`);
+    el.innerHTML = `<p class="lyr">🎤 ${s}</p><div class="opts ${opts.length===2?"":"one"}">${optBtns(opts)}</div>`;
+    el.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => {
+      if(done || b.classList.contains("wrong")) return;
+      if(b.dataset.ok==="1"){ done = true; b.classList.add("right"); const bl = el.querySelector(".blank"); bl.classList.add("done"); bl.innerHTML = TX(opts[+b.dataset.i].x); setTimeout(win, 450); }
+      else { b.classList.add("wrong"); oops(b, L("Lirik itu tidak kena dengan lagu. Cuba lagi.","ليريک ايت تيدق کنا دڠن لاڬو. چوبا لاڬي.")); }
+    }));
+  }
+};
+
+/* ===================== KAWALAN ===================== */
+document.addEventListener("click", e => {
+  const s = e.target.closest("[data-say]");
+  if(s){ speak(decodeURIComponent(s.dataset.say), true); return; }
+  const b = e.target.closest("[data-act]"); if(!b) return;
+  const a = b.dataset.act;
+  if(a==="lang"){ LANG = isJ() ? "rumi" : "jawi"; save("kafa-lang", LANG); applyLang(); redraw(); }
+  else if(a==="voice"){ voiceOn = !voiceOn; save(VKEY, voiceOn); if(!voiceOn) hush(); redraw(); }
+  else if(a==="open"){ openStation(+b.dataset.id); }
+  else if(a==="locked"){ sfx.no(); toast(L("Mainkan seksyen sebelumnya dahulu 🔒","ماٴينکن سيکشن سبلومڽ دهولو 🔒")); }
+  else if(a==="final"){ openFinal(); }
+  else if(a==="flocked"){ sfx.no(); toast(L(`Selesaikan semua ${STATIONS.length} seksyen untuk naik ke pentas Konsert Agung 🎼`,`سلسايکن سموا ${STATIONS.length} سيکشن اونتوق ناٴيق ک ڤنتس کونسيرت اڬوڠ 🎼`)); }
+  else if(a==="map"){ renderMap(); window.scrollTo(0,0); }
+  else if(a==="rprev"){ if(S.ri>0){ S.ri--; renderRead(); } }
+  else if(a==="rnext"){ if(S.ri < S.st.read.length-1){ S.ri++; renderRead(); } else { S.phase="play"; S.gi=0; S.miss=0; renderPlay(); } }
+  else if(a==="next"){ nextGame(); }
+  else if(a==="again"){ S.res = null; S.st.id==="final" ? openFinal() : (S.gi=0, S.miss=0, S.phase="play", renderPlay()); }
+});
+// lukis semula skrin semasa (selepas tukar tulisan/suara) tanpa mengulang bunyi/konfeti
+function redraw(){
+  if(!S) return renderMap();
+  if(S.phase==="read") return renderRead();
+  if(S.res && document.querySelector(".res")) return drawResult(false);
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  renderPlay();
+}
+applyLang();
+renderMap();
+</script>
+</body>
+</html>

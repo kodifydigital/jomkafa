@@ -1,0 +1,1382 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0F6E6B">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" type="image/png" href="/icons/favicon.png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="JOM KAFA">
+<script src="/assets/pwa.js"></script>
+<script src="/assets/config.js"></script>
+<script src="/assets/access.js"></script>
+<title>Pasar Terapung Lughah • Bahasa Arab Tahun 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chango&family=Nunito:wght@600;700;800;900&family=Noto+Naskh+Arabic:wght@500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ===== Bahasa Arab Tahun 5: "Pasar Terapung Lughah" — terusan, gerai sampan, Tok Bangau ===== */
+:root{
+  --sky1:#FFD9A8; --sky2:#FFF1DC; --bg:#E9F7F4; --card:#FFFDF7; --ink:#2B1B0E; --muted:#6B5440; --line:#2B1B0E;
+  --water:#1FA3A0; --water2:#7FD6CF; --deep:#0F6E6B; --mango:#FFB627; --chili:#E4572E; --leaf:#3D9A4B; --wood:#8A5A2B;
+  --cream:#FFF4DE; --ok:#2E9E4F; --okbg:#DCF5E3; --bad:#D64545; --badbg:#FFE1DC; --note:#FFF3C9;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --sky1:#2A1830; --sky2:#14262C; --bg:#0C1D21; --card:#173035; --ink:#F7EEDD; --muted:#C9B79E; --line:#050C0E;
+    --water:#14807D; --water2:#1E5552; --deep:#0A4A48; --cream:#2B2418; --note:#3A3217; --okbg:#143A24; --badbg:#4A2020; color-scheme:dark;
+  }
+}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:"Nunito","Trebuchet MS",system-ui,sans-serif;font-size:18px;line-height:1.45;font-weight:700;
+  background:linear-gradient(180deg,var(--sky1) 0,var(--sky2) 300px,var(--bg) 700px) fixed}
+html[dir="rtl"] body{font-family:"Noto Naskh Arabic","Amiri","Nunito",serif;font-size:19px;line-height:1.85}
+h1,h2,h3,.cf{font-family:"Chango","Nunito",sans-serif;font-weight:400;letter-spacing:.2px}
+html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3{font-family:"Noto Naskh Arabic","Amiri",serif;font-weight:700}
+.ar{font-family:"Amiri","Noto Naskh Arabic",serif;font-weight:700;direction:rtl;unicode-bidi:isolate;line-height:1.9}
+.wrap{max-width:560px;margin:0 auto;padding:10px 12px 40px}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:4px solid var(--mango);outline-offset:2px}
+.top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.sp{flex:1}
+.ib{min-width:48px;height:48px;border-radius:14px;border:3px solid var(--line);background:var(--card);display:inline-flex;align-items:center;justify-content:center;
+  font-size:20px;font-weight:900;text-decoration:none;color:var(--ink);box-shadow:0 3px 0 var(--line);padding:0 10px}
+.ib:active{transform:translateY(2px);box-shadow:0 1px 0 var(--line)}
+.pill{background:var(--mango);color:#2B1B0E;border:3px solid var(--line);border-radius:999px;padding:6px 12px;font-weight:900;box-shadow:0 3px 0 var(--line)}
+/* ---------- hero ---------- */
+.hero{display:flex;gap:10px;align-items:center;background:var(--card);border:3px solid var(--line);border-radius:22px;padding:10px 12px;box-shadow:0 5px 0 var(--line);
+  position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0 0 auto 0;height:14px;background:repeating-linear-gradient(90deg,var(--chili) 0 22px,var(--cream) 22px 44px);border-bottom:3px solid var(--line)}
+.hero > *{position:relative;margin-top:10px}
+.hero h1{font-size:23px;line-height:1.15;margin:0 0 4px;color:var(--deep)}
+.hero p{margin:0;font-size:15px;color:var(--muted)}
+.bangau{width:92px;height:92px;flex:0 0 92px}
+.bob{animation:bob 2.6s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-5px) rotate(-2deg)}}
+.sttl{margin:14px 4px 6px;font-weight:900;color:var(--deep)}
+.goods{display:flex;flex-wrap:wrap;gap:6px;background:var(--card);border:3px dashed var(--wood);border-radius:16px;padding:8px}
+.goods span{font-size:24px;width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:var(--cream);opacity:.28;filter:grayscale(1)}
+.goods span.got{opacity:1;filter:none;background:var(--note);box-shadow:0 0 0 2px var(--mango)}
+/* ---------- peta terusan ---------- */
+.canal{position:relative;margin-top:16px;padding:14px 0 10px;border-radius:26px;overflow:hidden;
+  background:
+    radial-gradient(ellipse 30px 6px at 20% 12%,rgba(255,255,255,.35) 60%,transparent 62%),
+    radial-gradient(ellipse 40px 7px at 75% 42%,rgba(255,255,255,.3) 60%,transparent 62%),
+    radial-gradient(ellipse 34px 6px at 30% 78%,rgba(255,255,255,.3) 60%,transparent 62%),
+    linear-gradient(180deg,var(--water2),var(--water) 30%,var(--deep));
+  border:3px solid var(--line);box-shadow:0 5px 0 var(--line)}
+.canal::before,.canal::after{content:"";position:absolute;top:0;bottom:0;width:14px;background:repeating-linear-gradient(180deg,var(--leaf) 0 18px,#2C7A39 18px 30px);z-index:0}
+.canal::before{left:0;border-right:3px solid var(--line)}
+.canal::after{right:0;border-left:3px solid var(--line)}
+.stall{position:relative;z-index:1;display:flex;align-items:center;gap:10px;width:calc(100% - 64px);min-height:76px;margin:0 0 14px 24px;padding:16px 10px 10px;
+  border:3px solid var(--line);border-radius:14px 14px 30px 30px;background:var(--card);box-shadow:0 5px 0 var(--line);text-align:start}
+.stall:nth-of-type(even){margin-left:40px}
+html[dir="rtl"] .stall{margin:0 24px 14px 0}
+html[dir="rtl"] .stall:nth-of-type(even){margin-right:40px}
+.stall::before{content:"";position:absolute;left:-3px;right:-3px;top:-3px;height:13px;border:3px solid var(--line);border-radius:12px 12px 4px 4px;
+  background:repeating-linear-gradient(90deg,var(--sc,var(--chili)) 0 16px,var(--cream) 16px 32px)}
+.stall:active{transform:translateY(3px);box-shadow:0 2px 0 var(--line)}
+.stall .no{flex:0 0 34px;height:34px;border-radius:50%;background:var(--mango);border:3px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:"Chango",sans-serif;font-size:15px;color:#2B1B0E}
+.stall .ic{font-size:32px;flex:0 0 auto}
+.stall .tx{flex:1;min-width:0;font-weight:900;line-height:1.25;overflow-wrap:anywhere}
+.stall .tx small{display:block;font-weight:700;color:var(--muted);font-size:13px;margin-top:2px}
+.stall .st{flex:0 0 auto;font-size:14px;white-space:nowrap}
+.stall.lock{filter:grayscale(.85);opacity:.72}
+.stall.now{outline:4px solid var(--mango);outline-offset:3px;animation:sway 2.4s ease-in-out infinite}
+@keyframes sway{50%{transform:rotate(-1deg) translateY(-2px)}}
+.stall.fin{--sc:var(--leaf);background:var(--note)}
+.jeti{position:relative;z-index:1;margin:4px 24px 0;text-align:center;font-weight:900;color:#fff;font-size:14px;text-shadow:0 2px 0 rgba(0,0,0,.35)}
+/* ---------- stesen ---------- */
+.shead{display:flex;align-items:center;gap:10px;margin:2px 0 10px}
+.shead h2{margin:0;font-size:19px;line-height:1.2;color:var(--deep)}
+.shead small{color:var(--muted);font-size:14px}
+.bub{flex:0 0 52px;height:52px;border-radius:16px;background:var(--c);border:3px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 3px 0 var(--line)}
+.card{background:var(--card);border:3px solid var(--line);border-radius:22px;padding:14px;box-shadow:0 5px 0 var(--line);position:relative;margin-bottom:14px}
+.card::before{content:"";position:absolute;left:18px;right:18px;top:-3px;height:8px;border-radius:0 0 8px 8px;background:var(--sc,var(--chili))}
+.rpic{font-size:46px;text-align:center;line-height:1.2}
+.rh{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;font-size:19px;margin:6px 0 10px;text-align:center;color:var(--deep)}
+.rtext{margin:0 0 10px}
+.lines{list-style:none;margin:0 0 10px;padding:0;display:grid;gap:8px}
+.lines li{background:var(--cream);border:2px solid var(--wood);border-radius:14px;padding:6px 10px;display:flex;flex-direction:column;gap:0;animation:pop .35s both;animation-delay:calc(var(--i)*60ms)}
+.lines li .ar{font-size:22px;text-align:right}
+.lines .mk{font-size:15px;color:var(--muted)}
+@keyframes pop{from{opacity:0;transform:scale(.94)}}
+.ayat{background:var(--note);border:3px double var(--wood);border-radius:16px;padding:10px;margin:0 0 10px;text-align:center}
+.ayat .ar{font-size:24px;display:block}
+.ayat small{display:block;color:var(--muted);font-size:13px}
+.tip{display:flex;gap:8px;background:var(--note);border-radius:14px;padding:8px 10px;margin-bottom:10px;font-size:16px}
+.ref{font-size:14px;color:var(--muted);text-align:center;margin:6px 0}
+.navr{display:flex;gap:10px}
+.btn{flex:1;display:block;width:100%;min-height:54px;border-radius:16px;border:3px solid var(--line);background:var(--water);color:#fff;font-weight:900;font-size:18px;box-shadow:0 4px 0 var(--line);padding:8px 12px}
+.btn.alt{background:var(--card);color:var(--ink)}
+.btn.go{background:var(--chili)}
+.btn:disabled{opacity:.4}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.dots{display:flex;justify-content:center;gap:6px;margin-top:10px}
+.dots i{width:10px;height:10px;border-radius:50%;background:var(--muted);opacity:.35}
+.dots i.on{opacity:1;background:var(--chili)}
+.say{border:2px solid var(--line);background:var(--mango);border-radius:50%;width:38px;height:38px;font-size:17px;flex:0 0 38px;display:inline-flex;align-items:center;justify-content:center;padding:0}
+/* ---------- kemajuan sampan ---------- */
+.prog{position:relative;height:30px;border-radius:999px;background:linear-gradient(180deg,var(--water2),var(--water));border:3px solid var(--line);margin:0 0 12px;overflow:visible}
+.prog .wake{position:absolute;top:0;bottom:0;inset-inline-start:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.55) 0 8px,transparent 8px 16px);border-radius:999px}
+.prog .wp{position:absolute;top:50%;width:16px;height:16px;margin-top:-8px;border-radius:50%;background:var(--mango);border:2px solid var(--line)}
+.prog .boat{position:absolute;top:50%;font-size:26px;transform:translate(-50%,-58%)}
+html[dir="rtl"] .prog .boat{transform:translate(50%,-58%) scaleX(-1)}
+/* ---------- main ---------- */
+.q{display:flex;align-items:flex-start;gap:8px;margin-bottom:10px}
+.q p{margin:0;flex:1;font-weight:900}
+.opt{min-height:54px;border-radius:16px;border:3px solid var(--line);background:var(--cream);font-weight:800;font-size:17px;box-shadow:0 3px 0 var(--line);padding:6px 8px;min-width:0;overflow-wrap:anywhere}
+.opt .ar{font-size:22px}
+.opt:active{transform:translateY(2px);box-shadow:0 1px 0 var(--line)}
+.opt.right{background:var(--okbg);border-color:var(--ok)}
+.opt.wrong{background:var(--badbg);border-color:var(--bad);opacity:.6}
+.g1{display:grid;gap:8px}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.cnt{text-align:center;color:var(--muted);font-size:14px;margin-top:8px}
+.mkline{text-align:center;background:var(--note);border-radius:12px;padding:4px 8px;font-size:15px}
+.hint{margin-top:10px;background:var(--badbg);border:2px dashed var(--bad);border-radius:14px;padding:8px 10px;font-size:15px}
+.shake{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.em{font-size:38px;text-align:center;line-height:1.2}
+/* syiling: bayar wang tepat */
+.price{background:var(--deep);color:#fff;border:3px solid var(--line);border-radius:16px;padding:8px;text-align:center;margin-bottom:10px}
+.price .ar{font-size:24px;display:block}
+.till{display:flex;justify-content:center;align-items:center;gap:8px;margin-bottom:10px;font-family:"Chango",sans-serif;font-size:22px}
+.till b{background:var(--note);border:3px solid var(--line);border-radius:12px;padding:2px 12px;min-width:110px;text-align:center}
+.notes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.note{min-height:58px;border-radius:12px;border:3px solid var(--line);font-family:"Chango",sans-serif;font-size:17px;box-shadow:0 3px 0 var(--line);background:#CDEFD8;color:#173B22}
+.note[data-v="100"]{background:#FFD7C2;color:#5A1E06}.note[data-v="50"]{background:#CFE6FF;color:#0E2E55}.note[data-v="10"]{background:#F7D1F0;color:#4F1043}
+.note[data-v="5"]{background:#D5F3C9;color:#1E4710}.note[data-v="1"]{background:#D8E3FF;color:#14275A}
+.note.clr{background:var(--card);color:var(--ink);font-family:inherit}
+/* raga: susun barang ke dalam raga */
+.wares{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:10px}
+.ware{border:3px solid var(--line);border-radius:14px;background:var(--cream);padding:4px 10px;min-height:48px;box-shadow:0 3px 0 var(--line);max-width:100%}
+.ware .ar{font-size:21px}
+.ware.sel{background:var(--mango);transform:translateY(-3px)}
+.ware.used{display:none}
+.ragas{display:grid;gap:8px}
+.raga{border:3px solid var(--line);border-radius:12px 12px 26px 26px;padding:6px;min-height:72px;
+  background:repeating-linear-gradient(45deg,#E7C27D 0 8px,#D9AE60 8px 16px);color:#2B1B0E;font-weight:900;text-align:center;width:100%}
+.raga .in{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:4px}
+.raga .in > span{background:#FFF8E8;border-radius:10px;padding:0 6px;font-size:15px}
+.raga .in .ar{font-size:18px}
+/* rakit: susun papan perkataan */
+.raft{min-height:64px;border:3px dashed var(--wood);border-radius:14px;padding:6px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;direction:rtl;margin-bottom:10px;
+  background:linear-gradient(180deg,transparent 70%,var(--water2) 70%)}
+.raft > span{background:#C98B4B;color:#fff;border:2px solid var(--line);border-radius:8px;padding:0 8px}
+.raft > span .ar{font-size:21px}
+.planks{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;direction:rtl}
+.plank{border:3px solid var(--line);border-radius:10px;background:repeating-linear-gradient(90deg,#E2A866 0 14px,#D6985A 14px 28px);color:#2B1B0E;padding:2px 12px;min-height:50px;box-shadow:0 3px 0 var(--line)}
+.plank .ar{font-size:22px}
+.plank.used{visibility:hidden}
+/* dacing: dua piring timbangan */
+.dacing{position:relative;padding-top:34px;margin-bottom:6px}
+.dacing .beam{position:absolute;left:12%;right:12%;top:14px;height:8px;background:var(--wood);border:2px solid var(--line);border-radius:6px;transition:transform .4s}
+.dacing .post{position:absolute;left:50%;top:6px;width:12px;height:26px;margin-left:-6px;background:var(--wood);border:2px solid var(--line);border-radius:4px}
+.dacing.tl .beam{transform:rotate(-6deg)}.dacing.tr .beam{transform:rotate(6deg)}
+.pans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.pan{border-radius:8px 8px 40px 40px !important;min-height:96px !important;background:linear-gradient(180deg,#FFF0C9,#F3D58C) !important}
+/* jala: pilih semua */
+.net{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:10px;padding:8px;border-radius:16px;
+  background:repeating-linear-gradient(45deg,transparent 0 10px,rgba(43,27,14,.12) 10px 12px),repeating-linear-gradient(-45deg,transparent 0 10px,rgba(43,27,14,.12) 10px 12px),var(--water2)}
+.fish{border:3px solid var(--line);border-radius:16px;background:var(--card);min-height:76px;padding:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0;overflow-wrap:anywhere}
+.fish .e{font-size:26px;line-height:1.1}
+.fish .ar{font-size:17px;line-height:1.5}
+.fish small{font-size:12px;color:var(--muted)}
+.fish.sel{background:var(--mango);box-shadow:0 0 0 3px var(--chili)}
+.fish.bad{background:var(--badbg)}
+/* galah: isi tempat kosong, sampan bergerak */
+.buoys{display:flex;justify-content:center;gap:6px;margin-bottom:8px}
+.buoys i{width:16px;height:16px;border-radius:50%;background:#9AA;border:2px solid var(--line)}
+.buoys i.on{background:var(--chili)}
+.lane{background:var(--deep);border:3px solid var(--line);border-radius:16px;padding:10px 8px;margin-bottom:10px;color:#fff;text-align:center}
+.lane .s{font-size:24px;direction:rtl}
+.lane .gap{display:inline-block;min-width:70px;border-bottom:4px dashed var(--mango);color:var(--mango);margin:0 4px}
+/* tukar: barter dua lajur */
+.barter{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.barter .col{display:grid;gap:8px;align-content:start}
+.tk{border:3px solid var(--line);border-radius:14px;background:var(--cream);min-height:54px;padding:4px 6px;box-shadow:0 3px 0 var(--line);min-width:0;overflow-wrap:anywhere;font-size:16px}
+.tk .ar{font-size:20px}
+.tk.sel{background:var(--mango)}
+.tk.done{background:var(--okbg);border-color:var(--ok);opacity:.75}
+/* pesanan: pelanggan & jawapan */
+.chat{display:flex;gap:8px;align-items:flex-end;margin-bottom:10px}
+.chat .who{font-size:40px;flex:0 0 auto}
+.chat .bubble{flex:1;background:var(--note);border:3px solid var(--line);border-radius:18px 18px 18px 4px;padding:6px 10px}
+html[dir="rtl"] .chat .bubble{border-radius:18px 18px 4px 18px}
+.chat .bubble .ar{font-size:22px;display:block}
+/* tapis: buang yang lain */
+.tray{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px;border-radius:50%/22%;background:repeating-radial-gradient(circle at 50% 50%,#E7C27D 0 6px,#D4A75A 6px 12px);border:3px solid var(--line)}
+/* maklum balas */
+.fb{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:12px 12px calc(12px + env(safe-area-inset-bottom,0px));background:linear-gradient(0deg,rgba(0,0,0,.25),transparent);animation:up .3s}
+.fb .in{max-width:540px;margin:0 auto;background:var(--card);border:3px solid var(--line);border-radius:22px;padding:12px;box-shadow:0 6px 0 var(--line)}
+.fb .row1{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.fb .row1 .bangau{width:64px;height:64px;flex:0 0 64px}
+.fb strong{font-family:"Chango",sans-serif;font-weight:400;color:var(--ok);font-size:20px}
+html[dir="rtl"] .fb strong{font-family:"Noto Naskh Arabic",serif;font-weight:700}
+.fb p{margin:2px 0 0;font-size:15px}
+@keyframes up{from{transform:translateY(100%)}}
+.res{text-align:center}
+.res .bangau{width:120px;height:120px}
+.stars{font-size:44px;margin:4px 0}
+.stars span{display:inline-block;animation:pop .5s both}
+.stars .off{opacity:.2;filter:grayscale(1)}
+.gotst{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--note);border-radius:14px;padding:8px;margin:8px 0;font-weight:900}
+.gotst span{font-size:34px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--card);padding:10px 16px;border-radius:14px;z-index:60;max-width:90vw;text-align:center;font-weight:800}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}
+.confetti span{position:absolute;top:-40px;font-size:26px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+@media (max-width:380px){.hero h1{font-size:20px}.stall .ic{font-size:26px}.opt .ar{font-size:20px}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="wrap" id="app"></main>
+<script>
+/* dijana oleh gen_q.py daripada api.quran.com — jangan sunting */
+const QURAN = {"rahman8": [{"k": "55:8", "t": "أَلَّا تَطْغَوْا۟ فِى ٱلْمِيزَانِ", "w": [0, 4]}, {"k": "55:9", "t": "وَأَقِيمُوا۟ ٱلْوَزْنَ بِٱلْقِسْطِ وَلَا تُخْسِرُوا۟ ٱلْمِيزَانَ", "w": [0, 6]}], "alaq1": [{"k": "96:1", "t": " ٱقْرَأْ بِٱسْمِ رَبِّكَ ٱلَّذِى خَلَقَ", "w": [0, 6]}], "alaq2": [{"k": "96:2", "t": "خَلَقَ ٱلْإِنسَـٰنَ مِنْ عَلَقٍ", "w": [0, 4]}], "nahl79": [{"k": "16:79", "t": "أَلَمْ يَرَوْا۟ إِلَى ٱلطَّيْرِ مُسَخَّرَٰتٍ فِى جَوِّ ٱلسَّمَآءِ مَا يُمْسِكُهُنَّ إِلَّا ٱللَّهُ ۗ إِنَّ فِى ذَٰلِكَ لَـَٔايَـٰتٍ لِّقَوْمٍ يُؤْمِنُونَ", "w": [0, 19]}], "jathiyah4": [{"k": "45:4", "t": "وَفِى خَلْقِكُمْ وَمَا يَبُثُّ مِن دَآبَّةٍ ءَايَـٰتٌ لِّقَوْمٍ يُوقِنُونَ", "w": [0, 9]}], "syuara80": [{"k": "26:80", "t": "وَإِذَا مَرِضْتُ فَهُوَ يَشْفِينِ", "w": [0, 4]}], "luqman18": [{"k": "31:18", "t": "وَلَا تُصَعِّرْ خَدَّكَ لِلنَّاسِ وَلَا تَمْشِ فِى ٱلْأَرْضِ مَرَحًا ۖ إِنَّ ٱللَّهَ لَا يُحِبُّ كُلَّ مُخْتَالٍ فَخُورٍ", "w": [0, 17]}], "baqarah30": [{"k": "2:30", "t": "وَإِذْ قَالَ رَبُّكَ لِلْمَلَـٰٓئِكَةِ إِنِّى جَاعِلٌ فِى ٱلْأَرْضِ خَلِيفَةً", "w": [0, 9]}], "isra27": [{"k": "17:27", "t": "إِنَّ ٱلْمُبَذِّرِينَ كَانُوٓا۟ إِخْوَٰنَ ٱلشَّيَـٰطِينِ", "w": [0, 5]}]};
+
+/* ===================== KANDUNGAN: Bahasa Arab Tahun 5 (KSSR) =====================
+   Nombor ms. = muka surat bercetak (fail pN.jpg = ms. N-9; isi kandungan = p9).
+   Ayat al-Quran datang daripada QURAN (dijana gen_q.py dari api.quran.com). */
+const ln = (a, r, j) => [a, [r, j]];
+const ST1 = {
+  id: 1, icon: "🏷️", c: "#E4572E", sticker: "🥭",
+  t: ["Nombor 401 hingga 500", "نومبور ٤٠١ هيڠڬ ٥٠٠"],
+  u: ["Pelajaran 1, ms. 1–4", "ڤلاجرن ١، م.س. ١–٤"],
+  read: [
+    { pic: "🏷️", h: ["Nombor 401 hingga 430", "نومبور ٤٠١ هيڠڬ ٤٣٠"], p: "1", lines: [
+      ln("٤٠١ أَرْبَعُمِائَةٍ وَوَاحِدٌ", "401 empat ratus satu", "٤٠١ امڤت راتوس ساتو"),
+      ln("٤١٠ أَرْبَعُمِائَةٍ وَعَشَرَةٌ", "410 empat ratus sepuluh", "٤١٠ امڤت راتوس سڤولوه"),
+      ln("٤١٢ أَرْبَعُمِائَةٍ وَاثْنَا عَشَرَ", "412 empat ratus dua belas", "٤١٢ امڤت راتوس دوا بلس"),
+      ln("٤٢٠ أَرْبَعُمِائَةٍ وَعِشْرُونَ", "420 empat ratus dua puluh", "٤٢٠ امڤت راتوس دوا ڤولوه"),
+      ln("٤٢٣ أَرْبَعُمِائَةٍ وَثَلَاثَةٌ وَعِشْرُونَ", "423 empat ratus dua puluh tiga", "٤٢٣ امڤت راتوس دوا ڤولوه تيڬ"),
+      ln("٤٣٠ أَرْبَعُمِائَةٍ وَثَلَاثُونَ", "430 empat ratus tiga puluh", "٤٣٠ امڤت راتوس تيڬ ڤولوه") ],
+      tip: ["Sebut ratus dahulu, kemudian sa, kemudian puluh: 423 = empat ratus, tiga dan dua puluh.", "سبوت راتوس داهولو، کمودين سا، کمودين ڤولوه: ٤٢٣ = امڤت راتوس، تيڬ دان دوا ڤولوه."] },
+    { pic: "🧮", h: ["Nombor 434 hingga 500", "نومبور ٤٣٤ هيڠڬ ٥٠٠"], p: "2", lines: [
+      ln("٤٣٤ أَرْبَعُمِائَةٍ وَأَرْبَعَةٌ وَثَلَاثُونَ", "434", "٤٣٤"),
+      ln("٤٤٥ أَرْبَعُمِائَةٍ وَخَمْسَةٌ وَأَرْبَعُونَ", "445", "٤٤٥"),
+      ln("٤٥٦ أَرْبَعُمِائَةٍ وَسِتَّةٌ وَخَمْسُونَ", "456", "٤٥٦"),
+      ln("٤٦٧ أَرْبَعُمِائَةٍ وَسَبْعَةٌ وَسِتُّونَ", "467", "٤٦٧"),
+      ln("٤٧٨ أَرْبَعُمِائَةٍ وَثَمَانِيَةٌ وَسَبْعُونَ", "478", "٤٧٨"),
+      ln("٤٩٩ أَرْبَعُمِائَةٍ وَتِسْعَةٌ وَتِسْعُونَ", "499", "٤٩٩"),
+      ln("٥٠٠ خَمْسُمِائَةٍ", "500 lima ratus", "٥٠٠ ليما راتوس") ] },
+    { pic: "🏠", h: ["Berapa nombor rumahmu?", "براڤ نومبور رومهمو؟"], p: "3", lines: [
+      ln("كَمْ رَقْمُ بَيْتِكَ؟", "Berapakah nombor rumahmu?", "براڤکه نومبور رومهمو؟"),
+      ln("رَقْمُ بَيْتِي ٤١٠", "Nombor rumah saya 410", "نومبور رومه ساي ٤١٠"),
+      ln("كَمْ رَقْمُ بَيْتِ أُخْتِكَ؟", "Berapakah nombor rumah kakakmu?", "براڤکه نومبور رومه کاکقمو؟"),
+      ln("رَقْمُ بَيْتِ أُخْتِي ٤٢٠", "Nombor rumah kakak saya 420", "نومبور رومه کاکق ساي ٤٢٠"),
+      ln("كَمْ رَقْمُ بَيْتِ عَمِّكَ؟", "Berapakah nombor rumah bapa saudaramu?", "براڤکه نومبور رومه باڤ سودارامو؟"),
+      ln("رَقْمُ بَيْتِ جَدِّي ٤٩٠", "Nombor rumah datuk saya 490", "نومبور رومه داتوق ساي ٤٩٠") ] },
+    { pic: "⚖️", h: ["Timbanglah dengan adil", "تيمبڠله دڠن عاديل"], p: "4", qk: "rahman8",
+      qref: ["Surah ar-Rahman: 8–9", "سورة الرحمن: ٨–٩"],
+      text: ["Maksudnya: Supaya kamu tidak melampaui batas dalam menjalankan keadilan. Dan betulkanlah cara menimbang itu dengan adil, serta janganlah kamu mengurangi barang yang ditimbang.", "مقصودڽ: سوڤايا کامو تيدق ملمڤاوي باتس دالم منجالنکن کعاديلن. دان بتولکنله چارا منيمبڠ ايت دڠن عاديل، سرتا جاڠنله کامو مڠورڠي بارڠ يڠ دتيمبڠ."],
+      lines: [ ln("أَدِّ الْأَمَانَةَ إِلَى أَهْلِهَا", "Tunaikan amanah kepada yang berhak", "تونايکن امانه کڤد يڠ برحق") ] }
+  ],
+  games: [
+    { type: "syiling", q: ["Bayar harga yang ditulis dalam bahasa Arab. Tekan wang kertas sehingga jumlahnya tepat.", "باير هرڬ يڠ دتوليس دالم بهاس عرب. تکن واڠ کرتس سهيڠڬ جوملهڽ تڤت."],
+      e: ["Tepat! Kamu membaca nombor Arab dan membayar dengan jujur.", "تڤت! کامو ممباچ نومبور عرب دان ممباير دڠن جوجور."],
+      rounds: [ { n: 423, ar: "أَرْبَعُمِائَةٍ وَثَلَاثَةٌ وَعِشْرُونَ" }, { n: 456, ar: "أَرْبَعُمِائَةٍ وَسِتَّةٌ وَخَمْسُونَ" }, { n: 478, ar: "أَرْبَعُمِائَةٍ وَثَمَانِيَةٌ وَسَبْعُونَ" } ] },
+    { type: "tukar", q: ["Tukar barang: padankan angka dengan perkataannya.", "توکر بارڠ: ڤادنکن اڠک دڠن ڤرکاتاٴنڽ."],
+      e: ["Semua tanda harga sudah dipadankan!", "سموا تندا هرڬ سوده دڤادنکن!"],
+      pairs: [ ["٤٠١", "أَرْبَعُمِائَةٍ وَوَاحِدٌ"], ["٤١٢", "أَرْبَعُمِائَةٍ وَاثْنَا عَشَرَ"], ["٤٣٤", "أَرْبَعُمِائَةٍ وَأَرْبَعَةٌ وَثَلَاثُونَ"],
+               ["٤٥٠", "أَرْبَعُمِائَةٍ وَخَمْسُونَ"], ["٤٨٠", "أَرْبَعُمِائَةٍ وَثَمَانُونَ"], ["٥٠٠", "خَمْسُمِائَةٍ"] ] },
+    { type: "galah", q: ["Galah sampan: isi perkataan yang hilang.", "ڬاله سمڤن: ايسي ڤرکاتاٴن يڠ هيلڠ."],
+      e: ["Sampan sampai ke jeti!", "سمڤن سمڤاي ک جيتي!"],
+      rounds: [
+        { s: "٤٦٧ = أَرْبَعُمِائَةٍ وَ___ وَسِتُّونَ", o: ["سَبْعَةٌ", "سِتَّةٌ", "تِسْعَةٌ"], mk: ["467: empat ratus, tujuh dan enam puluh", "٤٦٧: امڤت راتوس، توجوه دان انم ڤولوه"] },
+        { s: "٤٢٠ = أَرْبَعُمِائَةٍ وَ___", o: ["عِشْرُونَ", "ثَلَاثُونَ", "أَرْبَعُونَ"], mk: ["420: empat ratus dua puluh", "٤٢٠: امڤت راتوس دوا ڤولوه"] },
+        { s: "٤٧٨ = أَرْبَعُمِائَةٍ وَثَمَانِيَةٌ وَ___", o: ["سَبْعُونَ", "سِتُّونَ", "ثَمَانُونَ"], mk: ["478: empat ratus, lapan dan tujuh puluh", "٤٧٨: امڤت راتوس، لاڤن دان توجوه ڤولوه"] },
+        { s: "٥٠٠ = ___", o: ["خَمْسُمِائَةٍ", "أَرْبَعُمِائَةٍ", "خَمْسُونَ"], mk: ["500: lima ratus", "٥٠٠: ليما راتوس"] } ] },
+    { type: "pesanan", q: ["Pelanggan bertanya. Pilih jawapan yang betul.", "ڤلڠڬن برتاڽ. ڤيليه جواڤن يڠ بتول."],
+      e: ["Bagus! Kamu menjawab dengan nombor rumah yang betul.", "باڬوس! کامو منجواب دڠن نومبور رومه يڠ بتول."],
+      rounds: [
+        { who: "🧕", say: "كَمْ رَقْمُ بَيْتِكَ؟", o: ["رَقْمُ بَيْتِي ٤١٠", "رَقْمُ بَيْتِ أُخْتِي ٤٢٠", "رَقْمُ بَيْتِ جَدِّي ٤٩٠"], mk: ["Berapakah nombor rumahmu?", "براڤکه نومبور رومهمو؟"] },
+        { who: "👳", say: "كَمْ رَقْمُ بَيْتِ أُخْتِكَ؟", o: ["رَقْمُ بَيْتِ أُخْتِي ٤٢٠", "رَقْمُ بَيْتِي ٤١٠", "رَقْمُ بَيْتِ عَمِّي ٤٤٠"], mk: ["Berapakah nombor rumah kakakmu?", "براڤکه نومبور رومه کاکقمو؟"] },
+        { who: "👴", say: "كَمْ رَقْمُ بَيْتِ عَمِّكَ؟", o: ["رَقْمُ بَيْتِ عَمِّي ٤٤٠", "رَقْمُ بَيْتِ جَدِّي ٤٩٠", "رَقْمُ بَيْتِ أُخْتِي ٤٢٠"], mk: ["Berapakah nombor rumah bapa saudaramu?", "براڤکه نومبور رومه باڤ سودارامو؟"] } ] },
+    { type: "dacing", q: ["Dacing harga: tekan piring yang sama dengan tanda harga.", "داچيڠ هرڬ: تکن ڤيريڠ يڠ سام دڠن تندا هرڬ."],
+      e: ["Timbangan kamu adil dan tepat!", "تيمبڠن کامو عاديل دان تڤت!"],
+      rounds: [
+        { p: "٤٤٥", a: "أَرْبَعُمِائَةٍ وَخَمْسَةٌ وَأَرْبَعُونَ", b: "أَرْبَعُمِائَةٍ وَأَرْبَعَةٌ وَخَمْسُونَ" },
+        { p: "٤١٠", a: "أَرْبَعُمِائَةٍ وَعَشَرَةٌ", b: "أَرْبَعُمِائَةٍ وَعِشْرُونَ" },
+        { p: "٤٩٩", a: "أَرْبَعُمِائَةٍ وَتِسْعَةٌ وَتِسْعُونَ", b: "أَرْبَعُمِائَةٍ وَتِسْعُونَ" } ] }
+  ]
+};
+
+const ST2 = {
+  id: 2, icon: "👥", c: "#3D9A4B", sticker: "🍌",
+  t: ["Dhamir dan Isim", "ضمير دان اسم"],
+  u: ["Pelajaran 2 (Unit 1), ms. 5–10", "ڤلاجرن ٢ (اونيت ١)، م.س. ٥–١٠"],
+  read: [
+    { pic: "🌳", h: ["Pokok dhamir (kata ganti nama)", "ڤوکوق ضمير (کات ڬنتي نام)"], p: "5", lines: [
+      ln("الْغَائِبُ: هُوَ، هُمَا، هُمْ", "Dia (lelaki): seorang, dua orang, ramai", "دي (للاکي): سئورڠ، دوا اورڠ، راماي"),
+      ln("الْغَائِبَةُ: هِيَ، هُمَا، هُنَّ", "Dia (perempuan): seorang, dua orang, ramai", "دي (ڤرمڤوان): سئورڠ، دوا اورڠ، راماي"),
+      ln("الْمُخَاطَبُ: أَنْتَ، أَنْتُمَا، أَنْتُمْ", "Kamu (lelaki)", "کامو (للاکي)"),
+      ln("الْمُخَاطَبَةُ: أَنْتِ، أَنْتُمَا، أَنْتُنَّ", "Kamu (perempuan)", "کامو (ڤرمڤوان)"),
+      ln("الْمُتَكَلِّمُ: أَنَا، نَحْنُ", "Saya, kami", "ساي، کامي") ],
+      tip: ["مُفْرَدٌ = seorang, مُثَنًّى = dua orang, جَمْعٌ = tiga orang atau lebih.", "مُفْرَدٌ = سئورڠ، مُثَنًّى = دوا اورڠ، جَمْعٌ = تيڬ اورڠ اتاو لبيه."] },
+    { pic: "🧑‍🏫", h: ["Siapakah dia?", "سياڤاکه دي؟"], p: "6–7", lines: [
+      ln("هُوَ مُعَلِّمٌ مُجْتَهِدٌ", "Dia guru yang rajin", "دي ڬورو يڠ راجين"),
+      ln("هِيَ طَالِبَةٌ مُؤَدَّبَةٌ", "Dia pelajar perempuan yang beradab", "دي ڤلاجر ڤرمڤوان يڠ برادب"),
+      ln("هُمَا مُعَلِّمَانِ مُجْتَهِدَانِ", "Mereka berdua guru yang rajin", "مريک بردوا ڬورو يڠ راجين"),
+      ln("هُمْ مُعَلِّمُونَ مُجْتَهِدُونَ", "Mereka guru-guru yang rajin", "مريک ڬورو٢ يڠ راجين"),
+      ln("هُنَّ طَالِبَاتٌ مُؤَدَّبَاتٌ", "Mereka pelajar-pelajar perempuan yang beradab", "مريک ڤلاجر٢ ڤرمڤوان يڠ برادب"),
+      ln("هُوَ طَبِيبٌ – هُمَا طَبِيبَانِ – هُمْ أَطِبَّاءُ", "Doktor: seorang, dua, ramai", "دوکتور: سئورڠ، دوا، راماي") ] },
+    { pic: "🗣️", h: ["Kamu dan saya", "کامو دان ساي"], p: "7–8", lines: [
+      ln("أَنْتَ مُعَلِّمٌ مُجْتَهِدٌ", "Kamu guru yang rajin", "کامو ڬورو يڠ راجين"),
+      ln("أَنْتُمَا مُعَلِّمَانِ مُجْتَهِدَانِ", "Kamu berdua guru yang rajin", "کامو بردوا ڬورو يڠ راجين"),
+      ln("أَنْتِ طَالِبَةٌ مُجْتَهِدَةٌ", "Kamu (perempuan) pelajar yang rajin", "کامو (ڤرمڤوان) ڤلاجر يڠ راجين"),
+      ln("أَنْتُنَّ طَالِبَاتٌ مُجْتَهِدَاتٌ", "Kamu semua (perempuan) pelajar yang rajin", "کامو سموا (ڤرمڤوان) ڤلاجر يڠ راجين"),
+      ln("أَنَا مُعَلِّمٌ", "Saya seorang guru", "ساي سئورڠ ڬورو"),
+      ln("نَحْنُ طَالِبَاتٌ", "Kami pelajar-pelajar perempuan", "کامي ڤلاجر٢ ڤرمڤوان") ] }
+  ],
+  games: [
+    { type: "raga", q: ["Masukkan setiap dhamir ke dalam raga yang betul.", "ماسوقکن ستياڤ ضمير ک دالم راڬ يڠ بتول."],
+      e: ["Semua dhamir sudah tersusun: mufrad, muthanna dan jamak.", "سموا ضمير سوده ترسوسون: مفرد، مثنى دان جمع."],
+      baskets: [["Mufrad (seorang) مُفْرَدٌ", "مفرد (سئورڠ) مُفْرَدٌ"], ["Muthanna (dua) مُثَنًّى", "مثنى (دوا) مُثَنًّى"], ["Jamak (ramai) جَمْعٌ", "جمع (راماي) جَمْعٌ"]],
+      items: [["هُوَ", 0], ["هِيَ", 0], ["أَنْتَ", 0], ["أَنَا", 0], ["هُمَا", 1], ["أَنْتُمَا", 1], ["هُمْ", 2], ["هُنَّ", 2], ["أَنْتُنَّ", 2]] },
+    { type: "tukar", q: ["Padankan dhamir dengan isim yang sesuai.", "ڤادنکن ضمير دڠن اسم يڠ سسواي."],
+      e: ["Tepat! Dhamir dan isim mesti sepadan bilangan dan jantinanya.", "تڤت! ضمير دان اسم مستي سڤادن بيلڠن دان جنتيناڽ."],
+      pairs: [["هُوَ", "فَلَّاحٌ"], ["هُمَا", "تَاجِرَانِ"], ["هُمْ", "صَالِحُونَ"], ["هِيَ", "مُدَرِّسَةٌ"], ["هُنَّ", "مُحَاضِرَاتٌ"]] },
+    { type: "rakit", q: ["Bina rakit ayat: tekan papan perkataan mengikut susunan.", "بينا راکيت اية: تکن ڤاڤن ڤرکاتاٴن مڠيکوت سوسونن."],
+      e: ["Rakit ayat kamu kukuh dan terapung!", "راکيت اية کامو کوکوه دان تراڤوڠ!"],
+      rounds: [
+        { seq: ["هُوَ", "مُعَلِّمٌ", "مُجْتَهِدٌ"], mk: ["Dia guru yang rajin.", "دي ڬورو يڠ راجين."] },
+        { seq: ["هُنَّ", "طَبِيبَاتٌ", "مَاهِرَاتٌ", "فِي", "الْمُسْتَشْفَى"], mk: ["Mereka doktor-doktor perempuan yang mahir di hospital.", "مريک دوکتور٢ ڤرمڤوان يڠ ماهير د هوسڤيتل."] },
+        { seq: ["هُمَا", "طَالِبَانِ", "ذَكِيَّانِ", "يُذَاكِرَانِ", "الدُّرُوسَ"], mk: ["Mereka berdua pelajar pintar yang mengulang kaji pelajaran.", "مريک بردوا ڤلاجر ڤينتر يڠ مڠولڠ کاجي ڤلاجرن."] } ] },
+    { type: "dacing", q: ["Dacing ayat: tekan piring yang ayatnya betul.", "داچيڠ اية: تکن ڤيريڠ يڠ ايتڽ بتول."],
+      e: ["Betul! Isim mengikut dhamirnya.", "بتول! اسم مڠيکوت ضميرڽ."],
+      rounds: [
+        { p: ["Mereka berdua doktor", "مريک بردوا دوکتور"], a: "هُمَا طَبِيبَانِ", b: "هُمَا طَبِيبٌ" },
+        { p: ["Mereka doktor-doktor perempuan", "مريک دوکتور٢ ڤرمڤوان"], a: "هُنَّ طَبِيبَاتٌ", b: "هُنَّ طَبِيبَةٌ" },
+        { p: ["Kamu (perempuan) pelajar", "کامو (ڤرمڤوان) ڤلاجر"], a: "أَنْتِ طَالِبَةٌ", b: "أَنْتَ طَالِبَةٌ" },
+        { p: ["Kami guru-guru", "کامي ڬورو٢"], a: "نَحْنُ مُعَلِّمُونَ", b: "نَحْنُ مُعَلِّمٌ" } ] },
+    { type: "tapis", q: ["Tapis dulang: tekan yang LAIN daripada yang lain.", "تاڤيس دولڠ: تکن يڠ لاٴين درڤد يڠ لاٴين."],
+      e: ["Pandai menapis!", "ڤنداي منڤيس!"],
+      rounds: [
+        { o: ["هُنَّ", "هُوَ", "هِيَ", "أَنْتَ"], why: ["هُنَّ jamak; yang lain mufrad.", "هُنَّ جمع؛ يڠ لاٴين مفرد."] },
+        { o: ["أَنَا", "أَنْتَ", "أَنْتُمَا", "أَنْتُمْ"], why: ["أَنَا dhamir mutakallim; yang lain dhamir mukhatab.", "أَنَا ضمير متکلم؛ يڠ لاٴين ضمير مخاطب."] },
+        { o: ["طَبِيبٌ", "طَبِيبَتَانِ", "مُعَلِّمَانِ", "طَالِبَانِ"], why: ["طَبِيبٌ mufrad; yang lain muthanna.", "طَبِيبٌ مفرد؛ يڠ لاٴين مثنى."] } ] }
+  ]
+};
+const ST3 = {
+  id: 3, icon: "✍️", c: "#1FA3A0", sticker: "🍉",
+  t: ["Dhamir dan Fi'il", "ضمير دان فعل"],
+  u: ["Pelajaran 2 (Unit 2–4), ms. 11–22", "ڤلاجرن ٢ (اونيت ٢–٤)، م.س. ١١–٢٢"],
+  read: [
+    { pic: "📜", h: ["Fi'il madhi (sudah berlaku)", "فعل ماضي (سوده برلاکو)"], p: "11–13", lines: [
+      ln("هُوَ دَرَسَ مَادَّةَ التَّفْسِيرِ", "Dia (lelaki) telah belajar tafsir", "دي (للاکي) تله بلاجر تفسير"),
+      ln("هُمَا دَرَسَا مَادَّةَ التَّجْوِيدِ", "Mereka berdua telah belajar tajwid", "مريک بردوا تله بلاجر تجويد"),
+      ln("هُمْ دَرَسُوا مَادَّةَ التَّوْحِيدِ", "Mereka telah belajar tauhid", "مريک تله بلاجر توحيد"),
+      ln("هِيَ دَرَسَتْ مَادَّةَ اللُّغَةِ الْعَرَبِيَّةِ", "Dia (perempuan) telah belajar bahasa Arab", "دي (ڤرمڤوان) تله بلاجر بهاس عرب"),
+      ln("هُنَّ دَرَسْنَ مَادَّةَ الْأَخْلَاقِ", "Mereka (perempuan) telah belajar akhlak", "مريک (ڤرمڤوان) تله بلاجر اخلاق"),
+      ln("أَنْتَ دَرَسْتَ – أَنْتِ دَرَسْتِ", "Kamu telah belajar", "کامو تله بلاجر"),
+      ln("أَنَا دَرَسْتُ – نَحْنُ دَرَسْنَا", "Saya / kami telah belajar", "ساي / کامي تله بلاجر") ] },
+    { pic: "⏳", h: ["Fi'il mudhari' (sedang berlaku)", "فعل مضارع (سدڠ برلاکو)"], p: "16–18", lines: [
+      ln("هُوَ يَدْرُسُ – هِيَ تَدْرُسُ", "Dia sedang belajar", "دي سدڠ بلاجر"),
+      ln("هُمَا يَدْرُسَانِ – هُمْ يَدْرُسُونَ", "Mereka berdua / mereka sedang belajar", "مريک بردوا / مريک سدڠ بلاجر"),
+      ln("هُنَّ يَدْرُسْنَ", "Mereka (perempuan) sedang belajar", "مريک (ڤرمڤوان) سدڠ بلاجر"),
+      ln("أَنْتَ تَدْرُسُ – أَنْتِ تَدْرُسِينَ", "Kamu sedang belajar", "کامو سدڠ بلاجر"),
+      ln("أَنْتُمْ تَدْرُسُونَ – أَنْتُنَّ تَدْرُسْنَ", "Kamu semua sedang belajar", "کامو سموا سدڠ بلاجر"),
+      ln("أَنَا أَدْرُسُ – نَحْنُ نَدْرُسُ", "Saya / kami sedang belajar", "ساي / کامي سدڠ بلاجر") ] },
+    { pic: "📣", h: ["Fi'il amr (suruhan)", "فعل امر (سوروهن)"], p: "19–20", lines: [
+      ln("يَا حَنِيفُ، رَاجِعْ دَرْسَكَ قَبْلَ الِامْتِحَانِ", "Wahai Hanif, ulang kajilah pelajaranmu sebelum peperiksaan", "واهاي حنيف، اولڠ کاجيله ڤلاجرنمو سبلوم ڤڤريقساٴن"),
+      ln("يَا طَالِبَانِ، رَاجِعَا دَرْسَكُمَا قَبْلَ الِامْتِحَانِ", "Wahai dua pelajar, ulang kajilah", "واهاي دوا ڤلاجر، اولڠ کاجيله"),
+      ln("يَا طُلَّابُ، رَاجِعُوا دَرْسَكُمْ قَبْلَ الِامْتِحَانِ", "Wahai pelajar-pelajar, ulang kajilah", "واهاي ڤلاجر٢، اولڠ کاجيله"),
+      ln("يَا سَكِينَةُ، رَاجِعِي دَرْسَكِ قَبْلَ الِامْتِحَانِ", "Wahai Sakinah, ulang kajilah", "واهاي سکينة، اولڠ کاجيله"),
+      ln("يَا طَالِبَاتُ، رَاجِعْنَ دَرْسَكُنَّ قَبْلَ الِامْتِحَانِ", "Wahai pelajar-pelajar perempuan, ulang kajilah", "واهاي ڤلاجر٢ ڤرمڤوان، اولڠ کاجيله") ] },
+    { pic: "📖", h: ["Bacalah!", "باچاله!"], p: "22", qk: "alaq1", qref: ["Surah al-'Alaq: 1", "سورة العلق: ١"],
+      text: ["Maksudnya: Bacalah (wahai Muhammad) dengan nama Tuhanmu yang menciptakan (sekalian makhluk).", "مقصودڽ: باچاله (واهاي محمد) دڠن نام توهنمو يڠ منچيڤتاکن (سکالين مخلوق)."],
+      lines: [ ln("اِبْدَأْ كُلَّ عَمَلٍ بِالْبَسْمَلَةِ", "Mulakan setiap kerja dengan Bismillah", "مولاکن ستياڤ کرجا دڠن بسم الله") ] }
+  ],
+  games: [
+    { type: "tukar", q: ["Padankan dhamir dengan perbuatannya.", "ڤادنکن ضمير دڠن ڤربواتنڽ."],
+      e: ["Hebat! Akhiran fi'il menunjukkan pelakunya.", "هيبت! اخيرن فعل منونجوقکن ڤلاکوڽ."],
+      pairs: [["هُوَ", "سَافَرَ إِلَى أُورُوبَّا"], ["هُمْ", "لَعِبُوا كُرَةَ الْقَدَمِ"], ["هِيَ", "نَجَحَتْ فِي الِامْتِحَانِ"], ["هُنَّ", "حَفِظْنَ الْقُرْآنَ"], ["أَنَا", "دَرَسْتُ مَادَّةَ التَّفْسِيرِ"]] },
+    { type: "raga", q: ["Susun fi'il ke dalam raga: madhi, mudhari' atau amr.", "سوسون فعل ک دالم راڬ: ماضي، مضارع اتاو امر."],
+      e: ["Tiga raga penuh: sudah, sedang dan suruhan!", "تيڬ راڬ ڤنوه: سوده، سدڠ دان سوروهن!"],
+      baskets: [["Madhi (sudah) مَاضٍ", "ماضي (سوده) مَاضٍ"], ["Mudhari' (sedang) مُضَارِعٌ", "مضارع (سدڠ) مُضَارِعٌ"], ["Amr (suruhan) أَمْرٌ", "امر (سوروهن) أَمْرٌ"]],
+      items: [["دَرَسَ", 0], ["دَرَسَتْ", 0], ["دَرَسْنَا", 0], ["يَدْرُسُ", 1], ["تَدْرُسِينَ", 1], ["نَدْرُسُ", 1], ["اُدْرُسْ", 2], ["اُدْرُسِي", 2], ["اُدْرُسُوا", 2]] },
+    { type: "galah", q: ["Isi fi'il amr yang sesuai dengan orang yang dipanggil.", "ايسي فعل امر يڠ سسواي دڠن اورڠ يڠ دڤڠڬيل."],
+      e: ["Betul! Fi'il amr berubah mengikut siapa yang disuruh.", "بتول! فعل امر بروبه مڠيکوت سياڤ يڠ دسوروه."],
+      rounds: [
+        { s: "يَا أَصْدِقَائِي! ___ اللَّهَ دَائِمًا", o: ["اُدْعُوا", "اُدْعُ", "اُدْعِي"], mk: ["Wahai kawan-kawanku! Berdoalah kepada Allah selalu.", "واهاي کاون٢کو! بردعاله کڤد الله سلالو."] },
+        { s: "يَا مُمَرِّضَاتُ، ___ الْمَرِيضَ", o: ["سَاعِدْنَ", "سَاعِدُوا", "سَاعِدِي"], mk: ["Wahai jururawat-jururawat, bantulah pesakit.", "واهاي جوروراوت٢، بنتوله ڤساکيت."] },
+        { s: "يَا بُنَيَّ، ___ رِسَالَةً إِلَى جَدِّكَ", o: ["اُكْتُبْ", "اُكْتُبُوا", "اُكْتُبِي"], mk: ["Wahai anakku, tulislah surat kepada datukmu.", "واهاي انقکو، توليسله سورت کڤد داتوقمو."] },
+        { s: "يَا تِلْمِيذَاتُ، ___ الْمُعَلِّمَاتِ", o: ["اِحْتَرِمْنَ", "اِحْتَرِمْ", "اِحْتَرِمَا"], mk: ["Wahai murid-murid perempuan, hormatilah guru-guru.", "واهاي موريد٢ ڤرمڤوان، هورماتيله ڬورو٢."] } ] },
+    { type: "dacing", q: ["Dacing fi'il: pilih fi'il yang sepadan dengan dhamir.", "داچيڠ فعل: ڤيليه فعل يڠ سڤادن دڠن ضمير."],
+      e: ["Timbangan seimbang!", "تيمبڠن سايمبڠ!"],
+      rounds: [
+        { p: "هُمْ", a: "يَدْرُسُونَ", b: "يَدْرُسَانِ" },
+        { p: "أَنْتِ", a: "تَدْرُسِينَ", b: "تَدْرُسُ" },
+        { p: "نَحْنُ", a: "نَدْرُسُ", b: "أَدْرُسُ" },
+        { p: "هُنَّ", a: "يَدْرُسْنَ", b: "يَدْرُسُونَ" } ] },
+    { type: "rakit", q: ["Bina rakit ayat mengikut susunan.", "بينا راکيت اية مڠيکوت سوسونن."],
+      e: ["Ayat tersusun kemas!", "اية ترسوسون کمس!"],
+      rounds: [
+        { seq: ["هُنَّ", "يَحْفَظْنَ", "دُرُوسَهُنَّ"], mk: ["Mereka (perempuan) menghafal pelajaran mereka.", "مريک (ڤرمڤوان) مڠحفل ڤلاجرن مريک."] },
+        { seq: ["هُمَا", "يُسَاعِدَانِ", "أَبَاهُمَا"], mk: ["Mereka berdua membantu ayah mereka.", "مريک بردوا ممبنتو ايه مريک."] },
+        { seq: ["يَا", "طُلَّابُ،", "رَاجِعُوا", "دَرْسَكُمْ", "قَبْلَ", "الِامْتِحَانِ"], mk: ["Wahai pelajar-pelajar, ulang kajilah pelajaran kamu sebelum peperiksaan.", "واهاي ڤلاجر٢، اولڠ کاجيله ڤلاجرن کامو سبلوم ڤڤريقساٴن."] } ] },
+    { type: "pesanan", q: ["Kawan bertanya. Pilih jawapan yang betul.", "کاون برتاڽ. ڤيليه جواڤن يڠ بتول."],
+      e: ["Jawapan kamu sopan dan tepat!", "جواڤن کامو سوڤن دان تڤت!"],
+      rounds: [
+        { who: "🧒", say: "كَيْفَ حَالُكَ؟", o: ["الْحَمْدُ لِلَّهِ، أَنَا بِخَيْرٍ", "نَحْنُ طُلَّابٌ", "هُوَ مُعَلِّمٌ"], mk: ["Apa khabar?", "اڤ خبر؟"] },
+        { who: "👨‍🏫", say: "هَلْ أَنْتُمْ تَفْهَمُونَ الدَّرْسَ؟", o: ["نَعَمْ، نَحْنُ نَفْهَمُ الدَّرْسَ", "نَعَمْ، هِيَ تَفْهَمُ الدَّرْسَ", "نَعَمْ، أَنْتِ تَفْهَمِينَ الدَّرْسَ"], mk: ["Adakah kamu semua faham pelajaran?", "اداکه کامو سموا فهم ڤلاجرن؟"] },
+        { who: "👧", say: "مَاذَا تَقْرَأُ الْآنَ؟", o: ["أَقْرَأُ الْقُرْآنَ", "قَرَأُوا الْقُرْآنَ", "اِقْرَئِي الْقُرْآنَ"], mk: ["Apa yang kamu baca sekarang?", "اڤ يڠ کامو باچ سکارڠ؟"] } ] }
+  ]
+};
+const ST4 = {
+  id: 4, icon: "🦜", c: "#E09A12", sticker: "🍍",
+  t: ["Burung dan Serangga", "بوروڠ دان سرڠڬ"],
+  u: ["Pelajaran 4, ms. 26–31", "ڤلاجرن ٤، م.س. ٢٦–٣١"],
+  read: [
+    { pic: "🌴", h: ["Taman Burung", "تامن بوروڠ"], p: "26", lines: [
+      ln("تَقَعُ حَدِيقَةُ الطُّيُورِ فِي عَاصِمَةِ كوالا لمبور", "Taman burung terletak di ibu kota Kuala Lumpur", "تامن بوروڠ ترلتق د ايبو کوت کوالا لومڤور"),
+      ln("وَهِيَ قَرِيبَةٌ مِنَ الْمَسْجِدِ الْوَطَنِيِّ", "Ia dekat dengan Masjid Negara", "اي دکت دڠن مسجد نڬارا"),
+      ln("إِنَّ الْحَدِيقَةَ وَاسِعَةٌ وَجَمِيلَةٌ", "Taman itu luas dan cantik", "تامن ايت لواس دان چنتيق"),
+      ln("وَفِيهَا طُيُورٌ كَثِيرَةٌ مُتَنَوِّعَةٌ", "Di dalamnya banyak burung pelbagai jenis", "د دالمڽ باڽق بوروڠ ڤلباڬاي جنيس"),
+      ln("وَمِنْهَا طُيُورٌ مَحَلِّيَّةٌ وَمُسْتَوْرَدَةٌ", "Ada burung tempatan dan burung import", "اد بوروڠ تمڤتن دان بوروڠ ايمڤورت") ] },
+    { pic: "🦚", h: ["Jenis-jenis burung", "جنيس٢ بوروڠ"], p: "27", lines: [
+      ln("نَعَامَةٌ", "Burung unta", "بوروڠ اونتا"), ln("دِيكٌ رُومِيٌّ", "🦃 Ayam belanda", "🦃 ايم بلندا"),
+      ln("طَاوُوسٌ", "🦚 Burung merak", "🦚 بوروڠ مرق"), ln("حَمَامَةٌ", "🕊️ Burung merpati", "🕊️ بوروڠ مرڤاتي"),
+      ln("بَطَّةٌ", "🦆 Itik", "🦆 ايتيق"), ln("دَجَاجَةٌ", "🐔 Ayam", "🐔 ايم"),
+      ln("بَبَّغَاءُ", "🦜 Burung kakak tua", "🦜 بوروڠ کاکق توا"), ln("غُرَابٌ", "🐦 Burung gagak", "🐦‍⬛ بوروڠ ڬاڬق"),
+      ln("صَقْرٌ", "🦅 Burung helang", "🦅 بوروڠ هلڠ") ] },
+    { pic: "🕊️", h: ["Aku burung merpati", "اکو بوروڠ مرڤاتي"], p: "27", lines: [
+      ln("أَنَا حَمَامَةٌ. أَنَا طَائِرٌ مَحْبُوبٌ", "Aku merpati. Aku burung yang disayangi", "اکو مرڤاتي. اکو بوروڠ يڠ دسايڠي"),
+      ln("شَكْلِي جَمِيلٌ، وَصَوْتِي طَرُوبٌ", "Rupaku cantik dan suaraku merdu", "روڤاکو چنتيق دان سوارکو مردو"),
+      ln("وَقَدْ وَهَبَنِيَ اللَّهُ جَنَاحَيْنِ قَوِيَّيْنِ", "Allah mengurniakan aku dua sayap yang kuat", "الله مڠورنياکن اکو دوا ساياڤ يڠ کوات"),
+      ln("وَلِذَا أَسْتَطِيعُ أَنْ أَطِيرَ لِمَسَافَاتٍ بَعِيدَةٍ", "Oleh itu aku boleh terbang jauh", "اوليه ايت اکو بوليه تربڠ جاٴوه") ] },
+    { pic: "🔁", h: ["Mufrad dan jamak", "مفرد دان جمع"], p: "28", lines: [
+      ln("بَبَّغَاءُ ← بَبَّغَاوَاتٌ", "Kakak tua", "کاکق توا"), ln("صَقْرٌ ← صُقُورٌ", "Helang", "هلڠ"),
+      ln("طَاوُوسٌ ← طَوَاوِيسُ", "Merak", "مرق"), ln("عُصْفُورٌ ← عَصَافِيرُ", "Burung pipit", "بوروڠ ڤيڤيت"),
+      ln("غُرَابٌ ← غِرْبَانٌ", "Gagak", "ڬاڬق"), ln("نَعَامَةٌ ← نَعَامٌ", "Burung unta", "بوروڠ اونتا") ] },
+    { pic: "🐜", h: ["Aku serangga", "اکو سرڠڬ"], p: "30", lines: [
+      ln("أَنَا نَحْلٌ. أُحِبُّ أَنْ أَشْرَبَ رَحِيقَ الْأَزْهَارِ", "🐝 Aku lebah. Aku suka minum madu bunga", "🐝 اکو لبه. اکو سوک مينوم مادو بوڠا"),
+      ln("أَنَا نَمْلٌ. أَنَا مِنَ الْحَشَرَاتِ الِاجْتِمَاعِيَّةِ", "🐜 Aku semut. Aku serangga yang hidup berkumpulan", "🐜 اکو سموت. اکو سرڠڬ يڠ هيدوڤ برکومڤولن"),
+      ln("أَنَا ذُبَابٌ. إِنِّي أَنْشُرُ أَمْرَاضًا", "🪰 Aku lalat. Aku menyebarkan penyakit", "🪰 اکو لالت. اکو مڽيبرکن ڤڽاکيت"),
+      ln("أَنَا بَعُوضٌ. أَنَا نَاقِلَةُ الْأَمْرَاضِ", "🦟 Aku nyamuk. Aku membawa penyakit (denggi, malaria)", "🦟 اکو ڽاموق. اکو ممباوا ڤڽاکيت (دڠڬي، مالاريا)"),
+      ln("أَنَا عَقْرَبٌ. أَعِيشُ فِي الْأَمَاكِنِ الْمَخْفِيَّةِ", "🦂 Aku kala jengking. Aku hidup di tempat tersembunyi", "🦂 اکو کالا جڠکيڠ. اکو هيدوڤ د تمڤت ترسمبوڽي"),
+      ln("أَنَا صُرْصُورٌ. أَعِيشُ فِي الْحَمَّامِ وَالْمِرْحَاضِ", "🪳 Aku lipas. Aku hidup di bilik air dan tandas", "🪳 اکو ليڤس. اکو هيدوڤ د بيليق اٴير دان تندس") ] },
+    { pic: "🦅", h: ["Burung di angkasa", "بوروڠ د اڠکاس"], p: "29", qk: "nahl79", qref: ["Surah an-Nahl: 79", "سورة النحل: ٧٩"],
+      text: ["Maksudnya: Tidakkah mereka melihat burung-burung yang dimudahkan terbang di angkasa? Tiada yang menahannya (daripada jatuh) melainkan Allah. Sesungguhnya pada yang demikian itu ada tanda-tanda (kekuasaan Allah) bagi kaum yang beriman.", "مقصودڽ: تيدقکه مريک مليهت بوروڠ٢ يڠ دمودهکن تربڠ د اڠکاس؟ تياد يڠ منهنڽ (درڤد جاتوه) ملاٴينکن الله. سسوڠڬوهڽ ڤد يڠ دميکين ايت اد تندا٢ (کواساٴن الله) باڬي قوم يڠ برايمان."],
+      lines: [ ln("أَحْسِنْ إِلَى الطُّيُورِ", "Berbuat baiklah kepada burung", "بربوات باٴيقله کڤد بوروڠ") ] }
+  ],
+  games: [
+    { type: "jala", q: ["Tebar jala! Tangkap yang diminta, kemudian tekan Tarik Jala.", "تبر جالا! تڠکڤ يڠ دمينتا، کمودين تکن تاريق جالا."],
+      e: ["Jala penuh dengan tangkapan yang betul!", "جالا ڤنوه دڠن تڠکڤن يڠ بتول!"],
+      rounds: [
+        { ask: ["Tangkap semua SERANGGA.", "تڠکڤ سموا سرڠڬ."], items: [["فَرَاشَةٌ", 1, "🦋"], ["نَمْلٌ", 1, "🐜"], ["جُنْدُبٌ", 1, "🦗"], ["فَرَسُ النَّبِيِّ", 1, "🌿"], ["أَسَدٌ", 0, "🦁"], ["ضِفْدَعٌ", 0, "🐸"], ["سَمَكٌ", 0, "🐟"], ["حَمَامَةٌ", 0, "🕊️"]] },
+        { ask: ["Tangkap semua BURUNG (baca perkataan Arab).", "تڠکڤ سموا بوروڠ (باچ ڤرکاتاٴن عرب)."], items: [["صَقْرٌ", 1], ["غُرَابٌ", 1], ["بَطَّةٌ", 1], ["دَجَاجَةٌ", 1], ["ذُبَابٌ", 0], ["بَعُوضٌ", 0], ["عَقْرَبٌ", 0], ["نَحْلٌ", 0]] } ] },
+    { type: "tukar", q: ["Padankan nama burung dengan gambarnya.", "ڤادنکن نام بوروڠ دڠن ڬمبرڽ."],
+      e: ["Semua burung sudah kembali ke sangkarnya!", "سموا بوروڠ سوده کمبالي ک سڠکرڽ!"],
+      pairs: [["طَاوُوسٌ", ["🦚 Merak", "🦚 مرق"]], ["بَبَّغَاءُ", ["🦜 Kakak tua", "🦜 کاکق توا"]], ["حَمَامَةٌ", ["🕊️ Merpati", "🕊️ مرڤاتي"]],
+               ["بَطَّةٌ", ["🦆 Itik", "🦆 ايتيق"]], ["دِيكٌ رُومِيٌّ", ["🦃 Ayam belanda", "🦃 ايم بلندا"]], ["صَقْرٌ", ["🦅 Helang", "🦅 هلڠ"]]] },
+    { type: "galah", q: ["Siapakah aku? Isi nama serangga.", "سياڤاکه اکو؟ ايسي نام سرڠڬ."],
+      e: ["Betul! Kamu kenal serangga ciptaan Allah.", "بتول! کامو کنل سرڠڬ چيڤتاٴن الله."],
+      rounds: [
+        { s: "أَنَا ___. أُحِبُّ أَنْ أَشْرَبَ رَحِيقَ الْأَزْهَارِ", o: ["نَحْلٌ", "عَقْرَبٌ", "صُرْصُورٌ"], mk: ["Aku suka minum madu bunga.", "اکو سوک مينوم مادو بوڠا."], em: "🌸" },
+        { s: "أَنَا ___. أَعِيشُ فِي الْأَمَاكِنِ الْمَخْفِيَّةِ", o: ["عَقْرَبٌ", "نَحْلٌ", "نَمْلٌ"], mk: ["Aku hidup di tempat tersembunyi.", "اکو هيدوڤ د تمڤت ترسمبوڽي."], em: "🪨" },
+        { s: "أَنَا ___. أَنَا نَاقِلَةُ الْأَمْرَاضِ", o: ["بَعُوضٌ", "فَرَاشَةٌ", "نَحْلٌ"], mk: ["Aku membawa penyakit denggi dan malaria.", "اکو ممباوا ڤڽاکيت دڠڬي دان مالاريا."], em: "🤒" },
+        { s: "أَنَا ___. أَعِيشُ فِي الْحَمَّامِ وَالْمِرْحَاضِ", o: ["صُرْصُورٌ", "نَمْلٌ", "جُنْدُبٌ"], mk: ["Aku hidup di bilik air dan tandas.", "اکو هيدوڤ د بيليق اٴير دان تندس."], em: "🚽" } ] },
+    { type: "raga", q: ["Asingkan burung mufrad (seekor) dan jamak (banyak).", "اسيڠکن بوروڠ مفرد (سايکور) دان جمع (باڽق)."],
+      e: ["Raga burung tersusun rapi!", "راڬ بوروڠ ترسوسون رافي!"],
+      baskets: [["Mufrad مُفْرَدٌ", "مفرد مُفْرَدٌ"], ["Jamak جَمْعٌ", "جمع جَمْعٌ"]],
+      items: [["صَقْرٌ", 0], ["غُرَابٌ", 0], ["عُصْفُورٌ", 0], ["طَاوُوسٌ", 0], ["صُقُورٌ", 1], ["غِرْبَانٌ", 1], ["عَصَافِيرُ", 1], ["طَوَاوِيسُ", 1]] },
+    { type: "pesanan", q: ["Teka-teki: siapakah yang bercakap?", "تکا-تکي: سياڤاکه يڠ برچاکڤ؟"],
+      e: ["Tekaan kamu tepat!", "تکاٴن کامو تڤت!"],
+      rounds: [
+        { who: "❓", say: "أَنَا طَائِرٌ مَحْبُوبٌ ... أَسْتَطِيعُ أَنْ أَطِيرَ لِمَسَافَاتٍ بَعِيدَةٍ", o: ["حَمَامَةٌ", "دَجَاجَةٌ", "نَعَامَةٌ"], mk: ["Aku burung disayangi dan boleh terbang jauh.", "اکو بوروڠ دسايڠي دان بوليه تربڠ جاٴوه."] },
+        { who: "❓", say: "أَنَا مِنْ أَفْضَلِ الطُّيُورِ النَّاطِقَةِ الْمَعْرُوفَةِ", o: ["بَبَّغَاءُ", "صَقْرٌ", "بَطَّةٌ"], mk: ["Aku antara burung yang paling pandai meniru cakap.", "اکو انتارا بوروڠ يڠ ڤاليڠ ڤنداي منيرو چاکڤ."] },
+        { who: "❓", say: "إِنِّي أَنْشُرُ أَمْرَاضًا بِنَقْلِ الْبَكْتِيرِيَا", o: ["ذُبَابٌ", "نَحْلٌ", "فَرَاشَةٌ"], mk: ["Aku menyebarkan penyakit dengan membawa bakteria.", "اکو مڽيبرکن ڤڽاکيت دڠن ممباوا بکتيريا."] } ] },
+    { type: "tapis", q: ["Tapis dulang: tekan yang LAIN daripada yang lain.", "تاڤيس دولڠ: تکن يڠ لاٴين درڤد يڠ لاٴين."],
+      e: ["Mata kamu tajam seperti helang!", "مات کامو تاجم سڤرتي هلڠ!"],
+      rounds: [
+        { o: ["نَمْلٌ", "صَقْرٌ", "غُرَابٌ", "حَمَامَةٌ"], why: ["نَمْلٌ serangga; yang lain burung.", "نَمْلٌ سرڠڬ؛ يڠ لاٴين بوروڠ."] },
+        { o: ["دَجَاجَةٌ", "ذُبَابٌ", "بَعُوضٌ", "نَحْلٌ"], why: ["دَجَاجَةٌ burung; yang lain serangga.", "دَجَاجَةٌ بوروڠ؛ يڠ لاٴين سرڠڬ."] },
+        { o: ["غُرَابٌ", "عَصَافِيرُ", "غِرْبَانٌ", "صُقُورٌ"], why: ["غُرَابٌ mufrad; yang lain jamak.", "غُرَابٌ مفرد؛ يڠ لاٴين جمع."] } ] }
+  ]
+};
+const ST5 = {
+  id: 5, icon: "🏖️", c: "#D9822B", sticker: "🥥",
+  t: ["Rehlah ke Pantai dan Zoo", "رحلة ک ڤنتاي دان زو"],
+  u: ["Pelajaran 3 dan 6, ms. 23–25, 35–37", "ڤلاجرن ٣ دان ٦، م.س. ٢٣–٢٥، ٣٥–٣٧"],
+  read: [
+    { pic: "🚗", h: ["Rehlah ke pantai", "رحلة ک ڤنتاي"], p: "23", lines: [
+      ln("فِي الْعُطْلَةِ الْمَدْرَسِيَّةِ الْمَاضِيَةِ، ذَهَبَتْ شَهِيرَةُ مَعَ عَائِلَتِهَا إِلَى شَاطِئِ الْبَحْرِ", "Cuti sekolah lalu, Syahirah pergi ke pantai bersama keluarganya", "چوتي سکوله لالو، شهيرة ڤرڬي ک ڤنتاي برسام کلوارڬڽ"),
+      ln("يَقَعُ هَذَا الشَّاطِئُ حَوَالَيْ ٢٠ كِيلُومِتْرًا مِنْ بَيْتِهَا", "Pantai itu kira-kira 20 kilometer dari rumahnya", "ڤنتاي ايت کيرا٢ ٢٠ کيلوميتر دري رومهڽ"),
+      ln("اِنْطَلَقَتْ شَهِيرَةُ وَعَائِلَتُهَا مِنَ الْمَنْزِلِ فِي الصَّبَاحِ الْبَاكِرِ", "Mereka bertolak dari rumah pada awal pagi", "مريک برتولق دري رومه ڤد اول ڤاڬي"),
+      ln("وَفِي الطَّرِيقِ، شَاهَدَتْ شَهِيرَةُ مَزَارِعَ أَشْجَارِ النَّارْجِيلِ وَالْمَطَّاطِ", "Dalam perjalanan, Syahirah melihat ladang kelapa dan getah", "دالم ڤرجالنن، شهيرة مليهت لادڠ کلاڤ دان ڬته") ] },
+    { pic: "🌴", h: ["Di tepi pantai", "د تڤي ڤنتاي"], p: "23", lines: [
+      ln("كَانَتْ شَهِيرَةُ وَأُمُّهَا اِسْتَرَاحَتَا تَحْتَ ظِلِّ الشَّجَرَةِ الْمُورِقَةِ", "Syahirah dan ibunya berehat di bawah pokok yang rendang", "شهيرة دان ايبوڽ بررحت د باوه ڤوکوق يڠ رندڠ"),
+      ln("وَأَمَّا أَخُوهَا لَعِبَ كُرَةَ الْقَدَمِ مَعَ أَبِيهِ، ثُمَّ سَبَحَا فِي الْبَحْرِ", "Abangnya bermain bola bersama ayah, kemudian mereka berenang di laut", "ابڠڽ برماٴين بولا برسام ايه، کمودين مريک برنڠ د لاٴوت"),
+      ln("بَعْدَ ذَلِكَ تَنَاوَلُوا الْأَطْعِمَةَ وَالْأَشْرِبَةَ", "Selepas itu mereka makan dan minum", "سلڤس ايت مريک ماکن دان مينوم"),
+      ln("وَفِي الْمَسَاءِ عَادُوا إِلَى مَنْزِلِهِمْ فَرِحِينَ مَسْرُورِينَ", "Petang itu mereka pulang ke rumah dengan gembira", "ڤتڠ ايت مريک ڤولڠ ک رومه دڠن ڬمبيرا") ] },
+    { pic: "📞", h: ["Ke zoo: berbual di telefon", "ک زو: بربوال د تيليفون"], p: "35–36", lines: [
+      ln("أَلُو، صَبَاحُ الْخَيْرِ، يَا مَدِيحَةُ، أَيْنَ كُنْتِ بِالْأَمْسِ؟", "Helo, selamat pagi Madihah. Di mana kamu semalam?", "هيلو، سلامت ڤاڬي مديحة. د مان کامو سمالم؟"),
+      ln("صَبَاحُ النُّورِ، كُنْتُ ذَاهِبَةً إِلَى حَدِيقَةِ الْحَيَوَانَاتِ مَعَ أُسْرَتِي", "Selamat pagi. Saya pergi ke zoo bersama keluarga", "سلامت ڤاڬي. ساي ڤرڬي ک زو برسام کلوارڬ"),
+      ln("مَاذَا رَأَيْتِ هُنَاكَ؟", "Apa yang kamu lihat di sana?", "اڤ يڠ کامو ليهت د سان؟"),
+      ln("رَأَيْتُ بَعْضَ الْحَيَوَانَاتِ الْمُفْتَرِسَةِ كَالْفِيلِ وَالثُّعْبَانِ وَالْأَسَدِ وَالنَّمِرِ وَالدُّبِّ وَالذِّئْبِ", "Saya lihat haiwan buas seperti gajah, ular, singa, harimau, beruang dan serigala", "ساي ليهت حيوان بواس سڤرتي ڬاجه، اولر، سيڠا، هاريماو، بروڠ دان سريڬالا"),
+      ln("هَلْ هُنَاكَ طُيُورٌ كَالطَّاوُوسِ وَالْبَبَّغَاءِ وَالنَّعَامَةِ؟", "Adakah burung seperti merak, kakak tua dan burung unta?", "اداکه بوروڠ سڤرتي مرق، کاکق توا دان بوروڠ اونتا؟"),
+      ln("مَا شَاءَ اللَّهُ، رِحْلَةٌ مُمْتِعَةٌ", "Masya-Allah, lawatan yang menyeronokkan", "ماشاءالله، لاوتن يڠ مڽرونوقکن"),
+      ln("إِلَى اللِّقَاءِ، يَا مَدِيحَةُ – مَعَ السَّلَامَةِ، يَا سَكِينَةُ", "Jumpa lagi, Madihah – Selamat jalan, Sakinah", "جومڤا لاڬي، مديحة – سلامت جالن، سکينة") ] },
+    { pic: "📒", h: ["Makna dan lawan kata", "معنى دان لاون کات"], p: "24, 36", lines: [
+      ln("الرِّحْلَةُ = النُّزْهَةُ", "Lawatan, rehlah", "لاوتن، رحلة"),
+      ln("الْمَنْزِلُ = الْبَيْتُ", "Rumah", "رومه"),
+      ln("عَائِلَتُهَا = أُسْرَتُهَا", "Keluarganya", "کلوارڬڽ"),
+      ln("الْعُطْلَةُ = الْإِجَازَةُ", "Cuti", "چوتي"),
+      ln("صَبَاحٌ ⟷ مَسَاءٌ", "Pagi lawannya petang", "ڤاڬي لاونڽ ڤتڠ"),
+      ln("الْمُفْتَرِسَةُ ⟷ الْأَلِيفَةُ", "Buas lawannya jinak", "بواس لاونڽ جيناق") ] },
+    { pic: "🐾", h: ["Tanda kebesaran Allah", "تندا کبسرن الله"], p: "37", qk: "jathiyah4", qref: ["Surah al-Jathiyah: 4", "سورة الجاثية: ٤"],
+      text: ["Maksudnya: Dan pada kejadian kamu sendiri serta binatang-binatang yang dibiakkan-Nya, terdapat tanda-tanda (kekuasaan Allah) bagi kaum yang yakin.", "مقصودڽ: دان ڤد کجادين کامو سنديري سرتا بيناتڠ٢ يڠ دبياقکنڽ، ترداڤت تندا٢ (کواساٴن الله) باڬي قوم يڠ يقين."],
+      lines: [ ln("اِرْحَمِ الْحَيَوَانَاتِ الَّتِي خَلَقَهَا اللَّهُ", "Sayangilah haiwan yang diciptakan Allah", "سايڠيله حيوان يڠ دچيڤتاکن الله") ] }
+  ],
+  games: [
+    { type: "pesanan", q: ["Soalan cerita pantai. Pilih jawapan yang betul.", "سوالن چريتا ڤنتاي. ڤيليه جواڤن يڠ بتول."],
+      e: ["Kamu memahami cerita dengan baik!", "کامو ممهمي چريتا دڠن باٴيق!"],
+      rounds: [
+        { who: "🧑‍🏫", say: "إِلَى أَيْنَ ذَهَبَتْ شَهِيرَةُ وَعَائِلَتُهَا؟", o: ["ذَهَبَتْ إِلَى شَاطِئِ الْبَحْرِ", "ذَهَبَتْ إِلَى حَدِيقَةِ الْحَيَوَانَاتِ", "ذَهَبَتْ إِلَى الْمُسْتَشْفَى"], mk: ["Ke mana Syahirah dan keluarganya pergi?", "ک مان شهيرة دان کلوارڬڽ ڤرڬي؟"] },
+        { who: "🧑‍🏫", say: "مَتَى انْطَلَقُوا مِنَ الْمَنْزِلِ؟", o: ["فِي الصَّبَاحِ الْبَاكِرِ", "فِي الْمَسَاءِ", "بَعْدَ صَلَاةِ الْعَصْرِ"], mk: ["Bilakah mereka bertolak dari rumah?", "بيلاکه مريک برتولق دري رومه؟"] },
+        { who: "🧑‍🏫", say: "مَاذَا شَاهَدَتْ شَهِيرَةُ فِي الطَّرِيقِ؟", o: ["مَزَارِعَ أَشْجَارِ النَّارْجِيلِ وَالْمَطَّاطِ", "الْفِيلَ وَالْأَسَدَ", "الطُّيُورَ وَالْحَشَرَاتِ"], mk: ["Apa yang Syahirah lihat dalam perjalanan?", "اڤ يڠ شهيرة ليهت دالم ڤرجالنن؟"] },
+        { who: "🧑‍🏫", say: "أَيْنَ اسْتَرَاحَتْ شَهِيرَةُ وَأُمُّهَا؟", o: ["تَحْتَ ظِلِّ الشَّجَرَةِ الْمُورِقَةِ", "فِي الْبَحْرِ", "فِي السَّيَّارَةِ"], mk: ["Di manakah Syahirah dan ibunya berehat?", "د منکه شهيرة دان ايبوڽ بررحت؟"] } ] },
+    { type: "tukar", q: ["Padankan perkataan yang sama makna.", "ڤادنکن ڤرکاتاٴن يڠ سام معنى."],
+      e: ["Semua pasangan seerti dijumpai!", "سموا ڤاسڠن سأرتي دجومڤاٴي!"],
+      pairs: [["الرِّحْلَةُ", "النُّزْهَةُ"], ["الْمَنْزِلُ", "الْبَيْتُ"], ["شَاطِئُ الْبَحْرِ", "سَاحِلُ الْبَحْرِ"], ["تَنَاوَلُوا", "أَخَذُوا"], ["عَائِلَتُهَا", "أُسْرَتُهَا"], ["الْمَسَاءُ", "آخِرُ النَّهَارِ"]] },
+    { type: "dacing", q: ["Dacing lawan kata: pilih LAWAN bagi perkataan di tiang.", "داچيڠ لاون کات: ڤيليه لاون باڬي ڤرکاتاٴن د تياڠ."],
+      e: ["Bagus! Kamu tahu lawan kata.", "باڬوس! کامو تاهو لاون کات."],
+      rounds: [
+        { p: "صَبَاحٌ", a: "مَسَاءٌ", b: "الْيَوْمَ" },
+        { p: "بِالْأَمْسِ", a: "الْيَوْمَ", b: "مَسَاءٌ" },
+        { p: "الْمُفْتَرِسَةُ", a: "الْأَلِيفَةُ", b: "الْمَاضِيَةُ" },
+        { p: "الْقَادِمَةُ", a: "الْمَاضِيَةُ", b: "الْأَلِيفَةُ" } ] },
+    { type: "raga", q: ["Apa yang Madihah lihat di zoo? Asingkan haiwan dan burung.", "اڤ يڠ مديحة ليهت د زو؟ اسيڠکن حيوان دان بوروڠ."],
+      e: ["Zoo kecil kamu tersusun!", "زو کچيل کامو ترسوسون!"],
+      baskets: [["Haiwan 🐾", "حيوان 🐾"], ["Burung 🪶", "بوروڠ 🪶"]],
+      items: [["الْفِيلُ", 0], ["الثُّعْبَانُ", 0], ["الْأَسَدُ", 0], ["النَّمِرُ", 0], ["الدُّبُّ", 0], ["الْقِرْدُ", 0], ["الطَّاوُوسُ", 1], ["الْبَبَّغَاءُ", 1], ["النَّعَامَةُ", 1]] },
+    { type: "rakit", q: ["Bina rakit ayat mengikut susunan.", "بينا راکيت اية مڠيکوت سوسونن."],
+      e: ["Rakit ayat siap!", "راکيت اية سياڤ!"],
+      rounds: [
+        { seq: ["أَيْنَ", "كُنْتِ", "بِالْأَمْسِ؟"], mk: ["Di mana kamu semalam?", "د مان کامو سمالم؟"] },
+        { seq: ["كُنْتُ", "ذَاهِبَةً", "إِلَى", "حَدِيقَةِ", "الْحَيَوَانَاتِ"], mk: ["Saya pergi ke zoo.", "ساي ڤرڬي ک زو."] },
+        { seq: ["تَنَاوَلُوا", "الْأَطْعِمَةَ", "وَالْأَشْرِبَةَ"], mk: ["Mereka makan makanan dan minuman.", "مريک ماکن ماکنن دان مينومن."] } ] },
+    { type: "pesanan", q: ["Sakinah menelefon. Pilih balasan yang sesuai.", "سکينة منليفون. ڤيليه بالسن يڠ سسواي."],
+      e: ["Perbualan yang sopan!", "ڤربوالن يڠ سوڤن!"],
+      rounds: [
+        { who: "📞", say: "أَلُو، صَبَاحُ الْخَيْرِ، يَا مَدِيحَةُ", o: ["صَبَاحُ النُّورِ", "مَعَ السَّلَامَةِ", "مَسَاءُ النُّورِ"], mk: ["Helo, selamat pagi, Madihah.", "هيلو، سلامت ڤاڬي، مديحة."] },
+        { who: "📞", say: "مَاذَا رَأَيْتِ هُنَاكَ؟", o: ["رَأَيْتُ بَعْضَ الْحَيَوَانَاتِ الْمُفْتَرِسَةِ", "أَنَا بِخَيْرٍ", "رَقْمُ بَيْتِي ٤١٠"], mk: ["Apa yang kamu lihat di sana?", "اڤ يڠ کامو ليهت د سان؟"] },
+        { who: "📞", say: "إِلَى اللِّقَاءِ، يَا مَدِيحَةُ", o: ["مَعَ السَّلَامَةِ، يَا سَكِينَةُ", "صَبَاحُ النُّورِ", "أَهْلًا وَسَهْلًا"], mk: ["Jumpa lagi, Madihah.", "جومڤا لاڬي، مديحة."] } ] }
+  ]
+};
+const ST6 = {
+  id: 6, icon: "📱", c: "#5B6CC9", sticker: "🌶️",
+  t: ["Alat Komunikasi dan Ziarah Hospital", "الت کومونيکاسي دان زيارة هوسڤيتل"],
+  u: ["Pelajaran 5 dan 9, ms. 32–34, 48–49", "ڤلاجرن ٥ دان ٩، م.س. ٣٢–٣٤، ٤٨–٤٩"],
+  read: [
+    { pic: "💻", h: ["Mencari maklumat di internet", "منچاري معلومت د اينترنيت"], p: "32", lines: [
+      ln("يَا أَبِي، إِلَى أَيْنَ سَنُسَافِرُ فِي الْعُطْلَةِ الْمَدْرَسِيَّةِ الْقَادِمَةِ؟", "Amin: Ayah, ke mana kita akan melancong cuti sekolah nanti?", "امين: ايه، ک مان کيت اکن ملنچوڠ چوتي سکوله نانتي؟"),
+      ln("مَا رَأْيُكَ لَوْ ذَهَبْنَا إِلَى ڤولو ريدڠ فِي ترنجانو؟", "Ayah: Apa pendapatmu kalau kita ke Pulau Redang di Terengganu?", "ايه: اڤ ڤنداڤتمو کالاو کيت ک ڤولاو ريدڠ د ترڠڬانو؟"),
+      ln("هَذِهِ فِكْرَةٌ جَيِّدَةٌ، أَنَا مُوَافِقٌ", "Amin: Idea yang baik, saya setuju", "امين: ايديا يڠ باٴيق، ساي ستوجو"),
+      ln("سَأَبْحَثُ عَنِ الْمَعْلُومَاتِ فِي الْإِنْتَرْنِتْ", "Ayah: Ayah akan cari maklumat di internet", "ايه: ايه اکن چاري معلومت د اينترنيت"),
+      ln("إِذَنْ، الْأَمْرُ سَهْلٌ بِالْإِنْتَرْنِتْ! – صَحِيحٌ", "Jadi, semuanya mudah dengan internet! – Betul", "جادي، سمواڽ موده دڠن اينترنيت! – بتول") ] },
+    { pic: "📺", h: ["Alat komunikasi moden", "الت کومونيکاسي مودن"], p: "33", lines: [
+      ln("الْحَاسُوبُ مِنَ الْأَجْهِزَةِ الْإِلِكْتِرُونِيَّةِ النَّافِعَةِ لِلنَّاسِ", "💻 Komputer alat elektronik yang berguna", "💻 کومڤوتر الت ايليکترونيک يڠ برڬونا"),
+      ln("تَنْتَشِرُ الْمَعْلُومَاتُ بِوَاسِطَةِ التِّلْفَازِ", "📺 Maklumat tersebar melalui televisyen", "📺 معلومت ترسيبر ملالوٴي تيليۏيسيين"),
+      ln("تَسْتَمِعُ الْأُمُّ إِلَى الْأَنَاشِيدِ فِي الْمِذْيَاعِ", "📻 Ibu mendengar nasyid di radio", "📻 ايبو مندڠر نشيد د راديو"),
+      ln("يَتَعَلَّمُ الطُّلَّابُ مِنْ شَبَكَةِ الْمَعْلُومَاتِ", "🌐 Pelajar belajar dari internet", "🌐 ڤلاجر بلاجر دري اينترنيت"),
+      ln("تُرْسَلُ الْمَعْلُومَاتُ الرَّسْمِيَّةُ بِالْفَاكْسِ", "📠 Maklumat rasmi dihantar dengan faks", "📠 معلومت رسمي دهنتر دڠن فکس"),
+      ln("يَسْتَخْدِمُ النَّاسُ الْهَاتِفَ لِلِاتِّصَالِ بِالْأَصْدِقَاءِ", "☎️ Orang guna telefon untuk menghubungi kawan", "☎️ اورڠ ڬونا تيليفون اونتوق مڠهوبوڠي کاون"),
+      ln("الْقَمَرُ الِاصْطِنَاعِيُّ يَدُورُ حَوْلَ الْأَرْضِ", "🛰️ Satelit beredar mengelilingi bumi", "🛰️ ساتليت برايدر مڠليليڠي بومي") ] },
+    { pic: "🏥", h: ["Menziarahi nenek di hospital", "منزيارهي نينيق د هوسڤيتل"], p: "48", lines: [
+      ln("ذَهَبَ أَشْرَفُ مَعَ وَالِدَيْهِ إِلَى الْمُسْتَشْفَى لِزِيَارَةِ جَدَّتِهِ الْمَرِيضَةِ", "Asyraf pergi ke hospital bersama ibu bapanya menziarahi neneknya yang sakit", "اشرف ڤرڬي ک هوسڤيتل برسام ايبو باڤاڽ منزيارهي نينيقڽ يڠ ساکيت"),
+      ln("يَصْعَدُ الْمِصْعَدَ الْكَهْرَبَائِيَّ لِلْوُصُولِ إِلَى غُرْفَةِ جَدَّتِهِ فِي الطَّابِقِ الرَّابِعِ", "Dia naik lif ke bilik neneknya di tingkat empat", "دي نايق ليف ک بيليق نينيقڽ د تيڠکت امڤت"),
+      ln("لَاقَى الْأَبُ الْمُمَرِّضَاتِ وَالطَّبِيبَةَ شَكَرَهُنَّ عَلَى عِنَايَتِهِنَّ", "Ayah berjumpa jururawat dan doktor lalu berterima kasih atas jagaan mereka", "ايه برجومڤا جوروراوت دان دوکتور لالو برتريما کاسيه اتس جاڬاٴن مريک"),
+      ln("أَعْطَتِ الْمُمَرِّضَةُ رِسَالَةَ الدَّوَاءِ إِلَى الْأَبِ وَأَخَذَهَا إِلَى الصَّيْدَلِيَّةِ", "Jururawat memberi surat ubat kepada ayah, lalu dibawa ke farmasi", "جوروراوت ممبري سورت اوبت کڤد ايه، لالو دباوا ک فرماسي"),
+      ln("وَرَجَعُوا إِلَى الْبَيْتِ شَاكِرِينَ اللَّهَ عَلَى نِعْمَتِهِ الْعَظِيمَةِ", "Mereka pulang sambil bersyukur kepada Allah atas nikmat-Nya", "مريک ڤولڠ سمبيل برشکور کڤد الله اتس نعمتڽ") ] },
+    { pic: "🤲", h: ["Allah Yang Menyembuhkan", "الله يڠ مڽمبوهکن"], p: "49", qk: "syuara80", qref: ["Surah asy-Syu'ara': 80", "سورة الشعراء: ٨٠"],
+      text: ["Maksudnya: Dan apabila aku sakit, maka Dialah yang menyembuhkan penyakitku. Doakan kawan yang sakit supaya sembuh:", "مقصودڽ: دان اڤابيلا اکو ساکيت، مک دياله يڠ مڽمبوهکن ڤڽاکيتکو. دعاکن کاون يڠ ساکيت سوڤايا سمبوه:"],
+      lines: [ ln("اللَّهُمَّ رَبَّ النَّاسِ أَذْهِبِ الْبَأْسَ وَاشْفِ أَنْتَ الشَّافِي لَا شِفَاءَ إِلَّا شِفَاؤُكَ شِفَاءً لَا يُغَادِرُ سَقَمًا", "Ya Allah, Tuhan manusia, hilangkanlah penyakit dan sembuhkanlah. Engkaulah Yang Menyembuhkan; tiada kesembuhan melainkan daripada-Mu, kesembuhan yang tidak meninggalkan sakit.", "يا الله، توهن مانوسيا، هيلڠکنله ڤڽاکيت دان سمبوهکنله. اڠکاوله يڠ مڽمبوهکن؛ تياد کسمبوهن ملاٴينکن درڤدامو، کسمبوهن يڠ تيدق منيڠڬلکن ساکيت.") ] }
+  ],
+  games: [
+    { type: "tukar", q: ["Padankan nama alat dengan gambarnya.", "ڤادنکن نام الت دڠن ڬمبرڽ."],
+      e: ["Semua alat sudah dipasang di gerai elektronik!", "سموا الت سوده دڤاسڠ د ڬراي ايليکترونيک!"],
+      pairs: [["الْحَاسُوبُ", ["💻 Komputer", "💻 کومڤوتر"]], ["التِّلْفَازُ", ["📺 Televisyen", "📺 تيليۏيسيين"]], ["الْمِذْيَاعُ", ["📻 Radio", "📻 راديو"]],
+               ["الْفَاكْسُ", ["📠 Mesin faks", "📠 ميسين فکس"]], ["الْهَاتِفُ", ["☎️ Telefon", "☎️ تيليفون"]], ["الْقَمَرُ الِاصْطِنَاعِيُّ", ["🛰️ Satelit", "🛰️ ساتليت"]]] },
+    { type: "galah", q: ["Isi nama alat yang sesuai.", "ايسي نام الت يڠ سسواي."],
+      e: ["Isyarat diterima dengan jelas!", "ايشارت دتريما دڠن جلس!"],
+      rounds: [
+        { s: "تَسْتَمِعُ الْأُمُّ إِلَى الْأَنَاشِيدِ فِي ___", o: ["الْمِذْيَاعِ", "الْفَاكْسِ", "الْمِصْعَدِ"], mk: ["Ibu mendengar nasyid di radio.", "ايبو مندڠر نشيد د راديو."], em: "📻" },
+        { s: "يَسْتَخْدِمُ النَّاسُ ___ لِلِاتِّصَالِ بِالْأَصْدِقَاءِ", o: ["الْهَاتِفَ", "الْمِذْيَاعَ", "التِّلْفَازَ"], mk: ["Orang guna telefon untuk menghubungi kawan.", "اورڠ ڬونا تيليفون اونتوق مڠهوبوڠي کاون."], em: "☎️" },
+        { s: "تُرْسَلُ الْمَعْلُومَاتُ الرَّسْمِيَّةُ ___", o: ["بِالْفَاكْسِ", "بِالْمِذْيَاعِ", "بِالْقَمَرِ"], mk: ["Maklumat rasmi dihantar dengan faks.", "معلومت رسمي دهنتر دڠن فکس."], em: "📠" },
+        { s: "___ يَدُورُ حَوْلَ الْأَرْضِ", o: ["الْقَمَرُ الِاصْطِنَاعِيُّ", "الْحَاسُوبُ", "التِّلْفَازُ"], mk: ["Satelit beredar mengelilingi bumi.", "ساتليت برايدر مڠليليڠي بومي."], em: "🌍" } ] },
+    { type: "jala", q: ["Tebar jala! Tangkap yang diminta, kemudian tekan Tarik Jala.", "تبر جالا! تڠکڤ يڠ دمينتا، کمودين تکن تاريق جالا."],
+      e: ["Jala penuh alat komunikasi!", "جالا ڤنوه الت کومونيکاسي!"],
+      rounds: [
+        { ask: ["Tangkap semua ALAT KOMUNIKASI.", "تڠکڤ سموا الت کومونيکاسي."], items: [["الْحَاسُوبُ", 1], ["التِّلْفَازُ", 1], ["الْمِذْيَاعُ", 1], ["الْهَاتِفُ", 1], ["الْفَاكْسُ", 1], ["الْمِصْعَدُ", 0], ["الدَّوَاءُ", 0], ["السَّرِيرُ", 0], ["الْأَثَاثُ", 0]] } ] },
+    { type: "pesanan", q: ["Jawab soalan tentang cerita.", "جواب سوالن تنتڠ چريتا."],
+      e: ["Kamu pendengar yang baik!", "کامو ڤندڠر يڠ باٴيق!"],
+      rounds: [
+        { who: "👨", say: "مَا رَأْيُكَ لَوْ ذَهَبْنَا إِلَى ڤولو ريدڠ؟", o: ["هَذِهِ فِكْرَةٌ جَيِّدَةٌ، أَنَا مُوَافِقٌ", "أَنَا لَا أُسِيءُ إِلَى النَّاسِ", "صَبَاحُ النُّورِ"], mk: ["Apa pendapatmu kalau kita ke Pulau Redang?", "اڤ ڤنداڤتمو کالاو کيت ک ڤولاو ريدڠ؟"] },
+        { who: "🧑‍🏫", say: "فِي أَيِّ طَابِقٍ غُرْفَةُ جَدَّتِهِ؟", o: ["فِي الطَّابِقِ الرَّابِعِ", "فِي الصَّيْدَلِيَّةِ", "فِي الْمَطْعَمِ"], mk: ["Di tingkat berapakah bilik neneknya?", "د تيڠکت براڤاکه بيليق نينيقڽ؟"] },
+        { who: "🧑‍🏫", say: "مَاذَا أَخَذَ الْأَبُ مِنَ الصَّيْدَلِيَّةِ؟", o: ["الْأَدْوِيَةَ الْمَخْصُوصَةَ", "الْمَلَابِسَ وَالْأَثَاثَ", "الْكُتُبَ الدِّرَاسِيَّةَ"], mk: ["Apa yang ayah ambil dari farmasi?", "اڤ يڠ ايه امبيل دري فرماسي؟"] } ] },
+    { type: "tukar", q: ["Padankan perkataan yang sama makna (cerita hospital).", "ڤادنکن ڤرکاتاٴن يڠ سام معنى (چريتا هوسڤيتل)."],
+      e: ["Semua makna dipadankan!", "سموا معنى دڤادنکن!"],
+      pairs: [["جَدَّةٌ", "أُمُّ الْأَبِ أَوِ الْأُمِّ"], ["غُرْفَةٌ", "حُجْرَةٌ"], ["مُكْثٌ", "لُبْثٌ"], ["عِنَايَتُهُنَّ", "اِهْتِمَامُهُنَّ"], ["الْأَثَاثُ", "الْأَدَاةُ"], ["الْمَخْصُوصَةُ", "الْمُعَيَّنَةُ"]] },
+    { type: "rakit", q: ["Bina rakit ayat mengikut susunan.", "بينا راکيت اية مڠيکوت سوسونن."],
+      e: ["Ayat siap dihantar!", "اية سياڤ دهنتر!"],
+      rounds: [
+        { seq: ["يَتَعَلَّمُ", "الطُّلَّابُ", "مِنْ", "شَبَكَةِ", "الْمَعْلُومَاتِ"], mk: ["Pelajar belajar dari internet.", "ڤلاجر بلاجر دري اينترنيت."] },
+        { seq: ["تَنْتَشِرُ", "الْمَعْلُومَاتُ", "بِوَاسِطَةِ", "التِّلْفَازِ"], mk: ["Maklumat tersebar melalui televisyen.", "معلومت ترسيبر ملالوٴي تيليۏيسيين."] } ] }
+  ]
+};
+const ST7 = {
+  id: 7, icon: "🚫", c: "#C2412D", sticker: "🐟",
+  t: ["Huruf Nafi dan La Nahiyah", "حروف نفي دان لا ناهية"],
+  u: ["Pelajaran 7, ms. 38–43", "ڤلاجرن ٧، م.س. ٣٨–٤٣"],
+  read: [
+    { pic: "🙅", h: ["Saya tidak...", "ساي تيدق..."], p: "38", lines: [
+      ln("أَنَا لَا أُسِيءُ إِلَى النَّاسِ", "Saya tidak berbuat jahat kepada orang", "ساي تيدق بربوات جاهت کڤد اورڠ"),
+      ln("أَنَا لَا أُؤَدِّي عَمَلِي بِالْكَسَلِ", "Saya tidak membuat kerja dengan malas", "ساي تيدق ممبوات کرجا دڠن مالس"),
+      ln("أَنَا لَا أُؤَخِّرُ عَمَلَ الْيَوْمِ إِلَى الْغَدِ", "Saya tidak menangguhkan kerja hari ini ke esok", "ساي تيدق منڠڬوهکن کرجا هاري اين ک ايسوق"),
+      ln("أَنَا لَا أَلْعَبُ فِي وَقْتِ الدِّرَاسَةِ", "Saya tidak bermain pada waktu belajar", "ساي تيدق برماٴين ڤد وقتو بلاجر"),
+      ln("أَنَا لَا أَكْذِبُ إِذَا سُئِلْتُ", "Saya tidak berbohong apabila ditanya", "ساي تيدق بربوهوڠ اڤابيلا دتاڽ") ] },
+    { pic: "🔎", h: ["Alat nafi (tidak)", "الت نفي (تيدق)"], p: "39", lines: [
+      ln("مَا – لِنَفْيِ الْمَاضِي: مَا خَرَجَ الرَّجُلُ", "مَا + fi'il madhi: Lelaki itu tidak keluar", "مَا + فعل ماضي: للاکي ايت تيدق کلوار"),
+      ln("لَا – لِنَفْيِ الْمُضَارِعِ: لَا يَجْلِسُ الْمُعَلِّمُ", "لَا + fi'il mudhari': Guru tidak duduk", "لَا + فعل مضارع: ڬورو تيدق دودوق"),
+      ln("لَنْ – لِنَفْيِ الْحَدَثِ فِي الْمُسْتَقْبَلِ: لَنْ يَزُورَ عَلِيٌّ الْحَدِيقَةَ", "لَنْ: tidak akan (masa depan). Ali tidak akan melawat taman", "لَنْ: تيدق اکن (ماس دڤن). علي تيدق اکن ملاوت تامن"),
+      ln("لَمْ – لِنَفْيِ الْحَدَثِ فِي الْمَاضِي: لَمْ يَحْضُرْ زَيْدٌ أَمْسِ", "لَمْ: tidak (masa lalu). Zaid tidak hadir semalam", "لَمْ: تيدق (ماس لالو). زيد تيدق حاضير سمالم") ],
+      tip: ["Selepas لَنْ, huruf akhir fi'il berbaris atas (يَزُورَ). Selepas لَمْ, huruf akhir mati (يَحْضُرْ).", "سلڤس لَنْ، حروف اخير فعل بربارس اتس (يَزُورَ). سلڤس لَمْ، حروف اخير ماتي (يَحْضُرْ)."] },
+    { pic: "🖼️", h: ["Baca dan ulang", "باچ دان اولڠ"], p: "39", lines: [
+      ln("لَا أَذْهَبُ بِالْحَافِلَةِ", "Saya tidak pergi dengan bas", "ساي تيدق ڤرڬي دڠن بس"),
+      ln("لَا آكُلُ التُّفَّاحَةَ", "Saya tidak makan epal", "ساي تيدق ماکن ايڤل"),
+      ln("لَمْ يَأْكُلِ الْمَرِيضُ الطَّعَامَ", "Pesakit tidak makan makanan", "ڤساکيت تيدق ماکن ماکنن"),
+      ln("مَا نَامَ الطَّالِبَانِ فِي الْفَصْلِ", "Dua pelajar itu tidak tidur di dalam kelas", "دوا ڤلاجر ايت تيدق تيدور د دالم کلس"),
+      ln("عَفْوًا يَا أُسْتَاذُ، مَا فَهِمْتُ الدَّرْسَ", "Maaf cikgu, saya tidak faham pelajaran", "معاف چيقڬو، ساي تيدق فهم ڤلاجرن") ] },
+    { pic: "✋", h: ["لَا النَّاهِيَةُ: Jangan!", "لَا النَّاهِيَةُ: جاڠن!"], p: "41–42", lines: [
+      ln("يَا عُمَرُ، لَا تَلْعَبْ فِي وَقْتِ الدِّرَاسَةِ – عَفْوًا، يَا مُعَلِّمُ", "Umar, jangan bermain waktu belajar – Maaf, cikgu", "عمر، جاڠن برماٴين وقتو بلاجر – معاف، چيقڬو"),
+      ln("يَا صُوفِيَا، لَا تَقْطَعِي الْوَرْدَةَ – عَفْوًا، يَا أُمِّي", "Sofia, jangan petik bunga mawar itu – Maaf, ibu", "صوفيا، جاڠن ڤتيق بوڠا ماوار ايت – معاف، ايبو"),
+      ln("يَا طِفْلَانِ، لَا تَضْرِبَا تِلْكَ الْبَقَرَةَ", "Wahai dua kanak-kanak, jangan pukul lembu itu", "واهاي دوا کانق٢، جاڠن ڤوکول لمبو ايت"),
+      ln("يَا سَلْمَى وَسَلْوَى، لَا تَتَأَخَّرَا بِالْحُضُورِ إِلَى الْمَدْرَسَةِ – حَسَنًا يَا أَبِي", "Salma dan Salwa, jangan lewat ke sekolah – Baik, ayah", "سلمى دان سلوى، جاڠن لوت ک سکوله – باٴيق، ايه"),
+      ln("يَا شَبَابُ، لَا تُهْمِلُوا فِي دُرُوسِكُمْ – إِنْ شَاءَ اللَّهُ", "Wahai pemuda, jangan cuai dalam pelajaran – Insya-Allah", "واهاي ڤمودا، جاڠن چواي دالم ڤلاجرن – ان شاء الله") ] },
+    { pic: "🙇", h: ["Jangan sombong", "جاڠن سومبوڠ"], p: "43", qk: "luqman18", qref: ["Surah Luqman: 18", "سورة لقمان: ١٨"],
+      text: ["Maksudnya: Dan janganlah engkau memalingkan mukamu (kerana memandang rendah) kepada manusia, dan janganlah engkau berjalan di bumi dengan berlagak sombong. Sesungguhnya Allah tidak suka kepada setiap orang yang sombong lagi membanggakan diri.", "مقصودڽ: دان جاڠنله اڠکاو مماليڠکن موکامو (کران ممندڠ رنده) کڤد مانوسيا، دان جاڠنله اڠکاو برجالن د بومي دڠن برلاڬق سومبوڠ. سسوڠڬوهڽ الله تيدق سوک کڤد ستياڤ اورڠ يڠ سومبوڠ لاڬي ممبڠڬاکن ديري."],
+      lines: [ ln("لَا تَكُنْ مُتَكَبِّرًا", "Jangan jadi orang yang sombong", "جاڠن جادي اورڠ يڠ سومبوڠ") ] }
+  ],
+  games: [
+    { type: "dacing", q: ["Dacing baris: pilih ayat yang barisnya betul.", "داچيڠ بارس: ڤيليه اية يڠ بارسڽ بتول."],
+      e: ["Tepat! Huruf nafi dan nahi mengubah baris akhir fi'il.", "تڤت! حروف نفي دان نهي مڠوبه بارس اخير فعل."],
+      rounds: [
+        { p: ["Zaid tidak hadir semalam", "زيد تيدق حاضير سمالم"], a: "لَمْ يَحْضُرْ زَيْدٌ أَمْسِ", b: "لَمْ يَحْضُرُ زَيْدٌ أَمْسِ" },
+        { p: ["Ali tidak akan melawat taman", "علي تيدق اکن ملاوت تامن"], a: "لَنْ يَزُورَ عَلِيٌّ الْحَدِيقَةَ", b: "لَنْ يَزُورُ عَلِيٌّ الْحَدِيقَةَ" },
+        { p: ["Umar, jangan bermain!", "عمر، جاڠن برماٴين!"], a: "يَا عُمَرُ، لَا تَلْعَبْ", b: "يَا عُمَرُ، لَا تَلْعَبُ" },
+        { p: ["Lelaki itu tidak keluar (masa lalu)", "للاکي ايت تيدق کلوار (ماس لالو)"], a: "مَا خَرَجَ الرَّجُلُ", b: "مَا يَخْرُجُ الرَّجُلُ" } ] },
+    { type: "galah", q: ["Isi fi'il yang sesuai selepas huruf nafi.", "ايسي فعل يڠ سسواي سلڤس حروف نفي."],
+      e: ["Sampan melepasi semua pelampung!", "سمڤن ملڤاسي سموا ڤلمڤوڠ!"],
+      rounds: [
+        { s: "لَا ___ الْمُعَلِّمُ عَلَى الْكُرْسِيِّ", o: ["يَجْلِسُ", "شَاهَدَتْ", "يَسْرِقَ"], mk: ["Guru tidak duduk di atas kerusi.", "ڬورو تيدق دودوق د اتس کروسي."], em: "🪑" },
+        { s: "لَنْ ___ الْوَلَدُ الصَّالِحُ", o: ["يَسْرِقَ", "يَجْلِسُ", "شَاهَدَتْ"], mk: ["Anak yang soleh tidak akan mencuri.", "انق يڠ صالح تيدق اکن منچوري."], em: "🧒" },
+        { s: "مَا ___ مَرْيَمُ السِّينِمَا", o: ["شَاهَدَتْ", "يَلْعَبِ", "يَسْرِقَ"], mk: ["Maryam tidak menonton wayang.", "مريم تيدق منونتون واياڠ."], em: "🎬" },
+        { s: "لَمْ ___ التَّلَامِيذُ كُرَةَ الْقَدَمِ", o: ["يَلْعَبِ", "شَاهَدَتْ", "يَجْلِسُ"], mk: ["Murid-murid tidak bermain bola sepak.", "موريد٢ تيدق برماٴين بولا سيڤق."], em: "⚽" } ] },
+    { type: "raga", q: ["Asingkan ayat: nafi (tidak) atau nahi (jangan)?", "اسيڠکن اية: نفي (تيدق) اتاو نهي (جاڠن)؟"],
+      e: ["Raga nafi dan nahi tersusun!", "راڬ نفي دان نهي ترسوسون!"],
+      baskets: [["Nafi: tidak 🙅", "نفي: تيدق 🙅"], ["Nahi: jangan ✋", "نهي: جاڠن ✋"]],
+      items: [["لَا أَكْذِبُ إِذَا سُئِلْتُ", 0], ["مَا نَامَ الطَّالِبَانِ", 0], ["لَمْ يَأْكُلِ الْمَرِيضُ الطَّعَامَ", 0], ["لَنْ يَزُورَ عَلِيٌّ الْحَدِيقَةَ", 0],
+              ["لَا تَلْعَبْ فِي وَقْتِ الدِّرَاسَةِ", 1], ["لَا تَقْطَعِي الْوَرْدَةَ", 1], ["لَا تَضْرِبَا تِلْكَ الْبَقَرَةَ", 1], ["لَا تُهْمِلُوا فِي دُرُوسِكُمْ", 1]] },
+    { type: "galah", q: ["لَا النَّاهِيَةُ: isi fi'il yang sesuai dengan orang yang dilarang.", "لَا النَّاهِيَةُ: ايسي فعل يڠ سسواي دڠن اورڠ يڠ دلارڠ."],
+      e: ["Larangan yang betul dan sopan!", "لارڠن يڠ بتول دان سوڤن!"],
+      rounds: [
+        { s: "يَا لَيْلَى، لَا ___ هَذَا الْخِمَارَ الْأَبْيَضَ", o: ["تَلْبَسِي", "تَخْرُجْ", "تَرْفَعْنَ"], mk: ["Laila, jangan pakai tudung putih ini.", "ليلى، جاڠن ڤاکاي تودوڠ ڤوتيه اين."], em: "🧕" },
+        { s: "يَا مُعَاذُ، لَا ___ مِنْ غُرْفَتِكَ", o: ["تَخْرُجْ", "تَلْبَسِي", "تَلْعَبُوا"], mk: ["Muaz, jangan keluar dari bilikmu.", "معاذ، جاڠن کلوار دري بيليقمو."], em: "🚪" },
+        { s: "يَا عَارِفُ وَزَيْدُ، لَا ___ إِنَّ اللَّهَ مَعَ الصَّابِرِينَ", o: ["تَحْزَنَا", "تَخْرُجْ", "تَرْفَعْنَ"], mk: ["Arif dan Zaid, jangan bersedih. Allah bersama orang yang sabar.", "عارف دان زيد، جاڠن برسديه. الله برسام اورڠ يڠ صبر."], em: "🤝" },
+        { s: "يَا أَيَّتُهَا الْمُسْلِمَاتُ، لَا ___ أَصْوَاتَكُنَّ", o: ["تَرْفَعْنَ", "تَحْزَنَا", "تَخْرُجْ"], mk: ["Wahai muslimah, jangan tinggikan suara kamu.", "واهاي مسلمه، جاڠن تيڠڬيکن سوارا کامو."], em: "🤫" } ] },
+    { type: "pesanan", q: ["Guru atau ibu bapa menegur. Pilih balasan yang sopan.", "ڬورو اتاو ايبو باڤ منڬور. ڤيليه بالسن يڠ سوڤن."],
+      e: ["Balasan yang beradab!", "بالسن يڠ برادب!"],
+      rounds: [
+        { who: "👨‍🏫", say: "يَا عُمَرُ، لَا تَلْعَبْ فِي وَقْتِ الدِّرَاسَةِ", o: ["عَفْوًا، يَا مُعَلِّمُ", "صَبَاحُ النُّورِ", "رَقْمُ بَيْتِي ٤١٠"], mk: ["Umar, jangan bermain pada waktu belajar.", "عمر، جاڠن برماٴين ڤد وقتو بلاجر."] },
+        { who: "👨", say: "يَا سَلْمَى وَسَلْوَى، لَا تَتَأَخَّرَا بِالْحُضُورِ إِلَى الْمَدْرَسَةِ", o: ["حَسَنًا يَا أَبِي", "مَعَ السَّلَامَةِ", "هُوَ فَلَّاحٌ"], mk: ["Salma dan Salwa, jangan lewat ke sekolah.", "سلمى دان سلوى، جاڠن لوت ک سکوله."] },
+        { who: "👳", say: "يَا شَبَابُ، لَا تُهْمِلُوا فِي دُرُوسِكُمْ", o: ["إِنْ شَاءَ اللَّهُ", "صَبَاحُ الْخَيْرِ", "أَنَا تِلْمِيذَةٌ"], mk: ["Wahai pemuda, jangan cuai dalam pelajaran.", "واهاي ڤمودا، جاڠن چواي دالم ڤلاجرن."] } ] },
+    { type: "rakit", q: ["Bina rakit ayat mengikut susunan.", "بينا راکيت اية مڠيکوت سوسونن."],
+      e: ["Ayat kamu kukuh!", "اية کامو کوکوه!"],
+      rounds: [
+        { seq: ["أَنَا", "لَا", "أُؤَخِّرُ", "عَمَلَ", "الْيَوْمِ", "إِلَى", "الْغَدِ"], mk: ["Saya tidak menangguhkan kerja hari ini ke esok.", "ساي تيدق منڠڬوهکن کرجا هاري اين ک ايسوق."] },
+        { seq: ["عَفْوًا", "يَا", "أُسْتَاذُ،", "مَا", "فَهِمْتُ", "الدَّرْسَ"], mk: ["Maaf cikgu, saya tidak faham pelajaran.", "معاف چيقڬو، ساي تيدق فهم ڤلاجرن."] } ] }
+  ]
+};
+const ST8 = {
+  id: 8, icon: "🧭", c: "#2E86AB", sticker: "🍠",
+  t: ["Huruf Jar", "حروف جر"],
+  u: ["Pelajaran 8, ms. 44–47", "ڤلاجرن ٨، م.س. ٤٤–٤٧"],
+  read: [
+    { pic: "🏫", h: ["Di mana Yusuf dan Zaidi?", "د مان يوسف دان زيدي؟"], p: "44", lines: [
+      ln("ذَاتَ يَوْمٍ، دَخَلَ الْأُسْتَاذُ أَزْهَرُ إِلَى الْفَصْلِ الْخَامِسِ الِابْتِدَائِيِّ", "Pada suatu hari, Ustaz Azhar masuk ke kelas lima", "ڤد سواتو هاري، اوستاذ ازهر ماسوق ک کلس ليما"),
+      ln("السَّلَامُ عَلَيْكُمْ، يَا طُلَّابُ – وَعَلَيْكُمُ السَّلَامُ، يَا أُسْتَاذُ", "Assalamualaikum pelajar – Waalaikumussalam ustaz", "السلام عليکم ڤلاجر – وعليکم السلام اوستاذ"),
+      ln("يَا فَوَّازُ، أَنْتَ رَئِيسُ الْفَصْلِ، أَيْنَ يُوسُفُ وَزَيْدِي؟", "Fawwaz, kamu ketua kelas. Di mana Yusuf dan Zaidi?", "فواز، کامو کتوا کلس. د مان يوسف دان زيدي؟"),
+      ln("هُمَا خَرَجَا مِنَ الْفَصْلِ قَبْلَ قَلِيلٍ. هُمَا الْآنَ فِي الْمَكْتَبَةِ", "Mereka keluar dari kelas tadi. Sekarang mereka di perpustakaan", "مريک کلوار دري کلس تادي. سکارڠ مريک د ڤرڤوستاکاٴن"),
+      ln("يُوسُفُ يُرِيدُ أَنْ يَبْحَثَ عَنْ مَعْلُومَاتٍ عَنْ حَدِيقَةِ الطُّيُورِ", "Yusuf mahu mencari maklumat tentang taman burung", "يوسف ماهو منچاري معلومت تنتڠ تامن بوروڠ"),
+      ln("هَيَّا بِنَا نَذْهَبْ إِلَى الْمُصَلَّى لِأَدَاءِ صَلَاةِ الْعَصْرِ جَمَاعَةً", "Mari kita ke surau untuk solat Asar berjemaah", "ماري کيت ک سوراو اونتوق صلاة عصر برجماعه") ] },
+    { pic: "🐟", h: ["Lihat dan baca", "ليهت دان باچ"], p: "45", lines: [
+      ln("السَّمَكُ فِي الْمَاءِ", "🐟 Ikan di dalam air", "🐟 ايکن د دالم اٴير"),
+      ln("الطَّالِبُ يَتَكَلَّمُ عَنْ هِوَايَتِهِ الْمُفَضَّلَةِ", "🎨 Pelajar bercakap tentang hobi kegemarannya", "🎨 ڤلاجر برچاکڤ تنتڠ هوبي کڬمرنڽ"),
+      ln("يَنْزِلُ الْمَطَرُ مِنَ السَّمَاءِ", "🌧️ Hujan turun dari langit", "🌧️ هوجن تورون دري لاڠيت"),
+      ln("سَافَرْتُ إِلَى ترنجانو", "🏝️ Saya melancong ke Terengganu", "🏝️ ساي ملنچوڠ ک ترڠڬانو"),
+      ln("أَكَلْتُ بِالْيَدِ الْيُمْنَى", "🍽️ Saya makan dengan tangan kanan", "🍽️ ساي ماکن دڠن تاڠن کانن"),
+      ln("وَضَعَتْ هُدَى الْكَعْكَ عَلَى الْمَائِدَةِ", "🎂 Huda meletakkan kek di atas meja", "🎂 هدى ملتقکن کيک د اتس ميجا") ] },
+    { pic: "📚", h: ["Huruf jar yang masyhur", "حروف جر يڠ مشهور"], p: "45", lines: [
+      ln("مِنْ", "daripada, dari", "درڤد، دري"), ln("إِلَى", "ke, kepada", "ک، کڤد"),
+      ln("فِي", "dalam, di, pada", "دالم، د، ڤد"), ln("الْبَاءُ (بِـ)", "dengan, bersama, di", "دڠن، برسام، د"),
+      ln("عَنْ", "dari, tentang", "دري، تنتڠ"), ln("عَلَى", "di atas, terhadap", "د اتس، ترهادڤ") ],
+      tip: ["Huruf jar ada dua puluh, tetapi enam ini yang paling masyhur.", "حروف جر اد دوا ڤولوه، تتاڤي انم اين يڠ ڤاليڠ مشهور."] },
+    { pic: "📖", h: ["Manusia dicipta daripada...", "مانوسيا دچيڤتا درڤد..."], p: "47", qk: "alaq2", qref: ["Surah al-'Alaq: 2", "سورة العلق: ٢"],
+      text: ["Maksudnya: Dia menciptakan manusia daripada sebuku darah beku. (Lihat huruf jar مِنْ dalam ayat ini.)", "مقصودڽ: دي منچيڤتاکن مانوسيا درڤد سبوکو داره بکو. (ليهت حروف جر مِنْ دالم اية اين.)"],
+      lines: [ ln("رَاجِعْ دُرُوسَكَ", "Ulang kajilah pelajaranmu", "اولڠ کاجيله ڤلاجرنمو") ] }
+  ],
+  games: [
+    { type: "galah", q: ["Isi huruf jar yang sesuai.", "ايسي حروف جر يڠ سسواي."],
+      e: ["Semua huruf jar di tempatnya!", "سموا حروف جر د تمڤتڽ!"],
+      rounds: [
+        { s: "أَسْكُنُ ___ مَدِينَةِ بَاڠِي", o: ["فِي", "عَلَى", "عَنْ"], mk: ["Saya tinggal di bandar Bangi.", "ساي تيڠڬل د بندر باڠي."], em: "🏙️" },
+        { s: "الصَّلَاةُ خَيْرٌ ___ النَّوْمِ", o: ["مِنَ", "إِلَى", "فِي"], mk: ["Solat lebih baik daripada tidur.", "صلاة لبيه باٴيق درڤد تيدور."], em: "🕌" },
+        { s: "سَافَرْنَا ___ كُوتَا كِينَابَالُو", o: ["إِلَى", "عَنْ", "عَلَى"], mk: ["Kami melancong ke Kota Kinabalu.", "کامي ملنچوڠ ک کوتا کينابالو."], em: "✈️" },
+        { s: "تَطِيرُ الطَّائِرَةُ ___ الْجَوِّ", o: ["فِي", "مِنَ", "عَنِ"], mk: ["Kapal terbang terbang di udara.", "کاڤل تربڠ تربڠ د اودارا."], em: "🛫" },
+        { s: "الطَّالِبُ يَتَكَلَّمُ ___ الطَّعَامِ الْمُفَضَّلِ", o: ["عَنِ", "إِلَى", "عَلَى"], mk: ["Pelajar bercakap tentang makanan kegemaran.", "ڤلاجر برچاکڤ تنتڠ ماکنن کڬمرن."], em: "🍗" } ] },
+    { type: "tukar", q: ["Padankan huruf jar dengan maknanya.", "ڤادنکن حروف جر دڠن معناڽ."],
+      e: ["Kamu kenal semua huruf jar yang masyhur!", "کامو کنل سموا حروف جر يڠ مشهور!"],
+      pairs: [["مِنْ", ["daripada", "درڤد"]], ["إِلَى", ["ke, kepada", "ک، کڤد"]], ["فِي", ["di dalam", "د دالم"]], ["بِـ", ["dengan", "دڠن"]], ["عَنْ", ["tentang", "تنتڠ"]], ["عَلَى", ["di atas", "د اتس"]]] },
+    { type: "pesanan", q: ["Ustaz bertanya di dalam kelas. Pilih jawapan yang betul.", "اوستاذ برتاڽ د دالم کلس. ڤيليه جواڤن يڠ بتول."],
+      e: ["Jawapan ketua kelas yang baik!", "جواڤن کتوا کلس يڠ باٴيق!"],
+      rounds: [
+        { who: "👨‍🏫", say: "السَّلَامُ عَلَيْكُمْ، يَا طُلَّابُ", o: ["وَعَلَيْكُمُ السَّلَامُ، يَا أُسْتَاذُ", "صَبَاحُ النُّورِ، يَا أُمِّي", "إِلَى اللِّقَاءِ"], mk: ["Assalamualaikum, pelajar.", "السلام عليکم، ڤلاجر."] },
+        { who: "👨‍🏫", say: "أَيْنَ يُوسُفُ وَزَيْدِي؟", o: ["هُمَا الْآنَ فِي الْمَكْتَبَةِ", "هُمَا الْآنَ عَلَى الْمَائِدَةِ", "هُمْ فِي الْبَحْرِ"], mk: ["Di mana Yusuf dan Zaidi?", "د مان يوسف دان زيدي؟"] },
+        { who: "👨‍🏫", say: "مَاذَا يَفْعَلَانِ فِي الْمَكْتَبَةِ؟", o: ["يُوسُفُ يُرِيدُ أَنْ يَبْحَثَ عَنْ مَعْلُومَاتٍ", "يَلْعَبَانِ كُرَةَ الْقَدَمِ", "يَسْبَحَانِ فِي الْبَحْرِ"], mk: ["Apa yang mereka buat di perpustakaan?", "اڤ يڠ مريک بوات د ڤرڤوستاکاٴن؟"] } ] },
+    { type: "jala", q: ["Tebar jala! Tangkap yang diminta, kemudian tekan Tarik Jala.", "تبر جالا! تڠکڤ يڠ دمينتا، کمودين تکن تاريق جالا."],
+      e: ["Semua huruf jar ditangkap!", "سموا حروف جر دتڠکڤ!"],
+      rounds: [ { ask: ["Tangkap semua HURUF JAR.", "تڠکڤ سموا حروف جر."], items: [["مِنْ", 1], ["إِلَى", 1], ["فِي", 1], ["عَنْ", 1], ["عَلَى", 1], ["لَمْ", 0], ["لَنْ", 0], ["هُوَ", 0], ["يَا", 0]] } ] },
+    { type: "rakit", q: ["Bina rakit ayat mengikut susunan.", "بينا راکيت اية مڠيکوت سوسونن."],
+      e: ["Rakit ayat terapung megah!", "راکيت اية تراڤوڠ مڬه!"],
+      rounds: [
+        { seq: ["يَنْزِلُ", "الْمَطَرُ", "مِنَ", "السَّمَاءِ"], mk: ["Hujan turun dari langit.", "هوجن تورون دري لاڠيت."] },
+        { seq: ["وَضَعَتْ", "هُدَى", "الْكَعْكَ", "عَلَى", "الْمَائِدَةِ"], mk: ["Huda meletakkan kek di atas meja.", "هدى ملتقکن کيک د اتس ميجا."] },
+        { seq: ["أَكَلْتُ", "بِالْيَدِ", "الْيُمْنَى"], mk: ["Saya makan dengan tangan kanan.", "ساي ماکن دڠن تاڠن کانن."] } ] },
+    { type: "dacing", q: ["Dacing makna: pilih ayat Arab yang sama dengan maksud di tiang.", "داچيڠ معنى: ڤيليه اية عرب يڠ سام دڠن مقصود د تياڠ."],
+      e: ["Huruf jar yang tepat!", "حروف جر يڠ تڤت!"],
+      rounds: [
+        { p: ["Ikan di dalam air", "ايکن د دالم اٴير"], a: "السَّمَكُ فِي الْمَاءِ", b: "السَّمَكُ عَلَى الْمَاءِ" },
+        { p: ["Hujan turun dari langit", "هوجن تورون دري لاڠيت"], a: "يَنْزِلُ الْمَطَرُ مِنَ السَّمَاءِ", b: "يَنْزِلُ الْمَطَرُ إِلَى السَّمَاءِ" },
+        { p: ["Saya melancong ke Terengganu", "ساي ملنچوڠ ک ترڠڬانو"], a: "سَافَرْتُ إِلَى ترنجانو", b: "سَافَرْتُ عَنْ ترنجانو" } ] }
+  ]
+};
+const ST9 = {
+  id: 9, icon: "🧩", c: "#7B4BB0", sticker: "🌽",
+  t: ["Fa'il, Maf'ul Bih dan Fi'il Mazid", "فاعل، مفعول به دان فعل مزيد"],
+  u: ["Pelajaran 10–12, ms. 50–60", "ڤلاجرن ١٠–١٢، م.س. ٥٠–٦٠"],
+  read: [
+    { pic: "🏃", h: ["Fa'il: pelaku perbuatan", "فاعل: ڤلاکو ڤربواتن"], p: "50", lines: [
+      ln("وَقَفَ التِّلْمِيذُ فِي الْقَاعَةِ", "Murid itu berdiri di dewan", "موريد ايت برديري د ديوان"),
+      ln("كَتَبَ التِّلْمِيذَانِ الرَّسَائِلَ", "Dua murid menulis surat-surat", "دوا موريد منوليس سورت٢"),
+      ln("جَلَسَتِ التِّلْمِيذَةُ عَلَى الْكُرْسِيِّ", "Murid perempuan duduk di atas kerusi", "موريد ڤرمڤوان دودوق د اتس کروسي"),
+      ln("لَعِبَتِ اللَّاعِبَاتُ كُرَةَ السَّلَّةِ", "Pemain-pemain perempuan bermain bola keranjang", "ڤماٴين٢ ڤرمڤوان برماٴين بولا کرنجڠ"),
+      ln("زَرَعَ الْفَلَّاحُونَ فِي الْمَزْرَعَةِ", "Petani-petani bercucuk tanam di ladang", "ڤتاني٢ برچوچوق تانم د لادڠ"),
+      ln("تَسْبَحُ الْأَسْمَاكُ فِي النَّهْرِ", "Ikan-ikan berenang di sungai", "ايکن٢ برنڠ د سوڠاي") ] },
+    { pic: "🏷️", h: ["Fa'il sentiasa marfu'", "فاعل سنتياس مرفوع"], p: "51", lines: [
+      ln("وَقَفَ التِّلْمِيذُ", "Dhammah – mufrad", "ضمة – مفرد"),
+      ln("تَسْبَحُ الْأَسْمَاكُ", "Dhammah – jamak taksir", "ضمة – جمع تکسير"),
+      ln("لَعِبَتِ اللَّاعِبَاتُ", "Dhammah – jamak muannath salim", "ضمة – جمع مؤنث سالم"),
+      ln("كَتَبَ التِّلْمِيذَانِ – كَتَبَتِ التِّلْمِيذَتَانِ", "Alif – muthanna", "الف – مثنى"),
+      ln("زَرَعَ الْفَلَّاحُونَ – نَجَحَ الْمُسْلِمُونَ", "Waw – jamak muzakkar salim", "واو – جمع مذکر سالم") ] },
+    { pic: "⚽", h: ["Maf'ul bih: yang dikenakan perbuatan", "مفعول به: يڠ دکناکن ڤربواتن"], p: "53–54", lines: [
+      ln("شَاهَدْتُ اللَّاعِبَ – شَاهَدْتُ اللَّاعِبَةَ", "Fathah – mufrad", "فتحة – مفرد"),
+      ln("اِشْتَرَيْتُ الْكُتُبَ الدِّرَاسِيَّةَ", "Fathah – jamak taksir", "فتحة – جمع تکسير"),
+      ln("شَاهَدْتُ اللَّاعِبَيْنِ – شَاهَدْتُ اللَّاعِبَتَيْنِ", "Ya – muthanna", "يا – مثنى"),
+      ln("شَاهَدْتُ اللَّاعِبِينَ فِي الْمَلْعَبِ", "Ya – jamak muzakkar salim", "يا – جمع مذکر سالم"),
+      ln("شَاهَدْتُ اللَّاعِبَاتِ فِي الْمَلْعَبِ", "Kasrah – jamak muannath salim", "کسرة – جمع مؤنث سالم") ] },
+    { pic: "➕", h: ["Fi'il thulathi mazid satu huruf", "فعل ثلاثي مزيد ساتو حروف"], p: "57–58", lines: [
+      ln("خَرَجَ الطَّالِبُ ← أَخْرَجَ الطَّالِبُ الْكِتَابَ مِنْ حَقِيبَتِهِ", "أَفْعَلَ (untuk ta'diyah): keluar ← mengeluarkan", "أَفْعَلَ (اونتوق تعدية): کلوار ← مڠلوارکن"),
+      ln("شَرِبَ الْوَلَدُ الْمَاءَ ← أَشْرَبَ الْأَبُ الْوَلَدَ الْمَاءَ", "minum ← memberi minum", "مينوم ← ممبري مينوم"),
+      ln("حَسُنَ وَجْهُ الْمُؤْمِنِ ← حَسَّنَ الْمُؤْمِنُ الصَّالِحُ وُضُوءَهُ", "فَعَّلَ (untuk taktsir): elok ← memperelok", "فَعَّلَ (اونتوق تکثير): ايلوق ← ممڤرايلوق"),
+      ln("ضَرَبَ اللَّاعِبُ الْكُرَةَ ← ضَارَبَ اللَّاعِبَانِ الْكُرَةَ بِالْمِضْرَبِ", "فَاعَلَ (untuk musyarakah): memukul ← saling memukul", "فَاعَلَ (اونتوق مشارکة): ممڤوکول ← سالڠ ممڤوکول"),
+      ln("قَتَلَ الْجَيْشُ الْعَدُوَّ ← قَاتَلَ الْجُيُوشُ الْأَعْدَاءَ", "membunuh ← berperang", "ممبونوه ← برڤراڠ") ] },
+    { pic: "🌍", h: ["Khalifah di bumi", "خليفة د بومي"], p: "52", qk: "baqarah30", qref: ["Surah al-Baqarah: 30 (sebahagian)", "سورة البقرة: ٣٠ (سباهاڬين)"],
+      text: ["Maksudnya: Dan (ingatlah) ketika Tuhanmu berfirman kepada malaikat: Sesungguhnya Aku hendak menjadikan seorang khalifah di bumi. (رَبُّكَ ialah fa'il.)", "مقصودڽ: دان (ايڠتله) کتيک توهنمو برفيرمان کڤد ملائکة: سسوڠڬوهڽ اکو هندق منجاديکن سئورڠ خليفة د بومي. (رَبُّكَ ايله فاعل.)"],
+      lines: [ ln("أَطِعْ قَوَانِينَ الْمَدْرَسَةِ", "Patuhilah peraturan sekolah", "ڤاتوهيله ڤراتورن سکوله") ] }
+  ],
+  games: [
+    { type: "jala", q: ["Tebar jala pada ayat! Tangkap perkataan yang diminta, kemudian Tarik Jala.", "تبر جالا ڤد اية! تڠکڤ ڤرکاتاٴن يڠ دمينتا، کمودين تاريق جالا."],
+      e: ["Kamu menjumpai fa'il setiap ayat!", "کامو منجومڤاٴي فاعل ستياڤ اية!"], words: 1,
+      rounds: [
+        { ask: ["Tangkap FA'IL dalam ayat ini.", "تڠکڤ فاعل دالم اية اين."], items: [["زَرَعَ", 0], ["الْبُسْتَانِيُّ", 1], ["الْأَزْهَارَ", 0]] },
+        { ask: ["Tangkap FA'IL dalam ayat ini.", "تڠکڤ فاعل دالم اية اين."], items: [["يُصَلِّي", 0], ["الْمُسْلِمُونَ", 1], ["صَلَاةَ", 0], ["الْجُمُعَةِ", 0]] },
+        { ask: ["Tangkap FA'IL dalam ayat ini.", "تڠکڤ فاعل دالم اية اين."], items: [["سَافَرَ", 0], ["الْحُجَّاجُ", 1], ["إِلَى", 0], ["مَكَّةَ", 0], ["الْمُكَرَّمَةِ", 0]] } ] },
+    { type: "raga", q: ["Fa'il atau maf'ul bih? Lihat baris akhirnya.", "فاعل اتاو مفعول به؟ ليهت بارس اخيرڽ."],
+      e: ["Dua raga tersusun: pelaku dan yang dikenakan perbuatan.", "دوا راڬ ترسوسون: ڤلاکو دان يڠ دکناکن ڤربواتن."],
+      baskets: [["Fa'il (marfu') فَاعِلٌ", "فاعل (مرفوع) فَاعِلٌ"], ["Maf'ul bih (mansub) مَفْعُولٌ بِهِ", "مفعول به (منصوب) مَفْعُولٌ بِهِ"]],
+      items: [["الْبُسْتَانِيُّ", 0], ["الْعَامِلَتَانِ", 0], ["الْمُدَرِّسُ", 0], ["الْأُمَّهَاتُ", 0], ["الْأَزْهَارَ", 1], ["الْمَلَابِسَ", 1], ["الطُّلَّابَ", 1], ["الْمَسْجِدَيْنِ", 1]] },
+    { type: "tukar", q: ["Padankan maf'ul bih dengan tanda nasabnya.", "ڤادنکن مفعول به دڠن تندا نصبڽ."],
+      e: ["Semua tanda nasab tepat!", "سموا تندا نصب تڤت!"],
+      pairs: [["اللَّاعِبَ", ["Fathah (mufrad)", "فتحة (مفرد)"]], ["الْكُتُبَ", ["Fathah (jamak taksir)", "فتحة (جمع تکسير)"]], ["اللَّاعِبَيْنِ", ["Ya (muthanna)", "يا (مثنى)"]],
+               ["اللَّاعِبِينَ", ["Ya (jamak muzakkar salim)", "يا (جمع مذکر سالم)"]], ["اللَّاعِبَاتِ", ["Kasrah (jamak muannath salim)", "کسرة (جمع مؤنث سالم)"]]] },
+    { type: "galah", q: ["Pilih fi'il yang sesuai: mujarrad atau mazid?", "ڤيليه فعل يڠ سسواي: مجرد اتاو مزيد؟"],
+      e: ["Fi'il mazid digunakan dengan betul!", "فعل مزيد دڬوناکن دڠن بتول!"],
+      rounds: [
+        { s: "اللَّهُ ___ الْمَطَرَ مِنَ السَّمَاءِ", o: ["أَنْزَلَ", "نَزَلَ"], mk: ["Allah menurunkan hujan dari langit.", "الله منورونکن هوجن دري لاڠيت."], em: "🌧️" },
+        { s: "الطَّالِبُ ___ كِتَابَهُ مِنْ حَقِيبَتِهِ", o: ["أَخْرَجَ", "خَرَجَ"], mk: ["Pelajar mengeluarkan bukunya dari beg.", "ڤلاجر مڠلوارکن بوکوڽ دري بيڬ."], em: "🎒" },
+        { s: "الْمُؤْمِنُ الصَّالِحُ ___ وُضُوءَهُ", o: ["حَسَّنَ", "حَسُنَ"], mk: ["Mukmin yang soleh memperelok wuduknya.", "مؤمن يڠ صالح ممڤرايلوق وضوءڽ."], em: "💧" },
+        { s: "صَاحِبُ الْبَيْتِ ___ ضَيْفَهُ", o: ["أَسْعَدَ", "سَعِدَ"], mk: ["Tuan rumah menggembirakan tetamunya.", "توان رومه مڠڬمبيراکن تتاموڽ."], em: "🏡" } ] },
+    { type: "raga", q: ["Susun fi'il mazid mengikut wazannya.", "سوسون فعل مزيد مڠيکوت وزنڽ."],
+      e: ["Tiga raga wazan penuh!", "تيڬ راڬ وزن ڤنوه!"],
+      baskets: [["أَفْعَلَ (ta'diyah)", "أَفْعَلَ (تعدية)"], ["فَعَّلَ (taktsir)", "فَعَّلَ (تکثير)"], ["فَاعَلَ (musyarakah)", "فَاعَلَ (مشارکة)"]],
+      items: [["أَخْرَجَ", 0], ["أَشْرَبَ", 0], ["أَنْزَلَ", 0], ["حَسَّنَ", 1], ["حَمَّدَ", 1], ["كَرَّمَ", 1], ["ضَارَبَ", 2], ["قَاتَلَ", 2]] },
+    { type: "dacing", q: ["Dacing i'rab: pilih ayat yang barisnya betul.", "داچيڠ اعراب: ڤيليه اية يڠ بارسڽ بتول."],
+      e: ["Timbangan i'rab kamu tepat!", "تيمبڠن اعراب کامو تڤت!"],
+      rounds: [
+        { p: ["Dua murid menulis surat", "دوا موريد منوليس سورت"], a: "كَتَبَ التِّلْمِيذَانِ الرَّسَائِلَ", b: "كَتَبَ التِّلْمِيذَيْنِ الرَّسَائِلَ" },
+        { p: ["Petani-petani bercucuk tanam", "ڤتاني٢ برچوچوق تانم"], a: "زَرَعَ الْفَلَّاحُونَ", b: "زَرَعَ الْفَلَّاحِينَ" },
+        { p: ["Saya melihat pemain-pemain perempuan", "ساي مليهت ڤماٴين٢ ڤرمڤوان"], a: "شَاهَدْتُ اللَّاعِبَاتِ", b: "شَاهَدْتُ اللَّاعِبَاتُ" } ] }
+  ]
+};
+const ST10 = {
+  id: 10, icon: "🛍️", c: "#D64F8E", sticker: "🧺",
+  t: ["Ke Pusat Membeli-belah", "ک ڤوست ممبلي-بله"],
+  u: ["Pelajaran 13, ms. 61–63", "ڤلاجرن ١٣، م.س. ٦١–٦٣"],
+  read: [
+    { pic: "🚌", h: ["Ke Shah Alam dengan bas", "ک شاه عالم دڠن بس"], p: "61", lines: [
+      ln("فِي يَوْمٍ مِنْ أَيَّامِ الْعُطْلَةِ الْمَدْرَسِيَّةِ، ذَهَبَتْ نَضِيرَةُ وَأُخْتُهَا بِالْحَافِلَةِ إِلَى مَدِينَةِ شاه عالم", "Pada suatu hari cuti sekolah, Nadhirah dan adiknya pergi ke Shah Alam dengan bas", "ڤد سواتو هاري چوتي سکوله، نضيرة دان اديقڽ ڤرڬي ک شاه عالم دڠن بس"),
+      ln("هُمَا فِي حَاجَةٍ لِشِرَاءِ بَعْضِ اللَّوَازِمِ الْمَدْرَسِيَّةِ", "Mereka perlu membeli beberapa keperluan sekolah", "مريک ڤرلو ممبلي ببراڤ کڤرلوان سکوله"),
+      ln("أَوْصَتْهُمَا أُمُّهُمَا بِأَلَّا تُسْرِفَا وَلَا تُبَذِّرَا وَلَا تَشْتَرِيَا شَيْئًا غَيْرَ نَافِعٍ", "Ibu berpesan: jangan boros, jangan membazir dan jangan beli barang yang tidak berguna", "ايبو برڤسن: جاڠن بوروس، جاڠن ممبذير دان جاڠن بلي بارڠ يڠ تيدق برڬونا") ] },
+    { pic: "🛍️", h: ["Di pusat membeli-belah", "د ڤوست ممبلي-بله"], p: "61–62", lines: [
+      ln("وَلَمَّا وَصَلَتَا هُنَاكَ، اِتَّجَهَتَا إِلَى الْمَحَلِّ التِّجَارِيِّ", "Apabila sampai, mereka menuju ke pusat membeli-belah", "اڤابيلا سمڤاي، مريک منوجو ک ڤوست ممبلي-بله"),
+      ln("وَاشْتَرَتَا الْمَلَابِسَ الْمَدْرَسِيَّةَ وَالْأَحْذِيَةَ وَالْمِحْفَظَتَيْنِ وَالْكُرَّاسَتَيْنِ", "Mereka membeli pakaian sekolah, kasut, dua beg dan dua buku tulis", "مريک ممبلي ڤاکاين سکوله، کاسوت، دوا بيڬ دان دوا بوکو توليس"),
+      ln("ثُمَّ أَخْبَرَتْ نَضِيرَةُ أُمَّهَا عَبْرَ الْمَحْمُولِ بِانْتِهَاءِ الشِّرَاءِ", "Nadhirah memberitahu ibu melalui telefon bimbit bahawa mereka sudah selesai membeli", "نضيرة ممبريتاهو ايبو ملالوٴي تيليفون بيمبيت بهاوا مريک سوده سلساي ممبلي"),
+      ln("وَطَلَبَتْ أُمُّهَا أَنْ تَنْتَظِرَاهَا فِي مَحَطَّةِ سَيَّارَةِ الْأُجْرَةِ", "Ibu meminta mereka menunggu di perhentian teksi", "ايبو ممينتا مريک منوڠڬو د ڤرهنتين تيکسي"),
+      ln("سَرَّتِ الْأُمُّ مِنْ بِنْتَيْهَا بِاتِّبَاعِ نَصِيحَتِهَا فِي عَدَمِ الْإِسْرَافِ وَالتَّبْذِيرِ", "Ibu gembira kerana anak-anaknya mengikut nasihat supaya tidak boros dan membazir", "ايبو ڬمبيرا کران انق٢ڽ مڠيکوت نصيحت سوڤايا تيدق بوروس دان ممبذير") ] },
+    { pic: "📒", h: ["Makna perkataan", "معنى ڤرکاتاٴن"], p: "62", lines: [
+      ln("الْحَافِلَةُ = الْأُتُوبِيسُ", "Bas", "بس"),
+      ln("لَا تُسْرِفَا = لَا تُبَذِّرَا", "Jangan kamu berdua membazir", "جاڠن کامو بردوا ممبذير"),
+      ln("الْمَحَلَّاتُ التِّجَارِيَّةُ = السُّوقُ الْمَرْكَزِيُّ", "Pusat membeli-belah, pasar besar", "ڤوست ممبلي-بله، ڤاسر بسر"),
+      ln("الْمَلَابِسُ الْمَدْرَسِيَّةُ = الْأَزْيَاءُ الْمَدْرَسِيَّةُ", "Pakaian sekolah", "ڤاکاين سکوله"),
+      ln("الِاتِّبَاعُ = الِانْقِيَادُ", "Mengikut, patuh", "مڠيکوت، ڤاتوه") ] },
+    { pic: "💰", h: ["Jangan membazir", "جاڠن ممبذير"], p: "61", qk: "isra27", qref: ["Surah al-Isra': 27 (sebahagian), dibaca oleh ibu Nadhirah", "سورة الإسراء: ٢٧ (سباهاڬين)، دباچ اوليه ايبو نضيرة"],
+      text: ["Maksudnya: Sesungguhnya orang-orang yang membazir itu adalah saudara-saudara syaitan.", "مقصودڽ: سسوڠڬوهڽ اورڠ٢ يڠ ممبذير ايت اداله سودارا٢ شيطان."],
+      lines: [ ln("اِقْتَصِدْ فِي مَالِكَ", "Berjimatlah dengan hartamu", "برجيمتله دڠن هرتامو"), ln("لَا تُبَذِّرِ الْمَاءَ", "Jangan membazir air", "جاڠن ممبذير اٴير") ] }
+  ],
+  games: [
+    { type: "raga", q: ["Apa yang Nadhirah dan adiknya beli? Masukkan ke dalam raga.", "اڤ يڠ نضيرة دان اديقڽ بلي؟ ماسوقکن ک دالم راڬ."],
+      e: ["Betul! Mereka hanya membeli barang yang perlu.", "بتول! مريک هاڽ ممبلي بارڠ يڠ ڤرلو."],
+      baskets: [["Dibeli 🧺", "دبلي 🧺"], ["Tidak dibeli ✋", "تيدق دبلي ✋"]],
+      items: [["الْمَلَابِسَ الْمَدْرَسِيَّةَ", 0], ["الْأَحْذِيَةَ", 0], ["الْمِحْفَظَتَيْنِ", 0], ["الْكُرَّاسَتَيْنِ", 0], ["التِّلْفَازَ", 1], ["الْكَعْكَ", 1], ["الْمِذْيَاعَ", 1]] },
+    { type: "pesanan", q: ["Jawab soalan tentang cerita.", "جواب سوالن تنتڠ چريتا."],
+      e: ["Kamu memahami cerita membeli-belah!", "کامو ممهمي چريتا ممبلي-بله!"],
+      rounds: [
+        { who: "🧑‍🏫", say: "مَاذَا رَكِبَتَا إِلَى مَدِينَةِ شاه عالم؟", o: ["رَكِبَتَا الْحَافِلَةَ", "رَكِبَتَا الطَّائِرَةَ", "رَكِبَتَا السَّفِينَةَ"], mk: ["Apa yang mereka naiki ke Shah Alam?", "اڤ يڠ مريک نايقي ک شاه عالم؟"] },
+        { who: "🧑‍🏫", say: "مَا نَصِيحَةُ الْأُمِّ قَبْلَ الذَّهَابِ؟", o: ["أَلَّا تُسْرِفَا وَلَا تُبَذِّرَا", "أَنْ تَشْتَرِيَا كُلَّ شَيْءٍ", "أَنْ تَلْعَبَا فِي السُّوقِ"], mk: ["Apakah nasihat ibu sebelum pergi?", "اڤاکه نصيحت ايبو سبلوم ڤرڬي؟"] },
+        { who: "🧑‍🏫", say: "كَيْفَ أَخْبَرَتْ نَضِيرَةُ أُمَّهَا بِانْتِهَاءِ الشِّرَاءِ؟", o: ["عَبْرَ الْمَحْمُولِ", "بِالْفَاكْسِ", "بِالْمِذْيَاعِ"], mk: ["Bagaimana Nadhirah memberitahu ibunya?", "باڬايمان نضيرة ممبريتاهو ايبوڽ؟"] },
+        { who: "🧑‍🏫", say: "أَيْنَ انْتَظَرَتَا أُمَّهُمَا؟", o: ["فِي مَحَطَّةِ سَيَّارَةِ الْأُجْرَةِ", "فِي الْمُسْتَشْفَى", "فِي الْمَكْتَبَةِ"], mk: ["Di manakah mereka menunggu ibu?", "د منکه مريک منوڠڬو ايبو؟"] } ] },
+    { type: "tukar", q: ["Padankan perkataan yang sama makna.", "ڤادنکن ڤرکاتاٴن يڠ سام معنى."],
+      e: ["Semua barang ditukar dengan adil!", "سموا بارڠ دتوکر دڠن عاديل!"],
+      pairs: [["الْحَافِلَةُ", "الْأُتُوبِيسُ"], ["لَا تُسْرِفَا", "لَا تُبَذِّرَا"], ["الْمَحَلَّاتُ التِّجَارِيَّةُ", "السُّوقُ الْمَرْكَزِيُّ"], ["الْمَلَابِسُ الْمَدْرَسِيَّةُ", "الْأَزْيَاءُ الْمَدْرَسِيَّةُ"], ["لِتَنَاوُلِ", "لِأَخْذِ"], ["الِاتِّبَاعُ", "الِانْقِيَادُ"]] },
+    { type: "syiling", q: ["Bayar di kaunter. Baca harga dalam bahasa Arab dan bayar tepat.", "باير د کاونتر. باچ هرڬ دالم بهاس عرب دان باير تڤت."],
+      e: ["Bayaran tepat, tiada pembaziran!", "بايرن تڤت، تياد ڤمبذيرن!"],
+      rounds: [ { n: 430, ar: "أَرْبَعُمِائَةٍ وَثَلَاثُونَ" }, { n: 467, ar: "أَرْبَعُمِائَةٍ وَسَبْعَةٌ وَسِتُّونَ" }, { n: 499, ar: "أَرْبَعُمِائَةٍ وَتِسْعَةٌ وَتِسْعُونَ" } ] },
+    { type: "rakit", q: ["Bina rakit ayat mengikut susunan.", "بينا راکيت اية مڠيکوت سوسونن."],
+      e: ["Rakit siap! Pesan ibu diingat.", "راکيت سياڤ! ڤسن ايبو دايڠت."],
+      rounds: [
+        { seq: ["ذَهَبَتْ", "نَضِيرَةُ", "وَأُخْتُهَا", "بِالْحَافِلَةِ"], mk: ["Nadhirah dan adiknya pergi dengan bas.", "نضيرة دان اديقڽ ڤرڬي دڠن بس."] },
+        { qk: "isra27", mk: ["Sesungguhnya orang yang membazir itu saudara syaitan.", "سسوڠڬوهڽ اورڠ يڠ ممبذير ايت سودارا شيطان."] } ] },
+    { type: "dacing", q: ["Dacing sikap: pilih pesanan yang baik.", "داچيڠ سيکڤ: ڤيليه ڤسنن يڠ باٴيق."],
+      e: ["Kamu pembeli yang berjimat!", "کامو ڤمبلي يڠ برجيمت!"],
+      rounds: [
+        { p: ["Ketika membeli-belah", "کتيک ممبلي-بله"], a: "اِقْتَصِدْ فِي مَالِكَ", b: "أَسْرِفْ فِي مَالِكَ" },
+        { p: ["Ketika berwuduk", "کتيک بروضوء"], a: "لَا تُبَذِّرِ الْمَاءَ", b: "بَذِّرِ الْمَاءَ" },
+        { p: ["Di kedai", "د کداي"], a: "لَا تَشْتَرِيَا شَيْئًا غَيْرَ نَافِعٍ", b: "اِشْتَرِيَا كُلَّ شَيْءٍ" } ] }
+  ]
+};
+const STATIONS = [ST1, ST2, ST3, ST4, ST5, ST6, ST7, ST8, ST9, ST10];
+// Cabaran akhir: satu permainan daripada setiap gerai [stesen, indeks permainan]
+const FINAL_PICK = [[1, 0], [2, 1], [3, 1], [4, 0], [5, 2], [6, 1], [7, 0], [8, 0], [9, 5], [10, 4]];
+
+/* ===================== ENJIN "Pasar Terapung Lughah" (Bahasa Arab Tahun 5) ===================== */
+const KEY = "r5-best", YEAR = 5;
+function load(k,f){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):f; }catch(e){ return f; } }
+function save(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+let LANG = load("kafa-lang","jawi");
+const isJ = () => LANG==="jawi";
+const T = v => v==null ? "" : typeof v==="string" ? v : (isJ() ? v[1] : v[0]);
+const RU = v => v==null ? "" : typeof v==="string" ? "" : v[0];
+const L = (r,j) => isJ() ? j : r;
+function applyLang(){ document.documentElement.dir = isJ() ? "rtl" : "ltr"; document.documentElement.lang = isJ() ? "ms-Arab" : "ms"; }
+const BACK = () => isJ() ? "→" : "←";
+let best = load(KEY, {});
+let voiceOn = load("t5-voice", true);
+const app = document.getElementById("app");
+const $ = s => app.querySelector(s);
+const shuffle = a => { const b=a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; };
+// rombak dan pastikan tidak sama dengan susunan jawapan
+const mix = a => { if(a.length<2) return a.slice(); let b, n=0; do{ b=shuffle(a); n++; }while(b.every((x,i)=>x===a[i]) && n<50); return b; };
+const starsFor = m => m<=1 ? 3 : m<=3 ? 2 : 1;
+const totalStars = () => Object.values(best).reduce((s,v)=>s+(+v||0),0);
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");
+const AR = s => `<span class="ar" lang="ar">${s}</span>`;
+// teks Rumi/Jawi: bungkus perkataan Arab berbaris dengan fon Arab
+const TX = v => typeof v==="string" ? AR(v) : T(v).replace(/[\u0600-\u06FF]+(?:[ \u060C]+[\u0600-\u06FF]+)*/g, m => /[\u064B-\u0652]/.test(m) ? AR(m) : m);
+const OPT = x => typeof x==="string" ? AR(x) : TX(x);
+const AD = n => String(n).replace(/[0-9]/g, d => "٠١٢٣٤٥٦٧٨٩"[d]);
+// ayat al-Quran daripada QURAN (dijana): token mengikut ruang, tanda waqaf dilekatkan pada perkataan sebelumnya
+const qTokens = k => QURAN[k].map(p=>p.t).join(" ").split(" ").reduce((a,w)=>{ if(/^[\u06D6-\u06ED]+$/.test(w) && a.length) a[a.length-1]+=" "+w; else a.push(w); return a; },[]);
+const qHTML = k => QURAN[k].map(p => `${p.t} ﴿${AD(p.k.split(":")[1])}﴾`).join(" ");
+
+/* ---------- Maskot Tok Bangau, peniaga bangau bertendak di atas sampan ---------- */
+function bangau(cls=""){
+  return `<svg class="bangau ${cls}" viewBox="0 0 120 120" aria-hidden="true">
+    <ellipse cx="60" cy="114" rx="40" ry="4" fill="rgba(0,0,0,.18)"/>
+    <path d="M70 72 L58 98 M74 72 L70 98" stroke="#E8963A" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M86 66 L108 60 L100 72 Z" fill="#B9C3CC" stroke="#2B1B0E" stroke-width="2.5" stroke-linejoin="round"/>
+    <ellipse cx="72" cy="64" rx="22" ry="15" fill="#F2F5F7" stroke="#2B1B0E" stroke-width="3"/>
+    <path d="M62 58 Q78 50 92 62 Q80 72 64 68 Z" fill="#B9C3CC" stroke="#2B1B0E" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M56 60 Q42 52 50 40 Q56 32 46 26" fill="none" stroke="#2B1B0E" stroke-width="12" stroke-linecap="round"/>
+    <path d="M56 60 Q42 52 50 40 Q56 32 46 26" fill="none" stroke="#F2F5F7" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="44" cy="28" r="10" fill="#F2F5F7" stroke="#2B1B0E" stroke-width="3"/>
+    <path d="M36 27 L10 32 L36 33 Z" fill="#FFB627" stroke="#2B1B0E" stroke-width="2.5" stroke-linejoin="round"/>
+    <circle cx="44" cy="26" r="3" fill="#2B1B0E"/><circle cx="45" cy="25" r="1" fill="#fff"/>
+    <circle cx="48" cy="32" r="2.6" fill="#FF8FA3" opacity=".7"/>
+    <path d="M52 26 Q62 22 70 26" fill="none" stroke="#2B1B0E" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M24 20 L44 4 L64 20 Q44 25 24 20 Z" fill="#E7C27D" stroke="#2B1B0E" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M32 16 L56 16 M38 11 L50 11" stroke="#B5883E" stroke-width="2"/>
+    <path d="M8 96 Q60 110 112 92 L104 106 Q60 118 18 106 Z" fill="#8A5A2B" stroke="#2B1B0E" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M14 100 Q60 112 108 98" fill="none" stroke="#C98B4B" stroke-width="2"/>
+    <rect x="82" y="84" width="18" height="10" rx="3" fill="#D9AE60" stroke="#2B1B0E" stroke-width="2"/>
+    <circle cx="87" cy="82" r="4" fill="#E4572E" stroke="#2B1B0E" stroke-width="1.5"/><circle cx="95" cy="82" r="4" fill="#3D9A4B" stroke="#2B1B0E" stroke-width="1.5"/>
+  </svg>`;
+}
+
+/* ---------- Bunyi ---------- */
+let actx = null;
+function tone(seq){
+  try{
+    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    let t = actx.currentTime;
+    for(const [f,d,type] of seq){
+      const o = actx.createOscillator(), g = actx.createGain();
+      o.type = type||"sine"; o.frequency.value = f; g.gain.setValueAtTime(.16,t); g.gain.exponentialRampToValueAtTime(.001,t+d);
+      o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t+d); t += d*.8;
+    }
+  }catch(e){}
+}
+const sfx = {
+  ok:   () => tone([[523,.12],[784,.2]]),
+  tick: () => tone([[700,.06,"triangle"]]),
+  no:   () => tone([[220,.18,"square"],[180,.2,"square"]]),
+  coin: () => tone([[1320,.06,"triangle"],[1760,.1,"triangle"]]),
+  splash: () => tone([[300,.08,"sawtooth"],[180,.14,"triangle"]]),
+  win:  () => tone([[523,.12],[659,.12],[784,.12],[1046,.32]])
+};
+
+/* ---------- Suara (Rumi sahaja; tulisan Arab dibuang) ---------- */
+const ttsOK = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+let voice = null;
+function pickVoice(){ try{ const vs = speechSynthesis.getVoices(); voice = vs.find(v=>/^ms/i.test(v.lang)) || vs.find(v=>/^id/i.test(v.lang)) || null; }catch(e){} }
+if(ttsOK){ pickVoice(); try{ speechSynthesis.onvoiceschanged = pickVoice; }catch(e){} }
+const stripAr = t => String(t||"").replace(/[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]+[\s،؟.!…]*/g," ").replace(/…/g," ... ").replace(/[=←⟷+/–]/g," ").replace(/\(\s*\)/g," ").replace(/\s+/g," ").trim();
+function speak(text, force){
+  if(!ttsOK || (!voiceOn && !force)) return;
+  const s = stripAr(text); if(!s || !/[A-Za-z0-9]/.test(s)) return;
+  try{
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(s);
+    u.lang = voice ? voice.lang : "ms-MY"; if(voice) u.voice = voice; u.rate = .95; u.pitch = 1.05;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function hush(){ if(ttsOK){ try{ speechSynthesis.cancel(); }catch(e){} } }
+
+/* ---------- Bantuan paparan ---------- */
+function toast(msg){ document.querySelectorAll(".toast").forEach(t=>t.remove()); const t=document.createElement("div"); t.className="toast"; t.setAttribute("role","status"); t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2600); }
+function confetti(n=34){
+  const box = document.createElement("div"); box.className="confetti"; box.setAttribute("aria-hidden","true");
+  const em = ["⭐","🥭","🍌","🍉","🥥","🛶","🌺"];
+  for(let i=0;i<n;i++){ const s=document.createElement("span"); s.textContent=em[i%em.length]; s.style.left=Math.random()*100+"vw"; s.style.animationDuration=(2+Math.random()*2)+"s"; s.style.animationDelay=Math.random()*.8+"s"; box.appendChild(s); }
+  document.body.appendChild(box); setTimeout(()=>box.remove(),5000);
+}
+const langBtn = () => `<button class="ib" data-act="lang" aria-label="${L("Tukar ke tulisan Jawi","توکر ک توليسن رومي")}">${isJ()?"Rumi":'<span style="font-family:Noto Naskh Arabic">جاوي</span>'}</button>`;
+const voiceBtn = () => `<button class="ib" data-act="voice" aria-label="${L("Suara","سوارا")}" aria-pressed="${voiceOn}">${voiceOn?"🔊":"🔇"}</button>`;
+const sayBtn = txt => (ttsOK && stripAr(txt)) ? `<button class="say" data-say="${encodeURIComponent(txt)}" aria-label="${L("Dengar","دڠر")}">🔊</button>` : "";
+const starRow = n => [1,2,3].map(i=>`<span style="${i<=n?"":"opacity:.25;filter:grayscale(1)"}">⭐</span>`).join("");
+const unlocked = id => id===1 || (best[id-1]||0)>0;
+const allDone = () => STATIONS.every(s => (best[s.id]||0)>0);
+
+/* ===================== PETA: TERUSAN PASAR TERAPUNG ===================== */
+let S = null;
+function renderMap(){
+  hush(); S = null;
+  document.title = L("Pasar Terapung Lughah • Bahasa Arab Tahun 5","ڤاسر تراڤوڠ لغة • بهاس عرب تاهون 5");
+  const cur = (STATIONS.find(s => !(best[s.id]>0)) || {id:"final"}).id;
+  const stall = s => {
+    const lock = !unlocked(s.id), st = best[s.id]||0, now = cur===s.id;
+    const status = st ? starRow(st) : now ? "🛶" : lock ? "🔒" : "⛵";
+    return `<button class="stall ${lock?"lock":""} ${now?"now":""} ${st?"done":""}" style="--sc:${s.c}" data-act="${lock?"locked":"open"}" data-id="${s.id}" aria-label="${esc(L("Gerai","ڬراي")+" "+s.id+": "+T(s.t))}">
+      <span class="no">${s.id}</span><span class="ic" aria-hidden="true">${s.icon}</span>
+      <span class="tx">${T(s.t)}<small>${T(s.u)}</small></span><span class="st">${status}</span></button>`;
+  };
+  const fOpen = allDone(), fSt = best.final||0, fNow = cur==="final";
+  app.innerHTML = `
+    <div class="top"><a class="ib" href="../index.html" aria-label="${L("Kembali ke Tahun 5","کمبالي ک تاهون 5")}">${BACK()}</a><span class="sp"></span>
+      <span class="pill" aria-label="${totalStars()} ${L("bintang","بينتڠ")}">⭐ ${totalStars()}</span>${voiceBtn()}${langBtn()}</div>
+    <header class="hero">${bangau("bob")}<div><h1>${L("Pasar Terapung Lughah","ڤاسر تراڤوڠ لغة")}</h1>
+      <p>${L("Kayuh sampan dari gerai ke gerai, berniaga kata bahasa Arab dan isi bakul bersama Tok Bangau!","کايوه سمڤن دري ڬراي ک ڬراي، برنياڬ کات بهاس عرب دان ايسي باکول برسام توق بڠاو!")}</p></div></header>
+    <p class="sttl">🧺 ${L("Bakul dagangan saya","باکول داڬڠن ساي")}</p>
+    <div class="goods">${STATIONS.map(s=>`<span class="${best[s.id]>0?"got":""}" title="${esc(T(s.t))}">${s.sticker}</span>`).join("")}<span class="${fSt?"got":""}">🏆</span></div>
+    <section class="canal" aria-label="${L("Terusan pasar terapung","تروسن ڤاسر تراڤوڠ")}">
+      ${STATIONS.map(stall).join("")}
+      <button class="stall fin ${fOpen?"":"lock"} ${fNow?"now":""} ${fSt?"done":""}" data-act="${fOpen?"final":"flocked"}" aria-label="${esc(L("Jeti Pasar Besar","جيتي ڤاسر بسر"))}">
+        <span class="no">★</span><span class="ic" aria-hidden="true">🏆</span>
+        <span class="tx">${L("Jeti Pasar Besar","جيتي ڤاسر بسر")}<small>${L("Cabaran akhir: satu soalan dari setiap gerai","چابرن اخير: ساتو سوالن دري ستياڤ ڬراي")}</small></span>
+        <span class="st">${fSt ? starRow(fSt) : fNow ? "🛶" : "🔒"}</span></button>
+      <div class="jeti">🛶 ${L("Mula berkayuh dari Gerai 1","مولا برکايوه دري ڬراي 1")}</div>
+    </section>`;
+  const now = app.querySelector(".stall.now");
+  if(now) setTimeout(()=>{ try{ now.scrollIntoView({block:"center", behavior:"smooth"}); }catch(e){} }, 250);
+}
+
+/* ===================== GERAI: KAD BACAAN ===================== */
+function openStation(id){
+  const st = STATIONS.find(s=>s.id===id);
+  S = { st, phase:"read", ri:0, gi:0, miss:0, games: st.games.slice() };
+  renderRead();
+}
+function openFinal(){
+  const games = FINAL_PICK.map(([s,i]) => Object.assign({ fs:s }, STATIONS.find(x=>x.id===s).games[i]));
+  S = { st:{ id:"final", icon:"🏆", c:"#3D9A4B", t:["Jeti Pasar Besar","جيتي ڤاسر بسر"], u:["Satu cabaran dari setiap gerai","ساتو چابرن دري ستياڤ ڬراي"], sticker:"🏆" }, phase:"play", gi:0, miss:0, games };
+  renderPlay();
+}
+const head = () => `<div class="top"><button class="ib" data-act="map" aria-label="${L("Kembali ke terusan","کمبالي ک تروسن")}">${BACK()}</button><span class="sp"></span>${voiceBtn()}${langBtn()}</div>
+  <div class="shead"><span class="bub" style="--c:${S.st.c}">${S.st.icon}</span><div><h2>${T(S.st.t)}</h2><small>${TX(S.st.u)}</small></div></div>`;
+function readSpeech(c){
+  return [RU(c.h), RU(c.text), ...(c.lines||[]).map(l=>RU(l[1])), c.tip?("Tip: "+RU(c.tip)):""].filter(Boolean).join(". ");
+}
+function renderRead(){
+  hush();
+  const c = S.st.read[S.ri], n = S.st.read.length, last = S.ri===n-1;
+  app.innerHTML = head() + `
+    <article class="card" style="--sc:${S.st.c}">
+      <div class="rpic" aria-hidden="true">${c.pic}</div>
+      <h3 class="rh">${TX(c.h)} ${sayBtn(readSpeech(c))}</h3>
+      ${c.qk?`<div class="ayat"><small>${L("Allah taala berfirman:","الله تعالى برفيرمان:")}</small><span class="ar" lang="ar">${qHTML(c.qk)}</span><small>(${T(c.qref)})</small></div>`:""}
+      ${c.text?`<p class="rtext">${TX(c.text)}</p>`:""}
+      ${c.lines?`<ul class="lines">${c.lines.map((l,i)=>`<li style="--i:${i}">${AR(l[0])}<span class="mk">${TX(l[1])}</span></li>`).join("")}</ul>`:""}
+      ${c.tip?`<div class="tip"><b>💡</b><span>${TX(c.tip)}</span></div>`:""}
+      <div class="ref">📖 ${L("Buku teks ms.","بوکو تيکس م.س.")} ${c.p}</div>
+      <div class="navr">
+        <button class="btn alt" data-act="rprev" ${S.ri?"":"disabled"} aria-label="${L("Sebelum","سبلوم")}" style="flex:0 0 64px">${BACK()}</button>
+        <button class="btn ${last?"go":""}" data-act="rnext">${last ? "🛶 "+L("Jom berniaga!","جوم برنياڬ!") : L("Seterusnya","ستروسڽ")+" ▶"}</button>
+      </div>
+      <div class="dots">${S.st.read.map((_,i)=>`<i class="${i===S.ri?"on":""}"></i>`).join("")}</div>
+    </article>`;
+  speak(readSpeech(c));
+  window.scrollTo(0,0);
+}
+
+/* ===================== GERAI: MAIN ===================== */
+function progressBar(){
+  const n = S.games.length, k = S.gi, pct = k/n*100, side = isJ() ? "right" : "left";
+  const wps = S.games.map((_,i)=>`<span class="wp" style="${side}:calc(${(i+1)/n*100}% - 10px)"></span>`).join("");
+  return `<div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${k}"><span class="wake" style="width:${pct}%"></span>${wps}
+    <span class="boat" style="${side}:${Math.max(5,Math.min(95,pct))}%">🛶</span></div>`;
+}
+function renderPlay(){
+  hush();
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  const g = S.games[S.gi];
+  app.innerHTML = head() + progressBar() + `<section class="card" id="game" style="--sc:${S.st.c}"></section>`;
+  const box = $("#game");
+  box.innerHTML = `<div class="q"><p>${TX(g.q)}</p>${sayBtn(RU(g.q))}</div><div id="play" data-type="${g.type}"></div><div id="hint"></div>`;
+  GAMES[g.type]($("#play"), g);
+  speak(RU(g.q));
+  window.scrollTo(0,0);
+}
+// salah: kira, goncang, petunjuk
+function oops(el, hint){
+  S.miss++; sfx.no();
+  if(el){ el.classList.remove("shake"); void el.offsetWidth; el.classList.add("shake"); }
+  const h = $("#hint"); if(h){ h.innerHTML = `<div class="hint">🪶 ${hint || L("Hmm, cuba lagi!","همم، چوبا لاڬي!")}</div>`; }
+}
+const clearHint = () => { const h = $("#hint"); if(h) h.innerHTML = ""; };
+const PRAISE = [["Hebat!","هيبت!"],["Bagus!","باڬوس!"],["Pandai!","ڤنداي!"],["Syabas!","شاباس!"],["MasyaAllah!","ماشاءالله!"]];
+function win(){
+  sfx.ok();
+  const g = S.games[S.gi], p = PRAISE[Math.floor(Math.random()*PRAISE.length)];
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  const fb = document.createElement("div"); fb.className = "fb"; fb.setAttribute("role","dialog"); fb.setAttribute("aria-live","polite");
+  fb.innerHTML = `<div class="in"><div class="row1">${bangau("bob")}<div><strong>${T(p)}</strong><p>${TX(g.e)}</p></div></div>
+    <button class="btn go" data-act="next">${L("Seterusnya","ستروسڽ")} ▶</button></div>`;
+  document.body.appendChild(fb);
+  speak(RU(p)+" "+RU(g.e));
+  setTimeout(()=>{ const b = fb.querySelector("button"); if(b) try{ b.focus(); }catch(e){} }, 50);
+}
+function nextGame(){
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  S.gi++;
+  if(S.gi < S.games.length) renderPlay(); else renderResult();
+}
+function renderResult(){
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  const id = S.st.id, stars = starsFor(S.miss), prev = best[id]||0, wasAll = allDone();
+  if(stars > prev){ best[id] = stars; save(KEY, best); }
+  S.res = { stars, first: !prev, openedFinal: id!=="final" && !wasAll && allDone() };
+  drawResult(true);
+}
+function drawResult(fresh){
+  hush();
+  const { stars, first, openedFinal } = S.res, fin = S.st.id==="final";
+  const msg = stars===3 ? (fin ? ["Kamu Saudagar Lughah! Semua gerai sudah ditawan.","کامو سوداڬر لغة! سموا ڬراي سوده دتاون."] : ["Cemerlang! Dagangan hari ini laris.","چمرلڠ! داڬڠن هاري اين لاريس."])
+    : stars===2 ? ["Bagus! Cuba lagi untuk 3 bintang.","باڬوس! چوبا لاڬي اونتوق 3 بينتڠ."] : ["Syabas kerana mencuba! Jom berkayuh lagi.","شاباس کران منچوبا! جوم برکايوه لاڬي."];
+  const title = PRAISE[stars===3?4:stars===2?0:3];
+  app.innerHTML = head() + `<section class="card res" style="--sc:${S.st.c}">
+      ${bangau("bob")}
+      <div class="stars" aria-label="${stars} ${L("bintang","بينتڠ")}">${[1,2,3].map(i=>`<span class="${i<=stars?"":"off"}" style="animation-delay:${i*.25}s">⭐</span>`).join("")}</div>
+      <h2>${T(title)}</h2><p>${T(msg)}</p>
+      ${first ? `<div class="gotst"><span>${S.st.sticker}</span>${L("Barang baharu dalam bakul kamu!","بارڠ بهارو دالم باکول کامو!")}</div>` : ""}
+      ${openedFinal ? `<p><b>🏆 ${L("Jeti Pasar Besar kini dibuka!","جيتي ڤاسر بسر کيني دبوک!")}</b></p>` : ""}
+      <button class="btn go" data-act="map">🛶 ${L("Kembali ke terusan","کمبالي ک تروسن")}</button>
+      <button class="btn alt" style="margin-top:10px" data-act="again">🔁 ${L("Main lagi","ماٴين لاڬي")}</button>
+    </section>`;
+  if(fresh){ sfx.win(); confetti(); speak(RU(title)+" "+RU(msg)); }
+  window.scrollTo(0,0);
+}
+
+/* ===================== PERMAINAN (bahagian 1) ===================== */
+const GAMES = {
+  /* Syiling: baca harga Arab, bayar wang tepat dengan menekan wang kertas */
+  syiling(el, g){
+    let k = 0;
+    const NOTES = [100, 50, 10, 5, 1];
+    const draw = () => {
+      const r = g.rounds[k]; let total = 0;
+      el.innerHTML = `<div class="price" id="price" data-n="${r.n}">🏷️ ${L("Harga","هرڬ")}: <span class="ar" lang="ar">${r.ar}</span> ${L("ringgit","ريڠڬيت")}</div>
+        <div class="till">💰 RM <b id="sum">0</b></div>
+        <div class="notes">${NOTES.map(v=>`<button class="note" data-v="${v}" aria-label="RM ${v}">RM${v}</button>`).join("")}
+          <button class="note clr" data-v="0" aria-label="${L("Kosongkan","کوسوڠکن")}">↺</button></div>
+        <div class="cnt">🧾 ${k+1} / ${g.rounds.length}</div>`;
+      let done = false;
+      el.querySelectorAll(".note").forEach(b => b.addEventListener("click", () => {
+        if(done) return;
+        const v = +b.dataset.v;
+        if(!v){ total = 0; $("#sum").textContent = "0"; sfx.tick(); return; }
+        total += v; sfx.coin(); $("#sum").textContent = total;
+        if(total === r.n){ done = true; clearHint(); k++; setTimeout(()=>{ if(k<g.rounds.length) draw(); else win(); }, 420); }
+        else if(total > r.n){ total = 0; $("#sum").textContent = "0"; oops(b, L("Terlebih bayar! Wang dipulangkan. Baca harga sekali lagi.","ترلبيه باير! واڠ دڤولڠکن. باچ هرڬ سکالي لاڬي.")); }
+      }));
+    };
+    draw();
+  },
+
+  /* Raga: tekan barang, kemudian tekan raga yang betul */
+  raga(el, g){
+    const order = shuffle(g.items.map((_,i)=>i)); let sel = null, left = g.items.length;
+    el.innerHTML = `<div class="wares">${order.map(i=>`<button class="ware" data-i="${i}">${OPT(g.items[i][0])}</button>`).join("")}</div>
+      <div class="ragas">${g.baskets.map((b,bi)=>`<button class="raga" data-b="${bi}">🧺 ${OPT(b)}<div class="in"></div></button>`).join("")}</div>
+      <div class="cnt">${L("Tekan barang, kemudian tekan raganya.","تکن بارڠ، کمودين تکن راڬڽ.")}</div>`;
+    el.querySelectorAll(".ware").forEach(b => b.addEventListener("click", () => {
+      el.querySelectorAll(".ware.sel").forEach(x=>x.classList.remove("sel"));
+      sel = b; b.classList.add("sel"); sfx.tick();
+    }));
+    el.querySelectorAll(".raga").forEach(r => r.addEventListener("click", () => {
+      if(!sel){ toast(L("Pilih satu barang dahulu 🧺","ڤيليه ساتو بارڠ داهولو 🧺")); return; }
+      const it = g.items[+sel.dataset.i];
+      if(it[1] === +r.dataset.b){
+        sfx.splash(); clearHint();
+        r.querySelector(".in").insertAdjacentHTML("beforeend", `<span>${OPT(it[0])}</span>`);
+        sel.classList.remove("sel"); sel.classList.add("used"); sel = null;
+        if(--left===0) setTimeout(win, 300);
+      } else oops(r, L("Bukan raga itu. Fikir semula.","بوکن راڬ ايت. فيکير سمولا."));
+    }));
+  },
+
+  /* Rakit: tekan papan perkataan mengikut susunan untuk membina ayat */
+  rakit(el, g){
+    let k = 0;
+    const draw = () => {
+      const r = g.rounds[k], seq = r.seq || qTokens(r.qk), idx = mix(seq.map((_,i)=>i)); let pos = 0;
+      el.innerHTML = `${r.qk?`<div class="mkline" style="margin-bottom:8px">📖 ${L("Potongan ayat al-Quran","ڤوتوڠن اية القرءان")}</div>`:""}
+        <div class="raft" id="raft" aria-live="polite"></div>
+        <div class="planks">${idx.map(i=>`<button class="plank" data-v="${encodeURIComponent(seq[i])}">${AR(seq[i])}</button>`).join("")}</div>
+        <div class="mkline" style="margin-top:10px">💬 ${TX(r.mk)}</div>
+        <div class="cnt">🪵 ${k+1} / ${g.rounds.length}</div>`;
+      speak(RU(r.mk));
+      el.querySelectorAll(".plank").forEach(b => b.addEventListener("click", () => {
+        if(b.classList.contains("used")) return;
+        const w = decodeURIComponent(b.dataset.v);
+        if(w === seq[pos]){
+          sfx.tick(); clearHint(); b.classList.add("used"); pos++;
+          $("#raft").insertAdjacentHTML("beforeend", `<span>${AR(w)}</span>`);
+          if(pos === seq.length){ sfx.splash(); k++; setTimeout(()=>{ if(k<g.rounds.length) draw(); else win(); }, 450); }
+        } else oops(b, L("Papan itu bukan seterusnya. Baca maksud ayat.","ڤاڤن ايت بوکن ستروسڽ. باچ مقصود اية."));
+      }));
+    };
+    draw();
+  },
+
+  /* Dacing: dua piring timbangan; tekan piring yang betul */
+  dacing(el, g){
+    let k = 0;
+    const draw = () => {
+      const r = g.rounds[k], flip = Math.random() < .5, sides = flip ? [[r.b,0],[r.a,1]] : [[r.a,1],[r.b,0]];
+      el.innerHTML = `<div class="price">⚖️ ${OPT(r.p)}</div>
+        <div class="dacing" id="dac"><span class="post"></span><span class="beam"></span>
+          <div class="pans">${sides.map(([x,ok],i)=>`<button class="opt pan" data-ok="${ok}" data-s="${i}">${OPT(x)}</button>`).join("")}</div></div>
+        <div class="cnt">⚖️ ${k+1} / ${g.rounds.length}</div>`;
+      if(typeof r.p !== "string") speak(RU(r.p));
+      let done = false;
+      el.querySelectorAll(".pan").forEach(b => b.addEventListener("click", () => {
+        if(done) return;
+        if(b.dataset.ok==="1"){
+          done = true; sfx.ok(); clearHint(); b.classList.add("right");
+          $("#dac").classList.add(b.dataset.s==="0" ? (isJ()?"tr":"tl") : (isJ()?"tl":"tr")); k++;
+          setTimeout(()=>{ if(k<g.rounds.length) draw(); else win(); }, 500);
+        } else { b.classList.add("wrong"); oops(b, L("Piring itu tidak tepat. Semak baris dan maknanya.","ڤيريڠ ايت تيدق تڤت. سمق بارس دان معناڽ.")); }
+      }));
+    };
+    draw();
+  },
+
+  /* Jala: pilih SEMUA yang betul, kemudian tarik jala */
+  jala(el, g){
+    let k = 0;
+    const draw = () => {
+      const r = g.rounds[k], order = g.words ? r.items.map((_,i)=>i) : shuffle(r.items.map((_,i)=>i));
+      el.innerHTML = `<div class="mkline" style="margin-bottom:8px">🎣 ${TX(r.ask)}</div>
+        <div class="net" ${g.words?'style="direction:rtl"':""}>${order.map(i=>{ const it = r.items[i];
+          return `<button class="fish" data-i="${i}" data-ok="${it[1]}" aria-pressed="false">${it[2]?`<span class="e" aria-hidden="true">${it[2]}</span>`:""}${OPT(it[0])}</button>`; }).join("")}</div>
+        <button class="btn go" id="pull">🎣 ${L("Tarik Jala","تاريق جالا")}</button>
+        <div class="cnt">🐟 ${k+1} / ${g.rounds.length}</div>`;
+      speak(RU(r.ask));
+      el.querySelectorAll(".fish").forEach(b => b.addEventListener("click", () => {
+        b.classList.toggle("sel"); b.classList.remove("bad"); b.setAttribute("aria-pressed", b.classList.contains("sel")); sfx.tick();
+      }));
+      $("#pull").addEventListener("click", () => {
+        const fs = [...el.querySelectorAll(".fish")], picked = fs.filter(b=>b.classList.contains("sel"));
+        if(!picked.length){ toast(L("Tangkap sekurang-kurangnya satu dahulu 🎣","تڠکڤ سکورڠ-کورڠڽ ساتو داهولو 🎣")); return; }
+        const bad = picked.filter(b=>b.dataset.ok!=="1"), miss = fs.filter(b=>b.dataset.ok==="1" && !b.classList.contains("sel"));
+        if(!bad.length && !miss.length){ sfx.splash(); clearHint(); k++; setTimeout(()=>{ if(k<g.rounds.length) draw(); else win(); }, 350); return; }
+        bad.forEach(b=>{ b.classList.remove("sel"); b.classList.add("bad"); });
+        oops($("#pull"), bad.length ? L("Ada tangkapan yang salah dalam jala. Ia sudah dilepaskan.","اد تڠکڤن يڠ ساله دالم جالا. اي سوده دلڤسکن.") : L("Masih ada yang belum ditangkap!","ماسيه اد يڠ بلوم دتڠکڤ!"));
+      });
+    };
+    draw();
+  },
+
+  /* Galah: isi tempat kosong; sampan melepasi pelampung */
+  galah(el, g){
+    let k = 0;
+    const draw = () => {
+      const r = g.rounds[k], opts = shuffle(r.o.map((x,i)=>({x, ok:i===0}))), parts = r.s.split("___");
+      el.innerHTML = `<div class="buoys">${g.rounds.map((_,i)=>`<i class="${i<k?"on":""}"></i>`).join("")}</div>
+        <div class="lane">${r.em?`<div class="em" aria-hidden="true">${r.em}</div>`:""}<div class="s ar" lang="ar">${parts[0]}<span class="gap" id="gap">؟</span>${parts[1]||""}</div></div>
+        <div class="mkline" style="margin:-4px 0 10px">💬 ${TX(r.mk)}</div>
+        <div class="${opts.length===2?"g2":"g1"}">${opts.map((o,i)=>`<button class="opt" data-i="${i}" data-ok="${o.ok?1:0}">${AR(o.x)}</button>`).join("")}</div>`;
+      speak(RU(r.mk));
+      let done = false;
+      el.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => {
+        if(done) return;
+        const o = opts[+b.dataset.i];
+        if(o.ok){ done = true; sfx.splash(); clearHint(); b.classList.add("right"); $("#gap").textContent = o.x; k++;
+          setTimeout(()=>{ if(k<g.rounds.length) draw(); else win(); }, 420); }
+        else { b.classList.add("wrong"); b.disabled = true; oops(b, L("Perkataan itu tidak sesuai. Baca maksudnya.","ڤرکاتاٴن ايت تيدق سسواي. باچ مقصودڽ.")); }
+      }));
+    };
+    draw();
+  },
+
+  /* Tukar: barter dua lajur (tekan satu kiri, satu kanan) */
+  tukar(el, g){
+    const L1 = shuffle(g.pairs.map((_,i)=>i)); let R1, n = 0, sel = null, left = g.pairs.length;
+    do{ R1 = shuffle(L1); n++; }while(R1.some((x,i)=>x===L1[i]) && n<60); // lajur kanan tidak sebaris
+    el.innerHTML = `<div class="barter"><div class="col">${L1.map(i=>`<button class="tk" data-s="l" data-i="${i}">${OPT(g.pairs[i][0])}</button>`).join("")}</div>
+      <div class="col">${R1.map(i=>`<button class="tk" data-s="r" data-i="${i}">${OPT(g.pairs[i][1])}</button>`).join("")}</div></div>
+      <div class="cnt">🔁 ${L("Tekan satu barang, kemudian pasangannya.","تکن ساتو بارڠ، کمودين ڤاسڠنڽ.")}</div>`;
+    el.querySelectorAll(".tk").forEach(b => b.addEventListener("click", () => {
+      if(b.classList.contains("done")) return;
+      if(!sel || sel.dataset.s===b.dataset.s){
+        el.querySelectorAll(".tk.sel").forEach(x=>x.classList.remove("sel"));
+        sel = b; b.classList.add("sel"); sfx.tick(); return;
+      }
+      if(sel.dataset.i===b.dataset.i){
+        sfx.coin(); clearHint(); sel.classList.remove("sel"); sel.classList.add("done"); b.classList.add("done"); sel = null;
+        if(--left===0) setTimeout(win, 300);
+      } else { sel.classList.remove("sel"); sel = null; oops(b, L("Bukan pasangan itu. Cuba lagi.","بوکن ڤاسڠن ايت. چوبا لاڬي.")); }
+    }));
+  },
+
+  /* Pesanan: pelanggan bercakap, pilih jawapan yang betul */
+  pesanan(el, g){
+    let k = 0;
+    const draw = () => {
+      const r = g.rounds[k], opts = shuffle(r.o.map((x,i)=>({x, ok:i===0})));
+      el.innerHTML = `<div class="chat"><span class="who" aria-hidden="true">${r.who}</span><div class="bubble"><span class="ar" lang="ar">${r.say}</span><small>${TX(r.mk)}</small></div></div>
+        <div class="g1">${opts.map((o,i)=>`<button class="opt" data-i="${i}" data-ok="${o.ok?1:0}">${AR(o.x)}</button>`).join("")}</div>
+        <div class="cnt">🧾 ${k+1} / ${g.rounds.length}</div>`;
+      speak(RU(r.mk));
+      let done = false;
+      el.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => {
+        if(done) return;
+        if(opts[+b.dataset.i].ok){ done = true; sfx.ok(); clearHint(); b.classList.add("right"); k++; setTimeout(()=>{ if(k<g.rounds.length) draw(); else win(); }, 420); }
+        else { b.classList.add("wrong"); b.disabled = true; oops(b, L("Jawapan itu tidak sesuai dengan soalan.","جواڤن ايت تيدق سسواي دڠن سوالن.")); }
+      }));
+    };
+    draw();
+  },
+
+  /* Tapis: buang satu yang lain daripada dulang */
+  tapis(el, g){
+    let k = 0;
+    const draw = () => {
+      const r = g.rounds[k], opts = shuffle(r.o.map((x,i)=>({x, ok:i===0})));
+      el.innerHTML = `<div class="tray">${opts.map((o,i)=>`<button class="opt" data-i="${i}" data-ok="${o.ok?1:0}">${AR(o.x)}</button>`).join("")}</div>
+        <div id="why"></div><div class="cnt">🪣 ${k+1} / ${g.rounds.length}</div>`;
+      let done = false;
+      el.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => {
+        if(done) return;
+        if(opts[+b.dataset.i].ok){ done = true; sfx.splash(); clearHint(); b.classList.add("right");
+          $("#why").innerHTML = `<div class="mkline" style="margin-top:10px">✔️ ${TX(r.why)}</div>`; k++;
+          setTimeout(()=>{ if(k<g.rounds.length) draw(); else win(); }, 900); }
+        else { b.classList.add("wrong"); b.disabled = true; oops(b, L("Yang ini sama kumpulan dengan yang lain. Cari yang berbeza.","يڠ اين سام کومڤولن دڠن يڠ لاٴين. چاري يڠ بربيذا.")); }
+      }));
+    };
+    draw();
+  }
+};
+
+/* ===================== KAWALAN ===================== */
+document.addEventListener("click", e => {
+  const s = e.target.closest("[data-say]");
+  if(s){ speak(decodeURIComponent(s.dataset.say), true); return; }
+  const b = e.target.closest("[data-act]"); if(!b) return;
+  const a = b.dataset.act;
+  if(a==="lang"){ LANG = isJ() ? "rumi" : "jawi"; save("kafa-lang", LANG); applyLang(); redraw(); }
+  else if(a==="voice"){ voiceOn = !voiceOn; save("t5-voice", voiceOn); if(!voiceOn) hush(); redraw(); }
+  else if(a==="open"){ openStation(+b.dataset.id); }
+  else if(a==="locked"){ sfx.no(); toast(L("Gerai ini belum dibuka. Selesaikan gerai sebelumnya 🔒","ڬراي اين بلوم دبوک. سلسايکن ڬراي سبلومڽ 🔒")); }
+  else if(a==="final"){ openFinal(); }
+  else if(a==="flocked"){ sfx.no(); toast(L(`Selesaikan semua ${STATIONS.length} gerai untuk ke Jeti Pasar Besar 🏆`,`سلسايکن سموا ${STATIONS.length} ڬراي اونتوق ک جيتي ڤاسر بسر 🏆`)); }
+  else if(a==="map"){ document.querySelectorAll(".fb").forEach(x=>x.remove()); renderMap(); window.scrollTo(0,0); }
+  else if(a==="rprev"){ if(S.ri>0){ S.ri--; renderRead(); } }
+  else if(a==="rnext"){ if(S.ri < S.st.read.length-1){ S.ri++; renderRead(); } else { S.phase="play"; S.gi=0; S.miss=0; renderPlay(); } }
+  else if(a==="next"){ nextGame(); }
+  else if(a==="again"){ S.res = null; S.st.id==="final" ? openFinal() : (S.gi=0, S.miss=0, S.phase="play", renderPlay()); }
+});
+// lukis semula skrin semasa selepas tukar tulisan/suara (tanpa ulang bunyi kemenangan)
+function redraw(){
+  if(!S) return renderMap();
+  if(S.phase==="read") return renderRead();
+  if(S.res && document.querySelector(".res")) return drawResult(false);
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  renderPlay();
+}
+applyLang();
+renderMap();
+</script>
+</body>
+</html>

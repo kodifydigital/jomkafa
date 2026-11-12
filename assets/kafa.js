@@ -220,6 +220,38 @@ const READY = {
     progress:{ key:"tw5-best", max:33 },
     theme:{ c1:"#5B4BA8", c2:"#1B1F5E", a:"#FFD86B", m:"🔭", deco:"cerap" }
   },
+  "5/arab": {
+    path:"arab/index.html",
+    buku:"https://online.anyflip.com/zdfjg/kvzp/mobile/index.html",
+    r:"Pasar Terapung Lughah", j:"ڤاسر تراڤوڠ لغة",
+    dr:"10 gerai, 9 jenis permainan", dj:"10 ڬراي، 9 جنيس ڤرماٴينن",
+    progress:{ key:"r5-best", max:33 },
+    theme:{ c1:"#0F6E6B", c2:"#08343A", a:"#FFB627", m:"🛶", deco:"terapung" }
+  },
+  "5/hafazan": {
+    path:"hafazan/index.html",
+    buku:"https://online.anyflip.com/dnryu/gowa/mobile/index.html",
+    r:"Rumah Api Hafiz", j:"رومه اڤي حافظ",
+    dr:"4 surah, 9 jenis permainan", dj:"4 سورة، 9 جنيس ڤرماٴينن",
+    progress:{ key:"h5-best", max:24 },
+    theme:{ c1:"#12284A", c2:"#0B1B33", a:"#FFD54A", m:"⚓", deco:"rumahapi" }
+  },
+  "5/sirah": {
+    path:"sirah/index.html",
+    buku:"https://online.anyflip.com/vydoi/bbcr/mobile/index.html",
+    r:"Perpustakaan Sirah", j:"ڤرڤوستاکاٴن سيرة",
+    dr:"9 rak buku, 9 jenis permainan", dj:"9 رق بوکو، 9 جنيس ڤرماٴينن",
+    progress:{ key:"s5-best", max:30 },
+    theme:{ c1:"#8C2F39", c2:"#3E2214", a:"#D4A23C", m:"🐿️", deco:"perpustakaan" }
+  },
+  "5/tajwid": {
+    path:"tajwid/index.html",
+    buku:"https://online.anyflip.com/vydoi/xohr/mobile/index.html",
+    r:"Orkestra Tajwid", j:"اورکيسترا تجويد",
+    dr:"9 seksyen, 8 jenis permainan", dj:"9 سيکسين، 8 جنيس ڤرماٴينن",
+    progress:{ key:"j5t-best", max:30 },
+    theme:{ c1:"#7A1638", c2:"#3A0A1E", a:"#F2B630", m:"🎼", deco:"orkestra" }
+  },
   "3/sirah": {
     buku:"https://online.anyflip.com/vydoi/hpxt/mobile/index.html",
     path:"sirah/index.html",

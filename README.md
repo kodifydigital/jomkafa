@@ -77,6 +77,10 @@ kafa/
 │   ├── feqah/index.html ← Game Kem Pengakap Feqah (Feqah Tahun 4)
 ├── tahun5/
 │   ├── index.html        ← Senarai subjek Tahun 5
+│   ├── tajwid/index.html ← Game Orkestra Tajwid (Tajwid Tahun 5)
+│   ├── sirah/index.html ← Game Perpustakaan Sirah (Sirah Tahun 5)
+│   ├── hafazan/index.html ← Game Rumah Api Hafiz (Hafazan Tahun 5)
+│   ├── arab/index.html ← Game Pasar Terapung Lughah (Bahasa Arab Tahun 5)
 │   ├── tauhid/index.html ← Game Balai Cerap Iman (Tauhid Tahun 5)
 │   ├── feqah/index.html ← Game Stesen Cuaca Feqah (Feqah Tahun 5)
 │   ├── jawi/index.html ← Game Kapal Selam Aksara (Jawi Tahun 5)
