@@ -85,7 +85,12 @@ kafa/
 │   ├── feqah/index.html ← Game Stesen Cuaca Feqah (Feqah Tahun 5)
 │   ├── jawi/index.html ← Game Kapal Selam Aksara (Jawi Tahun 5)
 │   ├── akhlak/index.html ← Game Studio Rakaman Adab (Akhlak Tahun 5)
-└── tahun6/index.html
+└── tahun6/
+    ├── index.html        ← Senarai subjek Tahun 6
+    ├── akhlak/index.html ← Game Bandar Pintar Adab (Akhlak Tahun 6)
+    ├── jawi/index.html   ← Game Kilang Akhbar Jawi (Jawi Tahun 6)
+    ├── feqah/index.html  ← Game Pelabuhan Feqah (Feqah Tahun 6)
+    └── tauhid/index.html ← Game Gua Kristal Iman (Tauhid Tahun 6)
 ```
 
 ## Cara tambah subjek baharu (contoh: Hafazan Tahun 3)

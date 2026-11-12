@@ -252,6 +252,38 @@ const READY = {
     progress:{ key:"j5t-best", max:30 },
     theme:{ c1:"#7A1638", c2:"#3A0A1E", a:"#F2B630", m:"🎼", deco:"orkestra" }
   },
+  "6/akhlak": {
+    path:"akhlak/index.html",
+    buku:"https://online.anyflip.com/lzrtd/yqfb/mobile/index.html",
+    r:"Bandar Pintar Adab", j:"بندر ڤينتر ادب",
+    dr:"10 stesen, 8 jenis permainan", dj:"10 ستيسين، 8 جنيس ڤرماٴينن",
+    progress:{ key:"a6-best", max:33 },
+    theme:{ c1:"#0B3B5C", c2:"#00B3A6", a:"#9BE22E", m:"🦔", deco:"bandarpintar" }
+  },
+  "6/jawi": {
+    path:"jawi/index.html",
+    buku:"https://online.anyflip.com/lzrtd/hfff/mobile/index.html",
+    r:"Kilang Akhbar Jawi", j:"کيلڠ اخبار جاوي",
+    dr:"8 stesen, 8 jenis permainan", dj:"8 ستيسين، 8 جنيس ڤرماٴينن",
+    progress:{ key:"j6-best", max:27 },
+    theme:{ c1:"#1B1B1F", c2:"#C8102E", a:"#F2B705", m:"📰", deco:"akhbar" }
+  },
+  "6/feqah": {
+    path:"feqah/index.html",
+    buku:"https://online.anyflip.com/lzrtd/kcsj/mobile/index.html",
+    r:"Pelabuhan Feqah", j:"ڤلابوهن فقه",
+    dr:"9 dermaga, 7 jenis permainan", dj:"9 درماڬ، 7 جنيس ڤرماٴينن",
+    progress:{ key:"f6-best", max:30 },
+    theme:{ c1:"#0B4F6C", c2:"#F26B1D", a:"#FFC43D", m:"🦀", deco:"pelabuhan" }
+  },
+  "6/tauhid": {
+    path:"tauhid/index.html",
+    buku:"https://online.anyflip.com/nyrmv/ugek/mobile/index.html",
+    r:"Gua Kristal Iman", j:"ڬوا کريستل ايمان",
+    dr:"8 stesen, 9 jenis permainan", dj:"8 ستيسين، 9 جنيس ڤرماٴينن",
+    progress:{ key:"tw6-best", max:27 },
+    theme:{ c1:"#2E1F57", c2:"#2FD3E0", a:"#FFB547", m:"🦇", deco:"gua" }
+  },
   "3/sirah": {
     buku:"https://online.anyflip.com/vydoi/hpxt/mobile/index.html",
     path:"sirah/index.html",

@@ -1,0 +1,1045 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1B1B1F">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" type="image/png" href="/icons/favicon.png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="JOM KAFA">
+<script src="/assets/pwa.js"></script>
+<script src="/assets/config.js"></script>
+<script src="/assets/access.js"></script>
+<title>Kilang Akhbar Jawi • Jawi Tahun 6</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Nunito:wght@600;700;800&family=Noto+Naskh+Arabic:wght@500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ===== Jawi Tahun 6: "Kilang Akhbar Jawi" — bilik berita, atur huruf, mesin cetak, van edaran ===== */
+:root{
+  --bg1:#EFE6CF; --bg2:#E2D5B5; --paper:#FBF6E9; --paper2:#F3EAD3; --ink:#1B1B1F; --muted:#5D574A;
+  --line:#1B1B1F; --red:#C8102E; --red2:#8E0B21; --mus:#F2B705; --teal:#1D7874; --blue:#2D5DA1;
+  --ok:#1E8A4C; --okbg:#DDF5E5; --bad:#C8102E; --badbg:#FBE0E3; --note:#FFF2B8; --grid:rgba(27,27,31,.07);
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg1:#1A1914; --bg2:#0F0E0B; --paper:#26241D; --paper2:#302D24; --ink:#F3EBD8; --muted:#BDB39C;
+    --line:#E9DFC6; --okbg:#173A26; --badbg:#47161E; --note:#3D3515; --grid:rgba(243,235,216,.06); color-scheme:dark;
+  }
+}
+*,*::before,*::after{box-sizing:inherit}
+html,body{margin:0;min-height:100%}
+body{font-family:"Nunito","Noto Naskh Arabic",system-ui,sans-serif;color:var(--ink);font-weight:700;overflow-x:hidden;
+  background:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 26px),
+    linear-gradient(180deg,var(--bg1),var(--bg2)) fixed}
+[dir=rtl] body{font-family:"Noto Naskh Arabic","Nunito",serif}
+h1,h2,h3,.ttl{font-family:"Alfa Slab One","Nunito",serif;font-weight:400;margin:0;line-height:1.2}
+[dir=rtl] h1,[dir=rtl] h2,[dir=rtl] h3{font-family:"Noto Naskh Arabic",serif;font-weight:700}
+.jw,.ar{font-family:"Noto Naskh Arabic","Amiri",serif;direction:rtl;unicode-bidi:isolate;font-weight:600}
+.ar{font-family:"Amiri","Noto Naskh Arabic",serif}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.wrap{max-width:520px;margin:0 auto;padding:10px 14px 90px;position:relative;z-index:1}
+.top{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.sp{flex:1}
+.ib{min-width:48px;height:48px;border-radius:10px;border:3px solid var(--line);background:var(--paper);display:inline-flex;align-items:center;justify-content:center;font-size:20px;text-decoration:none;color:var(--ink);padding:0 10px;box-shadow:3px 3px 0 var(--line)}
+.ib:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--line)}
+.pill{background:var(--paper);border:3px solid var(--line);border-radius:8px;padding:8px 12px;font-weight:800;box-shadow:3px 3px 0 var(--line)}
+/* masthead */
+.mast{background:var(--paper);border:3px solid var(--line);box-shadow:5px 5px 0 var(--line);padding:10px 12px 12px;position:relative}
+.mast .rule{border-top:3px double var(--line);border-bottom:1px solid var(--line);height:6px;margin:6px 0}
+.mast h1{font-size:clamp(22px,7vw,30px);text-align:center;letter-spacing:.5px;color:var(--ink)}
+.mast h1 b{color:var(--red);font-weight:400}
+.mast .ed{display:flex;justify-content:space-between;gap:6px;font-size:12px;color:var(--muted);font-family:Nunito,sans-serif;flex-wrap:wrap}
+.mast .lead{display:flex;gap:10px;align-items:center;margin-top:8px}
+.mast .lead p{margin:0;font-size:15px;line-height:1.55}
+.pel{width:96px;height:96px;flex:0 0 auto}
+.bob{animation:bob 2.6s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-5px) rotate(-2deg)}}
+.yay{animation:yay .7s ease-in-out 3}
+@keyframes yay{50%{transform:scale(1.1) rotate(5deg)}}
+.sttl{margin:16px 2px 6px;font-size:15px;display:inline-block;background:var(--ink);color:var(--paper);padding:4px 12px;border-radius:4px}
+.stickers{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:4px;background:var(--paper);border:2px dashed var(--line);border-radius:8px;padding:8px}
+.stickers span{font-size:26px;text-align:center;filter:grayscale(1) opacity(.3)}
+.stickers span.got{filter:none;animation:yay .6s}
+/* ---------- peta: barisan pengeluaran akhbar ---------- */
+.line{position:relative;margin-top:16px;padding:4px 0 10px}
+.line::before{content:"";position:absolute;inset-inline-start:50%;top:10px;bottom:120px;width:14px;transform:translateX(-50%);
+  background:repeating-linear-gradient(180deg,var(--paper) 0 10px,var(--paper2) 10px 12px);border-inline:2px solid var(--line);opacity:.9}
+[dir=rtl] .line::before{transform:translateX(50%)}
+.zone{position:relative;z-index:1;text-align:center;margin:18px 0 6px}
+.zone span{display:inline-block;background:var(--red);color:#fff;border:3px solid var(--line);padding:5px 14px;font-size:14px;box-shadow:3px 3px 0 var(--line);transform:rotate(-1.5deg)}
+.row{display:flex;margin:14px 0;position:relative;z-index:1}
+.row.l{justify-content:flex-start}.row.r{justify-content:flex-end}
+.node{width:72%;min-height:92px;display:flex;align-items:center;gap:10px;padding:10px;border:3px solid var(--line);background:var(--paper);box-shadow:4px 4px 0 var(--line);text-align:start;position:relative;border-radius:4px}
+.node:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--line)}
+.node::after{content:"";position:absolute;inset:5px;border:1px solid var(--grid);pointer-events:none}
+.plate{flex:0 0 60px;height:60px;display:grid;place-items:center;font-size:30px;background:var(--c);border:3px solid var(--line);border-radius:6px;position:relative;box-shadow:inset 0 -6px 0 rgba(0,0,0,.18)}
+.plate .num{position:absolute;top:-10px;inset-inline-end:-10px;background:var(--mus);color:#1B1B1F;border:2px solid var(--line);border-radius:4px;min-width:26px;height:24px;font-size:12px;display:grid;place-items:center;font-family:Nunito,sans-serif;font-weight:800;padding:0 3px}
+.ninfo{min-width:0;display:flex;flex-direction:column;gap:2px}
+.nm{font-size:15px;line-height:1.35;overflow-wrap:anywhere}
+.pg{font-size:12px;color:var(--muted);font-family:Nunito,sans-serif;direction:ltr;unicode-bidi:isolate;text-align:start}
+.st{font-size:13px;letter-spacing:-2px}
+.st .off{filter:grayscale(1) opacity(.35)}
+.stamp{position:absolute;bottom:6px;inset-inline-end:8px;font-family:"Alfa Slab One",serif;font-size:11px;color:var(--red);border:2px solid var(--red);padding:0 5px;transform:rotate(-10deg);opacity:.85;background:var(--paper)}
+.node.lock{opacity:1;filter:saturate(.35) brightness(.95)}.node.lock .plate{filter:grayscale(.9)}
+.node.lock .plate::after{content:"🔒";position:absolute;font-size:18px;bottom:-8px;inset-inline-start:-8px}
+.node.now{outline:4px solid var(--mus);outline-offset:2px}
+.pen{position:absolute;top:-26px;inset-inline-start:-4px;font-size:26px;animation:bob 2s ease-in-out infinite}
+.dock{margin-top:22px;text-align:center;position:relative;z-index:1}
+.node.final{width:100%;justify-content:center;background:linear-gradient(135deg,#1B1B1F,#3A1218);color:#FBF6E9;border-color:var(--mus);box-shadow:5px 5px 0 var(--red)}
+.node.final .plate{background:var(--mus);animation:glow 2s ease-in-out infinite}
+@keyframes glow{50%{box-shadow:inset 0 -6px 0 rgba(0,0,0,.18),0 0 18px var(--mus)}}
+.node.final .pg{color:#F2D98A}
+.road{margin-top:10px;height:22px;background:repeating-linear-gradient(90deg,var(--mus) 0 22px,transparent 22px 40px) center/100% 4px no-repeat,#3A3A40;border-radius:6px;border:2px solid var(--line)}
+.foot{margin-top:8px;font-size:14px;color:var(--muted)}
+</style>
+<style>
+/* ---------- skrin stesen ---------- */
+.shead{display:flex;align-items:center;gap:10px;margin:4px 0 10px;background:var(--paper);border:3px solid var(--line);box-shadow:4px 4px 0 var(--line);padding:8px 10px}
+.shead .plate{flex:0 0 52px;height:52px;font-size:26px}
+.shead h2{font-size:19px;line-height:1.3}
+.shead small{color:var(--muted);font-size:13px}
+.card{background:var(--paper);border:3px solid var(--line);box-shadow:5px 5px 0 var(--line);padding:14px;position:relative}
+.rpic{font-size:46px;text-align:center;line-height:1.1}
+.rh{font-size:20px;display:flex;align-items:center;gap:8px;justify-content:space-between;margin:6px 0;border-bottom:3px double var(--line);padding-bottom:6px}
+.rtext{font-size:17px;line-height:1.8;margin:8px 0}
+.exs{display:flex;flex-direction:column;gap:6px;margin:8px 0}
+.ex{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--paper2);border:2px solid var(--line);border-radius:4px;padding:6px 10px}
+.wd{display:inline-flex;flex-direction:column;align-items:center;line-height:1.15}
+.wd .jw{font-size:24px}
+.wd small{font-size:13px;color:var(--muted);font-family:Nunito,sans-serif;direction:ltr}
+.hz{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.hz button{min-width:54px;height:54px;border:3px solid var(--line);background:var(--mus);color:#1B1B1F;border-radius:6px;font-size:28px;box-shadow:3px 3px 0 var(--line)}
+.tip{display:flex;gap:8px;background:var(--note);border:2px dashed var(--line);border-radius:4px;padding:8px 10px;margin:10px 0;font-size:15px;line-height:1.7}
+.ref{font-size:13px;color:var(--muted);margin-top:8px}
+.navr{display:flex;gap:10px;margin-top:12px}
+.btn{flex:1;min-height:54px;border:3px solid var(--line);background:var(--paper2);border-radius:6px;font-size:17px;font-weight:800;box-shadow:4px 4px 0 var(--line);padding:8px 12px}
+.btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--line)}
+.btn.go{background:var(--red);color:#fff;width:100%}
+.btn.alt{background:var(--paper)}
+.btn[disabled]{opacity:.4}
+.dots{display:flex;gap:6px;justify-content:center;margin-top:10px}
+.dots i{width:10px;height:10px;border-radius:2px;background:var(--grid);border:2px solid var(--line)}
+.dots i.on{background:var(--red)}
+.say{min-width:44px;height:44px;border:2px solid var(--line);border-radius:6px;background:var(--mus);color:#1B1B1F;font-size:18px;flex:0 0 auto}
+/* bar kemajuan: gulungan kertas */
+.feed{position:relative;height:20px;margin:0 0 12px;background:var(--paper2);border:3px solid var(--line);border-radius:4px;overflow:visible}
+.feed i{position:absolute;inset-block:0;inset-inline-start:0;background:repeating-linear-gradient(90deg,var(--ink) 0 3px,transparent 3px 7px);opacity:.25}
+.feed span{position:absolute;top:-12px;font-size:24px;transform:translateX(-50%)}
+[dir=rtl] .feed span{transform:translateX(50%)}
+.q{display:flex;gap:8px;align-items:flex-start;justify-content:space-between;margin-bottom:10px}
+.q p{margin:0;font-size:17px;line-height:1.6}
+.hint .x,.hint{margin-top:10px}
+.hint{background:var(--badbg);border:2px solid var(--bad);border-radius:4px;padding:8px 10px;font-size:15px;line-height:1.6}
+.shake{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.rnd{font-size:13px;color:var(--muted);margin-bottom:6px;font-family:Nunito,sans-serif}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.g1{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+.opt{min-width:0;overflow-wrap:anywhere;min-height:58px;border:3px solid var(--line);background:var(--paper2);border-radius:6px;box-shadow:3px 3px 0 var(--line);padding:8px;font-size:16px}
+.opt .jw{font-size:24px}
+.opt:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--line)}
+.opt.good,.good{background:var(--okbg)!important;border-color:var(--ok)!important}
+.opt.bad{background:var(--badbg)}
+.sel{outline:4px solid var(--mus);outline-offset:1px}
+/* tajuk: akhbar */
+.news{background:var(--paper2);border:2px solid var(--line);padding:10px;margin-bottom:12px}
+.news .hd{display:block;font-family:"Alfa Slab One",serif;font-size:12px;color:var(--red);letter-spacing:1px;border-bottom:2px solid var(--line);margin-bottom:6px}
+.news .jw{font-size:22px;line-height:1.9;display:block}
+.news .ru{font-size:14px;color:var(--muted);display:block;margin-top:4px;direction:ltr;text-align:left}
+.news mark{background:var(--mus);color:#1B1B1F;padding:0 4px;border-radius:3px}
+.stick.good{background:var(--ok)}
+.blank{display:inline-block;min-width:70px;border-bottom:3px dashed var(--red);color:var(--red)}
+/* timah: atur huruf */
+.stick{min-height:70px;background:#3A3A40;border:3px solid var(--line);border-radius:6px;display:flex;align-items:center;justify-content:center;padding:8px;margin-bottom:12px}
+#built{font-size:34px;color:#FBF6E9;min-height:44px}
+.tray{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.tl{min-width:56px;height:60px;border:3px solid var(--line);border-radius:4px;background:linear-gradient(180deg,#C9CED6,#9AA1AC);color:#1B1B1F;font-size:26px;box-shadow:3px 3px 0 var(--line);padding:0 10px}
+.tl.used{visibility:hidden}
+/* semakpruf */
+.proof{background:var(--paper2);border:2px solid var(--line);padding:12px;line-height:2.4;font-size:22px;direction:rtl;text-align:right}
+.tok{border:none;background:none;padding:2px 4px;margin:0 1px;border-radius:4px;font-size:22px;font-family:"Noto Naskh Arabic",serif}
+.tok:active{background:var(--note)}
+.tok.fixd{color:var(--ok);text-decoration:underline wavy var(--ok)}
+.tok.miss{text-decoration:line-through var(--red);color:var(--red)}
+/* kolum, edar */
+.cols{display:grid;gap:8px;margin-top:12px}
+.col{min-width:0;min-height:96px;border:3px solid var(--line);background:var(--paper2);border-radius:4px;padding:6px;display:flex;flex-direction:column;gap:4px;align-items:stretch;box-shadow:3px 3px 0 var(--line)}
+.col h4{margin:0 0 4px;font-size:14px;text-align:center;border-bottom:2px solid var(--line);padding-bottom:4px;overflow-wrap:anywhere}
+.col .in{font-size:18px;background:var(--okbg);border-radius:4px;padding:2px 4px;text-align:center}
+.cards{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.ck,.pp{min-width:0;border:3px solid var(--line);background:var(--paper);border-radius:4px;padding:6px 10px;box-shadow:3px 3px 0 var(--line);font-size:22px}
+.ck.done,.pp.done{display:none}
+.houses{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
+.hs{min-width:0;overflow-wrap:anywhere;border:3px solid var(--line);border-radius:4px;background:var(--paper2);padding:24px 6px 8px;position:relative;font-size:15px;box-shadow:3px 3px 0 var(--line);min-height:70px}
+.hs::before{content:"🏠";position:absolute;top:-4px;inset-inline-start:6px;font-size:20px}
+.hs.done{background:var(--okbg)}
+.van{font-size:30px;text-align:center}
+/* mesin cetak */
+.plates{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.pl{min-width:0;overflow-wrap:anywhere;min-height:62px;border:3px solid var(--line);border-radius:4px;background:linear-gradient(180deg,#E6E9EE,#C3C9D2);color:#1B1B1F;box-shadow:3px 3px 0 var(--line);font-size:16px;padding:6px}
+.pl .jw{font-size:22px}
+.pl.on{background:var(--mus)}
+.lever{margin-top:14px}
+/* hasil */
+.res{text-align:center}
+.res .pel{width:120px;height:120px}
+.stars{font-size:42px;margin:6px 0}
+.stars span{display:inline-block;animation:pop .5s both}
+.stars .off{filter:grayscale(1) opacity(.3)}
+@keyframes pop{from{transform:scale(0)}}
+.gotst{background:var(--note);border:2px dashed var(--line);padding:8px;margin:10px 0;display:flex;align-items:center;gap:10px;justify-content:center}
+.gotst span{font-size:36px}
+.fb{position:fixed;inset-inline:0;bottom:0;z-index:20;background:var(--paper);border-top:4px solid var(--line);box-shadow:0 -6px 0 var(--red);padding:12px 14px calc(14px + env(safe-area-inset-bottom,0px));animation:up .25s}
+.fb .in{max-width:520px;margin:0 auto}
+.fb .row1{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.fb .pel{width:64px;height:64px}
+.fb strong{font-size:20px;color:var(--ok)}
+.fb p{margin:2px 0 0;font-size:15px;line-height:1.6}
+@keyframes up{from{transform:translateY(100%)}}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:6px;z-index:30;max-width:90vw;text-align:center}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:40;overflow:hidden}
+.confetti span{position:absolute;top:-40px;font-size:24px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<main class="wrap" id="app"></main>
+<script>
+
+/* ===================== KANDUNGAN (Buku Teks Jawi Tahun 6; ms. = muka surat bercetak, fail pN = ms.(N-8)) ===================== */
+const STATIONS = [];
+const ZONES = { 1:["Bilik Berita","بيليق بريتا"], 3:["Meja Atur Huruf","ميجا اتور حروف"], 5:["Bilik Semak Pruf","بيليق سمق ڤروف"], 7:["Mesin Cetak","ميسين چيتق"] };
+
+/* ---------- Stesen 1: Homograf ---------- */
+STATIONS.push({ id:1, c:"#F7D35E", icon:"👓", sticker:"📰", pg:"ms. 2–8",
+  t:["Homograf","هوموڬرف"], u:["Pelajaran 1 • Unit 1","ڤلاجرن 1 • اونيت 1"],
+  read:[
+    { pic:"📰👓", h:["Apa itu homograf?","اڤ ايت هوموڬرف؟"],
+      text:["Homograf ialah pasangan kata yang sama ejaan tetapi berlainan makna.","هوموڬرف اياله ڤاسڠن كات يڠ سام ايجاٴن تتاڤي برلاٴينن معنا."],
+      tip:["Homograf ada dua kumpulan: homograf pada kata dasar dan homograf pada kata berimbuhan.","هوموڬرف اد دوا كومڤولن: هوموڬرف ڤد كات داسر دان هوموڬرف ڤد كات برايمبوهن."], p:"2" },
+    { pic:"🔤", h:["Homograf kata dasar","هوموڬرف ڤد كات داسر"],
+      text:["Vokal 'i' dan 'e' taling dilambangkan dengan huruf ي. Vokal 'u' dan 'o' dilambangkan dengan huruf و.","ۏوكل 'i' دان 'e' تاليڠ دلمبڠكن دڠن حروف ي. ۏوكل 'u' دان 'o' دلمبڠكن دڠن حروف و."],
+      hz:["ي","و"], ex:[["bela / bila","بيلا"],["sesi / sisi","سيسي"],["pola / pula","ڤولا"],["biro / biru","بيرو"]], p:"3–4" },
+    { pic:"🧩", h:["Homograf kata berimbuhan","هوموڬرف ڤد كات برايمبوهن"],
+      text:["Vokal e pepet di tengah kata tidak dilambangkan, maka kata dasar dan kata berimbuhan boleh dieja sama.","ۏوكل e ڤڤت دتڠه كات تيدق دلمبڠكن، مک كات داسر دان كات برايمبوهن بوليه دايجا سام."],
+      ex:[["markah / merekah","مركه"],["mantap / menetap","منتڤ"],["dahulu / dihulu","دهولو"]],
+      hz:["د"], tip:["Imbuhan 'di' ditulis dengan huruf د sahaja. Maka dihulu dieja دهولو, sama seperti dahulu.","ايمبوهن 'di' دتوليس دڠن حروف د سهاج. مک dihulu دايجا دهولو، سام سڤرتي dahulu."], p:"5" },
+    { pic:"🗞️", h:["Baca ikut ayat","باچ ايكوت ايات"],
+      text:["Makna homograf ditentukan oleh ayat. Baca seluruh ayat dahulu.","معنا هوموڬرف دتنتوكن اوليه ايات. باچ سلوروه ايات دهولو."],
+      ss:[["Warna biru dalam Jalur Gemilang melambangkan perpaduan rakyat.","ورنا بيرو دالم جالور ڬميلڠ ملامبڠكن ڤرڤادوان رعيت."],
+          ["Tanah sawah itu merekah akibat cuaca panas berpanjangan.","تانه ساوه ايت مركه عاقبة چواچ ڤانس برڤنجڠن."]], p:"6" }
+  ],
+  games:[
+    { type:"wartawan", q:["Pak Pelikan menemu bual kamu. Bagaimanakah kata berwarna dibaca dalam ayat ini?","ڤق ڤليکن منمو بوال كامو. باڬايماناكه كات برورنا دباچ دالم ايات اين؟"],
+      e:["Homograf dibaca mengikut makna ayat.","هوموڬرف دباچ مڠيكوت معنا ايات."],
+      rounds:[
+        { s:"ورنا بيرو دالم جالور ڬميلڠ ملامبڠكن ڤرڤادوان رعيت.", hl:"بيرو", o:["biru","biro"] },
+        { s:"بيرو سوسيال دان ريكرياسي تله مڠنجوركن اكتيۏيتي درما داره دان ڤمريقساٴن كصيحتن اساس سمڤنا سمبوتن هاري مليسيا.", hl:"بيرو", o:["biro","biru"] },
+        { s:"دالم ڤڤريقساٴن، نظرين ممڤراوليه مركه يڠ ترتيڠڬي باڬي مات ڤلاجرن ماتماتيک دان ساٴينس.", hl:"مركه", o:["markah","merekah"] },
+        { s:"تانه ساوه ايت مركه عاقبة چواچ ڤانس برڤنجڠن.", hl:"مركه", o:["merekah","markah"] } ] },
+    { type:"edar", q:["Hantar akhbar! Tekan akhbar Jawi, kemudian rumah yang menulis dua bacaannya.","هانتر اخبار! تكن اخبار جاوي، كمودين رومه يڠ منوليس دوا باچاٴنڽ."],
+      e:["Satu ejaan Jawi, dua bacaan Rumi: itulah homograf.","ساتو ايجاٴن جاوي، دوا باچاٴن رومي: ايتوله هوموڬرف."],
+      pairs:[["بيلا","bela / bila"],["سيسي","sesi / sisi"],["ڤولا","pola / pula"],["مركه","markah / merekah"],["دهولو","dahulu / dihulu"],["منتڤ","mantap / menetap"]] },
+    { type:"kolum", q:["Susun ke lajur akhbar: homograf ini menggunakan huruf ي atau و?","سوسون ك لاجور اخبار: هوموڬرف اين مڠڬوناكن حروف ي اتاو و؟"],
+      e:["ي untuk vokal i dan e taling; و untuk vokal u dan o.","ي اونتوق ۏوكل i دان e تاليڠ؛ و اونتوق ۏوكل u دان o."],
+      cols:[["Huruf ي (i / e)","حروف ي (i / e)"],["Huruf و (u / o)","حروف و (u / o)"]],
+      items:[["بيلا",0,"bela / bila"],["سيسي",0,"sesi / sisi"],["بيليق",0,"belek / bilik"],["ڤولا",1,"pola / pula"],["بيرو",1,"biro / biru"],["سوروت",1,"surut / sorot"]] },
+    { type:"tajuk", q:["Lengkapkan tajuk berita dengan homograf yang sesuai.","لڠکڤکن تاجوق بريتا دڠن هوموڬرف يڠ سسواي."],
+      e:["Pilih homograf yang maknanya sesuai dengan ayat.","ڤيليه هوموڬرف يڠ معناڽ سسواي دڠن ايات."],
+      rounds:[
+        { s:["Warna ___ dalam Jalur Gemilang melambangkan perpaduan rakyat.","ورنا ___ دالم جالور ڬميلڠ ملامبڠكن ڤرڤادوان رعيت."], o:["بيرو","ڤولا","سيسي","مركه"] },
+        { s:["Tanah sawah itu ___ akibat cuaca panas berpanjangan.","تانه ساوه ايت ___ عاقبة چواچ ڤانس برڤنجڠن."], o:["مركه","منتڤ","دهولو","بيلا"] },
+        { s:["Nazrin memperoleh ___ yang tertinggi bagi mata pelajaran Matematik dan Sains.","نظرين ممڤراوليه ___ يڠ ترتيڠڬي باڬي مات ڤلاجرن ماتماتيک دان ساٴينس."], o:["مركه","بيرو","ڤولا","سيسي"] } ] },
+    { type:"timah", q:["Atur huruf timah: bina ejaan Jawi bagi 'markah'. Ingat, vokal e pepet tidak ditulis!","اتور حروف تيمه: بينا ايجاٴن جاوي باڬي 'markah'. ايڠت، ۏوكل e ڤڤت تيدق دتوليس!"],
+      e:["مركه dibaca markah atau merekah.","مركه دباچ markah اتاو merekah."], w:["markah","مركه"], parts:["م","ر","ك","ه"], extra:["ا","ي"], join:"" },
+    { type:"timah", q:["Atur huruf timah untuk 'dihulu'. Imbuhan 'di' ditulis dengan huruf د sahaja.","اتور حروف تيمه اونتوق 'dihulu'. ايمبوهن 'di' دتوليس دڠن حروف د سهاج."],
+      e:["دهولو dibaca dahulu atau dihulu.","دهولو دباچ dahulu اتاو dihulu."], w:["dihulu","دهولو"], parts:["د","ه","و","ل","و"], extra:["ي","ا"], join:"" }
+  ]
+});
+
+/* ---------- Stesen 2: Kaedah Alif Pembeza ---------- */
+STATIONS.push({ id:2, c:"#9EC5F0", icon:"✏️", sticker:"✒️", pg:"ms. 10–18",
+  t:["Kaedah Alif Pembeza","قاعده اليف ڤمبيذا"], u:["Pelajaran 1 • Unit 2","ڤلاجرن 1 • اونيت 2"],
+  read:[
+    { pic:"🅰️✏️", h:["Alif pembeza","اليف ڤمبيذا"],
+      text:["Huruf alif pembeza digunakan bagi membezakan dua perkataan yang berlainan makna untuk mengelak daripada timbul kekeliruan dan mengurangkan homograf.","حروف اليف ڤمبيذا دڬوناكن باڬي ممبيذاكن دوا ڤركاتاٴن يڠ برلاٴينن معنا اونتوق مڠيلق درڤد تيمبول ككليروان دان مڠوروڠكن هوموڬرف."],
+      hz:["ا"], ss:[["Sesiapa yang sudah siap latihan boleh hantar sekarang.","سسياڤا يڠ سوده سياڤ لاتيهن بوليه هانتر سکارڠ."]], p:"10" },
+    { pic:"🏘️", h:["Alif di tengah suku kata","اليف دتڠه سوكو كات"],
+      text:["Bagi mengelakkan kekeliruan, huruf alif dikekalkan pada suku kata tertutup vokal 'a'.","باڬي مڠيلقكن ككليروان، حروف اليف دككلكن ڤد سوكو كات ترتوتوڤ ۏوكل 'a'."],
+      ex:[[["rancang","رانچڠ"],["rencang","رنچڠ"]],[["kampung","كامڤوڠ"],["kempung","كمڤوڠ"]],[["pantas","ڤانتس"],["pentas","ڤنتس"]],[["bandar","باندر"],["bendar","بندر"]],[["hantar","هانتر"],["hentar","هنتر"]]], p:"11–12" },
+    { pic:"🐊", h:["Alif di akhir kata","اليف داخير كات"],
+      text:["Huruf alif di akhir suku kata dikekalkan untuk mengelakkan kekeliruan. Contohnya biasa dieja بياسا, bukan بياس (bias).","حروف اليف داخير سوكو كات دككلكن اونتوق مڠيلقكن ككليروان. چونتوهڽ biasa دايجا بياسا، بوكن بياس (bias)."],
+      ex:[[["puas","ڤواس"],["puasa","ڤواسا"]],[["buai","بواي"],["buaya","بوايا"]],[["budai","بوداي"],["budaya","بودايا"]],[["supai","سوڤاي"],["supaya","سوڤايا"]]], p:"13" },
+    { pic:"🌻", h:["Kata berakhir 'ka' dan 'ga'","كات براخير 'ka' دان 'ga'"],
+      text:["Alif dikekalkan pada akhir kata 'ka' atau 'ga' apabila ada perkataan lain yang mempunyai ejaan yang sama. Contohnya بيڬا (bega) supaya tidak sama dengan بيڬ (beg).","اليف دككلكن ڤد اخير كات 'ka' اتاو 'ga' اڤابيلا اد ڤركاتاٴن لاٴين يڠ ممڤوڽاٴي ايجاٴن يڠ سام. چونتوهڽ بيڬا (bega) سوڤايا تيدق سام دڠن بيڬ (beg)."],
+      hz:["ک","ڬ"], ex:[[["beg","بيڬ"],["bega","بيڬا"]],[["pek","ڤيک"],["peka","ڤيکا"]],[["tiga","تيڬ"],["tega","تيڬا"]],[["cek","چيک"],["cika","چيکا"]]],
+      tip:["Perkataan homograf yang dibezakan dengan huruf alif sudah tidak menjadi homograf lagi.","ڤركاتاٴن هوموڬرف يڠ دبيذاكن دڠن حروف اليف سوده تيدق منجادي هوموڬرف لاڬي."], p:"14, 18" }
+  ],
+  games:[
+    { type:"edar", q:["Hantar akhbar ke rumah yang betul. Perhatikan huruf alif!","هانتر اخبار ك رومه يڠ بتول. ڤرهاتيكن حروف اليف!"],
+      e:["Ada alif = vokal 'a'. Tiada alif = vokal 'e'.","اد اليف = ۏوكل 'a'. تياد اليف = ۏوكل 'e'."],
+      pairs:[["كامڤوڠ","kampung"],["كمڤوڠ","kempung"],["ڤانتس","pantas"],["ڤنتس","pentas"],["باندر","bandar"],["بندر","bendar"]] },
+    { type:"wartawan", q:["Wartawan bertanya: bagaimanakah perkataan ini dibaca?","ورتاوان برتاڽ: باڬايماناكه ڤركاتاٴن اين دباچ؟"],
+      e:["Alif di akhir kata membezakan beg dengan bega, tiga dengan tega.","اليف داخير كات ممبيذاكن beg دڠن bega، tiga دڠن tega."],
+      rounds:[ { s:"بيڬا", o:["bega","beg","baga"] }, { s:"تيڬ", o:["tiga","tega","tag"] }, { s:"چيکا", o:["cika","cek","cuka"] }, { s:"ڤيک", o:["pek","peka","puk"] } ] },
+    { type:"tajuk", q:["Lengkapkan tajuk berita. Ada alif atau tiada?","لڠکڤکن تاجوق بريتا. اد اليف اتاو تياد؟"],
+      e:["membanci = ممبانچي, membenci = ممبنچي; karya = كاريا, keria = كريا.","membanci = ممبانچي، membenci = ممبنچي؛ karya = كاريا، keria = كريا."],
+      rounds:[
+        { s:["Kerajaan sedang ___ jumlah penduduk Kampung Bukit Sentosa.","كراجاٴن سدڠ ___ جومله ڤندودوق كامڤوڠ بوكيت سنتوسا."], o:["ممبانچي","ممبنچي"] },
+        { s:["Allah tidak suka orang yang ___ sesama saudaranya sendiri.","الله تيدق سوک اورڠ يڠ ___ سسام ساوداراڽ سنديري."], o:["ممبنچي","ممبانچي"] },
+        { s:["Kami sekeluarga menikmati keenakan kuih ___ ketika minum petang.","كامي سكلوارڬ منعمتي كاٴينقن كوٴيه ___ كتيک مينوم ڤتڠ."], o:["كريا","كاريا"] },
+        { s:["Semua ___ seni khat yang dihasilkan oleh Ustaz Zaki mempunyai nilai estetika yang tinggi.","سموا ___ سني خط يڠ دحاصيلكن اوليه استاذ ذاكي ممڤوڽاٴي نيلاي ايستيتيكا يڠ تيڠڬي."], o:["كاريا","كريا"] } ] },
+    { type:"mesincetak", q:["Muatkan SEMUA plat yang ada alif pembeza di akhir kata, kemudian tarik tuil CETAK.","موتكن سموا ڤليت يڠ اد اليف ڤمبيذا داخير كات، كمودين تاريق توٴيل چيتق."],
+      e:["بوايا، ڤواسا، بياسا، سوڤايا: alif di akhir kata dikekalkan.","بوايا، ڤواسا، بياسا، سوڤايا: اليف داخير كات دككلكن."],
+      opts:[["بوايا","buaya",1],["ڤواس","puas",0],["ڤواسا","puasa",1],["بياس","bias",0],["بياسا","biasa",1],["بواي","buai",0],["سوڤايا","supaya",1],["سوڤاي","supai",0]] },
+    { type:"semakpruf", q:["Semak pruf! Tekan perkataan yang salah ejaan dalam akhbar.","سمق ڤروف! تكن ڤركاتاٴن يڠ ساله ايجاٴن دالم اخبار."],
+      e:["Alif pembeza membezakan puas dengan puasa, buai dengan buaya.","اليف ڤمبيذا ممبيذاكن puas دڠن puasa، buai دڠن buaya."],
+      rounds:[
+        { t:["ساي","براس","ڤواس","داڤت","ملاكوكن","عبادة","ڤواس","دڠن","سمڤورنا","ڤد","تاهون","اين."], bad:6, fix:"ڤواسا", r:"Saya berasa puas dapat melakukan ibadah puasa dengan sempurna pada tahun ini." },
+        { t:["بربواي","دهوجوڠ","بالاي،","بواي","موديق","چواچ","ردوڤ،"], bad:3, fix:"بوايا", r:"Berbuai di hujung balai, buaya mudik cuaca redup," },
+        { t:["كراجاٴن","سدڠ","ممبنچي","جومله","ڤندودوق","كامڤوڠ","بوكيت","سنتوسا."], bad:2, fix:"ممبانچي", r:"Kerajaan sedang membanci jumlah penduduk Kampung Bukit Sentosa." } ] },
+    { type:"timah", q:["Atur huruf timah untuk 'kampung'. Jangan lupa alif pembeza!","اتور حروف تيمه اونتوق 'kampung'. جاڠن لوڤا اليف ڤمبيذا!"],
+      e:["كامڤوڠ (kampung) berbeza dengan كمڤوڠ (kempung).","كامڤوڠ (kampung) بربيذا دڠن كمڤوڠ (kempung)."], w:["kampung","كامڤوڠ"], parts:["ك","ا","م","ڤ","و","ڠ"], extra:["ي","ن"], join:"" }
+  ]
+});
+
+/* ---------- Stesen 3: Rangkai Kata / Frasa ---------- */
+STATIONS.push({ id:3, c:"#F4A6A6", icon:"🗂️", sticker:"📸", pg:"ms. 19–26",
+  t:["Rangkai Kata / Frasa","رڠكاي كات / فراسا"], u:["Pelajaran 2 • Unit 1","ڤلاجرن 2 • اونيت 1"],
+  read:[
+    { pic:"🌻🪴", h:["Gabungan kata","ڬابوڠن كات"],
+      text:["Dalam bahasa Melayu terdapat beberapa jenis gabungan kata, iaitu frasa (rangkai kata istilah umum dan khusus), rangkai kata setara, rangkai kata simpulan bahasa dan kata majmuk.","دالم بهاس ملايو ترداڤت ببراڤ جنيس ڬابوڠن كات؛ ياٴيت فراسا (رڠكاي كات ايستيله عموم دان خصوص)، رڠكاي كات ستارا، رڠكاي كات سيمڤولن بهاس دان كات مجموع."], p:"20" },
+    { pic:"👟", h:["Rangkai kata istilah umum","رڠكاي كات ايستيله عموم"],
+      text:["Rangkai kata istilah umum atau bebas terbentuk daripada dua patah kata atau lebih. Kata terkemudian menjadi penerang kepada kata yang terdahulu.","رڠكاي كات ايستيله عموم اتاو بيبس تربنتوق درڤد دوا ڤاته كات اتاو لبيه. كات تركمودين منجادي ڤنرڠ كڤد كات يڠ تردهولو."],
+      ex:[["kasut kulit","كاسوت كوليت"],["baju merah","باجو ميره"],["meja tulis","ميجا توليس"],["kapal laut","كاڤل لاٴوت"],["susu pekat manis","سوسو ڤكت مانيس"]],
+      tip:["Perkataan 'kulit' menerangkan asal kasut.","ڤركاتاٴن 'كوليت' منرڠكن اصل كاسوت."], p:"21" },
+    { pic:"👓", h:["Rangkai kata istilah khusus","رڠكاي كات ايستيله خصوص"],
+      text:["Rangkai kata istilah khusus ialah merangkaikan dua patah kata menjadi sesuatu nama.","رڠكاي كات ايستيله خصوص اياله مرڠكايكن دوا ڤاته كات منجادي سسواتو نام."],
+      ex:[["urus setia","اوروس ستيا"],["hak cipta","حق چيڤتا"],["cermin mata","چرمين مات"],["rumah pangsa","رومه ڤڠسا"],["mata pelajaran","مات ڤلاجرن"]],
+      tip:["'Urus' dan 'setia' ialah dua unsur yang berlainan, tetapi apabila dirangkaikan menjadi satu nama khas yang difahami.","'اوروس' دان 'ستيا' مروڤاكن دوا عنصور يڠ برلاٴينن، تتاڤي اڤابيلا درڠكايكن منجادي ساتو نام خاص يڠ دفهمي."], p:"22" },
+    { pic:"🚂", h:["Ditulis terpisah","دتوليس ترڤيسه"],
+      text:["Rangkai kata istilah umum dan khusus ditulis secara terpisah antara unsur-unsurnya.","رڠكاي كات ايستيله عموم دان خصوص دتوليس سچارا ترڤيسه انتارا عنصور٢ڽ."],
+      ss:[["Sejarah Tambak Johor bermula pada tahun 1909 apabila landasan kereta api dari Singapura ke Johor Bahru siap dibina.","سجاره تمبق جوهر برمولا ڤد تاهون 1909 اڤابيلا لندسن كريتا اڤي دري سيڠاڤورا كجوهر بهارو سياڤ دبينا."]], p:"23, 26" }
+  ],
+  games:[
+    { type:"kolum", q:["Susun ke lajur: istilah umum atau istilah khusus?","سوسون ك لاجور: ايستيله عموم اتاو ايستيله خصوص؟"],
+      e:["Umum: kata kedua menerangkan kata pertama. Khusus: dua kata menjadi satu nama.","عموم: كات كدوا منرڠكن كات ڤرتام. خصوص: دوا كات منجادي ساتو نام."],
+      cols:[["Istilah umum","ايستيله عموم"],["Istilah khusus","ايستيله خصوص"]],
+      items:[["باجو ميره",0,"baju merah"],["ميجا توليس",0,"meja tulis"],["جالن راي",0,"jalan raya"],["بيک تاڠن",0,"beg tangan"],["حق چيڤتا",1,"hak cipta"],["چرمين مات",1,"cermin mata"],["رومه ڤڠسا",1,"rumah pangsa"],["مات ڤلاجرن",1,"mata pelajaran"]] },
+    { type:"ruang", q:["Pilih pruf yang jaraknya betul.","ڤيليه ڤروف يڠ جاركڽ بتول."],
+      e:["Frasa ditulis terpisah: satu ruang antara setiap kata.","فراسا دتوليس ترڤيسه: ساتو روڠ انتارا ستياڤ كات."],
+      rounds:[ { w:"kapal laut", o:["كاڤل لاٴوت","كاڤللاٴوت","كاڤل-لاٴوت"] }, { w:"hak cipta", o:["حق چيڤتا","حقچيڤتا","حق-چيڤتا"] },
+        { w:"susu pekat manis", o:["سوسو ڤكت مانيس","سوسوڤكتمانيس","سوسو-ڤكت-مانيس"] }, { w:"pusat kitar semula", o:["ڤوست كيتر سمولا","ڤوستكيتر سمولا","ڤوست-كيتر-سمولا"] } ] },
+    { type:"tajuk", q:["Lengkapkan tajuk berita dengan frasa yang dieja betul.","لڠکڤکن تاجوق بريتا دڠن فراسا يڠ دايجا بتول."],
+      e:["kereta api, kapal terbang, sawah padi, banjir kilat: semuanya ditulis terpisah.","كريتا اڤي، كاڤل تربڠ، ساوه ڤادي، بنجير كيلت: سمواڽ دتوليس ترڤيسه."],
+      rounds:[
+        { s:["Pemandangan di ___ yang sedang menghijau sangat memberi ketenangan.","ڤمنداڠن د___ يڠ سدڠ مڠهيجاو ساڠت ممبري كتناڠن."], o:["ساوه ڤادي","ساوهڤادي","ساوه-ڤادي","ساوه٢ ڤادي"] },
+        { s:["___ jet jumbo perlukan landasan yang panjangnya tidak kurang daripada tiga ribu meter.","___ جيت جومبو ڤرلوكن لندسن يڠ ڤنجڠڽ تيدق كورڠ درڤد تيڬ ريبو ميتر."], o:["كاڤل تربڠ","كاڤلتربڠ","كاڤل-تربڠ","كاڤل٢ تربڠ"] },
+        { s:["Cikgu Amri memaparkan gambar-gambar peristiwa ___ yang terjadi di Lembah Klang.","چيقڬو أمري مماڤركن ڬمبر٢ ڤريستيوا ___ يڠ ترجادي دلمبه كلڠ."], o:["بنجير كيلت","بنجيركيلت","بنجير-كيلت","بنجير٢ كيلت"] } ] },
+    { type:"wartawan", q:["Wartawan bertanya: apakah jenis frasa ini?","ورتاوان برتاڽ: اڤاكه جنيس فراسا اين؟"],
+      e:["Istilah khusus ialah satu nama; istilah umum menerangkan kata di hadapannya.","ايستيله خصوص اياله ساتو نام؛ ايستيله عموم منرڠكن كات دهادڤنڽ."],
+      rounds:[
+        { s:"اوروس ستيا", o:[["istilah khusus","ايستيله خصوص"],["istilah umum","ايستيله عموم"],["simpulan bahasa","سيمڤولن بهاس"]] },
+        { s:"كاسوت كوليت", o:[["istilah umum","ايستيله عموم"],["istilah khusus","ايستيله خصوص"],["rangkai kata setara","رڠكاي كات ستارا"]] },
+        { s:"سيستم ڤسنن ريڠكس", o:[["istilah khusus","ايستيله خصوص"],["istilah umum","ايستيله عموم"],["simpulan bahasa","سيمڤولن بهاس"]] },
+        { s:"ڬمبر راجه", o:[["istilah umum","ايستيله عموم"],["istilah khusus","ايستيله خصوص"],["rangkai kata setara","رڠكاي كات ستارا"]] } ] },
+    { type:"timah", q:["Susun blok kata timah menjadi 'pusat kitar semula'.","سوسون بلوک كات تيمه منجادي 'pusat kitar semula'."],
+      e:["ڤوست كيتر سمولا: tiga kata, ditulis terpisah.","ڤوست كيتر سمولا: تيڬ كات، دتوليس ترڤيسه."], w:["pusat kitar semula","ڤوست كيتر سمولا"], parts:["ڤوست","كيتر","سمولا"], extra:["سمولاكن","-"], join:" " },
+    { type:"edar", q:["Hantar akhbar: padankan frasa Jawi dengan bacaan Rumi.","هانتر اخبار: ڤادنكن فراسا جاوي دڠن باچاٴن رومي."],
+      e:["Bagus! Semua frasa ini ditulis terpisah.","باڬوس! سموا فراسا اين دتوليس ترڤيسه."],
+      pairs:[["كرتس كرجا","kertas kerja"],["ريک بنتوق","reka bentuk"],["ڬمبر راجه","gambar rajah"],["جالن راي","jalan raya"],["حق چيڤتا","hak cipta"],["سوسو ڤكت مانيس","susu pekat manis"]] }
+  ]
+});
+
+/* ---------- Stesen 4: Rangkai Kata Setara ---------- */
+STATIONS.push({ id:4, c:"#A8D8B9", icon:"⚖️", sticker:"🖋️", pg:"ms. 27–32",
+  t:["Rangkai Kata Setara","رڠكاي كات ستارا"], u:["Pelajaran 2 • Unit 2","ڤلاجرن 2 • اونيت 2"],
+  read:[
+    { pic:"🌳🐦", h:["Rangkai kata setara","رڠكاي كات ستارا"],
+      text:["Rangkai kata setara terdiri daripada dua kata yang sama jenis: kata nama, kata sifat, kata kerja atau kata bilangan.","رڠكاي كات ستارا ترديري درڤد دوا كات يڠ سام جنيس: كات نام، كات صيفت، كات كرجا اتاو كات بيلڠن."],
+      ex:[["ibu bapa","ايبو باڤ"],["orang tua","اورڠ توا"],["pinggan mangkuk","ڤيڠڬن مڠكوق"],["anak isteri","انق ايستري"]], p:"27–28" },
+    { pic:"🚃", h:["Kata sifat dan kata kerja","كات صيفت دان كات كرجا"],
+      text:["Dua kata sifat atau dua kata kerja juga boleh dirangkaikan secara setara.","دوا كات صيفت اتاو دوا كات كرجا جوڬ بوليه درڠكايكن سچارا ستارا."],
+      ex:[["cantik molek","چنتيق موليق"],["bijak pandai","بيجق ڤنداي"],["gelap gelita","ڬلڤ ڬليتا"],["turun naik","تورون ناٴيق"],["lalu lalang","لالو لالڠ"],["hidup mati","هيدوڤ ماتي"]], p:"28" },
+    { pic:"🔢", h:["Kata bilangan","كات بيلڠن"],
+      text:["Nombor yang ditulis dengan perkataan juga rangkai kata setara.","نومبور يڠ دتوليس دڠن ڤركاتاٴن جوڬ رڠكاي كات ستارا."],
+      ex:[["tujuh belas","توجوه بلس"],["dua puluh","دوا ڤولوه"],["tiga ratus","تيڬ راتوس"],["empat ribu","امڤت ريبو"],["lima juta","ليم جوتا"]], p:"28" },
+    { pic:"💡", h:["Rangkai kata parataksis","رڠكاي كات ڤاراتكسيس"],
+      text:["Rangkai kata setara disebut rangkai kata parataksis, iaitu frasa yang tidak menggunakan kata hubung 'dan'.","رڠكاي كات ستارا دسبوت رڠكاي كات ڤاراتكسيس ياٴيت فراسا يڠ تيدق مڠڬوناكن كات هوبوڠ 'دان'."],
+      ex:[[["pemuda pemudi","ڤمودا ڤمودي"],["pemuda dan pemudi","ڤمودا دان ڤمودي"]]],
+      ss:[["Pemuda pemudi merupakan tonggak harapan sesebuah negara.","ڤمودا ڤمودي مروڤاكن توڠڬق هارڤن سسبواه نڬارا."]], p:"29, 32" }
+  ],
+  games:[
+    { type:"kolum", q:["Susun rangkai kata setara ke lajur jenisnya.","سوسون رڠكاي كات ستارا ك لاجور جنيسڽ."],
+      e:["Dua kata yang sama jenis digabungkan tanpa 'dan'.","دوا كات يڠ سام جنيس دڬابوڠكن تنڤ 'دان'."],
+      cols:[["Kata nama","كات نام"],["Kata sifat","كات صيفت"],["Kata kerja","كات كرجا"],["Kata bilangan","كات بيلڠن"]],
+      items:[["ايبو باڤ",0,"ibu bapa"],["ڤيڠڬن مڠكوق",0,"pinggan mangkuk"],["چنتيق موليق",1,"cantik molek"],["هيتم ڤوتيه",1,"hitam putih"],["ماكن مينوم",2,"makan minum"],["جاتوه باڠون",2,"jatuh bangun"],["توجوه بلس",3,"tujuh belas"],["امڤت ريبو",3,"empat ribu"]] },
+    { type:"tajuk", q:["Lengkapkan tajuk berita dengan rangkai kata setara yang sesuai.","لڠکڤکن تاجوق بريتا دڠن رڠكاي كات ستارا يڠ سسواي."],
+      e:["Baca seluruh ayat untuk mencari makna yang sesuai.","باچ سلوروه ايات اونتوق منچاري معنا يڠ سسواي."],
+      rounds:[
+        { s:["Malina dan Norlaila ___ sejak di bangku sekolah lagi.","مالينا دان نورليلا ___ سجق دبڠكو سكوله لاڬي."], o:["كاون قريب","روڤا ڤارس","لبيه كورڠ","امڤت ڤولوه"] },
+        { s:["___ yang cantik merupakan anugerah Allah Taala.","___ يڠ چنتيق مروڤاكن انوڬره الله تعالى."], o:["روڤا ڤارس","كاون قريب","ڤمودا ڤمودي","لبيه كورڠ"] },
+        { s:["Pak Rashid telah berpencen sebagai pengawal keselamatan ___ tiga tahun yang lalu.","ڤق رشيد تله برڤينچين سباڬاي ڤڠاول كسلامتن ___ تيڬ تاهون يڠ لالو."], o:["لبيه كورڠ","روڤا ڤارس","كاون قريب","امڤت ڤولوه"] },
+        { s:["Jarak rumah seseorang yang diselangi ___ buah rumah tetap dikira sebagai jiran tetangga.","جارق رومه سسأورڠ يڠ دسلڠي ___ بواه رومه تتڤ دكيرا سباڬاي جيرن تتڠڬ."], o:["امڤت ڤولوه","لبيه كورڠ","كاون قريب","روڤا ڤارس"] } ] },
+    { type:"wartawan", q:["Wartawan bertanya tentang rangkai kata setara ini. Pilih jawapan yang betul.","ورتاوان برتاڽ تنتڠ رڠكاي كات ستارا اين. ڤيليه جاوڤن يڠ بتول."],
+      e:["Rangkai kata setara menggabungkan dua kata yang sama jenis.","رڠكاي كات ستارا مڠڬابوڠكن دوا كات يڠ سام جنيس."],
+      rounds:[
+        { s:"ڤمودا ڤمودي", o:[["asalnya: pemuda dan pemudi","اصلڽ: ڤمودا دان ڤمودي"],["asalnya: pemuda atau pemudi","اصلڽ: ڤمودا اتاو ڤمودي"],["simpulan bahasa","سيمڤولن بهاس"]] },
+        { s:"تيڬ راتوس", o:[["kata bilangan","كات بيلڠن"],["kata nama","كات نام"],["kata kerja","كات كرجا"]] },
+        { s:"لالو لالڠ", o:[["kata kerja","كات كرجا"],["kata sifat","كات صيفت"],["kata bilangan","كات بيلڠن"]] },
+        { s:"بيجق ڤنداي", o:[["kata sifat","كات صيفت"],["kata kerja","كات كرجا"],["kata nama","كات نام"]] } ] },
+    { type:"timah", q:["Susun blok kata timah: 'hitam putih'. Rangkai kata setara tidak memakai 'dan'!","سوسون بلوک كات تيمه: 'hitam putih'. رڠكاي كات ستارا تيدق مماكاي 'دان'!"],
+      e:["هيتم ڤوتيه: dua kata sifat, ditulis terpisah.","هيتم ڤوتيه: دوا كات صيفت، دتوليس ترڤيسه."], w:["hitam putih","هيتم ڤوتيه"], parts:["هيتم","ڤوتيه"], extra:["دان","-"], join:" " },
+    { type:"mesincetak", q:["Muatkan SEMUA plat rangkai kata setara jenis kata kerja, kemudian tarik tuil CETAK.","موتكن سموا ڤليت رڠكاي كات ستارا جنيس كات كرجا، كمودين تاريق توٴيل چيتق."],
+      e:["turun naik, lalu lalang, makan minum, hidup mati: semuanya kata kerja.","turun naik، lalu lalang، makan minum، hidup mati: سمواڽ كات كرجا."],
+      opts:[["تورون ناٴيق","turun naik",1],["هيتم ڤوتيه","hitam putih",0],["لالو لالڠ","lalu lalang",1],["توجوه بلس","tujuh belas",0],["ماكن مينوم","makan minum",1],["ايبو باڤ","ibu bapa",0],["هيدوڤ ماتي","hidup mati",1],["ڬلڤ ڬليتا","gelap gelita",0]] },
+    { type:"edar", q:["Hantar akhbar: padankan rangkai kata setara dengan bacaan Rumi.","هانتر اخبار: ڤادنكن رڠكاي كات ستارا دڠن باچاٴن رومي."],
+      e:["Hebat! Semua rangkai kata setara ditulis terpisah.","هيبت! سموا رڠكاي كات ستارا دتوليس ترڤيسه."],
+      pairs:[["انق ايستري","anak isteri"],["اورڠ توا","orang tua"],["تيڠڬي رنده","tinggi rendah"],["جاتوه باڠون","jatuh bangun"],["ليم جوتا","lima juta"],["دوا ڤولوه","dua puluh"]] }
+  ]
+});
+
+/* ---------- Stesen 5: Rangkai Kata Simpulan Bahasa ---------- */
+STATIONS.push({ id:5, c:"#F6C28B", icon:"💬", sticker:"☕", pg:"ms. 33–38",
+  t:["Simpulan Bahasa","سيمڤولن بهاس"], u:["Pelajaran 2 • Unit 3","ڤلاجرن 2 • اونيت 3"],
+  read:[
+    { pic:"🎈💬", h:["Rangkai kata simpulan bahasa","رڠكاي كات سيمڤولن بهاس"],
+      text:["Rangkai kata simpulan bahasa ialah rangkai kata yang memberi makna khusus dan telah menjadi warisan. Kaedah penulisannya ialah ditulis secara terpisah.","رڠكاي كات سيمڤولن بهاس اياله رڠكاي كات يڠ ممبري معنا خصوص دان تله منجادي واريثن. قاعده ڤنوليسنڽ اياله دتوليس سچارا ترڤيسه."], p:"34" },
+    { pic:"🐭🍈", h:["Contoh simpulan bahasa","چونتوه سيمڤولن بهاس"],
+      ex:[["akal kancil","عقل كنچيل"],["cahaya mata","چهاي مات"],["anak emas","انق امس"],["durian runtuh","دورين رونتوه"],["naik darah","ناٴيق داره"],["hidung tinggi","هيدوڠ تيڠڬي"],["darah daging","داره داڬيڠ"]], p:"34" },
+    { pic:"🗞️", h:["Simpulan bahasa dalam ayat","سيمڤولن بهاس دالم ايات"],
+      ss:[["Air muka ibu berseri-seri setelah mendapat perkhabaran abang akan pulang ke tanah air.","اٴير موك ايبو برسري-سري ستله منداڤت ڤرخبرن ابڠ اكن ڤولڠ كتانه اٴير."],
+          ["Amirah seorang yang tidak banyak mulut tetapi membuat kerja dengan pantas seperti lipas kudung.","أميره سأورڠ يڠ تيدق باڽق مولوت تتاڤي ممبوات كرجا دڠن ڤانتس سڤرتي ليڤس كودوڠ."]], p:"35" }
+  ],
+  games:[
+    { type:"edar", q:["Hantar akhbar ke rumah yang menulis maksud simpulan bahasa itu.","هانتر اخبار ك رومه يڠ منوليس مقصود سيمڤولن بهاس ايت."],
+      e:["Simpulan bahasa memberi makna khusus, bukan makna biasa.","سيمڤولن بهاس ممبري معنا خصوص، بوكن معنا بياسا."],
+      pairs:[["عقل كنچيل",["cerdik","چرديق"]],["چهاي مات",["anak","انق"]],["ناٴيق داره",["marah","ماره"]],["هيدوڠ تيڠڬي",["sombong","سومبوڠ"]],["دورين رونتوه",["untung tanpa disangka","اونتوڠ تنڤ دسڠک"]],["ليڤس كودوڠ",["sangat pantas","ساڠت ڤانتس"]]] },
+    { type:"tajuk", q:["Lengkapkan tajuk berita dengan simpulan bahasa yang sesuai.","لڠکڤکن تاجوق بريتا دڠن سيمڤولن بهاس يڠ سسواي."],
+      e:["air muka, alas perut, buah fikiran, lipas kudung: simpulan bahasa dari buku teks.","air muka، alas perut، buah fikiran، lipas kudung: سيمڤولن بهاس دري بوكو تيكس."],
+      rounds:[
+        { s:["___ ibu berseri-seri setelah mendapat perkhabaran abang akan pulang ke tanah air.","___ ايبو برسري-سري ستله منداڤت ڤرخبرن ابڠ اكن ڤولڠ كتانه اٴير."], o:["اٴير موك","الس ڤروت","بواه فيكيرن","ليڤس كودوڠ"] },
+        { s:["Mengambil sedikit makanan pada waktu pagi sebagai ___ amat penting untuk kesihatan.","مڠمبيل سديكيت ماكنن ڤد وقتو ڤاڬي سباڬاي ___ امت ڤنتيڠ اونتوق كصيحتن."], o:["الس ڤروت","اٴير موك","باڽق مولوت","بواه فيكيرن"] },
+        { s:["Bagi memajukan sesebuah organisasi, kita perlu menghormati ___ orang lain.","باڬي مماجوكن سسبواه اورڬانيساسي، كيت ڤرلو مڠحرمتي ___ اورڠ لاٴين."], o:["بواه فيكيرن","الس ڤروت","ليڤس كودوڠ","اٴير موك"] },
+        { s:["Amirah seorang yang tidak banyak mulut tetapi membuat kerja dengan pantas seperti ___.","أميره سأورڠ يڠ تيدق باڽق مولوت تتاڤي ممبوات كرجا دڠن ڤانتس سڤرتي ___."], o:["ليڤس كودوڠ","الس ڤروت","اٴير موك","بواه فيكيرن"] } ] },
+    { type:"ruang", q:["Pilih pruf yang jaraknya betul.","ڤيليه ڤروف يڠ جاركڽ بتول."],
+      e:["Simpulan bahasa ditulis secara terpisah.","سيمڤولن بهاس دتوليس سچارا ترڤيسه."],
+      rounds:[ { w:"akal kancil", o:["عقل كنچيل","عقلكنچيل","عقل-كنچيل"] }, { w:"durian runtuh", o:["دورين رونتوه","دورينرونتوه","دورين-رونتوه"] },
+        { w:"naik darah", o:["ناٴيق داره","ناٴيقداره","ناٴيق-داره"] }, { w:"buah fikiran", o:["بواه فيكيرن","بواهفيكيرن","بواه-فيكيرن"] } ] },
+    { type:"kolum", q:["Susun ke lajur: simpulan bahasa atau frasa biasa?","سوسون ك لاجور: سيمڤولن بهاس اتاو فراسا بياسا؟"],
+      e:["Simpulan bahasa ada makna khusus; frasa biasa bermakna seperti katanya.","سيمڤولن بهاس اد معنا خصوص؛ فراسا بياسا برمعنا سڤرتي كاتاڽ."],
+      cols:[["Simpulan bahasa","سيمڤولن بهاس"],["Frasa biasa","فراسا بياسا"]],
+      items:[["عقل كنچيل",0,"akal kancil"],["انق امس",0,"anak emas"],["كچيل هاتي",0,"kecil hati"],["بولن مادو",0,"bulan madu"],["ميجا توليس",1,"meja tulis"],["باجو ميره",1,"baju merah"],["جالن راي",1,"jalan raya"],["بيک تاڠن",1,"beg tangan"]] },
+    { type:"semakpruf", q:["Semak pruf! Tekan simpulan bahasa yang salah ejaan.","سمق ڤروف! تكن سيمڤولن بهاس يڠ ساله ايجاٴن."],
+      e:["Simpulan bahasa ditulis terpisah, tanpa sempang.","سيمڤولن بهاس دتوليس ترڤيسه، تنڤ سمڤڠ."],
+      rounds:[
+        { t:["اٴيرموك","ايبو","برسري-سري","ستله","منداڤت","ڤرخبرن","ابڠ","اكن","ڤولڠ","كتانه","اٴير."], bad:0, fix:"اٴير موك", r:"Air muka ibu berseri-seri setelah mendapat perkhabaran abang akan pulang ke tanah air." },
+        { t:["مڠمبيل","سديكيت","ماكنن","ڤد","وقتو","ڤاڬي","سباڬاي","السڤروت","امت","ڤنتيڠ","اونتوق","كصيحتن."], bad:7, fix:"الس ڤروت", r:"Mengambil sedikit makanan pada waktu pagi sebagai alas perut amat penting untuk kesihatan." },
+        { t:["كيت","ڤرلو","مڠحرمتي","بواه-فيكيرن","اورڠ","لاٴين."], bad:3, fix:"بواه فيكيرن", r:"Kita perlu menghormati buah fikiran orang lain." } ] },
+    { type:"wartawan", q:["Wartawan bertanya: apakah maksud simpulan bahasa ini?","ورتاوان برتاڽ: اڤاكه مقصود سيمڤولن بهاس اين؟"],
+      e:["Simpulan bahasa menggambarkan sifat dan tingkah laku manusia.","سيمڤولن بهاس مڠڬمبركن صيفت دان تيڠكه لاكو مأنسيا."],
+      rounds:[
+        { s:"كچيل هاتي", o:[["terasa hati","تراس هاتي"],["sangat gembira","ساڠت ڬمبيرا"],["hati yang kecil","هاتي يڠ كچيل"]] },
+        { s:"انق امس", o:[["anak kesayangan","انق كسايڠن"],["anak yang kaya","انق يڠ كاي"],["emas yang kecil","امس يڠ كچيل"]] },
+        { s:"باڽق مولوت", o:[["suka bercakap","سوک برچاكڤ"],["banyak makan","باڽق ماكن"],["mulut yang besar","مولوت يڠ بسر"]] },
+        { s:"الس ڤروت", o:[["makan sedikit sebelum makan besar","ماكن سديكيت سبلوم ماكن بسر"],["sakit perut","ساكيت ڤروت"],["tikar makan","تيكر ماكن"]] } ] }
+  ]
+});
+
+/* ---------- Stesen 6: Kata Majmuk Ditulis Serangkai ---------- */
+STATIONS.push({ id:6, c:"#C9B6E4", icon:"🔗", sticker:"📐", pg:"ms. 39–46",
+  t:["Kata Majmuk Ditulis Serangkai","كات مجموع يڠ دتوليس سرڠكاي"], u:["Pelajaran 2 • Unit 4","ڤلاجرن 2 • اونيت 4"],
+  read:[
+    { pic:"🔗📝", h:["Kata majmuk serangkai","كات مجموع سرڠكاي"],
+      text:["Kata majmuk yang ditulis serangkai sebagai bentuk yang telah mantap (dalam ejaan Rumi) ditulis serangkai juga dalam ejaan Jawi.","كات مجموع يڠ دتوليس سرڠكاي سباڬاي بنتوق يڠ تله منتڤ (دالم ايجاٴن رومي) دتوليس سرڠكاي جوڬ دالم ايجاٴن جاوي."],
+      ex:[["antarabangsa","انتارابڠسا"],["kakitangan","كاكيتاڠن"],["kerjasama","كرجاسام"],["setiausaha","ستياٴوسها"],["tandatangan","تنداتاڠن"],["tanggungjawab","تڠڬوڠجواب"],["warganegara","ورڬانڬارا"]], p:"40" },
+    { pic:"📜", h:["Bukan kata majmuk, tetapi dieja serangkai","بوكن كات مجموع، تتاڤي دايجا سرڠكاي"],
+      text:["Di samping itu terdapat lagi sebilangan rangkaian kata yang dieja serangkai dan ejaan itu telah menjadi warisan.","دسمڤيڠ ايت ترداڤت لاڬي سبيلڠن رڠكاين كات يڠ دايجا سرڠكاي دان ايجاٴن ايت تله منجادي واريثن."],
+      ex:[["peribahasa","ڤريبهاس"],["pancaindera","ڤنچاٴيندرا"],["sukacita","سوكاچيتا"],["purbakala","ڤورباكالا"],["apabila","اڤابيلا"],["barangkali","بارڠكالي"],["bagaimana","باڬايمان"]], p:"41" },
+    { pic:"🧪", h:["Kata terikat berawalan","كات تريكت براولن"],
+      text:["Kata terikat berawalan hendaklah dieja serangkai, antaranya tata, pra, ultra, super dan anti.","كات تريكت براولن هندقله دايجا سرڠكاي، انتاراڽ تات، ڤرا، اولترا، سوڤر دان انتي."],
+      ex:[["tatabahasa","تاتابهاس"],["prasekolah","ڤراسكوله"],["ultrasonik","اولتراسونيک"],["superkomputer","سوڤركومڤوتر"],["antidadah","انتيداده"]], p:"42" },
+    { pic:"🌅", h:["Dalam ayat","دالم ايات"],
+      ss:[["Pemandangan di tepi pantai ketika matahari terbenam sangat cantik.","ڤمندڠن دتڤي ڤنتاي كتيک ماتاهاري تربنم ساڠت چنتيق."],
+          ["Kita dikurniakan Allah pancaindera yang sempurna dan mesti menjaganya dengan baik.","كيت دكورنياكن الله ڤنچاٴيندرا يڠ سمڤورنا دان مستي منجاڬاڽ دڠن باٴيق."]], p:"43" }
+  ],
+  games:[
+    { type:"timah", q:["Atur blok timah: 'tandatangan' ditulis serangkai, tanpa ruang!","اتور بلوک تيمه: 'tandatangan' دتوليس سرڠكاي، تنڤ روڠ!"],
+      e:["تنداتاڠن: kata majmuk yang telah mantap.","تنداتاڠن: كات مجموع يڠ تله منتڤ."], w:["tandatangan","تنداتاڠن"], parts:["تندا","تاڠن"], extra:["-","٢"], join:"" },
+    { type:"ruang", q:["Pilih pruf yang ejaannya betul.","ڤيليه ڤروف يڠ ايجاٴنڽ بتول."],
+      e:["Kata majmuk yang mantap dan kata terikat ditulis serangkai.","كات مجموع يڠ منتڤ دان كات تريكت دتوليس سرڠكاي."],
+      rounds:[ { w:"bumiputera", o:["بوميڤوترا","بومي ڤوترا","بومي-ڤوترا"] }, { w:"kerjasama", o:["كرجاسام","كرجا سام","كرجا-سام"] },
+        { w:"sukacita", o:["سوكاچيتا","سوک چيتا","سوک-چيتا"] }, { w:"antidadah", o:["انتيداده","انتي داده","انتي-داده"] }, { w:"olahraga", o:["اولهراڬ","اوله راڬ","اوله-راڬ"] } ] },
+    { type:"kolum", q:["Susun ke lajur: kata nama, kata sifat atau kata hubung?","سوسون ك لاجور: كات نام، كات صيفت اتاو كات هوبوڠ؟"],
+      e:["Semua perkataan ini dieja serangkai kerana ejaannya telah menjadi warisan.","سموا ڤركاتاٴن اين دايجا سرڠكاي كران ايجاٴنڽ تله منجادي واريثن."],
+      cols:[["Kata nama","كات نام"],["Kata sifat","كات صيفت"],["Kata hubung","كات هوبوڠ"]],
+      items:[["ڤريبادي",0,"peribadi"],["چندرامات",0,"cenderamata"],["ڤريلاكو",0,"perilaku"],["سوكاچيتا",1,"sukacita"],["دوكاچيتا",1,"dukacita"],["ڤورباكالا",1,"purbakala"],["اڤابيلا",2,"apabila"],["والحال",2,"walhal"],["بارڠكالي",2,"barangkali"]] },
+    { type:"tajuk", q:["Lengkapkan tajuk berita dengan ejaan yang betul.","لڠکڤکن تاجوق بريتا دڠن ايجاٴن يڠ بتول."],
+      e:["matahari, olahraga, pancaindera dan antibiotik ditulis serangkai.","matahari، olahraga، pancaindera دان antibiotik دتوليس سرڠكاي."],
+      rounds:[
+        { s:["Pemandangan di tepi pantai ketika ___ terbenam sangat cantik.","ڤمندڠن دتڤي ڤنتاي كتيک ___ تربنم ساڠت چنتيق."], o:["ماتاهاري","مات هاري","مات-هاري","ماتاهاري٢"] },
+        { s:["Guru besar mengucapkan tahniah sambil mengalungkan pingat kepada pemenang acara ___.","ڬورو بسر مڠوچڤكن تهنيئه سمبيل مڠالوڠكن ڤيڠت كڤد ڤمنڠ اچارا ___."], o:["اولهراڬ","اوله راڬ","اوله-راڬ","اولهراڬ٢"] },
+        { s:["Kita dikurniakan Allah ___ yang sempurna dan mesti menjaganya dengan baik.","كيت دكورنياكن الله ___ يڠ سمڤورنا دان مستي منجاڬاڽ دڠن باٴيق."], o:["ڤنچاٴيندرا","ڤنچا اٴيندرا","ڤنچا-اٴيندرا","ڤنچ اٴيندرا"] },
+        { s:["Doktor telah memberi suntikan ___ ketika saya masuk wad di Hospital Putrajaya.","دوكتور تله ممبري سونتيقن ___ كتيک ساي ماسوق واد دهوسڤيتل ڤوتراجاي."], o:["انتيبيوتيک","انتي بيوتيک","انتي-بيوتيک","انتيبيوتيک٢"] } ] },
+    { type:"mesincetak", q:["Muatkan SEMUA plat yang dieja serangkai, kemudian tarik tuil CETAK.","موتكن سموا ڤليت يڠ دايجا سرڠكاي، كمودين تاريق توٴيل چيتق."],
+      e:["kakitangan, setiausaha, tanggungjawab, beritahu: serangkai. Yang lain ditulis terpisah.","kakitangan، setiausaha، tanggungjawab، beritahu: سرڠكاي. يڠ لاٴين دتوليس ترڤيسه."],
+      opts:[["كاكيتاڠن","kakitangan",1],["لاتر بلاكڠ","latar belakang",0],["ستياٴوسها","setiausaha",1],["تولق انسور","tolak ansur",0],["تڠڬوڠجواب","tanggungjawab",1],["سام رات","sama rata",0],["بريتاهو","beritahu",1],["كاسوت كوليت","kasut kulit",0]] },
+    { type:"edar", q:["Hantar akhbar: padankan ejaan Jawi dengan bacaan Rumi.","هانتر اخبار: ڤادنكن ايجاٴن جاوي دڠن باچاٴن رومي."],
+      e:["tata, pra, ultra, super, anti: kata terikat yang ditulis serangkai.","تات، ڤرا، اولترا، سوڤر، انتي: كات تريكت يڠ دتوليس سرڠكاي."],
+      pairs:[["تاتاترتيب","tatatertib"],["ڤراشرط","prasyarat"],["اولترامودن","ultramoden"],["سوڤرسونيک","supersonik"],["انتيبيوتيک","antibiotik"],["ڤسوروهجاي","pesuruhjaya"]] }
+  ]
+});
+
+/* ---------- Stesen 7: Kata Majmuk Ditulis Terpisah ---------- */
+STATIONS.push({ id:7, c:"#9FD8D4", icon:"✂️", sticker:"🖨️", pg:"ms. 47–54",
+  t:["Kata Majmuk Ditulis Terpisah","كات مجموع يڠ دتوليس سچارا ترڤيسه"], u:["Pelajaran 2 • Unit 5","ڤلاجرن 2 • اونيت 5"],
+  read:[
+    { pic:"🍊✂️", h:["Ditulis terpisah","دتوليس ترڤيسه"],
+      text:["Kata majmuk yang terdiri daripada rangkaian kata bebas hendaklah ditulis secara terpisah.","كات مجموع يڠ ترديري درڤد رڠكاين كات بيبس هندقله دتوليس سچارا ترڤيسه."],
+      ex:[["lipat ganda","ليڤت ڬندا"],["sama rata","سام رات"],["titik berat","تيتيق برت"],["latar belakang","لاتر بلاكڠ"],["tolak ansur","تولق انسور"],["tambah baik","تمبه باٴيق"]], p:"48" },
+    { pic:"🧲", h:["Menerima apitan: serangkai","منريما اڤيتن: سرڠكاي"],
+      text:["Kata majmuk yang ditulis secara terpisah hendaklah ditulis serangkai apabila menerima apitan. Apitan ialah imbuhan awalan dan akhiran yang dipasangkan pada satu-satu kata dasar.","كات مجموع يڠ دتوليس سچارا ترڤيسه هندقله دتوليس سرڠكاي اڤابيلا منريما اڤيتن. اڤيتن اياله ايمبوهن اولن دان اخيرن يڠ دڤاسڠكن ڤد ساتو٢ كات داسر."],
+      ex:[[["ke + tidak hadir + an","ك + تيدق حاضير + ن"],["ketidakhadiran","كتيدقحاضيرن"]],[["di + titik berat + kan","د + تيتيق برت + كن"],["dititikberatkan","دتيتيقبرتكن"]],
+          [["men + campur aduk + kan","من + چمڤور ادوق + كن"],["mencampuradukkan","منچمڤورادوقكن"]],[["peng + ambil alih + an","ڤڠ + امبيل اليه + ن"],["pengambilalihan","ڤڠمبيلاليهن"]]], p:"50" },
+    { pic:"🧾", h:["Awalan atau akhiran sahaja","اولن اتاو اخيرن سهاج"],
+      text:["Apabila kata majmuk menerima imbuhan awalan atau akhiran sahaja, perkataan tersebut tetap dieja terpisah.","اڤابيلا كات مجموع منريما ايمبوهن اولن اتاو اخيرن سهاج، ڤركاتاٴن ترسبوت تتڤ دايجا ترڤيسه."],
+      ex:[["bercampur aduk","برچمڤور ادوق"],["mengambil alih","مڠمبيل اليه"],["daya serapan","داي سرڤن"],["urus niagakan","اوروس نياڬاكن"]], p:"54" },
+    { pic:"🕌", h:["Dalam ayat","دالم ايات"],
+      ss:[["Rasulullah telah menggubal Piagam Madinah dengan tujuan untuk menyatupadukan masyarakat majmuk di Madinah.","رسول الله تله مڠڬوبل ڤياڬم مدينة دڠن توجوان اونتوق مڽاتوڤادوكن مشاركت مجموع دمدينة."],
+          ["Gejala menyalah guna dadah dalam kalangan remaja semakin serius dan perlu ditangani segera.","ڬجالا مڽاله ڬونا داده دالم كالڠن رماج سماكين سيريوس دان ڤرلو دتاڠني سڬرا."]], p:"49" }
+  ],
+  games:[
+    { type:"timah", q:["Atur blok timah: ke + tidak hadir + an. Apitan, maka ditulis serangkai!","اتور بلوک تيمه: ك + تيدق حاضير + ن. اڤيتن، مک دتوليس سرڠكاي!"],
+      e:["كتيدقحاضيرن: apitan ke-...-an menjadikannya serangkai.","كتيدقحاضيرن: اڤيتن ك...ن منجاديكنڽ سرڠكاي."], w:["ketidakhadiran","كتيدقحاضيرن"], parts:["ك","تيدق","حاضير","ن"], extra:["-","كن"], join:"" },
+    { type:"ruang", q:["Pilih pruf yang ejaannya betul.","ڤيليه ڤروف يڠ ايجاٴنڽ بتول."],
+      e:["Tanpa imbuhan atau dengan awalan sahaja: terpisah. Dengan apitan: serangkai.","تنڤ ايمبوهن اتاو دڠن اولن سهاج: ترڤيسه. دڠن اڤيتن: سرڠكاي."],
+      rounds:[ { w:"latar belakang", o:["لاتر بلاكڠ","لاتربلاكڠ","لاتر-بلاكڠ"] }, { w:"mencampuradukkan", o:["منچمڤورادوقكن","منچمڤور ادوقكن","منچمڤور-ادوقكن"] },
+        { w:"bercampur aduk", o:["برچمڤور ادوق","برچمڤورادوق","برچمڤور-ادوق"] }, { w:"pengambilalihan", o:["ڤڠمبيلاليهن","ڤڠمبيل اليهن","ڤڠمبيل-اليهن"] }, { w:"tolak ansur", o:["تولق انسور","تولقانسور","تولق-انسور"] } ] },
+    { type:"kolum", q:["Susun ke lajur: ditulis terpisah atau serangkai?","سوسون ك لاجور: دتوليس ترڤيسه اتاو سرڠكاي؟"],
+      e:["Apitan menjadikan kata majmuk serangkai; awalan atau akhiran sahaja tidak.","اڤيتن منجاديكن كات مجموع سرڠكاي؛ اولن اتاو اخيرن سهاج تيدق."],
+      cols:[["Terpisah (awalan atau akhiran sahaja)","ترڤيسه (اولن اتاو اخيرن سهاج)"],["Serangkai (apitan)","سرڠكاي (اڤيتن)"]],
+      items:[["برچمڤور ادوق",0,"bercampur aduk"],["مڠمبيل اليه",0,"mengambil alih"],["داي سرڤن",0,"daya serapan"],["اوروس نياڬاكن",0,"urus niagakan"],["كتيدقحاضيرن",1,"ketidakhadiran"],["دتيتيقبرتكن",1,"dititikberatkan"],["منچمڤورادوقكن",1,"mencampuradukkan"],["ڤڠمبيلاليهن",1,"pengambilalihan"]] },
+    { type:"semakpruf", q:["Semak pruf! Tekan perkataan yang salah ejaan.","سمق ڤروف! تكن ڤركاتاٴن يڠ ساله ايجاٴن."],
+      e:["Awalan sahaja: terpisah. Apitan: serangkai. Tanpa imbuhan: terpisah.","اولن سهاج: ترڤيسه. اڤيتن: سرڠكاي. تنڤ ايمبوهن: ترڤيسه."],
+      rounds:[
+        { t:["ڬجالا","مڽالهڬونا","داده","دالم","كالڠن","رماج","سماكين","سيريوس."], bad:1, fix:"مڽاله ڬونا", r:"Gejala menyalah guna dadah dalam kalangan remaja semakin serius." },
+        { t:["رسول الله","تله","مڠڬوبل","ڤياڬم","مدينة","اونتوق","مڽاتو ڤادوكن","مشاركت","مجموع."], bad:6, fix:"مڽاتوڤادوكن", r:"Rasulullah telah menggubal Piagam Madinah untuk menyatupadukan masyarakat majmuk." },
+        { t:["ڤروڬرم","كسدرن","عالمسكيتر","ڤريڠكت","سكوله","تله","دلولوسكن."], bad:2, fix:"عالم سكيتر", r:"Program kesedaran alam sekitar peringkat sekolah telah diluluskan." } ] },
+    { type:"wartawan", q:["Wartawan bertanya: bagaimanakah perkataan ini ditulis, dan mengapa?","ورتاوان برتاڽ: باڬايماناكه ڤركاتاٴن اين دتوليس، دان مڠاڤ؟"],
+      e:["Apitan = awalan dan akhiran serentak, maka ditulis serangkai.","اڤيتن = اولن دان اخيرن سرنتق، مک دتوليس سرڠكاي."],
+      rounds:[
+        { s:"اڤيتن", o:[["imbuhan awalan dan akhiran","ايمبوهن اولن دان اخيرن"],["imbuhan awalan sahaja","ايمبوهن اولن سهاج"],["imbuhan akhiran sahaja","ايمبوهن اخيرن سهاج"]] },
+        { s:"برچمڤور ادوق", o:[["awalan sahaja: ditulis terpisah","اولن سهاج: دتوليس ترڤيسه"],["apitan: ditulis serangkai","اڤيتن: دتوليس سرڠكاي"],["kata terikat: ditulis serangkai","كات تريكت: دتوليس سرڠكاي"]] },
+        { s:"دتيتيقبرتكن", o:[["apitan: ditulis serangkai","اڤيتن: دتوليس سرڠكاي"],["awalan sahaja: ditulis terpisah","اولن سهاج: دتوليس ترڤيسه"],["simpulan bahasa","سيمڤولن بهاس"]] },
+        { s:"داي سرڤن", o:[["akhiran sahaja: ditulis terpisah","اخيرن سهاج: دتوليس ترڤيسه"],["apitan: ditulis serangkai","اڤيتن: دتوليس سرڠكاي"],["kata terikat: ditulis serangkai","كات تريكت: دتوليس سرڠكاي"]] } ] },
+    { type:"edar", q:["Hantar akhbar: padankan ejaan Jawi dengan bacaan Rumi.","هانتر اخبار: ڤادنكن ايجاٴن جاوي دڠن باچاٴن رومي."],
+      e:["Syabas! Kamu boleh membezakan ejaan terpisah dan serangkai.","شاباس! كامو بوليه ممبيذاكن ايجاٴن ترڤيسه دان سرڠكاي."],
+      pairs:[["ليڤت ڬندا","lipat ganda"],["تمبه باٴيق","tambah baik"],["سام رات","sama rata"],["مڽاتوڤادوكن","menyatupadukan"],["ڤڽالهڬوناٴن","penyalahgunaan"],["منچمڤورادوقكن","mencampuradukkan"]] }
+  ]
+});
+
+/* ---------- Stesen 8: Tanda Sempang ---------- */
+STATIONS.push({ id:8, c:"#F0B4CF", icon:"➖", sticker:"🗞️", pg:"ms. 55–63",
+  t:["Tanda Sempang","تندا سمڤڠ"], u:["Pelajaran 3","ڤلاجرن 3"],
+  read:[
+    { pic:"🖼️➖", h:["Fungsi tanda sempang","فوڠسي تندا سمڤڠ"],
+      text:["Tanda sempang (-) dalam penulisan Jawi mempunyai beberapa fungsi: kata ulang berentak, kata ulang berimbuhan, kata sendi di awalan bilangan, kata sendi di akhiran tahun dan hubungan antara unsur-unsur.","تندا سمڤڠ (-) دالم ڤنوليسن جاوي ممڤوڽاٴي ببراڤ فوڠسي: كات اولڠ برنتق، كات اولڠ برايمبوهن، كات سندي داولن بيلڠن، كات سندي داخيرن تاهون دان هوبوڠن انتارا عنصور٢."],
+      ex:[["zaman-berzaman","زمان-برزمان"],["huru-hara","هورو-هارا"],["Amerika-Rusia","اميريكا-روسيا"]], p:"56–57" },
+    { pic:"🥬", h:["Kata ulang berentak","كات اولڠ برنتق"],
+      ex:[["sayur-mayur","سايور-مايور"],["beli-belah","بلي-بله"],["anak-pinak","انق-ڤينق"],["serba-serbi","سربا-سربي"],["lemah-gemalai","لمه-ڬمالاي"],["ramah-tamah","رامه-تامه"],["dentam-dentum","دنتم-دنتوم"]], p:"57" },
+    { pic:"🦆", h:["Kata ulang berimbuhan","كات اولڠ برايمبوهن"],
+      ex:[["tertanya-tanya","ترتاڽا-تاڽ"],["tersipu-sipu","ترسيڤو-سيڤو"],["berasak-asakan","براسق-اسقن"],["keanak-anakan","كأنق-انقن"],["seolah-olah","سأوله-اوله"],["buah-buahan","بواه-بواهن"]], p:"58" },
+    { pic:"🔢🛣️", h:["Nombor dan hubungan","نومبور دان هوبوڠن"],
+      text:["Tanda sempang juga digunakan pada kata sendi di awal bilangan, di akhiran tahun, dan untuk hubungan antara unsur-unsur pada rangkai kata setara tertentu atau kata istilah.","تندا سمڤڠ جوڬ دڬوناكن ڤد كات سندي داولن بيلڠن، داخيرن تاهون، دان اونتوق هوبوڠن انتارا عنصور٢ ڤد رڠكاي كات ستارا ترتنتو اتاو كات ايستيله."],
+      ex:[["ke-12","ک-12"],["ke-100","ک-100"],["tahun 60-an","تاهون 60-ن"],["Lebuh Raya Utara-Selatan","لبوه راي اوتارا-سلاتن"],["alat pandang-dengar","الت ڤندڠ-دڠر"]], p:"59–60" },
+    { pic:"🦋", h:["Kata ulang penuh: guna ٢","كات اولڠ ڤنوه: ڬوناكن ٢"],
+      text:["Kata ulang penuh terdiri daripada kata ulang semu dan kata ulang jamak. Dalam tulisan Jawi, kata-kata itu ditulis dengan angka dua Hindi (٢), bukan tanda sempang.","كات اولڠ ڤنوه ترديري درڤد دوا كاتڬوري ياٴيت كات اولڠ سمو دان كات اولڠ جمع. دالم توليسن جاوي كات٢ ايت دتوليس دڠن مڠڬوناكن اڠک دوا هيندي (٢) بوكن تندا سمڤڠ."],
+      ex:[["anai-anai","اناي٢"],["kupu-kupu","كوڤو٢"],["kura-kura","كورا٢"],["buku-buku","بوكو٢"],["murid-murid","موريد٢"],["pokok-pokok","ڤوكوق٢"]], p:"63" }
+  ],
+  games:[
+    { type:"kolum", q:["Susun ke lajur: apakah fungsi tanda sempang ini?","سوسون ك لاجور: اڤاكه فوڠسي تندا سمڤڠ اين؟"],
+      e:["Berentak, berimbuhan dan nombor: semuanya memakai tanda sempang.","برنتق، برايمبوهن دان نومبور: سمواڽ مماكاي تندا سمڤڠ."],
+      cols:[["Kata ulang berentak","كات اولڠ برنتق"],["Kata ulang berimbuhan","كات اولڠ برايمبوهن"],["Nombor","نومبور"]],
+      items:[["سايور-مايور",0,"sayur-mayur"],["رامه-تامه",0,"ramah-tamah"],["دنتم-دنتوم",0,"dentam-dentum"],["ترتاڽا-تاڽ",1,"tertanya-tanya"],["بواه-بواهن",1,"buah-buahan"],["سأوله-اوله",1,"seolah-olah"],["ک-25",2,"ke-25"],["تاهون 50-ن",2,"tahun 50-an"],["ک-100",2,"ke-100"]] },
+    { type:"ruang", q:["Pilih pruf yang ejaannya betul: tanda sempang atau ٢?","ڤيليه ڤروف يڠ ايجاٴنڽ بتول: تندا سمڤڠ اتاو ٢؟"],
+      e:["Kata ulang penuh guna ٢; kata ulang berentak dan berimbuhan guna tanda sempang.","كات اولڠ ڤنوه ڬوناكن ٢؛ كات اولڠ برنتق دان برايمبوهن ڬوناكن تندا سمڤڠ."],
+      rounds:[ { w:"sayur-mayur", o:["سايور-مايور","سايور٢","سايور مايور"] }, { w:"buku-buku", o:["بوكو٢","بوكو-بوكو","بوكوبوكو"] },
+        { w:"kupu-kupu", o:["كوڤو٢","كوڤو-كوڤو","كوڤو كوڤو"] }, { w:"ke-12", o:["ک-12","ک12","ک 12"] }, { w:"buah-buahan", o:["بواه-بواهن","بواه٢ن","بواه بواهن"] } ] },
+    { type:"tajuk", q:["Lengkapkan tajuk berita dengan ejaan yang betul.","لڠکڤکن تاجوق بريتا دڠن ايجاٴن يڠ بتول."],
+      e:["bermandi-manda dan bersiar-siar ialah kata ulang berimbuhan; ke-12 ialah kata sendi di awal bilangan.","برمندي-مندا دان برسيار-سيار اياله كات اولڠ برايمبوهن؛ ک-12 اياله كات سندي داولن بيلڠن."],
+      rounds:[
+        { s:["Kami sekeluarga ___ di Pantai Port Dickson pada cuti persekolahan yang lalu.","كامي سكلوارڬ ___ دڤنتاي ڤورت ديكسن ڤد چوتي ڤرسكولهن يڠ لالو."], o:["برمندي-مندا","برمندي٢","برمندي مندا","برمنديمندا"] },
+        { s:["Saya dan rakan-rakan ___ di Bandar Hilir Melaka.","ساي دان راكن٢ ___ دباندر هيلير ملاک."], o:["برسيار-سيار","برسيار٢","برسيار سيار","برسيارسيار"] },
+        { s:["Lebuh Raya ___ sepanjang 772 kilometer adalah lebuh raya yang terpanjang di Malaysia.","لبوه راي ___ سڤنجڠ 772 كيلوميتر اداله لبوه راي يڠ ترڤنجڠ دمليسيا."], o:["اوتارا-سلاتن","اوتارا سلاتن","اوتاراسلاتن","اوتارا٢ سلاتن"] },
+        { s:["Dania menyambut ulang tahun hari kelahiran yang ___ pada bulan Mei yang lalu.","دانيا مڽمبوت اولڠ تاهون هاري كلاهيرن يڠ ___ ڤد بولن مي يڠ لالو."], o:["ک-12","ک12","ک 12","ک٢"] } ] },
+    { type:"semakpruf", q:["Semak pruf! Tekan perkataan yang salah ejaan.","سمق ڤروف! تكن ڤركاتاٴن يڠ ساله ايجاٴن."],
+      e:["Pilih tanda yang betul: sempang untuk berimbuhan dan nombor, ٢ untuk kata ulang penuh.","ڤيليه تندا يڠ بتول: سمڤڠ اونتوق برايمبوهن دان نومبور، ٢ اونتوق كات اولڠ ڤنوه."],
+      rounds:[
+        { t:["ڤتاني","ايت","منانم","برماچم","جنيس","سايور٢ن","دكبونڽ."], bad:5, fix:"سايور-سايورن", r:"Petani itu menanam bermacam jenis sayur-sayuran di kebunnya." },
+        { t:["كوڤو-كوڤو","هيڠڬڤ","دبوڠا."], bad:0, fix:"كوڤو٢", r:"Kupu-kupu hinggap di bunga." },
+        { t:["دانيا","مڽمبوت","اولڠ","تاهون","هاري","كلاهيرن","يڠ","ک12."], bad:7, fix:"ک-12.", r:"Dania menyambut ulang tahun hari kelahiran yang ke-12." } ] },
+    { type:"mesincetak", q:["Muatkan SEMUA plat yang ditulis dengan tanda sempang dalam Jawi, kemudian tarik tuil CETAK.","موتكن سموا ڤليت يڠ دتوليس دڠن تندا سمڤڠ دالم جاوي، كمودين تاريق توٴيل چيتق."],
+      e:["kupu-kupu, pokok-pokok, murid-murid dan kura-kura ialah kata ulang penuh, maka ditulis dengan ٢.","كوڤو٢، ڤوكوق٢، موريد٢ دان كورا٢ اياله كات اولڠ ڤنوه، مک دتوليس دڠن ٢."],
+      opts:[["","sayur-mayur",1],["","kupu-kupu",0],["","tertanya-tanya",1],["","pokok-pokok",0],["","ke-25",1],["","murid-murid",0],["","Amerika-Rusia",1],["","kura-kura",0]] },
+    { type:"edar", q:["Hantar akhbar: padankan ejaan Jawi dengan bacaan Rumi.","هانتر اخبار: ڤادنكن ايجاٴن جاوي دڠن باچاٴن رومي."],
+      e:["Hebat! Kamu tahu bila guna tanda sempang dan bila guna ٢.","هيبت! كامو تاهو بيلا ڬوناكن تندا سمڤڠ دان بيلا ڬوناكن ٢."],
+      pairs:[["لمه-ڬمالاي","lemah-gemalai"],["انق-ڤينق","anak-pinak"],["ترسيڤو-سيڤو","tersipu-sipu"],["كأنق-انقن","keanak-anakan"],["الت ڤندڠ-دڠر","alat pandang-dengar"],["اناي٢","anai-anai"]] }
+  ]
+});
+
+/* ---------- Cabaran akhir: Edisi Khas ---------- */
+const FINAL_INFO = { id:"final", c:"#F2B705", icon:"🚚", sticker:"🚚",
+  t:["Edisi Khas: Van Edaran","ايديسي خاص: ۏن ايدارن"], u:["Cabaran akhir • semua pelajaran","چابرن اخير • سموا ڤلاجرن"] };
+const FINAL_PICK = [[1,0],[2,4],[3,1],[4,0],[5,0],[6,4],[7,0],[8,2]];
+
+/* ===================== ENJIN "Kilang Akhbar Jawi" (Jawi Tahun 6) ===================== */
+const KEY = "j6-best", VKEY = "t6-voice";
+function load(k,f){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):f; }catch(e){ return f; } }
+function save(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+let LANG = load("kafa-lang","jawi");
+const isJ = () => LANG==="jawi";
+const T = v => v==null ? "" : typeof v==="string" ? v : (isJ() ? v[1] : v[0]);
+const RU = v => v==null ? "" : typeof v==="string" ? v : v[0];
+const L = (r,j) => isJ() ? j : r;
+function applyLang(){ document.documentElement.dir = isJ() ? "rtl" : "ltr"; document.documentElement.lang = isJ() ? "ms-Arab" : "ms"; }
+const BACK = () => isJ() ? "→" : "←";
+let best = load(KEY, {});
+let voiceOn = load(VKEY, true);
+const app = document.getElementById("app");
+const $ = s => app.querySelector(s);
+const shuffle = a => { const b=a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; };
+// kocok tetapi jangan sama dengan susunan jawapan
+const mix = a => { if(a.length<2) return a.slice(); let b; do{ b=shuffle(a); }while(b.every((x,i)=>x===a[i])); return b; };
+const starsFor = m => m<=1 ? 3 : m<=3 ? 2 : 1;
+const totalStars = () => Object.values(best).reduce((s,v)=>s+(+v||0),0);
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");
+// perkataan: Jawi besar + Rumi kecil
+const W = (w, noR) => `<span class="wd"><b class="jw">${w[1]}</b>${noR||!w[0]?"":`<small>${esc(w[0])}</small>`}</span>`;
+const JW = s => `<span class="jw">${s}</span>`;
+
+/* ---------- Maskot: Pak Pelikan, editor akhbar ---------- */
+function pelican(cls=""){
+  return `<svg class="pel ${cls}" viewBox="0 0 120 120" aria-hidden="true">
+    <ellipse cx="62" cy="114" rx="30" ry="4" fill="rgba(0,0,0,.18)"/>
+    <path d="M52 102 l-7 10 h13 z M72 102 l-5 10 h13 z" fill="#F6A33B" stroke="#1B1B1F" stroke-width="2.5" stroke-linejoin="round"/>
+    <ellipse cx="62" cy="80" rx="30" ry="26" fill="#fff" stroke="#1B1B1F" stroke-width="3.5"/>
+    <path d="M70 68 q24 6 26 30 q-16 0 -28 -11 z" fill="#DCDDE3" stroke="#1B1B1F" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M58 48 h24 v14 h-24z" fill="#fff"/>
+    <circle cx="70" cy="38" r="17" fill="#fff" stroke="#1B1B1F" stroke-width="3.5"/>
+    <path d="M60 46 L16 52 Q20 72 44 68 Q57 64 62 53 Z" fill="#F6A33B" stroke="#1B1B1F" stroke-width="3" stroke-linejoin="round"/>
+    <g transform="rotate(-12 34 60)"><rect x="24" y="54" width="22" height="12" rx="2" fill="#FBF6E9" stroke="#1B1B1F" stroke-width="2"/><path d="M27 58h16M27 62h11" stroke="#1B1B1F" stroke-width="1.5"/></g>
+    <path d="M62 39 L10 47 Q7 51 14 51 L62 46 Z" fill="#F7C04A" stroke="#1B1B1F" stroke-width="3" stroke-linejoin="round"/>
+    <circle cx="75" cy="36" r="4.5" fill="#1B1B1F"/><circle cx="76.5" cy="34.5" r="1.6" fill="#fff"/>
+    <path d="M55 31 Q71 15 88 28 L86 33 Q71 24 57 35 Z" fill="#1D7874" stroke="#1B1B1F" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M56 33 Q45 30 40 37 Q50 39 59 36 Z" fill="#2A9D8F" stroke="#1B1B1F" stroke-width="2.5" stroke-linejoin="round"/>
+    <g transform="rotate(35 88 22)"><rect x="80" y="19" width="20" height="5" fill="#F2B705" stroke="#1B1B1F" stroke-width="2"/><path d="M100 19 l5 2.5 l-5 2.5z" fill="#1B1B1F"/></g>
+    <path d="M62 60 l-8 -5 v10 z M62 60 l8 -5 v10 z" fill="#C8102E" stroke="#1B1B1F" stroke-width="2" stroke-linejoin="round"/><circle cx="62" cy="60" r="2.6" fill="#C8102E" stroke="#1B1B1F" stroke-width="1.5"/>
+  </svg>`;
+}
+
+/* ---------- Bunyi ---------- */
+let actx = null;
+function tone(seq){
+  if(window.__kafaFast) return;
+  try{
+    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    let t = actx.currentTime;
+    for(const [f,d,type] of seq){
+      const o = actx.createOscillator(), g = actx.createGain();
+      o.type = type||"sine"; o.frequency.value = f; g.gain.setValueAtTime(.15,t); g.gain.exponentialRampToValueAtTime(.001,t+d);
+      o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t+d); t += d*.8;
+    }
+  }catch(e){}
+}
+const sfx = {
+  ok:   () => tone([[660,.1],[990,.18]]),
+  type: () => tone([[1800,.03,"square"]]),
+  no:   () => tone([[210,.18,"square"],[150,.2,"square"]]),
+  press:() => tone([[120,.12,"sawtooth"],[90,.18,"sawtooth"]]),
+  win:  () => tone([[392,.14],[523,.14],[659,.14],[784,.3]])
+};
+
+/* ---------- Suara: hanya teks Rumi; huruf Arab/Jawi dibuang supaya TTS tidak menyebutnya ---------- */
+const ttsOK = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+let voice = null;
+function pickVoice(){ try{ const vs = speechSynthesis.getVoices(); voice = vs.find(v=>/^ms/i.test(v.lang)) || vs.find(v=>/^id/i.test(v.lang)) || null; }catch(e){} }
+if(ttsOK){ pickVoice(); try{ speechSynthesis.onvoiceschanged = pickVoice; }catch(e){} }
+const ARABIC = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF\u200c]+/g;
+const clean = s => String(s||"").replace(ARABIC," ").replace(/___/g," tempat kosong ").replace(/[()\[\]'+]/g," ").replace(/\s+([.,;:!?])/g,"$1").replace(/\s{2,}/g," ").trim();
+function speak(text, force){
+  stopHuruf();
+  const t = clean(text);
+  if(!ttsOK || !t || (!voiceOn && !force)) return;
+  try{
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(t);
+    u.lang = voice ? voice.lang : "ms-MY"; if(voice) u.voice = voice; u.rate = .95; u.pitch = 1;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+/* ---------- Nama huruf Jawi: rakaman /assets/huruf/uXXXX.mp3 (bukan TTS) ---------- */
+const HURUF = { "ا":"alif","ب":"ba","ت":"ta","ة":"ta marbutoh","ث":"tsa","ج":"jim","چ":"ca","ح":"ha","خ":"kho","د":"dal","ذ":"zal","ر":"ro","ز":"zai",
+  "س":"sin","ش":"syin","ص":"sod","ض":"dhod","ط":"tho","ظ":"zo","ع":"ain","غ":"ghain","ڠ":"nga","ف":"fa","ڤ":"pa","ق":"qof","ک":"kaf","ك":"kaf","ڬ":"ga",
+  "ل":"lam","م":"mim","ن":"nun","و":"wau","ۏ":"va","ه":"ha","ء":"hamzah","ي":"ya","ڽ":"nya","لا":"lam alif" };
+const hurufFile = ch => "/assets/huruf/" + [...ch].map(x => "u" + (x==="ک" ? "0643" : x.codePointAt(0).toString(16).padStart(4,"0"))).join("_") + ".mp3";
+const isHuruf = ch => !!ch && HURUF[ch]!==undefined;
+let hurufAudio = null;
+function stopHuruf(){ try{ if(hurufAudio){ hurufAudio.pause(); hurufAudio = null; } }catch(e){} }
+function sayHuruf(ch, force){
+  if(!isHuruf(ch) || (!voiceOn && !force) || window.__kafaFast) return;
+  try{ if(ttsOK) speechSynthesis.cancel(); stopHuruf(); hurufAudio = new Audio(hurufFile(ch)); const pr = hurufAudio.play(); if(pr && pr.catch) pr.catch(()=>{}); }catch(e){}
+}
+function hush(){ if(ttsOK){ try{ speechSynthesis.cancel(); }catch(e){} } stopHuruf(); }
+
+/* ---------- Bantuan paparan ---------- */
+function toast(msg){ document.querySelectorAll(".toast").forEach(t=>t.remove()); const t=document.createElement("div"); t.className="toast"; t.setAttribute("role","status"); t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2600); }
+function confetti(n=30){
+  const box = document.createElement("div"); box.className="confetti"; box.setAttribute("aria-hidden","true");
+  const em = ["📰","⭐","✒️","🗞️","✨","🖨️"];
+  for(let i=0;i<n;i++){ const s=document.createElement("span"); s.textContent=em[i%em.length]; s.style.left=Math.random()*100+"vw"; s.style.animationDuration=(2+Math.random()*2)+"s"; s.style.animationDelay=Math.random()*.8+"s"; box.appendChild(s); }
+  document.body.appendChild(box); setTimeout(()=>box.remove(),5000);
+}
+const langBtn = () => `<button class="ib" data-act="lang" aria-label="${L("Tukar ke tulisan Jawi","توکر ک توليسن رومي")}">${isJ()?"Rumi":'<span class="jw">جاوي</span>'}</button>`;
+const voiceBtn = () => `<button class="ib" data-act="voice" aria-label="${L("Suara","سوارا")}" aria-pressed="${voiceOn}">${voiceOn?"🔊":"🔇"}</button>`;
+const sayBtn = txt => ttsOK && clean(txt) ? `<button class="say" data-say="${encodeURIComponent(txt)}" aria-label="${L("Dengar","دڠر")}">🔊</button>` : "";
+const starRow = n => [1,2,3].map(i=>`<span class="${i<=n?"":"off"}">⭐</span>`).join("");
+const unlocked = id => id===1 || (best[id-1]||0)>0;
+const allDone = () => STATIONS.every(s => (best[s.id]||0)>0);
+
+/* ===================== PETA: BARISAN PENGELUARAN AKHBAR ===================== */
+let S = null;
+function renderMap(){
+  hush(); S = null; document.querySelectorAll(".fb").forEach(x=>x.remove());
+  document.title = L("Kilang Akhbar Jawi • Jawi Tahun 6","كيلڠ اخبار جاوي • جاوي تاهون 6");
+  const cur = (STATIONS.find(s => !(best[s.id]>0)) || {id:"final"}).id;
+  const node = s => {
+    const lock = !unlocked(s.id), st = best[s.id]||0, side = s.id%2 ? "l" : "r";
+    const z = ZONES[s.id] ? `<div class="zone"><span>${T(ZONES[s.id])}</span></div>` : "";
+    return `${z}<div class="row ${side}"><button class="node ${lock?"lock":""} ${cur===s.id?"now":""}" data-act="${lock?"locked":"open"}" data-id="${s.id}" style="--c:${s.c}">
+      <span class="plate"><span class="num">${L("HLM","هلم")} ${s.id}</span>${s.icon}</span>
+      <span class="ninfo"><span class="nm">${T(s.t)}</span><span class="pg">${s.pg}</span><span class="st">${st?starRow(st):""}</span></span>
+      ${st?`<span class="stamp">${L("TERBIT","تربيت")}</span>`:""}${cur===s.id?`<span class="pen" aria-hidden="true">✒️</span>`:""}</button></div>`;
+  };
+  const fOpen = allDone(), fSt = best.final||0;
+  app.innerHTML = `
+    <div class="top"><a class="ib" href="../index.html" aria-label="${L("Kembali ke Tahun 6","كمبالي ك تاهون 6")}">${BACK()}</a><span class="sp"></span>
+      <span class="pill" aria-label="${totalStars()} ${L("bintang","بينتڠ")}">⭐ ${totalStars()}</span>${voiceBtn()}${langBtn()}</div>
+    <header class="mast">
+      <div class="ed"><span>${L("Edisi Tahun 6","ايديسي تاهون 6")}</span><span>${L("Jawi","جاوي")}</span><span>📰 JOM KAFA</span></div>
+      <div class="rule"></div>
+      <h1>${isJ()?"كيلڠ اخبار <b>جاوي</b>":"Kilang Akhbar <b>Jawi</b>"}</h1>
+      <div class="rule"></div>
+      <div class="lead">${pelican("bob")}<p>${L("Selamat datang, wartawan muda! Saya Pak Pelikan, editor akhbar. Semak ejaan Jawi di setiap meja supaya akhbar kita dapat dicetak.","سلامت داتڠ، ورتاوان مودا! ساي ڤق ڤليکن، ايديتور اخبار. سمق ايجاٴن جاوي د ستياڤ ميجا سوڤايا اخبار كيت داڤت دچيتق.")}</p></div>
+    </header>
+    <p class="sttl">🗞️ ${L("Keratan akhbar saya","كراتن اخبار ساي")}</p>
+    <div class="stickers">${STATIONS.map(s=>`<span class="${best[s.id]>0?"got":""}" title="${esc(T(s.t))}">${s.sticker}</span>`).join("")}</div>
+    <section class="line" aria-label="${L("Peta kilang akhbar","ڤتا كيلڠ اخبار")}">
+      ${STATIONS.map(node).join("")}
+      <div class="dock"><div class="zone"><span>${L("Van Edaran","ۏن ايدارن")}</span></div>
+        <button class="node final ${fOpen?"":"lock"} ${cur==="final"?"now":""}" data-act="${fOpen?"final":"flocked"}">
+        <span class="plate">🚚</span><span class="ninfo"><span class="nm">${T(FINAL_INFO.t)}</span><span class="pg">${L("8 cabaran","8 چابرن")}</span><span class="st">${fSt?starRow(fSt):""}</span></span>
+        ${fSt?`<span class="stamp">${L("TERBIT","تربيت")}</span>`:""}</button>
+        <div class="road" aria-hidden="true"></div>
+        <div class="foot">🏘️ ${L("Hantar Edisi Khas ke seluruh kampung!","هانتر ايديسي خاص ك سلوروه كامڤوڠ!")}</div></div>
+    </section>`;
+  const now = app.querySelector(".node.now");
+  if(now) setTimeout(()=>{ try{ now.scrollIntoView({block:"center", behavior:"smooth"}); }catch(e){} }, 250);
+}
+
+/* ===================== STESEN: BACA ===================== */
+function openStation(id){
+  const st = STATIONS.find(s=>s.id===id);
+  S = { st, phase:"read", ri:0, gi:0, miss:0, games: st.games.slice() };
+  renderRead();
+}
+function openFinal(){
+  const games = FINAL_PICK.map(([s,i]) => STATIONS.find(x=>x.id===s).games[i]);
+  S = { st:FINAL_INFO, phase:"play", gi:0, miss:0, games };
+  renderPlay();
+}
+const head = () => `<div class="top"><button class="ib" data-act="map" aria-label="${L("Kembali ke peta","كمبالي ك ڤتا")}">${BACK()}</button><span class="sp"></span>${voiceBtn()}${langBtn()}</div>
+  <div class="shead"><span class="plate" style="--c:${S.st.c}">${S.st.icon}</span><div><h2>${T(S.st.t)}</h2><small>${T(S.st.u)}</small></div></div>`;
+const exRow = r => Array.isArray(r[0]) ? `<span class="ex">${W(r[0])} <b aria-hidden="true">${isJ()?"⬅":"➜"}</b> ${W(r[1])}</span>` : `<span class="ex">${W(r)}</span>`;
+function readSpeech(c){
+  return [RU(c.h), RU(c.text), ...(c.ss||[]).map(RU), c.tip?("Tahukah anda? "+RU(c.tip)):""].filter(Boolean).join(". ");
+}
+function renderRead(){
+  hush();
+  const c = S.st.read[S.ri], n = S.st.read.length, last = S.ri===n-1;
+  app.innerHTML = head() + `
+    <article class="card">
+      <div class="rpic" aria-hidden="true">${c.pic}</div>
+      <h3 class="rh"><span>${T(c.h)}</span> ${sayBtn(readSpeech(c))}</h3>
+      ${c.text?`<p class="rtext">${T(c.text)}</p>`:""}
+      ${c.hz?`<div class="hz">${c.hz.map(h=>`<button data-huruf="${h}" aria-label="${L("Dengar nama huruf","دڠر نام حروف")} ${HURUF[h]}"><span class="jw">${h}</span></button>`).join("")}<small style="align-self:center;color:var(--muted)">🔊 ${L("Tekan huruf untuk dengar namanya","تكن حروف اونتوق دڠر نامڽ")}</small></div>`:""}
+      ${c.ex?`<div class="exs">${c.ex.map(exRow).join("")}</div>`:""}
+      ${c.ss?c.ss.map(s=>`<div class="news"><span class="hd">${L("PETIKAN AYAT","ڤتيقن ايات")}</span><span class="jw">${s[1]}</span>${isJ()?"":`<span class="ru">${esc(s[0])}</span>`}</div>`).join(""):""}
+      ${c.tip?`<div class="tip"><b>💡</b><span><b>${L("Tahukah anda?","تاهوكه اندا؟")}</b> ${T(c.tip)}</span></div>`:""}
+      <div class="ref">📖 ${L("Buku teks ms.","بوكو تيكس م.س.")} ${c.p}</div>
+      <div class="navr">
+        <button class="btn alt" data-act="rprev" ${S.ri?"":"disabled"} aria-label="${L("Sebelum","سبلوم")}" style="flex:0 0 64px">${BACK()}</button>
+        <button class="btn ${last?"go":""}" data-act="rnext">${last ? "🖨️ "+L("Mula bekerja!","مولا بكرجا!") : L("Seterusnya","ستروسڽ")+(isJ()?" ◀":" ▶")}</button>
+      </div>
+      <div class="dots">${S.st.read.map((_,i)=>`<i class="${i===S.ri?"on":""}"></i>`).join("")}</div>
+    </article>`;
+  speak(readSpeech(c));
+  window.scrollTo(0,0);
+}
+
+/* ===================== STESEN: MAIN ===================== */
+function feedBar(){
+  const n = S.games.length, pct = Math.max(3, S.gi/n*100), side = isJ() ? "right" : "left";
+  return `<div class="feed" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${S.gi}"><i style="width:${pct}%"></i><span style="${side}:${Math.min(96,pct)}%">📜</span></div>`;
+}
+function renderPlay(){
+  hush(); document.querySelectorAll(".fb").forEach(x=>x.remove());
+  const g = S.games[S.gi];
+  app.innerHTML = head() + feedBar() + `<section class="card" id="game">
+    <div class="q"><p>${T(g.q)}</p>${sayBtn(RU(g.q))}</div><div id="play" data-type="${g.type}"></div><div id="hint"></div></section>`;
+  GAMES[g.type]($("#play"), g);
+  speak(RU(g.q));
+  window.scrollTo(0,0);
+}
+function oops(el, hint){
+  S.miss++; sfx.no();
+  if(el){ el.classList.remove("shake"); void el.offsetWidth; el.classList.add("shake"); }
+  const h = $("#hint"); if(h) h.innerHTML = `<div class="hint">🖍️ ${hint || L("Hmm, ada kesilapan! Cuba lagi atau lihat semula kad bacaan.","همم، اد كسيلاڤن! چوبا لاڬي اتاو ليهت سمولا كد باچاٴن.")}</div>`;
+}
+const clearHint = () => { const h = $("#hint"); if(h) h.innerHTML = ""; };
+const PRAISE = [["Hebat!","هيبت!"],["Bagus!","باڬوس!"],["Pandai!","ڤنداي!"],["Syabas!","شاباس!"],["MasyaAllah!","ماشاءالله!"]];
+function win(){
+  sfx.ok();
+  const g = S.games[S.gi], p = PRAISE[Math.floor(Math.random()*PRAISE.length)];
+  const fb = document.createElement("div"); fb.className = "fb"; fb.setAttribute("role","dialog"); fb.setAttribute("aria-live","polite");
+  fb.innerHTML = `<div class="in"><div class="row1">${pelican("yay")}<div><strong>${T(p)}</strong><p>${T(g.e)}</p></div></div>
+    <button class="btn go" data-act="next">${L("Seterusnya","ستروسڽ")} ${isJ()?"◀":"▶"}</button></div>`;
+  document.body.appendChild(fb);
+  speak(RU(p)+" "+RU(g.e));
+  setTimeout(()=>{ const b = fb.querySelector("button"); if(b) b.focus(); }, 50);
+}
+function nextGame(){
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  S.gi++;
+  if(S.gi < S.games.length) renderPlay(); else renderResult();
+}
+function renderResult(){
+  document.querySelectorAll(".fb").forEach(x=>x.remove());
+  const id = S.st.id, stars = starsFor(S.miss), prev = best[id]||0, wasAll = allDone();
+  if(stars > prev){ best[id] = stars; save(KEY, best); }
+  S.res = { stars, first: !prev, openedFinal: id!=="final" && !wasAll && allDone() };
+  drawResult(true);
+}
+function drawResult(fresh){
+  hush();
+  const { stars, first, openedFinal } = S.res;
+  const msg = stars===3 ? ["Cemerlang! Halaman ini dicetak tanpa sebarang kesilapan.","چمرلڠ! هلامن اين دچيتق تنڤ سبارڠ كسيلاڤن."] : stars===2 ? ["Bagus! Semak sekali lagi untuk 3 bintang.","باڬوس! سمق سكالي لاڬي اونتوق 3 بينتڠ."] : ["Syabas kerana mencuba! Baca kad dan cuba lagi.","شاباس كران منچوبا! باچ كد دان چوبا لاڬي."];
+  const title = PRAISE[stars===3?4:stars===2?0:3];
+  app.innerHTML = head() + `<section class="card res">
+      ${pelican("yay")}
+      <div class="stars" aria-label="${stars} ${L("bintang","بينتڠ")}">${[1,2,3].map(i=>`<span class="${i<=stars?"":"off"}" style="animation-delay:${i*.25}s">⭐</span>`).join("")}</div>
+      <h2>${T(title)}</h2><p>${T(msg)}</p>
+      ${first ? `<div class="gotst"><span>${S.st.sticker}</span>${L("Keratan akhbar baharu untuk koleksi kamu!","كراتن اخبار بهارو اونتوق كوليكسي كامو!")}</div>` : ""}
+      ${openedFinal ? `<p><b>🚚 ${L("Edisi Khas kini dibuka!","ايديسي خاص كيني دبوک!")}</b></p>` : ""}
+      <button class="btn go" data-act="map">🗺️ ${L("Kembali ke peta","كمبالي ك ڤتا")}</button>
+      <button class="btn alt" style="margin-top:10px;width:100%" data-act="again">🔁 ${L("Main lagi","ماٴين لاڬي")}</button>
+    </section>`;
+  if(fresh){ sfx.win(); confetti(); speak(RU(title)+" "+RU(msg)); }
+  window.scrollTo(0,0);
+}
+
+/* ===================== PERMAINAN (8 jenis, semua tekan sahaja) ===================== */
+const hasAr = s => /[\u0600-\u06FF]/.test(s);
+const lab = o => { const s = T(o); return hasAr(s) ? JW(s) : esc(s); };
+const later = fn => setTimeout(fn, window.__kafaFast ? 0 : 650);
+const rnd = (r,n) => `<div class="rnd">${L("Pusingan","ڤوسيڠن")} ${r+1} / ${n}</div>`;
+const GAMES = {};
+
+/* wartawan: temu bual — pilih bacaan / jawapan bagi ayat atau perkataan berwarna */
+GAMES.wartawan = (el, g) => {
+  let r = 0, busy = false;
+  const draw = () => {
+    const R = g.rounds[r], s = R.hl ? R.s.replace(R.hl, `<mark>${R.hl}</mark>`) : `<mark>${R.s}</mark>`;
+    const ord = mix(R.o.map((_,i)=>i));
+    el.innerHTML = rnd(r, g.rounds.length) + `<div class="news"><span class="hd">🎤 ${L("WAWANCARA","وانچارا")}</span><span class="jw" style="${R.hl?"":"font-size:34px;text-align:center"}">${s}</span></div>
+      <div class="g1">${ord.map(i=>`<button class="opt wo" data-ok="${i===0?1:0}">${lab(R.o[i])}</button>`).join("")}</div>`;
+    busy = false;
+  };
+  el.onclick = e => {
+    const b = e.target.closest(".wo"); if(!b || busy) return;
+    if(b.dataset.ok==="1"){ busy = true; b.classList.add("good"); sfx.ok(); clearHint(); r++; r < g.rounds.length ? later(draw) : win(); }
+    else { b.classList.add("bad"); oops(b); }
+  };
+  draw();
+};
+
+/* tajuk: lengkapkan tajuk berita dengan blok perkataan */
+GAMES.tajuk = (el, g) => {
+  let r = 0, busy = false;
+  const blank = `<span class="blank" id="bl">　　　</span>`;
+  const draw = () => {
+    const R = g.rounds[r], ord = mix(R.o.map((_,i)=>i));
+    el.innerHTML = rnd(r, g.rounds.length) + `<div class="news"><span class="hd">📰 ${L("TAJUK UTAMA","تاجوق اوتام")}</span><span class="jw">${R.s[1].replace("___", blank)}</span>${isJ()?"":`<span class="ru">${esc(R.s[0]).replace("___","______")}</span>`}</div>
+      <div class="g2">${ord.map(i=>`<button class="opt tj" data-ok="${i===0?1:0}" data-w="${esc(R.o[i])}">${JW(R.o[i])}</button>`).join("")}</div>`;
+    busy = false;
+  };
+  el.onclick = e => {
+    const b = e.target.closest(".tj"); if(!b || busy) return;
+    if(b.dataset.ok==="1"){ busy = true; b.classList.add("good"); const bl = el.querySelector("#bl"); if(bl){ bl.textContent = b.dataset.w; bl.style.color = "var(--ok)"; }
+      sfx.ok(); clearHint(); r++; r < g.rounds.length ? later(draw) : win(); }
+    else { b.classList.add("bad"); oops(b); }
+  };
+  draw();
+};
+
+/* timah: atur huruf/blok timah ikut urutan untuk membina ejaan */
+GAMES.timah = (el, g) => {
+  let k = 0;
+  const tiles = mix([...g.parts, ...g.extra].map((t,i)=>({t,i})));
+  el.innerHTML = `<div class="stick" aria-live="polite"><span id="built" class="jw"></span></div>
+    <p class="rnd" style="text-align:center">${L("Bina:","بينا:")} <b>${esc(g.w[0])}</b> • ${L("blok kanan dahulu","بلوک كانن دهولو")}</p>
+    <div class="tray">${tiles.map(o=>`<button class="tl" data-t="${esc(o.t)}"><span class="jw">${o.t===" "?"␣":o.t}</span></button>`).join("")}</div>`;
+  const built = el.querySelector("#built");
+  el.onclick = e => {
+    const b = e.target.closest(".tl"); if(!b || b.classList.contains("used") || k >= g.parts.length) return;
+    if(b.dataset.t === g.parts[k]){
+      b.classList.add("used"); k++; built.textContent = g.parts.slice(0,k).join(g.join); sfx.type(); clearHint();
+      if(isHuruf(b.dataset.t)) sayHuruf(b.dataset.t);
+      if(k === g.parts.length){ built.parentNode.classList.add("good"); win(); }
+    } else oops(b, L("Bukan blok itu. Ejaan Jawi dibina dari kanan ke kiri.","بوكن بلوک ايت. ايجاٴن جاوي دبينا دري كانن ك كيري."));
+  };
+};
+
+/* semakpruf: tekan perkataan yang salah ejaan, pen merah membetulkannya */
+GAMES.semakpruf = (el, g) => {
+  let r = 0, busy = false;
+  const draw = () => {
+    const R = g.rounds[r];
+    el.innerHTML = rnd(r, g.rounds.length) + `<div class="proof">${R.t.map((w,i)=>`<button class="tok" data-i="${i}">${w}</button>`).join(" ")}</div>
+      ${isJ()?"":`<p class="rnd" style="margin-top:8px">🖍️ ${esc(R.r)}</p>`}`;
+    busy = false;
+  };
+  el.onclick = e => {
+    const b = e.target.closest(".tok"); if(!b || busy) return;
+    const R = g.rounds[r];
+    if(+b.dataset.i === R.bad){ busy = true; b.textContent = R.fix; b.classList.add("fixd"); sfx.ok(); clearHint(); r++; r < g.rounds.length ? later(draw) : win(); }
+    else oops(b, L("Perkataan itu sudah betul. Cari kesilapan yang lain.","ڤركاتاٴن ايت سوده بتول. چاري كسيلاڤن يڠ لاٴين."));
+  };
+  draw();
+};
+
+/* kolum: tekan kad, kemudian lajur akhbar yang betul */
+GAMES.kolum = (el, g) => {
+  let sel = null, left = g.items.length;
+  const ord = mix(g.items.map((_,i)=>i)), n = g.cols.length;
+  el.innerHTML = `<div class="cards">${ord.map(i=>`<button class="ck" data-i="${i}">${JW(g.items[i][0])}${isJ()?"":`<small style="display:block;font-size:12px;color:var(--muted)">${esc(g.items[i][2])}</small>`}</button>`).join("")}</div>
+    <div class="cols" style="grid-template-columns:repeat(${n===3?3:2},minmax(0,1fr))">${g.cols.map((c,ci)=>`<button class="col" data-c="${ci}"><h4>${T(c)}</h4></button>`).join("")}</div>`;
+  el.onclick = e => {
+    const c = e.target.closest(".ck"), col = e.target.closest(".col");
+    if(c){ el.querySelectorAll(".ck").forEach(x=>x.classList.remove("sel")); c.classList.add("sel"); sel = +c.dataset.i; sfx.type(); return; }
+    if(!col) return;
+    if(sel===null){ toast(L("Pilih satu kad dahulu 🗞️","ڤيليه ساتو كد دهولو 🗞️")); return; }
+    const it = g.items[sel];
+    if(+col.dataset.c === it[1]){
+      el.querySelector(`.ck[data-i="${sel}"]`).classList.add("done");
+      col.insertAdjacentHTML("beforeend", `<span class="in jw">${it[0]}</span>`); sel = null; sfx.ok(); clearHint();
+      if(--left === 0) win();
+    } else oops(col);
+  };
+};
+
+/* mesincetak: muatkan semua plat yang betul, kemudian tarik tuil */
+GAMES.mesincetak = (el, g) => {
+  const ord = mix(g.opts.map((_,i)=>i));
+  el.innerHTML = `<div class="plates">${ord.map(i=>{ const o = g.opts[i]; return `<button class="pl" data-i="${i}" data-ok="${o[2]}" aria-pressed="false">${o[0]?JW(o[0])+(isJ()?"":`<small style="display:block;font-size:12px">${esc(o[1])}</small>`):`<b style="font-size:18px">${esc(o[1])}</b>`}</button>`; }).join("")}</div>
+    <button class="btn go lever" id="press">🖨️ ${L("Tarik tuil CETAK","تاريق توٴيل چيتق")}</button>`;
+  el.onclick = e => {
+    const p = e.target.closest(".pl");
+    if(p){ p.classList.toggle("on"); p.setAttribute("aria-pressed", p.classList.contains("on")); sfx.type(); return; }
+    if(!e.target.closest("#press")) return;
+    const on = [...el.querySelectorAll(".pl.on")];
+    if(!on.length){ toast(L("Muatkan sekurang-kurangnya satu plat dahulu","موتكن سكورڠ٢ڽ ساتو ڤليت دهولو")); return; }
+    const wrong = on.filter(x=>x.dataset.ok!=="1"), need = g.opts.filter(o=>o[2]).length;
+    if(wrong.length){ wrong.forEach(x=>{ x.classList.remove("on"); x.setAttribute("aria-pressed","false"); }); oops(wrong[0], L("Ada plat yang salah! Plat itu dikeluarkan.","اد ڤليت يڠ ساله! ڤليت ايت دكلوارکن.")); return; }
+    if(on.length < need){ oops(el.querySelector("#press"), L("Masih ada plat betul yang belum dimuatkan.","ماسيه اد ڤليت بتول يڠ بلوم دموتكن.")); return; }
+    sfx.press(); on.forEach(x=>x.classList.add("good")); win();
+  };
+};
+
+/* ruang: pilih pruf yang jarak / tandanya betul */
+GAMES.ruang = (el, g) => {
+  let r = 0, busy = false;
+  const draw = () => {
+    const R = g.rounds[r], ord = mix(R.o.map((_,i)=>i));
+    el.innerHTML = rnd(r, g.rounds.length) + `<div class="news" style="text-align:center"><span class="hd">📐 ${L("PRUF","ڤروف")}</span><b style="font-size:24px;font-family:Nunito,sans-serif">${esc(R.w)}</b></div>
+      <div class="g1">${ord.map(i=>`<button class="opt rg" data-ok="${i===0?1:0}">${JW(R.o[i])}</button>`).join("")}</div>`;
+    busy = false;
+  };
+  el.onclick = e => {
+    const b = e.target.closest(".rg"); if(!b || busy) return;
+    if(b.dataset.ok==="1"){ busy = true; b.classList.add("good"); sfx.ok(); clearHint(); r++; r < g.rounds.length ? later(draw) : win(); }
+    else { b.classList.add("bad"); oops(b); }
+  };
+  draw();
+};
+
+/* edar: van edaran — tekan akhbar, kemudian rumah yang sepadan */
+GAMES.edar = (el, g) => {
+  let sel = null, left = g.pairs.length;
+  const idx = g.pairs.map((_,i)=>i), pap = mix(idx); let hou = mix(idx), tries = 0;
+  while(hou.every((x,i)=>x===pap[i]) && tries++ < 10) hou = mix(idx);
+  el.innerHTML = `<div class="van" aria-hidden="true">🚚💨</div><div class="cards">${pap.map(k=>`<button class="pp" data-k="${k}">🗞️ ${JW(g.pairs[k][0])}</button>`).join("")}</div>
+    <div class="houses">${hou.map(k=>`<button class="hs" data-k="${k}">${lab(g.pairs[k][1])}</button>`).join("")}</div>`;
+  el.onclick = e => {
+    const p = e.target.closest(".pp"), h = e.target.closest(".hs");
+    if(p){ el.querySelectorAll(".pp").forEach(x=>x.classList.remove("sel")); p.classList.add("sel"); sel = p.dataset.k; sfx.type(); return; }
+    if(!h || h.classList.contains("done")) return;
+    if(sel===null){ toast(L("Pilih akhbar dahulu 🗞️","ڤيليه اخبار دهولو 🗞️")); return; }
+    if(h.dataset.k === sel){
+      el.querySelector(`.pp[data-k="${sel}"]`).classList.add("done"); h.classList.add("done");
+      h.insertAdjacentHTML("beforeend", `<span class="jw" style="display:block;font-size:20px">✅ ${g.pairs[+sel][0]}</span>`); sel = null; sfx.ok(); clearHint();
+      if(--left === 0) win();
+    } else oops(h);
+  };
+};
+
+/* ===================== KAWALAN ===================== */
+document.addEventListener("click", e => {
+  const s = e.target.closest("[data-say]");
+  if(s){ speak(decodeURIComponent(s.dataset.say), true); return; }
+  const hz = e.target.closest("[data-huruf]");
+  if(hz){ sayHuruf(hz.dataset.huruf, true); return; }
+  const b = e.target.closest("[data-act]"); if(!b) return;
+  const a = b.dataset.act;
+  if(a==="lang"){ LANG = isJ() ? "rumi" : "jawi"; save("kafa-lang", LANG); applyLang(); redraw(); }
+  else if(a==="voice"){ voiceOn = !voiceOn; save(VKEY, voiceOn); if(!voiceOn) hush(); redraw(); }
+  else if(a==="open"){ openStation(+b.dataset.id); }
+  else if(a==="locked"){ sfx.no(); toast(L("Siapkan halaman sebelumnya dahulu 🔒","سياڤكن هلامن سبلومڽ دهولو 🔒")); }
+  else if(a==="final"){ openFinal(); }
+  else if(a==="flocked"){ sfx.no(); toast(L(`Siapkan semua ${STATIONS.length} halaman untuk membuka Edisi Khas 🚚`,`سياڤكن سموا ${STATIONS.length} هلامن اونتوق ممبوک ايديسي خاص 🚚`)); }
+  else if(a==="map"){ renderMap(); window.scrollTo(0,0); }
+  else if(a==="rprev"){ if(S.ri>0){ S.ri--; renderRead(); } }
+  else if(a==="rnext"){ if(S.ri < S.st.read.length-1){ S.ri++; renderRead(); } else { S.phase="play"; S.gi=0; S.miss=0; renderPlay(); } }
+  else if(a==="next"){ nextGame(); }
+  else if(a==="again"){ S.res = null; S.st.id==="final" ? openFinal() : (S.gi=0, S.miss=0, S.phase="play", renderPlay()); }
+});
+// lukis semula skrin semasa selepas tukar tulisan/suara, tanpa mengulang konfeti
+function redraw(){
+  if(!S) return renderMap();
+  if(S.phase==="read") return renderRead();
+  if(S.res && document.querySelector(".res")) return drawResult(false);
+  renderPlay();
+}
+applyLang();
+renderMap();
+</script>
+</body>
+</html>
