@@ -30,6 +30,8 @@ kafa/
 │   │   └── index.html    ← Game Kembara Lautan Iman (Tauhid)
 │   ├── akhlak/
 │   │   └── index.html    ← Game Jalan-jalan Kampung Akhlak (Akhlak)
+│   ├── jawi/
+│   │   └── index.html    ← Game Kilang Coklat Jawi (Jawi)
 │   ├── arab/
 │   │   └── index.html    ← Game Lompat Katak (Bahasa Arab)
 │   ├── tajwid/

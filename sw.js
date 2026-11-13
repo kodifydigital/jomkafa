@@ -1,6 +1,6 @@
 // Service worker JOM KAFA: simpan halaman, gaya, skrip dan three.js supaya boleh main tanpa internet.
 // Tukar VERSION setiap kali mahu memaksa semua peranti memuat turun semula fail teras.
-const VERSION = "jomkafa-v31";
+const VERSION = "jomkafa-v32";
 const CORE = [
   "/", "/index.html", "/privasi.html", "/manifest.webmanifest",
   "/assets/kafa.css", "/assets/kafa.js", "/assets/config.js", "/assets/auth.js", "/assets/pwa.js", "/assets/access.js", "/assets/vendor/three.min.js",
@@ -8,7 +8,7 @@ const CORE = [
   "/tahun1/index.html", "/tahun2/index.html", "/tahun3/index.html", "/tahun4/index.html", "/tahun5/index.html", "/tahun6/index.html",
   "/tahun1/akhlak/index.html", "/tahun1/jawi/index.html", "/tahun1/feqah/index.html", "/tahun1/tauhid/index.html", "/tahun1/arab/index.html", "/tahun1/hafazan/index.html", "/tahun2/akhlak/index.html", "/tahun2/jawi/index.html", "/tahun2/feqah/index.html", "/tahun6/tajwid/index.html", "/tahun6/sirah/index.html", "/tahun6/hafazan/index.html", "/tahun6/arab/index.html", "/tahun6/tauhid/index.html", "/tahun6/feqah/index.html", "/tahun6/jawi/index.html", "/tahun6/akhlak/index.html", "/tahun5/tajwid/index.html", "/tahun5/sirah/index.html", "/tahun5/hafazan/index.html", "/tahun5/arab/index.html", "/tahun5/tauhid/index.html", "/tahun5/feqah/index.html", "/tahun5/jawi/index.html", "/tahun5/akhlak/index.html", "/tahun4/akhlak/index.html", "/tahun4/tajwid/index.html", "/tahun4/sirah/index.html", "/tahun4/hafazan/index.html", "/tahun4/arab/index.html", "/tahun4/tauhid/index.html", "/tahun4/jawi/index.html", "/tahun4/feqah/index.html", "/tahun2/tauhid/index.html", "/tahun2/arab/index.html", "/tahun2/hafazan/index.html",
   "/tahun3/sirah/index.html", "/tahun3/feqah/index.html", "/tahun3/tauhid/index.html", "/tahun3/akhlak/index.html",
-  "/tahun3/arab/index.html", "/tahun3/tajwid/index.html", "/tahun3/hafazan/index.html", "/tahun3/arked/index.html", "/tahun1/arked/index.html",
+  "/tahun3/arab/index.html", "/tahun3/tajwid/index.html", "/tahun3/jawi/index.html", "/tahun3/hafazan/index.html", "/tahun3/arked/index.html", "/tahun1/arked/index.html",
   "/guru/index.html"
 ];
 // sebutan nama huruf (Jawi Tahun 1) supaya boleh didengar tanpa internet

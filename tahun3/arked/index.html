@@ -690,6 +690,96 @@ BANK_ORDER.hafazan = [
   { p:["Susun ayat 1–5 Surah al-'Alaq","سوسون ايات 1–5 سورة العلق"], items:["ٱقْرَأْ بِٱسْمِ رَبِّكَ ٱلَّذِى خَلَقَ","خَلَقَ ٱلْإِنسَـٰنَ مِنْ عَلَقٍ","ٱقْرَأْ وَرَبُّكَ ٱلْأَكْرَمُ","ٱلَّذِى عَلَّمَ بِٱلْقَلَمِ","عَلَّمَ ٱلْإِنسَـٰنَ مَا لَمْ يَعْلَمْ"], t:[2] },
 ];
 
+// Zon Arked Tahun 3 — bank soalan Jawi (daripada Buku Teks Jawi Tahun 3, ms. 1–55).
+// Format sama seperti BANK.akhlak / BANK.arab: { p:[Rumi,Jawi], ok:[...], no:[...], t:[pelajaran] }
+// ok/no = perkataan Jawi (tulisan Jawi sahaja). Ejaan salah dalam "no" ialah pengganggu yang kami tulis (bukan daripada buku).
+BANK.jawi = [
+  { p:["Pilih kata jati Melayu yang berakhir dengan ق","ڤيليه کات جاتي ملايو يڠ براخير دڠن ق"],
+    ok:["کاتق","ڤوکوق","باتيق","سوڠکوق","لوبوق","تاريق","کروڤوق","ايتيق"],
+    no:["کيک","بلوک","چيک","ترک","کلاسيک","لوڬيک"], t:[1] },
+  { p:["Pilih perkataan bahasa Inggeris yang berakhir dengan ک","ڤيليه ڤرکاتاٴن بهاس ايڠڬريس يڠ براخير دڠن ک"],
+    ok:["کيک","بلوک","ماتماتيک","سوبجيک","کلاسيک","لوڬيک","کريتيک","اورڬانيک"],
+    no:["کاتق","ڤوکوق","باتيق","لوبوق","تاريق"], t:[1] },
+  { p:["Pilih ejaan Jawi yang betul (ق atau ک)","ڤيليه ايجاٴن جاوي يڠ بتول (ق اتاو ک)"],
+    ok:["کاتق","لوبوق","کيک","بلوک","بوقتي","لقسا","کوچيق","ترک"],
+    no:["کاتک","لوبوک","کيق","بلوق","بوکتي","لکسا","کوچيک"], t:[1] },
+  { p:["Pilih kata jati: \"k\" tertutup di tengah ditulis ق","ڤيليه کات جاتي: \"k\" ترتوتوڤ د تڠه دتوليس ق"],
+    ok:["بوقتي","لقسا","ڤريقسا","سيقسا","لقسامان","ايلقکن"],
+    no:["سيکشن","اوکسيڬن","ککتوس","ريکروت","چيک"], t:[1] },
+  { p:["Pilih ejaan bahasa Inggeris yang betul","ڤيليه ايجاٴن بهاس ايڠڬريس يڠ بتول"],
+    ok:["ماتماتيک","سوبجيک","کلينيک","کلاسيک","اورڬانيک","لوڬيک"],
+    no:["ماتماتيق","سوبجيق","کلينيق","کلاسيق","اورڬانيق","لوڬيق"], t:[1] },
+  { p:["Pilih perkataan yang berakhir dengan bunyi \"ka\" (ک)","ڤيليه ڤرکاتاٴن يڠ براخير دڠن بوڽي \"ka\" (ک)"],
+    ok:["نڠک","سڠک","لوک","موک","بوک","چوک","سوک","دوک"],
+    no:["مڠڬ","تيڬ","بڠڬ","جوڬ","کلوارڬ"], t:[2] },
+  { p:["Pilih perkataan yang berakhir dengan bunyi \"ga\" (ڬ)","ڤيليه ڤرکاتاٴن يڠ براخير دڠن بوڽي \"ga\" (ڬ)"],
+    ok:["مڠڬ","تيڬ","بڠڬ","جوڬ","کلوارڬ","سرڠڬ","موڬ","جيڠڬ"],
+    no:["نڠک","لوک","بوک","موک","سوک"], t:[2] },
+  { p:["Pilih ejaan Jawi yang betul (ک atau ڬ)","ڤيليه ايجاٴن جاوي يڠ بتول (ک اتاو ڬ)"],
+    ok:["نڠک","بوک","مڠڬ","تيڬ","چوريڬ","سموڬ","اوڠک"],
+    no:["نڠکا","بوکا","مڠڬا","تيڬا","چوريڬا","سموڬا"], t:[2] },
+  { p:["Pilih perkataan yang alif akhirnya dikekalkan","ڤيليه ڤرکاتاٴن يڠ اليف اخيرڽ دککلکن"],
+    ok:["لادا","نادا","دارا","جالا","باوا","ڠاڠا","ساوا","بلاڠا","کالا"],
+    no:["باڤ","راس","نام","مان","کاچ","تاڽ"], t:[3] },
+  { p:["Pilih perkataan yang alif akhirnya digugurkan","ڤيليه ڤرکاتاٴن يڠ اليف اخيرڽ دڬوڬورکن"],
+    ok:["باڤ","راس","نام","مان","کاچ","تاڽ","چمڤاک","جناک","ججاک"],
+    no:["لادا","نادا","دارا","جالا","باوا","ڠاڠا"], t:[3] },
+  { p:["Pilih ejaan Jawi yang betul (pola \"a-a\")","ڤيليه ايجاٴن جاوي يڠ بتول (ڤولا \"a-a\")"],
+    ok:["لادا","باڤ","نام","جالا","چمڤاک","دادا","راس"],
+    no:["لاد","باڤا","ناما","جال","چمڤاکا","داد"], t:[3] },
+  { p:["Pilih kata jati Melayu (alif digugurkan)","ڤيليه کات جاتي ملايو (اليف دڬوڬورکن)"],
+    ok:["هروان","دهولو","ڤهالا","رسواه","هليا","مجيکن","لبوچي","ڬهارو"],
+    no:["باتري","راديو","کاميرا","کانوڤي","ڬاليري","کاليندر"], t:[4] },
+  { p:["Pilih perkataan bahasa Inggeris (alif dikekalkan)","ڤيليه ڤرکاتاٴن بهاس ايڠڬريس (اليف دککلکن)"],
+    ok:["باتري","راديو","کاميرا","کانوڤي","ڬاليري","کاليندر","کاراميل","فاکولتي"],
+    no:["هروان","دهولو","ڤهالا","رسواه","هليا"], t:[4] },
+  { p:["Pilih ejaan Jawi yang betul (tiga suku kata)","ڤيليه ايجاٴن جاوي يڠ بتول (تيڬ سوکوکات)"],
+    ok:["هريماو","دهولو","هروان","باتري","کاميرا","ۏانيلا"],
+    no:["هاريماو","داهولو","هاروان","بتري","کميرا","ۏنيلا"], t:[4] },
+  { p:["Pilih perkataan tiga suku kata atau lebih","ڤيليه ڤرکاتاٴن تيڬ سوکوکات اتاو لبيه"],
+    ok:["هريماو","هروان","باتري","کاميرا","ڤرمايداني","نخودا","ماتماتيک"],
+    no:["کيک","بلوک","لوک","موک","تيڬ","اد"], t:[4] },
+  { p:["Pilih ejaan bahasa Inggeris yang betul (alif kekal)","ڤيليه ايجاٴن بهاس ايڠڬريس يڠ بتول (اليف ککل)"],
+    ok:["کاميرا","باتري","ڬاليري","کانوڤي","کاليندر","فاکولتي"],
+    no:["کميرا","بتري","ڬليري","کنوڤي","کليندر","فکولتي"], t:[4] },
+  { p:["Pilih ejaan Jawi lama","ڤيليه ايجاٴن جاوي لاما"],
+    ok:["اد","اين","ايت","دان","دري","کيت","ڤد","مک","ليم","تياد","جک","کڤد","درڤد"],
+    no:["کوچيڠ","روتن","باکول","ايکور","ايمان"], t:[5] },
+  { p:["Pilih ejaan Jawi lama yang betul","ڤيليه ايجاٴن جاوي لاما يڠ بتول"],
+    ok:["کيت","ڤد","ليم","درڤد","شرڬ","ماءنسي","تياد"],
+    no:["کيتا","ڤادا","ليما","داريڤادا","شورڬا","تيادا"], t:[5] },
+  { p:["Pilih perkataan yang BUKAN ejaan Jawi lama","ڤيليه ڤرکاتاٴن يڠ بوکن ايجاٴن جاوي لاما"],
+    ok:["کوچيڠ","روتن","باکول","ايکور","ايمان","هوجن"],
+    no:["اد","اين","ايت","ڤد","مک","دي"], t:[5] },
+  { p:["Pilih ejaan lama dengan imbuhan yang betul","ڤيليه ايجاٴن لاما دڠن امبوهن يڠ بتول"],
+    ok:["اداڽ","اياله","ايتوله","دياله","اينيله","کڤداکو","درڤداڽ"],
+    no:["کيتا","ڤادا","ليما","ماکا","تيادا"], t:[5] },
+  { p:["Pilih perkataan diftong \"ai\"","ڤيليه ڤرکاتاٴن ديفتوڠ \"ai\""],
+    ok:["توڤاي","رنتاي","بالاي","کلداي","ڤنتاي","رمباي","مهليڬاي","ائيسکريم"],
+    no:["باکاو","ڤولاو","کاچاو","کوبوي","دودوي"], t:[6] },
+  { p:["Pilih perkataan diftong \"au\"","ڤيليه ڤرکاتاٴن ديفتوڠ \"au\""],
+    ok:["باکاو","ڤولاو","کاچاو","سوراو","ڬوراو","لمڤاو","ائوديو","کرباو"],
+    no:["توڤاي","رنتاي","کوبوي","دودوي","بالاي"], t:[6] },
+  { p:["Pilih perkataan diftong \"oi\"","ڤيليه ڤرکاتاٴن ديفتوڠ \"oi\""],
+    ok:["دودوي","ادوي","امبوي","کوبوي","توموي","سکوي","بويکوت"],
+    no:["توڤاي","باکاو","ڤولاو","بالاي","سوراو"], t:[6] },
+  { p:["Pilih diftong di awal perkataan (ائي / ائو)","ڤيليه ديفتوڠ د اول ڤرکاتاٴن (ائي / ائو)"],
+    ok:["ائيسکريم","ائيسيڠ","ائيلرون","ائوديو","ائوديت","ائورا","ائوتوماتيک"],
+    no:["توڤاي","باکاو","ڤولاو","رنتاي","کوبوي"], t:[6] },
+  { p:["Pilih ejaan diftong yang betul","ڤيليه ايجاٴن ديفتوڠ يڠ بتول"],
+    ok:["ڤولاو","ائيسکريم","ائوديو","کوبوي","توڤاي","جاوهاري","دودوي"],
+    no:["ڤولو","اسکريم","اوديو","کوبو","توڤي","دودو"], t:[6] }
+];
+BANK_ORDER.jawi = [
+  { p:["Susun ayat tentang baju batik","سوسون ايات تنتڠ باجو باتيق"], items:["ايبو","مماکاي","باجو","باتيق","يڠ","چنتيق"], t:[1] },
+  { p:["Susun ayat tentang kekuasaan Allah","سوسون ايات تنتڠ ککواساٴن الله"], items:["کجادين","عالم","بوقتي","ککواساٴن","الله"], t:[1] },
+  { p:["Susun ayat tentang Laksamana Hang Tuah","سوسون ايات تنتڠ لقسامان هڠ تواه"], items:["لقسامان","هڠ","تواه","مروڤاکن","ڤهلاون","ملايو"], t:[1] },
+  { p:["Susun ayat tentang buah nangka","سوسون ايات تنتڠ بواه نڠک"], items:["بواه","نڠک","راساڽ","منيس"], t:[2] },
+  { p:["Susun ayat tentang perpustakaan","سوسون ايات تنتڠ ڤرڤوستاکاٴن"], items:["ڤرڤوستاکاٴن","دبوک","ڤد","ڤوکول","8.00","ڤاڬي"], t:[2] },
+  { p:["Susun kisah lawatan ke kilang coklat","سوسون قيصه لاوتن ککيلڠ چوکلت"], items:["لاوتن ککيلڠ چوکلت","کامي دسمبوت اوليه سأورڠ ڤڠوروس","منونجوقکن کامي چارا٢ ممبوات چوکلت","کامي دجامو اوليه ڤيهق شريکت"], t:[2] },
+  { p:["Susun ayat tentang rukun iman","سوسون ايات تنتڠ روکون ايمان"], items:["کيت","واجب","ڤرچاي","ڤد","روکون","ايمان"], t:[5] }
+];
+
 /* ============ DUNIA 3D: bahan & model asas ============
    Semua model dibina daripada bentuk asas three.js (tiada fail luar).
    Model menghadap +z (ke arah kamera) kecuali dinyatakan. */
@@ -994,6 +1084,77 @@ const C = {
     g.userData = {wheels, kid}; return g; }
 };
 
+/* ---------- Kilang Coklat Jawi (dunia Jawi): prop & watak tambahan ---------- */
+const CHOC = [0x5C2E14, 0x7B3F1E, 0x8B5A2B], CANDY = [0xFF5C8A, 0xFFB020, 0x3DD6F5, 0x7CE36A, 0xB57BFF];
+// bar coklat berpetak: w x h x d, petak di permukaan atas
+function chocBar(w=0.9, d=0.45, c=0x5C2E14){ const g = new THREE.Group();
+  mk(BOX(w, 0.14, d), M(c, {roughness:.45}), 0, 0.07, 0, g);
+  const nx = 4, nz = 2, sx = w/nx, sz = d/nz;
+  for(let i=0;i<nx;i++) for(let j=0;j<nz;j++) mk(BOX(sx*0.8, 0.06, sz*0.78), M(c, {roughness:.35}), -w/2 + sx*(i+0.5), 0.17, -d/2 + sz*(j+0.5), g);
+  return g; }
+Object.assign(P, {
+  cocoa(s=1){ const g = new THREE.Group();
+    mk(CYL(0.12, 0.18, 1.4, 8), M(0x6B4423, FLAT), 0, 0.7, 0, g);
+    [[0,1.75,0,.72],[.45,1.5,.15,.5],[-.42,1.55,-.1,.52],[.1,2.1,-.1,.45]].forEach(([x,y,z,r])=>mk(SPH(r, 10, 8), M(pick([0x2E8B3E,0x3DA34D]), FLAT), x, y, z, g));
+    // buah koko tergantung pada batang
+    [[.16,.75,.1],[-.15,1.0,.08],[.05,.5,-.16],[-.12,.62,.15]].forEach(([x,y,z])=>{ const p = mk(SPH(0.11, 10, 8), M(pick([0xE8A33D,0xD9822B,0xC0602A,0xF2C14E]), FLAT), x, y, z, g); p.scale.set(0.8, 1.6, 0.8); });
+    g.scale.setScalar(s); return g; },
+  candy(s=1){ const g = new THREE.Group(), c = pick(CANDY);
+    mk(CYL(0.04, 0.04, 1.3, 6), M(0xFFFFFF), 0, 0.65, 0, g);
+    const d = mk(CYL(0.42, 0.42, 0.14, 24), M(c, {roughness:.3}), 0, 1.6, 0, g); d.rotation.x = Math.PI/2;
+    [0.3, 0.18].forEach(r=>mk(TOR(r, 0.035), M(0xFFFFFF, {roughness:.3}), 0, 1.6, 0.075, g));
+    g.scale.setScalar(s); return g; },
+  chocbar(s=1){ const g = new THREE.Group(), n = 1 + Math.floor(Math.random()*3);
+    for(let i=0;i<n;i++){ const b = chocBar(0.9, 0.45, pick(CHOC)); b.position.set(rnd(-.06,.06), i*0.2, 0); b.rotation.y = rnd(-.4,.4); g.add(b); }
+    const wr = mk(BOX(0.4, 0.2, 0.49), M(pick([0xE74C3C,0xF5C542,0x2E86DE])), 0.3, (n-1)*0.2 + 0.1, 0, g); wr.rotation.y = g.children[n-1].rotation.y;
+    g.scale.setScalar(s); return g; },
+  pipe(s=1){ const g = new THREE.Group(), mt = M(0xB8C2D0, {metalness:.6, roughness:.3});
+    mk(CYL(0.16, 0.16, 2.2, 12), mt, 0, 1.1, 0, g);
+    const b = mk(TOR(0.35, 0.16, Math.PI/2), mt, 0.35, 2.2, 0, g); b.rotation.z = 0;
+    const h = mk(CYL(0.16, 0.16, 0.9, 12), mt, 0.8, 2.55, 0, g); h.rotation.z = Math.PI/2;
+    mk(TOR(0.2, 0.04), M(0xE74C3C), 0, 1.3, 0.18, g);
+    // titisan coklat dari muncung paip
+    mk(CYL(0.07, 0.07, 0.5, 8), M(0x5C2E14, {roughness:.2}), 1.25, 2.3, 0, g); mk(SPH(0.16, 10, 8), M(0x5C2E14, {roughness:.2}), 1.25, 2.05, 0, g).scale.y = 0.5;
+    g.scale.setScalar(s); return g; },
+  factory(s=1){ const g = new THREE.Group(), wall = M(0xF2D6B3, FLAT), roof = M(0x8B4A26, FLAT);
+    mk(BOX(6, 2.4, 2.6), wall, 0, 1.2, 0, g);
+    for(let i=0;i<4;i++) mk(shapeGeo([[-0.75,0],[0.75,0],[0.75,0.9]], 2.6), roof, -2.25 + i*1.5, 2.4, 0, g);
+    [[-2.2,0xE74C3C],[-1.2,0xF5C542]].forEach(([x,c])=>{ mk(CYL(0.28, 0.32, 2.2, 12), M(0xA0582C), x, 4.1, -0.6, g); mk(CYL(0.34, 0.34, 0.25, 12), M(c), x, 5.25, -0.6, g); });
+    mk(BOX(2.6, 0.7, 0.08), GLOW(0xFFD9A8, .35), 1.3, 1.85, 1.32, g);
+    mk(BOX(1.1, 1.3, 0.08), M(0x6B3A1E), 1.3, 0.65, 1.32, g);
+    [-2.2, -0.9].forEach(x=>mk(BOX(0.8, 0.6, 0.06), M(0xFFE9A8, {emissive:0x6B4A10, emissiveIntensity:.3}), x, 1.3, 1.32, g));
+    // tangki koko
+    mk(CYL(0.9, 0.9, 2.6, 16), M(0xC9CFD8, {metalness:.5, roughness:.35}), 3.8, 1.3, 0, g); mk(HEMI(0.9, 16), M(0xC9CFD8, {metalness:.5, roughness:.35}), 3.8, 2.6, 0, g);
+    const tb = mk(CYL(0.12, 0.12, 1.4, 8), M(0xB8C2D0, {metalness:.6}), 3.3, 2.6, 0.5, g); tb.rotation.z = 1.1;
+    g.scale.setScalar(s); return g; }
+});
+Object.assign(C, {
+  // Bebi si beaver tukang coklat (menghadap +z, bertopi cef)
+  beaver(){ const g = new THREE.Group(), fur = M(0x8B5A2B), lt = M(0xD9A877), dk = M(0x4A2E1A, FLAT);
+    const b = mk(SPH(0.42, 16, 12), fur, 0, 0.55, 0, g); b.scale.set(1, 1.15, 0.9);
+    mk(SPH(0.28, 12, 10), lt, 0, 0.5, 0.2, g).scale.set(1, 1.2, 0.6);
+    const h = mk(SPH(0.32, 16, 12), fur, 0, 1.08, 0.04, g); h.scale.set(1.1, 0.95, 1);
+    mk(SPH(0.17, 12, 10), lt, 0, 1.0, 0.27, g).scale.set(1.25, 0.8, 0.8);
+    mk(SPH(0.06, 8, 6), M(0x1A1A1A), 0, 1.06, 0.42, g);
+    [-1,1].forEach(k=>mk(BOX(0.065, 0.11, 0.03), M(0xFFFFFF), k*0.036, 0.88, 0.38, g));
+    eyes(g, 0, 1.17, 0.3, 0.85, 0.13);
+    [-1,1].forEach(k=>mk(SPH(0.08, 8, 6), fur, k*0.27, 1.32, 0, g));
+    // topi cef
+    mk(CYL(0.24, 0.24, 0.16, 16), M(0xFFFFFF), 0, 1.4, 0, g);
+    [[0,1.58,0,.2],[-.13,1.53,0,.15],[.13,1.53,0,.15]].forEach(([x,y,z,r])=>mk(SPH(r, 10, 8), M(0xFFFFFF, {roughness:.9}), x, y, z, g));
+    const tail = mk(BOX(0.36, 0.06, 0.55), dk, 0, 0.18, -0.55, g); tail.rotation.x = -0.35;
+    [-1,1].forEach(k=>{ const a = mk(SPH(0.1, 8, 6), fur, k*0.36, 0.68, 0.22, g); a.scale.set(0.8, 1.3, 0.8); });
+    g.userData.legs = [[-.18,.08],[.18,.08],[-.18,-.12],[.18,-.12]].map(([x,z])=>limb(g, CYL(0.08, 0.07, 0.32, 7), fur, x, 0.3, z));
+    return g; },
+  // gula-gula berbalut (untuk permainan "naik")
+  sweet(c){ const g = new THREE.Group(), col = new THREE.Color(c);
+    const s = mk(SPH(0.45, 20, 14), MU(col, {roughness:.25}), 0, 0, 0, g); s.scale.set(1.35, 0.9, 0.9);
+    [-1,1].forEach(k=>{ const w = mk(CONE(0.3, 0.42, 10), MU(col.clone().offsetHSL(0, 0, 0.12), {roughness:.4}), k*0.78, 0, 0, g); w.rotation.z = k*Math.PI/2; });
+    [-0.2, 0.2].forEach(x=>{ const r = mk(TOR(0.4, 0.035), M(0xFFFFFF), x, 0, 0, g); r.rotation.y = Math.PI/2; r.scale.set(1, 1, 1); });
+    eyes(g, 0, 0.08, 0.4, 0.8, 0.13); smile(g, -0.08, 0.41, 0.7);
+    return g; }
+});
+
 /* ============ DUNIA SUBJEK ============
    Setiap subjek ada dunia sendiri yang sepadan dengan laman pembelajarannya.
    g.<permainan>: nama, ikon, kata nama (untuk arahan) dan pembina model. */
@@ -1102,6 +1263,20 @@ const WORLD = {
         run:{r:"Landasan Laju", j:"لندسن لاجو", icon:"🚆", n:["kereta api","کريتا اڤي"], dr:"Tukar landasan, lalu pintu jawapan betul.", dj:"توکر لندسن، لالو ڤينتو جواڤن بتول.", player:"loco"},
         climb:{r:"Sambung Gerabak", j:"سمبوڠ ڬربق", icon:"🚂", n:["kereta api","کريتا اڤي"], dr:"Sambung gerabak ayat ikut urutan, kemudian Tut berlepas!", dj:"سمبوڠ ڬربق ايات ايکوت اوروتن، کمودين توت برلڤس!", blocks:[0x3498DB,0xF39C12,0x9B59B6,0x1ABC9C,0xE67E22], train:true},
         duel:{r:"Lumba Kereta Api", j:"لومبا کريتا اڤي", icon:"🏁", n:["kereta api","کريتا اڤي"]} } },
+  jawi:{ name:["Kilang Coklat Jawi","کيلڠ چوکلت جاوي"], emoji:"🍫", c1:"#A0582C", c2:"#3B1D0C", accent:"#FFD9A8",
+    coin:{e:"🍬", r:"gula-gula", j:"ڬولا٢"}, cheer:["Bebi bangga! Tulisan Jawi kamu semanis coklat.","بيبي بڠڬ! توليسن جاوي کامو سمانيس چوکلت."],
+    sky:["#F49A9A","#FFC9A8","#FFF0DE"], hemi:[0xFFF0DE, 0x8A4B2A, 0.95], sun:[0xFFE8CC, 0.9], ground:0xA8683E, road:0x4A4A58, marks:"belt", amb:"sprinkle",
+    props:[["cocoa",2.5,1.2],["candy",2,1.1],["chocbar",1.5,1.1],["pipe",1,1]],
+    back(s, kind){ const f = P.factory(kind==="run"?2.2:1.6); f.position.set(kind==="run"?0:5, 0, kind==="run"?-62:-18); if(kind==="run") f.userData.fixed = true; s.add(f);
+      for(let i=0;i<4;i++){ const t = P.cocoa(rnd(1.6,2.3)); t.position.set(rnd(-22,22), 0, rnd(-30,-22)); s.add(t); }
+      [-1,1].forEach(k=>{ const c = P.cloud(1.4); c.position.set(k*8+rnd(-2,2), rnd(8,11), -24); s.add(c); }); },
+    gatePost:"candy", frame:0xFFD9A8,
+    g:{ whack:{r:"Acuan Coklat", j:"اچوان چوکلت", icon:"🦫", n:["Bebi","بيبي"], dr:"Tekan Bebi yang membawa jawapan betul!", dj:"تکن بيبي يڠ ممباوا جواڤن بتول!", hole:"mould", critter:()=>C.beaver()},
+        catch:{r:"Dulang Coklat", j:"دولڠ چوکلت", icon:"🍫", n:["coklat","چوکلت"], c:["dulang","دولڠ"], dr:"Gerakkan dulang, tadah coklat yang betul.", dj:"ڬرقکن دولڠ، تده چوکلت يڠ بتول.", item:"choc", catcher:"tray"},
+        pop:{r:"Gula-gula Terbang", j:"ڬولا٢ تربڠ", icon:"🍬", n:["gula-gula","ڬولا٢"], dr:"Tekan gula-gula yang betul sebelum terbang tinggi.", dj:"تکن ڬولا٢ يڠ بتول سبلوم تربڠ تيڠڬي.", item:c=>C.sweet(c), sc:1.15, cols:[0xFF5C8A,0xFFB020,0x3DD6F5,0x7CE36A,0xB57BFF]},
+        run:{r:"Tali Sawat Laju", j:"تالي سوات لاجو", icon:"🏭", n:["Bebi","بيبي"], dr:"Bawa Bebi di atas tali sawat melalui pintu jawapan betul.", dj:"باوا بيبي د اتس تالي سوات ملالوٴي ڤينتو جواڤن بتول.", player:"beaver"},
+        climb:{r:"Menara Coklat", j:"منارا چوکلت", icon:"🧁", n:["menara coklat","منارا چوکلت"], dr:"Susun ikut urutan untuk membina menara coklat.", dj:"سوسون ايکوت اوروتن اونتوق ممبينا منارا چوکلت.", blocks:[0x7B3F1E,0xA0582C,0x5C2E14,0xC68642], top:"cherry"},
+        duel:{r:"Lumba Tali Sawat", j:"لومبا تالي سوات", icon:"🏁", n:["Bebi","بيبي"]} } },
   mix:{ name:["Taman Arked Neon","تامن ارکيد نيون"], emoji:"🕹️", c1:"#7C3AED", c2:"#120634", accent:"#FF4FD8",
     coin:{e:"💎", r:"permata", j:"ڤرمات"}, cheer:["Hebat! Kamu menguasai banyak subjek sekali gus!","هيبت! کامو مڠواساٴي باڽق سوبجيک سکالي ڬوس!"],
     sky:["#120634","#2A0E61","#4B1690"], hemi:[0xE7DBFF, 0x3B1170, 1.0], sun:[0xFFFFFF, 0.75], ground:0x2E6B3A, road:0x3A3550, marks:"dash", amb:"star", neon:true,
@@ -1209,9 +1384,9 @@ function ambient(kind, where){
   const n = kind==="star" ? 170 : 70, pos = [];
   for(let i=0;i<n;i++) pos.push(rnd(-18,18), kind==="star" ? rnd(-2,18) : rnd(0,12), kind==="star" ? rnd(-30,-6) : rnd(-18, where==="run" ? 8 : 3));
   const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
-  const col = {dust:0xFFF1D0, bubble:0xE6FBFF, firefly:0xFFF27A, star:0xFFFFFF, leaf:0xFFE1EA}[kind];
+  const col = {dust:0xFFF1D0, bubble:0xE6FBFF, firefly:0xFFF27A, star:0xFFFFFF, leaf:0xFFE1EA, sprinkle:0xFF9CC8}[kind];
   const add = kind==="firefly" || kind==="star";
-  const m = new THREE.PointsMaterial({color:col, size:{star:0.16, bubble:0.28, firefly:0.26, dust:0.14, leaf:0.18}[kind], map:dotTex(), transparent:true, depthWrite:false, opacity:.9, blending:add?THREE.AdditiveBlending:THREE.NormalBlending});
+  const m = new THREE.PointsMaterial({color:col, size:{star:0.16, bubble:0.28, firefly:0.26, dust:0.14, leaf:0.18, sprinkle:0.2}[kind], map:dotTex(), transparent:true, depthWrite:false, opacity:.9, blending:add?THREE.AdditiveBlending:THREE.NormalBlending});
   const pts = new THREE.Points(g, m); G.scene.add(pts); G.amb = {pts, kind, n};
 }
 function stepEnv(dt){
@@ -1221,7 +1396,7 @@ function stepEnv(dt){
     for(let i=0;i<a.n;i++){ const k = i*3;
       if(a.kind==="bubble"){ r[k+1] += dt*(0.6+(i%5)*0.15); r[k] += Math.sin(t*2+i)*dt*0.2; if(r[k+1]>12) r[k+1] = 0; }
       else if(a.kind==="dust"){ r[k] += dt*(0.8+(i%4)*0.3); r[k+1] += Math.sin(t+i)*dt*0.1; if(r[k]>18) r[k] = -18; }
-      else if(a.kind==="leaf"){ r[k+1] -= dt*(0.35+(i%3)*0.15); r[k] += Math.sin(t*1.5+i)*dt*0.5; if(r[k+1]<0) r[k+1] = 12; }
+      else if(a.kind==="leaf" || a.kind==="sprinkle"){ r[k+1] -= dt*(0.35+(i%3)*0.15); r[k] += Math.sin(t*1.5+i)*dt*0.5; if(r[k+1]<0) r[k+1] = 12; }
       else if(a.kind==="firefly"){ r[k] += Math.sin(t*0.9+i*1.7)*dt*0.4; r[k+1] += Math.cos(t*1.1+i)*dt*0.3; }
     }
     p.needsUpdate = true;
@@ -1329,6 +1504,7 @@ function catchItem(type){
   if(type==="heart"){ mk(heartGeo(0.9), M(0xFF3D7F, {roughness:.3, emissive:0xB0124A, emissiveIntensity:.25}), 0, 0, 0, g); }
   if(type==="lotus"){ const l = P.lotus(1.7); l.rotation.x = 0.7; l.position.y = -0.2; g.add(l); }
   if(type==="star"){ mk(G.sgeo || (G.sgeo = starGeo()), M(0xFFC93C, {emissive:0xFF9F1C, emissiveIntensity:.35, metalness:.3, roughness:.35}), 0, 0, 0, g); }
+  if(type==="choc"){ const b = chocBar(0.8, 0.42, pick(CHOC)); b.position.y = -0.1; b.rotation.x = 0.9; g.add(b); const wr = mk(BOX(0.36, 0.2, 0.46), M(pick([0xE74C3C,0xF5C542,0x2E86DE])), 0.24, 0.02, 0, b); wr.position.y = 0.1; }
   if(type==="crate"){ mk(BOX(0.62, 0.62, 0.62), M(0xC68642, {roughness:.8}), 0, 0, 0, g);
     [[0,.29,.32,.66,.06,.02],[0,-.29,.32,.66,.06,.02],[.29,0,.32,.06,.66,.02],[-.29,0,.32,.06,.66,.02]].forEach(([x,y,z,a,b,d])=>mk(BOX(a,b,d), M(0x8B5A2B), x, y, z, g)); }
   return g;
@@ -1358,6 +1534,9 @@ function catcher(type){
     const beam = new THREE.Mesh(CYL(0.95, 0.45, 1.2, 20), MU(0x9BF6FF, {transparent:true, opacity:.22, emissive:0x9BF6FF, emissiveIntensity:.6, depthWrite:false})); beam.position.y = 1.25; g.add(beam);
   }
   if(type==="wagon"){ const w = C.wagon(0xF39C12); w.rotation.y = Math.PI/2; w.scale.set(1.1, 1, 1.15); g.add(w); }
+  if(type==="tray"){ const b = C.beaver(); b.scale.setScalar(0.85); b.position.z = -0.55; g.add(b);
+    mk(BOX(1.9, 0.08, 1.1), M(0xC0C8D4, {metalness:.55, roughness:.3}), 0, 0.72, 0, g);
+    [[0,.8,.55,1.9,.14,.05],[0,.8,-.55,1.9,.14,.05],[.95,.8,0,.05,.14,1.1],[-.95,.8,0,.05,.14,1.1]].forEach(([x,y,z,a,b2,d])=>mk(BOX(a,b2,d), M(0xA9B2C0, {metalness:.55, roughness:.3}), x, y, z, g)); }
   return g;
 }
 function runPlayer(type){
@@ -1370,6 +1549,7 @@ function runPlayer(type){
   if(type==="frog"){ g = C.frog(); g.scale.setScalar(1.25); }
   if(type==="rocket"){ const r = C.rocket(); r.rotation.x = -Math.PI/2; r.scale.setScalar(0.85); g = new THREE.Group(); g.add(r); g.userData = r.userData; }
   if(type==="loco"){ g = C.loco(); g.scale.setScalar(0.85); }
+  if(type==="beaver"){ g = C.beaver(); g.scale.setScalar(1.3); }
   g.userData.type = type; return g;
 }
 // animasi watak: mv = sedang bergerak (0..1)
@@ -1377,7 +1557,7 @@ function animPlayer(p, t, dt, mv=1){
   const u = p.userData, sw = Math.sin(t*12)*mv;
   if(u.legs){ u.legs.forEach((l,i)=>l.rotation.x = (i%2 ? -sw : sw)*0.7*(u.type==="camel" && i>1 ? -1 : 1)); }
   if(u.arms && u.type!=="bike"){ u.arms[0].rotation.x = -sw*0.7; u.arms[1].rotation.x = sw*0.7; }
-  if(u.type==="kid" || u.type==="runner" || u.type==="camel") p.position.y = Math.abs(sw)*0.07;
+  if(u.type==="kid" || u.type==="runner" || u.type==="camel" || u.type==="beaver") p.position.y = Math.abs(sw)*0.07;
   if(u.type==="bike"){ u.wheels.forEach(w=>w.rotation.x -= dt*9*mv); const k = u.kid.userData; k.legs[0].rotation.x = -0.9 + Math.sin(t*9)*0.6*mv; k.legs[1].rotation.x = -0.9 - Math.sin(t*9)*0.6*mv; }
   if(u.type==="sub"){ p.position.y = 0.35 + Math.sin(t*2)*0.12; u.prop.rotation.z += dt*12; }
   if(u.type==="frog"){ const h = Math.abs(Math.sin(t*4.2)); p.position.y = h*0.9*mv; p.scale.y = 1.25*(1 - (1-h)*0.15*mv); }
@@ -1396,10 +1576,14 @@ function gatePosts(g, style){
     if(style==="signal"){ const p = new THREE.Group(); mk(CYL(0.1, 0.12, 3.4, 8), M(0x7F8C8D, {metalness:.5}), 0, 1.7, 0, p); mk(BOX(0.36, 0.7, 0.2), M(0x23232F), 0, 3.0, 0.1, p);
       mk(SPH(0.1, 10, 8), GLOW(0x2ECC71, 1), 0, 3.15, 0.22, p); mk(SPH(0.1, 10, 8), GLOW(0xE74C3C, .3), 0, 2.85, 0.22, p); add(p, x); }
     if(style==="neon"){ add(grpOf(mk(CYL(0.1, 0.1, 2.8, 8), GLOW(0xFF4FD8, .6)), 0, 1.4), x); }
+    if(style==="candy"){ const p = new THREE.Group(); mk(CYL(0.14, 0.14, 3.1, 10), M(0xFFFFFF, {roughness:.3}), 0, 1.55, 0, p);
+      for(let i=0;i<7;i++){ const r = mk(TOR(0.15, 0.05), M(0xE8344E, {roughness:.3}), 0, 0.25+i*0.42, 0, p); r.rotation.x = Math.PI/2 - 0.45; }
+      mk(TOR(0.32, 0.14, Math.PI), M(0xFFFFFF, {roughness:.3}), x<0 ? 0.32 : -0.32, 3.1, 0, p); add(p, x); }
   });
   if(style==="wood"){ mk(BOX(7, 0.2, 0.2), M(0x8B5A2B), 0, 3.2, 0, g); [-2.2, 0, 2.2].forEach((x,i)=>mk(BOX(1.6, 0.35, 0.04), M([0xE74C3C,0xF39C12,0x16A085][i]), x, 3.0, 0.1, g)); }
   if(style==="gerbang"){ mk(BOX(7.2, 0.22, 0.3), M(0x7A4B22), 0, 3.1, 0, g); mk(shapeGeo([[-3.9,0],[3.9,0],[0,0.7]], 0.5), M(0x8E2A1F, FLAT), 0, 3.2, 0, g); }
   if(style==="signal"){ mk(BOX(7, 0.16, 0.16), M(0x7F8C8D, {metalness:.5}), 0, 3.4, 0, g); }
+  if(style==="candy"){ const b = chocBar(6.4, 0.36, 0x6B3A1E); b.rotation.x = Math.PI/2; b.position.set(0, 3.55, -0.1); g.add(b); }
 }
 function grpOf(m, x=0, y=0, z=0){ const g = new THREE.Group(); m.position.set(x, y, z); g.add(m); return g; }
 function topper(type){
@@ -1411,6 +1595,9 @@ function topper(type){
   if(type==="roof"){ mk(shapeGeo([[-1.5,0],[1.5,0],[0,1.1]], 1.3), M(0x8E2A1F, FLAT), 0, 0, 0, g); mk(BOX(0.2, 0.5, 0.2), M(0x7A4B22), 0.7, 0.75, -0.2, g); }
   if(type==="koko"){ const f = C.frog(); f.scale.setScalar(1.3); g.add(f); }
   if(type==="nose"){ mk(CONE(0.95, 1.5, 20), M(0x6C5CE7, {roughness:.4}), 0, 0.75, 0, g); mk(SPH(0.12, 10, 8), GLOW(0xFF4757, 1), 0, 1.55, 0, g); }
+  if(type==="cherry"){ [[1.0,0.45,0],[0.75,0.4,0.38],[0.48,0.36,0.72]].forEach(([r,h,y])=>mk(CONE(r, h, 18), M(0xFFF4E6, {roughness:.6}), 0, y+h/2, 0, g));
+    mk(SPH(0.28, 16, 12), M(0xD7263D, {roughness:.2}), 0, 1.25, 0, g); const st = mk(CYL(0.025, 0.025, 0.5, 5), M(0x3E7D32), 0.1, 1.6, 0, g); st.rotation.z = -0.4;
+    for(let i=0;i<10;i++) mk(BOX(0.12, 0.04, 0.04), M(pick(CANDY)), rnd(-.6,.6), rnd(0.35,0.8), rnd(-.6,.6), g).rotation.y = rnd(0,3); }
   if(type==="star"){ const s = mk(G.sgeo || (G.sgeo = starGeo()), M(0xFFC93C, {emissive:0xFF9F1C, emissiveIntensity:.4, metalness:.3}), 0, 0.6, 0, g); s.scale.setScalar(2); }
   return g;
 }
@@ -1433,9 +1620,11 @@ MOD3.whack = {
       for(let c=0;c<3;c++){
         const x = (c-1)*2.4, z = (r-1)*2.4, i = G.holes.length, root = new THREE.Group(); root.position.set(x, 0, z); scene.add(root);
         let upY = 0, labY = 1.85;
-        if(wg.hole==="burrow" || wg.hole==="crater" || wg.hole==="slot"){
+        if(wg.hole==="burrow" || wg.hole==="crater" || wg.hole==="slot" || wg.hole==="mould"){
           const h = mk(holeGeo, M(0x24150A), 0, 0.02, 0, root); h.rotation.x = -Math.PI/2; h.castShadow = false;
           if(wg.hole==="burrow"){ const rim = mk(TOR(0.82, 0.14), M(G.w.neon ? 0x7A4B22 : 0xC9A06A, FLAT), 0, 0.04, 0, root); rim.rotation.x = -Math.PI/2; }
+          if(wg.hole==="mould"){ h.material = M(0x3B1D0C); const rim = mk(TOR(0.84, 0.12), M(0xD9A066, {roughness:.35}), 0, 0.05, 0, root); rim.rotation.x = -Math.PI/2;
+            const tr = mk(BOX(2.1, 0.1, 2.1), M(0x8B4A26, {roughness:.5}), 0, -0.04, 0, root); tr.castShadow = false; tr.receiveShadow = true; }
           if(wg.hole==="crater"){ const cr = P.crater(1.55); root.add(cr); h.material = M(0x2E2A44); }
           if(wg.hole==="slot"){ h.geometry = new THREE.PlaneGeometry(1.5, 1.5); [[0,.75,1.7,.2],[0,-.75,1.7,.2],[.75,0,.2,1.5],[-.75,0,.2,1.5]].forEach(([dx,dz,a,b])=>mk(BOX(a, 0.22, b), M(0xB8B2A4), dx, 0.11, dz, root)); }
         }
@@ -1512,7 +1701,7 @@ MOD3.catch = {
     ground(); dress("catch");
     if(G.wg.catcher==="wagon") [-0.6, 0.6].forEach(dz=>mk(BOX(30, 0.08, 0.08), M(0x7F8C8D, {metalness:.6}), 0, 0.06, dz, scene));
     const b = catcher(G.wg.catcher); scene.add(b); G.basket = b; G.bx = 0; G.tx = 0;
-    G.catchY = {turtle:1.15, frogpad:0.95, ufo:0.9, wagon:1.15, barrow:0.85}[G.wg.catcher] || 0.9;
+    G.catchY = {turtle:1.15, frogpad:0.95, ufo:0.9, wagon:1.15, barrow:0.85, tray:0.95}[G.wg.catcher] || 0.9;
     G.plane = new THREE.Plane(new THREE.Vector3(0,0,1), 0);
     colsSetup(10, 200);
     // bakul mesti sampai ke lajur paling kiri dan kanan (skrin lebar ada lajur lebih jauh)
@@ -1633,7 +1822,10 @@ MOD3.run = {
       if(w.marks==="pad") [-2.2, 0, 2.2].forEach(x=>{ const p = P.pad(1.1); p.position.x = x + rnd(-.2,.2); roll(p, z); });
       if(w.marks==="glow") [-3.3, -1.1, 1.1, 3.3].forEach(x=>roll(mk_(SPH(0.09, 8, 6), new THREE.MeshBasicMaterial({color:Math.abs(x)>2?0xFF4FD8:0x8FE9FF}), x, 0.02), z));
       if(w.marks==="rail") [-2.2, 0, 2.2].forEach(x=>roll(mk_(BOX(1.4, 0.06, 0.2), M(0x6B4A2B), x, 0.03), z));
+      if(w.marks==="belt"){ [0, 2.5].forEach(d=>roll(mk_(BOX(7.0, 0.03, 0.14), M(0x2B2B36), 0, 0.015), z - d));
+        if(i%2===0){ const b = chocBar(0.8, 0.4, pick(CHOC)); b.position.set(pick([-3.3, 3.3]), 0.02, 0); b.rotation.y = rnd(-.3,.3); roll(b, z + 1); } }
     }
+    if(w.marks==="belt") [-3.65, 3.65].forEach(x=>{ const r = new THREE.Mesh(BOX(0.18, 0.3, 160), M(0xF5C542, {metalness:.3, roughness:.4})); r.position.set(x, 0.15, -55); scene.add(r); });
     if(w.marks==="rail") [-2.2, 0, 2.2].forEach(x=>[-0.45, 0.45].forEach(d=>{ const r = new THREE.Mesh(BOX(0.08, 0.1, 160), M(0x9AA3AB, {metalness:.7, roughness:.3})); r.position.set(x+d, 0.08, -55); scene.add(r); }));
     if(w.space){ for(let i=0;i<16;i++){ const a = P.asteroid(rnd(0.8,1.6)); a.position.set((i%2?1:-1)*rnd(5,10), rnd(-1,3), 0); roll(a, 8 - i*4.5); G.spin.push(a); } }
     else for(let i=0;i<10;i++) [-1, 1].forEach(s=>{ const p = propOf(w); p.position.x = s*0.5; clearRoad(p, s); p.position.x += s*rnd(0.2, 3); roll(p, 8 - i*7 + rnd(-1.5,1.5)); });
@@ -1884,6 +2076,7 @@ const SUBJ = [
   {id:"arab",    icon:"🗣️", r:"Bahasa Arab", j:"بهاس عرب"},
   {id:"tajwid",  icon:"🎙️", r:"Tajwid",      j:"تجويد"},
   {id:"hafazan", icon:"🧠", r:"Hafazan",     j:"حفظن"},
+  {id:"jawi",    icon:"✍️", r:"Jawi",        j:"جاوي"},
   {id:"mix",     icon:"🎲", r:"Campur semua", j:"چمڤور سموا"}
 ];
 // Mekanik permainan. Nama, ikon dan model datang daripada dunia subjek (WORLD).
@@ -2508,6 +2701,10 @@ app.addEventListener("keydown", e=>{ if(e.key==="Enter" && e.target.matches(".sh
 
 applyLang();
 renderMap();
+// ?shot=jawi,climb (pilihan: ,rumi / ,jawi) — untuk ujian & tangkapan layar: terus mula permainan dunia itu
+(function shot(){ let q; try{ q = new URLSearchParams(location.search).get("shot"); }catch(e){} if(!q) return;
+  const [s, g, l] = q.split(","); if(SUB(s)) subj = s; if(l==="rumi"||l==="jawi"){ lang = l; applyLang(); }
+  renderMap(); if(g && GM(g)){ openGame(g); if(G) begin(); } })();
 </script>
 </body>
 </html>

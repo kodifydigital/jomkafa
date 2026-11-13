@@ -347,6 +347,13 @@ const READY = {
     dr:"9 pelajaran, 9 jenis permainan", dj:"9 ڤلاجرن، 9 جنيس ڤرماٴينن",
     progress:{ key:"r3-best", max:30 }
   },
+  "3/jawi": {
+    buku:"https://online.anyflip.com/vydoi/scgv/mobile/index.html",
+    path:"jawi/index.html",
+    r:"Kilang Coklat Jawi", j:"کيلڠ چوکلت جاوي",
+    dr:"6 mesin, 7 jenis permainan", dj:"6 مسين، 7 جنيس ڤرماٴينن",
+    progress:{ key:"jw3-best", max:21 }
+  },
   "3/tajwid": {
     path:"tajwid/index.html",
     r:"Angkasa Tajwid", j:"اڠکاس تجويد",
@@ -369,7 +376,7 @@ const ARCADE = {
        n:["3 kenderaan","3 کندرأن"],
        desc:["Litar KAFA 3D: pandu kereta lumba, bot laju dan kapal terbang melalui pintu jawapan yang betul! Setiap dunia ikut subjek Tahun 1: pokok Akhlak, zoo Jawi, pulau Feqah, taman Tauhid, karnival Arab dan langit Hafazan.","ليتر کافا 3D: ڤندو کريتا لومبا، بوت لاجو دان کاڤل تربڠ ملالوٴي ڤينتو جواڤن يڠ بتول! ستياڤ دنيا ايکوت سوبجيک تاهون 1: ڤوکوق اخلاق، زو جاوي، ڤولاو فقه، تامن توحيد، کارنيۏل عرب دان لاڠيت حفظن."],
        feats:[["🏎️ Kereta lumba","🏎️ کريتا لومبا"],["🚤 Bot laju","🚤 بوت لاجو"],["✈️ Kapal terbang","✈️ کاڤل تربڠ"],["🏆 Papan pendahulu","🏆 ڤاڤن ڤندهولو"]] },
-  3: { path:"arked/index.html", hiKey:"ark3-hi", subjects:["sirah","feqah","tauhid","akhlak","arab","tajwid","hafazan"] }
+  3: { path:"arked/index.html", hiKey:"ark3-hi", subjects:["sirah","feqah","tauhid","akhlak","jawi","arab","tajwid","hafazan"] }
 };
 
 // Tema dunia setiap subjek (sama seperti dunia dalam Zon Arked): warna, maskot dan hiasan latar kad
@@ -381,6 +388,7 @@ const THEMES = {
   arab:    { c1:"#34B05A", c2:"#14532D", a:"#BDF5C9", m:"🐸", deco:"pads" },
   tajwid:  { c1:"#6C5CE7", c2:"#1C1B3A", a:"#D2CCFF", m:"🚀", deco:"stars" },
   hafazan: { c1:"#D64532", c2:"#5E1A14", a:"#FFC9BF", m:"🚂", deco:"rails" },
+  jawi:    { c1:"#A0582C", c2:"#3B1D0C", a:"#FFD9A8", m:"🍫", deco:"choc" },
   mix:     { c1:"#8B45F0", c2:"#120634", a:"#FF8CE6", m:"🎲", deco:"stars" }
 };
 const themeVars = (id, t) => { t = t || THEMES[id] || THEMES.mix; return `--c1:${t.c1};--c2:${t.c2};--a:${t.a}`; };
@@ -638,7 +646,7 @@ function arcadeHTML(y){
       <div class="ahero">
         <div class="atext"><span class="pill">✨ ${tx("Belajar sambil bermain","بلاجر سمبيل برماٴين")}</span>
           <h2>${tx("Zon Arked 3D","زون ارکيد 3D")}</h2>
-        <p>${A.desc ? tx(...A.desc) : tx("Permainan aksi 3D mengikut dunia setiap subjek: padang pasir Sirah, masjid Feqah, lautan Tauhid, kampung Akhlak, kolam Arab, angkasa Tajwid dan kereta api Hafazan. Main sendiri atau lawan pasukan dalam kelas!","ڤرماٴينن اکسي 3D مڠيکوت دنيا ستياڤ سوبجيک: ڤادڠ ڤاسير سيره، مسجد فقه، لاءوتن توحيد، کامڤوڠ اخلاق، کولم عرب، اڠکاس تجويد دان کريتا اڤي حفظن. ماٴين سنديري اتاو لاون ڤاسوقن دالم کلس!")}</p>
+        <p>${A.desc ? tx(...A.desc) : tx("Permainan aksi 3D mengikut dunia setiap subjek: padang pasir Sirah, masjid Feqah, lautan Tauhid, kampung Akhlak, kilang coklat Jawi, kolam Arab, angkasa Tajwid dan kereta api Hafazan. Main sendiri atau lawan pasukan dalam kelas!","ڤرماٴينن اکسي 3D مڠيکوت دنيا ستياڤ سوبجيک: ڤادڠ ڤاسير سيره، مسجد فقه، لاءوتن توحيد، کامڤوڠ اخلاق، کيلڠ چوکلت جاوي، کولم عرب، اڠکاس تجويد دان کريتا اڤي حفظن. ماٴين سنديري اتاو لاون ڤاسوقن دالم کلس!")}</p>
           <ul class="feats">${A.feats ? A.feats.map(f=>`<li>${tx(...f)}</li>`).join("") : `<li>🎮 ${tx("6 permainan 3D setiap dunia","6 ڤرماٴينن 3D ستياڤ دنيا")}</li><li>🏆 ${tx("Papan pendahulu","ڤاڤن ڤندهولو")}</li><li>🏫 ${tx("Mod kelas & duel","مود کلس & دوايل")}</li>`}</ul>
           </div>
         <div class="orbit" aria-hidden="true"><b>🕹️</b>${orbit}</div>
