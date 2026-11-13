@@ -380,7 +380,11 @@ const ARCADE = {
        n:["3 sukan","3 سوکن"],
        desc:["Stadium Juara KAFA 3D: baling, golek dan pukul bola ke jawapan yang betul! Setiap stadium ikut subjek Tahun 2: dapur Chef Mimi, pejabat pos Pipi, istana Naga Nana, ladang Lulu, bas Bobo dan sampan Kiko.","ستاديوم جوارا کافا 3D: باليڠ، ڬوليق دان ڤوکول بولا ک جواڤن يڠ بتول! ستياڤ ستاديوم ايکوت سوبجيک تاهون 2: داڤور چيف ميمي، ڤجابت ڤوس ڤيڤي، ايستان ناڬ نانا، لادڠ لولو، باس بوبو دان سمڤن کيکو."],
        feats:[["🏀 Jaring Bola Keranjang","🏀 جاريڠ بولا کرنجڠ"],["🎳 Boling Bintang","🎳 بوليڠ بينتڠ"],["⛳ Golf Mini Ajaib","⛳ ڬولف ميني عجائب"],["🏆 Papan pendahulu","🏆 ڤاڤن ڤندهولو"]] },
-  3: { path:"arked/index.html", hiKey:"ark3-hi", subjects:["sirah","feqah","tauhid","akhlak","jawi","arab","tajwid","hafazan"] }
+  3: { path:"arked/index.html", hiKey:"ark3-hi", subjects:["sirah","feqah","tauhid","akhlak","jawi","arab","tajwid","hafazan"] },
+  4: { path:"arked/index.html", hiKey:"ark4-hi", subjects:["akhlak","jawi","feqah","tauhid","arab","hafazan","sirah","tajwid"],
+       n:["3 permainan 4D","3 ڤرماٴينن 4D"],
+       desc:["Dimensi KAFA 4D: senget, bidik dan jelajah dengan telefon kamu! Rasa getaran dan dengar bunyi 3D di 8 dunia subjek Tahun 4.","دمينسي کافا 4D: سڠيت، بيديق دان جلاجه دڠن تيليفون کامو! راس ڬيترن دان دڠر بوڽي 3D د 8 دنيا سوبجيک تاهون 4."],
+       feats:[["🌀 Labirin Senget","🌀 لابيرين سڠيت"],["🏹 Panah Sakti","🏹 ڤانه سقتي"],["🔦 Gua Misteri","🔦 ڬوا ميستري"],["📳 Getaran dan bunyi 3D","📳 ڬيترن دان بوڽي 3D"]] },
 };
 
 // Tema dunia setiap subjek (sama seperti dunia dalam Zon Arked): warna, maskot dan hiasan latar kad
