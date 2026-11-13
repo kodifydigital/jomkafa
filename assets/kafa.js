@@ -382,9 +382,10 @@ const ARCADE = {
        feats:[["🏀 Jaring Bola Keranjang","🏀 جاريڠ بولا کرنجڠ"],["🎳 Boling Bintang","🎳 بوليڠ بينتڠ"],["⛳ Golf Mini Ajaib","⛳ ڬولف ميني عجائب"],["🏆 Papan pendahulu","🏆 ڤاڤن ڤندهولو"]] },
   3: { path:"arked/index.html", hiKey:"ark3-hi", subjects:["sirah","feqah","tauhid","akhlak","jawi","arab","tajwid","hafazan"] },
   4: { path:"arked/index.html", hiKey:"ark4-hi", subjects:["akhlak","jawi","feqah","tauhid","arab","hafazan","sirah","tajwid"],
-       n:["3 permainan 4D","3 ڤرماٴينن 4D"],
-       desc:["Dimensi KAFA 4D: senget, bidik dan jelajah dengan telefon kamu! Rasa getaran dan dengar bunyi 3D di 8 dunia subjek Tahun 4.","دمينسي کافا 4D: سڠيت، بيديق دان جلاجه دڠن تيليفون کامو! راس ڬيترن دان دڠر بوڽي 3D د 8 دنيا سوبجيک تاهون 4."],
-       feats:[["🌀 Labirin Senget","🌀 لابيرين سڠيت"],["🏹 Panah Sakti","🏹 ڤانه سقتي"],["🔦 Gua Misteri","🔦 ڬوا ميستري"],["📳 Getaran dan bunyi 3D","📳 ڬيترن دان بوڽي 3D"]] },
+       n:["6 permainan 4D","6 ڤرماٴينن 4D"],
+       desc:["Dimensi KAFA 4D: potong buah ninja, tembak meteor, pandu ular, golek guli, memanah dan jelajah gua — semua dengan kawalan sentuh yang mudah! Rasa getaran dan dengar bunyi 3D di 8 dunia subjek Tahun 4.","دمينسي کافا 4D: ڤوتوڠ بواه نينجا، تمبق ميتيور، ڤندو اولر، ڬوليق ڬولي، ممانه دان جلاجه ڬوا — سموا دڠن کاولن سنتوه يڠ موده! راس ڬيترن دان دڠر بوڽي 3D د 8 دنيا سوبجيک تاهون 4."],
+       feats:[["🍉 Ninja Buah","🍉 نينجا بواه"],["🚀 Kapten Angkasa","🚀 کڤتن اڠکاس"],["🐍 Ular Ilmu","🐍 اولر علمو"],["🌀 Labirin Guli","🌀 لابيرين ڬولي"],["🏹 Panah Sakti","🏹 ڤانه سقتي"],["🔦 Gua Misteri","🔦 ڬوا ميستري"]] },
+
 };
 
 // Tema dunia setiap subjek (sama seperti dunia dalam Zon Arked): warna, maskot dan hiasan latar kad

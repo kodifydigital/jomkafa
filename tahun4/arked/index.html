@@ -741,7 +741,7 @@ let lang = load("kafa-lang","jawi");
 let muted = load("ark4-muted", false);
 let voiceOn = load("t4-voice", true);
 let vibOn = load("ark4-vib", true);
-let ctlMode = load("ark4-ctl", "tilt");     // "tilt" (senget telefon) | "touch" (kayu bedik)
+let ctlMode = "touch";     // kawalan sentuh sahaja (kayu bedik / butang / leret); senget telefon telah dibuang
 let hi = load("ark4-hi", {});
 const REDUCED = (()=>{ try{ return matchMedia("(prefers-reduced-motion: reduce)").matches; }catch(e){ return false; } })();
 const isJ = () => lang==="jawi";
@@ -783,8 +783,8 @@ const SUBNAME = {akhlak:["Akhlak","اخلاق"], jawi:["Jawi","جاوي"], feqah
 
 /* ---------- Tiga permainan (id tetap: senarai benar API) ---------- */
 const GAMES = [
-  {id:"labirin", e:"🌀", r:"Labirin Senget", j:"لابيرين سڠيت", d:["Sengetkan telefon, golekkan guli ke lubang jawapan betul!","سڠيتکن تيليفون، ڬوليقکن ڬولي ک لوبڠ جواڤن بتول!"]},
-  {id:"panah", e:"🏹", r:"Panah Sakti", j:"ڤانه سقتي", d:["Bidik dengan telefon, tarik busur, panah sasaran betul!","بيديق دڠن تيليفون، تاريق بوسور، ڤانه ساسرن بتول!"]},
+  {id:"labirin", e:"🌀", r:"Labirin Guli", j:"لابيرين ڬولي", d:["Gerakkan kayu bedik, golekkan guli ke lubang jawapan betul!","ڬرقکن کايو بديق، ڬوليقکن ڬولي ک لوبڠ جواڤن بتول!"]},
+  {id:"panah", e:"🏹", r:"Panah Sakti", j:"ڤانه سقتي", d:["Seret skrin untuk membidik, tarik busur, panah sasaran betul!","سرت سکرين اونتوق ممبيديق، تاريق بوسور، ڤانه ساسرن بتول!"]},
   {id:"misteri", e:"🔦", r:"Gua Misteri", j:"ڬوا ميستري", d:["Jelajah gua gelap, masuk pintu jawapan betul!","جلاجه ڬوا ڬلڤ، ماسوق ڤينتو جواڤن بتول!"]}
 ];
 const GM = id => GAMES.find(g=>g.id===id);
@@ -912,23 +912,15 @@ const sfx = { ok:()=>tone([784,1047,1319],0.08,"square",0.08), bad:()=>tone([300
 const VIB = { tap:[12], wall:[25], hit:[40,30,80], bull:[60,40,60,40,160], bad:[120,60,120], fall:[200], draw:[8], gem:[15,20,15], door:[30,40,30] };
 function buzz(k){ if(!vibOn || REDUCED && k!=="bad") return; try{ const p = VIB[k] || k; if(navigator.vibrate) navigator.vibrate(p); }catch(e){} }
 
-/* ---------- Kawalan: senget (DeviceOrientation) / kayu bedik sentuh / papan kekunci ---------- */
+/* ---------- Kawalan: kayu bedik sentuh / butang / papan kekunci (tanpa senget) ---------- */
 const SENS = {beta:null, gamma:null, b0:40, g0:0, has:false, perm:"unknown"};
-window.addEventListener("deviceorientation", e=>{ if(e.beta==null || SENS.fake) return; SENS.beta = e.beta; SENS.gamma = e.gamma; SENS.has = true; });
+
 // iOS 13+: kebenaran mesti diminta daripada ketikan (butang "Mula")
-function askMotion(){
-  const D = window.DeviceOrientationEvent;
-  if(ctlMode!=="tilt") return Promise.resolve(false);
-  if(D && typeof D.requestPermission==="function"){
-    return D.requestPermission().then(r=>{ SENS.perm = r; if(r!=="granted"){ ctlMode = "touch"; toast("📱 "+tx("Senget tidak dibenarkan. Guna kawalan sentuh.","سڠيت تيدق دبنرکن. ڬونا کاولن سنتوه.")); } return r==="granted"; })
-      .catch(()=>{ SENS.perm = "denied"; ctlMode = "touch"; return false; });
-  }
-  SENS.perm = D ? "granted" : "none"; return Promise.resolve(!!D);
-}
+function askMotion(){ return Promise.resolve(false); }
 function calibrate(){ if(SENS.beta!=null){ SENS.b0 = clamp(SENS.beta, -10, 80); SENS.g0 = clamp(SENS.gamma, -30, 30); } }
 const JOY = {x:0, y:0, on:false};
 const KEYS = {};
-const useTilt = () => ctlMode==="tilt" && SENS.has;
+const useTilt = () => false;
 // vektor kawalan -1..1: x = kanan, y = ke hadapan (atas skrin)
 function ctlVec(){
   let x = 0, y = 0;
@@ -1706,6 +1698,7 @@ const VF = {
   },
   round(){
     const d = G.flatEl; if(!d) return; const gid = G.gid;
+    if(MODX().flat){ if(G.q) MODX().flat.round(G, d); else d.innerHTML = ""; return; }
     if(!G.q){ d.innerHTML = ""; return; }
     const {s, ox, oy} = VF.sc(), px = (x,z,w,h,cls,inner,st)=>`<div class="${cls}" style="left:${ox+(x-w/2)*s}px;top:${oy+(z-h/2)*s}px;width:${w*s}px;height:${h*s}px;${st||""}">${inner||""}</div>`;
     const lab = i => `<span class="lb" style="--tc:${TC[i]}">${itHTML(G.q.opts[i])}</span>`;
@@ -1730,12 +1723,13 @@ const VF = {
     }
     d.innerHTML = h;
   },
-  hit(i, ok){ VF.round(); const d = G.flatEl; if(!d) return;
+  hit(i, ok){ if(MODX().flat && MODX().flat.hit){ MODX().flat.hit(G, G.flatEl, i, ok); return; } VF.round(); const d = G.flatEl; if(!d) return;
     d.querySelectorAll(".lb").forEach((b,k)=>{ if(k===G.q.ok) b.classList.add("ok"); else if(k===i && !ok) b.classList.add("no"); }); },
   wrong(i){ VF.hit(i, false); },
   gem(g){ const e = $("fg"+G.gm.indexOf(g)); if(e) e.remove(); },
   frame(){
-    const d = G.flatEl; if(!d || !G.q) return; const {s, ox, oy} = VF.sc();
+    const d = G.flatEl; if(!d || !G.q) return;
+    if(MODX().flat){ if(MODX().flat.frame) MODX().flat.frame(G, d); return; } const {s, ox, oy} = VF.sc();
     if(G.gid==="labirin"){ const b = G.mb, e = $("fmb"); if(e && b){ const r = LAB.R*s*(b.fall>0 ? Math.max(0.1, 1-b.fall*1.3) : b.sink>0 ? 0.6 : 1);
       e.style.cssText = `left:${ox+b.x*s-r}px;top:${oy+b.z*s-r}px;width:${2*r}px;height:${2*r}px`; } }
     else if(G.gid==="misteri"){ const P = G.pl, e = $("fpl"); if(e && P) e.style.cssText = `left:${ox+P.x*s}px;top:${oy+P.z*s}px;transform:translate(-50%,-50%) rotate(${P.yaw*57.3 - 45}deg)`; }
@@ -1773,13 +1767,13 @@ function renderMap(){
     <header class="hero h4d"><span class="flag" aria-hidden="true">📱</span>
       <span class="sub">🕹️ ${tx("Zon Arked • Tahun 4","زون ارکيد • تاهون 4")}</span>
       <h1>${tx("Dimensi KAFA 4D","ديمنسي کافا 4D")}</h1>
-      <p>${tx("Senget, bidik dan jelajah dengan telefon kamu! Rasa getaran dan dengar bunyi 3D.","سڠيت، بيديق دان جلاجه دڠن تيليفون کامو! راس ڬيترن دان دڠر بوڽي 3D.")}</p>
-      <span class="stars">🏅 ${total} / ${SUBJ.length*3}</span><span class="dims" aria-hidden="true">📳 🎧 🌧️ 🔦</span></header>
+      <p>${tx("6 permainan aksi 3D dengan kawalan sentuh yang mudah! Rasa getaran dan dengar bunyi 3D.","6 ڤرماٴينن اکسي 3D دڠن کاولن سنتوه يڠ موده! راس ڬيترن دان دڠر بوڽي 3D.")}</p>
+      <span class="stars">🏅 ${total} / ${SUBJ.length*GAMES.length}</span><span class="dims" aria-hidden="true">📳 🎧 🌧️ 🔦</span></header>
     <div class="sec">🌍 ${tx("Pilih dunia","ڤيليه دنيا")}</div>
     <div class="worlds">${SUBJ.map(s=>{ const w = WORLD[s], n = starsOf(s), lk = worldLocked(s);
       return `<button class="wcard ${s==="mix"?"mix":""} ${lk?"paid":""}" data-act="world" data-s="${s}" style="--c1:${w.c1};--c2:${w.c2}">
         <span class="deco" aria-hidden="true">${w.deco}</span><span class="m" aria-hidden="true">${w.m}</span>${lk ? `<span class="plock" aria-hidden="true">🔒</span>` : ""}
-        <b>${tx(w.r, w.j)}</b><small>${tx(SUBNAME[s][0], SUBNAME[s][1])} • ${"🏅".repeat(n)}${"▫️".repeat(3-n)}</small></button>`; }).join("")}</div>
+        <b>${tx(w.r, w.j)}</b><small>${tx(SUBNAME[s][0], SUBNAME[s][1])} • ${"🏅".repeat(n)}${"▫️".repeat(Math.max(0, GAMES.length-n))}</small></button>`; }).join("")}</div>
     <p class="foot">${tx("Soalan diambil daripada pelajaran Tahun 4 dalam portal ini.","سوالن دأمبيل درڤد ڤلاجرن تاهون 4 دالم ڤورتل اين.")}</p>`;
   window.scrollTo && window.scrollTo(0,0);
 }
@@ -1796,8 +1790,7 @@ function openWorld(s){
   window.scrollTo && window.scrollTo(0,0);
 }
 const HOW = {
-  labirin:[["📱", ["Sengetkan telefon: guli bergolek ke arah senget.","سڠيتکن تيليفون: ڬولي برڬوليق ک اره سڠيت."]],
-           ["🕹️", ["Mod sentuh: seret kayu bedik di bawah skrin.","مود سنتوه: سرت کايو بديق د باوه سکرين."]],
+  labirin:[["🕹️", ["Seret kayu bedik: guli bergolek ke arah itu.","سرت کايو بديق: ڬولي برڬوليق ک اره ايت."]],
            ["🕳️", ["Elak lubang hitam. Jatuh? Mula semula di bendera 🚩.","ايلق لوبڠ هيتم. جاتوه؟ مولا سمولا د بنديرا 🚩."]]],
   panah:[["📱", ["Gerakkan telefon untuk membidik (atau seret skrin).","ڬرقکن تيليفون اونتوق ممبيديق (اتاو سرت سکرين)."]],
          ["🏹", ["Tekan dan tahan butang 🏹 untuk menarik busur, lepas untuk memanah.","تکن دان تاهن بوتڠ 🏹 اونتوق مناريق بوسور، لڤس اونتوق ممانه."]],
@@ -1819,18 +1812,11 @@ function openGame(gid){
       <p>${tx(w.r, w.j)}${gid==="misteri" ? " • "+L(w.cave) : ""}</p>
       <ul class="how">${how.map(([e,t])=>`<li><span aria-hidden="true">${e}</span>${L(t)}</li>`).join("")}</ul>
       <div class="opts4d">
-        <div class="seg" role="group" aria-label="${tx("Kawalan","کاولن")}"><span>${tx("Kawalan","کاولن")}:</span>
-          <button data-act="ctl" data-m="tilt" aria-pressed="${ctlMode==="tilt"}">📱 ${tx("Senget","سڠيت")}</button>
-          <button data-act="ctl" data-m="touch" aria-pressed="${ctlMode==="touch"}">🕹️ ${tx("Sentuh","سنتوه")}</button></div>
         ${togl("vib", vibOn, "📳", "📴", tx("Getaran","ڬيترن"))}${togl("lowq", lowQ, "🐢", "✨", tx("Kualiti rendah","کواليتي رنده"))}
       </div>
-      <div class="calib" id="calib" ${ctlMode==="tilt"?"":"hidden"}><div class="lvl" aria-hidden="true"><i id="lvlb"></i></div>
-        <div><b>${tx("Cuba senget","چوبا سڠيت")}</b><small id="lvlt">${tx("Pegang telefon dengan selesa, kemudian tekan butang ini.","ڤڬڠ تيليفون دڠن سلسا، کمودين تکن بوتڠ اين.")}</small>
-        <button class="btn sm alt" data-act="calib">🎯 ${tx("Tetapkan tengah","تتڤکن تڠه")}</button></div></div>
       <button class="btn go" data-act="start">▶ ${tx("Mula!","مولا!")}</button>
       ${hiOf(subj, gid) ? `<p>🏆 ${tx("Skor terbaik","سکور تربايق")}: <b>${hiOf(subj, gid)}</b></p>` : ""}</div>`;
   speak(g.d[0]);
-  calibLoop();
 }
 // gelembung aras: tunjuk senget secara langsung pada skrin pengenalan
 function calibLoop(){
@@ -1871,7 +1857,7 @@ function stopGame(){
 
 /* ============ SKRIN PERMAINAN: HUD, soalan, kawalan, keputusan ============ */
 function gameScreen(){
-  const gid = G.gid, joy = gid!=="panah";
+  const gid = G.gid, P = MOD[gid] || {}, joy = !P.ctlHTML && gid!=="panah";
   app.innerHTML = `<div class="game g-${gid}" id="game"><div class="field" id="field" dir="ltr">
     <div class="hud"><button class="iconbtn" data-act="pause" aria-label="${tx("Rehat","رحت")}">⏸</button>
       <span class="chip rd" id="hrd">1/${NROUND}</span><span class="chip" id="hx" ${gid==="labirin"?"hidden":""}></span><span class="sp"></span>
@@ -1885,14 +1871,16 @@ function gameScreen(){
     <div class="ctl4" id="ctl">
       ${joy ? `<div class="joy" id="joy" aria-label="${tx("Kayu bedik","کايو بديق")}"><i></i></div>` : ""}
       ${gid==="panah" ? `<button class="pw" id="pw" data-act="pw" aria-label="${tx("Tahan untuk tarik busur, lepas untuk memanah","تاهن اونتوق تاريق بوسور، لڤس اونتوق ممانه")}">🏹</button>` : ""}
-      <span class="mode" aria-hidden="true">${ctlMode==="tilt" && SENS.has ? "📱" : "🕹️"}</span></div>
+      ${P.ctlHTML ? P.ctlHTML() : ""}</div>
   </div></div>`;
   bindJoy($("joy"));
+  if(P.bind) P.bind($("field"), $("ctl"));   // permainan tambahan: kawalan sendiri (butang / leret)
   const f = $("field"); let p0 = null;
   f.addEventListener("pointerdown", e=>{ if(e.target.closest("button,.prompt,.joy") || !G) return; p0 = {x:e.clientX, y:e.clientY}; });
   f.addEventListener("pointermove", e=>{ if(!p0 || !G || !playing()) return; const dx = e.clientX - p0.x, dy = e.clientY - p0.y, W = f.clientWidth || 360; p0 = {x:e.clientX, y:e.clientY};
     if(G.gid==="panah" && G.aim && !G.arrow){ G.aim.yaw = clamp(G.aim.yaw + dx/W*0.9, -0.6, 0.6); G.aim.pitch = clamp(G.aim.pitch - dy/W*0.9, -0.15, 0.4); }
     if(G.gid==="misteri") MOD.misteri.look(G, dx/W*2.2); });
+  // (permainan tambahan mengikat peristiwa sentuhnya sendiri dalam MOD[id].bind)
   const up = ()=>{ p0 = null; }; f.addEventListener("pointerup", up); f.addEventListener("pointercancel", up);
 }
 const UI = {
@@ -1900,7 +1888,7 @@ const UI = {
   hud(force){
     if(!G || !$("hrd")) return;
     const rd = `🎯 ${Math.min(NROUND, G.ri+1)}/${NROUND}`, sc = `⭐ ${G.score}`, cb = G.combo>=2 ? `🔥 x${G.combo}` : "";
-    const x = G.gid==="misteri" ? `💎 ${G.gems}` : G.gid==="panah" ? `🏹 ${Math.max(0, MAXSHOT-G.shots)}` : "";
+    const x = MODX().hudX ? MODX().hudX(G) : G.gid==="misteri" ? `💎 ${G.gems}` : G.gid==="panah" ? `🏹 ${Math.max(0, MAXSHOT-G.shots)}` : "";
     const sig = rd+sc+cb+x+(G.wind||0);
     if(sig!==UI._h || force){ UI._h = sig; $("hrd").textContent = rd; $("hscore").textContent = sc; $("hx").textContent = x;
       const c = $("hcombo"); c.hidden = !cb; c.textContent = cb;
@@ -1947,7 +1935,6 @@ const UI = {
     if(!on || !$("field")) return;
     $("field").insertAdjacentHTML("beforeend", `<div class="ovl" id="povl" dir="${isJ()?"rtl":"ltr"}"><div class="card"><div style="font-size:64px">⏸</div><h2>${tx("Rehat sekejap","رحت سکجڤ")}</h2>
       <button class="btn go" data-act="resume">▶ ${tx("Sambung","سمبوڠ")}</button>
-      <button class="btn alt" data-act="recal">🎯 ${tx("Tetapkan tengah senget","تتڤکن تڠه سڠيت")}</button>
       <button class="btn alt" data-act="again">🔁 ${tx("Mula semula","مولا سمولا")}</button>
       <button class="btn alt" data-act="world">🚪 ${tx("Keluar","کلوار")}</button></div></div>`);
   },
@@ -2120,6 +2107,843 @@ async function lbSubmit(r){
 }
 
 
+/* ============ KAPTEN ANGKASA: penembak angkasa 3D (logik + kawalan + paparan rata) ============ */
+GAMES.push({id:"angkasa", e:"🚀", r:"Kapten Angkasa", j:"کڤتن اڠکاس",
+  d:["Pandu kapal angkasa, tembak meteor jawapan betul!","ڤندو کاڤل اڠکاس، تمبق ميتيور جواڤن بتول!"]});
+HOW["angkasa"] = [
+  ["◀▶", ["Tahan ◀ ▶ untuk menggerakkan kapal angkasa.","تاهن ◀ ▶ اونتوق مڠڬرقکن کاڤل اڠکاس."]],
+  ["🔥", ["Tekan 🔥 TEMBAK: musnahkan meteor jawapan betul!","تکن 🔥 تمبق: موسنهکن ميتيور جواڤن بتول!"]],
+  ["🌟", ["Kutip bintang untuk bonus. Tembak cepat = mata lebih!","کوتيڤ بينتڠ اونتوق بونس. تمبق چڤت = مات لبيه!"]]];
+// dunia: x = kiri/kanan, z = jauh (−) → dekat (+); kapal di z = 0
+const AK = {XW:3.6, SV:7.5, LV:30, Z0:-1.2, ZMAX:-30, ZTOP:-22, ZBOT:2.5, HR:1.0, MY:0.6, COOL:0.3};
+(function(){ if(document.getElementById("ak-css")) return; const s = document.createElement("style"); s.id = "ak-css";
+  s.textContent = `.ak-pad{display:flex;width:100%;justify-content:space-between;align-items:flex-end;padding:0 12px;box-sizing:border-box;pointer-events:none!important}
+.ak-pad>*{pointer-events:auto}.ak-mv{display:flex;gap:12px}
+.ak-b{width:86px;height:86px;border-radius:24px;border:0;font-size:40px;font-weight:900;color:#fff;touch-action:none;user-select:none;-webkit-user-select:none;
+ background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.4),rgba(255,255,255,.06) 60%),linear-gradient(160deg,var(--w1),var(--w2));
+ box-shadow:0 6px 0 rgba(0,0,0,.45),inset 0 0 0 3px rgba(255,255,255,.55);transition:transform .06s}
+.ak-b.on{transform:translateY(4px) scale(.95);box-shadow:0 2px 0 rgba(0,0,0,.45),inset 0 0 0 4px #fff;background:var(--wa);color:#2A1A00}
+.ak-f{width:118px;height:118px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;font-size:46px;
+ background:radial-gradient(circle at 40% 35%,#FFE27A,#FF7A1A 55%,#C2271B)}
+.ak-f small{font-size:15px;font-weight:900;margin-top:3px;text-shadow:0 2px 0 rgba(0,0,0,.35)}
+.ak-f.on{background:radial-gradient(circle at 40% 35%,#FFF,#FFD84D 50%,#FF7A1A)}
+.fl-angkasa{background:radial-gradient(2px 2px at 12% 18%,#fff 50%,transparent 60%),radial-gradient(2px 2px at 72% 9%,#fff 50%,transparent 60%),
+ radial-gradient(1.5px 1.5px at 40% 44%,#fff 50%,transparent 60%),radial-gradient(2px 2px at 86% 52%,#fff 50%,transparent 60%),
+ radial-gradient(1.5px 1.5px at 25% 70%,#fff 50%,transparent 60%),radial-gradient(1.5px 1.5px at 60% 80%,#fff 50%,transparent 60%),
+ radial-gradient(ellipse at 30% 40%,color-mix(in srgb,var(--w1) 45%,transparent),transparent 60%),linear-gradient(180deg,#02030C,#0B1030 55%,var(--w2))!important}
+.fl-angkasa .akp{border-radius:50%;opacity:.85;box-shadow:0 0 40px var(--pc);background:radial-gradient(circle at 35% 35%,#fff,var(--pc) 40%,#000 100%)}
+.fl-angkasa .ako{transform:translate(-50%,-50%);line-height:1;pointer-events:none;font-size:34px}
+.fl-angkasa .akm{font-size:50px;filter:drop-shadow(0 0 10px var(--tc))}.fl-angkasa .akm .lb{bottom:88%}
+.fl-angkasa .akm.dead i{visibility:hidden}.fl-angkasa .akm.bad{filter:grayscale(1);opacity:.7}
+.fl-angkasa .aksh{font-size:56px}.fl-angkasa .aks{font-size:28px}.fl-angkasa .akr{font-size:26px}
+.fl-angkasa .akl{width:7px;height:30px;border-radius:4px;background:#BFFBFF;box-shadow:0 0 12px 3px #46E8FF}
+.fl-angkasa .akx{font-size:70px;animation:akx .7s ease-out forwards}@keyframes akx{from{transform:translate(-50%,-50%) scale(.3)}to{transform:translate(-50%,-50%) scale(1.8);opacity:0}}`;
+  document.head.appendChild(s); })();
+const akMX = (m, t) => m.cx + m.amp*Math.sin(m.w*t + m.ph);
+// ramalan: di mana meteor apabila laser (dari Z0, laju LV) sampai kepadanya
+function akPred(G, m){ const t = Math.max(0.02, (AK.Z0 - m.z)/(AK.LV + m.vz)); return {x:akMX(m, G.at + t), z:m.z + m.vz*t, t}; }
+const akValid = (m, p) => !m.dead && m.z < -2.6 && p.z > AK.ZMAX + 1;
+function akRock(init){ return {x:rnd(-3.8, 3.8), z:init ? rnd(-22, -7) : AK.ZTOP - rnd(1, 8), vz:rnd(2.2, 3.4), r:rnd(0.28, 0.45), sp:rnd(-2, 2)}; }
+function akStar(init){ return {x:rnd(-3.3, 3.3), z:init ? rnd(-20, -9) : AK.ZTOP - rnd(4, 14), vz:1.7}; }
+function akPew(x){ const p = S3.node(x, 0, AK.Z0); tone([1500,820,420], 0.045, "square", 0.07, p || undefined); }
+function akFire(G){
+  if(G.las.length >= 4) return;
+  const S = G.ship; let best = null;
+  // bantuan bidik: laser membengkok sedikit ke meteor terdekat di hadapan kapal
+  G.mt.forEach(m=>{ const p = akPred(G, m); if(!akValid(m, p)) return; const d = Math.abs(p.x - S.x); if(d < 1.4 && (!best || d < best.d)) best = {d, p}; });
+  G.las.push({x:S.x, z:AK.Z0, vx:best ? (best.p.x - S.x)/best.p.t : 0}); G.cool = AK.COOL;
+  akPew(S.x); buzz("tap"); if(G.scene) V3G.angkasa.muzzle();
+}
+function akGotStar(G, s){
+  G.stars = (G.stars||0) + 1; G.sBonus = 10; sfx.gem(); buzz("gem"); S3.chime(s.x, 0.5, s.z);
+  if(G.scene) V3G.angkasa.pop(s.x, s.z, 0xFFD84D);
+  if(playing()) UI.fx("🌟 "+tx("Bonus +10!","بونس +10!")); Object.assign(s, akStar(false)); UI.hud(true);
+}
+MOD.angkasa = {
+  layout(G){
+    G.at = G.at || 0; G.ship = G.ship || {x:0, vx:0}; G.stars = G.stars || 0; G.sBonus = G.sBonus || 0;
+    const cx = shuffle([-2.2, 0, 2.2]), zs = shuffle([-8, -11.5, -15]), v = 0.95 + Math.min(7, G.ri|0)*0.05;
+    G.mt = [0,1,2].map(i=>({cx:cx[i], x:cx[i], z:zs[i] + rnd(-0.6, 0.6), vz:v*rnd(0.9, 1.15), amp:rnd(0.3, 0.55), w:rnd(0.8, 1.3), ph:rnd(0, 6), dead:0, bad:0, spin:rnd(-1, 1)}));
+    G.ufo = (G.ri|0) % 2 === 1;
+    if(!G.ast) G.ast = [0,1,2,3].map(()=>akRock(true));
+    if(!G.st) G.st = [0,1].map(()=>akStar(true));
+    G.las = []; G.cool = 0; G.ap = null; G.bumpT = 0; G.glowI = -1;
+  },
+  hudX(G){ return `🌟 ${G.stars||0}`; },
+  word(){ return "💥 "+tx("Meteor musnah!","ميتيور موسنه!"); },
+  auto(G, i){ G.ap = {i}; },
+  hint(G){ const m = G.mt[G.q.ok]; S3.humOn(m.x, AK.MY, m.z); G.glowI = G.q.ok; },
+  pull(G, on){ G.fireHeld = !!on && playing(); if(G.fireHeld && G.cool <= 0) akFire(G); },
+  step(G, h){
+    G.at += h; const play = G.phase==="play", S = G.ship;
+    G.mt.forEach(m=>{ m.z += m.vz*h; if(m.z > AK.ZBOT) m.z += AK.ZTOP - AK.ZBOT; m.x = akMX(m, G.at); });
+    G.ast.forEach(r=>{ r.z += r.vz*h; if(r.z > AK.ZBOT + 1) Object.assign(r, akRock(false)); });
+    G.st.forEach(s=>{ s.z += s.vz*h; if(s.z > AK.ZBOT) Object.assign(s, akStar(false)); });
+    // pemanduan: butang ◀ ▶ / kekunci / autopilot
+    let dir = (G.thR ? 1 : 0) - (G.thL ? 1 : 0);
+    if(!dir){ const c = ctlVec(); dir = Math.abs(c.x) > 0.3 ? Math.sign(c.x) : 0; }
+    let vT = dir*AK.SV;
+    const A = play && G.ap ? G.mt[G.ap.i] : null;
+    if(A){ const p = akPred(G, A), dx = p.x - S.x; vT = clamp(dx*9, -AK.SV, AK.SV);
+      if(akValid(A, p) && Math.abs(dx) < 0.25 && G.cool <= 0 && !G.las.length) akFire(G); }
+    if(G.bumpT > 0){ G.bumpT -= h; vT = S.vx; }
+    S.vx += (vT - S.vx)*Math.min(1, h*14); S.x += S.vx*h;
+    if(Math.abs(S.x) > AK.XW){ S.x = Math.sign(S.x)*AK.XW; S.vx = 0; }
+    G.cool -= h; if(G.fireHeld && play && G.cool <= 0) akFire(G);
+    // laser
+    for(let k=G.las.length-1; k>=0; k--){ const l = G.las[k]; let gone = false;
+      l.z -= AK.LV*h; l.x += l.vx*h;
+      if(play) for(let i=0;i<3 && !gone;i++){ const m = G.mt[i]; if(m.dead || m.bad) continue;
+        if(Math.abs(l.z - m.z) < 0.9 && Math.abs(l.x - m.x) < AK.HR){ gone = true; G.las.splice(k, 1);
+          const ok = i===G.q.ok, fast = G.rT < 3; let b = fast ? 20 : 0;
+          if(ok && G.sBonus){ b = Math.min(20, b + G.sBonus); G.sBonus = 0; }
+          S3.thud(m.x, AK.MY, m.z);
+          onHit(i, ok ? b : 0, ok ? (fast ? "⚡ "+tx("Pantas! Meteor musnah!","ڤنتس! ميتيور موسنه!") : MOD.angkasa.word()) : null); return; } }
+      if(gone) continue;
+      for(const r of G.ast) if(Math.abs(l.z - r.z) < 0.7 && Math.abs(l.x - r.x) < r.r + 0.3){ gone = true;
+        if(G.scene) V3G.angkasa.pop(r.x, r.z, 0xB08A6A); S3.thud(r.x, 0, r.z); Object.assign(r, akRock(false)); break; }
+      for(const s of G.st) if(Math.abs(l.z - s.z) < 0.8 && Math.abs(l.x - s.x) < 0.7) akGotStar(G, s);
+      if(gone || l.z < AK.ZMAX) G.las.splice(k, 1);
+    }
+    // kapal vs asteroid (tolak sahaja, tiada nyawa) / bintang
+    for(const r of G.ast) if(Math.abs(r.z) < 0.6 && Math.abs(r.x - S.x) < r.r + 0.55){
+      S.vx = (S.x >= r.x ? 1 : -1)*8; G.bumpT = 0.25; buzz("wall"); S3.thud(r.x, 0, 0); sfx.rumble();
+      if(G.scene) V3G.angkasa.pop(r.x, r.z, 0xB08A6A); if(G.view && G.view.bump) G.view.bump(4);
+      if(play) UI.fx("💫 "+tx("Aduh! Asteroid!","اادوه! استيرويد!"), true); Object.assign(r, akRock(false)); }
+    for(const s of G.st) if(Math.abs(s.z) < 0.8 && Math.abs(s.x - S.x) < 0.8) akGotStar(G, s);
+  },
+  onHit(G, i, ok){ const m = G.mt[i]; if(m){ if(ok) m.dead = 1; else m.bad = 1; } G.glowI = G.q.ok; G.ap = null; G.fireHeld = false; },
+  ctlHTML(){
+    return `<div class="ak-pad"><div class="ak-mv"><button class="ak-b" id="akL" aria-label="${tx("Ke kiri","ک کيري")}">◀</button>`+
+      `<button class="ak-b" id="akR" aria-label="${tx("Ke kanan","ک کانن")}">▶</button></div>`+
+      `<button class="ak-b ak-f" id="akF" aria-label="${tx("Tembak","تمبق")}">🔥<small>${tx("TEMBAK","تمبق")}</small></button></div>`;
+  },
+  bind(field, ctl){
+    const hold = (id, key)=>{ const b = ctl.querySelector("#"+id); if(!b) return;
+      const off = ()=>{ if(G) G[key] = false; b.classList.remove("on"); };
+      b.addEventListener("pointerdown", e=>{ e.preventDefault(); if(!G || !playing()) return; G[key] = true; b.classList.add("on"); buzz("tap");
+        try{ if(e.pointerId!=null) b.setPointerCapture(e.pointerId); }catch(_){} });
+      ["pointerup","pointercancel","lostpointercapture"].forEach(t=>b.addEventListener(t, off));
+      b.addEventListener("contextmenu", e=>e.preventDefault()); };
+    hold("akL", "thL"); hold("akR", "thR");
+    const f = ctl.querySelector("#akF"); if(!f) return;
+    f.addEventListener("pointerdown", e=>{ e.preventDefault(); if(!G || !playing()) return; f.classList.add("on"); MOD.angkasa.pull(G, true); });
+    ["pointerup","pointercancel"].forEach(t=>f.addEventListener(t, ()=>{ f.classList.remove("on"); if(G) MOD.angkasa.pull(G, false); }));
+    f.addEventListener("contextmenu", e=>e.preventDefault());
+  },
+  // ujian: tekan ◀ ▶ sebenar hingga sejajar dengan meteor betul, kemudian tekan 🔥
+  human(G, D, ev){
+    const ri = G.ri, bL = D.getElementById("akL"), bR = D.getElementById("akR"), bF = D.getElementById("akF");
+    if(!bL || !bR || !bF) return false; let held = null;
+    const set = b=>{ if(held===b) return; if(held) ev(held, "pointerup"); held = b; if(b) ev(b, "pointerdown"); };
+    for(let k=0; k<600 && G.phase==="play" && G.ri===ri; k++){
+      const m = G.mt[G.q.ok], p = akPred(G, m), dx = p.x - G.ship.x, br = Math.abs(G.ship.vx)*0.1 + 0.15;
+      set(dx > br ? bR : dx < -br ? bL : null);
+      if(akValid(m, p) && Math.abs(dx) < 0.6 && G.cool <= 0 && !G.las.length){ ev(bF, "pointerdown"); ev(bF, "pointerup"); }
+      G.tick(0.05);
+    }
+    set(null);
+    return !!(G.res && G.res.ok && G.ri===ri);
+  },
+  flat:{
+    sc(G){ const top = 175, bot = G.H - 175, sy = Math.max(6, (bot - top)/(AK.ZBOT - AK.ZTOP)), sx = G.W/9.4;
+      return {x:x=>G.W/2 + x*sx, y:z=>top + (z - AK.ZTOP)*sy}; },
+    round(G, d){
+      const w = WORLD[G.subj] || WORLD.mix, pw = Math.round(G.W*0.45);
+      let h = `<div class="akp" style="--pc:${w.sky[0]};width:${pw}px;height:${pw}px;right:${-pw*0.3}px;top:${G.H*0.3}px"></div>`;
+      G.mt.forEach((m,i)=>h += `<div class="ako akm${m.dead?" dead":""}${m.bad?" bad":""}" id="akm${i}" style="--tc:${TC[i]}"><i>${G.ufo ? "🛸" : "☄️"}</i><span class="lb" style="--tc:${TC[i]}">${itHTML(G.q.opts[i])}</span></div>`);
+      G.ast.forEach((r,k)=>h += `<div class="ako akr" id="akr${k}">🪨</div>`);
+      G.st.forEach((s,k)=>h += `<div class="ako aks" id="aks${k}">🌟</div>`);
+      for(let k=0;k<4;k++) h += `<div class="ako akl" id="akl${k}" hidden></div>`;
+      h += `<div class="ako aksh" id="aksh">🚀</div>`;
+      d.innerHTML = h; MOD.angkasa.flat.frame(G, d);
+    },
+    frame(G, d){
+      if(!G.mt) return; const {x, y} = MOD.angkasa.flat.sc(G), at = (e, px, py, ex)=>{ if(e) e.style.cssText = `left:${px}px;top:${py}px;${ex||""}`; };
+      G.mt.forEach((m,i)=>at($("akm"+i), x(m.x), y(m.z), `--tc:${TC[i]}`));
+      G.ast.forEach((r,k)=>at($("akr"+k), x(r.x), y(r.z), `transform:translate(-50%,-50%) rotate(${(G.at*r.sp*60)|0}deg) scale(${r.r*2.4})`));
+      G.st.forEach((s,k)=>at($("aks"+k), x(s.x), y(s.z)));
+      for(let k=0;k<4;k++){ const e = $("akl"+k), l = G.las[k]; if(!e) continue; e.hidden = !l; if(l) at(e, x(l.x), y(l.z)); }
+      at($("aksh"), x(G.ship.x), y(0), `transform:translate(-50%,-50%) rotate(${-45 + G.ship.vx*2}deg)`);
+    },
+    hit(G, d, i, ok){
+      const e = $("akm"+i), m = G.mt[i];
+      if(e){ e.classList.add(ok ? "dead" : "bad"); const {x, y} = MOD.angkasa.flat.sc(G);
+        d.insertAdjacentHTML("beforeend", `<div class="ako akx" style="left:${x(m.x)}px;top:${y(m.z)}px">${ok ? "💥" : "💨"}</div>`); }
+      d.querySelectorAll(".akm .lb").forEach((b,k)=>{ if(k===G.q.ok) b.classList.add("ok"); else if(k===i && !ok) b.classList.add("no"); });
+    }
+  }
+};
+
+/* ============ 3D: KAPTEN ANGKASA ============ */
+function akGlowTex(c){ // tekstur bulat bercahaya (nebula / nyalaan)
+  const cv = document.createElement("canvas"); cv.width = cv.height = 128; const x = cv.getContext("2d"), g = x.createRadialGradient(64, 64, 0, 64, 64, 64);
+  g.addColorStop(0, c); g.addColorStop(0.45, c + "88"); g.addColorStop(1, c + "00"); x.fillStyle = g; x.fillRect(0, 0, 128, 128); return new THREE.CanvasTexture(cv);
+}
+function akGlowSprite(c, s, op){ const sp = new THREE.Sprite(new THREE.SpriteMaterial({map:akGlowTex(c), transparent:true, opacity:op||1, depthWrite:false, blending:THREE.AdditiveBlending})); sp.scale.set(s, s, 1); return sp; }
+function akShip(scene, w){
+  const g = new THREE.Group(); scene.add(g); const body = M(0xE8EEF8, {metalness:.4}), trim = M(hex(w.c1)), dark = M(0x26304A);
+  const nose = mk(CONE(0.36, 1.5, 8), body, 0, 0, -0.55, g); nose.rotation.x = -Math.PI/2;
+  const tail = mk(CYL(0.36, 0.3, 0.7, 8), body, 0, 0, 0.5, g); tail.rotation.x = Math.PI/2;
+  mk(SPH(0.24, 10, 8), GLOW(0x7CF2FF, .5), 0, 0.24, -0.25, g).scale.set(1, 0.8, 1.6);
+  [-1, 1].forEach(s=>{ const wg = mk(BOX(1.1, 0.07, 0.6), trim, s*0.62, -0.04, 0.35, g); wg.rotation.y = s*0.25;
+    mk(BOX(0.08, 0.32, 0.4), trim, s*1.12, 0.1, 0.5, g);
+    mk(CYL(0.13, 0.15, 0.5, 8), dark, s*0.42, -0.08, 0.6, g).rotation.x = Math.PI/2; });
+  const fl = [0, -0.42, 0.42].map((x,k)=>{ const f = mk(CONE(k ? 0.12 : 0.22, 1, 8), GLOW(0xFF9A2E, 1.2), x, k ? -0.08 : 0, k ? 1.2 : 1.25, g); f.rotation.x = Math.PI/2; return f; });
+  const glow = akGlowSprite("#FFB347", 1.6, 0.8); glow.position.set(0, 0, 1.1); g.add(glow);
+  return {g, fl, glow};
+}
+function akMeteor(scene, i){
+  const g = new THREE.Group(); scene.add(g);
+  const rock = mk(SPH(0.85, 8, 6), M(0x7A6A5E), 0, 0, 0, g); rock.scale.set(1, 0.9, 1.05);
+  const tail = mk(CONE(0.75, 2.6, 8), MU(TCN[i], {emissive:TCN[i], emissiveIntensity:.9, transparent:true, opacity:.55}), 0, 0, -1.5, g); tail.rotation.x = -Math.PI/2;
+  const ufo = new THREE.Group(); g.add(ufo);
+  mk(SPH(1, 14, 8), M(0xC8D0E0, {metalness:.6, flatShading:false}), 0, 0, 0, ufo).scale.set(1.2, 0.32, 1.2);
+  mk(SPH(0.5, 12, 8), GLOW(TCN[i], .7), 0, 0.25, 0, ufo).scale.set(1, 0.8, 1);
+  const rg = mk(TOR(1.25, 0.07, Math.PI*2, 28), GLOW(TCN[i], 1), 0, 0, 0, g); rg.rotation.x = Math.PI/2;
+  const halo = akGlowSprite(TC[i], 3.4, 0.55); g.add(halo);
+  const lab = itemSprite(); g.add(lab); lab.position.set(0, 1.05, 0);
+  return {g, rock, tail, ufo, rg, halo, lab};
+}
+V3G.angkasa = {
+  build(scene, w, cam){
+    scene.background = gradTex(["#02030C", "#0A0F2E", w.c2, "#120A2E"]); scene.fog = null;
+    cam.fov = 60; cam.updateProjectionMatrix(); scene.add(cam);
+    // langit berbintang
+    const n = lowQ ? 220 : 500, pos = new Float32Array(n*3);
+    for(let k=0;k<n;k++){ pos[k*3] = rnd(-90, 90); pos[k*3+1] = rnd(-55, 35); pos[k*3+2] = rnd(-115, -35); }
+    const sg = new THREE.BufferGeometry(); sg.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+    G.akSky = new THREE.Points(sg, new THREE.PointsMaterial({color:0xFFFFFF, size:0.45, transparent:true, opacity:.9, depthWrite:false})); scene.add(G.akSky);
+    // nebula + planet berwarna langit dunia
+    const neb = akGlowSprite(w.c1, 90, 0.35); neb.position.set(-22, -22, -100); scene.add(neb);
+    const neb2 = akGlowSprite(w.acc, 60, 0.22); neb2.position.set(26, -6, -104); scene.add(neb2);
+    const pl = G.akPlanet = new THREE.Group(); pl.position.set(10, -16, -56); scene.add(pl);
+    mk(SPH(11, 28, 18), M(hex(w.sky[0]), {flatShading:false, emissive:hex(w.sky[0]), emissiveIntensity:.3, roughness:.9}), 0, 0, 0, pl);
+    const pr = mk(TOR(16.5, 0.8, Math.PI*2, 48), GLOW(hex(w.acc), .6), 0, 0, 0, pl); pr.rotation.set(1.25, 0.3, 0); pr.scale.set(1, 1, 0.15);
+    const at = akGlowSprite(w.sky[1], 34, 0.4); pl.add(at);
+    const moon = mk(SPH(2.2, 14, 10), M(0xD8D2C8, {flatShading:false}), -16, -4, -60, scene);
+    const sunL = new THREE.PointLight(hex(w.acc), 0.6, 60); sunL.position.set(0, 6, -6); scene.add(sunL);
+    // jalur laju (bergerak ke arah kapal)
+    G.wx = makeWeather(scene, "streak", [-6, -2.5, -10, 36, 9, 20]); G.wx.p.rotation.y = Math.PI/2;
+    G.akS = akShip(scene, w);
+    G.akM = [0,1,2].map(i=>akMeteor(scene, i));
+    G.akR = [0,1,2,3].map(()=>mk(SPH(1, 6, 5), M(0x6B5E55), 0, 0, -40, scene));
+    G.akSt = [0,1].map(()=>{ const s = emojiSprite("🌟", 1.1); scene.add(s); return s; });
+    const lm = MU(0xBFFBFF, {emissive:0x46E8FF, emissiveIntensity:1.5});
+    G.akL = [0,1,2,3].map(()=>{ const l = mk(CYL(0.08, 0.08, 1.6, 6), lm, 0, AK.MY, 0, scene); l.rotation.x = Math.PI/2; l.visible = false; return l; });
+    G.akMz = akGlowSprite("#7CF2FF", 1.4, 0); scene.add(G.akMz); G.akMzT = 0;
+    V3G.angkasa.round();
+  },
+  round(){
+    if(!G.akM || !G.mt) return;
+    G.akM.forEach((m,i)=>{ m.g.visible = true; m.g.scale.setScalar(1); m.rock.visible = m.tail.visible = !G.ufo; m.ufo.visible = !!G.ufo; m.lab.material.opacity = 1;
+      if(G.q) setItem(m.lab, G.q.opts[i], TC[i], 2.2); });
+    G.glowI = -1;
+  },
+  muzzle(){ G.akMzT = 0.12; },
+  pop(x, z, c){ if(!G.scene) return; burst(new THREE.Vector3(x, AK.MY, z), c, 8, 2.5); },
+  hit(i, ok){
+    const m = G.akM[i], T = G.mt[i]; if(!m || !T) return; const p = new THREE.Vector3(T.x, AK.MY, T.z);
+    if(ok){ burst(p, TCN[i], 22, 5); burst(p, 0xFFD84D, 12, 3); ring(p, 0xFFFFFF); sfx.rumble();
+      const sw = mk(TOR(1, 0.12, Math.PI*2, 32), MU(0xFFE27A, {emissive:0xFFC23D, emissiveIntensity:1, transparent:true}), p.x, p.y, p.z, G.scene); sw.rotation.x = Math.PI/2;
+      addFx(0.7, k=>{ sw.scale.setScalar(1 + k*9); sw.material.opacity = 1 - k; }, ()=>{ G.scene.remove(sw); sw.material.dispose(); });
+      const fl = akGlowSprite("#FFF1B0", 2, 1); fl.position.copy(p); G.scene.add(fl);
+      addFx(0.5, k=>{ fl.scale.setScalar(2 + k*10); fl.material.opacity = 1 - k; }, ()=>{ G.scene.remove(fl); fl.material.dispose(); });
+      G.akBoom = 0.5; m.g.visible = false;
+    } else { puff(p, 0x888888); burst(p, 0x999999, 6, 2); }
+  },
+  frame(dt, t){
+    const cam = G.cam, S = G.ship || {x:0, vx:0};
+    if(G.mt) G.akM.forEach((m,i)=>{ const T = G.mt[i]; m.g.position.set(T.x, AK.MY + Math.sin(t*1.7 + i*2)*0.15, T.z);
+      m.rock.rotation.x += dt*T.spin*1.5; m.rock.rotation.y += dt*0.8; m.ufo.rotation.y += dt*2.5;
+      m.rg.rotation.z += dt*1.5; m.rg.scale.setScalar(1 + Math.sin(t*4 + i)*0.06);
+      if(T.bad){ m.g.position.x += Math.sin(t*50)*0.08; }
+      const gl = i===G.glowI; m.lab.position.y = 1.05 + (gl ? Math.abs(Math.sin(t*5))*0.35 : 0);
+      m.lab.material.opacity = (G.phase==="show" && i!==G.q.ok) || T.bad ? 0.4 : 1;
+      m.halo.material.opacity = gl ? 0.6 + Math.sin(t*8)*0.3 : 0.45; });
+    if(G.ast) G.akR.forEach((r,k)=>{ const A = G.ast[k]; r.position.set(A.x, 0.1, A.z); r.scale.setScalar(A.r); r.rotation.x += dt*A.sp; r.rotation.y += dt*A.sp*0.7; });
+    if(G.st) G.akSt.forEach((s,k)=>{ const A = G.st[k]; s.position.set(A.x, AK.MY*0.6 + Math.sin(t*3 + k)*0.12, A.z); s.material.rotation = t*1.5; s.scale.setScalar(1 + Math.sin(t*6 + k)*0.12); });
+    G.akL.forEach((l,k)=>{ const L_ = G.las && G.las[k]; l.visible = !!L_; if(L_){ l.position.set(L_.x, AK.MY, L_.z); l.rotation.y = -Math.atan2(L_.vx, AK.LV); } });
+    // kapal: senget ketika bergerak, nyalaan enjin
+    const sh = G.akS; sh.g.position.set(S.x, AK.MY*0.4 + Math.sin(t*2.2)*0.06, 0);
+    sh.g.rotation.z = -S.vx*0.07; sh.g.rotation.y = -S.vx*0.02;
+    const fk = 0.8 + Math.random()*0.4 + Math.abs(S.vx)*0.04; sh.fl.forEach((f,k)=>f.scale.set(1, fk*(k ? 0.8 : 1), 1)); sh.glow.material.opacity = 0.5 + Math.random()*0.3;
+    G.akMzT -= dt; G.akMz.material.opacity = Math.max(0, G.akMzT/0.12); G.akMz.position.set(S.x, AK.MY, AK.Z0 - 0.4);
+    G.akPlanet.rotation.y += dt*0.03; G.akSky.rotation.z = Math.sin(t*0.05)*0.02;
+    if(G.akBoom > 0){ G.akBoom -= dt; G.shake = Math.max(G.shake||0, G.akBoom*0.8); }
+    cam.position.set(S.x*0.3, 8, 6); cam.lookAt(S.x*0.28, 0, -8);
+    G.earYaw = 0;
+  }
+};
+
+/* ============ NINJA BUAH: leret untuk memotong buah jawapan yang dilambung (logik + kawalan + rata) ============ */
+GAMES.push({id:"ninja", e:"🍉", r:"Ninja Buah", j:"نينجا بواه",
+  d:["Leret jari untuk memotong buah jawapan betul yang dilambung!","ليرت جاري اونتوق مموتوڠ بواه جواڤن بتول يڠ دلمبوڠ!"]});
+HOW["ninja"] = [
+  ["🍉", ["Buah dilambung ke udara. Setiap buah berlabel jawapan.","بواه دلمبوڠ ک اودارا. ستياڤ بواه برلابل جواڤن."]],
+  ["👆", ["Leret jari merentasi buah jawapan betul untuk memotongnya.","ليرت جاري مرنتسي بواه جواڤن بتول اونتوق مموتوڠڽ."]],
+  ["⭐", ["Potong di puncak lambungan = mata bonus! Jangan potong buah salah.","ڤوتوڠ د ڤونچق لمبوڠن = مات بونس! جاڠن ڤوتوڠ بواه ساله."]]
+];
+(()=>{ const s = document.createElement("style"); s.textContent = `
+.g-ninja .field{touch-action:none;user-select:none;-webkit-user-select:none}
+.njsvg{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:4;overflow:visible}
+.njsvg polyline{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.njsvg .a{stroke:var(--wa,#7CF2FF);stroke-width:16px;opacity:.5}
+.njsvg .b{stroke:#fff;stroke-width:5px}
+.ctl4 .nj-pill{pointer-events:none;background:rgba(30,16,4,.6);color:#fff;font-weight:800;font-size:16px;padding:6px 16px;border-radius:999px;border:2px solid rgba(255,255,255,.55);margin-bottom:4px;box-shadow:0 3px 10px rgba(0,0,0,.25)}
+.flat.fl-ninja{background:linear-gradient(180deg,var(--w1) 0 24%,#5A3A1E 24% 25.5%,transparent 25.5%),repeating-linear-gradient(90deg,transparent 0 23%,rgba(90,58,30,.55) 23% 24%),repeating-linear-gradient(180deg,#F5E9CF 0 18%,rgba(90,58,30,.45) 18% 18.6%) ,#F5E9CF}
+.flat.fl-ninja::after{content:"";position:absolute;left:0;right:0;bottom:0;height:12%;background:linear-gradient(180deg,#C9B77A,#9C8A50);border-top:4px solid #5A3A1E}
+.fl-ninja .njf{width:0;height:0;z-index:2}
+.fl-ninja .njf>b{position:absolute;left:0;top:0;font-size:var(--fs,64px);line-height:1;font-weight:400}
+.fl-ninja .njf>b.h0{clip-path:inset(0 0 50% 0)}.fl-ninja .njf>b.h1{clip-path:inset(50% 0 0 0)}
+.fl-ninja .njf .lb{bottom:calc(var(--fs,64px)*.45);font-size:14px;z-index:3}
+.fl-ninja .njf .lb.gl{animation:njgl .45s ease-in-out infinite alternate}
+@keyframes njgl{to{transform:translateX(-50%) scale(1.15)}}
+.fl-ninja .njsp{border-radius:46% 54% 50% 50%;transform:translate(-50%,-50%);opacity:0;animation:njsp 2.6s ease-out forwards;z-index:1}
+@keyframes njsp{0%{opacity:.85;transform:translate(-50%,-50%) scale(.3)}12%{opacity:.8;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.08)}}`;
+  document.head.appendChild(s); })();
+
+// dunia: satah menegak z=0, y = 0 (bawah skrin) .. NJ.VH (atas skrin); x = 0 di tengah
+const NJ = {VH:16, g:6, r:0.8, R:0.95, LH:1.9, y0:-1.3};
+const NJ_T = [
+  {e:"🍉", o:0x2F9E44, n:0xF2445A, s:[1.15,1,1.15]}, {e:"🍊", o:0xFF8A1E, n:0xFFC46B, s:[1,1,1]},
+  {e:"🍎", o:0xD92B35, n:0xFFF0C9, s:[1,0.95,1]},     {e:"🥝", o:0x8A5A2B, n:0x8DCB3B, s:[0.92,1.05,0.92]},
+  {e:"🍋", o:0xF5D320, n:0xFFF3A6, s:[1.2,0.9,0.9]},  {e:"🍑", o:0xFF9C7A, n:0xFFD2A0, s:[1,1,1]},
+  {e:"🍈", o:0xA8CF5A, n:0xF5E9A8, s:[1,1,1]} ];
+const njS = G => (G.H||640)/NJ.VH;
+const njHW = G => (G.W||360)/njS(G)/2;
+const njPx = (G, x, y) => ({x:(G.W||360)/2 + x*njS(G), y:(G.H||640) - y*njS(G)});
+const njWd = (G, px, py) => ({x:(px - (G.W||360)/2)/njS(G), y:((G.H||640) - py)/njS(G)});
+const njNow = () => (window.performance && performance.now) ? performance.now() : Date.now();
+// jarak titik → segmen (dengan parameter t)
+function njPS(px, py, ax, ay, bx, by){ const dx = bx-ax, dy = by-ay, l = dx*dx + dy*dy; const t = l ? clamp(((px-ax)*dx + (py-ay)*dy)/l, 0, 1) : 0;
+  return {d:Math.hypot(px-ax-dx*t, py-ay-dy*t), t}; }
+function njCross(ax, ay, bx, by, cx, cy, dx, dy){ const o = (px,py,qx,qy,rx,ry)=>Math.sign((qx-px)*(ry-py) - (qy-py)*(rx-px));
+  return o(ax,ay,bx,by,cx,cy)!==o(ax,ay,bx,by,dx,dy) && o(cx,cy,dx,dy,ax,ay)!==o(cx,cy,dx,dy,bx,by); }
+// jarak segmen leretan AB ke kapsul buah (pusat buah → atas label)
+function njDist(F, ax, ay, bx, by){
+  const cx = F.x, cy = F.y, dx = F.x, dy = F.y + (F.i>=0 ? NJ.LH : 0);
+  if(F.i>=0 && njCross(ax,ay,bx,by,cx,cy,dx,dy)) return {d:0, t:njPS(cx,cy,ax,ay,bx,by).t};
+  const a = njPS(cx,cy,ax,ay,bx,by), b = njPS(dx,dy,ax,ay,bx,by), c = njPS(ax,ay,cx,cy,dx,dy), e = njPS(bx,by,cx,cy,dx,dy);
+  return {d:Math.min(a.d, b.d, c.d, e.d), t:a.t};
+}
+function njToss(G, F){
+  const hw = njHW(G), lim = Math.max(0.5, hw - (F.i>=0 ? 1.75 : 0.7)), ap = F.i>=0 ? rnd(6.2, 8.4) : rnd(4.6, 8);
+  const x1 = clamp(F.lane + rnd(-0.4, 0.4), -lim, lim), dm = Math.max(0, hw - 0.6 - Math.abs(x1)), x0 = x1 + clamp(rnd(-1.4, 1.4), -dm, dm);
+  F.y = NJ.y0; F.vy = Math.sqrt(2*NJ.g*(ap - NJ.y0)); F.vx = (x1 - x0)/(F.vy/NJ.g); F.x = x0;
+  F.st = "fly"; F.rot = rnd(0, 6); F.vr = rnd(1.5, 3.5)*(Math.random()<0.5 ? -1 : 1); F.h = null; F.cutT = 0; F.n = (F.n||0) + 1;
+}
+function njWave(G){
+  const ans = shuffle(G.fr.filter(F=>F.i>=0 && F.st==="wait")), dec = G.fr.filter(F=>F.i<0);
+  if(G.hintOn){ const k = ans.findIndex(F=>F.i===G.q.ok); if(k>0) ans.unshift(ans.splice(k,1)[0]); }
+  ans.forEach((F,k)=>{ F.t = 0.15 + k*0.45; });
+  dec.forEach((F,k)=>{ if(F.st!=="cut") F.st = "wait"; F.t = 0.4 + k*0.9 + rnd(0, 0.2); });
+}
+function njCut(G, F, a){
+  F.st = "cut"; F.cutT = 0; F.ca = a; F.t = 99; const nx = -Math.sin(a), ny = Math.cos(a), sp = 2.3;
+  F.h = [1,-1].map(s=>({x:F.x + nx*s*0.05, y:F.y + ny*s*0.05, vx:F.vx*0.5 + nx*s*sp, vy:Math.max(F.vy, 0)*0.35 + ny*s*sp + 1.6, rot:a, vr:s*rnd(2, 4)}));
+  G.slices = (G.slices||0) + 1;
+  (G.njEv = G.njEv || []).push({x:F.x, y:F.y, a, c:NJ_T[F.ty].n, i:F.i, ok:F.i>=0 && G.q && F.i===G.q.ok});
+  noise(0.2, 1500, 260, 0.32); tone([F.i<0 ? 660 : 520, 880], 0.05, "triangle", 0.07); buzz("tap");
+  try{ S3.thud(F.x, F.y, 0); }catch(e){}
+}
+function njAnswer(G, F, multi){
+  const ok = F.i===G.q.ok; let b = 0, word = null;
+  if(ok){ b = Math.abs(F.vy) < 2.2 ? 20 : (multi || F.y > 4.5) ? 10 : 0; if(!REDUCED) G.slowT = 0.9;
+    word = b>=20 ? "🥷 "+tx("Potong di puncak!","ڤوتوڠ د ڤونچق!") : multi ? "⚔️ "+tx("Kombo potong!","کومبو ڤوتوڠ!") : null; }
+  onHit(F.i, b, word);
+}
+// leretan dari (ax,ay) ke (bx,by) dalam unit dunia
+function njSwipe(G, ax, ay, bx, by){
+  if(!playing() || !G.fr) return;
+  const hits = [];
+  G.fr.forEach(F=>{ if(F.st!=="fly" || F.y < -1) return; const r = njDist(F, ax, ay, bx, by); if(r.d < NJ.R) hits.push({F, t:r.t}); });
+  hits.sort((p,q)=>p.t-q.t);
+  const a = Math.atan2(by-ay, bx-ax);
+  for(const h of hits){ if(!playing()) break; const F = h.F; njCut(G, F, a);
+    if(F.i>=0) njAnswer(G, F, (G.swN||0) > 0);
+    else { G.swN = (G.swN||0) + 1; UI.fx("💦 "+tx("Sedap!","سدڤ!")); } }
+}
+MOD.ninja = {
+  layout(G){
+    G.slices = G.slices||0; G.ap = null; G.glowI = -1; G.trail = G.trail||[]; G.njEv = []; G.swN = 0;
+    const sp = Math.max(1.6, Math.min(njHW(G) - 1.45, 3.6)), lanes = shuffle([-sp, 0, sp]), ty = shuffle(NJ_T.map((_,k)=>k));
+    const nd = G.ri < 3 ? 1 : 2, dl = shuffle([-sp/2, sp/2]);
+    G.fr = [];
+    for(let i=0;i<3;i++) G.fr.push({i, ty:ty[i], lane:lanes[i], st:"wait", t:0, x:0, y:-3, vx:0, vy:0, rot:0, vr:0});
+    for(let k=0;k<nd;k++) G.fr.push({i:-1, ty:ty[3+k], lane:dl[k], st:"wait", t:0, x:0, y:-3, vx:0, vy:0, rot:0, vr:0});
+    njWave(G);
+  },
+  hudX(G){ return `🍉 ${G.slices||0}`; },
+  ctlHTML(){ return `<div class="nj-pill" aria-hidden="true">👆 ${tx("Leret untuk potong","ليرت اونتوق ڤوتوڠ")}</div>`; },
+  hint(G){ G.glowI = G.q.ok; },
+  auto(G, i){ G.ap = i; },
+  onHit(G, i, ok){ G.glowI = G.q.ok; G.ap = null; },
+  step(G, h){
+    if(!G.fr) return;
+    const play = G.phase==="play"; let busy = false;
+    for(const F of G.fr){
+      if(F.st==="fly"){ F.vy -= NJ.g*h; F.x += F.vx*h; F.y += F.vy*h; F.rot += F.vr*h; if(F.y < NJ.y0 - 0.4 && F.vy < 0){ F.st = "wait"; F.t = 99; } else busy = true; }
+      else if(F.st==="cut"){ F.cutT += h; F.h.forEach(q=>{ q.vy -= NJ.g*1.3*h; q.x += q.vx*h; q.y += q.vy*h; q.rot += q.vr*h; }); if(F.cutT > 2.6){ F.st = F.i<0 ? "wait" : "gone"; if(!(F.t < 90)) F.t = 99; } }
+      else if(F.st==="wait" && F.t < 90){ busy = true; F.t -= h; if(F.t<=0 && play) njToss(G, F); }
+    }
+    if(play && !busy) njWave(G);
+    // autopilot: potong tepat buah i di puncak lambungan
+    if(play && G.ap!=null){ const F = G.fr.find(f=>f.i===G.ap);
+      if(F && F.st==="fly" && F.vy <= 0.3 && F.vy > -1.5 && F.y > 2){ njCut(G, F, rnd(-0.5, 0.5)); njAnswer(G, F, false); } }
+  },
+  bind(f){
+    let last = null;
+    const sv = document.createElementNS("http://www.w3.org/2000/svg", "svg"); sv.setAttribute("class", "njsvg"); sv.id = "njsvg";
+    sv.innerHTML = `<polyline class="a" points=""/><polyline class="b" points=""/>`; f.appendChild(sv);
+    const pos = e => { const r = f.getBoundingClientRect(); return {x:e.clientX - r.left, y:e.clientY - r.top}; };
+    f.addEventListener("pointerdown", e=>{ if(!G || G.gid!=="ninja" || (e.target.closest && e.target.closest("button,.prompt"))) return;
+      last = pos(e); G.trail = [{x:last.x, y:last.y, t:njNow()}]; G.swN = 0; try{ if(e.pointerId!=null) f.setPointerCapture(e.pointerId); }catch(er){} });
+    f.addEventListener("pointermove", e=>{ if(!last || !G || G.gid!=="ninja") return; const p = pos(e), now = njNow();
+      G.trail.push({x:p.x, y:p.y, t:now}); if(G.trail.length > 16) G.trail.shift();
+      if(playing()){ const a = njWd(G, last.x, last.y), b = njWd(G, p.x, p.y), d = Math.hypot(b.x-a.x, b.y-a.y);
+        if(d > 0.04){ if(d > 0.5 && now - (G.whT||0) > 220){ G.whT = now; noise(0.14, 3200, 900, 0.1); } njSwipe(G, a.x, a.y, b.x, b.y); } }
+      last = p; });
+    const up = ()=>{ last = null; }; f.addEventListener("pointerup", up); f.addEventListener("pointercancel", up);
+  },
+  // UJIAN: leret sebenar (pointerdown/move/up pada #field) merentasi buah jawapan betul
+  human(G, D, ev){
+    const f = D.getElementById("field"), ri = G.ri, ok = G.q.ok;
+    for(let k=0; k<600 && G.phase==="play" && G.ri===ri; k++){
+      const F = G.fr.find(x=>x.i===ok);
+      if(F && F.st==="fly" && F.y > 3 && F.vy < 1.6 && F.vy > -2.5){
+        const ax = F.x - 1.25, bx = F.x + 1.25, ay = F.y + 0.35, by = F.y + 0.15;
+        const clear = G.fr.every(o=>o===F || o.i<0 || o.st!=="fly" || njDist(o, ax, ay, bx, by).d > NJ.R + 0.25);
+        if(clear){ const r = f.getBoundingClientRect(), A = njPx(G, ax, ay), B = njPx(G, bx, by);
+          ev(f, "pointerdown", r.left + A.x, r.top + A.y);
+          for(let j=1;j<=6;j++) ev(f, "pointermove", r.left + A.x + (B.x-A.x)*j/6, r.top + A.y + (B.y-A.y)*j/6);
+          ev(f, "pointerup", r.left + B.x, r.top + B.y); break; }
+      }
+      G.tick(0.05);
+    }
+    return !!(G.res && G.res.ok && G.ri===ri);
+  },
+  flat:{
+    round(G, d){
+      const s = njS(G), fs = Math.round(NJ.r*2.3*s);
+      d.innerHTML = G.fr.map((F,k)=>`<div class="njf" id="njf${k}" style="--fs:${fs}px;display:none"><b class="h0">${NJ_T[F.ty].e}</b><b class="h1">${NJ_T[F.ty].e}</b>${F.i>=0 ? `<span class="lb" id="njl${F.i}" style="--tc:${TC[F.i]}">${itHTML(G.q.opts[F.i])}</span>` : ""}</div>`).join("");
+    },
+    frame(G, d){
+      if(!G.fr) return; const s = njS(G);
+      G.fr.forEach((F,k)=>{ const e = $("njf"+k); if(!e) return;
+        if(F.st==="wait" || F.st==="gone"){ e.style.display = "none"; return; }
+        const p = njPx(G, F.x, F.y); e.style.display = ""; e.style.left = p.x+"px"; e.style.top = p.y+"px";
+        const bs = e.children, lb = e.querySelector(".lb");
+        if(F.st==="fly"){ const tr = `translate(-50%,-50%) rotate(${(F.rot*57.3).toFixed(1)}deg)`; bs[0].style.transform = tr; bs[1].style.transform = tr; if(lb) lb.style.display = ""; }
+        else { F.h.forEach((q,j)=>{ bs[j].style.transform = `translate(calc(-50% + ${((q.x-F.x)*s).toFixed(1)}px),calc(-50% + ${(-(q.y-F.y)*s).toFixed(1)}px)) rotate(${(q.rot*57.3).toFixed(1)}deg)`; });
+          if(lb) lb.style.display = "none"; }
+        if(lb){ lb.classList.toggle("gl", F.i===G.glowI && G.phase==="play"); lb.style.opacity = G.phase==="show" && F.i!==G.q.ok ? 0.45 : 1; }
+      });
+      (G.njEv||[]).forEach(ev=>{ const p = njPx(G, ev.x, ev.y), sz = Math.round(s*rnd(1.8, 2.6)), sp = document.createElement("div");
+        sp.className = "njsp"; sp.style.cssText = `left:${p.x}px;top:${p.y}px;width:${sz}px;height:${Math.round(sz*0.8)}px;background:#${ev.c.toString(16).padStart(6,"0")}`;
+        d.prepend(sp); const all = d.querySelectorAll(".njsp"); if(all.length > 6) all[all.length-1].remove(); });
+      G.njEv = [];
+      njTrail(G);
+    },
+    hit(G, d, i, ok){ d.querySelectorAll(".lb").forEach(b=>{ const k = +b.id.slice(3); b.classList.toggle("ok", k===G.q.ok); b.classList.toggle("no", k===i && !ok); }); }
+  }
+};
+// jejak pedang bercahaya (SVG di atas medan; sama untuk 3D & rata)
+function njTrail(G){
+  const sv = $("njsvg"); if(!sv) return; const now = njNow(), tr = (G.trail||[]).filter(p=>now - p.t < 170); G.trail = tr;
+  const pts = tr.map(p=>`${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" "), ls = sv.querySelectorAll("polyline");
+  ls.forEach(l=>l.setAttribute("points", tr.length > 1 ? pts : ""));
+}
+
+/* ============ 3D: NINJA BUAH — dojo kayu, buluh, tanglung, kelopak sakura ============ */
+const NJD = NJ.VH/2/Math.tan(Math.PI/6);   // jarak kamera supaya satah z=0 = NJ.VH unit tinggi (sama dengan njPx)
+function njFruit3D(scene){
+  const hemi = geo("njhemi", ()=>new THREE.SphereGeometry(NJ.r, 18, 9, 0, Math.PI*2, 0, Math.PI/2));
+  const cap = geo("njcap", ()=>new THREE.CircleGeometry(NJ.r*0.97, 18));
+  const halves = [0,1].map(k=>{ const g = new THREE.Group(); scene.add(g);
+    const sh = mk(hemi, M(0xFFFFFF), 0, 0, 0, g), cp = mk(cap, M(0xFFFFFF), 0, -0.002, 0, g); cp.rotation.x = Math.PI/2;
+    if(k===1){ sh.rotation.x = Math.PI; cp.rotation.x = -Math.PI/2; cp.position.y = 0.002; }
+    let stem = null, leaf = null;
+    if(k===0){ stem = mk(CYL(0.05, 0.07, 0.32, 5), M(0x6B4423), 0, NJ.r + 0.1, 0, g); leaf = mk(CONE(0.16, 0.42, 4), M(0x3DA04A), 0.17, NJ.r + 0.14, 0, g); leaf.rotation.z = -1.1; leaf.scale.set(1, 1, 0.35); }
+    return {g, sh, cp, stem, leaf}; });
+  return {halves};
+}
+V3G.ninja = {
+  build(scene, w, cam){
+    const sky = new THREE.Color(w.sky[0]), tint = (c, k) => new THREE.Color(c).lerp(sky, k).getHex();
+    scene.fog = new THREE.Fog(new THREE.Color(w.fog), 34, 70);
+    cam.fov = 60; cam.position.set(0, NJ.VH/2, NJD); cam.lookAt(0, NJ.VH/2, 0); cam.updateProjectionMatrix();
+    const asp = (G.W||360)/(G.H||640), hwz = z => (NJD - z)*Math.tan(Math.PI/6)*asp;
+    // dinding shoji (kertas) + kekisi kayu
+    const wood = M(tint(0x6B4226, 0.12)), dark = M(tint(0x4A2C14, 0.1));
+    mk(new THREE.PlaneGeometry(90, 16), M(tint(0xF5E9CF, 0.22), {flatShading:false}), 0, 6.4, -10, scene);
+    for(let x=-27; x<=27; x+=3.6) mk(BOX(0.22, 16, 0.2), wood, x, 6.4, -9.85, scene);
+    [1.6, 5.6, 9.6].forEach(y=>mk(BOX(90, 0.2, 0.2), wood, 0, y, -9.85, scene));
+    mk(BOX(90, 0.8, 0.9), dark, 0, 14.6, -9.6, scene);
+    // lantai tatami
+    const fl = mk(new THREE.PlaneGeometry(90, 16), M(tint(0xC9B77A, 0.12), {flatShading:false}), 0, -1.6, -2, scene); fl.rotation.x = -Math.PI/2;
+    [-3, -7].forEach(z=>mk(BOX(90, 0.05, 0.18), M(0x2E5A2A), 0, -1.57, z, scene));
+    // tiang dojo + buluh di tepi
+    [-1, 1].forEach(s=>{ mk(BOX(0.9, 30, 0.9), dark, s*(hwz(-5) - 0.2), 8, -5, scene);
+      for(let k=0;k<3;k++){ const x = s*(hwz(-7) - 0.9 - k*0.75), z = -7 - k*0.6;
+        mk(CYL(0.2, 0.22, 26, 7), M(tint(0x5E9E3A, 0.1)), x, 8, z, scene);
+        for(let j=0;j<2;j++){ const lf = mk(CONE(0.28, 1.4, 4), M(tint(0x4C8C2E, 0.1)), x - s*0.5, 4 + k*2.6 + j*3.4, z, scene); lf.rotation.z = s*(1.2 + j*0.3); lf.scale.set(1, 1, 0.3); } } });
+    // matahari / bulan
+    mk(new THREE.CircleGeometry(2.4, 24), GLOW(w.night ? 0xFFF3C4 : 0xFFE08A, w.night ? 0.9 : 0.7), hwz(-30)*0.45, 22, -30, scene);
+    // tanglung kertas
+    G.njLan = [];
+    [[-1, 0.62, 10.6], [1, 0.62, 11.2], [-1, 0.95, 9.4], [1, 0.95, 9.9]].forEach(([s, f, y], k)=>{
+      const g = new THREE.Group(); scene.add(g); g.position.set(s*hwz(-7)*f, y, -7);
+      const b = mk(SPH(0.6, 12, 8), GLOW(k%2 ? 0xFF6A2A : 0xE5383B, 0.55), 0, 0, 0, g); b.scale.set(1, 1.25, 1);
+      mk(CYL(0.32, 0.32, 0.16, 8), dark, 0, 0.78, 0, g); mk(CYL(0.32, 0.32, 0.16, 8), dark, 0, -0.78, 0, g);
+      mk(BOX(0.03, 2.4, 0.03), dark, 0, 2.0, 0, g); G.njLan.push(g); });
+    // hiasan dunia di lantai
+    w.props.slice(0, 2).forEach((e, k)=>{ const sp = emojiSprite(e, 1.5); sp.position.set((k ? 1 : -1)*hwz(-6)*0.55, -0.6, -6); scene.add(sp); });
+    // percikan jus pada dinding (kolam 5)
+    G.njSp = [0,1,2,3,4].map(()=>{ const m = mk(new THREE.CircleGeometry(1, 14), new THREE.MeshBasicMaterial({color:0xFF0000, transparent:true, opacity:0, depthWrite:false}), 0, 0, -9.7, scene); m.visible = false; m.userData.t = 9; return m; });
+    G.njSpK = 0;
+    G.njFl = mk(BOX(3.4, 0.07, 0.05), GLOW(0xFFFFFF, 1), 0, 0, 0.6, scene); G.njFl.visible = false; G.njFlT = 0;
+    // buah (5 slot) + label jawapan
+    G.njM = [0,1,2,3,4].map(()=>njFruit3D(scene));
+    G.njLab = labelsFor(scene);
+    G.wx = makeWeather(scene, w.night ? "spark" : "leaf", [-12, -1, -8, 24, 20, 10]);
+    if(!w.night) G.wx.p.material.color.set(0xFFB7D5);
+    V3G.ninja.round();
+  },
+  round(){
+    if(!G.njM || !G.fr || !G.q) return;
+    G.njM.forEach((m, k)=>{ const F = G.fr[k]; m.halves.forEach(h=>{ h.g.visible = false; });
+      if(!F) return; const T = NJ_T[F.ty];
+      m.halves.forEach(h=>{ h.sh.material = M(T.o, {flatShading:false, roughness:0.45}); h.cp.material = M(T.n, {flatShading:false, side:THREE.DoubleSide}); h.g.scale.set(T.s[0], T.s[1], T.s[2]); }); });
+    G.njLab.forEach((s, i)=>{ setItem(s, G.q.opts[i], TC[i], 2.3); s.userData.s = s.scale.clone(); s.visible = false; });
+  },
+  hit(i, ok){},
+  frame(dt, t){
+    const cam = G.cam;
+    cam.position.set(Math.sin(t*0.35)*0.12, NJ.VH/2 + Math.sin(t*0.5)*0.08, NJD); cam.lookAt(0, NJ.VH/2, 0); G.earYaw = 0;
+    G.njLan.forEach((g, k)=>{ g.rotation.z = Math.sin(t*1.1 + k)*0.07; });
+    // peristiwa potong: jus, percikan, kilat
+    (G.njEv||[]).forEach(e=>{ const p = new THREE.Vector3(e.x, e.y, 0.3);
+      burst(p, e.c, e.i>=0 ? 12 : 8, 3.2);
+      if(e.i>=0) e.ok ? ring(p, 0xFFD84D) : puff(p, 0x888888);
+      const s = G.njSp[G.njSpK++ % G.njSp.length], kz = (NJD + 9.7)/NJD;
+      s.position.set(e.x*kz, NJ.VH/2 + (e.y - NJ.VH/2)*kz, -9.7 + G.njSpK*0.002); s.material.color.setHex(e.c); s.visible = true; s.userData.t = 0;
+      s.rotation.z = rnd(0, 6); s.userData.sc = rnd(1.6, 2.4);
+      G.njFl.position.set(e.x, e.y, 0.6); G.njFl.rotation.z = e.a; G.njFlT = 0.16; G.njFl.visible = true; });
+    G.njEv = [];
+    G.njSp.forEach(s=>{ if(!s.visible) return; const u = s.userData; u.t += dt; const k = Math.min(1, u.t/0.15);
+      s.scale.set(u.sc*k, u.sc*k*0.8, 1); s.material.opacity = 0.8*Math.max(0, 1 - Math.max(0, u.t - 1.2)/1.8); if(u.t > 3) s.visible = false; });
+    if(G.njFlT > 0){ G.njFlT -= dt; G.njFl.scale.x = 1 + (0.16 - G.njFlT)*4; if(G.njFlT <= 0) G.njFl.visible = false; }
+    // buah & separuh
+    const fr = G.fr || [];
+    G.njM.forEach((m, k)=>{ const F = fr[k];
+      if(!F || F.st==="wait" || F.st==="gone"){ m.halves.forEach(h=>{ h.g.visible = false; }); return; }
+      if(F.st==="fly") m.halves.forEach(h=>{ h.g.visible = true; h.g.position.set(F.x, F.y, 0); h.g.rotation.set(Math.sin(F.rot)*0.5, F.rot*0.6, F.rot); });
+      else F.h.forEach((q, j)=>{ const h = m.halves[j], tl = Math.min(1.1, F.cutT*3);
+        h.g.visible = q.y > -3; h.g.position.set(q.x, q.y, j ? 0.15 : -0.15); h.g.rotation.set(j ? tl : -tl, 0, q.rot); }); });
+    // label jawapan atas buah
+    G.njLab.forEach((s, i)=>{ const F = fr.find(f=>f.i===i);
+      s.visible = !!F && F.st==="fly" && F.y > -1.6; if(!s.visible) return;
+      s.position.set(F.x, F.y + NJ.r + 0.05, 0.5);
+      const gl = i===G.glowI && G.phase==="play", b = s.userData.s, k = gl ? 1 + Math.abs(Math.sin(t*6))*0.15 : 1;
+      if(b) s.scale.set(b.x*k, b.y*k, 1);
+      s.material.opacity = G.phase==="show" && i!==G.q.ok ? 0.45 : 1; });
+    njTrail(G);
+  }
+};
+
+/* ============ ULAR ILMU: ular 3D atas papan grid, makan buah jawapan betul (logik + paparan rata) ============ */
+GAMES.push({id:"ular", e:"🐍", r:"Ular Ilmu", j:"اولر علمو", d:["Belokkan ular dengan butang atau leret, makan buah jawapan betul!","بلوقکن اولر دڠن بوتڠ اتاو ليريت، ماکن بواه جواڤن بتول!"]});
+HOW["ular"] = [["🎮", ["Tekan ▲▼◀▶ atau leret skrin untuk membelokkan ular.","تکن ▲▼◀▶ اتاو ليريت سکرين اونتوق ممبلوقکن اولر."]],
+  ["🍎", ["Makan buah jawapan betul: ular makin panjang! Kutip syiling 🪙.","ماکن بواه جواڤن بتول: اولر مکين ڤنجڠ! کوتيڤ شيليڠ 🪙."]],
+  ["💫", ["Jangan langgar pagar atau badan sendiri, nanti pening!","جاڠن لڠڬر ڤاڬر اتاو بادن سنديري، نانتي ڤنيڠ!"]]];
+(()=>{ const s = document.createElement("style"); s.textContent = `
+.udp{display:grid;grid-template-columns:repeat(3,62px);grid-template-rows:repeat(3,56px);gap:4px;touch-action:none}
+.udp button{border:0;border-radius:18px;font-size:30px;color:#fff;touch-action:none;background:radial-gradient(circle at 40% 30%,var(--wa),var(--w1) 70%);box-shadow:0 5px 0 rgba(0,0,0,.35),inset 0 0 0 3px rgba(255,255,255,.35)}
+.udp button.on{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.35)}
+.udp .bu{grid-area:1/2}.udp .bl{grid-area:2/1}.udp .br{grid-area:2/3}.udp .bd{grid-area:3/2}
+.udp .mid{grid-area:2/2;display:grid;place-items:center;font-size:30px;pointer-events:none;filter:drop-shadow(0 2px 2px rgba(0,0,0,.4))}
+.fl-ular{background:linear-gradient(180deg,var(--w1),#6FBF4A 30%)}
+.fl-ular .ubd{border-radius:8px;box-shadow:0 0 0 7px #2E7D32,0 6px 14px 7px rgba(0,0,0,.3);background:repeating-conic-gradient(#9BE07A 0 25%,#86D065 0 50%) 0 0/var(--s2) var(--s2)}
+.fl-ular .us{border-radius:50%;background:radial-gradient(circle at 35% 35%,#8CF0A8,#2FA855 70%);transform:translate(-50%,-50%);box-shadow:0 2px 3px rgba(0,0,0,.3)}
+.fl-ular .us.h{z-index:3;display:grid;place-items:center;font-size:12px;background:radial-gradient(circle at 35% 35%,#B4FFC6,#3FD16B 70%)}
+.fl-ular .us.dz{animation:uspin .5s linear infinite}
+@keyframes uspin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.fl-ular .uf{border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff,var(--tc) 60%);box-shadow:0 0 0 3px #fff}
+.fl-ular .uf.gl{box-shadow:0 0 0 4px #FFD84D,0 0 14px 6px #FFD84D}
+.fl-ular .uc{display:grid;place-items:center;font-size:18px}
+`; document.head.appendChild(s); })();
+
+const UL = {cols:9, rows:11, C:1, sp:3.5, cap:14, len0:4};
+const UD = [[0,-1],[1,0],[0,1],[-1,0]], UK = ["u","r","d","l"];
+const ulW = (c, r) => ({x:(c-(UL.cols-1)/2)*UL.C, z:(r-(UL.rows-1)/2)*UL.C});
+const ulIn = (c, r) => c>=0 && r>=0 && c<UL.cols && r<UL.rows;
+// gulungan selamat di tengah: kepala (4,5) menghadap atas, badan ke bawah dan berlingkar
+function ulCoil(n){ const out = []; let c = 4, r = 5, dr = 1;
+  while(out.length<n){ out.push([c,r]); const nr = r+dr; if(nr>UL.rows-1 || nr<5){ c--; dr = -dr; } else r = nr; } return out; }
+function ulSelf(sn, c, r){ const n = sn.body.length - (sn.grow>0 ? 0 : 1); for(let k=0;k<n;k++){ const b = sn.body[k]; if(b[0]===c && b[1]===r) return true; } return false; }
+// BFS sedar masa: sel badan ke-k kosong selepas (n-k+grow) langkah
+function ulBFS(body, grow, avoid){
+  const n = body.length, idx = new Map(); body.forEach(([c,r],k)=>{ if(!idx.has(r*16+c)) idx.set(r*16+c, k); });
+  const [hc,hr] = body[0], dist = new Map([[hr*16+hc, 0]]), first = new Map(), Q = [[hc,hr]];
+  while(Q.length){ const [c,r] = Q.shift(), d0 = dist.get(r*16+c);
+    for(let d=0;d<4;d++){ const nc = c+UD[d][0], nr = r+UD[d][1], key = nr*16+nc; if(!ulIn(nc,nr) || dist.has(key)) continue;
+      const k = idx.get(key); if(k!=null && d0+1 < n-k+(grow||0)) continue;
+      if(avoid && avoid.has(key)) continue;
+      dist.set(key, d0+1); first.set(key, d0===0 ? d : first.get(r*16+c)); Q.push([nc,nr]); } }
+  return {dist, first};
+}
+// arah seterusnya ke buah 'goal' (autopilot & ujian manusia)
+function ulDir(G, goal, body, dir, grow){
+  const f = G.fr[goal], avoid = new Set(); G.fr.forEach((q,j)=>{ if(j!==goal && !q.eaten) avoid.add(q.r*16+q.c); });
+  const {first} = ulBFS(body, grow, avoid), d = first.get(f.r*16+f.c);
+  if(d!=null && d!==(dir+2)%4) return d;
+  // tiada laluan: pilih arah selamat yang paling lapang
+  let best = null, bs = -1; const [hc,hr] = body[0];
+  for(let k=0;k<4;k++){ if(k===(dir+2)%4) continue; const nc = hc+UD[k][0], nr = hr+UD[k][1];
+    if(!ulIn(nc,nr) || ulSelf({body, grow}, nc, nr)) continue;
+    const nb = [[nc,nr], ...body.slice(0, grow>0 ? body.length : body.length-1)], s = ulBFS(nb, Math.max(0, grow-1)).dist.size - (avoid.has(nr*16+nc) ? 200 : 0);
+    if(s>bs){ bs = s; best = k; } }
+  return best;
+}
+// sel kosong untuk buah / syiling: boleh dicapai, tidak di bawah ular, tidak terlalu dekat
+function ulFree(G, lvl){
+  const sn = G.sn, [hc,hr] = sn.body[0], {dist} = ulBFS(sn.body, sn.grow), taken = [];
+  (G.fr||[]).forEach(q=>{ if(!q.eaten) taken.push(q); }); (G.coins||[]).forEach(q=>{ if(!q.got) taken.push(q); });
+  const cand = [];
+  for(let r=0;r<UL.rows;r++) for(let c=0;c<UL.cols;c++){
+    const d = dist.get(r*16+c); if(d==null || d<2 || sn.body.some(b=>b[0]===c && b[1]===r) || taken.some(q=>q.c===c && q.r===r)) continue;
+    if(lvl<2){ const ax = c-hc, az = r-hr, [dx,dz] = UD[sn.dir]; if(ax*dz===az*dx && ax*dx+az*dz>0 && (lvl<1 || Math.abs(ax)+Math.abs(az)<=3)) continue;  // jangan betul-betul di hadapan
+      if(d<3 || d>11) continue; }
+    if(lvl<1 && (G.fr||[]).some(q=>!q.eaten && (Math.abs(q.c-c)+Math.abs(q.r-r)<3 || (Math.abs(q.r-r)<2 && Math.abs(q.c-c)<3)))) continue;
+    cand.push([c,r]); }
+  if(!cand.length) return lvl<2 ? ulFree(G, lvl+1) : [0,0];
+  return pick(cand);
+}
+function ulPlace(G){
+  G.fr = []; for(let i=0;i<3;i++){ const [c,r] = ulFree(G, 0); G.fr.push({c, r, eaten:false}); }
+  G.coins = []; for(let i=0;i<2;i++){ const [c,r] = ulFree(G, 1); G.coins.push({c, r, got:false}); }
+}
+function ulReset(G, quiet){
+  const sn = G.sn; sn.body = ulCoil(Math.min(UL.cap, sn.body.length)); sn.dir = 0; sn.mv = false; sn.prog = 0; sn.q = []; sn.wait = true; sn.stun = 0;
+  if(!G.fr || quiet) return;
+  const bad = q=>sn.body.some(b=>b[0]===q.c && b[1]===q.r) || (q.c===4 && q.r>=2 && q.r<=4);
+  let moved = false;
+  G.fr.forEach(q=>{ if(!q.eaten && bad(q)){ q.c = -9; const [c,r] = ulFree(G, 1); q.c = c; q.r = r; moved = true; } });
+  G.coins.forEach(q=>{ if(!q.got && bad(q)){ q.got = true; } });
+  if(moved && G.view && G.view.round) G.view.round();
+  if(G.scene) V3G.ular.poof();
+}
+function ulCrash(G){
+  const sn = G.sn; sn.stun = 0.8; sn.mv = false; sn.q = []; G.combo = 0; G.crashes = (G.crashes||0) + 1;
+  const p = ulW(sn.body[0][0], sn.body[0][1]); S3.thud(p.x, 0, p.z); sfx.bad(); buzz("wall");
+  UI.fx("💫 "+tx("Pening! Mula semula di tengah.","ڤنيڠ! مولا سمولا د تڠه."), true); UI.hud(true);
+  if(G.scene) V3G.ular.dizzy();
+}
+function ulTurn(G, d){
+  if(!playing() || !G.sn || G.sn.stun>0) return;
+  const sn = G.sn, last = sn.q.length ? sn.q[sn.q.length-1] : sn.dir; sn.wait = false;
+  if(d===last || d===(last+2)%4 || sn.q.length>=2) return;
+  sn.q.push(d); buzz("tap");
+}
+// kedudukan (sel pecahan) segmen ke-i, dengan gerakan licin antara sel
+function ulSeg(G, i){
+  const sn = G.sn, b = sn.body, a = b[i];
+  if(sn.mv && !(sn.grow>0 && i===b.length-1)){ const to = i===0 ? sn.nxt : b[i-1]; return {c:a[0]+(to[0]-a[0])*sn.prog, r:a[1]+(to[1]-a[1])*sn.prog}; }
+  return {c:a[0], r:a[1]};
+}
+MOD.ular = {
+  layout(G){
+    if(!G.sn) G.sn = {body:ulCoil(UL.len0), dir:0, mv:false, prog:0, nxt:null, q:[], grow:0, stun:0, wait:true, eatT:0};
+    const sn = G.sn; if(sn.stun>0) ulReset(G, true);
+    sn.q = []; sn.wait = true; sn.mv = false; sn.prog = 0; G.hintI = -1; G.crashes = 0;
+    const [hc,hr] = sn.body[0], safe = d=>{ const nc = hc+UD[d][0], nr = hr+UD[d][1]; return ulIn(nc,nr) && !ulSelf(sn, nc, nr); };
+    if(!safe(sn.dir)){ const d = [0,1,3,2].find(k=>k!==(sn.dir+2)%4 && safe(k)); if(d!=null) sn.dir = d; }
+    G.fr = null; G.coins = null; ulPlace(G);
+  },
+  word(){ return "😋 "+tx("Sedap! Betul!","سدڤ! بتول!"); },
+  hint(G){ G.hintI = G.q.ok; const f = G.fr[G.q.ok], p = ulW(f.c, f.r); S3.humOn(p.x, 0, p.z); },
+  auto(G, i){ if(G.sn) G.sn.wait = false; },
+  turn(G, d){ ulTurn(G, d); },
+  hudX(G){ return `🐍 ${G.sn ? G.sn.body.length + G.sn.grow : UL.len0}  🪙 ${G.gems}`; },
+  step(G, h){
+    const sn = G.sn; if(!sn) return;
+    if(sn.eatT>0) sn.eatT -= h;
+    if(sn.stun>0){ sn.stun -= h; if(sn.stun<=0) ulReset(G); return; }
+    if(!playing()) return;
+    const auto = G.autoGoal!=null;
+    if(!auto) for(let k=0;k<4;k++) if(KEYS[UK[k]]) ulTurn(G, k);
+    if(!sn.mv){
+      if(!auto && sn.wait && G.rT<1.5) return;
+      sn.wait = false; let d = sn.dir;
+      if(auto){ const a = ulDir(G, G.autoGoal, sn.body, sn.dir, sn.grow); if(a!=null) d = a; }
+      else while(sn.q.length){ const x = sn.q.shift(); if(x!==(sn.dir+2)%4){ d = x; break; } }
+      sn.dir = d; const nc = sn.body[0][0]+UD[d][0], nr = sn.body[0][1]+UD[d][1];
+      if(!ulIn(nc,nr) || ulSelf(sn, nc, nr)){ ulCrash(G); return; }
+      sn.nxt = [nc,nr]; sn.mv = true; sn.prog = 0;
+    }
+    sn.prog += h*UL.sp;
+    if(sn.prog<1) return;
+    sn.body.unshift(sn.nxt); if(sn.grow>0) sn.grow--; else sn.body.pop(); sn.mv = false; sn.prog = 0;
+    const [c,r] = sn.body[0], wp = ulW(c, r);
+    sn.moves = (sn.moves||0) + 1; if(sn.moves%2===0) S3.step(wp.x, 1.4, wp.z);   // bunyi menjalar lembut
+    if(G.fr.some(f=>!f.eaten && f.c===c && f.r===r)) S3.chime(wp.x, 0, wp.z);
+    G.coins.forEach(k=>{ if(!k.got && k.c===c && k.r===r){ k.got = true; G.gems++; sfx.gem(); buzz("gem"); UI.hud(true); if(G.scene) V3G.ular.coin(k); } });
+    for(let i=0;i<G.fr.length;i++){ const f = G.fr[i]; if(f.eaten || f.c!==c || f.r!==r) continue;
+      f.eaten = true; sn.eatT = 0.5; const ok = i===G.q.ok;
+      if(ok && sn.body.length+sn.grow<UL.cap) sn.grow++;
+      const bonus = ok ? (G.rT<=6 ? 20 : G.rT<=10 ? 10 : 0) : 0;
+      onHit(i, bonus, ok && bonus>=20 ? "⚡ "+tx("Laju! Sedap!","لاجو! سدڤ!") : null); return; }
+  },
+  ctlHTML(){ const b = (k, s, r, j)=>`<button class="b${k}" data-ud="${k}" aria-label="${tx(r,j)}">${s}</button>`;
+    return `<div class="udp" id="udp" dir="ltr">${b("u","▲","Atas","اتس")}${b("l","◀","Kiri","کيري")}<span class="mid" aria-hidden="true">🐍</span>${b("r","▶","Kanan","کانن")}${b("d","▼","Bawah","باوه")}</div>`; },
+  bind(field, ctl){
+    ctl.querySelectorAll("[data-ud]").forEach(btn=>{
+      btn.addEventListener("pointerdown", e=>{ e.preventDefault(); btn.classList.add("on"); if(G && playing()) ulTurn(G, UK.indexOf(btn.dataset.ud)); });
+      const up = ()=>btn.classList.remove("on"); btn.addEventListener("pointerup", up); btn.addEventListener("pointerleave", up); btn.addEventListener("pointercancel", up);
+    });
+    let p0 = null;
+    field.addEventListener("pointerdown", e=>{ if(!G || !playing() || (e.target.closest && e.target.closest("button,.prompt,.udp"))) return; p0 = {x:e.clientX, y:e.clientY}; });
+    field.addEventListener("pointermove", e=>{ if(!p0 || !G || !playing()) return; const dx = e.clientX-p0.x, dy = e.clientY-p0.y;
+      if(Math.max(Math.abs(dx), Math.abs(dy)) < 24) return;
+      ulTurn(G, Math.abs(dx)>Math.abs(dy) ? (dx>0 ? 1 : 3) : (dy>0 ? 2 : 0)); p0 = {x:e.clientX, y:e.clientY}; });
+    const end = ()=>{ p0 = null; }; field.addEventListener("pointerup", end); field.addEventListener("pointercancel", end);
+  }
+};
+// paparan rata (tanpa WebGL)
+function ulFS(G){ const s = Math.max(16, Math.min(G.W*0.92/UL.cols, (G.H-390)/UL.rows)); return {s, ox:G.W/2 - UL.cols*s/2, oy:205 + Math.max(0, (G.H-390) - UL.rows*s)/2}; }
+MOD.ular.flat = {
+  round(G, d){
+    const {s, ox, oy} = ulFS(G), at = (c, r, k, cls, inner, st)=>`<div class="${cls}" style="left:${ox+(c+0.5-k/2)*s}px;top:${oy+(r+0.5-k/2)*s}px;width:${k*s}px;height:${k*s}px;${st||""}">${inner||""}</div>`;
+    let h = `<div class="ubd" style="left:${ox}px;top:${oy}px;width:${UL.cols*s}px;height:${UL.rows*s}px;--s2:${2*s}px"></div>`;
+    G.coins.forEach((k,i)=>h += at(k.c, k.r, 0.8, "uc", "🪙").replace('class="uc"', `class="uc" id="ulc${i}"`));
+    G.fr.forEach((f,i)=>{ if(!f.eaten) h += at(f.c, f.r, 0.8, "uf", `<span class="lb" style="--tc:${TC[i]}">${itHTML(G.q.opts[i])}</span>`, `--tc:${TC[i]}`).replace('class="uf"', `class="uf" id="ulf${i}"`); });
+    for(let i=0;i<UL.cap;i++) h += `<div class="us${i ? "" : " h"}" id="uls${i}">${i ? "" : "👀"}</div>`;
+    d.innerHTML = h; MOD.ular.flat.frame(G, d);
+  },
+  frame(G, d){
+    const sn = G.sn; if(!sn || !G.fr) return; const {s, ox, oy} = ulFS(G);
+    for(let i=0;i<UL.cap;i++){ const e = $("uls"+i); if(!e) continue;
+      if(i>=sn.body.length){ e.style.display = "none"; continue; }
+      const p = ulSeg(G, i), k = (i ? 0.82 - i*0.015 : 0.95)*s;
+      e.style.cssText = `left:${ox+(p.c+0.5)*s}px;top:${oy+(p.r+0.5)*s}px;width:${k}px;height:${k}px`;
+      if(!i) e.classList.toggle("dz", sn.stun>0); }
+    G.coins.forEach((k,i)=>{ const e = $("ulc"+i); if(e) e.hidden = k.got; });
+    G.fr.forEach((f,i)=>{ const e = $("ulf"+i); if(e){ e.hidden = f.eaten; e.classList.toggle("gl", G.hintI===i); } });
+  },
+  hit(G, d, i, ok){ MOD.ular.flat.round(G, d);
+    d.querySelectorAll(".lb").forEach(b=>{ const k = +b.parentNode.id.slice(3); if(k===G.q.ok) b.classList.add("ok"); else if(k===i && !ok) b.classList.add("no"); }); }
+};
+
+/* ============ ULAR ILMU: 3D (taman berpetak, pagar pokok renek, ular comel) + ujian manusia ============ */
+V3G.ular = {
+  build(scene, w, cam){
+    scene.fog = new THREE.Fog(new THREE.Color(w.fog), 26, 60);
+    cam.fov = 58; cam.updateProjectionMatrix();
+    const BW = UL.cols*UL.C, BD = UL.rows*UL.C;
+    const ground = mk(new THREE.PlaneGeometry(70, 70), M(w.night ? 0x3E7A4A : 0x6FBF4A), 0, -0.3, -6, scene); ground.rotation.x = -Math.PI/2;
+    const B = G.board = new THREE.Group(); scene.add(B);
+    mk(BOX(BW, 0.3, BD), M(0x9BE07A), 0, -0.15, 0, B);
+    const dark = []; for(let r=0;r<UL.rows;r++) for(let c=0;c<UL.cols;c++) if((c+r)%2) dark.push(ulW(c, r));
+    const ck = new THREE.InstancedMesh(BOX(UL.C, 0.02, UL.C), M(0x84CE62), dark.length), o = new THREE.Object3D();
+    dark.forEach((p,k)=>{ o.position.set(p.x, 0.01, p.z); o.updateMatrix(); ck.setMatrixAt(k, o.matrix); }); B.add(ck);
+    // pagar pokok renek + semak bulat di atasnya + bunga di luar pagar
+    const hedge = M(0x2E7D32), HX = BW/2+0.3, HZ = BD/2+0.3;
+    mk(BOX(0.6, 0.7, BD+1.2), hedge, -HX, 0.2, 0, B); mk(BOX(0.6, 0.7, BD+1.2), hedge, HX, 0.2, 0, B);
+    mk(BOX(BW, 0.7, 0.6), hedge, 0, 0.2, -HZ, B); mk(BOX(BW, 0.7, 0.6), hedge, 0, 0.2, HZ, B);
+    const bushP = []; for(let z=-HZ;z<=HZ+0.01;z+=1.1){ bushP.push([-HX,z],[HX,z]); } for(let x=-HX+1.1;x<HX-0.5;x+=1.1){ bushP.push([x,-HZ],[x,HZ]); }
+    const bush = new THREE.InstancedMesh(SPH(0.42, 8, 6), M(0x3C9A3F), bushP.length);
+    bushP.forEach(([x,z],k)=>{ o.position.set(x, 0.6, z); o.scale.setScalar(0.8+((k*7)%5)*0.08); o.updateMatrix(); bush.setMatrixAt(k, o.matrix); }); B.add(bush);
+    const flP = []; for(let k=0;k<34;k++){ const side = k%4, t = ((k*37)%100)/100; const x = side<2 ? (side ? 1 : -1)*(HX+0.9+(k%3)*0.5) : (t-0.5)*(BW+2), z = side<2 ? (t-0.5)*(BD+2) : (side===2 ? -1 : 1)*(HZ+0.9+(k%3)*0.5); flP.push([x,z]); }
+    const fl = new THREE.InstancedMesh(SPH(0.2, 6, 4), M(0xFFFFFF, {emissive:0x442244, emissiveIntensity:.2}), flP.length), FC = [0xFF6FA8,0xFFD84D,0xFF8A3D,0xC77DFF,0xFFFFFF];
+    flP.forEach(([x,z],k)=>{ o.position.set(x, 0.05, z); o.scale.set(1, 0.6, 1); o.updateMatrix(); fl.setMatrixAt(k, o.matrix); if(fl.setColorAt) fl.setColorAt(k, new THREE.Color(FC[k%5])); });
+    o.scale.set(1,1,1); B.add(fl);
+    propRing(scene, w, [[-7,0.7,-6],[7,0.7,-6],[-7,0.7,0],[7,0.7,0],[-7,0.7,6],[7,0.7,6],[-3,0.9,-9],[3,0.9,-9]], 1.7);
+    // ular: kepala (mata, lidah) + badan bulat
+    const head = G.ulHead = new THREE.Group(); B.add(head);
+    mk(SPH(0.46, 14, 10), M(0x46E07A, {flatShading:false, roughness:.4}), 0, 0, 0, head).scale.set(1, 0.85, 1.1);
+    const eyeW = M(0xFFFFFF, {flatShading:false}), eyeB = M(0x111111, {flatShading:false});
+    [-1,1].forEach(s=>{ mk(SPH(0.14, 10, 8), eyeW, s*0.19, 0.24, 0.26, head); mk(SPH(0.075, 8, 6), eyeB, s*0.2, 0.28, 0.37, head); });
+    G.ulTongue = mk(BOX(0.07, 0.03, 0.34), M(0xFF3355), 0, -0.05, 0.55, head);
+    G.ulSegs = []; for(let i=1;i<UL.cap;i++) G.ulSegs.push(mk(SPH(0.4, 12, 8), M(i%2 ? 0x2FA855 : 0x3FD16B, {flatShading:false, roughness:.45}), 0, 0, 0, B));
+    G.ulStars = [0,1,2].map(()=>{ const s = emojiSprite("⭐", 0.5); s.visible = false; B.add(s); return s; });
+    // buah jawapan: buah + daun + gelang tanah, label di atas
+    G.ulFr = [0,1,2].map(i=>{ const g = new THREE.Group(); B.add(g);
+      const f = mk(SPH(0.32, 12, 9), M(TCN[i], {flatShading:false, roughness:.3, emissive:TCN[i], emissiveIntensity:.25}), 0, 0.42, 0, g);
+      mk(CONE(0.1, 0.24, 5), M(0x2E9D3F), 0.06, 0.34, 0, f).rotation.z = -0.5;
+      const rg = mk(TOR(0.42, 0.05, Math.PI*2, 18), GLOW(TCN[i], .7), 0, 0.04, 0, g); rg.rotation.x = Math.PI/2;
+      return {g, f, rg}; });
+    G.labs = labelsFor(B); G.labs.forEach(s=>{ s.material.depthTest = false; });
+    G.ulCoins = [0,1].map(()=>{ const c = mk(CYL(0.24, 0.24, 0.07, 14), M(0xFFC93D, {metalness:.6, roughness:.3, emissive:0xAA7700, emissiveIntensity:.3}), 0, 0.4, 0, B); c.rotation.x = Math.PI/2; return c; });
+    G.ulBf = [0,1,2,3].map(k=>{ const s = emojiSprite("🦋", 0.7); s.position.set(rnd(-5,5), 1.5, rnd(-6,6)); scene.add(s); return {s, ph:k*1.7, x:rnd(-4,4), z:rnd(-5,5)}; });
+    G.wx = makeWeather(scene, w.night ? "spark" : "leaf", [-12, -0.5, -18, 24, 12, 30]);
+    G.ulCam = {x:0, z:0}; G.ulYaw = Math.PI;
+    V3G.ular.round();
+  },
+  round(){
+    if(!G.ulFr || !G.fr) return;
+    G.fr.forEach((f,i)=>{ const p = ulW(f.c, f.r), F = G.ulFr[i]; F.g.position.set(p.x, 0, p.z); F.g.visible = !f.eaten; F.f.scale.setScalar(1);
+      F.rg.material = GLOW(TCN[i], .7); G.labs[i].position.set(clamp(p.x, -2.9, 2.9), 0.95, p.z); G.labs[i].visible = !f.eaten; });
+    G.coins.forEach((k,i)=>{ const p = ulW(k.c, k.r), c = G.ulCoins[i]; if(c){ c.position.set(p.x, 0.4, p.z); c.visible = !k.got; } });
+    if(G.q) setLabels(G.labs, 1.5);
+  },
+  coin(k){ const p = ulW(k.c, k.r); burst(G.board.localToWorld(new THREE.Vector3(p.x, 0.5, p.z)), 0xFFC93D, 8, 2); S3.chime(p.x, 0, p.z); },
+  dizzy(){ const p = ulW(G.sn.body[0][0], G.sn.body[0][1]); puff(new THREE.Vector3(p.x, 0.5, p.z), 0xFFFFFF); },
+  poof(){ const p = ulW(4, 5); ring(new THREE.Vector3(p.x, 0.3, p.z), 0x7CF2FF); },
+  hit(i, ok){
+    const f = G.fr[i], p = new THREE.Vector3(ulW(f.c, f.r).x, 0.5, ulW(f.c, f.r).z);
+    if(ok){ burst(p, TCN[i], 16, 3); burst(p, 0xFFD84D, 10, 2.4); ring(p, 0xFFD84D); }
+    else { puff(p, 0x555555); G.ulFr[i].rg.material = GLOW(0x555555, .2); }
+    G.labs[i].visible = false; G.ulFr[i].g.visible = false;
+    const k = G.q.ok; if(k!==i){ G.labs[k].visible = true; G.ulFr[k].g.visible = true; }
+    G.hintI = G.q.ok;
+  },
+  frame(dt, t){
+    const sn = G.sn; if(!sn || !G.ulHead) return;
+    const n = sn.body.length, P = [];
+    for(let i=0;i<n;i++){ const s = ulSeg(G, i), w_ = ulW(s.c, s.r); P.push(w_); }
+    // goyang badan (tegak lurus arah)
+    const dz = sn.stun>0, happy = sn.eatT>0 || G.phase==="show";
+    for(let i=0;i<n;i++){ const a = P[i], b = P[Math.min(n-1, i+1)], c0 = P[Math.max(0, i-1)];
+      let dx = c0.x-b.x, dzz = c0.z-b.z; const l = Math.hypot(dx, dzz) || 1; dx /= l; dzz /= l;
+      const wig = REDUCED ? 0 : Math.sin(t*(happy ? 14 : 9) - i*0.9)*(i ? 0.09 : 0.04);
+      const y = (happy && !REDUCED ? Math.abs(Math.sin(t*10 - i*0.7))*0.12 : 0);
+      if(i===0) G.ulHead.position.set(a.x - dzz*wig, 0.42+y, a.z + dx*wig);
+      else { const m = G.ulSegs[i-1]; m.visible = true; m.position.set(a.x - dzz*wig, 0.36+y, a.z + dx*wig); m.scale.setScalar(Math.max(0.55, 1 - i*0.03)); } }
+    for(let i=n-1;i<G.ulSegs.length;i++) G.ulSegs[i].visible = false;
+    // kepala menghadap arah gerak
+    const [ux, uz] = UD[sn.dir], ty = Math.atan2(ux, uz); let d = ty - G.ulYaw; d = Math.atan2(Math.sin(d), Math.cos(d));
+    G.ulYaw += d*Math.min(1, dt*14); G.ulHead.rotation.y = G.ulYaw + (dz ? t*12 : 0);
+    G.ulTongue.scale.z = REDUCED ? 1 : 0.3 + Math.max(0, Math.sin(t*6))*0.9;
+    G.ulStars.forEach((s,k)=>{ s.visible = dz; if(dz){ const a = t*5 + k*2.09; s.position.set(G.ulHead.position.x + Math.cos(a)*0.55, 1.05, G.ulHead.position.z + Math.sin(a)*0.55); } });
+    // buah melantun, syiling berputar, petunjuk bercahaya
+    G.ulFr.forEach((F,i)=>{ const gl = G.hintI===i; F.f.position.y = 0.42 + Math.sin(t*3 + i*2)*0.1; F.f.rotation.y += dt*1.5;
+      F.rg.scale.setScalar(gl ? 1 + Math.sin(t*7)*0.25 : 1); G.labs[i].position.y = 0.95 + Math.sin(t*3 + i*2)*0.1;
+      G.labs[i].material.opacity = G.phase==="show" && G.res && i!==G.q.ok ? 0.35 : 1; });
+    G.ulCoins.forEach(c=>{ c.rotation.z += dt*3; });
+    G.ulBf.forEach(b=>{ b.s.position.set(b.x + Math.sin(t*0.5 + b.ph)*3, 1.4 + Math.sin(t*3 + b.ph)*0.4, b.z + Math.cos(t*0.4 + b.ph)*3); b.s.scale.x = 0.7*(0.6 + Math.abs(Math.sin(t*12 + b.ph))*0.4); });
+    // kamera condong ikut kepala dengan lembut
+    const h = G.ulHead.position, k = Math.min(1, dt*2.5);
+    G.ulCam.x += (h.x*0.15 - G.ulCam.x)*k; G.ulCam.z += (h.z*0.55 - G.ulCam.z)*k;
+    G.cam.position.set(G.ulCam.x, 15.5, G.ulCam.z + 8.2); G.cam.lookAt(G.ulCam.x, 0, G.ulCam.z - 0.4);
+    G.earYaw = 0;
+  }
+};
+// UJIAN: tekan butang D-pad sebenar mengikut laluan ke buah betul
+MOD.ular.human = function(G, D, ev){
+  const ri = G.ri, btn = d=>D.querySelector(`[data-ud="${UK[d]}"]`);
+  for(let k=0;k<900 && G.phase==="play" && G.ri===ri;k++){
+    const sn = G.sn;
+    if(sn.stun<=0){
+      const body = sn.mv ? [sn.nxt, ...sn.body.slice(0, sn.grow>0 ? sn.body.length : sn.body.length-1)] : sn.body;
+      const d = ulDir(G, G.q.ok, body, sn.dir, sn.mv ? Math.max(0, sn.grow-1) : sn.grow), last = sn.q.length ? sn.q[sn.q.length-1] : sn.dir;
+      if(d!=null && !sn.q.length && (d!==last || sn.wait)){ const b = btn(d), r = b.getBoundingClientRect(); ev(b, "pointerdown", r.left+5, r.top+5); ev(b, "pointerup", r.left+5, r.top+5); }
+    }
+    G.tick(0.05);
+  }
+  return !!(G.res && G.res.ok && G.ri===ri);
+};
+
 /* ============ PERISTIWA ============ */
 function redraw(){
   if(screen==="map") renderMap();
@@ -2130,7 +2954,7 @@ function redraw(){
 }
 const live = () => G && !G.over && !G.paused;
 function setLang(l){ lang = l; save("kafa-lang", lang); applyLang(); texCache.clear(); redraw(); }
-function pull(on){ if(G && G.gid==="panah" && MOD.panah.pull) MOD.panah.pull(G, on); }
+function pull(on){ if(G && MOD[G.gid] && MOD[G.gid].pull) MOD[G.gid].pull(G, on); }   // Space/Enter: busur (panah) atau tembak (permainan tambahan)
 function handle(b, ev){
   const a = b.dataset.act;
   switch(a){
