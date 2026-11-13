@@ -376,6 +376,10 @@ const ARCADE = {
        n:["3 kenderaan","3 کندرأن"],
        desc:["Litar KAFA 3D: pandu kereta lumba, bot laju dan kapal terbang melalui pintu jawapan yang betul! Setiap dunia ikut subjek Tahun 1: pokok Akhlak, zoo Jawi, pulau Feqah, taman Tauhid, karnival Arab dan langit Hafazan.","ليتر کافا 3D: ڤندو کريتا لومبا، بوت لاجو دان کاڤل تربڠ ملالوٴي ڤينتو جواڤن يڠ بتول! ستياڤ دنيا ايکوت سوبجيک تاهون 1: ڤوکوق اخلاق، زو جاوي، ڤولاو فقه، تامن توحيد، کارنيۏل عرب دان لاڠيت حفظن."],
        feats:[["🏎️ Kereta lumba","🏎️ کريتا لومبا"],["🚤 Bot laju","🚤 بوت لاجو"],["✈️ Kapal terbang","✈️ کاڤل تربڠ"],["🏆 Papan pendahulu","🏆 ڤاڤن ڤندهولو"]] },
+  2: { path:"arked/index.html", hiKey:"ark2-hi", subjects:["akhlak","jawi","feqah","tauhid","arab","hafazan"],
+       n:["3 sukan","3 سوکن"],
+       desc:["Stadium Juara KAFA 3D: baling, golek dan pukul bola ke jawapan yang betul! Setiap stadium ikut subjek Tahun 2: dapur Chef Mimi, pejabat pos Pipi, istana Naga Nana, ladang Lulu, bas Bobo dan sampan Kiko.","ستاديوم جوارا کافا 3D: باليڠ، ڬوليق دان ڤوکول بولا ک جواڤن يڠ بتول! ستياڤ ستاديوم ايکوت سوبجيک تاهون 2: داڤور چيف ميمي، ڤجابت ڤوس ڤيڤي، ايستان ناڬ نانا، لادڠ لولو، باس بوبو دان سمڤن کيکو."],
+       feats:[["🏀 Jaring Bola Keranjang","🏀 جاريڠ بولا کرنجڠ"],["🎳 Boling Bintang","🎳 بوليڠ بينتڠ"],["⛳ Golf Mini Ajaib","⛳ ڬولف ميني عجائب"],["🏆 Papan pendahulu","🏆 ڤاڤن ڤندهولو"]] },
   3: { path:"arked/index.html", hiKey:"ark3-hi", subjects:["sirah","feqah","tauhid","akhlak","jawi","arab","tajwid","hafazan"] }
 };
 
