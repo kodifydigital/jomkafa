@@ -390,6 +390,10 @@ const ARCADE = {
        n:["6 permainan 5D","6 ڤرماٴينن 5D"],
        desc:["Galaksi KAFA 5D: permainan 3D bercahaya neon dengan muzik, rentak, getaran dan bunyi 3D! Ketik ikut rentak, memancing, lompat awan, pusing kiub ajaib, cari objek di bilik rahsia dan bertarung wau di 8 dunia subjek Tahun 5.","ڬالکسي کافا 5D: ڤرماٴينن 3D برچهاي نيون دڠن موزيک، رنتق، ڬيترن دان بوڽي 3D! کتيق ايکوت رنتق، ممنچيڠ، لومڤت اون، ڤوسيڠ کيوب عجائب، چاري اوبجيک د بيليق رهسيا دان برتاروڠ واءو د 8 دنيا سوبجيک تاهون 5."],
        feats:[["🎵 Rentak Neon","🎵 رنتق نيون"],["🎣 Pancing Ajaib","🎣 ڤنچيڠ عجائب"],["☁️ Lompat Awan","☁️ لومڤت اون"],["🧊 Kiub Ajaib","🧊 کيوب عجائب"],["🔍 Bilik Rahsia 3D","🔍 بيليق رهسيا 3D"],["🪁 Wau Bulan","🪁 واءو بولن"]] },
+  6: { path:"arked/index.html", hiKey:"ark6-hi", subjects:["akhlak","jawi","feqah","tauhid","arab","hafazan","sirah","tajwid"],
+       n:["6 permainan 6D","6 ڤرماٴينن 6D"],
+       desc:["Legenda KAFA 6D: dunia 3D paling cantik dan licin! Pertahankan kubu, lawan bos dengan kad, bina bandar impian, robohkan menara dengan lastik, urus restoran dan main dam melawan komputer.","ليڬندا کافا 6D: دنيا 3D ڤاليڠ چنتيق دان ليچين! ڤرتاهنکن کوبو، لاون بوس دڠن کد، بينا بندر ايمڤين، روبوهکن منارا دڠن لستيق، اوروس رستوران دان ماٴين دام ملاون کومڤيوتر."],
+       feats:[["🏰 Kubu Pertahanan","🏰 کوبو ڤرتاهنن"],["🃏 Duel Kad Legenda","🃏 دوٴيل کد ليڬندا"],["🏙️ Bina Bandar Impian","🏙️ بينا بندر ايمڤين"],["🎯 Lastik Meriam","🎯 لستيق مريام"],["🍳 Restoran Kilat","🍳 رستوران کيلت"],["♟️ Dam Juara","♟️ دام جوارا"]] }
 };
 
 // Tema dunia setiap subjek (sama seperti dunia dalam Zon Arked): warna, maskot dan hiasan latar kad
