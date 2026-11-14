@@ -24,9 +24,9 @@ export async function isAdmin(uid) {
 }
 
 export const SUBJECTS = ["sirah", "feqah", "tauhid", "akhlak", "arab", "tajwid", "hafazan", "jawi", "mix"];
-export const GAMES = ["whack", "catch", "pop", "run", "climb", "kereta", "bot", "pesawat", "bola", "boling", "golf", "labirin", "panah", "misteri", "ninja", "angkasa", "ular"];
+export const GAMES = ["whack", "catch", "pop", "run", "climb", "kereta", "bot", "pesawat", "bola", "boling", "golf", "labirin", "panah", "misteri", "ninja", "angkasa", "ular", "rentak", "pancing", "lompat", "kiub", "rahsia", "wau"];
 // permainan Zon Arked ikut tahun (game=all hanya menjumlahkan permainan tahun itu)
-export const YEAR_GAMES = { 1: ["kereta", "bot", "pesawat"], 2: ["bola", "boling", "golf"], 3: ["whack", "catch", "pop", "run", "climb"], 4: ["labirin", "panah", "misteri", "ninja", "angkasa", "ular"] };
+export const YEAR_GAMES = { 1: ["kereta", "bot", "pesawat"], 2: ["bola", "boling", "golf"], 3: ["whack", "catch", "pop", "run", "climb"], 4: ["labirin", "panah", "misteri", "ninja", "angkasa", "ular"], 5: ["rentak", "pancing", "lompat", "kiub", "rahsia", "wau"] };
 
 let _sql = null;
 export function db() {

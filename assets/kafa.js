@@ -386,6 +386,10 @@ const ARCADE = {
        desc:["Dimensi KAFA 4D: potong buah ninja, tembak meteor, pandu ular, golek guli, memanah dan jelajah gua — semua dengan kawalan sentuh yang mudah! Rasa getaran dan dengar bunyi 3D di 8 dunia subjek Tahun 4.","دمينسي کافا 4D: ڤوتوڠ بواه نينجا، تمبق ميتيور، ڤندو اولر، ڬوليق ڬولي، ممانه دان جلاجه ڬوا — سموا دڠن کاولن سنتوه يڠ موده! راس ڬيترن دان دڠر بوڽي 3D د 8 دنيا سوبجيک تاهون 4."],
        feats:[["🍉 Ninja Buah","🍉 نينجا بواه"],["🚀 Kapten Angkasa","🚀 کڤتن اڠکاس"],["🐍 Ular Ilmu","🐍 اولر علمو"],["🌀 Labirin Guli","🌀 لابيرين ڬولي"],["🏹 Panah Sakti","🏹 ڤانه سقتي"],["🔦 Gua Misteri","🔦 ڬوا ميستري"]] },
 
+  5: { path:"arked/index.html", hiKey:"ark5-hi", subjects:["akhlak","jawi","feqah","tauhid","arab","hafazan","sirah","tajwid"],
+       n:["6 permainan 5D","6 ڤرماٴينن 5D"],
+       desc:["Galaksi KAFA 5D: permainan 3D bercahaya neon dengan muzik, rentak, getaran dan bunyi 3D! Ketik ikut rentak, memancing, lompat awan, pusing kiub ajaib, cari objek di bilik rahsia dan bertarung wau di 8 dunia subjek Tahun 5.","ڬالکسي کافا 5D: ڤرماٴينن 3D برچهاي نيون دڠن موزيک، رنتق، ڬيترن دان بوڽي 3D! کتيق ايکوت رنتق، ممنچيڠ، لومڤت اون، ڤوسيڠ کيوب عجائب، چاري اوبجيک د بيليق رهسيا دان برتاروڠ واءو د 8 دنيا سوبجيک تاهون 5."],
+       feats:[["🎵 Rentak Neon","🎵 رنتق نيون"],["🎣 Pancing Ajaib","🎣 ڤنچيڠ عجائب"],["☁️ Lompat Awan","☁️ لومڤت اون"],["🧊 Kiub Ajaib","🧊 کيوب عجائب"],["🔍 Bilik Rahsia 3D","🔍 بيليق رهسيا 3D"],["🪁 Wau Bulan","🪁 واءو بولن"]] },
 };
 
 // Tema dunia setiap subjek (sama seperti dunia dalam Zon Arked): warna, maskot dan hiasan latar kad
